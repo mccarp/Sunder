@@ -4616,8 +4616,14 @@ end</script>
 						<string>^You discern that you are standing in (.*)\.$</string>
 						<string>^You stand, brilliantly illuminated, within (.*)\.$</string>
 						<string>^You are standing (.+)\.$</string>
+						<string>^You are plumbing the depths of (.+)\.$</string>
+						<string>^You discern that you are standing amidst the twisted expanse of (.+)\.$</string>
+						<string>^You discern you are delving (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
@@ -28904,7 +28910,7 @@ cecho("\n&lt;red&gt;The use of a generic word (ie 'kelki' instead of 'kelki1234'
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>chocolates</name>
-					<script>snd.send("eat mint;eat hazelnut;eat caramel;eat strawberry")</script>
+					<script>snd.send("eat mint"..snd.sep.."eat hazelnut"..snd.sep.."eat caramel"..snd.sep.."eat strawberry")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^choc$</regex>
@@ -42304,10 +42310,8 @@ else
 	c = sndNDB_getColour(name)
 
 	cecho("\n&lt;blue&gt;- &lt;NavajoWhite&gt;"..x.title.." &lt;blue&gt;"..string.rep("-", 70-(string.len(x.title)+3)).."\n")
-	cecho("\n&lt;DimGrey&gt; City :   &lt;"..c.."&gt;"..x.city..string.rep(" ", 31-string.len(x.city)).."  &lt;DimGrey&gt; Level:   &lt;white&gt;"..x.level)
-	cecho("\n&lt;DimGrey&gt; Guild:   &lt;white&gt;"..x.guild..string.rep(" ", 31-string.len(x.guild)).."  &lt;DimGrey&gt; Rank :   &lt;white&gt;"..x.xp_rank)
-	cecho("\n&lt;DimGrey&gt; Tether:  &lt;white&gt;"..x.tether..string.rep(" ", 31-string.len(x.tether)).."  &lt;DimGrey&gt; Race :   &lt;white&gt;"..x.race.."\n")
-	cecho("\n&lt;blue&gt;"..string.rep("-", 70))
+	cecho("\n&lt;DimGrey&gt; City :   &lt;"..c.."&gt;"..x.city..string.rep(" ", 31-string.len(x.city)).."&lt;DimGrey&gt; Tether:  &lt;white&gt;"..x.tether)
+	cecho("\n\n&lt;blue&gt;"..string.rep("-", 70))
 	cecho("\n ")
 	send(" ",false)
 end	</script>
@@ -51438,7 +51442,7 @@ snd.areas = {
 
 {area = "Bloodloch", level = "globes only", targets = {"a massive elemental"}},
 {area = "Duiran", level = "globes only", targets = {"a massive elemental"}},
-{area = "the City of Enorian", level = "globes only", targets = {"a massive elemental"}},
+{area = "Enorian", level = "globes only", targets = {"a massive elemental"}},
 {area = "Spinesreach", level = "globes only", targets = {"a massive elemental"}},
 {area = "Tainhelm", level = "30-40", targets = { "a stout Dwarven guard", "an elderly female Dwarf", "an elderly Dwarven man", "a calm Dwarven woman", "an elderly dwarf", "a tanned Dwarven farmer", "a female Dwarf", "an elderly Dwarven gardener", "a male Dwarf", "a Dwarven craftsman", "the Dwarven alemaster", "a Dwarven boy", "Gwenil, the Dwarven blacksmith", "Baruin, the Dwarven mason", "a Dwarven miner", "Tohrul, the Dwarven supervisor", "a Dwarven girl", "a Dwarven boy", "Nolid, the Dwarven fisherman", "the Dwarven miller", "Mayor Thurgil Redstein", "a liveried Dwarf servant"} },
 {area = "the Holy Impire of Sehal", level = "newbie", targets = {"a soulless pixie", "a stern Imp warrior", "a boisterous Imp boy", "a charming Imp girl", "a fluffy white sheep", "a fuzzy grey rabbit"}, items = {}},
@@ -51565,6 +51569,10 @@ snd.areas = {
 {area = "Oblivion's Portent", level = "99+", targets = {"a writhing mass of voidspawn", "a hungering voidwalker", "a singularly-focused defiler", "an otherworldly-shaped, gliding devourer", "a many-legged, skittering aberration",}},
 {area = "the Primal Eye of Czjetija", level = "we're all fucking dead", targets = {"a tendriled shadowisp","a massive tenebrous horror", "a monstrous shadow beast", "a spider-like shadowspinner", "a sinuous umbral creeper", "a many-winged shadowghast",}},
 {area = "the Welto Trench", level = "good luck", targets = {"a black hunter shark", "a spotted bull shark", "a scarred hunter shark", "a brown hunter shark", "a scarred welto shark", "a striped hunter shark", "a great white welto shark", "a brown bull shark", "a bronze tiger shark", "a black bull shark", "a spotted tiger shark", "a bronze tiger shark", "a grey hunter shark", "a bronze welto shark", "a brown tiger shark", "a storm-wing harpy", "a spotted welto shark", "a striped welto shark", "a striped tiger shark", "a striped bull shark", "a spotted hunter shark", "a black tiger shark", "a great white bull shark", "a menacing torvok", "a brown welto shark", "a great white tiger shark", "a menacing torvok", "a great white hunter shark", "a great white welto shark", "a bronze bull shark", "a grey tiger shark", "a bronze hunter shark", "a spotted hunter shark", "a scarred tiger shark", "a black welto shark", "a grey bull shark", "a striped welto shark", "a grey welto shark", "a black welto shark", "a scarred bull shark", "a blacktip shark", "a box jellyfish", "a giant manta ray", "a deep water serpent", "a stone crab"}},
+{area = "the Underbelly", level = "99+", targets ={"a desiccated Utari zombie", "a massive grey rat", "a dire, plagued rat", "a glazed-eye zombie Aslinn", "a snarling vakmut hound", "a slavering vakmut", "a grey-skinned skrell whelp", "a gigantic white rat", "a gigantic black rat", "a feral vakmut", "a malnourished vakmut", "a drooling zombie Tarpen", "a massive, tan-shelled whelk", "a jagged Golban ghast", "a hunched, bone-fisted Golban zombie", "a hulking Ursal ghast", "a crawling, ravenous Aslinn ghast"}},
+{area = "the Mannaseh Swamp", level = "99+", targets = {"a savage mutant pumpkin", "a malformed stalker", "a miscreated avian", "an ichorous miscreation", "a hulking miscreation", "an amphibious malformation",}},
+{area = "the Village of Craneskull", level = "35-40", targets = {"a savage mutant pumpkin", "a muddy Trollish child", "a slender mud adder", "a rugged Trollish man", "a plump Trollish woman", "a lumbering Troll guard", "an elderly Troll priest", "a lean guard hound", "a traitorous Mitrine hunter","a black ram", "a militant Troll warrior", "a Troll ritualist", "an arachnid Chiav guard", "an arachnid Chiav enforcer", "an arachnid Chiav archer","an immense Trollish chieftain", "a lanky, Trollish witch doctor"}},
+{area = "the Maestral Shoals", level = "99+", targets = {"a tattered skrell", "a leathery skrell", "an emaciated skrell","a sinewy skrell lurker", "a skittish sandpiper", "a large, ill-tempered crab", "a glossy red crab", "a mottled crab"}},
 }
 
 sunder_areaPaths = {
@@ -61764,24 +61772,36 @@ end
 
 function snd.indorani_bash()
 hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-	if hp &lt;= 60 then
-		if snd.shield_check() then 
-      battack = "touch shield"
+    if hp &lt;= 40 then
+        if snd.shield_check() then 
+      battack = "touch shield"..snd.sep.."recoup"
     end
-	else
-    battack = "decay "..snd.bashing.target
-	end
+  elseif hp &lt;= 55 then
+    battack = "fling priestess at me"..snd.sep.."recoup"
+    else
+    if snd.wielded.left.name =="bonedagger" or snd.wielded.right.name == "bonedagger" then
+       battack = "flick bonedagger at "..snd.bashing.target..snd.sep.."recoup"
+    else
+       battack = "decay "..snd.bashing.target..snd.sep.."recoup"
+    end
+    end
 end
 
 function snd.oneiromancer_bash()
 hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-	if hp &lt;= 60 then
-		if snd.shield_check() then 
-      battack = "touch shield"
+    if hp &lt;= 40 then
+        if snd.shield_check() then 
+      battack = "touch shield"..snd.sep.."recoup"
     end
-	else
-    battack = "starlight "..snd.bashing.target
-	end
+  elseif hp &lt;= 55 then
+    battack = "unfurl flower at me"..snd.sep.."recoup"
+    else
+    if snd.wielded.left.name == "athame" or snd.wielded.right.name == "athame" then
+       battack = "impel athame at "..snd.bashing.target..snd.sep.."recoup"
+    else
+       battack = "starlight "..snd.bashing.target..snd.sep.."recoup"
+    end
+    end
 end
 
 function snd.carnifex_bash()
@@ -71306,9 +71326,7 @@ end</script>
 			</KeyGroup>
 		</KeyGroup>
 	</KeyPackage>
-	<VariablePackage>
-		<HiddenVariables>
-			<name>_sep</name>
-		</HiddenVariables>
-	</VariablePackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>
