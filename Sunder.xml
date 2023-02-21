@@ -2854,7 +2854,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You will execute the following command when you next regain equilibrium and balance: (.*)$</string>
+								<string>^When you can act: (.*)$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -27150,8 +27150,8 @@ deleteFull()</script>
 					<script>deleteFull()
 Fishingcast = false
 snd.fishinginfo.currentfish = tonumber(snd.fishinginfo.currentfish + 1)
-fish.msg("&lt;SeaGreen&gt;You caught &lt;green&gt;"..matches[2].."&lt;SeaGreen&gt;!")
-fish.msg("&lt;SeaGreen&gt;You now have &lt;green&gt;"..snd.fishinginfo.currentfish.." &lt;SeaGreen&gt;fish out of &lt;yellow&gt;"..snd.fishinginfo.bucket_capacity.."&lt;SeaGreen&gt; in your bucket!\n")
+snd.fishmsg("&lt;SeaGreen&gt;You caught &lt;green&gt;"..matches[2].."&lt;SeaGreen&gt;!")
+snd.fishmsg("&lt;SeaGreen&gt;You now have &lt;green&gt;"..snd.fishinginfo.currentfish.." &lt;SeaGreen&gt;fish out of &lt;yellow&gt;"..snd.fishinginfo.bucket_capacity.."&lt;SeaGreen&gt; in your bucket!\n")
 Fishingcaught = false
 Fishtick = 0
 
@@ -27159,9 +27159,9 @@ if auto_fish and snd.fishinginfo.currentfish &gt;= snd.fishinginfo.bucket_capaci
   auto_fish = false
   Reeling = "cut"
   Fishtick = 0
-  fish.msg("&lt;red&gt;Autofishing disabled.")
-  fish.msg("&lt;SeaGreen&gt;Your fishing bucket is full! Remember to return to Hob&lt;green&gt;(v53402)&lt;SeaGreen&gt; and &lt;red&gt;GIVE FISHBUCKET TO HOB&lt;SeaGreen&gt; to receive payment and factions points!")
-  fish.msg("&lt;red&gt;CUTTING LINE!")
+  snd.fishmsg("&lt;red&gt;Autofishing disabled.")
+  snd.fishmsg("&lt;SeaGreen&gt;Your fishing bucket is full! Remember to return to Hob&lt;green&gt;(v53402)&lt;SeaGreen&gt; and &lt;red&gt;GIVE FISHBUCKET TO HOB&lt;SeaGreen&gt; to receive payment and factions points!")
+  snd.fishmsg("&lt;red&gt;CUTTING LINE!")
 elseif auto_fish and snd.fishinginfo.currentfish &lt; snd.fishinginfo.bucket_capacity then
   Reeling = "recast"
 end
@@ -27311,7 +27311,7 @@ deleteFull()</script>
 Fishingcast = false
 Fishingcaught = false
 Reeling = "recast"
-fish.msg("&lt;ansiRed&gt;The fish got away! &lt;green&gt;Recasting!")
+snd.fishmsg("&lt;ansiRed&gt;The fish got away! &lt;green&gt;Recasting!")
 
 Fishingfunction()
 
@@ -27364,7 +27364,7 @@ Fishingcast = false
 Fishingcaught = false
 if auto_fish then
   Reeling = "recast"
-  fish.msg("&lt;khaki&gt;You can't catch that one! &lt;green&gt;Nicking the line and recasting!")
+  snd.fishmsg("&lt;khaki&gt;You can't catch that one! &lt;green&gt;Nicking the line and recasting!")
 else
   Reeling = "none"
 end
@@ -27428,7 +27428,7 @@ deleteFull()</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>FishCast</name>
 					<script>deleteLine()
-fish.msg("&lt;green&gt;CASTING LINE!")
+snd.fishmsg("&lt;green&gt;CASTING LINE!")
 currently_fishing = true
 Fishingcast = true
 Fishtick = 0
@@ -27501,9 +27501,9 @@ Fishtick = 0</script>
 					<script>if auto_fish then
   auto_fish = false
   Fishtick = 0
-  fish.msg("&lt;red&gt;Autofishing disabled.")
+  snd.fishmsg("&lt;red&gt;Autofishing disabled.")
   Reeling = "cut"
-  fish.msg("&lt;red&gt;CUTTING LINE!")
+  snd.fishmsg("&lt;red&gt;CUTTING LINE!")
 end
 
 Fishingfunction()
@@ -27608,7 +27608,7 @@ local fishhooked = {
 "YOU GOT SOMETHING! MAYBE...",
 }
 
-fish.msg("&lt;green&gt;"..fishhooked[math.random(#fishhooked)])
+snd.fishmsg("&lt;green&gt;"..fishhooked[math.random(#fishhooked)])
 </script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -27631,7 +27631,7 @@ fish.msg("&lt;green&gt;"..fishhooked[math.random(#fishhooked)])
 					<name>Fishing Weight</name>
 					<script>deleteLine()
 if auto_fish then
-  fish.msg("&lt;SeaGreen&gt;Your catch weighs &lt;green&gt;"..matches[2].."&lt;SeaGreen&gt;!")
+  snd.fishmsg("&lt;SeaGreen&gt;Your catch weighs &lt;green&gt;"..matches[2].."&lt;SeaGreen&gt;!")
 end
 </script>
 					<triggerType>0</triggerType>
@@ -28301,6 +28301,7 @@ snd.send("config affliction_view on")
 snd.send("config simple_diag on")
 snd.send("config curemsgs default")
 snd.send("config fishnumbers on")
+snd.send("gathering on")
 sndNDB_Install()
 sndNDB.highlightNames = false
 </script>
@@ -42602,13 +42603,13 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>ToggleAutoFish</name>
 					<script>if auto_fish then
-	fish.msg("&lt;red&gt;Autofishing disabled.")
+	snd.fishmsg("&lt;red&gt;Autofishing disabled.")
 	auto_fish = false
 	if currently_fishing then snd.send("qeb fishing cut") end
 	currently_fishing = false
-  fish.msg("&lt;red&gt;CUTTING LINE!")
+  snd.fishmsg("&lt;red&gt;CUTTING LINE!")
 else
-	fish.msg("&lt;green&gt;Autofishing enabled.")
+	snd.fishmsg("&lt;green&gt;Autofishing enabled.")
   fishbucket = fishbucket or {}
   expandAlias("sunder maxfish", false)
   expandAlias("sunder fishbucket", false)
@@ -42626,11 +42627,11 @@ end</script>
 end
 
 if matches[3] then
-  fish.msg("&lt;SeaGreen&gt;You have set your fishing bucket capacity to:&lt;green&gt; "..matches[3].."&lt;SeaGreen&gt;.")
+  snd.fishmsg("&lt;SeaGreen&gt;You have set your fishing bucket capacity to:&lt;green&gt; "..matches[3].."&lt;SeaGreen&gt;.")
   snd.fishinginfo.bucket_capacity = tonumber(matches[3])
 else
   snd.fishinginfo.bucket_capacity = snd.fishinginfo.bucket_capacity or {}
-  fish.msg("&lt;SeaGreen&gt;You have set your fishing bucket capacity to:&lt;green&gt; "..snd.fishinginfo.bucket_capacity.."&lt;SeaGreen&gt;.")
+  snd.fishmsg("&lt;SeaGreen&gt;You have set your fishing bucket capacity to:&lt;green&gt; "..snd.fishinginfo.bucket_capacity.."&lt;SeaGreen&gt;.")
 end
 
 save_fishinginfo_db()</script>
@@ -42646,14 +42647,14 @@ end
 
 if matches[3] == "clear" then
   snd.fishinginfo.currentfish = "0"
-  fish.msg("&lt;SeaGreen&gt;Fishing bucket(s) CLEARED!")
-  fish.msg("&lt;SeaGreen&gt;You have &lt;green&gt;"..snd.fishinginfo.currentfish.." &lt;SeaGreen&gt;fish in your bucket(s)!")
+  snd.fishmsg("&lt;SeaGreen&gt;Fishing bucket(s) CLEARED!")
+  snd.fishmsg("&lt;SeaGreen&gt;You have &lt;green&gt;"..snd.fishinginfo.currentfish.." &lt;SeaGreen&gt;fish in your bucket(s)!")
 elseif matches[3] then
-  fish.msg("&lt;SeaGreen&gt;You have &lt;green&gt;"..matches[3].."&lt;SeaGreen&gt; fish in your bucket(s)!")
+  snd.fishmsg("&lt;SeaGreen&gt;You have &lt;green&gt;"..matches[3].."&lt;SeaGreen&gt; fish in your bucket(s)!")
   snd.fishinginfo.currentfish = tonumber(matches[3])
 else
   snd.fishinginfo.currentfish = snd.fishinginfo.currentfish or {}
-  fish.msg("&lt;SeaGreen&gt;You have &lt;green&gt;"..snd.fishinginfo.currentfish.. "&lt;SeaGreen&gt; fish in your bucket(s)!")
+  snd.fishmsg("&lt;SeaGreen&gt;You have &lt;green&gt;"..snd.fishinginfo.currentfish.. "&lt;SeaGreen&gt; fish in your bucket(s)!")
   demonnic.chat:cecho("Misc", "&lt;LightSeaGreen&gt;FISHBUCKET: &lt;SeaGreen&gt;You have &lt;green&gt;" ..snd.fishinginfo.currentfish.. "&lt;SeaGreen&gt; fish in your bucket(s)!\n")
 end
 
@@ -44465,25 +44466,26 @@ end</script>
 					<Script isActive="yes" isFolder="no">
 						<name>gmcp_communication</name>
 						<packageName></packageName>
-						<script>function gmcp_communication()
---work in progress
-
-	local channel = gmcp.Comm.Channel.Start
-	local talker =  gmcp.Comm.Channel.Text.talker
-	local text = gmcp.Comm.Channel.Text.text
-  
-  --You can choose whether you want it to match only names that are in the database (excluding divine)
-  --Or if you want it to just match any one word name. Some NPCs might slip through.
-  
- --[[ if sndNDB.players[talker] == nil then
-    if not table.isMember(sndNDB.divine, talker) then 
-      return 
-    end
-  end]]
-
-  if string.match(talker, "%W") then return end
-  
-  local mobs_to_ignore = {
+						<script>snd.channel_list =
+  {
+    ["newbie"] = "Misc",
+    ["market"] = "Misc",
+    ["web"] = "Web",
+    ["ct"] = "City",
+    ["cnt"] = "City",
+    ["emotes"] = "Local",
+    ["gt"] = "Guild",
+    ["gts"] = "Guild",
+    ["clt"] = "Clans",
+    ["tell"] = "Tells",
+    ["says"] = "Local",
+    ["ot"] = "Order",
+    ["cot"] = "Order",
+    ["congregation"] = "Order",
+  }
+snd.channel_ignores = {hints = true}
+local mobs_to_ignore =
+  {
     "Nysaac",
     "Tayiv",
     "Huemotl",
@@ -44502,59 +44504,92 @@ end</script>
     "William",
     "Ocauh",
     "Klaana",
-    "Valgar",}
-  if table.isMember(mobs_to_ignore, talker) then return end
-  
-  if channel:find("clt") then channel = "clt" end
-  
-  snd.who_is_talking = talker or ""
+    "Valgar",
+  }
+--if the text contains this text, don't echo to tabbed chat
+local ignores = {"The shrunken head in your inventory sneezes violently"}
+
+function gmcp_communication()
   snd.we_saw_a_thot = false
-  snd.last_channel = "Misc"
-  snd.channel_ignores = {
-	hints = true,
-}
-
---will maybe be useful at some point but not used right now.
---text = string.gsub (text, string.char (27) .. "%[(.-)m", "") &lt;- removes extraneous data from raw gmcp data
---demonnic.chat:append(snd.channel_list[channel], text)
-
-	snd.channel_list = {
-	["newbie"] = "Misc",
-	["market"] = "Misc",
-	["web"] = "Web",
-	["ct"] = "City",
-	["cnt"] = "City",
-  ["emotes"] = "Local",
-	["gt"] = "Guild",
-	["gts"] = "Guild",
-	["clt"] = "Clans",
-	["tell"] = "Tells",
-	["says"] = "Local",
-	["ot"] = "Order",
-  ["cot"] = "Order",
-  ["congregation"] = "Order",
-}
-
-	if channel == "web" and snd.toggles.listening and table.contains(snd.callers, talker) then
-      text = text:lower()
-			if text:find("target:") and not text:find("list") and not text:find("calling") and not text:find("priority") and not text:find("removed") and not text:find("next") then
-				local check = string.match(text, "target: (%w+)%.")
-				if check:lower()~= snd.target:lower() then
-					expandAlias("t " .. check)
-				end
-			end
-	end
+  local talker = gmcp.Comm.Channel.Text.talker
   
-  for c, t in pairs(snd.channel_list) do
-		if channel == c then
-			snd.last_channel = t
-			break
-		end
-	end
+  if gmcp.Comm.Channel.Text.channel~="ct" then
+    if table.isMember(mobs_to_ignore, talker) then return end
+    --You can choose whether you want it to match only names that are in the database (excluding divine)
+    --Or if you want it to just match any one word name. Some NPCs might slip through.
+    if string.match(talker, "%W") then return end
+    --[[ if sndNDB.players[talker] == nil then
+      if not table.isMember(sndNDB.divine, talker) then 
+        return 
+      end
+    end]]
+  end
+  snd.who_is_talking = talker or ""
+  
+  
+  local channel = gmcp.Comm.Channel.Text.channel
+  if channel:find("clt") then
+    channel = "clt"
+  end
+  snd.last_channel = snd.channel_list[channel] or "Misc"
+  
+  
+  local text = gmcp.Comm.Channel.Text.text
+  local rawtext = ansi2string(text)
+  text = ansi2decho(text)
+  text = text:gsub(string.char(27) .. [[.-]] .. string.char(4), "")
+  rawtext = rawtext:gsub(string.char(27) .. [[.-]] .. string.char(4), "")
+
+
+  --echo(rawtext)
+  if channel == "web" and snd.toggles.listening and table.contains(snd.callers, talker) then
+    matchText = rawtext:lower()
+    if
+      matchText:find("target:") and
+      not matchText:find("list") and
+      not matchText:find("calling") and
+      not matchText:find("priority") and
+      not matchText:find("removed") and
+      not matchText:find("next")
+    then
+      local check = string.match(matchText, "target: (%w+)%.")
+      if check:lower() ~= snd.target:lower() then
+        expandAlias("t " .. check)
+      end
+    end
+  end
   
   if snd.channel_ignores[channel] then return false end
-  enableTrigger("generic capture")
   
+  for _, ignore in ipairs(ignores) do
+    if rawtext:find(ignore) then
+      return false
+    end
+  end
+  
+  --NDB highlighting of text
+  if sndNDB.highlightNames then
+    local format = string.match(text, "&lt;%d+.-&gt;")
+    local alreadyHighlighted = {}
+    for word in string.gmatch(text, "%a+") do
+      if sndNDB_Exists(word) and not table.contains(alreadyHighlighted, word) then
+        local color = sndNDB_getColour(word) or "white"
+        color =
+          "&lt;" ..
+          color_table[color][1] ..
+          "," ..
+          color_table[color][2] ..
+          "," ..
+          color_table[color][3] ..
+          "&gt;"
+        text = text:gsub(word, color .. word .. format)
+        table.insert(alreadyHighlighted, word)
+      end
+    end
+  end
+  
+  demonnic.chat:decho(snd.last_channel, text.."\n")
+  -- enableTrigger("generic capture")
 end</script>
 						<eventHandlerList>
 							<string>gmcp.Comm.Channel.Start</string>
@@ -51444,7 +51479,6 @@ snd.areas = {
 {area = "Duiran", level = "globes only", targets = {"a massive elemental"}},
 {area = "Enorian", level = "globes only", targets = {"a massive elemental"}},
 {area = "Spinesreach", level = "globes only", targets = {"a massive elemental"}},
-{area = "Tainhelm", level = "30-40", targets = { "a stout Dwarven guard", "an elderly female Dwarf", "an elderly Dwarven man", "a calm Dwarven woman", "an elderly dwarf", "a tanned Dwarven farmer", "a female Dwarf", "an elderly Dwarven gardener", "a male Dwarf", "a Dwarven craftsman", "the Dwarven alemaster", "a Dwarven boy", "Gwenil, the Dwarven blacksmith", "Baruin, the Dwarven mason", "a Dwarven miner", "Tohrul, the Dwarven supervisor", "a Dwarven girl", "a Dwarven boy", "Nolid, the Dwarven fisherman", "the Dwarven miller", "Mayor Thurgil Redstein", "a liveried Dwarf servant"} },
 {area = "the Holy Impire of Sehal", level = "newbie", targets = {"a soulless pixie", "a stern Imp warrior", "a boisterous Imp boy", "a charming Imp girl", "a fluffy white sheep", "a fuzzy grey rabbit"}, items = {}},
 {area = "the Valley of Lodi", level = "newbie", targets = {"a cave bat", "a sheep", "a white hen", "a juvenile wildcat", "an adult wildcat"}, items = {}},
 {area = "the village of Gorshire", level = "newbie", targets = {"a guard pig", "a portly gnome sentry", "a gnome man", "a gnome woman", "a little gnome boy", "a gnome sentry", "a little gnome girl", "a skinny gnome sentry", "a deputy constable", "a lithe weasel", "a large grey goose", "a large gray goose"}, items = {}},
@@ -51511,7 +51545,7 @@ snd.areas = {
 {area = "the Bastion of Illdon", level = "95+", targets = {"a rabid plant", "a rabid hound", "a nightmare shadow", "a shadowy, mindless demon", "a mutated experiment"}},
 {area = "Spiral of the Corrupt", level = "95+", targets = {"an ethereal, scarred jellyfish", "a rot-infested swordfish", "a five-tentacled octopus of jade", "a taint-infested shark", "a miasma-wreathed electric eel"}},
 {area = "the Shastaan Warrens", level = "95+", targets = {"an aberrant, obscenely deformed Kelki", "a wild-eyed Kelki cultist", "a ragged Kelki cultist"}},
-{area = "the Bloodwood", level = "95+", targets = {"a distressed spirit", "a wailing spirit", "a lingering spirit"}},
+{area = "the Bloodwood", level = "95+", targets = {"a distressed spirit", "a wailing spirit", "a lingering spirit"}, items = {"spectral essence"}},
 {area = "Dovan Hollow", level = "95+", targets = {"a gaunt Aslinn slaver", "a scarred Aslinn slaver", "a sinewy Aslinn slaver", "a haughty Caentoi slaver", "a hulking Ursal brute", "a grim Aslinn slaver"}},
 {area = "the Feral Caves", level = "95+", targets = {"a small green blob", "a slimy green blob", "a massive green blob", "a gigantic green blob"}},
 {area = "The Forgotten Mausoleum", level = "95+", targets = {"a reanimated Dwarf woman", "a rotting Dwarf archer", "a decomposing Dwarf", "a robed reanimated Dwarf"}},
@@ -69678,7 +69712,7 @@ snd.fishinginfo = snd.fishinginfo or
 				<Script isActive="yes" isFolder="no">
 					<name>Fish Message</name>
 					<packageName></packageName>
-					<script>function fish.msg(string)
+					<script>function snd.fishmsg(string)
   cecho("\n&lt;white&gt;[&lt;LightSeaGreen&gt;FISHING&lt;white&gt;] "..string)
 end</script>
 					<eventHandlerList />
