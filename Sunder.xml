@@ -44245,10 +44245,17 @@ end</script>
 function gmcp_items()
  if gmcp.Char.Items.List.location == "room" then
   snd.items = {}
+  snd.agros = {}
   for _, v in ipairs(gmcp.Char.Items.List.items) do
    if not snd.items[v.name] then snd.items[v.name] = {} end
-   table.insert(snd.items[v.name], v.id)
-  end
+   if v.icon == "face-angry-horns" then
+    if not snd.agros[v.name] then snd.agros[v.name] = {} end
+      table.insert(snd.agros[v.name], v.id) --insert to agros table
+      table.insert(snd.items[v.name], 1, v.id) --insert at start of table
+    else
+     table.insert(snd.items[v.name], v.id) --insert at end of table
+   end
+  end 
   snd.updateMonolith()
  elseif gmcp.Char.Items.List.location == "inv" then
   snd.wielded = {left =  {name="", id=""}, right = {name="", id=""}}
@@ -44275,6 +44282,10 @@ function gmcp_item_add()
  v = gmcp.Char.Items.Add.item
  if gmcp.Char.Items.Add.location == "room" then
   if not snd.items[v.name] then snd.items[v.name] = {} end
+  if v.icon == "face-angry-horns" then
+    if not snd.agros[v.name] then snd.agros[v.name] = {} end
+    table.insert(snd.agros[v.name], v.id)
+  end
   table.insert(snd.items[v.name], v.id)
   snd.updateMonolith()
  elseif gmcp.Char.Items.List ~= nil then
@@ -44308,6 +44319,16 @@ end</script>
           table.remove(snd.items[item], id)
           if #snd.items[item] == 0 then
             snd.items[item] = nil
+          end
+        end
+      end
+    end
+    for item in pairs(snd.agros) do
+      for id in pairs(snd.agros[item]) do
+        if snd.agros[item][id] == v.id then
+          table.remove(snd.agros[item], id)
+          if #snd.agros[item] == 0 then
+            snd.agros[item] = nil
           end
         end
       end
@@ -61538,8 +61559,20 @@ snd.global_targets = {
 				<Script isActive="yes" isFolder="no">
 					<name>run basher</name>
 					<packageName></packageName>
-					<script>function snd.runBasher()
+					<script>local function getTarget(tab)
+  for _, targ in pairs(snd.possible_targets) do
+    if tab[targ] and tab[targ][1] then
+      return tab[targ][1], targ
+    end
+  end
+  for _, targ in pairs(snd.global_targets) do
+    if tab[targ] and tab[targ][1] then
+      return tab[targ][1], targ
+    end
+  end
+end
 
+function snd.runBasher()
   snd.gathering = {}
   snd.bashing.targeted = false
   snd.bashing.target_priority = 10000
@@ -61547,57 +61580,57 @@ snd.global_targets = {
   for item in pairs(snd.items) do
     if item == "some gold sovereigns" and #snd.items[item] &gt;= 1 then
       table.insert(snd.gathering, "sovereigns")
-    elseif
-      (string.find(item, "the corpse of") and not string.find(item, "staked")) or
-      table.contains(snd.possible_items, item) or
-      table.contains(snd.global_items, item)
-    then
+    elseif table.contains(snd.possible_items, item) or table.contains(snd.global_items, item) then
       for id in pairs(snd.items[item]) do
         table.insert(snd.gathering, snd.items[item][id])
       end
     elseif
-      (table.contains(snd.possible_targets, item) or table.contains(snd.global_targets, item)) and
-      #snd.items[item] &gt;= 1
+      (string.find(item, "the corpse of") and not string.find(item, "staked")) or
+      (string.find(item, "the remains of") and not string.find(item, "staked"))
     then
-      for targ in pairs(snd.possible_targets) do
-        if snd.possible_targets[targ] == item and targ &lt; snd.bashing.target_priority then
-          snd.bashing.targeted = true
-          if snd.toggles.generics then
-            snd.bashing.target = generic_bashing_name(snd.possible_targets[targ])
-            if snd.bashing.target ~= snd.bashing.old_target then
-              if snd.toggles.calling then snd.send("wt target: "..snd.bashing.target) end
-              snd.bashing.old_target = snd.bashing.target
-            end
-          else
-            snd.bashing.target = snd.items[item][1]
-            snd.bashing.target_priority = targ
-          end   
-        end
+      for id in pairs(snd.items[item]) do
+        table.insert(snd.corpses, snd.items[item][id])
       end
-      for targ in pairs(snd.global_targets) do
-        if snd.global_targets[targ] == item and targ &lt; snd.bashing.target_priority then
-          snd.bashing.targeted = true
-          snd.bashing.target = snd.items[item][1]
-          snd.bashing.target_priority = targ
-        end        --if
-      end      --for
-    end    --elseif
-  end  --for
-  --if #snd.gathering &gt;= 1 then
-  -- snd.loot_it()
-  --end
-  if not snd.bashing.targeted then
+    end
+  end
+  local targetID, targetName = getTarget(snd.agros)
+  if not targetID then
+    targetID, targetName = getTarget(snd.items)
+  end
+  if not targetID then
     --if snd.toggles.bashing then snd.toggle("bashing") end
     snd.toggles.bashing = false
     if bot.going then
       expandAlias("move", false)
       --  tempTimer(1.5, [[expandAlias("move")]])
     end
-  else
-    snd.counterattack_active = false
-    if snd.toggles.calling and snd.bashing.old_target ~= snd.bashing.target and snd.bashing.target ~= "none" then
-      snd.send("wt target: " .. snd.bashing.target)
+    snd.core()
+    return
+  end
+    
+  --target acquired!
+  snd.bashing.targeted = true
+  if snd.toggles.generics then
+    --generic logic
+    snd.bashing.target = generic_bashing_name(targetName)
+    if snd.bashing.target ~= snd.bashing.old_target then
+      --if snd.toggles.calling then snd.send("wt target: "..snd.bashing.target) end --comment this out to keep from calling web targets
+      snd.bashing.old_target = snd.bashing.target
     end
+  else
+    --non generic logic
+    snd.bashing.target = targetID
+  end
+  --if #snd.gathering &gt;= 1 then
+  -- snd.loot_it()
+  --end
+  snd.counterattack_active = false
+  if
+    snd.toggles.calling and
+    snd.bashing.old_target ~= snd.bashing.target and
+    snd.bashing.target ~= "none"
+  then
+    --snd.send("wt target: " .. snd.bashing.target)  -- comment this out to keep from calling web targets
   end
   snd.core()
 end</script>
