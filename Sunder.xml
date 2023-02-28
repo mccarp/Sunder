@@ -16156,7 +16156,7 @@ end</script>
 										<string>^\w+ cruelly stabs .+ deep into (\w+)\.$</string>
 										<string>^\w+ slices across (\w+) with the edge of .+\.$</string>
 										<string>^\w+ wounds (\w+) with a diagonal swipe of .+\.$</string>
-										<string>^\w+ neatly slashes (\w+)with .+\.$</string>
+										<string>^\w+ neatly slashes (\w+) with .+\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -46739,7 +46739,7 @@ def_kola = {defense = "instawake", type = "normal", effect = "Removes the WAKE d
 def_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = {eat = "kawhepill"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_deathsight = {defense = "deathsight", type = "normal", effect = "Reports player deaths", balance = {eat = "thanatonin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_thirdeye = {defense = "thirdeye", type = "normal", effect = "Adds locations to WHO", balance = {eat = "acuity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_venom = {defense = "venom_resistance", type = "normal", effect = "Protects against poison damage", balance = {vial = "antivenin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_venom = {defense = "antivenin", type = "normal", effect = "Protects against poison damage", balance = {vial = "antivenin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_levitation = {defense = "levitation", type = "normal", effect = "Protects against falling effects", balance = {vial = "levitation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_frost = {defense = "temperance", type = "normal", effect = "Protects against fire damage", balance = {vial = "frost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_speed = {defense = "speed", type = "green", effect = "Protects against aeon affliction", balance = {drink = "speed"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
