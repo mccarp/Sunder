@@ -6442,7 +6442,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^\w+ uses? Assassination Flay \(failure\) on (\w+)\.$</string>
+									<string>^\w+ uses? Assassination Flay \(none\) on (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -11706,7 +11706,7 @@ end
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^Fate would not allow more misfortune to befall the ([a-z ]+)any further.$</string>
+											<string>^Fate would not allow more misfortune to befall the ([a-z ]+) any further\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -19003,7 +19003,7 @@ end
 								<script>if matches[2] == snd.target then
    snd.target_got("fallen")
    snd.target_got("right_leg_broken")
-   snd.target_got("left_left_broken")
+   snd.target_got("left_leg_broken")
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
   deleteFull()
 end
@@ -46432,7 +46432,11 @@ aff_writhe_web = {state = "healed", effect = "", cures = {writhe = "send"}, asse
 aff_writhe_grappled = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_stasis = {state = "healed", effect = "can't move, can attack", cures = {}, assess = false, timer = createStopWatch()},
 
+--ravager thing
+aff_kneel = {state = "healed", effect = "hurts you if you walk too far from ravager", cures = {}, assess = false, timer = createStopWatch()},
+
 ---- Mirror affs here
+
 --Revenant
 aff_lurk = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_mortalterror = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -51628,6 +51632,7 @@ snd.areas = {
 {area = "the Mannaseh Swamp", level = "99+", targets = {"a savage mutant pumpkin", "a malformed stalker", "a miscreated avian", "an ichorous miscreation", "a hulking miscreation", "an amphibious malformation",}},
 {area = "the Village of Craneskull", level = "35-40", targets = {"a savage mutant pumpkin", "a muddy Trollish child", "a slender mud adder", "a rugged Trollish man", "a plump Trollish woman", "a lumbering Troll guard", "an elderly Troll priest", "a lean guard hound", "a traitorous Mitrine hunter","a black ram", "a militant Troll warrior", "a Troll ritualist", "an arachnid Chiav guard", "an arachnid Chiav enforcer", "an arachnid Chiav archer","an immense Trollish chieftain", "a lanky, Trollish witch doctor"}},
 {area = "the Maestral Shoals", level = "99+", targets = {"a tattered skrell", "a leathery skrell", "an emaciated skrell","a sinewy skrell lurker", "a skittish sandpiper", "a large, ill-tempered crab", "a glossy red crab", "a mottled crab"}},
+{area = "a deep underground cavern", level = "99+", targets = {"a Chaos-warped Chiav guard", "a Chaos-warped gargantuan carrier centipede", "a Chaos-warped egg-laying spider", "a demonic Chaos-warped spider"}},
 }
 
 sunder_areaPaths = {
@@ -61970,7 +61975,7 @@ function snd.ascendril_bash()
 		if snd.shield_check() then 
       battack = "touch shield"
     end
-  elseif snd.defenses.def_reflection.state == "deffed" then
+  elseif snd.defenses.def_reflection.state == "deffed"  and hp &lt;= 60 then
     -- let the reflection do its job
 	elseif hp &lt;= 60 then
 		if snd.reflection_charge &gt; 0 then
@@ -61997,7 +62002,7 @@ function snd.sciomancer_bash()
     if snd.shield_check() then 
       battack = "touch shield"
     end
-  elseif snd.defenses.def_reflection.state == "deffed" then
+  elseif snd.defenses.def_reflection.state == "deffed"  and hp &lt;= 60 then
     -- let the reflection do its job
   elseif hp &lt;= 60 then
     if snd.reflection_charge &gt; 0 then
@@ -65408,13 +65413,13 @@ end</script>
             snd.onHit2({"Dodge", "Rebounding"})
           end,
   Facesmash = function(target)
-                if not snd.checksomeAffs({"berserking", "sight"}, 1) then
-                  table.insert(snd.maybe_affs, 1, "berserking")
+                if not snd.checksomeAffs({"misery", "sight"}, 1) then
+                  table.insert(snd.maybe_affs, 1, "misery")
                   table.insert(snd.maybe_affs, 2, "sight")
-                elseif snd.checkAff("berserking") then
+                elseif snd.checkAff("misery") then
                   table.insert(snd.maybe_affs, 1, "sight")
                 else
-                  table.insert(snd.maybe_affs, 1, "berserking")
+                  table.insert(snd.maybe_affs, 1, "misery")
                 end
                 snd.onHit2({"Dodge", "Rebounding"}, "Luminary Facesmash")
               end,
@@ -67844,13 +67849,13 @@ end</script>
             snd.onHit2({"Dodge", "Rebounding"})
           end,
   Facesmash = function(target)
-                if not snd.checksomeAffs({"berserking", "sight"}, 1) then
-                  table.insert(snd.maybe_affs, 1, "berserking")
+                if not snd.checksomeAffs({"misery", "sight"}, 1) then
+                  table.insert(snd.maybe_affs, 1, "misery")
                   table.insert(snd.maybe_affs, 2, "sight")
-                elseif snd.checkAff("berserking") then
+                elseif snd.checkAff("misery") then
                   table.insert(snd.maybe_affs, 1, "sight")
                 else
-                  table.insert(snd.maybe_affs, 1, "berserking")
+                  table.insert(snd.maybe_affs, 1, "misery")
                 end
                 snd.onHit2({"Dodge", "Rebounding"}, "Luminary Facesmash")
               end,
