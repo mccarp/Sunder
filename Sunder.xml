@@ -1184,7 +1184,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You have cured ([a-z_]+)\.$</string>
+								<string>^You have cured ([a-z_-]+)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -13559,35 +13559,34 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Affliction Howl Track (There is no 3p)</name>
-								<script>local howl_conversion = {
-
-["paralyzing"] = "paresis",
-["baleful"] = "impairment",
-["rousing"] = "bravado",
-["distasteful"] = "anorexia",
-["forceful"] = "prone",
-["mind-numbing"] = "stupidity",
-["stomach-turning"] = "vomiting",
-["claustrophobic"] = "claustraphobia",
-["muddling"] = "peace",
-["hypnotic"] = "hypersomnia",
-["deranged"] = "hallucinations",
-["lethargic"] = "lethargy",
-["ringing"] = "tinnitus",
-["blurring"] = "blurry_vision",
-["debilitating"] = "weariness",
-["berserking"] = "berserking",
-["angry"] = "hatred",
-["befuddling"] = "confusion",
-["deep"] = "plodding",
-["dumbing"] = "idiocy",
-}
-
-if matches[4]:find(snd.target) then
+								<script>local howl_conversion =
+  {
+    ["piercing"] = "hearing",
+    ["paralyzing"] = "paresis",
+    ["baleful"] = "impairment",
+    ["rousing"] = "recklessness",
+    ["distasteful"] = "anorexia",
+    ["forceful"] = "fallen",
+    ["mind-numbing"] = "stupidity",
+    ["stomach-turning"] = "vomiting",
+    ["claustrophobic"] = "claustrophobia",
+    ["muddling"] = "peace",
+    ["hypnotic"] = "hypersomnia",
+    ["deranged"] = "hallucinations",
+    ["lethargic"] = "lethargy",
+    ["ringing"] = "ringing_ears",
+    ["blurring"] = "blurry_vision",
+    ["debilitating"] = "weariness",
+    ["berserking"] = "berserking",
+    ["angry"] = "hatred",
+    ["disturbing"] = "disrupted",
+    ["befuddling"] = "confusion",
+    ["deep"] = "plodding",
+    ["dumbing"] = "idiocy",
+  }
+if matches[4]:find(snd.target) and howl_conversion[matches[2]] ~= nil then
   snd.target_got(howl_conversion[matches[2]])
-end
-
-</script>
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -13609,35 +13608,35 @@ end
 								<name>Bay Tracking (1P &amp; 3P)</name>
 								<script>if multimatches[2][2] == "wailing" then return end
 if multimatches[2][2] == "failure" then return end
-local howl_conversion = {
+local howl_conversion =
+  {
+    ["piercing"] = "hearing",
+    ["paralyzing"] = "paresis",
+    ["baleful"] = "impairment",
+    ["rousing"] = "recklessness",
+    ["distasteful"] = "anorexia",
+    ["forceful"] = "fallen",
+    ["mind-numbing"] = "stupidity",
+    ["stomach-turning"] = "vomiting",
+    ["claustrophobic"] = "claustrophobia",
+    ["muddling"] = "peace",
+    ["hypnotic"] = "hypersomnia",
+    ["deranged"] = "hallucinations",
+    ["lethargic"] = "lethargy",
+    ["ringing"] = "ringing_ears",
+    ["blurring"] = "blurry_vision",
+    ["debilitating"] = "weariness",
+    ["berserking"] = "berserking",
+    ["angry"] = "hatred",
+    ["disturbing"] = "disrupted",
+    ["befuddling"] = "confusion",
+    ["deep"] = "plodding",
+    ["dumbing"] = "idiocy",
+  }
 
-["paralyzing"] = "paresis",
-["baleful"] = "impairment",
-["rousing"] = "bravado",
-["distasteful"] = "anorexia",
-["forceful"] = "prone",
-["mind-numbing"] = "stupidity",
-["stomach-turning"] = "vomiting",
-["claustrophobic"] = "claustraphobia",
-["muddling"] = "peace",
-["hypnotic"] = "hypersomnia",
-["deranged"] = "hallucination",
-["lethargic"] = "lethargy",
-["ringing"] = "tinnitus",
-["blurring"] = "blurry_vision",
-["debilitating"] = "weariness",
-["berserking"] = "berserking",
-["angry"] = "hatred",
-["befuddling"] = "confusion",
-["deep"] = "plodding",
-["dumbing"] = "idiocy",
-}
-
-if multimatches[2][3] == snd.target then
+if multimatches[2][3] == snd.target and howl_conversion[multimatches[2][2]] ~= nil then
   snd.target_got(howl_conversion[multimatches[2][2]])
-end
-
-</script>
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -13971,12 +13970,12 @@ disableTrigger("Throatstrike confirmation hit")</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Turmoil confirmation hit</name>
 								<script>if snd.target == snd.getting_hit then
   snd.target_got("turmoil")
 end
-disableTrigger("Throatstrike confirmation hit")</script>
+disableTrigger("Turmoil confirmation hit")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -13988,7 +13987,7 @@ disableTrigger("Throatstrike confirmation hit")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^The blow strikes an artery and \w+ slumps slightly\.</string>
+									<string>^The blow strikes an artery and .+ slumps slightly\.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -17406,6 +17405,8 @@ end</script>
         snd.target_used("epidermal_head")
       elseif matches[6] == "torso" then
         snd.target_used("epidermal_torso")
+      elseif matches[6] == "skin" then
+        snd.target_used("epidermal")
       end
     else
       snd.target_used(matches[4])
@@ -26998,25 +26999,26 @@ end</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>aegis/prismatic on target</name>
 					<script>if matches[2] == snd.target then
-
   local who = matches[2]:title()
-  
   local count = 1
-  
-  if table.contains(snd.targeting.list, who) then
-    local pos = table.index_of(snd.targeting.list, who) or nil
-    for k, v in ipairs(snd.targeting.list) do
-      if table.contains(snd.players_here, who) and table.contains(snd.players_here, v)
-      and k &gt; table.index_of(snd.targeting.list, who) then
-        expandAlias("t " .. v) 
-        break
+  if not snd.illusion_found then
+    if table.contains(snd.targeting.list, who) then
+      local pos = table.index_of(snd.targeting.list, who) or nil
+      for k, v in ipairs(snd.targeting.list) do
+        if
+          table.contains(snd.players_here, who) and
+          table.contains(snd.players_here, v) and
+          k &gt; table.index_of(snd.targeting.list, who)
+        then
+          expandAlias("t " .. v)
+          break
+        end
       end
+    else
+      table.remove(snd.players_here, table.index_of(snd.players_here, who))
+      snd.get_new_target()
     end
-  else
-    table.remove(snd.players_here, table.index_of(snd.players_here, who))
-    snd.get_new_target()
   end
-  
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -46457,6 +46459,9 @@ aff_inhibited = {state = "healed", effect = "", cures = {}, assess = false, time
 aff_aftershocks = {state = "healed", effect = "gain affs if earthcaller seismicity hits you", cures = {}, assess = false, timer = createStopWatch()},
 aff_faulted = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 
+--octopus
+aff_acidic_ink = {state = "healed", effect = "It's ink. You wait it out.", cures = {}, assess = false, timer = createStopWatch()},
+
 }</script>
 							<eventHandlerList />
 						</Script>
@@ -51455,6 +51460,7 @@ snd.bashing_area_beginning_rooms ={
   [ "the Maul"] = "50236",
   ["the forgotten depths of Mount Helba"] = "57086",
   ["the Bakal Chasm"] = "61011",
+  ["the Village of Craneskull"] = "3553",
 }
 </script>
 						<eventHandlerList />
@@ -56844,93 +56850,38 @@ sunder_areaPaths = {
     v4964 = "24410"
   },
   ["the Bloodwood"] = {
-    v57522 = "57524",
-    v57523 = "57522",
-    v57524 = "ptcity",
-    v57525 = "57523",
-    v57526 = "57525",
-    v57527 = "57528",
-    v57528 = "57532",
-    v57529 = "57527",
-    v57530 = "57526",
-    v57532 = "57540",
-    v57533 = "57529",
-    v57537 = "57544",
-    v57538 = "57537",
-    v57539 = "57538",
-    v57540 = "57539",
-    v57541 = "57533",
-    v57542 = "57541",
-    v57543 = "57542",
-    v57544 = "57549",
-    v57545 = "57547",
-    v57546 = "57545",
-    v57547 = "57543",
-    v57548 = "57546",
-    v57549 = "57550",
-    v57550 = "57559",
-    v57552 = "57553",
-    v57553 = "57554",
-    v57554 = "57555",
-    v57555 = "57573",
-    v57556 = "57552",
-    v57557 = "57556",
-    v57558 = "57557",
-    v57559 = "57558",
-    v57560 = "57564",
-    v57561 = "57560",
-    v57562 = "57561",
-    v57563 = "57562",
-    v57564 = "57566",
-    v57565 = "57567",
-    v57566 = "57565",
-    v57567 = "57568",
-    v57568 = "57569",
-    v57569 = "57570",
-    v57570 = "57584",
-    v57571 = "57563",
-    v57572 = "57571",
-    v57573 = "57572",
-    v57574 = "57575",
-    v57575 = "57530",
-    v57576 = "57577",
-    v57577 = "57574",
-    v57578 = "57579",
-    v57579 = "57576",
-    v57580 = "57598",
-    v57584 = "57585",
-    v57585 = "57586",
-    v57586 = "57587",
-    v57587 = "57606",
-    v57588 = "57589",
-    v57589 = "57600",
-    v57590 = "57580",
-    v57591 = "57592",
-    v57592 = "57593",
-    v57593 = "57578",
-    v57594 = "57591",
-    v57595 = "57594",
-    v57596 = "57597",
-    v57597 = "57601",
-    v57598 = "57595",
-    v57599 = "57590",
-    v57600 = "57602",
-    v57601 = "57599",
-    v57602 = "57613",
-    v57603 = "57605",
-    v57604 = "57588",
-    v57605 = "57604",
-    v57606 = "57608",
-    v57607 = "57603",
-    v57608 = "57607",
-    v57609 = "57610",
-    v57610 = "57596",
-    v57611 = "57615",
-    v57612 = "57611",
-    v57613 = "57614",
+    v57548 = "57614",
     v57614 = "57612",
-    v57615 = "57616",
-    v57616 = "57609"
+    v57612 = "57613",
+    v57613 = "57602",
+    v57602 = "57601",
+    v57601 = "57599",
+    v57599 = "57600",
+    v57600 = "57589",
+    v57589 = "57590",
+    v57590 = "57581",
+    v57581 = "57582",
+    v57582 = "57573",
+    v57573 = "57535",
+    v57535 = "57536",
+    v57536 = "57537",
+    v57537 = "57542",
+    v57542 = "57543",
+    v57543 = "74773",
+    v74773 = "57547",
+    v57547 = "57544",
+    v57544 = "57552",
+    v57552 = "57554",
+    v57554 = "57555",
+    v57555 = "57572",
+    v57572 = "57570",
+    v57570 = "57584",
+    v57584 = "57585",
+    v57585 = "57588",
+    v57588 = "57604",
+    v57604 = "57603",
+    v57603 = "57583",
+    v57583 = "ptcity",
   },
   ["the Cathedral of Gloaming"] = {
     v22702 = "22703",
@@ -58708,76 +58659,77 @@ sunder_areaPaths = {
     v20921 = "20907"
   },
   ["the Mannaseh Swamp"] = {
-    v1744 = "1746",
-    v1745 = "1744",
-    v1746 = "1747",
-    v1747 = "4733",
-    v33243 = "ptcity",
-    v3491 = "3492",
-    v3492 = "3494",
-    v3493 = "3496",
-    v3494 = "3493",
-    v3496 = "3502",
-    v3497 = "3498",
-    v3498 = "3499",
-    v3499 = "3515",
-    v3501 = "3497",
-    v3502 = "3503",
-    v3503 = "3504",
-    v3504 = "3505",
-    v3505 = "3514",
-    v3506 = "3501",
-    v3507 = "3508",
-    v3508 = "3506",
-    v3513 = "3507",
-    v3514 = "3513",
-    v3515 = "3518",
-    v3516 = "3680",
-    v3517 = "3698",
-    v3518 = "3519",
-    v3519 = "3520",
-    v3520 = "3516",
-    v3521 = "3681",
-    v3553 = "3554",
-    v3554 = "3555",
-    v3555 = "3556",
-    v3556 = "3662",
-    v3662 = "3663",
-    v3663 = "3664",
-    v3664 = "3665",
-    v3665 = "3666",
-    v3666 = "3667",
-    v3667 = "3668",
-    v3668 = "3673",
-    v3669 = "3670",
-    v3670 = "3674",
-    v3671 = "3669",
-    v3672 = "33243",
-    v3673 = "3675",
-    v3674 = "3676",
-    v3675 = "3671",
-    v3676 = "3678",
-    v3677 = "3491",
-    v3678 = "3677",
-    v3679 = "3521",
-    v3680 = "3679",
-    v3681 = "3682",
-    v3682 = "3517",
-    v3698 = "3699",
-    v3699 = "3700",
-    v3700 = "3701",
-    v3701 = "3702",
-    v3702 = "3703",
-    v3703 = "3704",
-    v3704 = "3705",
-    v3705 = "3706",
-    v3706 = "3672",
-    v4733 = "4735",
-    v4734 = "3553",
-    v4735 = "4736",
-    v4736 = "4737",
-    v4737 = "4738",
-    v4738 = "4734"
+  v1745 = "74904",
+  v73209 = "73211",
+  v73211 = "73213",
+  v73213 = "74560",
+  v73214 = "73729",
+  v73218 = "73214",
+  v73222 = "73218",
+  v73226 = "73222",
+  v73232 = "73764",
+  v73728 = "73731",
+  v73729 = "74555",
+  v73730 = "75147",
+  v73731 = "73763",
+  v73734 = "73738",
+  v73735 = "73736",
+  v73736 = "73761",
+  v73738 = "74055",
+  v73739 = "73740",
+  v73740 = "73734",
+  v73741 = "73747",
+  v73742 = "73744",
+  v73744 = "73745",
+  v73745 = "73754",
+  v73747 = "73790",
+  v73748 = "74437",
+  v73754 = "73741",
+  v73758 = "73972",
+  v73761 = "73758",
+  v73762 = "73226",
+  v73763 = "73762",
+  v73764 = "73772",
+  v73770 = "73785",
+  v73771 = "73783",
+  v73772 = "73739",
+  v73783 = "73209",
+  v73784 = "73771",
+  v73785 = "73822",
+  v73786 = "75387",
+  v73787 = "75342",
+  v73789 = "73742",
+  v73790 = "75346",
+  v73817 = "73829",
+  v73822 = "73817",
+  v73829 = "73784",
+  v73972 = "74614",
+  v74055 = "74056",
+  v74056 = "74058",
+  v74057 = "74097",
+  v74058 = "74057",
+  v74097 = "ptcity",
+  v74166 = "73735",
+  v74172 = "73728",
+  v74187 = "73232",
+  v74437 = "74172",
+  v74469 = "74187",
+  v74547 = "74166",
+  v74555 = "74469",
+  v74560 = "73730",
+  v74614 = "73770",
+  v74827 = "75344",
+  v74904 = "74988",
+  v74988 = "74827",
+  v75147 = "75148",
+  v75148 = "73748",
+  v75342 = "75345",
+  v75343 = "73786",
+  v75344 = "75343",
+  v75345 = "73789",
+  v75346 = "74547",
+  v75387 = "75441",
+  v75441 = "73787",
   },
   ["the Maul"] = {
     v50236 = "50237",
@@ -61412,7 +61364,70 @@ sunder_areaPaths = {
     v19035 = "ptcity",
     v19036 = "19032",
     v19428 = "19007"
-  }
+  },
+   ["the Village of Craneskull"] = {
+    v33243 = "ptcity",
+    v3491 = "3492",
+    v3492 = "3494",
+    v3493 = "3496",
+    v3494 = "3493",
+    v3496 = "3502",
+    v3497 = "3498",
+    v3498 = "3499",
+    v3499 = "3515",
+    v3501 = "3497",
+    v3502 = "3503",
+    v3503 = "3504",
+    v3504 = "3505",
+    v3505 = "3514",
+    v3506 = "3501",
+    v3507 = "3508",
+    v3508 = "3506",
+    v3513 = "3507",
+    v3514 = "3513",
+    v3515 = "3518",
+    v3516 = "3680",
+    v3517 = "3698",
+    v3518 = "3519",
+    v3519 = "3520",
+    v3520 = "3516",
+    v3521 = "3681",
+    v3553 = "3554",
+    v3554 = "3555",
+    v3555 = "3556",
+    v3556 = "3662",
+    v3662 = "3663",
+    v3663 = "3664",
+    v3664 = "3665",
+    v3665 = "3666",
+    v3666 = "3667",
+    v3667 = "3668",
+    v3668 = "3673",
+    v3669 = "3670",
+    v3670 = "3674",
+    v3671 = "3669",
+    v3672 = "33243",
+    v3673 = "3675",
+    v3674 = "3676",
+    v3675 = "3671",
+    v3676 = "3678",
+    v3677 = "3491",
+    v3678 = "3677",
+    v3679 = "3521",
+    v3680 = "3679",
+    v3681 = "3682",
+    v3682 = "3517",
+    v3698 = "3699",
+    v3699 = "3700",
+    v3700 = "3701",
+    v3701 = "3702",
+    v3702 = "3703",
+    v3703 = "3704",
+    v3704 = "3705",
+    v3705 = "3706",
+    v3706 = "3672",
+    v4733 = "4735",
+  },
 }
 
 </script>
@@ -67408,31 +67423,34 @@ end</script>
   
   ["Vocalizing"] = {
     Baying = function(target, conditional)
-    
-              if howl_conversion[conditional] == nil then return end
-          
-              local howl_conversion = {
-              ["paralyzing"] = "paresis",
-              ["baleful"] = "impairment",
-              ["rousing"] = "bravado",
-              ["distasteful"] = "anorexia",
-              ["forceful"] = "prone",
-              ["mind-numbing"] = "stupidity",
-              ["stomach-turning"] = "vomiting",
-              ["claustrophobic"] = "claustraphobia",
-              ["muddling"] = "peace",
-              ["hypnotic"] = "hypersomnia",
-              ["deranged"] = "hallucination",
-              ["lethargic"] = "lethargy",
-              ["ringing"] = "tinnitus",
-              ["blurring"] = "blurry_vision",
-              ["debilitating"] = "weariness",
-              ["berserking"] = "berserking",
-              ["angry"] = "hatred",
-              ["befuddling"] = "confusion",
-              ["deep"] = "plodding",
-              ["dumbing"] = "idiocy",
+              
+              local howl_conversion =
+              {
+                ["piercing"] = "hearing",
+                ["paralyzing"] = "paresis",
+                ["baleful"] = "impairment",
+                ["rousing"] = "recklessness",
+                ["distasteful"] = "anorexia",
+                ["forceful"] = "fallen",
+                ["mind-numbing"] = "stupidity",
+                ["stomach-turning"] = "vomiting",
+                ["claustrophobic"] = "claustrophobia",
+                ["muddling"] = "peace",
+                ["hypnotic"] = "hypersomnia",
+                ["deranged"] = "hallucinations",
+                ["lethargic"] = "lethargy",
+                ["ringing"] = "ringing_ears",
+                ["blurring"] = "blurry_vision",
+                ["debilitating"] = "weariness",
+                ["berserking"] = "berserking",
+                ["angry"] = "hatred",
+                ["disturbing"] = "disrupted",
+                ["befuddling"] = "confusion",
+                ["deep"] = "plodding",
+                ["dumbing"] = "idiocy",
               }
+              if howl_conversion[conditional] == nil then return end
+
                 snd.target_got(howl_conversion[conditional])
               end,
   },
@@ -68405,11 +68423,17 @@ end</script>
   },
     ["Relic"] = {
 
-      Entangle = function(target)
-                  snd.target_got("writhe_web")
+      Entangle = function(target, cond)
+                  if cond == "evasion" then
+                  else
+                    snd.target_got("writhe_web")
+                  end
                 end,
-      Webspray = function(target)
-                  snd.target_got("writhe_web")
+      Webspray = function(target, cond)
+                  if cond == "evasion" then
+                  else
+                    snd.target_got("writhe_web")
+                  end
                 end,
   },
 ["Aetherial"] = {
