@@ -3263,6 +3263,48 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Soulcage Ready</name>
+							<script>snd.balance.soulcage = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You feel that your soul is strong enough to be protected once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Soulcage Not Ready</name>
+							<script>snd.balance.soulcage = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your soul has not recovered sufficiently for you to protect it from death.</string>
+								<string>You use Necromancy Soulcage.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Monk</name>
@@ -3721,6 +3763,64 @@ snd.balance.morph = false</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>Your crystal tattoo tingles slightly.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</TriggerGroup>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Wand</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Wand used</name>
+								<script>snd.balance.wand = false</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>As you touch the wand tattoo, you feel your mind refreshed and rejuvenated.</string>
+									<string>You touch the wand tattoo, but nothing happens.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Wand recovered</name>
+								<script>snd.balance.wand = true</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>Your wand tattoo tingles slightly.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
@@ -43634,6 +43734,8 @@ end
   leech = true,
   shadowsphere = true,
   unbroken = true,
+  soulcage = true,
+  wand = true,
 }
 
 snd.waiting = snd.waiting or {
@@ -45851,6 +45953,7 @@ snd.priorities =
     "def_cognisance",
     "def_resuscitation",
     "def_conduit_crutch",
+    "def_soulcage",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -45924,6 +46027,10 @@ snd.method_priority = {
                 snd.defenses.def_warmth.state == "deffed"
               )
             then
+              table.insert(snd.queue, k)
+            end
+          elseif k == "def_soulcage" then
+            if snd.balance.soulcage then
               table.insert(snd.queue, k)
             end
           else
@@ -46926,6 +47033,7 @@ def_devilpact = {defense = "devilpact", type = "normal", effect = "Throw 2 cards
 def_eclipse = {defense = "eclipse", type = "normal", effect = "Every 3rd card is hidden, sun/moon only.", balance = {balanceequilibriumtake = "fling eclipse at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Eclipse" },
 def_chariot = {defense = "chariot", type = "normal", effect = "+Celerity, +bal for cards", balance = {balanceequilibriumtake = "fling chariot at ground"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chariot" },
 def_hierophant = {defense = "hierophant", type = "normal", effect = "Protect against disloyalty.", balance = {balanceequilibriumtake = "fling hierophant at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Hierophant"},
+def_soulcage = {defense = "soulcage", type = "normal", effect = "You come back to life upon death instantly.", balance = {balanceequilibriumtake = "soulcage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Soulcage" },
 
 --Oneiromancer
 def_redoubt = {defense = "redoubt", type = "normal", effect = "Your soul is harder to sense.", balance = {special = "redoubt"}, state = "down", needit = false, timer = createStopWatch(), skill = "Redoubt" },
@@ -47462,6 +47570,7 @@ end</script>
   ["Your intelligence is bolstered by an Earthen battle hymn"] = "battlehymn_intelligence",
   ["Your dexterity is bolstered by an Earthen battle hymn"] = "battlehymn_dexterity",
   ["Your strength is bolstered by an Earthen battle hymn"] = "battlehymn_strength",
+  ["Your being is protected by the soulcage."] = "soulcage",
 }
  </script>
 							<eventHandlerList />
@@ -63696,6 +63805,7 @@ def_hierophant = "once",
 def_chariot = "on",
 def_eclipse = "on",
 def_devilpact = "on",
+def_soulcage = "on",
 },
 
 oneiromancer = {
