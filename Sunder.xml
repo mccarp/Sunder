@@ -66477,8 +66477,11 @@ end</script>
   },
   
   ["Mentis"] = {
-    Mesmerize = function(target)
-                 snd.target_got("writhe_transfix")
+    Mesmerize = function(target, blindness)
+                  snd.target_got("sight")
+                  if not blindness then  
+                   snd.target_got("writhe_transfix")
+                  end
                 end,
     Confusion = function(target)
                  snd.target_got("confusion")
@@ -68395,7 +68398,7 @@ end</script>
   },
   
   ["Dictum"] = {
-    Exhort = function(target)
+    Exhort = function(target, blindness)
                   snd.target_got("sight")
                   if not blindness then  
                    snd.target_got("writhe_transfix")
