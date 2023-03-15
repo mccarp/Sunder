@@ -68378,6 +68378,7 @@ end</script>
     Penitence = function(target)
                 snd.target_got("slickness")
                 snd.used.paste = false
+                snd.target_got("no_paste")
               end,
     Denounce = function(target, quell)
                if quell then
@@ -68388,13 +68389,20 @@ end</script>
                     snd.took_limb_dmg(-15, limb)
                   end,
     Censure = function(target, lenient)
-                enableTrigger("Weapon Hit Confirmation")
-              end,
+            snd.onHit2({"Dodge", "Rebounding"})
+           end,
     
     Bloodlet = function(target)
                 snd.target_got("rend")
               end,
-  
+    Feed = function(target, fail)
+            if not fail then
+            else
+              snd.target_cured("no_paste")
+              snd.target_cured("feast")
+              snd.target_cured("fallen")
+              end
+            end,
   },
   
   ["Dictum"] = {
@@ -68462,7 +68470,14 @@ end</script>
               end,
   },
   
-  ["Discipline"] = {
+ ["Discipline"] = {
+  
+  Provoke = function(target)
+            if target == snd.target then
+              snd.used.rebounding = false
+              snd.used.shield = false
+            end
+          end,
   
   Anathema = function(target)
             snd.target_got("blood_curse")
@@ -68473,21 +68488,27 @@ end</script>
            snd.target_got("sight")
          end,
          
-  Exorcism = function(target)
+  Exorcism = function(target, fail)
+          if not fail then
       		  snd.target_got("feast")
       		  tempTimer(19.5, [[snd.target_cured("feast")]])
       	    snd.used.paste = false
-          end,
-          
+            snd.target_got("no_paste")
+          else
+            snd.target_cured("writhe_transfix")
+          end
+        end,
+  
   Bane = function(target)
              snd.target_got("blood_poison")
           end,
-          
   Pariah = function(target)
             snd.target_got("blood_rune")
         end,
+  Exsanguinate = function(target)
+          snd.target_got("effused_blood")
+        end,
     },
-
 
 --Random stuff
 
