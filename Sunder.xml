@@ -2125,6 +2125,232 @@ end</script>
 					<regexCodeList />
 					<regexCodePropertyList />
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Akkari</name>
+						<script></script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Attend False</name>
+							<script>snd.can_attend = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may not force their attendance again quite yet.</string>
+								<string>^You use Discipline Attend on \w+.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Attend True</name>
+							<script>snd.can_attend = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may demand their attendance once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Inquisition false</name>
+							<script>snd.can_inquisition = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You cannot yet undertake another holy inquisition.</string>
+								<string>You use Discipline Inquisition on \w+.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>inquisition true</name>
+							<script>snd.can_inquisition = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may undertake another holy inquisition.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Proclaim True</name>
+							<script>snd.can_proclaim = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your ability to make proclamations reasserts itself.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Proclaim False</name>
+							<script>snd.can_proclaim = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You cannot yet carry out another proclamation.</string>
+								<string>You use Dictum Proclamation.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Crusade False</name>
+							<script>snd.can_crusade = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You use Ascendance Crusade on \w+.$</string>
+								<string>You have not yet recovered from your last crusade.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Crusade True</name>
+							<script>snd.can_crusade = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may once again embark upon a crusade.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Unbroken False</name>
+							<script>snd.balance.unbroken = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Discipline Unbroken.</string>
+								<string>You have not yet recovered from your previous last stand.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Unbroken True</name>
+							<script>snd.balance.unbroken = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may defy the clutches of death once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Archivist</name>
 						<script></script>
 						<triggerType>0</triggerType>
@@ -4190,8 +4416,10 @@ snd.balance.morph = false</script>
 							<regexCodeList>
 								<string>You have not yet recovered from your previous last stand.</string>
 								<string>You use Discipline Unbroken.</string>
+								<string>You use Sanguis Deluge.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -4363,6 +4591,114 @@ snd.balance.morph = false</script>
 								<string>You can call upon your might once more.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Vampire</name>
+						<script></script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Vampire mend false</name>
+							<script>snd.balance.mend = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You utter a low hiss from exertion as you will the power of your blood to repair the wounds your undead body has sustained.$</string>
+								<string>Blood cannot be called upon to repair your walking corpse again so soon.</string>
+								<string>^Flushed with the bounty of purest, unadulterated life, you exert your will to expend your vitality in a surge which knits your flesh in an instant.$</string>
+								<string>You may not invoke the vitality of your lifeforce again quite yet.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>3</integer>
+								<integer>1</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Vampire mend</name>
+							<script>snd.balance.mend = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may mend your body once more.</string>
+								<string>Your body thrums anew, the vitality inherent in your essence ready to once again knit your flesh.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Purify blood used</name>
+							<script>snd.balance.purifyblood = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your blood boils and you let out a mighty roar of defiance.</string>
+								<string>A soothing glow surrounds you as you draw on spiritual succour, comforting warmth easing your ills.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Purify blood ready</name>
+							<script>snd.balance.purifyblood = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may purify your blood once more.</string>
+								<string>You may draw upon spiritual succour once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -7114,6 +7450,80 @@ snd.maybe_affs = {}</script>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>7</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>batter call</name>
+						<script>if string.title(matches[4]) == snd.target then
+ snd.maybe_affs = {}
+ for aff in string.gmatch(matches[5], '([^, ]+)') do
+  table.insert(snd.maybe_affs, aff)
+ end
+end
+for aff in pairs(snd.maybe_affs) do
+ snd.target_got(snd.maybe_affs[aff])
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>20</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\(Web\)\: (\w+) says, \"(Battering|Battered) (\w+): (.*)\.\"$</string>
+							<string>^\(Web\)\: (\w+) says, \"(Whispering|Whisper) (\w+): (.*)\.\"$</string>
+							<string>^\(Web\)\: (\w+) says, \"(Dictate|Dictating) (\w+): (.*)\.\"$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>undo</name>
+							<script>if matches[2] == snd.target then
+ snd.target_cured(matches[3])
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You discern that (\w+) has resisted the (\w+) affliction\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>end</name>
+							<script>setTriggerStayOpen("batter call", 0)</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>return isPrompt()</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>4</integer>
 							</regexCodePropertyList>
 						</Trigger>
 					</Trigger>
@@ -17414,6 +17824,371 @@ disableTrigger("Tenacity Assault")</script>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
+						</TriggerGroup>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Akkari</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Holy Light Affliction</name>
+								<script>if matches[2] == snd.target then
+  if matches[3] == "self-pity" then
+    snd.target_got("self_pity")
+  elseif matches[3] == "sadness" then
+    snd.target_got("sadness")
+  elseif matches[3] == "hubris" then
+    snd.target_got("hubris")
+  elseif matches[3] == "commitment fear" then
+    snd.target_got("commitment_fear")
+  end
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Terror consumes (\w+) as the pitiless light inspires (self-pity|sadness|hubris|commitment fear) in .* heart.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Squire Attacks</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Paresis</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("paresis")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A fervent .* crouches low and strikes at (\w+)'s spine, causing .* muscles to seize.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Haemophilia</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("haemophilia")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A fervent .* sashays forward in a frenzy, lashing out at (\w+) in a flurry of rage-fuelled strikes.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>hallucinations</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("hallucinations")
+end
+</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A fervent .* lurches at (\w+) with violent purpose before turning away at the last moment, its feinting manouevre leaving .* mind reeling.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>paste</name>
+									<script>if matches[2] == snd.target then
+snd.used.paste = false
+snd.target_got("no_paste")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A fervent .*flourishes its weapon before (\w+)'s eyes in an unerring display of skill, sweat breaking out upon .* skin in recognition of the harrowing assault.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Exsanguinate</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("effused_blood")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) looks horrified as .* skin begins to weep with vivid red blood.$</string>
+									<string>^(\w+) screams as .* veins burst open spilling precious life blood to the ground.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>remorse symptom</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("remorse")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+)'s terrible remorse instills certainty of purpose in your mind.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Contrition symptom</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("contrition")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^The weight of (\w+)'s contrition suffuses your body with righteous vigour.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>black bile got</name>
+								<script>if matches[2] == snd.target then
+snd.target_got("black_bile")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) body turns sickly as \w+ skin takes on a yellow shade\.$</string>
+									<string>^Motes of light pulse beneath (\w+)'s skin, .+ veins twisting oddly as the scouring incandescence wreaks havoc upon .+ insides.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>black bile fired</name>
+								<script>if matches[2] == snd.target then
+snd.target_cured("black_bile")
+snd.target_got("effused_blood")
+  if not snd.checkAff("weariness") then
+  	snd.target_got("weariness")
+  elseif not snd.checkAff("clumsiness") then
+  	snd.target_got("clumsiness")
+  elseif not snd.checkAff("vomiting") then
+  	snd.target_got("vomiting")
+  end
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) skin turns a sickly colour and black bile seeps from \w+ mouth\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>manifest</name>
+								<script>expandAlias("sndon")
+snd.aff_cure("asleep")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You concentrate on regaining your physical form, the unbounded reach of ascended conscious narrowing</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Used Deliver</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("feed")
+  feed_timer = tempTimer(10, [[snd.target_cured("feed")]])
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You use Ascendance Deliver on (\w+).$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Used Exorcism</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("feast")
+  feast_timer = tempTimer(18, [[snd.target_cured("feast")]])
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You use Discipline Exorcism on (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Rune activation</name>
+								<script>if matches[2] == snd.target then
+  snd.target_cured("blood_rune")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You place your palms together, willing the rune placed on (\w+)'s soul to activate\.$</string>
+									<string>^You declare that all shall know of (\w+)'s villainy, and incite the brand you have placed to consume.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -32433,6 +33208,228 @@ end</script>
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
+						<Alias isActive="yes" isFolder="no">
+							<name>Akkari Attack Template</name>
+							<script> if snd.class == "Akkari" then -- set this to the class this alias is for
+snd.starting_attack()
+function snd.attack_function()
+	if not snd.waiting.queue then
+		-- declare some important variables
+ local string = ""
+ local touse = {}
+ local gashaff = {}
+ local call = ""
+ local fcall = ""
+ local scall = ""
+ local paff = "none"
+ local saff_one = "none"
+ local saff_two = "none"
+ local pattack = ""
+ local sattack = ""
+ local extraaff = "amnesia"
+ 
+
+ snd.primary_aff = {
+    --"effused_blood",
+
+		}
+
+snd.secondary_aff = {
+    "remorse",
+    "contrition",
+    }
+
+snd.akkari_host()
+snd.akkari_attend()
+
+  for i in pairs(snd.primary_aff) do
+    if not snd.checkAff(snd.primary_aff[i]) 
+ --   and not (snd.used.rebounding and table.isMember(snd.censure_affs, snd.primary_aff[i]))
+
+    and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis")) 
+    then
+					if not table.contains(gashaff, snd.primary_aff[i]) then
+						table.insert(gashaff, snd.primary_aff[i])
+					end
+    end
+  end
+
+  if table.isMember(snd.censure_affs, gashaff[1]) then
+      if gashaff[1] == "sight" then
+     	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+      else
+    	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
+      end
+      fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
+  elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
+      if gashaff[1] == "black_bile" then
+      pattack = "denounce "..snd.target.." corruption"..snd.sep
+      fcall = ""
+      else
+      pattack = snd.akkari_bal_attacks[gashaff[1]].." "..snd.target..snd.sep
+      end
+  elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+      pattack = snd.akkari_eq_attacks[gashaff[1]].." "..snd.target..snd.sep
+  else
+      pattack = "denounce "..snd.target..snd.sep
+	end
+  
+    	for i in pairs(snd.secondary_aff) do
+				if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
+					if not table.contains(touse, snd.secondary_aff[i]) then
+						table.insert(touse, snd.secondary_aff[i])
+					end
+				end
+			end
+      
+      if touse[2] == "sight" then
+        table.remove(touse, table.index_of(touse, "sight"))
+      end
+      
+      if touse[2] == "hearing" then
+        table.remove(touse, table.index_of(touse, "hearing"))
+      end
+      
+			while #touse &lt; 3 do
+				table.insert(touse, extraaff)
+			end
+  
+  
+  if gashaff[1] == "sight" then
+    if touse[1] == "sight" then
+      table.remove(touse, table.index_of(touse, "sight"))
+    end
+    if touse[1] == "hearing" then
+      table.remove(touse, table.index_of(touse, "hearing"))
+    end
+    sattack = "dictate "..touse[1].." "..snd.target..snd.sep
+    if touse[1] == "remorse" or touse[1] == "contrition" then
+    else
+    scall = "Whispering "..snd.target..": "..touse[1]
+    end
+  elseif touse[1] == "sight" then
+    sattack = "spirit attend "..snd.target..snd.sep
+  elseif touse[1] == "hearing" then
+    sattack = "spirit attend "..snd.target..snd.sep
+  elseif touse[1] == "blood_poison" then
+    sattack = "spirit bane "..snd.target..snd.sep
+  else
+    if (touse[2] == "hearing" or touse[2] == "sight") then
+      if snd.can_proclaim then
+        sattack = "proclaim "..touse[1].." "..touse[3]..snd.sep
+      else
+        sattack = "dictate "..touse[1].." "..touse[3].." "..snd.target..snd.sep
+      end
+        if touse[1] == "remorse" or touse[1] == "contrition" then
+        else
+        scall = "Whispering: "..touse[1].." "..touse[3]
+        end
+    else
+      if snd.can_proclaim then
+        sattack = "proclaim "..touse[1].." "..touse[2]..snd.sep
+      else    
+        sattack = "dictate "..touse[1].." "..touse[2].." "..snd.target..snd.sep
+      end
+      if touse[1] == "remorse" or touse[1] == "contrition" then
+      else
+      scall = "Whispering "..snd.target..": "..touse[1].." "..touse[2]
+      end
+    end
+
+
+  end
+
+
+    if snd.used.shield and snd.used.rebounding then
+      string = "denounce "..snd.target..snd.sep.."spirit provoke "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.used.shield then
+      string = "denounce "..snd.target..snd.sep..sattack
+      fcall = ""
+    elseif snd.mana_percent &lt; 35 then
+      string = "dumavai "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
+      string = "spirit vilify"..snd.sep.."dumavai "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.checkAff("writhe_transfix") and not snd.checkAff("feast") and gmcp.Char.Status.spec == "Dosan" then
+      string = "spirit exorcise "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.checkAff("no_paste") and (snd.checkAff("feast") or snd.can_deliver()) then
+      string = "deliver "..snd.target..snd.sep..sattack
+      fcall = ""
+    elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
+        string = "denounce "..snd.target.." corruption"..snd.sep..sattack
+        fcall = ""
+        --fcall = "Afflicting "..snd.target..": black_bile"
+    elseif snd.checkAff("impatience") and snd.checksomeAffs({"sadness", "confusion",}, 2) 
+    and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("blood_curse") then
+      string = "spirit anathema "..snd.target
+      fcall = ""
+      scall = ""
+    elseif gmcp.Char.Status.spec == "Naarak" and snd.can_inquisition and 
+    ((snd.aff_count_mental() == 12 or (snd.checkAff("blood_curse") and snd.aff_count_mental() == 10))
+    or
+    (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("blood_curse") and snd.aff_count_mental() == 7))))
+    then
+      string = "spirit inquisition "..snd.target
+      fcall = ""
+      scall = ""
+    elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+      string = pattack
+      fcall = ""
+      scall = ""
+    else
+      string = pattack..snd.sep..sattack
+    end
+    
+    
+    if not snd.loyalsattacking then
+    string = "order loyals attack "..snd.target..snd.sep..string
+    end
+    
+    string  = "contemplate "..snd.target..snd.sep..string..snd.sep.."quickassess "..snd.target
+ 
+    if fcall ~= "" then
+      call = "wt "..fcall
+    end
+    
+    if scall ~= "" then
+      if call ~= "" then
+      call = call..snd.sep.."wt "..scall
+      else
+      call = "wt "..scall
+      end
+    end
+ 
+    
+		-- check if we need to prepend an affliction call
+	  if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+		string = call..snd.sep..string
+    end
+	
+  
+		-- we don't want to resend our existing attack, so check against that
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			-- if we've got a new attack now, 
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			-- manage the anti-spam check below
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+snd.attack_function() -- make sure to actually send the attack once on use!
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+						</Alias>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Damage Offenses</name>
 							<script></script>
@@ -32777,6 +33774,548 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^gaff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Limbs</name>
+								<script>snd.current_offense = "gli"
+if snd.class == "Akkari" then -- set this to the class this alias is for
+snd.starting_attack()
+function snd.attack_function()
+	if not snd.waiting.queue then
+		-- declare some important variables
+ local string = ""
+ local touse = {}
+ local gashaff = {}
+ local call = ""
+ local fcall = ""
+ local scall = ""
+ local paff = "none"
+ local saff_one = "none"
+ local saff_two = "none"
+ local pattack = ""
+ local sattack = ""
+ local extraaff = "amnesia"
+ 
+
+ snd.primary_aff = {
+    --"effused_blood",
+    "blood_rune",
+    "left_leg_broken",
+    "right_leg_broken",
+    "left_arm_broken",
+    "right_arm_broken",
+    "paresis",
+    "stupidity",
+    "anorexia",
+    "asthma",
+    "slickness",
+    "sight",    
+    "blood_curse",
+    "black_bile",
+		}
+
+snd.secondary_aff = {
+    "remorse",
+    "contrition",
+    "stupidity",
+    "impatience",
+    "epilepsy",
+    "berserking",
+    "loneliness",
+    "confusion",
+    "peace",
+    "recklessness",
+    "dementia",
+    "paranoia",
+    "anorexia",
+    "vertigo",
+    "masochism",
+    "agoraphobia",
+    "indifference",
+    "amnesia",
+    }
+
+snd.akkari_host()
+snd.akkari_attend()
+
+  for i in pairs(snd.primary_aff) do
+    if not snd.checkAff(snd.primary_aff[i]) 
+    and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis")) 
+    then
+					if not table.contains(gashaff, snd.primary_aff[i]) then
+						table.insert(gashaff, snd.primary_aff[i])
+					end
+    end
+  end
+
+  if table.isMember(snd.censure_affs, gashaff[1]) then
+      if gashaff[1] == "sight" then
+     	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+      else
+    	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
+      end
+      fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
+  elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
+      if gashaff[1] == "black_bile" then
+      pattack = "denounce "..snd.target.." corruption"..snd.sep
+      else
+      pattack = snd.akkari_bal_attacks[gashaff[1]].." "..snd.target..snd.sep
+      end
+  elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+      pattack = snd.akkari_eq_attacks[gashaff[1]].." "..snd.target..snd.sep
+  else
+      pattack = "denounce "..snd.target..snd.sep
+      fcall = ""
+	end
+  
+    	for i in pairs(snd.secondary_aff) do
+				if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
+					if not table.contains(touse, snd.secondary_aff[i]) then
+						table.insert(touse, snd.secondary_aff[i])
+					end
+				end
+			end
+      
+      if touse[2] == "sight" then
+        table.remove(touse, table.index_of(touse, "sight"))
+      end
+      
+      if touse[2] == "hearing" then
+        table.remove(touse, table.index_of(touse, "hearing"))
+      end
+      
+			while #touse &lt; 3 do
+				table.insert(touse, extraaff)
+			end
+  
+  
+  if gashaff[1] == "sight" then
+    if touse[1] == "sight" then
+      table.remove(touse, table.index_of(touse, "sight"))
+    end
+    if touse[1] == "hearing" then
+      table.remove(touse, table.index_of(touse, "hearing"))
+    end
+    sattack = "dictate "..touse[1].." "..snd.target..snd.sep
+    if touse[1] == "remorse" or touse[1] == "contrition" then
+    else
+    scall = "Whispering "..snd.target..": "..touse[1]
+    end
+  elseif touse[1] == "sight" then
+    sattack = "spirit attend "..snd.target..snd.sep
+  elseif touse[1] == "hearing" then
+    sattack = "spirit attend "..snd.target..snd.sep
+  elseif touse[1] == "blood_poison" then
+    sattack = "spirit bane "..snd.target..snd.sep
+  else
+    if (touse[2] == "hearing" or touse[2] == "sight") then
+      if snd.can_proclaim then
+        sattack = "proclaim "..touse[1].." "..touse[3]..snd.sep
+      else
+        sattack = "dictate "..touse[1].." "..touse[3].." "..snd.target..snd.sep
+      end
+        scall = "Whispering: "..touse[1].." "..touse[3]
+    else
+      if snd.can_proclaim then
+        sattack = "proclaim "..touse[1].." "..touse[2]..snd.sep
+      else    
+        sattack = "dictate "..touse[1].." "..touse[2].." "..snd.target..snd.sep
+      end
+      if touse[1] == "remorse" or touse[1] == "contrition" then
+      else
+      scall = "Whispering "..snd.target..": "..touse[1].." "..touse[2]
+      end
+    end
+
+
+  end
+
+
+    if snd.used.shield and snd.used.rebounding then
+      string = "denounce "..snd.target..snd.sep.."spirit provoke "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.used.shield then
+      string = "denounce "..snd.target..snd.sep..sattack
+      fcall = ""
+    elseif snd.mana_percent &lt; 35 then
+      string = "dumavai "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
+      string = "spirit vilify"..snd.sep.."dumavai "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
+        string = "denounce "..snd.target.." corruption"..snd.sep..sattack
+        fcall = ""
+    elseif snd.checkAff("impatience") and snd.checksomeAffs({"sadness", "confusion",}, 2) 
+    and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("blood_curse") then
+      string = "spirit anathema "..snd.target
+      fcall = ""
+      scall = ""
+    elseif gmcp.Char.Status.spec == "Naarak" and snd.can_inquisition and 
+    ((snd.aff_count_mental() == 12 or (snd.checkAff("blood_curse") and snd.aff_count_mental() == 10))
+    or
+    (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("blood_curse") and snd.aff_count_mental() == 7))))
+    then
+      string = "spirit inquisition "..snd.target
+      fcall = ""
+      scall = ""
+    elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+      string = pattack
+      fcall = ""
+      scall = ""
+    else
+      string = pattack..snd.sep..sattack
+    end
+    
+    
+    if not snd.loyalsattacking then
+    string = "order loyals attack "..snd.target..snd.sep..string
+    end
+    
+    string  = "contemplate "..snd.target..snd.sep..string..snd.sep.."quickassess "..snd.target
+    
+    
+    if fcall ~= "" then
+      call = "wt "..fcall
+    end
+    
+    if scall ~= "" then
+      if call ~= "" then
+      call = call..snd.sep.."wt "..scall
+      else
+      call = "wt "..scall
+      end
+    end
+    
+    
+		-- check if we need to prepend an affliction call
+	  if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+		string = call..snd.sep..string
+    end
+	
+  
+		-- we don't want to resend our existing attack, so check against that
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			-- if we've got a new attack now, 
+			snd.last_attack = string
+      cecho("\n&lt;white&gt;"..string)
+			snd.attack(snd.last_attack)
+			-- manage the anti-spam check below
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+snd.attack_function() -- make sure to actually send the attack once on use!
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gli$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Lock</name>
+								<script>snd.current_offense = "glo"
+if snd.class == "Akkari" then -- set this to the class this alias is for
+snd.starting_attack()
+function snd.attack_function()
+	if not snd.waiting.queue then
+		-- declare some important variables
+ local string = ""
+ local touse = {}
+ local gashaff = {}
+ local call = ""
+ local fcall = ""
+ local scall = ""
+ local paff = "none"
+ local saff_one = "none"
+ local saff_two = "none"
+ local pattack = ""
+ local sattack = ""
+ local extraaff = "amnesia"
+ 
+if snd.target_locked() then
+ snd.primary_aff = {
+  "sight",
+  "writhe_transfix",
+  "paresis",
+  "stupidity",
+  "anorexia",
+  "asthma",
+  "slickness",
+  "no_paste", 
+  "blood_curse",
+  "black_bile",
+ }
+else
+ snd.primary_aff = {
+  --  "effused_blood",
+   -- "blood_rune",
+    "paresis",
+    "stupidity",
+    "anorexia",
+    "asthma",
+    "slickness",
+    "no_paste", 
+    "blood_curse",
+    "black_bile",
+		}
+  end
+  
+if snd.target_locked() then
+  snd.secondary_aff = {
+    "impatience",
+    "confusion",
+    "indifference",
+    "remorse",
+    "contrition",
+    "stupidity",
+    "confusion",
+    "epilepsy",
+    "berserking",
+    "sight",
+    "loneliness",
+    "peace",
+    "recklessness",
+    "dementia",
+    "paranoia",
+    "anorexia",
+    "vertigo",
+    "masochism",
+    "agoraphobia",
+    "amnesia",
+  }
+else  
+if snd.cureset == "Archivist" or snd.cureset == "Shaman" or snd.cureset == "Ascendril" or snd.cureset == "Sciomancer" then
+snd.secondary_aff = {
+    "remorse",
+    "contrition",
+    "stupidity",
+    "impatience",
+    "confusion",
+    "epilepsy",
+    "berserking",
+    "sight",
+    "loneliness",
+    "peace",
+    "recklessness",
+    "dementia",
+    "paranoia",
+    "anorexia",
+    "vertigo",
+    "masochism",
+    "agoraphobia",
+    "indifference",
+    "amnesia",
+    }
+else
+snd.secondary_aff = {
+    "remorse",
+    "contrition",
+    "stupidity",
+    "impatience",
+    "epilepsy",
+    "berserking",
+    "sight",
+    "loneliness",
+    "confusion",
+    "peace",
+    "recklessness",
+    "dementia",
+    "paranoia",
+    "anorexia",
+    "vertigo",
+    "masochism",
+    "agoraphobia",
+    "indifference",
+    "amnesia",
+    }
+end
+end
+
+snd.akkari_host()
+snd.akkari_attend()
+
+  for i in pairs(snd.primary_aff) do
+    if not snd.checkAff(snd.primary_aff[i]) 
+ --   and not (snd.used.rebounding and table.isMember(snd.censure_affs, snd.primary_aff[i]))
+
+    and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis")) 
+    then
+					if not table.contains(gashaff, snd.primary_aff[i]) then
+						table.insert(gashaff, snd.primary_aff[i])
+					end
+    end
+  end
+
+  if table.isMember(snd.censure_affs, gashaff[1]) then
+      if gashaff[1] == "sight" then
+     	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+      else
+    	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
+      end
+      fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
+  elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
+      if gashaff[1] == "black_bile" then
+      pattack = "denounce "..snd.target.." corruption"..snd.sep
+      else
+      pattack = snd.akkari_bal_attacks[gashaff[1]].." "..snd.target..snd.sep
+      end
+  elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+      pattack = snd.akkari_eq_attacks[gashaff[1]].." "..snd.target..snd.sep
+  else
+      pattack = "denounce "..snd.target..snd.sep
+	end
+  
+    	for i in pairs(snd.secondary_aff) do
+				if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
+					if not table.contains(touse, snd.secondary_aff[i]) then
+						table.insert(touse, snd.secondary_aff[i])
+					end
+				end
+			end
+      
+      if touse[2] == "sight" then
+        table.remove(touse, table.index_of(touse, "sight"))
+      end
+      
+      if touse[2] == "hearing" then
+        table.remove(touse, table.index_of(touse, "hearing"))
+      end
+      
+			while #touse &lt; 3 do
+				table.insert(touse, extraaff)
+			end
+  
+  
+  if gashaff[1] == "sight" then
+    if touse[1] == "sight" then
+      table.remove(touse, table.index_of(touse, "sight"))
+    end
+    if touse[1] == "hearing" then
+      table.remove(touse, table.index_of(touse, "hearing"))
+    end
+    sattack = "dictate "..touse[1].." "..snd.target..snd.sep
+    if touse[1] == "remorse" or touse[1] == "contrition" then
+    else
+    scall = "Whispering "..snd.target..": "..touse[1]
+    end
+  elseif touse[1] == "sight" then
+    sattack = "spirit attend "..snd.target..snd.sep
+  elseif touse[1] == "hearing" then
+    sattack = "spirit attend "..snd.target..snd.sep
+  elseif touse[1] == "blood_poison" then
+    sattack = "spirit bane "..snd.target..snd.sep
+  else
+    if (touse[2] == "hearing" or touse[2] == "sight") then
+      if snd.can_proclaim then
+        sattack = "proclaim "..touse[1].." "..touse[3]..snd.sep
+      else
+        sattack = "dictate "..touse[1].." "..touse[3].." "..snd.target..snd.sep
+      end
+        if touse[1] == "remorse" or touse[1] == "contrition" then
+        else
+        scall = "Whispering: "..touse[1].." "..touse[3]
+        end
+    else
+      if snd.can_proclaim then
+        sattack = "proclaim "..touse[1].." "..touse[2]..snd.sep
+      else    
+        sattack = "dictate "..touse[1].." "..touse[2].." "..snd.target..snd.sep
+      end
+      if touse[1] == "remorse" or touse[1] == "contrition" then
+      else
+      scall = "Whispering "..snd.target..": "..touse[1].." "..touse[2]
+      end
+    end
+
+
+  end
+
+
+    if snd.used.shield and snd.used.rebounding then
+      string = "denounce "..snd.target..snd.sep.."spirit provoke "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.used.shield then
+      string = "denounce "..snd.target..snd.sep..sattack
+      fcall = ""
+    elseif snd.mana_percent &lt; 35 then
+      string = "dumavai "..snd.target
+    elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
+      string = "spirit vilify"..snd.sep.."dumavai "..snd.target
+      fcall = ""
+      scall = ""
+    elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
+        string = "denounce "..snd.target.." corruption"..snd.sep..sattack
+        fcall = ""
+    elseif snd.checkAff("impatience") and snd.checksomeAffs({"sadness", "confusion",}, 2) 
+    and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("blood_curse") then
+      string = "spirit anathema "..snd.target
+      fcall = ""
+      scall = ""
+    elseif gmcp.Char.Status.spec == "Naarak" and snd.can_inquisition and 
+    ((snd.aff_count_mental() == 12 or (snd.checkAff("blood_curse") and snd.aff_count_mental() == 10))
+    or
+    (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("blood_curse") and snd.aff_count_mental() == 7))))
+    then
+      string = "spirit inquisition "..snd.target
+      fcall = ""
+      scall = ""
+    elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+      string = pattack
+      fcall = ""
+      scall = ""
+    else
+      string = pattack..snd.sep..sattack
+      if table.isMember(snd.censure_affs, gashaff[1]) then
+      end
+    end
+    
+    
+    if not snd.loyalsattacking then
+    string = "order loyals attack "..snd.target..snd.sep..string
+    end
+    
+    string  = "contemplate "..snd.target..snd.sep..string..snd.sep.."quickassess "..snd.target
+    
+    if fcall ~= "" then
+      call = "wt "..fcall
+    end
+    
+    if scall ~= "" then
+      if call ~= "" then
+      call = call..snd.sep.."wt "..scall
+      else
+      call = "wt "..scall
+      end
+    end
+    
+		-- check if we need to prepend an affliction call
+	  if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+		string = call..snd.sep..string
+    end
+	
+  
+		-- we don't want to resend our existing attack, so check against that
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			-- if we've got a new attack now, 
+			snd.last_attack = string
+            cecho("\n&lt;white&gt;"..string)
+			snd.attack(snd.last_attack)
+			-- manage the anti-spam check below
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+snd.attack_function() -- make sure to actually send the attack once on use!
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^glo$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -61681,7 +63220,7 @@ snd.global_targets = {
 "a jagged citrine eld",
 "a crackling lightning eld",
 "a crystalline opal eld",
-"a crudely-formed silver eld",
+"a crudely formed silver eld",
 "an amorphous red eld",
 "an immature jade eld",
 "a meager golden eld",
@@ -69226,6 +70765,197 @@ snd.runeband_affs = {
 }
 
 </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Akkari Attack Stuff</name>
+						<packageName></packageName>
+						<script>snd.primary_aff = {}
+
+snd.can_attend = true
+snd.can_proclaim = true
+snd.can_crusade = true
+snd.passion_active = false
+snd.can_inquisition = true
+
+--THIS WEAPON IS FOR CENSURE, MAKE SURE YOU DEFINE IT OTHERWISE YOU WILL BE USING XAVIN'S BASTARD SWORD
+snd.templar_weapon_2h = "296670" 
+
+snd.secondary_aff = {}
+
+
+snd.censure_affs = {
+"sight",
+"hearing",
+"asthma",
+"paresis",
+"clumsiness",
+"sensitivity",
+"vomiting",
+"allergies", 
+"colocasia",
+"haemophilia",
+"peace",
+"stupidity",
+"weariness",
+"recklessness",
+"dizziness",
+"shyness",
+"anorexia",
+--"slickness",
+"voyria",
+"squelched",
+"disfigurement",
+"stuttering",
+"deadening",
+"thin_blood",
+"left_leg_broken",
+"right_leg_broken",
+"left_arm_broken",
+"right_arm_broken",
+}
+
+snd.secondary_affs = {
+"confusion",
+"fear",
+"impatience",
+"paranoia",
+"stupidity",
+"agoraphobia",
+"masochism",
+"loneliness",
+"contrition",
+"epilepsy",
+"anorexia",
+"amnesia",
+"peace",
+"dementia",
+"berserking",
+"indifference",
+"vertigo",
+"remorse",
+"recklessness",
+"sight",
+"hearing",
+"blood_poison",
+}
+
+snd.akkari_eq_affs = {
+	"disrupted",
+	--"sight",
+	"writhe_transfix",
+	"blood_curse",
+	"blood_rune",
+	"feast",
+}
+
+snd.akkari_eq_attacks = {
+	disrupted = "disrupt",
+--	sight = "exhort",
+	writhe_transfix = "exhort",
+	blood_curse = "spirit anathema",
+	feast = "spirit exorcise",
+}
+
+snd.akkari_bal_affs = {
+	"effused_blood",
+	"black_bile",
+	"blood_rune",
+  "no_caloric",
+  "shivering",
+  "frozen",
+  "slickness",
+  "no_paste",
+  "rend",  
+
+}
+
+snd.akkari_bal_attacks = {
+	effused_blood = "spirit exsanguinate",
+	black_bile = "denounce "..snd.target.." corruption",
+ 	blood_rune = "spirit pariah",
+  no_caloric = "ague",
+	shivering = "ague",
+	frozen = "ague",
+	slickness = "penitence",
+  no_paste = "penitence",
+	rend = "bloodlet",
+}
+
+function snd.akkari_host()
+  if gmcp.Char.Status.spec == "Dosan" then
+    if table.isMember(snd.primary_aff, "blood_curse") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_curse"))
+    end
+    if table.isMember(snd.primary_aff, "blood_poison") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_poison"))
+    end 
+    if table.isMember(snd.primary_aff, "blood_rune") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_rune"))
+    end 
+  elseif gmcp.Char.Status.spec == "Il'ahji" then
+    if table.isMember(snd.primary_aff, "feast") then
+          table.remove(snd.primary_aff, table.index_of(table, "feast"))
+    end  
+    if table.isMember(snd.primary_aff, "blood_curse") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_curse"))
+    end
+    if table.isMember(snd.primary_aff, "blood_rune") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_rune"))
+    end 
+  elseif gmcp.Char.Status.spec == "Naarak" then
+    if table.isMember(snd.primary_aff, "feast") then
+          table.remove(snd.primary_aff, table.index_of(table, "feast"))
+    end  
+    if table.isMember(snd.primary_aff, "blood_poison") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_poison"))
+    end    
+  else
+    if table.isMember(snd.primary_aff, "feast") then
+          table.remove(snd.primary_aff, table.index_of(table, "feast"))
+    end 
+    if table.isMember(snd.primary_aff, "blood_poison") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_poison"))
+    end 
+    if table.isMember(snd.primary_aff, "blood_curse") then
+        table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "blood_curse"))
+    end  
+  end
+end
+
+function snd.akkari_attend()
+  if gmcp.Char.Status.spec == "Il'ahji" or gmcp.Char.Status.spec == "Naarak" or snd.can_attend == false then
+    if table.isMember(snd.secondary_aff, "hearing") then
+      table.remove(snd.secondary_aff, table.index_of(snd.secondary_aff, "hearing"))
+    end
+    if table.isMember(snd.secondary_aff, "sight") then
+      table.remove(snd.secondary_aff, table.index_of(snd.secondary_aff, "sight"))
+    end
+  end
+end
+
+
+function snd.can_deliver()
+  if snd.checkSomeAffs({"paralysis", "paresis", "right_arm_broken", "left_arm_broken", "right_leg_broken", "left_leg_broken", "haemophilia", "asthma", "impairment", "clumsiness", "vomiting", "sensitivity", "ringing_ears", "lethargy", "blood_poison", "blood_curse", "crippled_throat", "slough", "disfigurement", "blisters", "lightwound", "ablaze", "hypothermia", "shivering", "frozen", "limp_veins", "rend", "exhausted", "allergies", "addiction", "hypersomnia", "heartflutter", "whiplash", "backstrain", "sore_wrist", "sore_ankle", "burnt_eyes", "blurry_vision", "migraine", "deadening", "ice_encased",}, 1) 
+  and snd.proned()
+  then
+    return true
+  else
+    return false
+  end
+end
+
+
+
+function snd.akkari_behead()
+  if snd.target_locked() and snd.checkSomeAffs({"disrupted", "writhe_transfixed",}, 2)
+  then 
+    return true
+  else 
+    return false
+  end
+
+end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
