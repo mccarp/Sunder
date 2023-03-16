@@ -33357,7 +33357,7 @@ snd.akkari_attend()
     string = "order loyals attack "..snd.target..snd.sep..string
     end
     
-    string  = "contemplate "..snd.target..snd.sep..string..snd.sep.."quickassess "..snd.target
+    string  = "contemplate "..snd.target..snd.sep..string..snd.sep
  
     if fcall ~= "" then
       call = "wt "..fcall
@@ -33940,7 +33940,7 @@ snd.akkari_attend()
     string = "order loyals attack "..snd.target..snd.sep..string
     end
     
-    string  = "contemplate "..snd.target..snd.sep..string..snd.sep.."quickassess "..snd.target
+    string  = "contemplate "..snd.target..snd.sep..string
     
     
     if fcall ~= "" then
@@ -34244,7 +34244,7 @@ snd.akkari_attend()
     string = "order loyals attack "..snd.target..snd.sep..string
     end
     
-    string  = "contemplate "..snd.target..snd.sep..string..snd.sep.."quickassess "..snd.target
+    string  = "contemplate "..snd.target..snd.sep..string..snd.sep
     
     if fcall ~= "" then
       call = "wt "..fcall
@@ -39077,8 +39077,6 @@ function snd.attack_function()
   if not table.isMember(gmcp.Room.Info.details, "fogged") then
     string = "fog inundate"
   end
-  
-    string = string..snd.sep.."quickassess "..snd.target
   
   
   if string ~= snd.last_attack and not snd.waiting.queue then
@@ -70011,10 +70009,10 @@ end</script>
                  snd.target_got("recklessness")
                 end,
     Remorse = function(target)
-                 snd.target_got("Remorse")
+                 snd.target_got("remorse")
                 end,
     Contrition = function(target)
-                 snd.target_got("Contrition")
+                 snd.target_got("contrition")
                 end,
     Disrupt = function(target, failure)
                 if not failure then
