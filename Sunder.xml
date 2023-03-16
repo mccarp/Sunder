@@ -33256,9 +33256,9 @@ snd.akkari_attend()
 
   if table.isMember(snd.censure_affs, gashaff[1]) then
       if gashaff[1] == "sight" then
-     	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
       else
-    	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
+    	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
       fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
   elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
@@ -33850,9 +33850,9 @@ snd.akkari_attend()
 
   if table.isMember(snd.censure_affs, gashaff[1]) then
       if gashaff[1] == "sight" then
-     	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
       else
-    	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
+    	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
       fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
   elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
@@ -34152,9 +34152,9 @@ snd.akkari_attend()
 
   if table.isMember(snd.censure_affs, gashaff[1]) then
       if gashaff[1] == "sight" then
-     	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
       else
-    	pattack = "wipe "..snd.templar_weapon_2h..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
+    	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
       fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
   elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
@@ -70777,9 +70777,6 @@ snd.can_proclaim = true
 snd.can_crusade = true
 snd.passion_active = false
 snd.can_inquisition = true
-
---THIS WEAPON IS FOR CENSURE, MAKE SURE YOU DEFINE IT OTHERWISE YOU WILL BE USING XAVIN'S BASTARD SWORD
-snd.templar_weapon_2h = "296670" 
 
 snd.secondary_aff = {}
 
