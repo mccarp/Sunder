@@ -17406,66 +17406,6 @@ send("wt " ..matches[2].. " STUNNED with ANGUISH!")
 							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Vamp</name>
-							<script></script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList />
-							<regexCodePropertyList />
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Rune activation</name>
-								<script>if matches[2] == snd.target then
-  snd.target_cured("blood_rune")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^You place your palms together, willing the rune placed on (\w+)'s soul to activate\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>akkari anxieties</name>
-								<script>if matches[2] == snd.target then
-  snd.target_got(matches[3])
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^Terror consumes (\w+) as the pitiless light inspires (self-pity|sadness|hubris|commitment fear) in .+ heart\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-						</TriggerGroup>
-						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Wayfarer</name>
 							<script></script>
 							<triggerType>0</triggerType>
@@ -18169,6 +18109,7 @@ end</script>
 								<name>Rune activation</name>
 								<script>if matches[2] == snd.target then
   snd.target_cured("blood_rune")
+  snd.runeused = false
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -18183,6 +18124,30 @@ end</script>
 								<regexCodeList>
 									<string>^You place your palms together, willing the rune placed on (\w+)'s soul to activate\.$</string>
 									<string>^You declare that all shall know of (\w+)'s villainy, and incite the brand you have placed to consume.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Pariah / Runed used or times up</name>
+								<script>if matches[2] == snd.target  or matches[2] == "yourself" then
+	snd.runeused = false
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You feel the rune placed on (\w+)'s soul grow weaker before dispersing in a plume of foul smoke.$</string>
+									<string>^The brand of the pariah you had placed upon (\w+) fades from your awareness.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -65631,6 +65596,10 @@ snd.gravity = 0
 --Sentinel
 snd.my_raloth = ""
 
+--Akkari
+snd.runeused = false
+
+
 --Archivest
 snd.my_token = ""
 snd.empowerready = false
@@ -68145,8 +68114,9 @@ end</script>
              snd.target_got("blood_poison")
           end,
           
-  Rune = function(target)
+  Rune = function(target)            
             snd.target_got("blood_rune")
+	          snd.runeused = true
         end,
     },
 --Archivist
@@ -70087,6 +70057,7 @@ end</script>
           end,
   Pariah = function(target)
             snd.target_got("blood_rune")
+	          snd.runeused = true
         end,
   Exsanguinate = function(target)
           snd.target_got("effused_blood")
