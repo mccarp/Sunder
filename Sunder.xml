@@ -33256,7 +33256,7 @@ snd.akkari_attend()
 
   if table.isMember(snd.censure_affs, gashaff[1]) then
       if gashaff[1] == "sight" then
-     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lenient "..snd.effects[gashaff[1]]..snd.sep
       else
     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
@@ -33850,7 +33850,7 @@ snd.akkari_attend()
 
   if table.isMember(snd.censure_affs, gashaff[1]) then
       if gashaff[1] == "sight" then
-     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lenient "..snd.effects[gashaff[1]]..snd.sep
       else
     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
@@ -34152,7 +34152,7 @@ snd.akkari_attend()
 
   if table.isMember(snd.censure_affs, gashaff[1]) then
       if gashaff[1] == "sight" then
-     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lightly "..snd.effects[gashaff[1]]..snd.sep
+     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." lenient "..snd.effects[gashaff[1]]..snd.sep
       else
     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
