@@ -66320,7 +66320,7 @@ function snd.sciomancer_bash()
       end
     else
       if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 then
-       battack = battack..snd.sep.."spiritpack despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target
+       battack = battack..snd.sep.."spiritpact despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target
       else
        battack = "hex malady " ..snd.bashing.target
       end
