@@ -29042,8 +29042,10 @@ end</script>
 							<string>^(\w+) uses Purification Resurgence\.$</string>
 							<string>^(\w+) uses Deathlore Substitute\.$</string>
 							<string>^(\w+) uses Necromancy Soulcage\.$</string>
+							<string>^(\w+) uses Oneiromancy Remembrance\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -69204,7 +69206,7 @@ function snd.checksomeAffs(afflictions, number)
   end
 end
 
-function snd.pendulum()
+function snd.pendulum(direction)
   local pendulum_table =
       {
         ["left arm"] = {["clockwise"] = "right arm", ["anti-clockwise"] = "left leg"},
@@ -69908,7 +69910,7 @@ end</script>
             --not used by base sunder but some may want it available 
             end,
   Pendulum = function(target, direction)
-              snd.pendulum()
+              snd.pendulum(direction)
             end,
   },
   
@@ -70036,7 +70038,7 @@ end</script>
             --not used by base sunder but some may want it available 
             end,
   Bedevil = function(target, direction)
-              snd.pendulum()
+              snd.pendulum(direction)
             end,
   },
   
@@ -72949,6 +72951,9 @@ end</script>
                     snd.target_got("writhe_web")
                   end
                 end,
+      Tailstrike = function(target)
+                snd.onHit2({"Dodge"})
+              end,
   },
 ["Aetherial"] = {
  Beam = function(target)
