@@ -95,7 +95,7 @@ if snd.bashing_loaded or snd.toggles.fastwalk then
 
   if snd.new.room and (snd.toggles.fasthunt or snd.toggles.fastwalk) then
     snd.ylem_check = false
-    if bot.going and (snd.pathing or mmp.speedWalkCounter ~= 0) then
+    if bot.going and (snd.pathing or (mmp.speedWalkCounter and mmp.speedWalkCounter or speedWalkCounter) ~= 0) then
       return
     end
 
@@ -9169,7 +9169,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>thunderbrand proc - hema</name>
 									<script>if matches[2] == snd.target  then
-  snd.target_got("thunderbrand")
+  snd.target_got("excess_melancholic")
 end
 </script>
 									<triggerType>0</triggerType>
