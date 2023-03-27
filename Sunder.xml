@@ -73831,7 +73831,7 @@ end
 
 
 function snd.can_deliver()
-  if snd.checkSomeAffs({"paralysis", "paresis", "right_arm_broken", "left_arm_broken", "right_leg_broken", "left_leg_broken", "haemophilia", "asthma", "impairment", "clumsiness", "vomiting", "sensitivity", "ringing_ears", "lethargy", "blood_poison", "blood_curse", "crippled_throat", "slough", "disfigurement", "blisters", "lightwound", "ablaze", "hypothermia", "shivering", "frozen", "limp_veins", "rend", "exhausted", "allergies", "addiction", "hypersomnia", "heartflutter", "whiplash", "backstrain", "sore_wrist", "sore_ankle", "burnt_eyes", "blurry_vision", "migraine", "deadening", "ice_encased",}, 1) 
+  if snd.checksomeAffs({"paralysis", "paresis", "right_arm_broken", "left_arm_broken", "right_leg_broken", "left_leg_broken", "haemophilia", "asthma", "impairment", "clumsiness", "vomiting", "sensitivity", "ringing_ears", "lethargy", "blood_poison", "blood_curse", "crippled_throat", "slough", "disfigurement", "blisters", "lightwound", "ablaze", "hypothermia", "shivering", "frozen", "limp_veins", "rend", "exhausted", "allergies", "addiction", "hypersomnia", "heartflutter", "whiplash", "backstrain", "sore_wrist", "sore_ankle", "burnt_eyes", "blurry_vision", "migraine", "deadening", "ice_encased",}, 1) 
   and snd.proned()
   then
     return true
@@ -73843,7 +73843,7 @@ end
 
 
 function snd.akkari_behead()
-  if snd.target_locked() and snd.checkSomeAffs({"disrupted", "writhe_transfixed",}, 2)
+  if snd.target_locked() and snd.checksomeAffs({"disrupted", "writhe_transfixed",}, 2)
   then 
     return true
   else 
