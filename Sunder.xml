@@ -6053,7 +6053,10 @@ if snd.target == matches[5] and snd.all_class_attacks[matches[3]] ~= nil then
     snd.skill_being_used = matches[4]
   end
 end
-</script>
+
+if matches[2] == snd.target and matches[5] == "You" then
+  snd.used.rebounding = false
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -6090,7 +6093,10 @@ end
   end
   snd.getting_hit = matches[6]
 end
-</script>
+
+if matches[2] == snd.target and matches[6] == "You" then
+  snd.used.rebounding = false
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -6117,7 +6123,10 @@ end
     snd.skill_being_used = matches[4]
   end
 end
-</script>
+
+if matches[2] == snd.target and matches[6] == "You" then
+  snd.used.rebounding = false
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -6144,7 +6153,11 @@ end
     snd.skill_being_used = matches[4]
   end
 end
--- This might be only Hew and if so it's a pain in the ass.</script>
+-- This might be only Hew and if so it's a pain in the ass.
+
+if matches[2] == snd.target and matches[6] == "You" then
+  snd.used.rebounding = false
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -6225,7 +6238,10 @@ end</script>
     snd.skill_being_used = matches[4]
   end
 end
-</script>
+
+if matches[2] == snd.target and matches[7] == "You" then
+  snd.used.rebounding = false
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
