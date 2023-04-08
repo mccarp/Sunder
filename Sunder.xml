@@ -16407,7 +16407,7 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Mystify secondary affs</name>
 										<script>if matches[2] == snd.target then
-  snd.target_got(matches[3])
+  snd.target_got(matches[6])
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -16420,7 +16420,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(.*) stops short as something steals .* attention, (\w+) expression momentarily mystified as .* is afflicted with (.*)\.$</string>
+											<string>^(.*) stops short as something steals (the )?\w+ attention, (the )?\w+ expression momentarily mystified as (the )?\w+ is afflicted with (.*)\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -16679,6 +16679,28 @@ end</script>
 										<regexCodePropertyList>
 											<integer>3</integer>
 											<integer>3</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Darkness Aff</name>
+										<script>if matches[2] == snd.target then
+  snd.target_got(matches[4])
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(.*) airs a shuddering whimper as the pressing darkness afflicts (the )?\w+ with (.*)\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
 								</TriggerGroup>
@@ -19650,16 +19672,21 @@ end</script>
   snd.target_cured("slickness")
   if not snd.checkAff("burnt_skin") then
     if matches[4] == "epidermal" then
+      snd.target_last_used_salve = "epidermal"
       if matches[6] == "head" then
-        snd.target_used("epidermal_head")
+        if snd.checksomeAffs({"stuttering","blurry_vision","indifference","sight"}, 1) then
+          snd.target_used("epidermal_head")
+        else
+          snd.target_got("sight")
+        end
       elseif matches[6] == "torso" then
         snd.target_used("epidermal_torso")
       elseif matches[6] == "skin" then
         snd.target_used("epidermal")
       end
     else
-      snd.target_used(matches[4])
-    end
+      snd.target_used(matches[4])    
+	  end
   end
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
   deleteFull()
@@ -40527,126 +40554,6 @@ end</script>
 								<regex>^aff$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>Sorta 1v1 Build</name>
-								<script>if snd.class == "Runecarver" then
-snd.starting_attack()
-function snd.attack_function()
- local string = ""
- if not snd.waiting.queue then
- 
- local shadestring = "order myconid kill "..snd.target..snd.sep
- 
- local shadowprice = tonumber(gmcp.Char.Vitals.spiritpact)
- 
-		local total_aff_count = 0
-    for aff in pairs(snd.all_affs) do
-        if table.contains(snd.target_has, snd.all_affs[aff]) then
-            total_aff_count = total_aff_count + 1
-        end
-    end
- 
- local scourgecount = 0 
-   for aff in pairs(snd.scourge_affs) do
-     if table.contains(snd.target_has, snd.scourge_affs[aff]) then
-       scourgecount = scourgecount + 1
-     end
-   end
-
-	if tonumber(snd.repay) &lt; 2 and hp &gt; 60 and shadowprice &gt; 0 then
-		string = string.."hex obeisance" ..snd.sep
-	end 
-
- 
-	if snd.used.shield then
-		if shadowprice &lt; "2" then
-   		string = string.."spiritpact imperil "..snd.target..snd.sep
-		elseif snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-			string = string.."spiritpact imperil "..snd.target..snd.sep
-		else
-			string = string.."hex imperil "..snd.target
-		end
-	
-	elseif not snd.checkAff("inoculated") and gmcp.Char.Vitals.morass ~= "" then
-		string = string..shadestring.."spore inoculate "..snd.target..snd.sep
-	elseif snd.gravity == 0 and gmcp.Char.Vitals.morass ~= "" and not snd.checkAff("fungal_invasion") then
-		string = string..shadestring.."spore ensnare "..snd.target..snd.sep
-	elseif snd.gravity &gt;= 0 and gmcp.Char.Vitals.morass ~= "" and not snd.checkAff("fungal_invasion") then
-		string = string..shadestring.."spore infect "..snd.target..snd.sep
-	elseif not snd.checkAff("rot_benign") then
-		if snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-			string = string.."spiritpact revile " ..snd.target..snd.sep
-		elseif shadowprice &lt; "3" then
-			string = string.."spiritpact revile " ..snd.target..snd.sep
-		else
-			string = string.."hex revile " ..snd.target..snd.sep
-		end
-	elseif not snd.checkAff("sight") and not snd.checkAff("voidgaze") then
-		if snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-			string = string.."spiritpact mystify " ..snd.target..snd.sep
-		elseif shadowprice &lt; "3" then
-			string = string.."spiritpact mystify " ..snd.target..snd.sep
-		end
-	elseif snd.balance.shadowsphere and not snd.checkAff("woe_curse") and total_aff_count &gt; 4 then
-		if snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-			string = string.."spiritpact woe " ..snd.target..snd.sep
-		elseif shadowprice &lt; "3" then
-			string = string.."spiritpact woe " ..snd.target..snd.sep
-		else
-			string = string.."hex woe " ..snd.target..snd.sep
-		end
-	elseif not snd.checkAff("gloom") then
-		if snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-			string = string..shadestring.."spiritpact despair "..snd.target
-		elseif shadowprice &lt; "3" then
-			string = string..shadestring.."spiritpact despair "..snd.target	
-		else
-			string = string..shadestring.."hex despair "..snd.target
-		end
-	elseif scourgecount &lt; 5 and snd.checkAff("woe_curse") then
-		if snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-			string = string.."spiritpact jinx " ..snd.target..snd.sep
-		elseif shadowprice &lt; "3" then
-			string = string.."spiritpact jinx " ..snd.target..snd.sep
-		else
-			string = string.."hex jinx " ..snd.target..snd.sep
-		end
-	elseif snd.checksomeAffs({"haemophilia", "nyctophobia"}, 2) then
-		if not snd.checksomeAffs({"dementia", "exhausted"}, 1) then
-			if snd.defenses.def_hex_preservation.state == "deffed" and shadowprice &lt; "4" then
-				string = string.."spiritpact anathemise " ..snd.target..snd.sep
-			elseif shadowprice &lt; "3" then
-				string = string.."spiritpact anathemise " ..snd.target..snd.sep
-			else
-				string = string.."hex anathemise " ..snd.target..snd.sep
-			end
-		else
-			string = string.."hex anathemise " ..snd.target..snd.sep
-		end
-	elseif not snd.checksomeAffs({"vomiting", "haemophilia"}, 1) then
-		string = string.."hex malady "..snd.target
-	elseif not snd.checksomeAffs({"clumsiness", "paresis"}, 1) then
-		string = string.."hex enervate "..snd.target
-	elseif snd.checkAff("sight") and not snd.checkAff("mystified") then
-		string = string.."hex mystify " ..snd.target..snd.sep
-	else
-		string = string.."hex enervate " ..snd.target..snd.sep
-	end
-	
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
- end
-end
-snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^kll$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
 								<name>Group Aff</name>
 								<script>if snd.class == "Runecarver" then
   snd.starting_attack()
@@ -50111,6 +50018,7 @@ snd.priorities =
     "def_hex_stalk",
     "def_hex_preservation",
     "def_ironbark",
+    "def_selfishness",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -51054,6 +50962,7 @@ def_overwatch = {defense = "overwatch", type = "normal", effect = "See items in 
 def_divine_speed = {defense = "divine_speed", type = "normal", effect = "Faster movement through Divine Grace", balance = {balanceequilibriumtake = "grace"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_hypersight = {defense = "hypersight", type = "normal", effect = "see through shenanigans", balance = {needyequilibriumtake = "hypersight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_lifevision = {defense = "lifevision", type = "normal", effect = "See all things living, sometimes identify illusions.", balance = {balanceequilibriumtake = "lifevision"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifevision" },
+def_selfishness = {defense = "selfishness", type = "MediumSpringGreen", effect = "Too selfish to put valuables at risk.", balance ={balanceequilibriumtake = "selfishness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 --Ylem
 def_amber_orb = {defense= "amber_orb", type = "ansi_light_yellow", effect = "5% increase in experience", balance = {special = "activate amber orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -51772,6 +51681,7 @@ end</script>
   ["The Broodmother's secrecy masks your steps."] = "hex_stalk",
   ["The Warden's blessing preserves you."] = "hex_preservation",
   ["Phantasmal ironbark girds your form."] = "ironbark",
+  ["You are feeling quite selfish."] = "selfishness",
 
 }
  </script>
@@ -68755,7 +68665,6 @@ focus = {
 "peace",
 "paranoia",
 "hallucinations",
-"stuttering",
 "dizziness",
 "indifference",
 "berserking",
@@ -69046,13 +68955,15 @@ function snd.target_used(curative)
       for i in pairs(snd.target_has) do
         if snd.target_has[i] == snd.cures[curative][affliction] and not aff_found then
           if curative == "panacea" then
-            if snd.cures[curative][affliction] == "rot_body" then
+            if snd.cures[curative][affliction] == "rot_body" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
+              snd.target_cured("rot_body")
+            elseif snd.cures[curative][affliction] == "rot_wither" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
               snd.target_cured("rot_wither")
-            elseif snd.cures[curative][affliction] == "rot_wither" then
+            elseif snd.cures[curative][affliction] == "rot_heat" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
               snd.target_cured("rot_heat")
-            elseif snd.cures[curative][affliction] == "rot_heat" then
+            elseif snd.cures[curative][affliction] == "rot_spirit" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
               snd.target_cured("rot_spirit")
-            elseif snd.cures[curative][affliction] == "rot_spirit" then
+            elseif snd.cures[curative][affliction] == "rot_benign" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
               snd.target_cured("rot_benign")
             end
             snd.target_cured(snd.cures[curative][affliction])
@@ -71169,7 +71080,7 @@ end</script>
                 end,
       Gloom = function(target)
                 snd.target_got("gloom")
-              	if table.contains(gmcp.Room.Info.details, "darkness") == true then
+              	if table.contains(gmcp.Room.Info.details, "darkness") then
               		snd.target_got("nyctophobia")
                 end  
               end,
@@ -73276,7 +73187,7 @@ end</script>
                 end,
       Despair = function(target)
                 snd.target_got("gloom")
-              	if table.contains(gmcp.Room.Info.details, "darkness") == true then
+              	if table.contains(gmcp.Room.Info.details, "darkness") then
               		snd.target_got("nyctophobia")
                 end  
               end,
@@ -73341,7 +73252,7 @@ end</script>
             	snd.message("&lt;red&gt;Fungal Total: &lt;white&gt;"..snd.gravity)
             end
           end,
-    Infect = function(target)
+    Inoculation = function(target)
                snd.target_got("inoculated") -- imbued
              end,
   },
