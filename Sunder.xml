@@ -29999,7 +29999,7 @@ cecho("\n&lt;DeepSkyBlue&gt;PK                    &lt;ForestGreen&gt;Playerkilli
 cecho("\n&lt;DeepSkyBlue&gt;Defenses              &lt;ForestGreen&gt;How to upkeep, turn on/off and customize defenses.")
 cecho("\n&lt;DeepSkyBlue&gt;Ylem                  &lt;ForestGreen&gt;Finding minors and other ylem based information.")
 cecho("\n&lt;DeepSkyBlue&gt;Utilities             &lt;ForestGreen&gt;Vermin, fishing, shops, questing and more.")
-cecho("\n")
+cecho("\n&lt;DeepSkyBlue&gt;War                   &lt;ForestGreen&gt;Helpful aliases for handling war divisions")
 cecho("\n&lt;ForestGreen&gt;Each above entry will point you toward more specific items in each section as needed.")
 cecho("\n")
 cecho("\n&lt;ForestGreen&gt;Use &lt;DeepSkyBlue&gt;sunder help &lt;subject&gt; &lt;ForestGreen&gt;to navigate through everything else.")
@@ -46563,6 +46563,77 @@ end</script>
 						</Alias>
 					</AliasGroup>
 				</AliasGroup>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>War</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Set Division</name>
+					<script>snd.current_division = matches[2]
+snd.message("Current Division is "..matches[2], "atk")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war division (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>March Troops</name>
+					<script>snd.send("order "..snd.current_division.." march " .. matches[2])
+snd.send("qeb " .. matches[2]..snd.sep.."path find "..snd.marching_destination)
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^mt (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Set March Destination</name>
+					<script>snd.marching_destination = matches[2]
+snd.message("New troop destination is: "..matches[2], "atk")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war destination (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Fortify</name>
+					<script>snd.send("order " .. snd.current_division .. " fortify")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war fort$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Attack Division</name>
+					<script>snd.send("order " .. snd.current_division .. " attack "..matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war kill (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Division</name>
+					<script>snd.send("order "..snd.current_division.." "..matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war order (.*)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Sunder Help War</name>
+					<script>cecho("\n&lt;CadetBlue&gt;Sunder War")
+cecho("\n&lt;MediumSeaGreen&gt;---------------")
+cecho("\n")
+cecho("\n&lt;MediumTurquoise&gt;The commands are as follows")
+cecho("\n")
+cecho("\n&lt;DeepSkyBlue&gt;war division &lt;divisionNumber&gt;  &lt;ForestGreen&gt;Set your tracked division")
+cecho("\n&lt;DeepSkyBlue&gt;war destination &lt;vNum&gt;         &lt;ForestGreen&gt;Set the room number for your division's destination")
+cecho("\n&lt;DeepSkyBlue&gt;mt &lt;dir&gt;                       &lt;ForestGreen&gt;March division in direction")
+cecho("\n&lt;DeepSkyBlue&gt;war kill &lt;enemyDivision&gt;       &lt;ForestGreen&gt;Start the slaughter")
+cecho("\n&lt;DeepSkyBlue&gt;war fort                       &lt;ForestGreen&gt;Order your division to fortify")
+cecho("\n&lt;DeepSkyBlue&gt;war order &lt;order&gt;              &lt;ForestGreen&gt;General catchall, will order your division anything you give it")
+cecho("\n&lt;DeepSkyBlue&gt;War package created by &lt;purple&gt;Teflin Vyktaire")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^(S|s)under (H|h)elp (W|w)ar$</regex>
+				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Vermin</name>
@@ -76247,7 +76318,7 @@ end</script>
 			</KeyGroup>
 		</KeyGroup>
 	</KeyPackage>
-	<HelpPackage>
-		<helpURL></helpURL>
-	</HelpPackage>
+	<VariablePackage>
+		<HiddenVariables />
+	</VariablePackage>
 </MudletPackage>
