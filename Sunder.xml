@@ -565,7 +565,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>not hiding</name>
-								<script>snd.def_remove("def_hiding")</script>
+								<script>snd.def_remove("hiding")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -766,7 +766,7 @@ send("firstaid on")</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Chameleon fade</name>
-								<script>snd.def_remove("def_chameleon")</script>
+								<script>snd.def_remove("chameleon")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -7193,6 +7193,32 @@ end</script>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>reflection down</name>
+								<script>snd.def_remove("reflection")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>One of your reflections has been destroyed!</string>
+									<string>All your reflections wink out of existence!</string>
+									<string>Your reflection defence has been stripped.</string>
+									<string>One of your reflections has been destroyed! You have 0 left.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -16116,7 +16142,8 @@ end</script>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Branch</name>
-										<script>snd.reflection_charge = snd.reflection_charge-1</script>
+										<script>snd.reflection_charge = snd.reflection_charge-1
+snd.def_gain("reflection")</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
@@ -16189,6 +16216,26 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>A wild flare of instinct fills your heart, the power of the reflective Branch rune returning to you.</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Branch on Someone Else</name>
+										<script>snd.reflection_charge = snd.reflection_charge-1</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^You use Runecarving Branch on (\w+).$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -16703,7 +16750,71 @@ end</script>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Already has rot</name>
+										<script>if matches[2] == snd.target then
+	 	snd.target_got("rot_benign")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+) is already affected by the rot.$</string>
+											<string>^(\w+) already suffers the effects of a wasting curse.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
 								</TriggerGroup>
+							</TriggerGroup>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Shared</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Sciomancy Repay / Maldeiction Obeisance</name>
+									<script>snd.repay = snd.repay + 1
+
+repay_timer = tempTimer(10.0,[[snd.repay = snd.repay - 1;;if snd.repay &lt; 0 then snd.repay = 0]])</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Sciomancy Repay.</string>
+										<string>You use Malediction Obeisance.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -25780,8 +25891,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^You use (Arcanism|Sorcery) Reflection.$</string>
+								<string>^You use Artifact Reflection Wand on (\w+).$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -44840,7 +44953,7 @@ end
 							<packageName></packageName>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
-								<name>Afflictions</name>
+								<name>Group Affliction</name>
 								<script>if snd.class == "Sciomancer" then
   snd.starting_attack()
     function snd.attack_function()
@@ -44908,6 +45021,56 @@ end
      end
   end
   snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gaff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Afflictions</name>
+								<script>if snd.class == "Sciomancer" then
+snd.starting_attack()
+function snd.attack_function()
+ local string = ""
+ if not snd.waiting.queue then
+	if snd.used.shield then
+   	string = string.."cast hew "..snd.target
+  elseif not snd.checkAff("gloom") then
+		if hasSkill("Fever") then
+			if gmcp.Char.Vitals.shadowprice &lt; "2" then
+				string = string.."shadowprice gloom "..snd.target..snd.sep.."cast fever "..snd.target
+			else
+				string = string.."cast gloom "..snd.target
+			end
+		else
+			if gmcp.Char.Vitals.shadowprice &lt; "2" then
+				string = string.."shadowprice gloom "..snd.target
+			else
+				string = string.."cast gloom "..snd.target
+			end
+		end
+	elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 1) then
+		if gmcp.Char.Vitals.shadowprice &lt; "2" then
+			string = string.."shadowprice ruin "..snd.target
+		else
+			string = string.."cast ruin "..snd.target
+		end
+  elseif snd.checkAff("sight") and not snd.checkAff("voidtrapped") then
+		string = string.."cast voidgaze " ..snd.target..snd.sep
+	elseif not snd.checksomeAffs({"vomiting", "haemophilia"}, 1) and hasSkill("Fever") then
+		string = string.."cast fever "..snd.target
+  else
+   	string = string.."cast scourge "..snd.target
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
@@ -44982,6 +45145,52 @@ snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
+								<regex>^gdmg$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Basic Damage</name>
+								<script>if snd.class == "Sciomancer" then
+snd.starting_attack()
+function snd.attack_function()
+ local string = ""
+ if not snd.waiting.queue then
+	if snd.used.shield then
+   	string = string.."cast hew "..snd.target
+  elseif snd.checkAff("writhe_transfix") then
+		if not snd.checkAff("gloom") then
+			if hasSkill("Fever") then
+				if gmcp.Char.Vitals.shadowprice &lt; "2" then
+					string = string.."shadowprice gloom "..snd.target..snd.sep.."cast fever "..snd.target
+				else
+					string = string.."cast gloom "..snd.target
+				end
+			else
+				if gmcp.Char.Vitals.shadowprice &lt; "2" then
+					string = string.."shadowprice gloom "..snd.target
+				else
+					string = string.."cast gloom "..snd.target
+				end
+			end
+		end
+  else
+   		if hasSkill("Transfix") then
+				string = string.."cast transfix "..snd.target
+			else
+				string = string.."cast rot "..snd.target
+			end
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
 								<regex>^dmg$</regex>
 							</Alias>
 						</AliasGroup>
@@ -44993,6 +45202,61 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Limbs</name>
+								<script>if snd.class == "Sciomancer" then
+  snd.starting_attack()
+  function snd.attack_function()
+    local string = ""
+    if not snd.waiting.queue then
+      limbs = {"left leg", "right leg", "left arm", "right arm"}
+      for limb in pairs(limbs) do
+      -- ignore last hit and any limbs being resto'd
+        if
+          limbs[limb] ~= snd.last_hit_limb and
+          limbs[limb] ~= snd.resto_limb
+        then
+          if targ == "nothing" then
+            targ = limbs[limb]
+          end
+        end
+      end
+
+	if snd.used.shield then
+   string = string.."cast hew "..snd.target
+	elseif gmcp.Char.Vitals.singularity == "" then
+		if hasSkill("Genesis") then
+			string = string.."gravity genesis tether"
+		else
+			string = string.."gravity singularity"
+		end
+  elseif snd.gravity &lt; 5 then
+		string = string.."gravity grip "..snd.target
+  else
+		if not snd.checkAff(" broken"..targ) then
+			string = string.."gravity erupt "..snd.target..targ
+		else
+			if hasSkill("Transfix") then
+				string = string.."cast transfix "..snd.target
+			else
+				string = string.."cast chill "..snd.target
+			end
+		end
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^limbs$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Limbs</name>
 								<script>if snd.class == "Sciomancer" then
 snd.starting_attack()
 function snd.attack_function()
@@ -45030,7 +45294,7 @@ snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^limbs$</regex>
+								<regex>^glimbs$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -47934,7 +48198,6 @@ snd.mental_affs = {
 "peace",
 "paranoia",
 "hallucinations",
-"stuttering",
 "dizziness",
 "indifference",
 "berserking",
@@ -47958,6 +48221,58 @@ snd.mental_affs = {
 }
 
 snd.all_affs =  table.n_union(snd.physical_affs, snd.mental_affs, { "hypochondria",})
+
+snd.anxieties = {
+"sadness",
+"self_pity",
+"baldness",
+"commitment_fear",
+"body_odor",
+"hubris",
+"worrywart",
+"itchy",
+}
+
+snd.other_affs = {
+"stuttering",
+"hypochondria",
+"patterns",
+"stormtouched",
+"rot_body",
+"rot_wither",
+"rot_heat",
+"rot_spirit",
+"rot_benign",
+"idiocy",
+"plodding",
+"crippled",
+"crippled_body",
+"accursed",
+"agony",
+"superstition",
+"justice",
+"magnanimity",
+"thin_blood",
+"merciful",
+"shyness",
+"dissonance",
+"infested",
+"blighted",
+"misery",
+"hollow",
+"narcolepsy",
+"perplexed",
+"self_loathing",
+"aeon",
+"hellsight",
+"deadening",
+"withering",
+"squelched",
+"gloom",
+"muddled",
+}
+
+snd.real_all_affs =  table.n_union(snd.physical_affs, snd.mental_affs, snd.anxieties, snd.other_affs)
 
 snd.circle_affs = {
 "merciful",
@@ -50742,6 +51057,16 @@ function snd.aff_count_all()
   local aff_count = 0
   for aff in pairs(snd.all_affs) do
     if table.contains(snd.target_has, snd.all_affs[aff]) then
+      aff_count = aff_count + 1
+    end
+  end
+  return aff_count
+end
+
+function snd.real_aff_count_all()
+  local aff_count = 0
+  for aff in pairs(snd.real_all_affs) do
+    if table.contains(snd.target_has, snd.real_all_affs[aff]) then
       aff_count = aff_count + 1
     end
   end
@@ -65860,6 +66185,9 @@ function snd.bashing_function()
           for k,v in pairs(snd.class_list) do
             if snd.class_list[k].class == snd.class then
               v.func()
+              if snd.have_aff("shock") and hasSkill("Overdrive") then
+                battack = "overdrive"..snd.sep..battack..snd.sep.."recoup"..snd.sep
+              end
             end
           end
         end
@@ -66226,33 +66554,34 @@ function snd.sciomancer_bash()
  
  function snd.runecarver_bash()
     hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-  if hp &lt;=40 and snd.shield_check() then
+    
+    if hp &lt;=40 and snd.shield_check() then
       battack = "touch shield"..snd.sep.."recoup"
-  elseif hp &lt;= 40 and snd.shield_up() then
-  elseif hp &lt;= 60 then
-    if snd.reflection_charge &gt; 0 then
-      battack = "runecarve branch"..snd.sep.."recoup"
-    else
-      if snd.shield_check() then 
-        battack = "touch shield"..snd.sep.."recoup"
-      end
-    end
-  else
-    if table.contains(gmcp.Char.Defences.List, "hex_preservation") then
-      if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-        battack = "spiritpact despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target..snd.sep.."absorb ylem"
+    elseif hp &lt;= 40 and snd.shield_up() then
+    elseif hp &lt;= 60 then
+      if snd.reflection_charge &gt; 0 and not snd.defenses.def_reflection.state == "deffed" then
+        battack = "runecarve branch"..snd.sep.."recoup"
       else
-        battack = "hex malady " ..snd.bashing.target
+        if snd.shield_check() then 
+          battack = "touch shield"..snd.sep.."recoup"
+        end
       end
     else
-      if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 then
-       battack = battack..snd.sep.."spiritpact despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target
+      if table.contains(gmcp.Char.Defences.List, "hex_preservation") then
+        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+          battack = "spiritpact despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target..snd.sep.."absorb ylem"
+        else
+          battack = "hex malady " ..snd.bashing.target
+        end
       else
-       battack = "hex malady " ..snd.bashing.target
+        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 then
+          battack = battack..snd.sep.."spiritpact despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target
+        else
+          battack = "hex malady " ..snd.bashing.target
+        end
       end
     end
-  end
- end
+end
  
 function snd.revenant_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
@@ -68158,6 +68487,7 @@ snd.current_offense = ""
 
 --Sciomancer
 snd.gravity = 0
+snd.repay = 0
 
 --Sentinel
 snd.my_raloth = ""
@@ -68166,7 +68496,7 @@ snd.my_raloth = ""
 snd.runeused = false
 
 
---Archivest
+--Archivist
 snd.my_token = ""
 snd.empowerready = false
 snd.geoinvert = false
