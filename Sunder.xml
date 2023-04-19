@@ -14739,52 +14739,6 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Praenomen No Feed</name>
-								<script>if matches[2] == snd.target then
-	snd.target_cured("writhe_feed")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^Your feeding is suddenly interrupted as (\w+) writhes free of your embrace.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Praenomen Feeding</name>
-								<script>if matches[2] == snd.target then
-	snd.target_got("writhe_feed")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^Seeing your opportunity, you grab (\w+) and pull (the )?\w+ to you, tilting (the )?\w+ head back to expose soft flesh. Licking your lips in sordid anticipation, you bare your fangs and sink them luxuriously into the artery, savoring the release of sweet fluid. Raw pleasure overcomes you as the hot blood courses into your mouth.$</string>
-									<string>^Your senses tingle with excitement and rejuvenation as you suckle away the lifeblood of (\w+).$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Monk</name>
@@ -21972,6 +21926,258 @@ hitting = false</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Throat Rip</name>
+								<script>if matches[2] == snd.target then
+ snd.target_cured("writhe_necklock")
+ snd.jawlocked = false
+ snd.target_got("throatrip")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^With ruthless glee, you dig your fangs into (\w+)('s|') throat, tearing it to bloody ribbons.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Spleen Rip</name>
+								<script>if matches[2] == snd.target then
+ snd.target_cured("writhe_armpitlock")
+ snd.jawlocked = false
+ snd.target_got("spleenrip")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^With (\w+) at your mercy, you brutally slash open (.+) torso to gouge (.+) spleen out with your claws\.$</string>
+									<string>^You release your pin and instead thrust your jaws under (\w+)'s ribcage, biting into the sweet meat of \w+ spleen.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Groin Rip</name>
+								<script>if matches[2] == snd.target then
+ snd.target_cured("writhe_thighlock")
+ snd.jawlocked = false
+ snd.target_got("groinrip")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Ruthlessly pinning (\w+) down, you tear at the tender, exposed muscles of (the )?\w+ groin, ripping out meaty chunks of flesh\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>3p armpitlock</name>
+								<script>if matches[2] == snd.target then
+ snd.target_got("writhe_armpitlock")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Smelling weakness, \w+ snaps at the crook of (\w+)('s|') arm with (the )?\w+ mighty jaws, pinning \w to the ground.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>3p necklock</name>
+								<script>if matches[2] == snd.target then
+ snd.target_got("writhe_necklock")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^\w+ gives a short cry of victory and pins (\w+) to the ground by (the )?\w+ neck with(the )?\w+ powerful jaws.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>3p thighlock</name>
+								<script>if matches[2] == snd.target then
+ snd.target_got("writhe_thighlock")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Seeing (the )?\w+ prey helpless, (the )?\w+ grabs the inner thigh of (\w+) within (the )?\w+ mighty jaws, pinning (the )?\w+ to the ground\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Groinrip</name>
+								<script>if matches[2] == snd.target then
+ snd.target_cured("writhe_thighlock")
+ snd.jawlocked = false
+ snd.target_got("groinrip")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Ruthlessly pinning (\w+) down, you tear at the tender, exposed muscles of (the )?\w+ groin, ripping out meaty chunks of flesh\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Lock gone</name>
+								<script>if matches[2] == "thigh" then
+ 	  snd.target_cured("writhe_thighlock")
+  elseif matches[2] == "armpit" then
+    snd.target_cured("writhe_armpitlock")
+  elseif matches[2] == "neck" then
+    snd.target_cured("writhe_necklock")
+  end
+ 	snd.jawlocked = false</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You must have your teeth locked on that person's (.+) to be able to rip into their .+\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Failed skullcrush</name>
+								<script>if snd.proned() and table.contains(snd.target_has, "head_broken") then
+  snd.target_cured("head_broken")
+elseif snd.proned() and not table.contains(snd.target_has, "head_broken") then
+  snd.target_cured("fallen")
+else
+  snd.target_cured("head_broken")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You cannot crush the skull of a foe unless they have fallen and are suffering from head trauma\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Jawlock TICK Confirm</name>
+								<script>local RipCheck = multimatches[2][2]
+
+if multimatches[2][3] == snd.target then
+  if RipCheck == "writhe_necklock" then
+    snd.target_got("writhe_necklock")
+    snd.jawlocked = true
+  elseif RipCheck == "writhe_armpitlock" then
+    snd.target_got("writhe_armpitlock")
+    snd.jawlocked = true
+  elseif RipCheck == "writhe_thighlock" then
+    snd.target_got("writhe_thighlock")
+    snd.jawlocked = true
+  end
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#ff0000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG3BG2</string>
+									<string>^You use Ferality (Thighlock|Armpitlock|Necklock) \(tick\) on (.+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>hit w/trauma</name>
@@ -25733,25 +25939,28 @@ end</script>
 						<name>got hit</name>
 						<script>local exclusions = {"Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = multimatches[2][3]
-if not table.contains(exclusions, skill) then
-  found_set = "none"
-  for set in pairs(snd.cureset_skills) do
-    if table.contains(snd.cureset_skills[set], skill) then
-      found_set = set
+
+  if not table.contains(exclusions, skill) then
+    found_set = "none"
+    for set in pairs(snd.cureset_skills) do
+      if table.contains(snd.cureset_skills[set], skill) then
+        found_set = set   
+      end
     end
-  end
-  if snd.class_hitting == "none" then --haven't seen anyone hit yet
-    if found_set == "none" then --skill isn't in class list
-      send("cureset switch general", false) --non-specific cureset
-    elseif snd.cureset ~= found_set then
-      send("cureset switch " .. found_set, false) --swap to class cureset
-      snd.class_hitting = found_set --note what class is hitting 
+    
+    if snd.class_hitting == "none" then --haven't seen anyone hit yet
+      if found_set == "none" then --skill isn't in class list
+        send("cureset switch general", false) --non-specific cureset
+      elseif snd.cureset ~= found_set then
+        snd.cureset = found_set -- because you may not have the cureset, go ahead and set it for usage
+        send("cureset switch " .. found_set, false) --swap to class cureset
+        snd.class_hitting = found_set --note what class is hitting
+      end      
+    elseif snd.class_hitting ~= found_set then --this is a second class hitting
+      snd.class_hitting = found_set
+      send("cureset switch group", false)
     end
-  elseif snd.class_hitting ~= found_set then --this is a second class hitting
-    snd.class_hitting = found_set
-    send("cureset switch group", false)
-  end
-  snd.person_hitting = multimatches[2][2]
+    snd.person_hitting = multimatches[2][2]
 
   if not table.contains(snd.people_hitting_me, multimatches[2][2]) then
     table.insert(snd.people_hitting_me, multimatches[2][2])
@@ -30732,7 +30941,7 @@ elseif snd.class == "Indorani" or snd.class == "Oneiromancer" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
 cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs! High Aeon/Hourglass prio.")
-elseif snd.class == "Praenomen" then
+elseif snd.class == "Praenomen" or snd.class == "Akkari" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
 cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
@@ -30741,6 +30950,7 @@ elseif snd.class == "Teradrim" or snd.class == "Tidesage" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
 cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
+cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Overall limb route")
 elseif snd.class == "Sciomancer" or snd.class == "Runecarver"  then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
@@ -32034,19 +32244,22 @@ end</script>
 snd.starting_attack()
 function snd.attack_function()
  if not snd.waiting.queue then
-  if snd.used.shield then
-   string = "combo "..snd.target.." sck ucp ucp"
-	elseif snd.proned() and not snd.checkAff("writhe_impaled") then
-	 string = "bbt "..snd.target
-	else
-	 string = "combo "..snd.target.." wwk ucp ucp"
-  end
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
+    if snd.used.shield then
+      string = "combo "..snd.target.." sck ucp ucp"
+    elseif (snd.checkAff("left_leg_broken") or snd.checkAff("right_leg_broken")) then
+      string = "swk "..snd.target
+    elseif snd.proned() and not snd.checkAff("writhe_impaled") then
+	    string = "bbt "..snd.target
+	  else
+	    string = "combo "..snd.target.." wwk ucp ucp"
+    end
+    
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
  end
 end
 snd.attack_function()
@@ -32054,6 +32267,209 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^head$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Limbs</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Limbs</name>
+								<script>-- NOTE: this is a route that is based off of another system's route and has potential to be 1v1, but needs work.
+
+if snd.class == "Monk" then
+
+  snd.starting_attack()
+  function snd.attack_function()
+
+    local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+    local kai = tonumber(gmcp.Char.Vitals.kai) 
+    local string = "" -- this will populate with our attack
+    local call = "" -- this will be for affliction calling
+
+    if not snd.waiting.queue then
+
+      limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
+      snd.giving = {"anorexia", "stupidity", "epilepsy", "deadening", "recklessness", "dizziness", "hallucinations"}
+      
+      if (snd.limb_dmg["head"] &gt; 33.33 or snd.limb_dmg["left leg"] &gt; 33.33 or snd.limb_dmg["right leg"] &gt; 33.33) and not snd.checkAff("stupidity") then 
+        snd.mindAffliction = "stupidity"
+	    elseif not snd.checkAff("confusion") and snd.checkAff("blackout") then 
+        snd.mindAffliction = "confuse"
+      elseif not snd.checkAff("paresis") or snd.checkAff("paralysis") then
+        snd.mindAffliction = "paralyse"
+	    else
+        snd.mindAffliction = "none"
+        for i in pairs(snd.giving) do
+          if not snd.checkAff(snd.giving[i]) then
+            if snd.mindAffliction == "none" then
+              snd.mindAffliction = snd.giving[i]
+            end
+          end
+        end    
+      end
+
+      if snd.used.shield then
+	       tekuraKick = "sck"
+      elseif snd.limb_dmg["head"] &gt;= 66.66 and snd.proned() and snd.resto_limb ~= "head" then
+		     tekuraKick = "axk"
+	    elseif snd.checkAff("head_mangled") and snd.proned() and snd.resto_limb ~= "head" then
+		     tekuraKick = "axk"
+	    elseif snd.stance ~= "bear" and snd.checksomeAffs({"left_arm_damaged", "right_arm_damaged"},2) and not snd.proned() then
+		     tekuraKick = "brs"
+	    elseif snd.stance ~= "dragon" and snd.stance ~= "scorpion" and not snd.checksomeAffs({"left_arm_damaged", "right_arm_damaged"},2) then
+		     tekuraKick = "drs"
+	    elseif not snd.proned() and ((snd.limb_dmg["left leg"] or snd.limb_dmg["right leg"]) &gt;= 33.33 or snd.checksomeAffs({"left_leg_damaged", "right_leg_damaged"},1)) and snd.cureset ~= "sentinel" then
+		     tekuraKick = "swk"
+	    elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) and not snd.checkAff("collapsed_lung") then
+		     tekuraKick = "cmk"
+	    elseif snd.proned() and snd.limb_dmg["left leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left leg" then
+		     tekuraKick = "wrt left leg"
+	    elseif snd.proned() and snd.limb_dmg["right leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right leg" then
+		     tekuraKick = "wrt right leg"
+	    elseif snd.proned() and snd.limb_dmg["left arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left arm" then
+		     tekuraKick = "wrt left arm"
+	    elseif snd.proned() and snd.limb_dmg["right arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right arm" then
+		     tekuraKick = "wrt right arm"
+	    elseif snd.proned() and not snd.checkAff("left_leg_broken") and cantBeParried() and snd.resto_limb ~= "left leg" then
+		     tekuraKick = "wrt left leg"
+	    elseif snd.proned() and not snd.checkAff("right_leg_broken") and cantBeParried() and snd.resto_limb ~= "right leg" then
+		     tekuraKick = "wrt right leg"
+	    elseif snd.proned() and not snd.checkAff("left_arm_broken") and cantBeParried() and snd.resto_limb ~= "left arm" then
+		     tekuraKick = "wrt left arm"
+	    elseif snd.proned() and not snd.checkAff("right_arm_broken") and cantBeParried() and snd.resto_limb ~= "right arm" then
+		     tekuraKick = "wrt right arm"		
+			elseif snd.resto_limb ~= "head" and snd.resto_limb ~= "none" and snd.parried_limb ~= "head" and not cantBeParried() then
+      	 tekuraKick = "wwk"
+	    elseif snd.limb_dmg["left leg"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" then
+		     tekuraKick = "snk left"
+	    elseif snd.limb_dmg["right arm"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "right arm") and snd.resto_limb ~= "right arm" then
+		     tekuraKick = "mnk right"			
+	    elseif snd.limb_dmg["left arm"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "left arm") and snd.resto_limb ~= "left arm" then
+		     tekuraKick = "mnk left"
+	    elseif snd.limb_dmg["right leg"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" then
+		     tekuraKick = "snk right"
+	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 then
+		     tekuraKick = "snk left"
+	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and snd.resto_limb ~= "left arm" and snd.limb_dmg["right arm"] &lt; 66.66 then
+		     tekuraKick = "mnk right"		
+	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and snd.resto_limb ~= "right arm" and snd.limb_dmg["left arm"] &lt; 66.66 then
+		     tekuraKick = "mnk left"
+	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 then
+		     tekuraKick = "snk right"
+	    else 
+		     tekuraKick = "wwk"
+      end
+
+      if snd.checkAff("numb_arms") and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+		     firstPunch = "hfp left"
+	    elseif snd.proned() and snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+		     firstPunch = "hfp left"
+	    elseif snd.checkAff("numb_arms") and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+		     firstPunch = "hfp right"
+	    elseif snd.proned() and snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+		     firstPunch = "hfp right"
+	    elseif snd.checkAff("numb_arms") and snd.resto_limb ~= "head" then
+		     firstPunch = "ucp"
+	    elseif (snd.cureset == "shifter" or snd.cureset == "praenomen") and not snd.checkAff("crippled_throat") and not snd.enemy_restoration_balance then
+		     firstPunch = "tsp"
+		  elseif snd.mindAffliction == "stupidity" and not snd.checkAff("dizziness") then
+		     firstPunch = "pmp"
+	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and not snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 and tekuraKick ~= "mnk left" then
+		     firstPunch = "spp left"
+	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and not snd.checkAff("left_leg_damaged") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 and tekuraKick ~= "snk left" then
+		     firstPunch = "hfp left"
+	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and not snd.checkAff("right_leg_damaged") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 and tekuraKick ~= "snk right" then
+		     firstPunch = "hfp right"
+	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and not snd.checkAff("right_arm_damaged") and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 and tekuraKick ~= "mnk right" then
+		     firstPunch = "spp right"
+	    elseif (cantBeParried() or snd.parried_limb ~= "head") and not snd.checkAff("head_damaged") and snd.resto_limb ~= "head" then
+		     firstPunch = "ucp"
+	    else
+		     firstPunch = "hkp"
+      end
+
+      if snd.checkAff("numb_arms") and not snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+		     secondPunch = "hfp left"
+	    elseif snd.proned() and snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+		     secondPunch = "hfp left"
+	    elseif snd.checkAff("numb_arms") and not snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+    	 	 secondPunch = "hfp right"
+	    elseif snd.proned() and snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+		     secondPunch = "hfp right"
+	    elseif snd.checkAff("numb_arms") and snd.resto_limb ~= "head" then
+		     secondPunch = "ucp"
+	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 then
+		     secondPunch = "hfp right"
+	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and snd.limb_dmg["right arm"] &lt; 33.33 and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 then
+		     secondPunch = "spp right"
+	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and snd.limb_dmg["left arm"] &lt; 33.33 and snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 then
+		     secondPunch = "spp left"
+	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 then
+		     secondPunch = "hfp left"
+	    elseif (cantBeParried() or snd.parried_limb ~= "head") and snd.resto_limb ~= "head" then
+		     secondPunch = "ucp"
+	    else
+		     secondPunch = "hkp"
+      end
+
+      if not snd.proned() then
+	       if hp &lt;= 35 and kai &gt;= 21 then 
+			     string = "kai heal"
+         elseif not snd.mindlocked and not snd.locking then
+           string = "mind lock "..snd.target
+		     elseif snd.used.shield then
+		       string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.." "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
+		     elseif not snd.checkAff("turmoil") then
+			     string = "blp "..snd.target
+			   elseif snd.limb_dmg["left leg"] &gt;= 33.33 and snd.limb_dmg["right leg"] &gt;= 33.33 and snd.limb_dmg["left arm"] &gt;= 33.33 and snd.limb_dmg["right arm"] &gt;= 33.33 and snd.limb_dmg["head"] &lt; 66.66 then 
+			     string = "combo "..snd.target.." wrt left leg ucp ucp "..snd.sep.."mind "..snd.mindAffliction.." "..snd.target
+		     elseif ((snd.limb_dmg["left arm"] &gt;= 26 and snd.limb_dmg["left arm"] &lt;= 33.33 and snd.resto_limb ~= "left arm") or (snd.limb_dmg["right arm"] &gt;= 26 and snd.limb_dmg["right arm"] &lt;= 33.33 and snd.resto_limb ~= "right arm") or (snd.limb_dmg["left leg"] &gt;= 26 and snd.limb_dmg["left leg"] &lt;= 33.33 and snd.resto_limb ~= "left leg") or (snd.limb_dmg["right leg"] &gt;= 26 and snd.limb_dmg["right leg"] &lt;= 33.33 and snd.resto_limb ~= "right leg")) and snd.balance.blackout and snd.mindlocked then
+			     string = "mind blackout"
+		     elseif kai &gt;= 70 and snd.stance == "scorpion" then
+			     string = "kai enfeeble "..snd.target
+		     elseif kai &gt;= 40 and snd.stance ~= "scorpion" and not snd.checkAff("left_arm_broken") and not snd.checkAff("right_arm_broken") and not snd.checkAff("right_leg_broken") and not snd.checkAff("left_leg_broken") and ((snd.checkAff("blackout") and snd.resto_limb ~= "none") or not snd.enemy_restoration_balance) and snd.cureset ~= "shifter" then
+			     string = "kai cripple "..snd.target
+		     else
+			     string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
+		     end
+       elseif (snd.limb_dmg["head"] &gt;= 56 or snd.checkAff("head_mangled")) and snd.proned() and cantBeParried() then
+    	   string = "combo "..snd.target.." axk ucp ucp"
+		   elseif snd.target_impaled then
+			   string = "combo "..snd.target.." axk ucp ucp"
+		   elseif (snd.checkAff("head_mangled") or snd.limb_dmg["head"] &gt;= 66.66) and snd.proned() then
+			   string = "combo "..snd.target.." axk ucp ucp"
+		   elseif snd.checkAff("blackout") and not snd.checkAff("disrupted") then
+			   string = "mind disrupt "..snd.target
+		   elseif snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},2) and snd.proned() then 
+			   if snd.balance.blackout and snd.mindlocked then
+				    string = "mind blackout"
+			   else
+				    string = "mind batter "..snd.target.." epilepsy dizziness stupidity"
+			   end
+       elseif snd.proned() and not snd.checkAff("writhe_impaled") then
+         string = "bbt "..snd.target
+		   end
+    
+		   if snd.toggles.affcalling and not snd.target_gone then
+			   string = call..snd.sep..string
+		   end
+
+       if string ~= snd.last_attack and not snd.waiting.queue then
+         snd.last_attack = string
+         snd.attack(snd.last_attack)
+         snd.waiting.queue = true
+         tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+       end
+    end
+  end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^limbs$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -32163,8 +32579,11 @@ function snd.attack_function()
 		end
 	 end
 	end
+  
 	if snd.used.shield then
-	 string = "touch hammer "..snd.target
+	 	string = "pounce "..snd.target
+	elseif snd.theyran then
+	  string = "neckdrag "..snd.target..snd.neckdragdir
 	-- check if we can jawlock now!
 	elseif snd.checksomeAffs({"writhe_thighlock", "writhe_necklock", "writhe_armpitlock"}, 1) and not snd.jawlocked then
 	 string = "quarter "..snd.target
@@ -32232,7 +32651,9 @@ function snd.attack_function()
 	 end
 	end
 	if snd.used.shield then
-	 string = "touch hammer "..snd.target
+	 	string = "pounce "..snd.target
+	elseif snd.theyran then
+	  string = "neckdrag "..snd.target..snd.neckdragdir
 	elseif snd.jawlocked then
 	 string = "rupture "..snd.target
 	-- check if we can jawlock now!
@@ -32284,6 +32705,114 @@ end</script>
 								<packageName></packageName>
 								<regex>^limbs$</regex>
 							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>More In-Depth Quartering</name>
+								<script>--Note, this one is using more than just slashing to do limb damage. So, it's a bit more effective at getting quarters.
+
+if snd.class == "Shapeshifter" then
+	snd.starting_attack()
+	function snd.attack_function()
+ 		if not snd.waiting.queue then
+  		local function feralityConvert(limb)
+    		if string.find(limb, "leg") then
+      		return "hamstring "..limb:gsub(" leg", "")
+    		elseif string.find(limb, "arm") then
+      		return "rend "..limb:gsub(" arm", "")
+    		elseif limb == "torso" then
+      		return "bodypunch"
+    		elseif limb == "head" then
+      		return "skullwhack"
+    		else
+      		return "slash "..limb
+    		end
+  		end
+  -- list what limbs to hit
+  		limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
+			mangled = "nothing"
+      damaged = "nothing"
+			broken = "nothing"
+  		for limb in pairs(limbs) do
+	 			if snd.limb_status[limbs[limb]] == "mangled" and mangled == "nothing" then
+	  			if string.find(limbs[limb], "leg") and not table.contains(snd.target_has, "writhe_thighlock") then
+	   				mangled = limbs[limb]
+					elseif limbs[limb] == "head" and not table.contains(snd.target_has, "writhe_necklock") then
+		 				mangled = limbs[limb]
+					elseif not table.contains(snd.target_has, "writhe_armpitlock") and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
+		 				mangled = limbs[limb]
+					end
+	 			elseif snd.limb_status[limbs[limb]] == "damaged" and snd.limb_dmg[limbs[limb]] &lt; 66.66 and broken == "nothing" then
+	  			if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") and snd.parried_limb ~= limbs[limb] then
+	   				broken = limbs[limb]
+					end
+	 			end
+  		end  --end of for loop  
+  		for _, aff in pairs(snd.target_has) do
+      	if string.find(aff, "_broken") and snd.limb_status[aff:gsub("_broken ", "")] ~= "broken" and snd.limb_status[aff:gsub("_broken", "")] ~= "mangled" and snd.parried_limb ~= aff:gsub("_broken", "") then
+        	damaged = aff:gsub("_broken", "")
+          if damaged == "left_leg" then
+            damaged = "left leg"
+          elseif damaged == "right_leg" then
+            damaged = "right leg"
+          elseif damaged == "left_arm" then
+            damaged = "left arm"
+          elseif damaged == "right_arm" then
+            damaged = "right arm"
+          end
+          break
+        end
+      end  --end of for loop  
+			
+			if snd.used.shield then
+	 			string = "pounce "..snd.target
+				
+			elseif snd.checksomeAffs({"writhe_thighlock", "writhe_necklock", "writhe_armpitlock"},1) and not snd.jawlocked then -- check if we can jawlock now!
+	 			string = "quarter "..snd.target
+  		elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then -- Checking for Jawlock opertunities
+				if string.find(mangled, "leg") and not snd.checkAff("groinrip")then
+	  			string = "jawlock thigh of "..snd.target
+	 			elseif mangled == "head" and not snd.checkAff("throatrip") then
+	  			string = "jawlock neck of "..snd.target
+	 			elseif mangled == "torso" or string.find(mangled, "arm") and not snd.checkAff("spleenrip") then
+	  			string = "jawlock armpit of "..snd.target
+				end --end of attempts to get a lock in
+	 
+			elseif broken ~= "nothing" and not snd.jawlocked then
+	 			string = "destroy "..broken.." of "..snd.target
+			elseif damaged ~= "nothing" and not snd.jawlocked then
+        string = "mangle "..damaged.." of "..snd.target
+      else
+	 			left = "nothing"
+	 			right = "nothing"
+	 			for limb in pairs(limbs) do
+	  			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and (limbs[limb] ~= snd.resto_limb or snd.limb_dmg[limbs[limb]] &gt;= 33.33) then
+		 				if right == "nothing" then
+		  				right = feralityConvert(limbs[limb])
+		 				elseif left == "nothing" then
+		  				left = feralityConvert(limbs[limb])
+		 				end
+					end
+	 			end
+	 			if left == "nothing" then -- we only found one limb to hit
+	  			left = right -- double up!
+	 			end
+	 			string = "combo "..snd.target.." "..left.." "..right
+			end -- end of primary attacking function setup
+				
+  		if string ~= snd.last_attack and not snd.waiting.queue then
+   			snd.last_attack = string
+   			snd.send("qeb "..snd.last_attack)
+   			snd.waiting.queue = true
+   			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  	end--end the actual attack rolling
+ 	end --end the main code
+end --end the function
+--and sending it to the mud
+snd.attack_function()   
+end -- end the class </script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^quart$</regex>
+							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Damage Offenses</name>
@@ -32296,29 +32825,152 @@ end</script>
 								<script>if snd.class == "Shapeshifter" then
 snd.starting_attack()
 function snd.attack_function()
- if not snd.waiting.queue then
-  if snd.used.shield then
-   string = "touch hammer "..snd.target
-	elseif snd.defenses.def_fury.state == "deffed" then
-	 string = "pounce "..snd.target..snd.sep.."combo "..snd.target.." jugular jugular"
-	elseif not snd.no_parry() then
-	 string = "combo "..snd.target.." bodypunch jugular"
-	else
-	 string = "combo "..snd.target.." jugular jugular"
-	end
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  if not snd.waiting.queue then
+    if snd.used.shield then
+   		string = "pounce "..snd.target
+		elseif snd.theyran then
+			string = "neckdrag "..snd.target..snd.neckdragdir
+		elseif snd.defenses.def_fury.state == "deffed" then
+	    string = "pounce "..snd.target..snd.sep.."combo "..snd.target.." jugular jugular"
+	  elseif not snd.no_parry() then
+	 		string = "combo "..snd.target.." bodypunch jugular"
+    elseif not snd.parried_limb == "head" then
+      string = "combo "..snd.target.." jugular skullwhack"
+		else
+	    string = "combo "..snd.target.." jugular jugular"
+	  end
+    
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
   end
- end
 end
 snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^dmg$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>1v1</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Semi 1v1 Route</name>
+								<script>if snd.class == "Shapeshifter" then    
+	snd.starting_attack()
+		
+	function snd.attack_function()        
+ 		if not snd.waiting.queue then                    
+  		local function feralityConvert(limb)            
+    		if string.find(limb, "leg") then              
+    		  return "hamstring "..limb:gsub(" leg", "")
+    		elseif string.find(limb, "arm") then
+      		return "rend "..limb:gsub(" arm", "")
+    		elseif limb == "torso" then
+      		return "bodypunch"         
+    		elseif limb == "head" then
+      		return "skullwhack"
+    		else
+      		return "slash "..limb
+    		end
+  		end
+	
+-- Making the table of limbs and damage
+  		limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
+			mangled = "nothing"
+			broken = "nothing"
+			crippled = "nothing"
+			
+			for limb in pairs(limbs) do
+	 			if snd.limb_status[limbs[limb]] == "mangled" and mangled == "nothing" then -- checking for mangle opertunities
+		  		if string.find(limbs[limb], "leg") and not snd.checksomeAffs({"groinrip","writhe_thighlock"},1) then	
+				 		mangled = limbs[limb]
+					elseif limbs[limb] == "head" and not snd.checksomeAffs({"throatrip","writhe_necklock"},1) then
+				 		mangled = limbs[limb]
+					elseif not snd.checksomeAffs({"spleenrip","writhe_armpitlock"},1) and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
+				 		mangled = limbs[limb]
+					end
+			 	elseif snd.limb_status[limbs[limb]] == "damaged" and snd.limb_dmg[limbs[limb]] &lt; 66.66 and broken == "nothing" then -- Updating the table with current breaks
+			  	if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") then
+	   				broken = limbs[limb]
+					end
+	 			elseif snd.limb_status[limbs[limb]] == "damaged" and snd.limb_dmg[limbs[limb]] &lt; 33.33 and crippled == "nothing" then -- Updating the table with current cripples
+	  			if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") then
+				 		crippled = limbs[limb]
+					end
+	 			end
+			end  --end of for loop       
+	
+	 		if snd.used.shield then           
+		 		string = "pounce "..snd.target
+			elseif snd.theyran then
+			   string = "neckdrag "..snd.target..snd.neckdragdir
+		  elseif snd.checksomeAffs({"groinrip", "throatrip", "spleenrip"},2) then --nom nom nom
+				string = "devour "..snd.target            
+			elseif snd.checkAff("writhe_necklock") and not snd.checkAff("throatrip") then-- Checking for Rip opertunities
+				string = "throatrip "..snd.target          
+			elseif snd.checkAff("writhe_armpitlock") and not snd.checkAff("spleenrip") then-- Checking for Rip opertunities
+				string = "spleenrip "..snd.target
+			elseif snd.checkAff("writhe_thighlock") and not snd.checkAff("groinrip") then-- Checking for Rip opertunities
+				string = "groinrip "..snd.target
+			elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then -- Checking for Jawlock opertunities
+				if string.find(mangled, "leg") and not snd.checkAff("writhe_thighlock")then
+	  			string = "jawlock thigh of "..snd.target
+	 			elseif mangled == "head" and not snd.checkAff("writhe_necklock") then
+	  			string = "jawlock neck of "..snd.target
+	 			elseif mangled == "torso" or string.find(mangled, "arm") and not snd.checkAff("writhe_armpitlock") then
+	  			string = "jawlock armpit of "..snd.target
+				end
+			elseif broken ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then  -- Limb escalation
+		 		string = "destroy "..broken.." of "..snd.target   
+			elseif crippled ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then -- Limb escalation
+	 			string = "mangle "..crippled.." of "..snd.target
+
+			else -- build the limb breaks if nothing else major going on
+	 			left = "nothing"       
+	 			right = "nothing"          
+	 			for limb in pairs(limbs) do
+	  			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and not table.contains(snd.target_has, limb.."_broken") then  
+		 				if right == "nothing" then  
+		  				right = limbs[limb]
+		 				elseif left == "nothing" then  
+		  				left = limbs[limb]
+		 				end
+					end
+	 			end
+	 
+--Doubling up the same attack if only one is found
+	 			if left == "nothing" then 
+	  			left = right 
+	 			end
+	 
+-- using the feraility convert with what we've made so far
+	 			string = "combo "..snd.target.." "..feralityConvert(left).." "..feralityConvert(right)  
+			end -- end of primary attacking function setup
+	
+--queuing it so we can keep the attack rolling
+  	if string ~= snd.last_attack and not snd.waiting.queue then   
+   		snd.last_attack = string 
+   		snd.send("qeb "..snd.last_attack)
+   		snd.waiting.queue = true
+   		tempTimer(snd.delay(), [[snd.waiting.queue = false]])  
+  	end--end the actual attack rolling
+ 	end --end the main code
+end --end the function
+--and sending it to the mud
+snd.attack_function()   
+end -- end the class if
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^kll$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -32351,6 +33003,13 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^wpvp$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>wield bow</name>
+								<script>snd.send("secure left"..snd.sep.."secure right"..snd.sep.."wear buckler"..snd.sep.."bowstance")</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^wbow$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -32413,6 +33072,19 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^at(?: (.*))?$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Vortex</name>
+								<script>if snd.class == "Syssin" then
+  if matches[2] == nil then
+    snd.send("qeb worm vortex "..snd.target)
+  else
+    snd.send("qeb worm vortex "..matches[2])
+  end
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^vt(?: (.*))?$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -32542,6 +33214,23 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^hypm$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>suggest</name>
+								<script>if snd.class == "Syssin" then
+local shorthand = {
+["clu"] = "clumsiness",
+["imp"] = "impatience"
+}
+if shorthand[matches[2]] then
+ snd.send("qeb suggest "..snd.target.." "..shorthand[matches[2]])
+else
+ cecho("&lt;red&gt;No such affliction!")
+end
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^sg (\w+)$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -33389,6 +34078,17 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^gs(?: (.*))?$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Shoot</name>
+								<script>if matches[2] == "" then
+ snd.send("qeb shoot "..snd.target.." curare")
+else
+ snd.send("qeb shoot "..matches[2].." curare")
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^shoot(.*)$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -35110,16 +35810,56 @@ end</script>
 								<script>if snd.class == "Akkari" then
 snd.starting_attack()
 function snd.attack_function()
- local string = ""
- if not snd.waiting.queue then
-   	string = "frenzy "..snd.target
+  local string = ""
+  local corpus = "none"
+  local touse = {}
+
+	snd.giving_whisper = {
+			"impatience",
+			"loneliness",
+			"stupidity",
+			"anorexia",
+			"confusion",
+			"recklessness",
+			"agoraphobia",
+			"vertigo",
+			"indifference",
+			"peace",
+			"masochism",
+			"paranoia",
+	}
+	
+			for i in pairs(snd.giving_whisper) do
+				if not snd.checkAff(snd.giving_whisper[i]) then
+					if not table.contains(touse, snd.giving_whisper[i]) then
+						table.insert(touse, snd.giving_whisper[i])
+					end
+				end
+			end
+      
+    if not snd.loyalsattacking then
+      string = "order loyals kill "..snd.target..snd.sep 
+    end
+	
+	if not snd.waiting.queue then
+	 	if snd.theytumbling then
+			string = string.."penitence "..snd.target..snd.sep.."qeb deliver "..snd.target
+		elseif snd.theyran then
+			string = string.."DEJEMASHAI "..snd.target
+  	elseif not snd.checkAff("writhe_transfix") then
+ 			string = string.."Exhort "..snd.target
+		else
+			string = string.."denounce "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
+    end
+	end
+	
   if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+   	snd.last_attack = string
+   	snd.attack(snd.last_attack)
+   	snd.waiting.queue = true
+   	tempTimer(snd.delay(), [[snd.waiting.queue = false]])
   end
- end
+
 end
 snd.attack_function()
 end</script>
@@ -35130,7 +35870,15 @@ end</script>
 							<Alias isActive="yes" isFolder="no">
 								<name>Mes feast</name>
 								<script>if snd.class == "Akkari" then
-snd.giving_whisper = {
+snd.starting_attack()
+function snd.attack_function()
+
+  local string = ""
+  local corpus = "none"
+  local touse = {}
+	
+	
+	snd.giving_whisper = {
 			"impatience",
 			"loneliness",
 			"berserking",
@@ -35145,28 +35893,33 @@ snd.giving_whisper = {
 			"peace",
 			"paranoia",
 	}
-snd.starting_attack()
-function snd.attack_function()
-  local string = ""
-  local corpus = "none"
-  local touse = {}
-  if not table.contains(snd.target_has, "writhe_transfix") then
- 		string = "exhort "..snd.target
-	elseif not table.contains(snd.target_has, "feast") then
-		string = "spirit exorcise "..snd.target
-	else
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-      	  table.insert(touse, snd.giving_whisper[i])
-        end
-      end
+      
+    if not snd.loyalsattacking then
+      string = "order loyals kill "..snd.target..snd.sep 
     end
-  
-		string = "deliver "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
-	end
+
 	
-  string = "contemplate "..snd.target..snd.sep..string
+  if not snd.waiting.queue then
+	 	if snd.theytumbling then
+			string = string.."penitence "..snd.target..snd.sep.."qeb deliver "..snd.target
+		elseif snd.theyran then
+			string = string.."DEJEMASHAI "..snd.target
+  	elseif not snd.checkAff("writhe_transfix") then
+ 			string = string.."exhort "..snd.target
+		elseif not snd.checkAff("feast") then
+			string = string.."spirit exorcise "..snd.target
+		else
+			for i in pairs(snd.giving_whisper) do
+				if not snd.checkAff(snd.giving_whisper[i]) then
+					if not table.contains(touse, snd.giving_whisper[i]) then
+						table.insert(touse, snd.giving_whisper[i])
+					end
+				end
+			end
+		
+			string = string.."deliver "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
+		end
+	end
  
  if string ~= snd.last_attack and not snd.waiting.queue then
   snd.last_attack = string
@@ -35210,7 +35963,11 @@ end</script>
         local touse = {}
         local call = ""
 
-        if snd.mana_percent &lt; 35 and not snd.used.shield then --Checking if we could annihilate the last time we contemplated, and trying if we can. Need to add logic to announce mana calls
+        if snd.theytumbling then
+			     string = "penitence "..snd.target..snd.sep.."qeb deliver "..snd.target
+		    elseif snd.theyran then
+			     string = "DEJEMASHAI "..snd.target
+  	    elseif snd.mana_percent &lt; 35 and not snd.used.shield then --Checking if we could annihilate the last time we contemplated, and trying if we can. Need to add logic to announce mana calls
             string = "dumavai "..snd.target
         else
             for i in pairs(snd.giving_whisper) do
@@ -35285,7 +36042,13 @@ function snd.attack_function()
 			end
 			
 	if not snd.waiting.queue then
-		string = "denounce "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
+		if snd.theytumbling then
+			string = "penitence "..snd.target..snd.sep.."qeb deliver "..snd.target
+		elseif snd.theyran then
+			string = "DEJEMASHAI "..snd.target
+		else
+			string = "denounce "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
+		end
 	end
 	
   if string ~= snd.last_attack and not snd.waiting.queue then
@@ -35304,7 +36067,25 @@ end</script>
 							<Alias isActive="yes" isFolder="no">
 								<name>Annhilate and Mesmerize</name>
 								<script>if snd.class == "Akkari" then
-snd.giving_whisper = {
+snd.starting_attack()
+function snd.attack_function()
+  local string = "contemplate "..snd.target..snd.sep
+  local corpus = "none"
+  local touse = {}
+      local physcount = 0
+      for aff in pairs(snd.physical_affs) do
+          if table.contains(snd.target_has, snd.physical_affs[aff]) then
+              physcount = physcount + 1
+          end
+      end
+      local mentcount = 0 
+      for aff in pairs(snd.mental_affs) do
+          if table.contains(snd.target_has, snd.mental_affs[aff]) then
+              mentcount = mentcount + 1
+          end
+      end
+
+	snd.giving_whisper = {
 			"impatience",
 			"loneliness",
 			"stupidity",
@@ -35318,30 +36099,37 @@ snd.giving_whisper = {
 			"masochism",
 			"paranoia",
 	}
-snd.starting_attack()
-function snd.attack_function()
-  local string = ""
-  local corpus = "none"
-  local touse = {}
-  if snd.mana_percent &lt; 35 and not snd.used.shield then
- 		string = "dumavai "..snd.target
-  elseif snd.proned() then
- 		string = "tithe "..snd.target
-  elseif table.contains(snd.target_has, "sight") then
- 		string = "exhort "..snd.target
-	else
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-      	  table.insert(touse, snd.giving_whisper[i])
-        end
-      end
+      
+    if not snd.loyalsattacking then
+      string = string.."order loyals kill "..snd.target..snd.sep 
     end
-  
-		string = "denounce "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
-	end
 
-  string = "contemplate "..snd.target..snd.sep..string
+
+	
+  if not snd.waiting.queue then
+	 	if snd.theytumbling then
+			string = "penitence "..snd.target..snd.sep.."qeb deliver "..snd.target
+		elseif snd.theyran then
+			string = "DEJEMASHAI "..snd.target
+		elseif snd.mana_percent &lt; 35 and not snd.used.shield then
+ 			string = string .. "dumavai "..snd.target
+  	elseif snd.proned() then
+	 		string = string .. "tithe "..snd.target
+  	elseif not snd.checkAff("writhe_transfix") then
+ 			string = string .. "exhort "..snd.target
+		else
+			
+			for i in pairs(snd.giving_whisper) do
+				if not snd.checkAff(snd.giving_whisper[i]) then
+					if not table.contains(touse, snd.giving_whisper[i]) then
+						table.insert(touse, snd.giving_whisper[i])
+					end
+				end
+			end
+		
+			string = "denounce "..snd.target..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target
+    end
+	end
  
  if string ~= snd.last_attack and not snd.waiting.queue then
   snd.last_attack = string
@@ -35757,7 +36545,7 @@ if snd.target_locked() then
     "amnesia",
   }
 else  
-if snd.cureset == "Archivist" or snd.cureset == "Shaman" or snd.cureset == "Ascendril" or snd.cureset == "Sciomancer" then
+if snd.cureset == "archivist" or snd.cureset == "shaman" or snd.cureset == "ascendril" or snd.cureset == "Sciomancer" then
 snd.secondary_aff = {
     "remorse",
     "contrition",
@@ -35987,6 +36775,160 @@ end</script>
 								<regex>^glo$</regex>
 							</Alias>
 						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Wielding</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>wield bashing</name>
+								<script>if snd.class == "Akkari" then
+  snd.send("quickwield both mantha")
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^wbsh$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Misc</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Lure</name>
+								<script>snd.send("qeb DEJEMASHAI "..matches[2])</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^lure (\w+)$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>1v1</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Naarak Host Route</name>
+								<script>if snd.class == "Akkari" then
+snd.starting_attack()
+function snd.attack_function()
+  local string = "contemplate "..snd.target..snd.sep
+  local corpus = "none"
+  local touse = {}
+  local tohit = {}
+  local whis = {}
+ 
+  snd.giving_whisper = {
+            "impatience",
+            "loneliness",
+            "peace",
+            "stupidity",
+            "confusion",
+            "anorexia",
+            "berserking",
+            "recklessness",
+            "agoraphobia",
+            "vertigo",
+            "indifference",
+            "masochism",
+            "paranoia",
+ 
+  }
+  snd.giving = {
+        "asthma",
+        "paresis",
+        "clumsiness",
+        "weariness",
+  }
+      for i in pairs(snd.giving) do
+				if not snd.checkAff(snd.giving[i]) then
+					if not table.contains(touse, snd.giving[i]) then
+						table.insert(touse, snd.giving[i])
+					end
+				end
+			end
+			for aff in pairs(touse) do
+				table.insert(tohit, snd.effects[touse[aff]])
+			end
+
+      for j in pairs(snd.giving_whisper) do
+        if not snd.checkAff(snd.giving_whisper[j]) then
+          if not table.contains(whis, snd.giving_whisper[j]) then
+            table.insert(whis, snd.giving_whisper[j])
+          end
+        end
+      end
+      local physcount = 0
+      for aff in pairs(snd.physical_affs) do
+          if table.contains(snd.target_has, snd.physical_affs[aff]) then
+              physcount = physcount + 1
+          end
+      end
+      local mentcount = 0 
+      for aff in pairs(snd.mental_affs) do
+          if table.contains(snd.target_has, snd.mental_affs[aff]) then
+              mentcount = mentcount + 1
+          end
+      end
+      
+    if not snd.loyalsattacking then
+      string = string.."order loyals kill "..snd.target..snd.sep 
+    end
+    
+    local seizeMana = 0
+    local mAffBump = 4.00
+    seizeMana = tonumber((10.98) + (mentcount*mAffBump))
+    
+    if snd.checkAff("blood_curse") then
+      seizeMana = seizeMana+((seizeMana/10)*1.5)
+    end
+   
+  if not snd.waiting.queue then
+  
+	 	  if snd.theytumbling then
+			   string = string.."penitence "..snd.target..snd.sep.."qeb deliver "..snd.target
+		  elseif snd.theyran then
+			   string = string.."DEJEMASHAI "..snd.target
+      elseif snd.used.shield then
+        string = string.."denounce "..snd.target.." upset"..snd.sep.."dictate "..whis[1].." "..whis[2].." "..snd.target
+      elseif snd.used.rebounding then
+         string = string..snd.target..snd.sep.."bloodlet " ..snd.target..snd.sep.. "dictate "..whis[1].." "..whis[2].." "..snd.target
+      elseif not snd.checkAff("rend") then
+        string = string.."bloodlet " ..snd.target..snd.sep.. "dictate "..whis[1].." "..whis[2].." "..snd.target
+      elseif not snd.checkAff("blood_rune") and not snd.runeused then
+        string = string.."spirit pariah " ..snd.target
+      elseif ((snd.mana_percent - seizeMana) &lt;= 37 and snd.checkAff("blood_rune")) or ((snd.mana_percent - seizeMana) &lt;= 32) and snd.balance.seize  then
+        string = string.."spirit inquisition " ..snd.target
+      elseif snd.mana_percent &lt;= 37 and not snd.balance.seize and snd.runeused and snd.checkAff("blood_rune") then
+        string = string.."spirit vilify"
+      elseif snd.mana_percent &lt; 35 or (snd.mana_percent &lt; 44 and snd.checkAff("blood_rune")) then
+ 			  string = string .. "dumavai "..snd.target
+  	  elseif mentcount &gt;= 3 and not snd.checkAff("blood_curse") then
+        string = string.."spirit anathema " ..snd.target
+      else
+        string = string.."wipe weapon"..snd.sep.."censure "..snd.target.." "..tohit[1].." lenient"..snd.sep.."dictate "..whis[1].." "..whis[2].." "..snd.target..snd.sep
+      end
+    end
+   
+   
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(d), [[snd.waiting.queue = false]])
+  end
+ end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^narrak$</regex>
+							</Alias>
+						</AliasGroup>
 					</AliasGroup>
 					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Ascendril</name>
@@ -36000,153 +36942,6 @@ end</script>
 							<command></command>
 							<packageName></packageName>
 							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Manually reset glimpse</name>
-								<script>if matches[2] == "none" then
-  snd.glimpse = "none"
-  snd.glimpsing = false
-else
-  snd.glimpse = matches[2]
-  snd.glimpsing = true
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^glimpse (\w+)$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>order loyals aggro</name>
-								<script>send("order efreeti kill "..snd.target)</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^olk$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>order loyals stop aggro</name>
-								<script>send("order loyals passive")</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^olp$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>frozen</name>
-								<script>if snd.class == "Ascendril" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      local string = ""
-      -- we'll load this with our attack string
-      local call = ""
-      -- and this with our affliction call
-      -- next, the afflictions we want to give
-      local touse = {}
-      local tohit = {}
-      local stalled = false
-      if snd.defenses.def_stalled.state == "deffed" then
-        stalled = true
-      end
-
-      local extraaff = ""
-      snd.giving = {"anorexia"}
-      for i in pairs(snd.giving) do
-        -- make sure not to double up paresis and paralysis
-        if not snd.checkAff(snd.giving[i]) then
-          -- and don't add an aff we've already got in the list!
-          if not table.contains(touse, snd.giving[i]) then
-            table.insert(touse, snd.giving[i])
-          end
-        end
-      end
-      -- now let's convert affs to venoms/empowerments
-      for aff in pairs(touse) do
-        table.insert(tohit, snd.effects[touse[aff]])
-      end
-      -- if we didn't find enough stuff to hit with, stick in our filler
-      while #tohit &lt; 3 do
-        table.insert(tohit, extraaff)
-      end
-      if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbrand") then
-        string = "fulcrum glimpse water"
-      elseif snd.glimpse == "none" and snd.checkAff("frostbrand") then
-        string = "fulcrum catalyst " .. snd.target .. " frost"
-      elseif snd.used.shield or 
-			(snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
-				string = "cast windlance " .. snd.target
-      elseif snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
-        if gmcp.Char.Vitals.ability_bal == "1" then
-          string = "fulcrum flare " .. snd.target
-        end
-        if gmcp.Char.Vitals.resonance == "water" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            elseif snd.limb_dmg.torso &gt; 0 then
-              string = string .. snd.sep .. "fulcrum stall 3 mistral " .. snd.target
-            end
-          elseif stalled then
-            if snd.checkAff("shivering") and not snd.checkAff("direfrost") and not snd.checkAff("frostbrand") then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast mistral " .. snd.target
-						end
-          end
-        elseif gmcp.Char.Vitals.resonance == "fire" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            elseif snd.limb_dmg.torso &gt; 0 then
-              string = string .. snd.sep .. "fulcrum stall 3 coldsnap " .. snd.target
-            end
-          elseif stalled then
-            if snd.checkAff("shivering") and not snd.checkAff("direfrost") and not snd.checkAff("frostbrand") then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            elseif not snd.checkAff("gorged") then
-              string = string .. snd.sep .. "cast gorge " .. snd.target .. " euphoriant"
-						else
-							string = string .. snd.sep .. "cast hailstorm " .. snd.target
-            end
-          end
-        elseif gmcp.Char.Vitals.resonance == "air" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 hailstorm " .. snd.target
-            end
-          elseif stalled then
-           if snd.checkAff("shivering") and not snd.checkAff("direfrost") and not snd.checkAff("frostbrand") then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            elseif not snd.checkAff("gorged") then
-              string = string .. snd.sep .. "cast gorge " .. snd.target .. " euphoriant"
-						elseif not snd.checkAff("masochism") then
-							string = string .. snd.sep .. "cast coldsnap " ..snd.target
-						else
-							string = string .. snd.sep .. "cast hailstorm " ..snd.target
-            end
-          end
-        end
-      end
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^freeze$</regex>
-							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>damage</name>
 								<script>if snd.class == "Ascendril" then
@@ -36202,122 +36997,144 @@ end</script>
 								<regex>^damage$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>solo shatter</name>
+								<name>ablaze</name>
 								<script>if snd.class == "Ascendril" then
-  snd.starting_attack()
+snd.starting_attack()
+function snd.attack_function()
+	if not snd.waiting.queue then
+		local string = "" -- we'll load this with our attack string
+		local call = "" -- and this with our affliction call
+		local limbs = {"head", "left leg", "torso", "right leg", "left arm", "right arm"}
+		local targ = "nothing"
+		
+		for limb in pairs(limbs) do
+			-- ignore last parried, last hit, and any limbs being resto'd
+			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and limbs[limb] ~= snd.resto_limb then
+				if targ == "nothing" then
+					targ = limbs[limb]
+				end
+			end
+		end
+			
+	if snd.used.shield then
+		string = string..snd.sep.."cast windlance "..snd.target
+	end
+			
+	if snd.glimpse == "none" and not snd.glimpsing then
+		string = "fulcrum glimpse fire"
+	end
 
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      local string = ""
-      -- we'll load this with our attack string
-      local call = ""
-      -- and this with our affliction call
-      local limbs = {"left leg", "right leg", "left arm", "right arm"}
-      local targ = "nothing"
-      local stalled = false
-      if snd.defenses.def_stalled.state == "deffed" then
-        stalled = true
-      end
-      for limb in pairs(limbs) do
-        -- ignore last parried, last hit, and any limbs being resto'd
-        if
-          limbs[limb] ~= snd.parried_limb and
-          limbs[limb] ~= snd.last_hit_limb and
-          limbs[limb] ~= snd.resto_limb
-        then
-          if targ == "nothing" then
-            targ = limbs[limb]
-          end
-        end
-      end
-      if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbrand") then
-        string = "fulcrum glimpse water"
-      elseif snd.glimpse == "none" and snd.checkAff("frostbrand") then
-        string = "fulcrum catalyst " .. snd.target .. " frost"
-      elseif snd.used.shield == true then
-        string = "cast windlance " .. snd.target
-      elseif snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
-        if gmcp.Char.Vitals.ability_bal == "1" then
-          string = "fulcrum flare " .. snd.target
-        end
-        if gmcp.Char.Vitals.resonance == "water" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            if
-              snd.checkAff("no_caloric") and
-              not snd.checkAff("direfrost") and
-              not snd.checkAff("frostbrand")
-            then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
-            end
-          end
-        elseif gmcp.Char.Vitals.resonance == "fire" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            if
-              snd.checkAff("no_caloric") and
-              not snd.checkAff("direfrost") and
-              not snd.checkAff("frostbrand")
-            then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
-            end
-          end
-        elseif gmcp.Char.Vitals.resonance == "air" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            --not snd.direfrost and not snd.checkAff("frostbrand") then
-            if
-              snd.checkAff("no_caloric") and
-              not snd.checkAff("direfrost") and
-              not snd.checkAff("frostbrand")
-            then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
-            end
-          end
-        end
-      end
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
+	if snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
+	
+		if gmcp.Char.Vitals.ability_bal == "1" then
+			string = "fulcrum flare "..snd.target
+		end
+		
+		if gmcp.Char.Vitals.resonance ~= "fire" then
+			string = string..snd.sep.."fulcrum enrich fire"
+		end
+		
+		if gmcp.Char.Vitals.resonance == "fire" then
+			if snd.defenses.def_stalled.state ~= "deffed" then
+				string = string..snd.sep.."fulcrum stall 3 firelash "..snd.target.." "..targ
+			else
+				string = string..snd.sep.."cast firelash "..snd.target.." "..targ
+			end
+		end
 
-  snd.attack_function()
+	end
+
+	if string ~= snd.last_attack and not snd.waiting.queue then
+		snd.last_attack = string
+		snd.attack(snd.last_attack)
+		snd.waiting.queue = true
+		tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+	end
+	
+end
+end
+snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^solo$</regex>
+								<regex>^fire$</regex>
 							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Utility Aliases</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Manually reset glimpse</name>
+								<script>if matches[2] == "none" then
+  snd.glimpse = "none"
+  snd.glimpsing = false
+else
+  snd.glimpse = matches[2]
+  snd.glimpsing = true
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^glimpse (\w+)$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>order loyals aggro</name>
+								<script>send("order efreeti kill "..snd.target)</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^olk$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>order loyals stop aggro</name>
+								<script>send("order loyals passive")</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^olp$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Trace Clarity</name>
+								<script>send("outc topazdust"..snd.sep.."outc diamonddust"..snd.sep.."trace clarity")</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^crune$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Prop Aegis</name>
+								<script>send("cast ensorcell aegis")</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^prop$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Soar</name>
+								<script>send("qeb cast soar "..matches[2])</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^soar (\w+)$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Remote Aliases</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>fireball</name>
+								<script>send("qeb cast prism fireball "..snd.target..""..snd.sep.."cast fireball "..snd.target)</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^fb$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Affs</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>affs</name>
 								<script>if snd.class == "Ascendril" then
@@ -36436,84 +37253,7 @@ end</script>
 								<regex>^affs$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>ablaze</name>
-								<script>if snd.class == "Ascendril" then
-snd.starting_attack()
-function snd.attack_function()
-	if not snd.waiting.queue then
-		local string = "" -- we'll load this with our attack string
-		local call = "" -- and this with our affliction call
-		local limbs = {"head", "left leg", "torso", "right leg", "left arm", "right arm"}
-		local targ = "nothing"
-		
-		for limb in pairs(limbs) do
-			-- ignore last parried, last hit, and any limbs being resto'd
-			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and limbs[limb] ~= snd.resto_limb then
-				if targ == "nothing" then
-					targ = limbs[limb]
-				end
-			end
-		end
-			
-	if snd.used.shield then
-		string = string..snd.sep.."cast windlance "..snd.target
-	end
-			
-	if snd.glimpse == "none" and not snd.glimpsing then
-		string = "fulcrum glimpse fire"
-	end
-
-	if snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
-	
-		if gmcp.Char.Vitals.ability_bal == "1" then
-			string = "fulcrum flare "..snd.target
-		end
-		
-		if gmcp.Char.Vitals.resonance ~= "fire" then
-			string = string..snd.sep.."fulcrum enrich fire"
-		end
-		
-		if gmcp.Char.Vitals.resonance == "fire" then
-			if snd.defenses.def_stalled.state ~= "deffed" then
-				string = string..snd.sep.."fulcrum stall 3 firelash "..snd.target.." "..targ
-			else
-				string = string..snd.sep.."cast firelash "..snd.target.." "..targ
-			end
-		end
-
-	end
-
-	if string ~= snd.last_attack and not snd.waiting.queue then
-		snd.last_attack = string
-		snd.attack(snd.last_attack)
-		snd.waiting.queue = true
-		tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-	end
-	
-end
-end
-snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^fire$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>fireball</name>
-								<script>send("qeb cast prism fireball "..snd.target..""..snd.sep.."cast fireball "..snd.target)</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^fb$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Stine group  aliases</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>group affs</name>
+								<name>group affs (stine)</name>
 								<script>if snd.class == "Ascendril" then
   snd.starting_attack()
   function snd.attack_function()
@@ -36644,28 +37384,251 @@ end</script>
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^mine$</regex>
+								<regex>^gaff$</regex>
 							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Limbs / Salves</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
-								<name>^crune$</name>
-								<script>send("outc topazdust\\outc diamonddust\\trace clarity")</script>
+								<name>solo shatter</name>
+								<script>if snd.class == "Ascendril" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      local string = ""
+      -- we'll load this with our attack string
+      local call = ""
+      -- and this with our affliction call
+      local limbs = {"left leg", "right leg", "left arm", "right arm"}
+      local targ = "nothing"
+      local stalled = false
+      if snd.defenses.def_stalled.state == "deffed" then
+        stalled = true
+      end
+      for limb in pairs(limbs) do
+        -- ignore last parried, last hit, and any limbs being resto'd
+        if
+          limbs[limb] ~= snd.parried_limb and
+          limbs[limb] ~= snd.last_hit_limb and
+          limbs[limb] ~= snd.resto_limb
+        then
+          if targ == "nothing" then
+            targ = limbs[limb]
+          end
+        end
+      end
+      if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbrand") then
+        string = "fulcrum glimpse water"
+      elseif snd.glimpse == "none" and snd.checkAff("frostbrand") then
+        string = "fulcrum catalyst " .. snd.target .. " frost"
+      elseif snd.used.shield == true then
+        string = "cast windlance " .. snd.target
+      elseif snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
+        if gmcp.Char.Vitals.ability_bal == "1" then
+          string = "fulcrum flare " .. snd.target
+        end
+        if gmcp.Char.Vitals.resonance == "water" then
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+            else
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
+            end
+          elseif stalled then
+            if
+              snd.checkAff("no_caloric") and
+              not snd.checkAff("direfrost") and
+              not snd.checkAff("frostbrand")
+            then
+              string = string .. snd.sep .. "cast direfrost " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "cast icicle " .. snd.target
+            else
+              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
+            end
+          end
+        elseif gmcp.Char.Vitals.resonance == "fire" then
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+            else
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
+            end
+          elseif stalled then
+            if
+              snd.checkAff("no_caloric") and
+              not snd.checkAff("direfrost") and
+              not snd.checkAff("frostbrand")
+            then
+              string = string .. snd.sep .. "cast direfrost " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "cast icicle " .. snd.target
+            else
+              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
+            end
+          end
+        elseif gmcp.Char.Vitals.resonance == "air" then
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+            else
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
+            end
+          elseif stalled then
+            --not snd.direfrost and not snd.checkAff("frostbrand") then
+            if
+              snd.checkAff("no_caloric") and
+              not snd.checkAff("direfrost") and
+              not snd.checkAff("frostbrand")
+            then
+              string = string .. snd.sep .. "cast direfrost " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "cast icicle " .. snd.target
+            else
+              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
+            end
+          end
+        end
+      end
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^crune$</regex>
+								<regex>^solo$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>^prop$</name>
-								<script>send("cast ensorcell aegis")</script>
+								<name>frozen</name>
+								<script>if snd.class == "Ascendril" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      local string = ""
+      -- we'll load this with our attack string
+      local call = ""
+      -- and this with our affliction call
+      -- next, the afflictions we want to give
+      local touse = {}
+      local tohit = {}
+      local stalled = false
+      if snd.defenses.def_stalled.state == "deffed" then
+        stalled = true
+      end
+
+      local extraaff = ""
+      snd.giving = {"anorexia"}
+      for i in pairs(snd.giving) do
+        -- make sure not to double up paresis and paralysis
+        if not snd.checkAff(snd.giving[i]) then
+          -- and don't add an aff we've already got in the list!
+          if not table.contains(touse, snd.giving[i]) then
+            table.insert(touse, snd.giving[i])
+          end
+        end
+      end
+      -- now let's convert affs to venoms/empowerments
+      for aff in pairs(touse) do
+        table.insert(tohit, snd.effects[touse[aff]])
+      end
+      -- if we didn't find enough stuff to hit with, stick in our filler
+      while #tohit &lt; 3 do
+        table.insert(tohit, extraaff)
+      end
+      if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbrand") then
+        string = "fulcrum glimpse water"
+      elseif snd.glimpse == "none" and snd.checkAff("frostbrand") then
+        string = "fulcrum catalyst " .. snd.target .. " frost"
+      elseif snd.used.shield or 
+			(snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
+				string = "cast windlance " .. snd.target
+      elseif snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
+        if gmcp.Char.Vitals.ability_bal == "1" then
+          string = "fulcrum flare " .. snd.target
+        end
+        if gmcp.Char.Vitals.resonance == "water" then
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+            elseif snd.limb_dmg.torso &gt; 0 then
+              string = string .. snd.sep .. "fulcrum stall 3 mistral " .. snd.target
+            end
+          elseif stalled then
+            if snd.checkAff("shivering") and not snd.checkAff("direfrost") and not snd.checkAff("frostbrand") then
+              string = string .. snd.sep .. "cast direfrost " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "cast icicle " .. snd.target
+            else
+              string = string .. snd.sep .. "cast mistral " .. snd.target
+						end
+          end
+        elseif gmcp.Char.Vitals.resonance == "fire" then
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+            elseif snd.limb_dmg.torso &gt; 0 then
+              string = string .. snd.sep .. "fulcrum stall 3 coldsnap " .. snd.target
+            end
+          elseif stalled then
+            if snd.checkAff("shivering") and not snd.checkAff("direfrost") and not snd.checkAff("frostbrand") then
+              string = string .. snd.sep .. "cast direfrost " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "cast icicle " .. snd.target
+            elseif not snd.checkAff("gorged") then
+              string = string .. snd.sep .. "cast gorge " .. snd.target .. " euphoriant"
+						else
+							string = string .. snd.sep .. "cast hailstorm " .. snd.target
+            end
+          end
+        elseif gmcp.Char.Vitals.resonance == "air" then
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
+              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+            else
+              string = string .. snd.sep .. "fulcrum stall 3 hailstorm " .. snd.target
+            end
+          elseif stalled then
+           if snd.checkAff("shivering") and not snd.checkAff("direfrost") and not snd.checkAff("frostbrand") then
+              string = string .. snd.sep .. "cast direfrost " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "cast icicle " .. snd.target
+            elseif not snd.checkAff("gorged") then
+              string = string .. snd.sep .. "cast gorge " .. snd.target .. " euphoriant"
+						elseif not snd.checkAff("masochism") then
+							string = string .. snd.sep .. "cast coldsnap " ..snd.target
+						else
+							string = string .. snd.sep .. "cast hailstorm " ..snd.target
+            end
+          end
+        end
+      end
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^prop$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>^soar (\w+)$</name>
-								<script>send("qeb cast soar "..matches[2])</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^soar (\w+)$</regex>
+								<regex>^freeze$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -37273,6 +38236,149 @@ end</script>
 								<packageName></packageName>
 								<regex>^dmg$</regex>
 							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Deform Damage</name>
+								<script>if snd.class == "Oneiromancer" then
+
+  snd.giving = {
+  "asthma",
+  "aeon",
+  "impatience",
+  "clumsiness",
+  "paresis",
+  "weariness",
+  "stupidity",
+  "anorexia",
+  "epilepsy",
+  "sensitivity",
+  "vomiting",
+  "lethargy",
+  "confusion",
+  "recklessness",	
+  "superstition",
+  "berserking",
+  "hypersomnia",
+  }
+  
+  snd.starting_attack()
+  
+  function snd.attack_function() 
+   local string = ""
+   local raw_affs_to_fling = {}
+   local cards = {one = {affliction = "", card = ""}, two = {affliction = "", card = ""}}
+   
+   if not snd.waiting.queue then
+   
+    if snd.used.shield then
+  		string = "touch hammer "..snd.target..snd.sep
+    elseif snd.theytumbling then
+      string = "impel athame at "..snd.target.." prefarar"..snd.sep
+    elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+      string = "vanquish "..snd.target
+    elseif snd.health_percent &lt; 30 then
+      string = "starlight "..snd.target..snd.sep
+    elseif snd.checksomeAffs({"anorexia", "asthma"}, 1) and not snd.checkAff("slickness") then
+      string = "impel athame at "..snd.target.." gecko"..snd.sep
+  	else -- No special attacks, time to run through our aff list defined above and see what we want to give most.
+  		for i in pairs(snd.giving) do
+  			if not snd.checkAff(snd.giving[i]) then
+          if snd.giving[i] == "aeon" then
+            if snd.balance.aeon then
+              if snd.checkAff("clumsiness") or snd.checkAff("wearines") then
+                table.insert(raw_affs_to_fling, snd.giving[i])
+              end
+            end
+  				elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
+  					table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
+  				end
+  			end
+  		end
+      
+      for k, v in ipairs(raw_affs_to_fling) do -- run through the raw affs
+        if cards.one.affliction == "" then -- fill in card one, could start with card two if you want to work around dodge CD
+          if snd.cardshapes.oneiromancer[v].card == "diamond" then
+            if not snd.adder_attached then-- Make sure that if we're picking an adder venom, we haven't already thrown adder
+              cards.one.affliction = v
+              cards.one.card = snd.cardshapes.oneiromancer[v].card
+            end
+          else
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.oneiromancer[v].card
+          end
+        elseif cards.one.card ~= snd.cardshapes.oneiromancer[v].card and cards.two.affliction == "" then -- if card types are different and haven't already set card two
+          if snd.cardshapes.oneiromancer[v].card == "diamond" then
+            if not snd.adder_attached then -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+              cards.one.affliction = v
+              cards.one.card = snd.cardshapes.oneiromancer[v].card
+            end
+          else
+            cards.two.affliction = v
+            cards.two.card = snd.cardshapes.oneiromancer[v].card
+          end
+        end
+      end
+
+      -- If the card is an adder venom affliction, convert the affliction to the venom.
+      if cards.one.card == "diamond" then cards.one.affliction = snd.effects[cards.one.affliction] end
+      if cards.two.card == "diamond" then cards.two.affliction = snd.effects[cards.two.affliction] end
+      
+      if not snd.loyalsattacking then
+        string = "order loyals kill "..snd.target..snd.sep..string
+      end
+      
+      if snd.need_leech_aura then
+  	    string = "unspool "..snd.target..snd.sep
+      end
+      
+      if snd.balance.soulmaster and not snd.checkAff("slickness") then
+        string = "order "..snd.target.." apply epidermal to head"..snd.sep
+      end
+      
+      if snd.balance.envelop then
+        if not snd.checksomeAffs({"anorexia", "slickness", "asthma"}, 1) then
+          string = "order blob envelop"..snd.sep
+        end
+      end
+      
+      if not snd.need_deform then
+        if snd.health_percent &lt; 30 then
+          string = string..snd.sep.."order chimera headbutt "..snd.target..snd.sep
+        end
+      end
+      
+      if snd.need_deform then
+        if snd.health_percent &lt; 90 and snd.aff_count_all() &gt; 11 then
+          string = "disjunct "..snd.target..snd.sep
+        end
+      end
+      
+      if snd.adder_ready then
+        string = string..snd.sep.."activate diamond "..snd.target..snd.sep
+      end
+      
+      string = "qa "..snd.target..snd.sep..string..snd.sep.."unfurl "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
+  
+    	if snd.toggles.affcalling and not snd.target_gone then
+    	  call = "wt Afflicting "..snd.target..": "..cards.one.affliction..", "..cards.two.affliction..snd.sep
+        string = call..snd.sep..string
+    	end
+  	end
+  
+  
+    if string ~= snd.last_attack and not snd.waiting.queue then
+     snd.last_attack = string
+     snd.attack(snd.last_attack)
+     snd.waiting.queue = true
+     tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+   end
+  end
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^dmg2$</regex>
+							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Afflictions</name>
@@ -37313,6 +38419,8 @@ end</script>
       if snd.used.shield then
         string = "touch hammer " .. snd.target
         -- vivi/deform checks would prolly go here
+      elseif snd.theytumbling then
+        string = "impel athame at "..snd.target.." prefarar"..snd.sep    
       elseif snd.aff_count_all() &gt; 10 then
         string = "starlight " .. snd.target
       else
@@ -37409,6 +38517,8 @@ end</script>
     if not snd.waiting.queue then
       if snd.used.shield then
         string = "touch hammer "..snd.target
+      elseif snd.theytumbling then
+        string = "impel athame at "..snd.target.." prefarar"..snd.sep    
       elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
         string = "vanquish "..snd.target
       elseif not snd.checksomeAffs(snd.giving, 4) then
@@ -37440,6 +38550,484 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^limb$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Vivi 2.0</name>
+								<script>if snd.class == "Oneiromancer" then
+
+  snd.giving = {"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken",}
+  
+  snd.starting_attack()
+  
+  function snd.attack_function()
+  
+  local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+  local string = ""
+  if not snd.waiting.queue then
+    if hp &lt;= 40 and snd.balance.crystal then
+      string = "touch crystal"
+    elseif snd.used.shield then
+  		string = "touch hammer "..snd.target
+    elseif snd.theytumbling then
+        string = "impel athame at "..snd.target.." prefarar"..snd.sep    
+    elseif hp &lt;= 75 then
+      string = "unfurl flower at me"
+    elseif snd.aff_tally() &gt; 3 and snd.balance.fool then
+      string = "unfurl fire at me"
+    elseif snd.used.shield then
+      string = "touch hammer "..snd.target
+    elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+      string = "vanquish "..snd.target
+    elseif not snd.checksomeAffs(snd.giving, 4) then
+      for v in pairs(snd.giving) do
+        if not snd.checkAff(snd.giving[v])  then
+          string = "misfortune "..snd.target.." "..snd.giving[v]:gsub("_", " "):gsub("broken", "")
+          break
+        end
+      end
+    elseif snd.aff_count_all() &gt; 10 then
+      string = "disjunct "..snd.target    
+    else
+      string = "chill "..snd.target
+    end
+      
+      if snd.need_leech_aura then
+        string = "unspool "..snd.target..snd.sep..string
+      end 
+
+      if snd.balance.chimera then
+          string = "order quetzal croon"..snd.sep..string
+      end
+
+      if snd.balance.envelop and snd.balance.soulmaster and string.find(string, "anorexia") then
+        string = "order blob envelop"..snd.sep..string..snd.sep.."order "..snd.target.." apply restoration to arms"
+      end
+
+    if not snd.loyalsattacking then
+        string = "order loyals kill "..snd.target..snd.sep..string
+       end
+      
+
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+  
+    end
+  end
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^vivi$</regex>
+							</Alias>
+						</AliasGroup>
+					</AliasGroup>
+					<AliasGroup isActive="yes" isFolder="yes">
+						<name>Runecarver</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Affliction</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Afflictions</name>
+								<script>if snd.class == "Runecarver" then
+snd.starting_attack()
+function snd.attack_function()
+ local string = ""
+ if not snd.waiting.queue then
+	if snd.used.shield then
+   	string = string.."hex imperil "..snd.target
+  elseif not snd.checkAff("gloom") then
+		if hasSkill("Malady") then
+			if gmcp.Char.Vitals.spiritpact &lt; "2" then
+				string = string.."spiritpact despair "..snd.target..snd.sep.."hex malady "..snd.target
+			else
+				string = string.."hex despair "..snd.target
+			end
+		else
+			if gmcp.Char.Vitals.spiritpact &lt; "2" then
+				string = string.."shadowprice despair "..snd.target
+			else
+				string = string.."spiritpact despair "..snd.target
+			end
+		end
+	elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 1) then
+		if gmcp.Char.Vitals.spiritpact &lt; "2" then
+			string = string.."spiritpact enervate "..snd.target
+		else
+			string = string.."hex enervate "..snd.target
+		end
+  elseif snd.checkAff("sight") and not snd.checkAff("mystified") then
+		string = string.."hex mystify " ..snd.target..snd.sep
+	elseif not snd.checksomeAffs({"vomiting", "haemophilia"}, 1) and hasSkill("Malady") then
+		string = string.."hex malady "..snd.target
+  else
+   	string = string.."hex jinx "..snd.target
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^aff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Aff</name>
+								<script>if snd.class == "Runecarver" then
+  snd.starting_attack()
+    function snd.attack_function()
+     if not snd.waiting.queue then
+      local string = ""
+      local gstring = ""
+      local call = ""
+      local astring = ""
+      local paystring = ""
+    	local health = 100*(gmcp.Char.Vitals.maxhp)
+      
+      cecho("&lt;red&gt;\n"..snd.gravity.." " ..tonumber(gmcp.Char.Vitals.spiritpact))
+    		
+    	if not snd.checksomeAffs({"fungal_invasion","inoculated"}, 2) and not snd.used.shield then 
+        gstring = "spore inoculate " ..snd.target..snd.sep.."spore infect " ..snd.target..snd.sep 
+      else 
+        gstring = "" 
+      end
+      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then 
+        paystring = "hex obeisance"..snd.sep 
+      elseif snd.spay == false and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then
+        paystring = "hex obeisance"..snd.sep
+      else 
+        paystring = "" 
+      end
+    
+    	if snd.used.shield then
+        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+          astring = astring.."spiritpact imperil "..snd.target..snd.sep
+          else
+       	astring = astring.."hex imperil "..snd.target..snd.sep
+        end
+    	elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+          astring = astring.."spiritpact mystify "..snd.target..snd.sep
+      elseif not snd.checksomeAffs({"nyctophobia","haemophilia"},2) then
+          astring = astring.."hex anathemise " ..snd.target..snd.sep     
+      elseif not snd.checksomeAffs({"vomiting","haemophilia"},1) then
+        if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+          astring = astring.."spiritpact despair " ..snd.target..snd.sep.."hex malady " ..snd.target..snd.sep
+        else
+          astring = astring.."hex malady " ..snd.target..snd.sep
+        end
+      elseif not snd.checksomeAffs({"clumsiness","weariness","lethargy","paresis"},2) then
+        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 3 and not snd.checkAff("gloom") then
+          astring = astring.."spiritpact despair " ..snd.target..snd.sep.."spiritpact enervate " ..snd.target..snd.sep
+        elseif tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+          astring = astring.."spiritpact enervate " ..snd.target..snd.sep
+        else
+          astring = astring.."hex enervate " ..snd.target..snd.sep
+        end
+       else
+        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+          astring = astring.."spiritpact anathemise " ..snd.target..snd.sep
+          else
+          string = astring.."hex anathemise " ..snd.target..snd.sep
+        end
+      end
+      if string ~= snd.last_attack and not snd.waiting.queue then
+      string = paystring..gstring..astring
+       snd.last_attack = string
+       snd.attack(snd.last_attack)
+       snd.waiting.queue = true
+       tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+     end
+  end
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gaff$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Damage</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Basic Damage</name>
+								<script>if snd.class == "Runecarver" then
+snd.starting_attack()
+function snd.attack_function()
+ local string = ""
+ if not snd.waiting.queue then
+	if snd.used.shield then
+   	string = string.."hex imperil "..snd.target
+  elseif snd.checkAff("writhe_transfix") then
+		if not snd.checkAff("gloom") then
+			if hasSkill("Malady") then
+				if gmcp.Char.Vitals.spiritpact &lt; "2" then
+					string = string.."spiritpact despair "..snd.target..snd.sep.."hex malady "..snd.target
+				else
+					string = string.."hex despair "..snd.target
+				end
+			else
+				if gmcp.Char.Vitals.spiritpact &lt; "2" then
+					string = string.."spiritpact despair "..snd.target
+				else
+					string = string.."hex despair "..snd.target
+				end
+			end
+		end
+  else
+   		if hasSkill("Bewitch") and snd.balance.sorcery_transfix then
+				string = string.."runecarve bewitch "..snd.target
+			elseif not snd.checkAff("rot_benign") then
+				string = string.."hex revile "..snd.target
+			end
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^dmg$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Dmg</name>
+								<script>if snd.class == "Runecarver" then
+snd.starting_attack()
+function snd.attack_function()
+ if not snd.waiting.queue then
+  local string = ""
+  local gstring = ""
+  local call = ""
+  local astring = ""
+  local paystring = ""
+	local health = 100*(gmcp.Char.Vitals.maxhp)
+  
+  	cecho("&lt;red&gt;\n"..snd.gravity.." " ..tonumber(gmcp.Char.Vitals.spiritpact))
+		
+--			if not snd.checksomeAffs({"fungal_invasion","inoculated"}, 2) and not snd.used.shield then gstring = "spore inoculate " ..snd.target..snd.sep.."spore infect " ..snd.target..snd.sep else gstring = "" end
+      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then paystring = "hex obeisance"..snd.sep elseif snd.spay == false and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then paystring = "hex obeisance"..snd.sep else paystring = "" end
+
+	if snd.used.shield then
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      astring = astring.."spiritpact imperil "..snd.target..snd.sep
+      else
+   	astring = astring.."hex imperil "..snd.target..snd.sep
+    end
+	elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      astring = astring.."spiritpact mystify "..snd.target..snd.sep
+  elseif not snd.checksomeAffs({"nyctophobia","haemophilia"},2) then
+      astring = astring.."cast anathemise " ..snd.target..snd.sep     
+  elseif not snd.checksomeAffs({"vomiting","haemophilia"},1) then
+    if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      astring = astring.."spiritpact despair " ..snd.target..snd.sep.."hex malady " ..snd.target..snd.sep
+    else
+      astring = astring.."hex malady " ..snd.target..snd.sep
+    end
+  elseif not snd.checksomeAffs({"clumsiness","weariness","lethargy","paresis"},2) then
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 3 and not snd.checkAff("gloom") then
+      astring = astring.."spiritpact despair " ..snd.target..snd.sep.."spiritpact enervate " ..snd.target..snd.sep
+    elseif tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      astring = astring.."spiritpact enervate " ..snd.target..snd.sep
+    else
+      astring = astring.."hex enervate " ..snd.target..snd.sep
+    end
+   else
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      astring = astring.."spiritpact anathemise " ..snd.target..snd.sep
+      else
+      string = astring.."cast anathemise " ..snd.target..snd.sep
+  end
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+  string = paystring..astring
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gdmg$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Limb</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Limbs</name>
+								<script>if snd.class == "Runecarver" then
+  snd.starting_attack()  
+  function snd.attack_function()
+  
+    local string = ""
+    if not snd.waiting.queue then
+      limbs = {"left leg", "right leg", "left arm", "right arm"}
+      for limb in pairs(limbs) do
+      -- ignore last hit and any limbs being resto'd
+        if
+          limbs[limb] ~= snd.last_hit_limb and
+          limbs[limb] ~= snd.resto_limb
+        then
+          if targ == nil then
+            targ = limbs[limb]
+          end
+        end
+      end
+
+	if snd.used.shield then
+   string = string.."hex imperil "..snd.target
+	elseif gmcp.Char.Vitals.morass == "" then
+		if hasSkill("Colonisation") then
+			string = string.."spore colonise clutchgill"
+		else
+			string = string.."spore germinate"
+		end
+  elseif snd.gravity &lt; 5 then
+		string = string.."spore ensnare "..snd.target
+  else
+		if not snd.checkAff(targ:gsub(" ","_").."_broken") then 
+			string = string.."spore degrade "..snd.target.." "..targ
+		else
+			if hasSkill("Bewitch") and snd.balance.sorcery_transfix  then
+				string = string.."runecarve bewitch "..snd.target
+			else
+				string = string.."hex numb "..snd.target
+			end
+		end
+  end
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^limbs$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Combination (Limb and Aff)</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Combo from Enebish</name>
+								<script>if snd.class == "Runecarver" then
+
+  local string = ""
+  local paystring = ""
+  shadowprice = tonumber(gmcp.Char.Vitals.spiritpact)
+  
+  local scourgecount = 0
+  for aff in pairs(snd.scourge_affs) do
+    if table.contains(snd.target_has, snd.scourge_affs[aff]) then
+      scourgecount = scourgecount + 1
+    end
+  end
+  if snd.used.shield then
+    if shadowprice &lt; 2 then
+      string = string .. "spiritpact imperil " .. snd.target .. snd.sep
+    else
+      string = string .. "hex imperil " .. snd.target
+    end
+ 
+  elseif snd.checksomeAffs({"prone", "nyctophobia"}, 2) and shadowprice &lt; 4 then
+    string = "spiritpact mortis " .. snd.target
+  elseif snd.checkAff("voidtrapped") then
+    if snd.vt == true then
+      string = "spore omophagia consume"
+    else
+      string = "spore omophagia spread"
+    end
+  elseif not snd.checkAff("gloom") and shadowprice &lt; 2 then
+    string = "spiritpact despair " .. snd.target .. snd.sep .. "spiritpact mystify " ..snd.target
+  elseif not snd.checkAff("voidgaze") and shadowprice &lt; 4 then
+    string = "spiritpact mystify " ..snd.target
+  elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 4) then
+    if shadowprice &lt; 4 then
+      string = "spiritpact enervate " .. snd.target
+    else
+      string = "hex enervate " .. snd.target
+    end
+  else
+    string = "hex jinx " ..snd.target
+  end
+ 
+  if shadowprice &gt;= 4 then
+    send("qeb hex obeisance")
+  else
+    send("qeb " ..string)
+  end 
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^combo$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Aliases</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Sing Summon</name>
+								<script>
+if snd.class == "Runecarver" then
+  snd.send("qeb spore colonise clutchgill hartsblood stormstem ravencap greycrown")
+ end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^sing1$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Gravity Cannon</name>
+								<script>
+if snd.class == "Runecarver" then
+  snd.send("qeb spore mortify "..snd.target)
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gc$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -37855,6 +39443,236 @@ end</script>
 								<regex>^ment$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
+								<name>Bleeding</name>
+								<script>if snd.class == "Sentinel" then
+snd.current_offense = "bleed"
+
+snd.starting_attack()
+function snd.attack_function()
+
+		if not snd.waiting.queue then
+		if snd.target_locked() then
+			snd.giving = {
+			"impairment",
+			"confusion",
+			"left_leg_broken",
+			"right_leg_broken",
+			"weariness",
+			"dizziness",
+      }
+		else
+			snd.giving = {
+			"paresis",
+		  "clumsiness",
+			"haemophilia",
+			"hearing",
+			"sensitivity",
+      "asthma",
+      "weariness",
+      "slickness",
+
+      }
+		end
+
+	call = ""
+	left = "none"
+	right = "none"
+
+	 left, right = Sentinel_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+    local second_attack = "slice"
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "dhuriv dualraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "dhuriv throatcrush "..snd.target
+			
+		else
+			if table.contains(snd.dhuriv_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.dhuriv_attacks[left].." "..snd.dhuriv_attacks[right]
+				else
+					string = snd.dhuriv_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.dhuriv_affs, right) then
+				string = "slash "..snd.dhuriv_attacks[right].." "..snd.effects[left]
+			else
+				string = "slash "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "dhuriv combo "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+			string = "dhuriv spinecut "..snd.target
+		end
+		
+		if string:find("impale") or string:find("gorge") or string:find("throatcrush") or string:find("dualraze") or string:find("spinecut") then
+			call = ""
+		end
+
+		string = call..snd.sep.."order loyals attack "..snd.target..snd.sep..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^bleed$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Limbs / Salves</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Impale/Frozen</name>
+								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
+snd.current_offense = "SentImpale"
+snd.giving = {
+
+"frozen",
+"left_leg_broken",
+"right_leg_broken",
+"left_arm_broken",
+"right_arm_broken",
+"asthma",
+"slickness",
+"paresis",
+"confusion",
+"vomiting",
+"dizziness",
+"sight",
+"hearing",
+"sensitivity",
+}
+
+local second_attack = ""
+
+snd.starting_attack()
+function snd.attack_function()
+
+	if not snd.waiting.queue then
+
+	string = ""
+	call = ""
+	left = "none"
+	right = "none"
+
+	left, right = Sentinel_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "thrust"
+		else
+			second_attack = "stab"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "dhuriv dualraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "dhuriv throatcrush "..snd.target
+			
+		elseif snd.target_impaled then
+			string = "dhuriv gorge "..snd.target
+			
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_broken") and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) then
+			string = "dhuriv pierce "..snd.target.." left"
+		
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_broken") and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) then
+			string = "dhuriv pierce "..snd.target.." right"
+
+  	elseif snd.proned() then         
+      if not snd.checkAff("writhe_impaled") then
+      	string = "dhuriv impale "..snd.target
+       else
+        string = "qdmount"..snd.sep.."qmount "..snd.my_raloth..snd.sep.."order "..snd.my_raloth.." trample "..snd.target
+      end	
+			
+		elseif snd.dhuriv_attacks[left] == "daunt" or snd.dhuriv_attacks[left] == "icewyrm" then
+			left = snd.daunt_animals[left]
+			string = left..snd.target..snd.sep.."dhuriv flourish "..snd.target.." "..snd.effects[right]
+						
+		else
+
+			if table.contains(snd.dhuriv_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = "dhuriv combo "..snd.target.." "..snd.dhuriv_attacks[left].." "..snd.dhuriv_attacks[right]
+				else
+					string = "dhuriv combo "..snd.target.." "..snd.dhuriv_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.dhuriv_affs, right) then
+				string = "dhuriv combo "..snd.target.." slash "..snd.dhuriv_attacks[right].." "..snd.effects[left]
+			else
+				string = "dhuriv combo "..snd.target.." slash "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+			string = "dhuriv spinecut "..snd.target
+		end
+		
+		if string:find("impale") or string:find("gorge") or string:find("throatcrush") or string:find("dualraze") or string:find("spinecut") or string:find("pierce") then
+			call = ""
+		end
+
+		string = call..string
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gimp$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
 								<name>Salves</name>
 								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
 snd.current_offense = "SentSalve"
@@ -37991,344 +39809,8 @@ end</script>
 								<regex>^salve$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>Group Impale/Frozen</name>
-								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
-snd.current_offense = "SentImpale"
-snd.giving = {
-
-"frozen",
-"left_leg_broken",
-"right_leg_broken",
-"left_arm_broken",
-"right_arm_broken",
-"asthma",
-"slickness",
-"paresis",
-"confusion",
-"vomiting",
-"dizziness",
-"sight",
-"hearing",
-"sensitivity",
-}
-
-local second_attack = ""
-
-snd.starting_attack()
-function snd.attack_function()
-
-	if not snd.waiting.queue then
-
-	string = ""
-	call = ""
-	left = "none"
-	right = "none"
-
-	left, right = Sentinel_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
-
-		if left  == "none" then left  = "epseth" end
-		if right == "none" then right = "epseth" end
-	
-		if snd.no_parry() then 
-			second_attack = "thrust"
-		else
-			second_attack = "stab"
-		end
-
-		if snd.used.rebounding and snd.used.shield then
-			string = "dhuriv dualraze "..snd.target
-			
-		elseif left == "destroyed_throat" then
-			string = "dhuriv throatcrush "..snd.target
-			
-		elseif snd.target_impaled then
-			string = "dhuriv gorge "..snd.target
-			
-		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_broken") and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) then
-			string = "dhuriv pierce "..snd.target.." left"
-		
-		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_broken") and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) then
-			string = "dhuriv pierce "..snd.target.." right"
-
-  	elseif snd.proned() then         
-      if not snd.checkAff("writhe_impaled") then
-      	string = "dhuriv impale "..snd.target
-       else
-        string = "qdmount"..snd.sep.."qmount "..snd.my_raloth..snd.sep.."order "..snd.my_raloth.." trample "..snd.target
-      end	
-			
-		elseif snd.dhuriv_attacks[left] == "daunt" or snd.dhuriv_attacks[left] == "icewyrm" then
-			left = snd.daunt_animals[left]
-			string = left..snd.target..snd.sep.."dhuriv flourish "..snd.target.." "..snd.effects[right]
-						
-		else
-
-			if table.contains(snd.dhuriv_affs, left) then
-				if not table.contains(snd.effects, right) then
-					string = "dhuriv combo "..snd.target.." "..snd.dhuriv_attacks[left].." "..snd.dhuriv_attacks[right]
-				else
-					string = "dhuriv combo "..snd.target.." "..snd.dhuriv_attacks[left].." "..second_attack.." "..snd.effects[right]
-				end
-			elseif table.contains(snd.dhuriv_affs, right) then
-				string = "dhuriv combo "..snd.target.." slash "..snd.dhuriv_attacks[right].." "..snd.effects[left]
-			else
-				string = "dhuriv combo "..snd.target.." slash "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
-			end
-		end
-		
-		if snd.toggles.affcalling and not snd.target_gone then
-			if table.contains(snd.effects, left) then 
-				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
-				if table.contains(snd.effects, right) then 
-					call = call..", "..snd.effects[right]
-				end
-				call = call..snd.sep
-			elseif table.contains(snd.effects, right) then 
-				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
-			end
-		end
-
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
-			string = "dhuriv spinecut "..snd.target
-		end
-		
-		if string:find("impale") or string:find("gorge") or string:find("throatcrush") or string:find("dualraze") or string:find("spinecut") or string:find("pierce") then
-			call = ""
-		end
-
-		string = call..string
-		if string ~= snd.last_attack and not snd.waiting.queue then
-			snd.last_attack = string
-			snd.attack(snd.last_attack)
-			snd.waiting.queue = true
-			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-		end
-	end
-end
-	snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gimp$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Bleeding</name>
-								<script>if snd.class == "Sentinel" then
-snd.current_offense = "bleed"
-
-snd.starting_attack()
-function snd.attack_function()
-
-		if not snd.waiting.queue then
-		if snd.target_locked() then
-			snd.giving = {
-			"impairment",
-			"confusion",
-			"left_leg_broken",
-			"right_leg_broken",
-			"weariness",
-			"dizziness",
-      }
-		else
-			snd.giving = {
-			"paresis",
-		  "clumsiness",
-			"haemophilia",
-			"hearing",
-			"sensitivity",
-      "asthma",
-      "weariness",
-      "slickness",
-
-      }
-		end
-
-	call = ""
-	left = "none"
-	right = "none"
-
-	 left, right = Sentinel_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
-
-		if left  == "none" then left  = "epseth" end
-		if right == "none" then right = "epseth" end
-	
-    local second_attack = "slice"
-
-		if snd.used.rebounding and snd.used.shield then
-			string = "dhuriv dualraze "..snd.target
-			
-		elseif left == "destroyed_throat" then
-			string = "dhuriv throatcrush "..snd.target
-			
-		else
-			if table.contains(snd.dhuriv_affs, left) then
-				if not table.contains(snd.effects, right) then
-					string = snd.dhuriv_attacks[left].." "..snd.dhuriv_attacks[right]
-				else
-					string = snd.dhuriv_attacks[left].." "..second_attack.." "..snd.effects[right]
-				end
-			elseif table.contains(snd.dhuriv_affs, right) then
-				string = "slash "..snd.dhuriv_attacks[right].." "..snd.effects[left]
-			else
-				string = "slash "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
-			end
-			
-			string = "dhuriv combo "..snd.target.." "..string
-		end
-		
-		if snd.toggles.affcalling and not snd.target_gone then
-			if table.contains(snd.effects, left) then 
-				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
-				if table.contains(snd.effects, right) then 
-					call = call..", "..snd.effects[right]
-				end
-				call = call..snd.sep
-			elseif table.contains(snd.effects, right) then 
-				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
-			end
-		end
-
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
-			string = "dhuriv spinecut "..snd.target
-		end
-		
-		if string:find("impale") or string:find("gorge") or string:find("throatcrush") or string:find("dualraze") or string:find("spinecut") then
-			call = ""
-		end
-
-		string = call..snd.sep.."order loyals attack "..snd.target..snd.sep..string
-    
-		if string ~= snd.last_attack and not snd.waiting.queue then
-			snd.last_attack = string
-			snd.attack(snd.last_attack)
-			snd.waiting.queue = true
-			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-		end
-	end
-end
-
-	snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^bleed$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
 								<name>Group spinecut</name>
-								<script>if snd.class == "Sentinel" then
-snd.current_offense = "SentGroup"
- 
-local second_attack = ""
- 
-snd.starting_attack()
-function snd.attack_function()
- 
-        if not snd.waiting.queue then
-        if snd.checksomeAffs({"asthma", "clumsiness", "hypochondria", "weariness", "impatience", "slickness"}, 2) then
-            snd.giving = {
-            "asthma",
-            "slickness",
-            "confusion",
-            "left_leg_broken",
-            "right_leg_broken",
-            "heartflutter",
-            "weariness",
-            "dizziness",
-            "hearing",
-            "sensitivity",}
-        else
-            snd.giving = {
-            "paresis",
-            "clumsiness",
-            "asthma",
-            "slickness",
-            "anorexia",
-            "confusion",
-            "heartflutter",
-            "left_leg_broken",
-            "right_leg_broken",
-            "stupidity",
-            "vomiting",
-            "dizziness",
-            "sight",
-            "hearing",
-            "sensitivity",}
-        end
- 
-    call = ""
-    left = "none"
-    right = "none"
- 
-     left, right = Sentinel_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
- 
-        if left  == "none" then left  = "epseth" end
-        if right == "none" then right = "epseth" end
-   
-        if snd.no_parry() then
-            second_attack = "thrust"
-        else
-            second_attack = "stab"
-        end
- 
-        if snd.used.rebounding and snd.used.shield then
-            string = "dhuriv dualraze "..snd.target
-           
-        elseif left == "destroyed_throat" then
-            string = "dhuriv throatcrush "..snd.target
-           
-        elseif snd.dhuriv_attacks[left] == "daunt" or snd.dhuriv_attacks[left] == "icewyrm" then
-            left = snd.daunt_animals[left]
-            string = left..snd.target..snd.sep.."dhuriv flourish "..snd.target.." "..snd.effects[right]
-           
-        else
-            if table.contains(snd.dhuriv_affs, left) then
-                if not table.contains(snd.effects, right) then
-                    string = snd.dhuriv_attacks[left].." "..snd.dhuriv_attacks[right]
-                else
-                    string = snd.dhuriv_attacks[left].." "..second_attack.." "..snd.effects[right]
-                end
-            elseif table.contains(snd.dhuriv_affs, right) then
-                string = "slash "..snd.dhuriv_attacks[right].." "..snd.effects[left]
-            else
-                string = "slash "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
-            end
-           
-            string = "dhuriv combo "..snd.target.." "..string
-        end
-       
-        if snd.toggles.affcalling and not snd.target_gone then
-            if table.contains(snd.effects, left) then
-                call = "wt Afflicting "..snd.target..": "..snd.effects[left]
-                if table.contains(snd.effects, right) then
-                    call = call..", "..snd.effects[right]
-                end
-                call = call..snd.sep
-            elseif table.contains(snd.effects, right) then
-                call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
-            end
-        end
- 
-        if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
-            string = "dhuriv spinecut "..snd.target
-        end
-       
-        if string:find("impale") or string:find("gorge") or string:find("throatcrush") or string:find("dualraze") or string:find("spinecut") then
-            call = ""
-        end
- 
-        string = call..string
-   
-        if string ~= snd.last_attack and not snd.waiting.queue then
-            snd.last_attack = string
-            snd.attack(snd.last_attack)
-            snd.waiting.queue = true
-            tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-        end
-    end
-end
- 
-    snd.attack_function()
-end</script>
+								<script></script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^gsc$</regex>
@@ -40781,7 +42263,7 @@ end</script>
 							<packageName></packageName>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
-								<name>Damage</name>
+								<name>Basic Damage</name>
 								<script>if snd.class == "Tidesage" then
   snd.starting_attack()
   
@@ -40965,412 +42447,6 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^limbs$</regex>
-							</Alias>
-						</AliasGroup>
-					</AliasGroup>
-					<AliasGroup isActive="yes" isFolder="yes">
-						<name>Runecarver</name>
-						<script></script>
-						<command></command>
-						<packageName></packageName>
-						<regex></regex>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Affliction</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Afflictions</name>
-								<script>if snd.class == "Runecarver" then
-snd.starting_attack()
-function snd.attack_function()
- local string = ""
- if not snd.waiting.queue then
-	if snd.used.shield then
-   	string = string.."hex imperil "..snd.target
-  elseif not snd.checkAff("gloom") then
-		if hasSkill("Malady") then
-			if gmcp.Char.Vitals.spiritpact &lt; "2" then
-				string = string.."spiritpact despair "..snd.target..snd.sep.."hex malady "..snd.target
-			else
-				string = string.."hex despair "..snd.target
-			end
-		else
-			if gmcp.Char.Vitals.spiritpact &lt; "2" then
-				string = string.."shadowprice despair "..snd.target
-			else
-				string = string.."spiritpact despair "..snd.target
-			end
-		end
-	elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 1) then
-		if gmcp.Char.Vitals.spiritpact &lt; "2" then
-			string = string.."spiritpact enervate "..snd.target
-		else
-			string = string.."hex enervate "..snd.target
-		end
-  elseif snd.checkAff("sight") and not snd.checkAff("mystified") then
-		string = string.."hex mystify " ..snd.target..snd.sep
-	elseif not snd.checksomeAffs({"vomiting", "haemophilia"}, 1) and hasSkill("Malady") then
-		string = string.."hex malady "..snd.target
-  else
-   	string = string.."hex jinx "..snd.target
-  end
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
- end
-end
-snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^aff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group Aff</name>
-								<script>if snd.class == "Runecarver" then
-  snd.starting_attack()
-    function snd.attack_function()
-     if not snd.waiting.queue then
-      local string = ""
-      local gstring = ""
-      local call = ""
-      local astring = ""
-      local paystring = ""
-    	local health = 100*(gmcp.Char.Vitals.maxhp)
-      
-      cecho("&lt;red&gt;\n"..snd.gravity.." " ..tonumber(gmcp.Char.Vitals.spiritpact))
-    		
-    	if not snd.checksomeAffs({"fungal_invasion","inoculated"}, 2) and not snd.used.shield then 
-        gstring = "spore inoculate " ..snd.target..snd.sep.."spore infect " ..snd.target..snd.sep 
-      else 
-        gstring = "" 
-      end
-      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then 
-        paystring = "hex obeisance"..snd.sep 
-      elseif snd.spay == false and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then
-        paystring = "hex obeisance"..snd.sep
-      else 
-        paystring = "" 
-      end
-    
-    	if snd.used.shield then
-        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-          astring = astring.."spiritpact imperil "..snd.target..snd.sep
-          else
-       	astring = astring.."hex imperil "..snd.target..snd.sep
-        end
-    	elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-          astring = astring.."spiritpact mystify "..snd.target..snd.sep
-      elseif not snd.checksomeAffs({"nyctophobia","haemophilia"},2) then
-          astring = astring.."hex anathemise " ..snd.target..snd.sep     
-      elseif not snd.checksomeAffs({"vomiting","haemophilia"},1) then
-        if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-          astring = astring.."spiritpact despair " ..snd.target..snd.sep.."hex malady " ..snd.target..snd.sep
-        else
-          astring = astring.."hex malady " ..snd.target..snd.sep
-        end
-      elseif not snd.checksomeAffs({"clumsiness","weariness","lethargy","paresis"},2) then
-        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 3 and not snd.checkAff("gloom") then
-          astring = astring.."spiritpact despair " ..snd.target..snd.sep.."spiritpact enervate " ..snd.target..snd.sep
-        elseif tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-          astring = astring.."spiritpact enervate " ..snd.target..snd.sep
-        else
-          astring = astring.."hex enervate " ..snd.target..snd.sep
-        end
-       else
-        if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-          astring = astring.."spiritpact anathemise " ..snd.target..snd.sep
-          else
-          string = astring.."hex anathemise " ..snd.target..snd.sep
-        end
-      end
-      if string ~= snd.last_attack and not snd.waiting.queue then
-      string = paystring..gstring..astring
-       snd.last_attack = string
-       snd.attack(snd.last_attack)
-       snd.waiting.queue = true
-       tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-     end
-  end
-  snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gaff$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Damage</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Basic Damage</name>
-								<script>if snd.class == "Runecarver" then
-snd.starting_attack()
-function snd.attack_function()
- local string = ""
- if not snd.waiting.queue then
-	if snd.used.shield then
-   	string = string.."hex imperil "..snd.target
-  elseif snd.checkAff("writhe_transfix") then
-		if not snd.checkAff("gloom") then
-			if hasSkill("Malady") then
-				if gmcp.Char.Vitals.spiritpact &lt; "2" then
-					string = string.."spiritpact despair "..snd.target..snd.sep.."hex malady "..snd.target
-				else
-					string = string.."hex despair "..snd.target
-				end
-			else
-				if gmcp.Char.Vitals.spiritpact &lt; "2" then
-					string = string.."spiritpact despair "..snd.target
-				else
-					string = string.."hex despair "..snd.target
-				end
-			end
-		end
-  else
-   		if hasSkill("Bewitch") and snd.balance.sorcery_transfix then
-				string = string.."runecarve bewitch "..snd.target
-			elseif not snd.checkAff("rot_benign") then
-				string = string.."hex revile "..snd.target
-			end
-  end
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
- end
-end
-snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^dmg$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group Dmg</name>
-								<script>if snd.class == "Runecarver" then
-snd.starting_attack()
-function snd.attack_function()
- if not snd.waiting.queue then
-  local string = ""
-  local gstring = ""
-  local call = ""
-  local astring = ""
-  local paystring = ""
-	local health = 100*(gmcp.Char.Vitals.maxhp)
-  
-  	cecho("&lt;red&gt;\n"..snd.gravity.." " ..tonumber(gmcp.Char.Vitals.spiritpact))
-		
---			if not snd.checksomeAffs({"fungal_invasion","inoculated"}, 2) and not snd.used.shield then gstring = "spore inoculate " ..snd.target..snd.sep.."spore infect " ..snd.target..snd.sep else gstring = "" end
-      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then paystring = "hex obeisance"..snd.sep elseif snd.spay == false and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then paystring = "hex obeisance"..snd.sep else paystring = "" end
-
-	if snd.used.shield then
-    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-      astring = astring.."spiritpact imperil "..snd.target..snd.sep
-      else
-   	astring = astring.."hex imperil "..snd.target..snd.sep
-    end
-	elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-      astring = astring.."spiritpact mystify "..snd.target..snd.sep
-  elseif not snd.checksomeAffs({"nyctophobia","haemophilia"},2) then
-      astring = astring.."cast anathemise " ..snd.target..snd.sep     
-  elseif not snd.checksomeAffs({"vomiting","haemophilia"},1) then
-    if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-      astring = astring.."spiritpact despair " ..snd.target..snd.sep.."hex malady " ..snd.target..snd.sep
-    else
-      astring = astring.."hex malady " ..snd.target..snd.sep
-    end
-  elseif not snd.checksomeAffs({"clumsiness","weariness","lethargy","paresis"},2) then
-    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 3 and not snd.checkAff("gloom") then
-      astring = astring.."spiritpact despair " ..snd.target..snd.sep.."spiritpact enervate " ..snd.target..snd.sep
-    elseif tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-      astring = astring.."spiritpact enervate " ..snd.target..snd.sep
-    else
-      astring = astring.."hex enervate " ..snd.target..snd.sep
-    end
-   else
-    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
-      astring = astring.."spiritpact anathemise " ..snd.target..snd.sep
-      else
-      string = astring.."cast anathemise " ..snd.target..snd.sep
-  end
-  end
-  if string ~= snd.last_attack and not snd.waiting.queue then
-  string = paystring..astring
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
- end
-end
-snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gdmg$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Limb</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Limbs</name>
-								<script>if snd.class == "Runecarver" then
-  snd.starting_attack()  
-  function snd.attack_function()
-  
-    local string = ""
-    if not snd.waiting.queue then
-      limbs = {"left leg", "right leg", "left arm", "right arm"}
-      for limb in pairs(limbs) do
-      -- ignore last hit and any limbs being resto'd
-        if
-          limbs[limb] ~= snd.last_hit_limb and
-          limbs[limb] ~= snd.resto_limb
-        then
-          if targ == nil then
-            targ = limbs[limb]
-          end
-        end
-      end
-
-	if snd.used.shield then
-   string = string.."hex imperil "..snd.target
-	elseif gmcp.Char.Vitals.morass == "" then
-		if hasSkill("Colonisation") then
-			string = string.."spore colonise clutchgill"
-		else
-			string = string.."spore germinate"
-		end
-  elseif snd.gravity &lt; 5 then
-		string = string.."spore ensnare "..snd.target
-  else
-		if not snd.checkAff(targ:gsub(" ","_").."_broken") then 
-			string = string.."spore degrade "..snd.target.." "..targ
-		else
-			if hasSkill("Bewitch") and snd.balance.sorcery_transfix  then
-				string = string.."runecarve bewitch "..snd.target
-			else
-				string = string.."hex numb "..snd.target
-			end
-		end
-  end
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
- end
-end
-snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^limbs$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Combination (Limb and Aff)</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Combo from Enebish</name>
-								<script>if snd.class == "Runecarver" then
-
-  local string = ""
-  local paystring = ""
-  shadowprice = tonumber(gmcp.Char.Vitals.spiritpact)
-  
-  local scourgecount = 0
-  for aff in pairs(snd.scourge_affs) do
-    if table.contains(snd.target_has, snd.scourge_affs[aff]) then
-      scourgecount = scourgecount + 1
-    end
-  end
-  if snd.used.shield then
-    if shadowprice &lt; 2 then
-      string = string .. "spiritpact imperil " .. snd.target .. snd.sep
-    else
-      string = string .. "hex imperil " .. snd.target
-    end
- 
-  elseif snd.checksomeAffs({"prone", "nyctophobia"}, 2) and shadowprice &lt; 4 then
-    string = "spiritpact mortis " .. snd.target
-  elseif snd.checkAff("voidtrapped") then
-    if snd.vt == true then
-      string = "spore omophagia consume"
-    else
-      string = "spore omophagia spread"
-    end
-  elseif not snd.checkAff("gloom") and shadowprice &lt; 2 then
-    string = "spiritpact despair " .. snd.target .. snd.sep .. "spiritpact mystify " ..snd.target
-  elseif not snd.checkAff("voidgaze") and shadowprice &lt; 4 then
-    string = "spiritpact mystify " ..snd.target
-  elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 4) then
-    if shadowprice &lt; 4 then
-      string = "spiritpact enervate " .. snd.target
-    else
-      string = "hex enervate " .. snd.target
-    end
-  else
-    string = "hex jinx " ..snd.target
-  end
- 
-  if shadowprice &gt;= 4 then
-    send("qeb hex obeisance")
-  else
-    send("qeb " ..string)
-  end 
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^combo$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Aliases</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Sing Summon</name>
-								<script>
-if snd.class == "Runecarver" then
-  snd.send("qeb spore colonise clutchgill hartsblood stormstem ravencap greycrown")
- end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^sing1$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Gravity Cannon</name>
-								<script>
-if snd.class == "Runecarver" then
-  snd.send("qeb spore mortify "..snd.target)
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gc$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -45686,81 +46762,63 @@ end</script>
 							<Alias isActive="yes" isFolder="no">
 								<name>Basic Aff</name>
 								<script>if snd.class == "Teradrim" then
-
   snd.starting_attack()
+
   function snd.attack_function()
     local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
     local string = ""
+    
     if not snd.waiting.queue then
       if not table.isMember(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
-      elseif snd.used.shield then
-        if sandstorm &gt;= 5 then
-          string = "sand slice "..snd.target.." storm"
+      -- If you don't have sandstorm up, let's do it.
+      elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
+        string = "sand storm"
+      -- Are they tumbling? Let's impale them if they haven't been yet.
+      elseif not snd.target_impaled and snd.theytumbling then
+         string = string.."earth impale "..snd.target
+      -- If shielded or rebounding, strip it.
+      elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Slice") then
+        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+          if snd.used.shield and snd.used.rebounding then
+            string = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target
+          else
+            string = "sand slice "..snd.target.." storm"..snd.sep.."earth batter " .. snd.target
+          end
         else
           string = "sand slice " .. snd.target
         end
-      elseif not snd.checkAff("slough") then
-        if snd.balance.earthenwill and apparition == 5 then
-          string = "tide engulf trammel"..snd.sep.."fog terrors "..snd.target.." apparition"..snd.sep.."tide ram "..snd.target
-        elseif apparition == 5 then
-          string = "fog terrors "..snd.target.." apparition"..snd.sep.."tide ram "..snd.target
+      -- Let's get slough going to limit usage of poultices.
+      elseif not snd.checkAff("slough") and hasSkill("Curse") then -- slough prevents poultices from being applied, like slickness
+        -- Let's try to give heartflutter and stun if we can. 
+        -- If we have sandstorm, let's give some affs and damage torso.
+        -- If all else fails, let's just give those affs.
+        if (snd.balance.earthenwill and hasSkill("Engulf")) and (sandstorm &gt;= 3 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
+          string = "prepare earthenwill heartpunch"..snd.sep.."sand curse "..snd.target.." storm"..snd.sep.."earth gutsmash "..snd.target
+        elseif (sandstorm &gt;= 3 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
+          string = "sand curse "..snd.target.." storm"..snd.sep.."earth gutsmash "..snd.target
         else
-            string = "fog terrors "..snd.target
+          string = "sand curse "..snd.target
         end
-      elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},1) then
-        string = "fog unseen "..snd.target
-      else
-        string = "tide clobber "..snd.target
-      end
-    
-      if not snd.loyalsattacking then
-      string = "order loyals kill "..snd.target..snd.sep..string
-      end
-  
-      if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-  snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^aff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Basic Group Affs</name>
-								<script>if snd.class == "Teradrim" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
-    
-    local string = ""
-    if not snd.waiting.queue then
-      if snd.target_impaled and hasSkill("Stonevice") then
-        string = "earth stonevice"
-      elseif not table.isMember(gmcp.Room.Info.details, "sandy") then
-        string = "sand flood"
-      elseif snd.used.shield or snd.used.rebounding then
-        if sandstorm &gt;= 5 then
-          string = "sand slice "..snd.target.." storm"
-        else
-          string = "sand slice " .. snd.target
-        end
-      elseif not snd.checkAff("slough") and hasSkill("Curse") then
-        string = "sand curse "..snd.target
-      elseif snd.checksomeAffs({"recklessness", "dizziness", "sensitivity", "epilepsy", "stupidity"},5) and hasSkill("Whip") then
+      -- if they are proned, let's go ahead and try to give collapsed lung to punish for smoking
+      elseif (snd.proned() and hasSkill("Pulp")) and not snd.checkAff("collapsed_lung") then
+         string = string.."earth pulp "..snd.target
+      -- If we get slough up, let's throw out some useful group affs going.
+      elseif snd.checksomeAffs({"recklessness", "dizziness", "sensitivity", "epilepsy", "stupidity"},4) and hasSkill("Whip") then
         string = "sand whip "..snd.target
+      -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
       elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},4) and hasSkill("Scourge") then
         string = "sand scourge " .. snd.target
+      -- All else, let's just smack
       else
-        string = "earth batter " .. snd.target
+        string = "earth  batter " .. snd.target
       end
+    
+      -- If your golem isn't attacking, get it attacking.
+      if not snd.loyalsattacking then
+        string = "order loyals kill "..snd.target..snd.sep..string
+      end
+      
       if string ~= snd.last_attack and not snd.waiting.queue then
         snd.last_attack = string
         snd.attack(snd.last_attack)
@@ -45774,7 +46832,7 @@ end</script>
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^gaff$</regex>
+								<regex>^aff$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -45787,35 +46845,87 @@ end</script>
 								<name>Basic Group Damage</name>
 								<script>if snd.class == "Teradrim" then
   snd.starting_attack()
-
+  
   function snd.attack_function()
     local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
-    
     local string = ""
+    
     if not snd.waiting.queue then
+      -- if they are impaled, let's do some damage
       if snd.target_impaled and hasSkill("Stonevice") then
         string = "earth stonevice"
+      -- If there is no fog, let's get it going.
       elseif not table.isMember(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
-      elseif (snd.used.shield or snd.used.rebounding) and sandstorm &gt;= 5 then
-        string = "sand slice "..snd.target.." storm"
-      elseif snd.used.shield or snd.used.rebounding then
-        string = "earth stoneblast " .. snd.target
-      elseif snd.balance.momentum then
-       string = "prepare earthenwill"..snd.sep.."earth momentum"..snd.sep.."earth batter "..snd.target    
+      -- If you don't have sandstorm up, let's do it.
+      elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
+        string = "sand storm"
+      -- Are they tumbling? Let's impale them if they haven't been yet.
+      elseif not snd.target_impaled and snd.theytumbling then
+         string = string.."earth impale "..snd.target
+      -- If shielded or rebounding, strip it.
+      elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Slice") then
+        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+          if snd.used.shield and snd.used.rebounding then
+            string = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target
+          elseif snd.used.shield or snd.used.rebounding then
+            string = "sand slice "..snd.target.." storm"..snd.sep.."earth overhand " .. snd.target            
+          end
+        else
+          string = "sand slice " .. snd.target
+        end
+      -- Did you happen to strip their lev and they are not proned? Let's prone them!
+      elseif not snd.proned() and snd.lev_gone and hasSkill("Shockwave") then
+         string = string.."earth shockwave "..snd.target      
+    	-- If you can impale them, let's do it, so long as no one else has.
+      elseif not snd.target_impaled and snd.proned() and hasSkill("Impale") then
+        if sandstorm &gt;= 3 then
+          string = "sand scourge "..snd.target.." storm"..snd.sep.."earth impale"
+        else
+          string = "earth impale"
+        end
+      -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
+      elseif snd.proned() and snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},2) and hasSkill("Quake") then
+        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+          string = "sand scourge "..snd.target.." storm"..snd.sep.."earth quake"
+        else
+          string = "earth quake"
+        end
+      -- Let's go ahead and start damaging their head if they aren't parrying it.
+      elseif snd.parried_limb ~= "head" and hasSkill("Shred") then
+        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+          string = "sand shred "..snd.target.." head storm"..snd.sep.."earth batter "..snd.target
+        else
+          string = "sand shred "..snd.target.." head"
+        end
+      -- Otherwise, let's just batter them.
       else
-        string = "prepare earthenwill"..snd.sep.."earth batter " .. snd.target
+        string = "earth batter "..snd.target
       end
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
+  
+    -- If your golem isn't attacking, get it attacking.
+    if not snd.loyalsattacking then
+      string = "order loyals kill "..snd.target..snd.sep..string
     end
+    
+    if snd.balance.earthenwill and hasSkill("Earthenwill") then
+      string = "prepare earthenwill"..snd.sep..string
+    end
+  
+    if snd.balance.momentum and hasSkill("Momentum") then
+      string = "earth momentum"..snd.sep..string
+    end
+  
+  
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
   end
-
-  snd.attack_function()
+ end
+end
+snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
@@ -45830,42 +46940,82 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Basic Group Limbs</name>
-								<script>if snd.class == "Teradrim" then
+								<script>if snd.class == "Teradrim" then -- Note that this is intended for groups, not 1v1
   snd.starting_attack()
+  
   function snd.attack_function()
     local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
     local string = ""
+    
     if not snd.waiting.queue then
- 		   if snd.used.shield or snd.used.rebounding and sandstorm &gt;= 5 then
-         string = "sand slice "..snd.target.." storm"
-       elseif snd.used.shield or snd.used.rebounding then
-         string = "earth stoneblast "..snd.target
-       elseif snd.theytumbling then
-         string = "earth impale "..snd.target
-       elseif snd.proned() then
-         string = "earth pulp "..snd.target
-       elseif not snd.lev_gone then
-         string = "earth overhand "..snd.target
-       elseif not snd.proned() and snd.lev_gone then
-         string = "earth shockwave "..snd.target      
-    	 elseif not snd.checkAff("slough") and sandstorm &gt;=5 then
-         string = "sand curse "..snd.target.. " storm"
-       elseif not snd.checkAff("slough") then
-         string = "sand curse "..snd.target
-       elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},1) then
-         string = "sand scourge "..snd.target
-       elseif snd.balance.momentum then
-         string = "prepare earthenwill"..snd.sep.."earth momentum"..snd.sep.."earth batter "..snd.target
-       else 
-         string = "prepare earthenwill"..snd.sep.."earth batter "..snd.target
-  	   end
+    
+      -- If target is impaled, let's do some damage.
+ 		  if snd.target_impaled and hasSkill("Stonevice") then
+        string = "earth stonevice"
+      -- If there is no fog, let's get it going.
+      elseif not table.isMember(gmcp.Room.Info.details, "sandy") then
+        string = "sand flood"
+      -- If you don't have sandstorm up, let's do it.
+      elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
+        string = "sand storm"
+      -- Are they tumbling? Let's impale them if they haven't been yet.
+      elseif not snd.target_impaled and snd.theytumbling then
+         string = string.."earth impale "..snd.target
+      -- They shielded and rebounded? Try to remove both. But if they only have one, strip it and then strip levitation. 
+      elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Slice") then
+        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+          if snd.used.shield and snd.used.rebounding then
+            string = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target
+          elseif snd.used.shield or snd.used.rebounding then
+            string = "sand slice "..snd.target.." storm"..snd.sep.."earth overhand " .. snd.target            
+          end
+        else
+          string = "sand slice " .. snd.target
+        end
+      -- We want levitation gone for more damage. Let's try quicksand to make it so they can't put it up fast if it's not gone yet.
+      -- If we can't quicksand, roll with overhand.
+      elseif not snd.lev_gone then
+        if hasSkill("Quicksand") then
+          string = string.."sand quicksand "..snd.target
+        elseif hasSkill("Overhand") then
+         string = string.."earth overhand "..snd.target
+        end
+      -- If they are not prone and no levitation, capsize them. This'll break 3 limbs regardless of bruises.
+      elseif (not snd.proned() and snd.lev_gone) and hasSkill("Shockwave") then
+         string = string.."earth shockwave "..snd.target      
+    	-- Let's try to give them slough, that way it's harder to heal limbs. Also, batter if you can storm it.
+    	elseif (not snd.checkAff("slough") and hasSkill("Curse")) then
+        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+          string = string.."sand curse "..snd.target.." storm"..snd.sep.."earth batter "..snd.target
+        else
+          string = string.."sand curse "..snd.target
+        end
+      -- Straight try to break all four limbs to help support limbs in the group.
+      elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},4) and hasSkill("Scourge") then
+        string = string.."sand scourge " .. snd.target
+      else 
+        string = "earth batter "..snd.target
+  	  end
+  
+      -- If your synth isn't attacking, get it attacking.
+      if not snd.loyalsattacking then
+        string = "order loyals kill "..snd.target..snd.sep..string
+      end
+    
+      if snd.balance.earthenwill and hasSkill("Earthenwill") then
+        string = "prepare earthenwill"..snd.sep..string
+      end
+  
+      if snd.balance.momentum and hasSkill("Momentum") then
+        string = "earth momentum"..snd.sep..string
+      end
 		
-       if string ~= snd.last_attack and not snd.waiting.queue then
-         snd.last_attack = string
-         snd.attack(snd.last_attack)
-         snd.waiting.queue = true
-         tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-       end
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
     end
   end
   
@@ -49929,8 +51079,8 @@ end
 function snd.self_prone()
 
   if not snd.have_aff("frozen") or snd.have_aff("indifference") or snd.have_aff("paralysis") or 
-      snd.have_aff("writhe_transfix") or snd.have_aff("writhe_web") or snd.have_aff("writhe_feed") or 
-      snd.have_aff("writhe_impaled") or snd.have_aff("writhe_thighlock") or snd.have_aff("writhe_armpitlock") or 
+      snd.have_aff("writhe_transfix") or snd.have_aff("writhe_web") or snd.have_aff("writhe_impaled") or
+      snd.have_aff("writhe_thighlock") or snd.have_aff("writhe_armpitlock") or 
       snd.have_aff("writhe_necklock") or snd.have_aff("writhe_ropes") or snd.have_aff("writhe_vines") or 
       snd.have_aff("fallen") or snd.have_aff("asleep") then
     return false
@@ -50528,7 +51678,8 @@ snd.priorities =
     "aff_grappled",
     "aff_writhe_armpitlock",
     "aff_writhe_bind",
-    "aff_writhe_feed",
+    "aff_writhe_grappled",
+    "aff_writhe_gunk",
     "aff_writhe_hoist",
     "aff_writhe_impaled",
     "aff_writhe_lure",
@@ -50539,7 +51690,6 @@ snd.priorities =
     "aff_writhe_transfix",
     "aff_writhe_vines",
     "aff_writhe_web",
-    "aff_writhe_grappled",
     "aff_dazed",
     "aff_embedded_axe",
     
@@ -51365,7 +52515,6 @@ aff_worrywart = {state = "healed", effect = "eucrasia anxiety", cures = {herb = 
 aff_wraith = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_writhe_armpitlock = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_bind = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
-aff_writhe_feed = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_hoist = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_impaled = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_lure = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
@@ -51463,7 +52612,7 @@ function snd.aff_gain(affliction)
 end
 
 function snd.aff_have(affliction)
- if snd.class_hitting == "archivist" then
+ if snd.cureset == "archivist" then
 	if table.contains(snd.circle_affs, affliction) then
 	 hit_aff = false
 	 for aff in pairs(snd.circle_affs) do
@@ -69046,9 +70195,11 @@ def_ascetic = "on"
 function snd.parry()
 	local highest = 0
 	snd.toparry = "none"
-	if snd.class_hitting == "knight" then
+	if snd.cureset == "knight" then
 		snd.toparry = "left leg"
-	elseif snd.class_hitting == "shifter" and snd.my_limb_damage["head"] &gt;= 33.33 then
+	elseif snd.cureset == "ascendril" then
+		snd.toparry = "torso"
+	elseif snd.cureset == "shifter" and snd.my_limb_damage["head"] &gt;= 33.33 then
 		snd.toparry = "head"
 	else
 		for limb in pairs(snd.my_limb_damage) do
@@ -70096,6 +71247,30 @@ function snd.checksomeAffs(afflictions, number)
   end
 end
 
+function snd.checksomeSelfAffs(afflictions, number)
+  if number == 0 then
+    return true
+  end
+  if number == nil then
+    number = 1
+  end
+  if type(afflictions) == "string" then
+    return snd.have_aff(afflictions)
+  elseif type(afflictions) == "table" then
+    local count = 0
+    for i, v in ipairs(afflictions) do
+      if snd.have_aff(v) then
+        count = count + 1
+        if count &gt;= number then
+          return true
+        end
+      end
+    end
+    -- if the count of how many returned true didn't meet or exceed the number given, return false
+    return false
+  end
+end
+
 function snd.pendulum(direction)
   local pendulum_table =
       {
@@ -70391,8 +71566,7 @@ function snd.no_parry()
   "asleep",
 	"writhe_transfix",
 	"writhe_web",
-  "writhe_feed",
-	"writhe_impaled",
+  "writhe_impaled",
 	"writhe_thighlock",
 	"writhe_armpitlock",
 	"writhe_necklock",
@@ -70415,8 +71589,7 @@ function snd.proned()
   "paralysis",
 	"writhe_transfix",
 	"writhe_web",
-  "writhe_feed",
-	"writhe_impaled",
+  "writhe_impaled",
 	"writhe_thighlock",
 	"writhe_armpitlock",
 	"writhe_necklock",
@@ -70517,8 +71690,7 @@ end
 function snd.removeProneStates(all) -- Reset a target back to standing w/no writhes or other affs
   local writhe_table = {
   	"writhe_transfix",
-    "writhe_feed",
-  	"writhe_web",
+    "writhe_web",
   	"writhe_impaled",
   	"writhe_thighlock",
   	"writhe_armpitlock",
@@ -72655,8 +73827,7 @@ end</script>
             snd.onHit2({"Dodge", "Parry"})
           end,
     Gut = function(target)
-          --not necessary since it gives mangled line 
-          --keeping incase someone needs it for something
+            snd.target_got("torso_mangled")
           end,
     Lacerate = function(target)
                 table.insert(snd.maybe_affs, "rend")
@@ -72713,14 +73884,14 @@ end</script>
     Rend = function(target, limb)
                 table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_broken")
                 snd.last_hit_limb = limb
-                snd.last_limb_dmg = 5.6
+                snd.last_limb_dmg = 5.81
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
     Hamstring = function(target, limb)
                 table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_broken")
                 snd.last_hit_limb = limb
-                snd.last_limb_dmg = 5.6
+                snd.last_limb_dmg = 5.81
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end, 
@@ -72756,6 +73927,8 @@ end</script>
                   end
                 end,
    Spleenrip = function(target)
+                snd.target_got("spleenrip")
+                snd.jawlocked = false
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = 15
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -72763,6 +73936,8 @@ end</script>
                 --snd.onHit2({"Dodge", "Parry"}) don't believe it can be missed
                end, 
    Groinrip = function(target)
+                snd.target_got("groinrip")
+                snd.jawlocked = false
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = 15
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -72770,6 +73945,8 @@ end</script>
                 --snd.onHit2({"Dodge", "Parry"}) don't believe it can be missed
                end, 
    Throatrip = function(target)
+                snd.target_got("throatrip")
+                snd.jawlocked = false
                 snd.last_hit_limb = "head"
                 snd.last_limb_dmg = 10
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -74767,6 +75944,30 @@ function snd.akkari_behead()
     return false
   end
 
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Scourge Affs (Sciomancer and Runecarver)</name>
+						<packageName></packageName>
+						<script>snd.scourge_affs = {
+		"dizziness",
+		"nyctophobia",
+		"confusion",
+		"dementia",
+		"faintness",
+}</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Monk Stuff</name>
+						<packageName></packageName>
+						<script>function cantBeParried()
+  if (snd.checkAff("a broken right arm") and snd.checkAff("a broken left arm")) or snd.checkAff("numb_arms") or snd.checkAff("paresis") or snd.checkAff("paralysis") then
+		return true
+		else
+		return false
+	end 
 end</script>
 						<eventHandlerList />
 					</Script>
