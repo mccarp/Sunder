@@ -20335,6 +20335,50 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>voyria cured</name>
+							<script>if matches[2] == snd.target then
+ snd.target_cured("voyria")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) seems to calm, no longer poisoned\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>numbed_skin cured</name>
+							<script>if matches[2] == snd.target then
+ snd.target_cured("numbed_skin")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) regains the feeling within \w+ limbs\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists/Undos</name>
@@ -20758,6 +20802,7 @@ end</script>
  snd.target_cured("fallen")
  snd.target_cured("left_leg_broken")
  snd.target_cured("right_leg_broken")
+ snd.target_cured("asleep")
 end
 </script>
 						<triggerType>0</triggerType>
@@ -20796,6 +20841,52 @@ end</script>
 							<string>^Rebounding with aggres?sive agility, (\w+) forces \w+ back to \w+ feet.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>asleep</name>
+						<script>if matches[2] == snd.target then
+ snd.target_got("asleep")
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(\w+)'s? eyes close suddenly as \w+ falls asleep\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>no asleep</name>
+						<script>if matches[2] == snd.target then
+ snd.target_cured("asleep")
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(\w+) opens \w+ eyes and yawns mightily\.$</string>
+							<string>^(\w+) wakes up with a gasp of pain\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -30828,7 +30919,7 @@ cecho("\n&lt;DeepSkyBlue&gt;PK                    &lt;ForestGreen&gt;Playerkilli
 cecho("\n&lt;DeepSkyBlue&gt;Defenses              &lt;ForestGreen&gt;How to upkeep, turn on/off and customize defenses.")
 cecho("\n&lt;DeepSkyBlue&gt;Ylem                  &lt;ForestGreen&gt;Finding minors and other ylem based information.")
 cecho("\n&lt;DeepSkyBlue&gt;Utilities             &lt;ForestGreen&gt;Vermin, fishing, shops, questing and more.")
-cecho("\n")
+cecho("\n&lt;DeepSkyBlue&gt;War                   &lt;ForestGreen&gt;Helpful aliases for handling war divisions")
 cecho("\n&lt;ForestGreen&gt;Each above entry will point you toward more specific items in each section as needed.")
 cecho("\n")
 cecho("\n&lt;ForestGreen&gt;Use &lt;DeepSkyBlue&gt;sunder help &lt;subject&gt; &lt;ForestGreen&gt;to navigate through everything else.")
@@ -48731,6 +48822,77 @@ end</script>
 						</Alias>
 					</AliasGroup>
 				</AliasGroup>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>War</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Set Division</name>
+					<script>snd.current_division = matches[2]
+snd.message("Current Division is "..matches[2], "atk")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war division (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>March Troops</name>
+					<script>snd.send("order "..snd.current_division.." march " .. matches[2])
+snd.send("qeb " .. matches[2]..snd.sep.."path find "..snd.marching_destination)
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^mt (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Set March Destination</name>
+					<script>snd.marching_destination = matches[2]
+snd.message("New troop destination is: "..matches[2], "atk")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war destination (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Fortify</name>
+					<script>snd.send("order " .. snd.current_division .. " fortify")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war fort$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Attack Division</name>
+					<script>snd.send("order " .. snd.current_division .. " attack "..matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war kill (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Division</name>
+					<script>snd.send("order "..snd.current_division.." "..matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^war order (.*)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Sunder Help War</name>
+					<script>cecho("\n&lt;CadetBlue&gt;Sunder War")
+cecho("\n&lt;MediumSeaGreen&gt;---------------")
+cecho("\n")
+cecho("\n&lt;MediumTurquoise&gt;The commands are as follows")
+cecho("\n")
+cecho("\n&lt;DeepSkyBlue&gt;war division &lt;divisionNumber&gt;  &lt;ForestGreen&gt;Set your tracked division")
+cecho("\n&lt;DeepSkyBlue&gt;war destination &lt;vNum&gt;         &lt;ForestGreen&gt;Set the room number for your division's destination")
+cecho("\n&lt;DeepSkyBlue&gt;mt &lt;dir&gt;                       &lt;ForestGreen&gt;March division in direction")
+cecho("\n&lt;DeepSkyBlue&gt;war kill &lt;enemyDivision&gt;       &lt;ForestGreen&gt;Start the slaughter")
+cecho("\n&lt;DeepSkyBlue&gt;war fort                       &lt;ForestGreen&gt;Order your division to fortify")
+cecho("\n&lt;DeepSkyBlue&gt;war order &lt;order&gt;              &lt;ForestGreen&gt;General catchall, will order your division anything you give it")
+cecho("\n&lt;DeepSkyBlue&gt;War package created by &lt;purple&gt;Teflin Vyktaire")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^(S|s)under (H|h)elp (W|w)ar$</regex>
+				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Vermin</name>
@@ -70775,6 +70937,7 @@ colocasia = "colocasia",
 haemophilia = "hepafarin", 
 peace = "ouabain",
 deadening = "vardrax",
+asleep = "delphinium",
 
 stupidity = "aconite", 
 weariness = "vernalius", 
@@ -78703,7 +78866,7 @@ end</script>
 			</KeyGroup>
 		</KeyGroup>
 	</KeyPackage>
-	<HelpPackage>
-		<helpURL></helpURL>
-	</HelpPackage>
+	<VariablePackage>
+		<HiddenVariables />
+	</VariablePackage>
 </MudletPackage>
