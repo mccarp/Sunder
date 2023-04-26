@@ -70583,7 +70583,6 @@ colocasia = "colocasia",
 haemophilia = "hepafarin", 
 peace = "ouabain",
 deadening = "vardrax",
-asleep = "delphinium",
 
 stupidity = "aconite", 
 weariness = "vernalius", 
@@ -71724,7 +71723,7 @@ function snd.no_parry()
   "distortion",
   "frozen",
   --"punished_arms",
-  "paresis",
+  --"paresis",
   "paralysis",
   "asleep",
 	"writhe_transfix",
@@ -71736,6 +71735,9 @@ function snd.no_parry()
   "writhe_ropes",
   "writhe_vines",
  }
+ if snd.class == "sentinel" then
+  table.insert(noparryaffs, "paresis")
+ end 
  if snd.checksomeAffs(noparryaffs, 1) then no_parry = true end
  
  if (snd.limb_dmg["left arm"] &gt;= 33.33) and (snd.limb_dmg["right arm"] &gt;= 33.33) then
