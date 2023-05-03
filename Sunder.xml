@@ -7074,7 +7074,7 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>aegis secondary</name>
+								<name>dome secondary</name>
 								<script></script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -7087,7 +7087,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Your attack is repelled by the magical aegis protecting (\w+).$</string>
+									<string>^Your attack is repelled by the magical dome protecting (\w+).$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -7649,8 +7649,8 @@ disableTrigger("Fervour Spew")</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Aegis</name>
-								<script>snd.target_cured("aegis")</script>
+								<name>dome</name>
+								<script>snd.target_cured("dome")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -7662,7 +7662,7 @@ disableTrigger("Fervour Spew")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)'s protective aegis disperses\.$</string>
+									<string>^(\w+)'s protective dome disperses\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -18713,7 +18713,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^As [a-z ]+ strikes, a surge of energy cascades along it, striking (\w+)('s|') body\.$</string>
+											<string>^As .+ strikes, a surge of energy cascades along it, striking (\w+)('s|') body\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -18735,7 +18735,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^As [a-z ]+ strikes, a surge of energy cascades along it, striking (\w+)('s|') legs\.$</string>
+											<string>^As .+ strikes, a surge of energy cascades along it, striking (\w+)('s|') legs\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -19056,7 +19056,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^A burst of colorless light from .+ - eerily silent despite the force of the blaze - disrupts (\w+)'s equilibrium\.$</string>
+											<string>^A burst of colorless light from .+ - eerily silent despite the force of the blaze - and disrupts (\w+)'s equilibrium\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -31960,7 +31960,7 @@ end</script>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>aegis/prismatic on target</name>
+					<name>dome/prismatic on target</name>
 					<script>if matches[2] == snd.target then
   local who = matches[2]:title()
   local count = 1
@@ -31994,7 +31994,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^Your attack is repelled by the magical aegis protecting (\w+)\.$</string>
+						<string>^Your attack is repelled by the magical dome protecting (\w+)\.$</string>
 						<string>^Your attack is repelled by the prismatic barrier surrounding (\w+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
@@ -33456,11 +33456,11 @@ end</script>
 						<regex>^(mygoggles|mygoggles (\d+))$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
-						<name>Aegis auto use</name>
-						<script>snd.toggle("aegis")</script>
+						<name>Dome auto use</name>
+						<script>snd.toggle("dome")</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^toggle aegis$</regex>
+						<regex>^toggle dome$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Auto check plants</name>
@@ -44620,6 +44620,13 @@ end</script>
   function snd.attack_function()
     local apparition = tonumber(gmcp.Char.Vitals.apparition)
     local string = ""
+    local hammer = "none"
+	  local how_many_moderate = 0
+    for k,v in pairs(snd.limb_bruising) do
+      if v &gt;= 2 then
+        how_many_moderate = how_many_moderate + 1
+      end
+    end
     
     if not snd.waiting.queue then
     
@@ -44635,6 +44642,8 @@ end</script>
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
          string = string.."tide harpoon "..snd.target
+      elseif how_many_moderate &gt;= 3 and not snd.used.shield then
+         string = string.."tide keelhaul "..snd.target
       -- They shielded and rebounded? Try to remove both. But if they only have one, strip it and then strip levitation. 
       elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Abyss") then
         if apparition &gt;= 3 and hasSkill("Apparition") then
@@ -47487,9 +47496,9 @@ end</script>
         string = "onslaught " .. snd.target .. " plexus plexus"
       elseif snd.parried_limb ~= "head" then
         if not snd.checkAff("crippled_throat") then
-          string = "onslaught " .. snd.target .. " windpipe rampage head"
+          string = "onslaught " .. snd.target .. " windpipe overpower head"
         else
-          string = "onslaught " .. snd.target .. " concussion rampage head"
+          string = "onslaught " .. snd.target .. " concussion overpower head"
         end
       elseif snd.parried_limb ~= "left leg" and snd.parried_limb ~= "right leg" then
         string = "onslaught " .. snd.target .. " kneecap left kneecap right"
@@ -51863,7 +51872,7 @@ shrug = false, -- have access to shrug
 purge = false, -- have access to Carnifex/Revenant purge
 purify = false, -- have access to Praenomen/Akkari purify
 panacea = true, -- have access to Shaman/Alchemist panacea
-aegis = false,
+dome = false,
 auto_reject = false,
 fastwalk = false,
 prism = false,
@@ -52032,7 +52041,7 @@ snd.wielded = snd.wielded or {left =  {name="", id=""}, right = {name="", id=""}
 snd.eld = snd.eld or 0
 snd.pathing = snd.pathing or false
 snd.need_fitness = snd.need_fitness or false
-snd.need_aegis = snd.need_aegis or false
+snd.need_dome = snd.need_dome or false
 snd.shopih = snd.shopih or false
 snd.toparry = snd.toparry or "none"
 snd.counterattack_active = snd.counterattack_active or false
@@ -52622,12 +52631,12 @@ end</script>
   end
   hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
   if
-    snd.toggles.attacking and snd.offense_loaded and snd.check_aegis() and snd.toggles.aegis
+    snd.toggles.attacking and snd.offense_loaded and snd.check_dome() and snd.toggles.dome
     and (snd.count(snd.people_hitting_me) &gt;= 3 or snd.aff_tally() &gt;= 5 or hp &lt; 50)
   then
-    snd.need_aegis = true
+    snd.need_dome = true
   else
-    snd.need_aegis = false
+    snd.need_dome = false
   end
 end</script>
 						<eventHandlerList>
@@ -53815,7 +53824,7 @@ snd.priorities =
     "purify",
     "panacea",
     "rage",
-    "aegis",
+    "dome",
     "def_safeguard",
     "def_miasma",
     "def_warmth",
@@ -54315,13 +54324,6 @@ snd.method_priority = {
     if not snd.pipes_lit and snd.toggles.lighting then
       table.insert(snd.queue, "lighting")
     end
-    --if snd.healing_loaded and snd.toggles.healing then
-    -- for i in pairs(snd.afflictions) do
-    --  if snd.afflictions[i].state ~= "healed" then
-    --   table.insert(snd.queue, i)
-    --  end
-    -- end
-    --end
     if snd.defenses_loaded and snd.toggles.defenses then
       for k in pairs(snd.defenses) do
         if snd.defenses[k].state == "down" and snd.defenses[k].needit then
@@ -54381,8 +54383,8 @@ snd.method_priority = {
       if snd.rage_check() and snd.can_rage() then
         table.insert(snd.queue, "rage")
       end
-      if snd.need_aegis then
-        table.insert(snd.queue, "aegis")
+      if snd.need_dome then
+        table.insert(snd.queue, "dome")
       end
   	    if (hasSkill("Panacea") and snd.class == "Shaman") or (snd.class == "Alchemist" and hasSkill("Subversion")) and snd.panacea_check() then
   	      table.insert(snd.queue, "panacea")
@@ -54391,7 +54393,7 @@ snd.method_priority = {
   	      table.insert(snd.queue, "purify")
   	    end
     end
-    if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_aegis.state ~= "deffed" then
+    if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
       table.insert(snd.queue, "attack")
     end
   end
@@ -54428,8 +54430,8 @@ function snd.do_stuff()
 	 	snd.do_purify()
    elseif i == "panacea" then
     snd.do_panacea()
-  elseif i == "aegis" then
-    snd.do_aegis()
+  elseif i == "dome" then
+    snd.do_dome()
    else
     for _,z in pairs(snd.method_priority) do
      if snd.afflictions[i] ~= nil then
@@ -55221,7 +55223,7 @@ def_divert_melee = {defense = "divert_melee", type = "normal", effect = "Protect
 def_dodge_melee = {defense = "dodge_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "dodge melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sidestep"},
 def_clarity = {defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = {needyequilibriumtake = "clarity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Clarity"},
 def_shroud = { }, -- handled and set per class elsewhere
-def_manipulation_aegis = {defense = "manipulation_aegis", type = "normal", effect = "cheap prism", balance = {needyequilibriumtake = "manipulate pylon for aegis"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_manipulation_dome = {defense = "manipulation_dome", type = "normal", effect = "cheap prism", balance = {needyequilibriumtake = "manipulate pylon for dome"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_gripping = {defense = "gripping", type = "normal", effect = "Prevents disarming", balance = {balanceequilibrium = "grip"}, state = "down", needit = false, timer = createStopWatch(), skill = "Gripping"},
 def_starburst = {defense = "starburst", type = "blue", effect = "Instant revival on death", balance = {tattoo = "starburst"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_density = {defense = "density", type = "red", effect = "Resists forced movement", balance = {salve = "mass"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -55852,7 +55854,7 @@ end</script>
   ["You are prepared to discharge energy."] = "discharge",
   ["You are wreathed in an aura of toxicity."] = "nexus",
   ["Your fiery soul has reached its zenith of power."] = "zenith",
-  ["An impermeable aegis of ley energy protects you."] = "manipulation_aegis",
+  ["An impermeable dome of ley energy protects you."] = "manipulation_dome",
   ["Your flame tattoo is glowing faintly."] = "flame_tattoo",
   ["You are surrounded by a nearly invisible magical shield."] = "shield_tattoo",
   ["You are glowing with a radiant light."] = "shine",
@@ -56958,7 +56960,7 @@ vermin = {info = "Vermin walking/killing/turnin.", command = "toggle vermin"},
 goggles = {info = "Telling Sunder you have antiquated goggles.", command = "toggle goggles"},
 goggle_level = {info = "What level are your goggles?", command = "mygoggles or mygoggles &lt;level&gt;"},
 nontargetgags = {info = "Remove nontarget cures from output.", command = "toggle non target gagging"},
-aegis = {info = "Do you want Sunder to auto aegis for you?", command = "toggle aegis"},
+dome = {info = "Do you want Sunder to auto dome for you?", command = "toggle dome"},
 auto_reject = {info = "Should we auto reject lust attempts?", command = "toggle reject"},
 prism = {info = "Do you want to prism/triplicate bash?", command = "toggle prism"},
 enrich = {info = "Do you want to enrich while you bash?", command = "toggle enrich"},
@@ -72218,14 +72220,14 @@ end</script>
 						<eventHandlerList />
 					</Script>
 					<Script isActive="yes" isFolder="no">
-						<name>aegis</name>
+						<name>dome</name>
 						<packageName></packageName>
 						<script>
-function snd.do_aegis()
+function snd.do_dome()
  if snd.full_balance() then
-  snd.send("manipulate pylon for aegis")
-  snd.last_type = "aegis"
-  snd.last_item = "aegis"
+  snd.send("manipulate pylon for dome")
+  snd.last_type = "dome"
+  snd.last_item = "dome"
   snd.waiting.balance = true
   tempTimer(snd.delay(), [[snd.waiting.balance = false]])
  end
@@ -73444,11 +73446,14 @@ function snd.took_limb_dmg(limb, amount)
       cecho("&lt;red&gt; " .. limb .. ": " .. snd.limb_dmg[limb])
     end
     
-    if limb == snd.resto_limb and amount == -30 then
-      snd.resto_limb = "none"
-    end
-    
-    if snd.limb_status[limb] ~= "healed" then
+    if limb == snd.resto_limb and (amount == -30 or amount == -40) then
+      snd.resto_limb = "none"    
+      if snd.limb_status[limb] == "mangled" then
+        snd.limb_status[limb] = "damaged"
+      elseif snd.limb_status[limb] == "damaged" then
+        snd.limb_status[limb] = "healed"
+      end
+    elseif snd.limb_status[limb] ~= "healed" then
       if snd.limb_dmg[limb] &gt;= 66.66 then
         snd.limb_status[limb] = "mangled"
       elseif snd.limb_dmg[limb] &gt;= 33.33 then
@@ -74319,7 +74324,7 @@ function snd.venomEffect(venom)
 	return aff
 end
 
-function snd.check_aegis()
+function snd.check_dome()
 
 	local reserves = tonumber(gmcp.Char.Vitals.residual)
 	
@@ -76245,7 +76250,7 @@ end</script>
               snd.used.shield = false
               snd.used.rebounding = false
               snd.target_cured("barrier")
-              snd.target_cured("aegis")
+              snd.target_cured("dome")
             end,
     
   },
@@ -77012,7 +77017,7 @@ end</script>
               snd.used.shield = false
               snd.used.rebounding = false
               snd.target_cured("barrier")
-              snd.target_cured("aegis")
+              snd.target_cured("dome")
             end,
               
   },
@@ -77687,8 +77692,8 @@ end</script>
             end,
   },
   ["Manipulation"] = {
-    Aegis = function(target)
-              snd.target_got("aegis")
+    Dome = function(target)
+              snd.target_got("dome")
             end,
   },
   
