@@ -73447,18 +73447,10 @@ function snd.took_limb_dmg(limb, amount)
     end
     
     if limb == snd.resto_limb and (amount == -30 or amount == -40) then
-      snd.resto_limb = "none"    
+      snd.resto_limb = "none"
       if snd.limb_status[limb] == "mangled" then
         snd.limb_status[limb] = "damaged"
       elseif snd.limb_status[limb] == "damaged" then
-        snd.limb_status[limb] = "healed"
-      end
-    elseif snd.limb_status[limb] ~= "healed" then
-      if snd.limb_dmg[limb] &gt;= 66.66 then
-        snd.limb_status[limb] = "mangled"
-      elseif snd.limb_dmg[limb] &gt;= 33.33 then
-        snd.limb_status[limb] = "damaged"
-      else
         snd.limb_status[limb] = "healed"
       end
     end
