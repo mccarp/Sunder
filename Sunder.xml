@@ -3923,8 +3923,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<regexCodeList>
 								<string>You use Battlefury Rage.</string>
 								<string>You use Riving Rage.</string>
+								<string>As angry as you may be, you can not rage that much.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -8215,8 +8217,10 @@ end
 							<regexCodeList>
 								<string>^You discern that a layer of (\w+) has rubbed off your weapon\.$</string>
 								<string>^Your quarterstaff leaches (\w+) into (the )?\w+'s blood.$</string>
+								<string>^You discern that a layer of (\w+) has rubbed off your thread.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -19795,6 +19799,36 @@ end</script>
 										<string>^Disgust limns .+ features as .+ assails? (\w+) with .+.$</string>
 										<string>^Driving .+ forward, \w+ hacks? at (\w+) without mercy.$</string>
 										<string>^Opting for lenience, \w+ grazes? (\w+) with the end of .+.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>gladius</name>
+									<script>if matches[2] == snd.target and matches[1]:find("gladius") then
+  snd.onHit2({"Rebounding", "Dodge"}, "Templar")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ hack open (\w+) with .+\.$</string>
+										<string>^\w+ hacks open (\w+) with .+\.$</string>
+										<string>^\w+ punctures (\w+) with a swift jab of [a-z ]+\.$</string>
+										<string>^\w+ puncture (\w+) with a swift jab of [a-z ]+\.$</string>
+										<string>^With a sharp pass of .+, (?:the )?\w+ scores (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -44375,7 +44409,7 @@ end</script>
       -- First, we should check if we have hackles balance.	
       if gmcp.Char.Vitals.ability_bal == "1" then
         -- Cool! What are we doing with it? Let's figure that out and put it before our flow string!
-        if snd.parried_limb ~= "head" and not snd.checkAff("blurry_vision") then
+        if snd.parried_limb ~= "head" and not snd.checkAff("stuttering") then
           string = "hackles " .. snd.target .. " jawcrack " .. snd.sep .. string
         else
           string = "hackles " .. snd.target .. " rive " .. snd.sep .. string
@@ -47514,7 +47548,7 @@ end</script>
       
       
       if gmcp.Char.Vitals.ability_bal == "1" then
-        if snd.parried_limb ~= "head" and not snd.checkAff("blurry_vision") then
+        if snd.parried_limb ~= "head" and not snd.checkAff("stuttering") then
           string = "assail " .. snd.target .. " slug " .. snd.sep .. string
         else
           string = "assail " .. snd.target .. " butcher " .. snd.sep .. string
@@ -52322,6 +52356,9 @@ snd.weapon_types = {
 "glaive",
 "halberd",
 "scythe",
+"shotel",
+"gladius",
+"manta",
 
 "banded",
 "buckler",
@@ -70260,13 +70297,13 @@ function snd.akkari_bash()
     end
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Vivify") then
     battack = "vivify"
-  elseif bp &gt;= 50 and hasSkill("Unbroken") then
+  elseif bp &gt;= "50" and hp &lt;= 30 and hasSkill("Unbroken") then
     if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
       battack = "spirit unbroken"..snd.sep.."denounce "..snd.bashing.target
     else
-      battack = "denounce "..snd.target
+      battack = "denounce "..snd.bashing.target
     end
-  elseif bp &lt;= 25 then
+  elseif bp &lt;= "25" then
     battack = "deliver corpse"
   else
     battack = "denounce "..snd.bashing.target
@@ -74546,7 +74583,6 @@ end</script>
              end,
     Jawcrack = function(target)
                snd.target_got("stuttering")
-               snd.target_got("blurry_vision")
              end,
     Descent = function(target)
                snd.target_got("backstrain")
@@ -74683,7 +74719,6 @@ end</script>
              end,
     Slug = function(target)
                snd.target_got("stuttering")
-               snd.target_got("blurry_vision")
              end,
     Flog = function(target)
                snd.target_got("backstrain")
