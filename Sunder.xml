@@ -19497,7 +19497,7 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>scimitar attacks</name>
-									<script>if matches[2] == snd.target and matches[1]:find("scimitar") then
+									<script>if matches[2] == snd.target and (matches[1]:find("scimitar") or matches[1]:find("shotel")) then
   snd.onHit2({"Rebounding", "Dodge"}, "Templar")
 end</script>
 									<triggerType>0</triggerType>
