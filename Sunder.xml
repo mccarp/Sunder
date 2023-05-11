@@ -19780,7 +19780,7 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>manta</name>
-									<script>if matches[2] == snd.target and matches[1]:find("manta") then
+									<script>if matches[2] == snd.target then
   snd.onHit2({"Rebounding", "Dodge"}, "Templar2h")
 end</script>
 									<triggerType>0</triggerType>
