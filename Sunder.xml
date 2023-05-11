@@ -70622,7 +70622,7 @@ function snd.praenomen_bash()
     if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
       battack = "blood deluge"..snd.sep.."frenzy "..snd.bashing.target
     else
-      battack = "frenzy "..snd.target
+      battack = "frenzy "..snd.bashing.target
     end
   elseif bp &lt;= 25 then
     battack = "feed corpse"
