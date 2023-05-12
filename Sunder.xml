@@ -70242,7 +70242,7 @@ function snd.bashing_function()
     if not snd.bashing.targeted then
       snd.runBasher()
     else
-      battack = ""
+      battack = "none"
 			if not snd.counterattack_active then
 				for k,v in pairs(snd.class_list) do
 					if snd.class_list[k].class == snd.class then
@@ -70272,16 +70272,16 @@ function snd.bashing_function()
         
 			if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack..snd.sep.."absorb ylem" end
       
-			if battack ~= snd.last_attack and snd.ylem_check == false then
-				snd.last_attack = battack
-				if battack ~= "none" then
-					snd.send("qeb stand"..snd.sep..snd.last_attack)
-				end
-				snd.waiting.queue = true
-				tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-			end
+      if battack ~= snd.last_attack and not snd.ylem_check then
+        snd.last_attack = battack
+        if battack ~= "none" then
+          snd.send("qeb stand"..snd.sep..snd.last_attack)
+        end
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
       
-		end
+    end
   end
 end
 
@@ -70597,6 +70597,8 @@ function snd.oneiromancer_bash()
     end
   elseif hp &lt;= 55 and hasSkill("Flower") then
     battack = "unfurl flower at me"
+  elseif snd.toggles.newbie then
+    battack = "starlight "..snd.bashing.target
   else
     if snd.wielded.left.name == "athame" or snd.wielded.right.name == "athame" then
        battack = "impel athame at "..snd.bashing.target
