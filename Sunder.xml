@@ -70255,6 +70255,8 @@ function snd.bashing_function()
 						end
 					end
 				end
+      else
+        battack = ""
 			end
         
 			if snd.probed then
