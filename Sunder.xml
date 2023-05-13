@@ -7902,30 +7902,6 @@ end</script>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Quickassess</name>
-						<script>if matches[2] == snd.target then
-  local percent = math.floor((tonumber(matches[3]) / tonumber(matches[4])) * 100)
-  echo(" " .. percent .. "%")
-  snd.health_percent = percent
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^You glance over (\w+) and see that .* health is at (\d+)\/(\d+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Aff Tracking</name>
@@ -36407,7 +36383,7 @@ function snd.attack_function()
 		local shatter = false
 		local indoors = table.contains(gmcp.Room.Info.details, "indoors")
 		local enrage = false
-		local preatk = "qa "..snd.target..snd.sep
+		--local preatk = "qa "..snd.target..snd.sep
 		
 		if tonumber(gmcp.Char.Vitals.fury) &gt;=40 then
 			shatter = true -- spam it
@@ -36465,26 +36441,27 @@ function snd.attack_function()
 			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 		end
 		
-		if snd.health_percent &lt;= 35 and not indoors then
-			if not snd.used_rebounding and not snd.highjumped then
-			string = "highjump"
-			elseif snd.highjumped == true then
-				string = "axe dropstrike "..snd.target.." "..tohit[1]
-				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-			elseif snd.used_rebounding then
-			string = "axe devastate "..snd.target.." "..tohit[1]
-			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-			end
-		end
+    --quickassess doesn't exist, so we can't use this
+		--if snd.health_percent &lt;= 35 and not indoors then
+		--	if not snd.used_rebounding and not snd.highjumped then
+		--	string = "highjump"
+		--	elseif snd.highjumped == true then
+		--		string = "axe dropstrike "..snd.target.." "..tohit[1]
+		--		call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
+			--elseif snd.used_rebounding then
+		--	string = "axe devastate "..snd.target.." "..tohit[1]
+		--	call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
+		--	end
+		--end
 
-    if snd.health_percent &gt; 35 and not indoors and snd.checkAff("sensitivity") and snd.proned() 
-    and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
-			string = preatk.."axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
-			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
-		end
+    --if snd.health_percent &gt; 35 and not indoors and snd.checkAff("sensitivity") and snd.proned() 
+    --and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
+		--	string = preatk.."axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
+		--	call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
+		--end
 		
 		if indoors and snd.checkAff("sensitivity") and snd.proned() and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
-			string = preatk.."axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
+			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
 			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
 		end
 		
@@ -36527,7 +36504,7 @@ function snd.attack_function()
 		local call = "" 
 		local touse = {}
 		local tohit = {}
-		local preatk = "qa "..snd.target..snd.sep
+		--local preatk = "qa "..snd.target..snd.sep
 		
 		local fury_amount = tonumber(gmcp.Char.Vitals.fury)
 		local fury = ""
@@ -36734,7 +36711,7 @@ function snd.attack_function()
 		local call = "" 
 		local touse = "none"
 		local tohit = "none"
-		local preatk = "qa "..snd.target..snd.sep
+		--local preatk = "qa "..snd.target..snd.sep
 		local axenumbers = 2
 		local fury_amount = tonumber(gmcp.Char.Vitals.fury)
 		local fury = ""
@@ -37055,7 +37032,7 @@ function snd.attack_function()
 		local boostshatter = false
 		local indoors = table.contains(gmcp.Room.Info.details, "indoors")
 		local enrage = false
-		local preatk = "qa "..snd.target..snd.sep
+		--local preatk = "qa "..snd.target..snd.sep
 		
 		if tonumber(gmcp.Char.Vitals.fury) &gt;=40 then
 			shatter = true -- spam it
@@ -37131,7 +37108,7 @@ function snd.attack_function()
 		end
 		
     if snd.proned() and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
-			string = preatk.."axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
+			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
 			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
 		end
 		
@@ -40562,8 +40539,9 @@ end</script>
       string = "impel athame at "..snd.target.." prefarar"..snd.sep
     elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
       string = "vanquish "..snd.target
-    elseif snd.health_percent &lt; 30 then
-      string = "starlight "..snd.target..snd.sep
+    --This is using quickassess so not needed, need to find a replacement
+    --elseif snd.health_percent &lt; 30 then
+    --  string = "starlight "..snd.target..snd.sep
     elseif snd.checksomeAffs({"anorexia", "asthma"}, 1) and not snd.checkAff("slickness") then
       string = "impel athame at "..snd.target.." gecko"..snd.sep
   	else -- No special attacks, time to run through our aff list defined above and see what we want to give most.
@@ -40628,22 +40606,18 @@ end</script>
       end
       
       if not snd.need_deform then
-        if snd.health_percent &lt; 30 then
-          string = string..snd.sep.."order chimera headbutt "..snd.target..snd.sep
-        end
+        string = string..snd.sep.."order quetzal headbutt "..snd.target..snd.sep
       end
       
-      if snd.need_deform then
-        if snd.health_percent &lt; 90 and snd.aff_count_all() &gt; 11 then
-          string = "disjunct "..snd.target..snd.sep
-        end
+      if snd.need_deform and snd.aff_count_all() &gt; 11 then
+        string = "disjunct "..snd.target..snd.sep
       end
       
       if snd.adder_ready then
         string = string..snd.sep.."activate diamond "..snd.target..snd.sep
       end
       
-      string = "qa "..snd.target..snd.sep..string..snd.sep.."unfurl "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
+      string = string..snd.sep.."unfurl "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
   
     	if snd.toggles.affcalling and not snd.target_gone then
     	  call = "wt Afflicting "..snd.target..": "..cards.one.affliction..", "..cards.two.affliction..snd.sep
@@ -43366,8 +43340,6 @@ function snd.attack_function()
 			end
 		end
 		
-		string = "qa "..snd.target..snd.sep..string 
-		
 		-- prepend our affliction call, if we need one
 		if snd.toggles.affcalling and not snd.target_gone then
 			string = call..string
@@ -45062,17 +45034,17 @@ function snd.attack_function()
         if not snd.checkAff("patterns") then
            string = "geo pattern "..snd.target..snd.sep
         elseif snd.checkAff("patterns") and snd.balance.madness then
-           string = "empower jhako"..snd.sep.."elicit madness "..snd.target..snd.sep.."quickassess "..snd.target
+           string = "empower jhako"..snd.sep.."elicit madness "..snd.target..snd.sep
         elseif snd.checksomeAffs({"dementia", "paranoia", "hallucinations"}, 1) then
-           --string = "geo impress rod"..snd.sep.."incite hex "..snd.target..snd.sep.."quickassess "..snd.target
-           string = "goggle scan "..snd.target..snd.sep.."geo impress rod"..snd.sep.."incite crux "..snd.target..snd.sep..biostring..biostring.."quickassess "..snd.target   
+           --string = "geo impress rod"..snd.sep.."incite hex "..snd.target..snd.sep
+           string = "goggle scan "..snd.target..snd.sep.."geo impress rod"..snd.sep.."incite crux "..snd.target..snd.sep..biostring..biostring  
         end
  
       elseif snd.my_incite == "Crescent" then
-        string = "geo impress rod"..snd.sep.."incite crux "..snd.target..snd.sep..biostring..snd.sep..biostring..snd.sep.."quickassess "..snd.target  
+        string = "geo impress rod"..snd.sep.."incite crux "..snd.target..snd.sep..biostring..snd.sep..biostring  
                     
      elseif snd.my_incite ~= "" and snd.crescentable then
-       string = "geo impress star"..snd.sep.."incite crescent " ..snd.target..snd.sep.."quickassess "..snd.target 
+       string = "geo impress star"..snd.sep.."incite crescent " ..snd.target 
        
      else
       string = "geo impress star"..snd.sep.."incite crux "..snd.target..snd.sep..biostring..snd.sep..biostring..snd.sep.."quickassess "..snd.target 
@@ -45087,7 +45059,7 @@ function snd.attack_function()
   end
  end
 end
-send("quickassess " ..snd.target)
+
 snd.attack_function()
 end</script>
 								<command></command>
@@ -46048,7 +46020,7 @@ if not snd.waiting.queue then
  local battle = "none"
  local chasten = "none"
  local tohit = {}
- local string = "quickassess "..snd.target..snd.sep.."contemplate " .. snd.target .. snd.sep 
+ local string = "contemplate " .. snd.target .. snd.sep 
  local missing = snd.missingAff("stupidity/paresis/anorexia/asthma", "/")
  local total_aff_count = 0
  local mental_aff_count = 0 
@@ -46217,7 +46189,7 @@ end
           if snd.toggles.affcalling and not snd.target_gone then
             string = string .. "wt Subdue " .. snd.target .. ": " .. chasten .. snd.sep
           end
-          string = string .."contemplate "..snd.target..snd.sep.."subdue " .. snd.target .. " " .. chasten..snd.sep.."qa " ..snd.target..snd.sep
+          string = string .."contemplate "..snd.target..snd.sep.."subdue " .. snd.target .. " " .. chasten..snd.sep
         end
       end
 
@@ -46530,7 +46502,7 @@ if not snd.waiting.queue then
  local battle = "none"
  local chasten = "none"
  local tohit = {}
- local string = "quickassess "..snd.target..snd.sep.."contemplate " .. snd.target .. snd.sep 
+ local string = "contemplate " .. snd.target .. snd.sep 
  local missing = snd.missingAff("stupidity/paresis/anorexia/asthma", "/")
  local total_aff_count = 0
  local mental_aff_count = 0 
@@ -46679,7 +46651,7 @@ if not snd.waiting.queue then
           if snd.toggles.affcalling and not snd.target_gone then
             string = string .. "wt Subdue " .. snd.target .. ": " .. chasten .. snd.sep
           end
-          string = string .. "subdue " .. snd.target .. " " .. chasten..snd.sep.."qa " ..snd.target..snd.sep.."contemplate "..snd.target
+          string = string .. "subdue " .. snd.target .. " " .. chasten..snd.sep.."contemplate "..snd.target
         end
       end
 
