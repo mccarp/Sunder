@@ -75540,7 +75540,8 @@ end</script>
                     end
                   end, 
         Deform = function(target)
-        -- Kept for purposes of those who want to track if they've hit deform and to damage kill off of it
+                    snd.need_deform = false
+                   tempTimer(20,[[snd.need_deform = true]])
                  end,                
         Bonedagger = function(target)
                       if #snd.maybe_affs == 1 then
@@ -77265,7 +77266,8 @@ end</script>
                     end
                   end, 
         Disjunct = function(target)
-        -- Kept for purposes of those who want to track if they've hit deform and to damage kill off of it
+                    snd.need_deform = false
+                   tempTimer(20,[[snd.need_deform = true]])
                  end,                
         Athame = function(target)
                       if #snd.maybe_affs == 1 then
