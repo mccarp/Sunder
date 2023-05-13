@@ -7089,7 +7089,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Your attack is repelled by the magical dome protecting (\w+).$</string>
+									<string>^Your attack is repelled by the dome of ylem protecting (\w+).$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -7664,7 +7664,7 @@ disableTrigger("Fervour Spew")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)'s protective dome disperses\.$</string>
+									<string>^(\w+)'s protective dome of ylem disperses\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
