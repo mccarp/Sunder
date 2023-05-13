@@ -51877,7 +51877,7 @@ fitness = true, -- have access to the fitness ability
 shrug = false, -- have access to shrug
 purge = false, -- have access to Carnifex/Revenant purge
 purify = false, -- have access to Praenomen/Akkari purify
-panacea = true, -- have access to Shaman/Alchemist panacea
+panacea = false, -- have access to Shaman/Alchemist panacea
 dome = false,
 auto_reject = false,
 fastwalk = false,
@@ -54389,18 +54389,19 @@ snd.method_priority = {
       if ((hasSkill("Purge") and snd.class == "Carnifex") or (hasSkill("Annul") and snd.class == "Warden")) and snd.purge_check() then
         table.insert(snd.queue, "purge")
       end
+        if ((hasSkill("Panacea") and snd.class == "Shaman") or (snd.class == "Alchemist" and hasSkill("Subversion"))) and snd.panacea_check() then
+          table.insert(snd.queue, "panacea")
+        end
+        if ((hasSkill("Purify") and snd.class == "Praenomen") or (hasSkill("Succour") and snd.class == "Akkari")) and snd.purify_check() then
+          table.insert(snd.queue, "purify")
+        end
       if snd.rage_check() and snd.can_rage() then
         table.insert(snd.queue, "rage")
       end
       if snd.need_dome then
         table.insert(snd.queue, "dome")
       end
-  	    if (hasSkill("Panacea") and snd.class == "Shaman") or (snd.class == "Alchemist" and hasSkill("Subversion")) and snd.panacea_check() then
-  	      table.insert(snd.queue, "panacea")
-  	    end
-  	    if (hasSkill("Purify") and snd.class == "Praenomen") or (hasSkill("Succour") and snd.class == "Akkari") and snd.purify_check() then
-  	      table.insert(snd.queue, "purify")
-  	    end
+
     end
     if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
       table.insert(snd.queue, "attack")
