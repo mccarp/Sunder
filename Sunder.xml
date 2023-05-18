@@ -3369,10 +3369,14 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 								<string>You cannot deliver the curse of Aeon again so soon.</string>
 								<string>You cannot stretch the flow of time via an hourglass again so soon.</string>
 								<string>^Unfurling an hourglass in \w+'s direction, you watch as the sleek silver shades distort around \w+ to slow \w+ innate sense of time and possibility\.$</string>
+								<string>^You unfurl an hourglass toward (\w+) amidst a shimmer of sleek silver.$</string>
+								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>3</integer>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -40502,7 +40506,9 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Deform Damage</name>
-								<script>if snd.class == "Oneiromancer" then
+								<script>-- Note: this alias was placed as an example and haw flaws - parts may not work. Toy with at your discrection.
+
+if snd.class == "Oneiromancer" then
 
   snd.giving = {
   "asthma",
@@ -78308,7 +78314,7 @@ snd.cardshapes =
         weariness = {card = "moon"},
         impatience = {card = "moon"},
         recklessness = {card = "moon"},
-        paresis = {card = "sun"},
+        perplexed = {card = "sun"},
         asthma = {card = "sun"},
         clumsiness = {card = "sun"},
         vomiting = {card = "sun"},
@@ -78336,7 +78342,7 @@ snd.cardshapes =
         weariness = {card = "hypercube"},
         impatience = {card = "hypercube"},
         recklessness = {card = "hypercube"},
-        paresis = {card = "sphere"},
+        perplexed = {card = "sphere"},
         asthma = {card = "sphere"},
         clumsiness = {card = "sphere"},
         vomiting = {card = "sphere"},
