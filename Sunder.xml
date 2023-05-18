@@ -3369,10 +3369,14 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 								<string>You cannot deliver the curse of Aeon again so soon.</string>
 								<string>You cannot stretch the flow of time via an hourglass again so soon.</string>
 								<string>^Unfurling an hourglass in \w+'s direction, you watch as the sleek silver shades distort around \w+ to slow \w+ innate sense of time and possibility\.$</string>
+								<string>^You unfurl an hourglass toward (\w+) amidst a shimmer of sleek silver.$</string>
+								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>3</integer>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -7089,7 +7093,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Your attack is repelled by the magical dome protecting (\w+).$</string>
+									<string>^Your attack is repelled by the dome of ylem protecting (\w+).$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -7664,7 +7668,7 @@ disableTrigger("Fervour Spew")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)'s protective dome disperses\.$</string>
+									<string>^(\w+)'s protective dome of ylem disperses\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -40502,138 +40506,142 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Deform Damage</name>
-								<script>if snd.class == "Oneiromancer" then
+								<script>-- Note: this alias was placed as an example and haw flaws - parts may not work. Toy with at your discrection.
 
-  snd.giving = {
-  "asthma",
-  "aeon",
-  "impatience",
-  "clumsiness",
-  "paresis",
-  "weariness",
-  "stupidity",
-  "anorexia",
-  "epilepsy",
-  "sensitivity",
-  "vomiting",
-  "lethargy",
-  "confusion",
-  "recklessness",	
-  "superstition",
-  "berserking",
-  "hypersomnia",
-  }
-  
-  snd.starting_attack()
-  
-  function snd.attack_function() 
-   local string = ""
-   local raw_affs_to_fling = {}
-   local cards = {one = {affliction = "", card = ""}, two = {affliction = "", card = ""}}
-   
-   if not snd.waiting.queue then
-   
-    if snd.used.shield then
-  		string = "touch hammer "..snd.target..snd.sep
-    elseif snd.theytumbling then
-      string = "impel athame at "..snd.target.." prefarar"..snd.sep
-    elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
-      string = "vanquish "..snd.target
-    --This is using quickassess so not needed, need to find a replacement
-    --elseif snd.health_percent &lt; 30 then
-    --  string = "starlight "..snd.target..snd.sep
-    elseif snd.checksomeAffs({"anorexia", "asthma"}, 1) and not snd.checkAff("slickness") then
-      string = "impel athame at "..snd.target.." gecko"..snd.sep
-  	else -- No special attacks, time to run through our aff list defined above and see what we want to give most.
-  		for i in pairs(snd.giving) do
-  			if not snd.checkAff(snd.giving[i]) then
-          if snd.giving[i] == "aeon" then
-            if snd.balance.aeon then
-              if snd.checkAff("clumsiness") or snd.checkAff("wearines") then
-                table.insert(raw_affs_to_fling, snd.giving[i])
-              end
-            end
-  				elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
-  					table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
-  				end
-  			end
-  		end
-      
-      for k, v in ipairs(raw_affs_to_fling) do -- run through the raw affs
-        if cards.one.affliction == "" then -- fill in card one, could start with card two if you want to work around dodge CD
-          if snd.cardshapes.oneiromancer[v].card == "diamond" then
-            if not snd.adder_attached then-- Make sure that if we're picking an adder venom, we haven't already thrown adder
-              cards.one.affliction = v
-              cards.one.card = snd.cardshapes.oneiromancer[v].card
-            end
-          else
-            cards.one.affliction = v
-            cards.one.card = snd.cardshapes.oneiromancer[v].card
-          end
-        elseif cards.one.card ~= snd.cardshapes.oneiromancer[v].card and cards.two.affliction == "" then -- if card types are different and haven't already set card two
-          if snd.cardshapes.oneiromancer[v].card == "diamond" then
-            if not snd.adder_attached then -- Make sure that if we're picking an adder venom, we haven't already thrown adder
-              cards.one.affliction = v
-              cards.one.card = snd.cardshapes.oneiromancer[v].card
-            end
-          else
-            cards.two.affliction = v
-            cards.two.card = snd.cardshapes.oneiromancer[v].card
-          end
-        end
-      end
-
-      -- If the card is an adder venom affliction, convert the affliction to the venom.
-      if cards.one.card == "diamond" then cards.one.affliction = snd.effects[cards.one.affliction] end
-      if cards.two.card == "diamond" then cards.two.affliction = snd.effects[cards.two.affliction] end
-      
-      if not snd.loyalsattacking then
-        string = "order loyals kill "..snd.target..snd.sep..string
-      end
-      
-      if snd.need_leech_aura then
-  	    string = "unspool "..snd.target..snd.sep
-      end
-      
-      if snd.balance.soulmaster and not snd.checkAff("slickness") then
-        string = "order "..snd.target.." apply epidermal to head"..snd.sep
-      end
-      
-      if snd.balance.envelop then
-        if not snd.checksomeAffs({"anorexia", "slickness", "asthma"}, 1) then
-          string = "order blob envelop"..snd.sep
-        end
-      end
-      
-      if not snd.need_deform then
-        string = string..snd.sep.."order quetzal headbutt "..snd.target..snd.sep
-      end
-      
-      if snd.need_deform and snd.aff_count_all() &gt; 11 then
-        string = "disjunct "..snd.target..snd.sep
-      end
-      
-      if snd.adder_ready then
-        string = string..snd.sep.."activate diamond "..snd.target..snd.sep
-      end
-      
-      string = string..snd.sep.."unfurl "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
-  
-    	if snd.toggles.affcalling and not snd.target_gone then
-    	  call = "wt Afflicting "..snd.target..": "..cards.one.affliction..", "..cards.two.affliction..snd.sep
-        string = call..snd.sep..string
-    	end
-  	end
-  
-  
-    if string ~= snd.last_attack and not snd.waiting.queue then
-     snd.last_attack = string
-     snd.attack(snd.last_attack)
-     snd.waiting.queue = true
-     tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-   end
-  end
+if snd.class == "Oneiromancer" then
+ 
+	snd.giving = {
+		"asthma",
+		"aeon",
+		"impatience",
+		"clumsiness",
+		"perplexed",
+		"weariness",
+		"stupidity",
+		"anorexia",
+		"epilepsy",
+		"sensitivity",
+		"vomiting",
+		"lethargy",
+		"confusion",
+		"recklessness",	
+		"superstition",
+		"berserking",
+		"hypersomnia",
+	}
+ 
+	snd.starting_attack()
+ 
+	function snd.attack_function() 
+		local string = ""
+		local raw_affs_to_fling = {}
+		local cards = {one = {affliction = "", card = ""}, two = {affliction = "", card = ""}}
+ 
+		if not snd.waiting.queue then
+ 
+			if snd.used.shield then
+				string = "order cerberus attack "..snd.target..snd.sep
+			elseif snd.theytumbling then
+				string ="unfurl hourglass and favor at "..snd.target..snd.sep
+			elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+				string = "vanquish "..snd.target
+			elseif not snd.need_deform then
+				string = "starlight "..snd.target..snd.sep  
+			elseif snd.checksomeAffs({"anorexia", "asthma"}, 2) and not snd.checkAff("slickness") then
+				string = "impel athame at "..snd.target.." gecko"..snd.sep
+			else -- No special attacks, time to run through our aff list defined above and see what we want to give most.
+				for i in pairs(snd.giving) do
+					if not snd.checkAff(snd.giving[i]) then
+						if snd.giving[i] == "aeon" then
+							if snd.balance.aeon then
+								if snd.checkAff("clumsiness") or snd.checkAff("weariness") then
+									table.insert(raw_affs_to_fling, snd.giving[i])
+								end
+							end
+						elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
+							table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
+						end
+					end
+				end
+ 
+				for k, v in ipairs(raw_affs_to_fling) do -- run through the raw affs
+					if cards.one.affliction == "" then -- fill in card one, could start with card two if you want to work around dodge CD
+						if snd.cardshapes.oneiromancer[v].card == "diamond" then
+							if not snd.adder_attached then-- Make sure that if we're picking an adder venom, we haven't already thrown adder
+								cards.one.affliction = v
+								cards.one.card = snd.cardshapes.oneiromancer[v].card
+							end
+						else
+							cards.one.affliction = v
+							cards.one.card = snd.cardshapes.oneiromancer[v].card
+						end
+					elseif cards.one.card ~= snd.cardshapes.oneiromancer[v].card and cards.two.affliction == "" then -- if card types are different and haven't already set card two
+						if snd.cardshapes.oneiromancer[v].card == "diamond" then
+							if not snd.adder_attached then -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+								cards.one.affliction = v
+								cards.one.card = snd.cardshapes.oneiromancer[v].card
+							end
+						else
+							cards.two.affliction = v
+							cards.two.card = snd.cardshapes.oneiromancer[v].card
+						end
+					end
+				end
+ 
+				-- If the card is an adder venom affliction, convert the affliction to the venom.
+				if cards.one.card == "diamond" then cards.one.affliction = snd.effects[cards.one.affliction] end
+				if cards.two.card == "diamond" then cards.two.affliction = snd.effects[cards.two.affliction] end
+ 
+			end
+ 
+			if not snd.loyalsattacking then
+				string = "order loyals kill "..snd.target..snd.sep..string
+			end
+ 
+			if snd.need_leech_aura then
+				string = "unspool "..snd.target
+			end
+ 
+			if snd.balance.soulmaster and not snd.checkAff("slickness") then
+				string = "order "..snd.target.." apply epidermal to head"..snd.sep
+			end
+ 
+			if snd.balance.envelop then
+				if not snd.checksomeAffs({"anorexia", "slickness", "asthma"}, 1) then
+					string = "order blob envelop"..snd.sep
+				end
+			end
+ 
+			if not snd.need_deform then
+				string = string..snd.sep.."order quetzal wingbeat "..snd.target..snd.sep
+			end
+ 
+			if snd.need_deform then
+				if snd.aff_count_all() &gt; 11 then
+					string = "disjunct "..snd.target..snd.sep
+				end
+			end
+ 
+			if snd.adder_ready then
+				string = string..snd.sep.."activate diamond "..snd.target..snd.sep
+			end
+ 
+			string = string..snd.sep.."unfurl "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
+ 
+			if snd.toggles.affcalling and not snd.target_gone then
+				call = "wt Afflicting "..snd.target..": "..cards.one.affliction..", "..cards.two.affliction..snd.sep
+				string = call..snd.sep..string
+			end
+ 
+ 
+			if string ~= snd.last_attack and not snd.waiting.queue then
+				snd.last_attack = string
+				snd.attack(snd.last_attack)
+				snd.waiting.queue = true
+				tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+			end
+		end
+	end
   snd.attack_function()
 end</script>
 								<command></command>
@@ -40654,7 +40662,7 @@ end</script>
     {
       "asthma",
       "aeon",
-      "paresis",
+      "perplexed",
       "impatience",
       "clumsiness",
       "weariness",
@@ -46724,7 +46732,7 @@ end</script>
   snd.giving = {
   "asthma",
   "aeon",
-  "paresis",
+  "perplexed",
   "impatience",
   "clumsiness",
   "weariness",
@@ -46881,7 +46889,7 @@ end</script>
   snd.giving = {
   "asthma",
   "aeon",
-  "paresis",
+  "perplexed",
   "impatience",
   "clumsiness",
   "weariness",
@@ -51877,7 +51885,7 @@ fitness = true, -- have access to the fitness ability
 shrug = false, -- have access to shrug
 purge = false, -- have access to Carnifex/Revenant purge
 purify = false, -- have access to Praenomen/Akkari purify
-panacea = true, -- have access to Shaman/Alchemist panacea
+panacea = false, -- have access to Shaman/Alchemist panacea
 dome = false,
 auto_reject = false,
 fastwalk = false,
@@ -54389,18 +54397,19 @@ snd.method_priority = {
       if ((hasSkill("Purge") and snd.class == "Carnifex") or (hasSkill("Annul") and snd.class == "Warden")) and snd.purge_check() then
         table.insert(snd.queue, "purge")
       end
+        if ((hasSkill("Panacea") and snd.class == "Shaman") or (snd.class == "Alchemist" and hasSkill("Subversion"))) and snd.panacea_check() then
+          table.insert(snd.queue, "panacea")
+        end
+        if ((hasSkill("Purify") and snd.class == "Praenomen") or (hasSkill("Succour") and snd.class == "Akkari")) and snd.purify_check() then
+          table.insert(snd.queue, "purify")
+        end
       if snd.rage_check() and snd.can_rage() then
         table.insert(snd.queue, "rage")
       end
       if snd.need_dome then
         table.insert(snd.queue, "dome")
       end
-  	    if (hasSkill("Panacea") and snd.class == "Shaman") or (snd.class == "Alchemist" and hasSkill("Subversion")) and snd.panacea_check() then
-  	      table.insert(snd.queue, "panacea")
-  	    end
-  	    if (hasSkill("Purify") and snd.class == "Praenomen") or (hasSkill("Succour") and snd.class == "Akkari") and snd.purify_check() then
-  	      table.insert(snd.queue, "purify")
-  	    end
+
     end
     if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
       table.insert(snd.queue, "attack")
@@ -78307,7 +78316,7 @@ snd.cardshapes =
         weariness = {card = "moon"},
         impatience = {card = "moon"},
         recklessness = {card = "moon"},
-        paresis = {card = "sun"},
+        perplexed = {card = "sun"},
         asthma = {card = "sun"},
         clumsiness = {card = "sun"},
         vomiting = {card = "sun"},
@@ -78335,7 +78344,7 @@ snd.cardshapes =
         weariness = {card = "hypercube"},
         impatience = {card = "hypercube"},
         recklessness = {card = "hypercube"},
-        paresis = {card = "sphere"},
+        perplexed = {card = "sphere"},
         asthma = {card = "sphere"},
         clumsiness = {card = "sphere"},
         vomiting = {card = "sphere"},
