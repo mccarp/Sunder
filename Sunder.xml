@@ -2431,9 +2431,7 @@ else
 	snd.empowertype = "nil"
 end
 
-if not snd.fulcrum_call then
-  snd.fulcrum_call = true
-end</script>
+snd.fulcrum_call = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -2578,7 +2576,8 @@ snd.balance.ethereal = false</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Enrich used</name>
 							<script>snd.balance.enrich = false
-snd.fulcrum_call = false</script>
+snd.fulcrum_call = false
+snd.fulcrum_exists = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -9490,7 +9489,8 @@ snd.fulcrum_ready = false
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Contaminate used</name>
 									<script>snd.balance.enrich = false
-snd.fulcrum_call = false</script>
+snd.fulcrum_call = false
+snd.fulcrum_exists = true</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -10070,7 +10070,8 @@ snd.glimpse = glimpse[matches[2]]</script>
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fulcrum not here</name>
-								<script>snd.fulcrum_call = true</script>
+								<script>snd.fulcrum_call = true
+snd.fulcrum_exists = true</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -10114,7 +10115,8 @@ snd.glimpse = glimpse[matches[2]]</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Draw / Construct / Recall - Fulcrum / Well</name>
-								<script>snd.fulcrum_call = false</script>
+								<script>snd.fulcrum_call = false
+snd.fulcrum_exists = true</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -70377,12 +70379,10 @@ function snd.ascendril_bash()
       end
     end
   elseif hasSkill("Quickcast") then
-    if gmcp.Char.Vitals.resonance == "" or snd.fulcrum_call then
+    if not snd.fulcrum_exists then
       battack = "fulcrum construct"
-      snd.fulcrum_call = false
     elseif snd.fulcrum_call then
       battack = "fulcrum recall"
-      snd.fulcrum_call = false
     else
       if snd.toggles.enrich and snd.balance.enrich and wp &gt;= 40 then
         if (gmcp.Char.Vitals.resonance == "fire" or gmcp.Char.Vitals.resonance == "air") then
@@ -70444,13 +70444,11 @@ function snd.bloodborn_bash()
   -- let the reflection do its job
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "unleash geminate"
-  elseif hasSkill("Primacy") then
-    if gmcp.Char.Vitals.aspect == "" or snd.fulcrum_call then
+  elseif hasSkill("Primacy") then    
+    if not snd.fulcrum_exists then
       battack = "well draw"
-      snd.fulcrum_call = false
     elseif snd.fulcrum_call then
       battack = "well recall"
-      snd.fulcrum_call = false
     else
       if snd.toggles.enrich and snd.balance.enrich and wp &gt;= 40 then
         if (gmcp.Char.Vitals.aspect == "yellow" or gmcp.Char.Vitals.aspect == "black") then
@@ -72956,6 +72954,7 @@ snd.reflection_charge = 3
 snd.stalled_skill = ""
 snd.fulcrum_call = true
 snd.fulcrum_ready = true
+snd.fulcrum_exists = false
 
 --Teradrim / Tidesage
 snd.lev_gone = false
