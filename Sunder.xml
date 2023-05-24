@@ -2429,6 +2429,10 @@ else
 	snd.geoinvert = false
 	snd.empowerready = true
 	snd.empowertype = "nil"
+end
+
+if not snd.fulcrum_call then
+  snd.fulcrum_call = true
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -5250,9 +5254,11 @@ sndNDB_saveSettings(true)</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You can find no such target as \'(\d+)\'\.$</string>
+							<string>You can find no such target as 'none'.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
+							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -23963,11 +23969,9 @@ disableTrigger("Barrage prompt turn off")</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>squeeze</name>
-								<script>if snd.target == matches[3] then
-  if matches[2] ~= "torso" then
-    snd.target_got(matches[2].."_broken")
-  end
-
+								<script>if snd.target == matches[3] and matches[2] ~= "torso" then
+  local limb = string.gsub(matches[2], " ", "_")
+  snd.target_got(limb.."_broken")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -23980,7 +23984,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^A synthetic crystal elemental uses Synthesis Squeeze \((.*)\)\son (\w+)\.$</string>
+									<string>uses Synthesis Squeeze \((.+)\) on (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -70205,7 +70209,7 @@ end</script>
 {class = "Tidesage", func = function(current) snd.tidesage_bash() end}, 
 {class = "Warden", func = function(current) snd.warden_bash() end},
 {class = "Wayfarer", func = function(current) snd.wayfarer_bash() end},
-{class = "Zealot", func = function(current) snd.zealot_bash() end}, 
+{class = "Zealot", func = function(current) snd.zealot_bash() end},
 }
 
 function snd.shield_check()
@@ -70223,10 +70227,11 @@ function snd.bashing_function()
     if not snd.bashing.targeted then
       snd.runBasher()
     else
-      battack = "none"
-			if not snd.counterattack_active then
+			battack = "none"
+      if not snd.counterattack_active then
 				for k,v in pairs(snd.class_list) do
 					if snd.class_list[k].class == snd.class then
+            battack = ""
 						v.func()
 						if snd.have_aff("shock") and hasSkill("Overdrive") then
 							battack = "overdrive"..snd.sep..battack..snd.sep.."recoup"..snd.sep
@@ -70255,7 +70260,9 @@ function snd.bashing_function()
         
 			if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack..snd.sep.."absorb ylem" end
       
-      if battack ~= snd.last_attack and not snd.ylem_check then
+      if battack == "" then
+        echo("\nTried to bash, no class ability set.")
+      elseif battack ~= snd.last_attack and not snd.ylem_check then
         snd.last_attack = battack
         if battack ~= "none" then
           snd.send("qeb stand"..snd.sep..snd.last_attack)
@@ -70370,7 +70377,7 @@ function snd.ascendril_bash()
       end
     end
   elseif hasSkill("Quickcast") then
-    if gmcp.Char.Vitals.resonance == "" and snd.fulcrum_call then
+    if gmcp.Char.Vitals.resonance == "" or snd.fulcrum_call then
       battack = "fulcrum construct"
       snd.fulcrum_call = false
     elseif snd.fulcrum_call then
@@ -70383,7 +70390,7 @@ function snd.ascendril_bash()
         end
       end
       if snd.toggles.prism then
-        if (gmcp.Char.Vitals.resonance == "fire" or gmcp.Char.Vitals.resonance == "air") then
+        if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air" then
           battack = battack.."cast prism firelash "..snd.bashing.target
         elseif gmcp.Char.Vitals.resonance == "air" then
           battack = "cast prism frostblade "..snd.bashing.target
@@ -70391,10 +70398,10 @@ function snd.ascendril_bash()
           battack = "cast prism windlance "..snd.bashing.target
         end
       else
-        if gmcp.Char.Vitals.resonance == "none" or gmcp.Char.Vitals.resonance == "air"  then
+        if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air"  then
           battack = "cast frostblade "..snd.bashing.target
         elseif gmcp.Char.Vitals.resonance == "water" then
-          battack = battack.."cast firelash "..snd.bashing.target
+          battack = "cast firelash "..snd.bashing.target
         elseif gmcp.Char.Vitals.resonance == "fire" then
           battack = "cast windlance "..snd.bashing.target
         end
@@ -70438,7 +70445,7 @@ function snd.bloodborn_bash()
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "unleash geminate"
   elseif hasSkill("Primacy") then
-    if gmcp.Char.Vitals.aspect == "" and snd.fulcrum_call then
+    if gmcp.Char.Vitals.aspect == "" or snd.fulcrum_call then
       battack = "well draw"
       snd.fulcrum_call = false
     elseif snd.fulcrum_call then
@@ -70451,7 +70458,7 @@ function snd.bloodborn_bash()
         end
       end
       if snd.toggles.prism then
-        if (gmcp.Char.Vitals.aspect == "yellow" or gmcp.Char.Vitals.aspect == "black") then
+        if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black" then
           battack = battack.."unleash triplicate disgorge "..snd.bashing.target
         elseif gmcp.Char.Vitals.aspect == "black" then
           battack = "unleash triplicate flense "..snd.bashing.target
@@ -70459,7 +70466,7 @@ function snd.bloodborn_bash()
           battack = "unleash triplicate befoul "..snd.bashing.target
         end
       else
-        if gmcp.Char.Vitals.aspect == "none" or gmcp.Char.Vitals.aspect == "black"  then
+        if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black"  then
           battack = "humour flense "..snd.bashing.target
         elseif gmcp.Char.Vitals.aspect == "phlegm" then
           battack = battack.."humour disgorge "..snd.bashing.target
@@ -76052,7 +76059,8 @@ end</script>
   ["Animation"] = {
         
   },
-  
+
+--Tidesage
  ["Wavebreaking"] = {
     Ram = function(target)
                 snd.last_hit_limb = "torso"
@@ -76072,6 +76080,12 @@ end</script>
     Clobber = function(target, where)
                snd.last_hit_limb = where
                snd.last_limb_dmg = 13.75
+               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+               snd.onHit2({"Dodge", "Parry", "Rebounding"})
+              end,
+    Crack = function(target, where)
+               snd.last_hit_limb = where
+               snd.last_limb_dmg = 10.49
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
@@ -76145,7 +76159,7 @@ end</script>
   
   ["Inundation"] = {
     Feelers = function(target, where)
-                snd.last_hit_limb = where:gsub(" storm", "")
+                snd.last_hit_limb = where:gsub(" apparition", "")
                 snd.last_limb_dmg = 7
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
@@ -76169,6 +76183,14 @@ end</script>
   },
   
   ["Synthesis"] = {
+    
+    Trammel = function(target)
+                snd.target_got("heartflutter")
+              end,
+        Deconstruct = function(target, limb)
+                  table.insert(snd.maybe_affs, 1, limb.."_dislocated")
+                  snd.onHit2({"Dodge", "Parry"})
+              end,
         
   },
 --Carnifex
