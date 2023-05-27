@@ -70278,7 +70278,7 @@ end
 function snd.akkari_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
   wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
-  bp = gmcp.Char.Vitals.blood
+  bp = tonumber(gmcp.Char.Vitals.blood)
   
 	if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
@@ -70287,13 +70287,13 @@ function snd.akkari_bash()
     end
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Vivify") then
     battack = "vivify"
-  elseif bp &gt;= "50" and hp &lt;= 30 and hasSkill("Unbroken") then
+  elseif bp &gt;= 50 and hp &lt;= 30 and hasSkill("Unbroken") then
     if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
       battack = "spirit unbroken"..snd.sep.."denounce "..snd.bashing.target
     else
       battack = "denounce "..snd.bashing.target
     end
-  elseif bp &lt;= "25" then
+  elseif bp &lt;= 25 then
     battack = "deliver corpse"
   else
     battack = "denounce "..snd.bashing.target
@@ -70601,7 +70601,7 @@ end
 function snd.praenomen_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
   wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
-  bp = gmcp.Char.Vitals.blood 
+  bp = tonumber(gmcp.Char.Vitals.blood)
  
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
