@@ -18022,7 +18022,7 @@ disableTrigger("Weaken arms or legs")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^\w+ strikes at (\w+)'s (left|right) (leg|arm) with [a-z- ]+, viciously rending \w+ muscles\.$</string>
+									<string>^\w+ strikes at (\w+)'s (left|right) (leg|arm) with .+, viciously rending \w+ muscles\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -18749,7 +18749,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^A flash of energy cascades down [a-z ]+, disrupting (\w+)('s|') balance\.$</string>
+											<string>^A flash of energy cascades down .+, disrupting (\w+)('s|') balance\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -18771,7 +18771,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^A flash of energy cascades down [a-z ]+, disrupting (\w+)('s|') equilibrium\.$</string>
+											<string>^A flash of energy cascades down .+, disrupting (\w+)('s|') equilibrium\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -18793,7 +18793,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^As [a-z ]+ strikes, sparks of energy fizzle across (\w+)('s|') body as (the )?\w+ defences are reduced\.$</string>
+											<string>^As .+ strikes, sparks of energy fizzle across (\w+)('s|') body as (the )?\w+ defences are reduced\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -18882,7 +18882,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^As (.)* strikes (\w+), there is a bright flash of light and (\w+) begins to glow brightly.$</string>
+											<string>^As (.*) strikes (\w+), there is a bright flash of light and (\w+) begins to glow brightly.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
