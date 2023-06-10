@@ -1039,6 +1039,46 @@ end</script>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Lifevision gain extra capture</name>
+								<script>snd.def_gain("lifevision")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You have gained the lifevision defence.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Lifevision strip extra capture</name>
+								<script>snd.def_take("lifevision")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>Your lifevision defence has been stripped.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>resurgence</name>
@@ -5993,8 +6033,14 @@ snd.probed = true</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>It weighs about</string>
+						<string>He weighs about</string>
+						<string>She weighs about</string>
+						<string>They weigh about</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
 						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -7888,6 +7934,7 @@ end</script>
 						<script>if matches[2]:lower() == snd.target:lower() and matches[3]:find("vial") then
   snd.vital_change("health", 25)
   snd.vital_change("mana", 25)
+  snd.lev_gone = false
   if snd.checkAff("no_speed") then -- Assume they sip speed over sipping health, remove speed after the lowest delay (averages between: 4.5-5 seconds)
     tempTimer(4.5, [[snd.target_cured("no_speed")]])
   end
@@ -18473,7 +18520,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^The curse sways your foe - (\w+) is now stricken with (\w+)\.$</string>
+									<string>^The esoteric curse sways your foe - (\w+) is now stricken with (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -41116,7 +41163,7 @@ function snd.attack_function()
 	elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
       astring = astring.."spiritpact mystify "..snd.target..snd.sep
   elseif not snd.checksomeAffs({"nyctophobia","haemophilia"},2) then
-      astring = astring.."cast anathemise " ..snd.target..snd.sep     
+      astring = astring.."hex anathemise " ..snd.target..snd.sep     
   elseif not snd.checksomeAffs({"vomiting","haemophilia"},1) then
     if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
       astring = astring.."spiritpact despair " ..snd.target..snd.sep.."hex malady " ..snd.target..snd.sep
@@ -41135,7 +41182,7 @@ function snd.attack_function()
     if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
       astring = astring.."spiritpact anathemise " ..snd.target..snd.sep
       else
-      string = astring.."cast anathemise " ..snd.target..snd.sep
+      string = astring.."hex anathemise " ..snd.target..snd.sep
   end
   end
   if string ~= snd.last_attack and not snd.waiting.queue then
@@ -70229,44 +70276,44 @@ function snd.bashing_function()
     if not snd.bashing.targeted then
       snd.runBasher()
     else
-			battack = "none"
-      if not snd.counterattack_active then
+			battack = "none" -- set attack to none
+      if not snd.counterattack_active then -- if the npc isn't counter attacking (tcanna/drakkum/torturer), then check class skills
 				for k,v in pairs(snd.class_list) do
-					if snd.class_list[k].class == snd.class then
-            battack = ""
-						v.func()
-						if snd.have_aff("shock") and hasSkill("Overdrive") then
+					if snd.class_list[k].class == snd.class then -- check current class to class bash list above
+            battack = "" -- set attack from 'none' to "" so it can be set in the class basher, will provide error if it can't get a class ability
+						v.func() -- set attack from class basher
+						if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
 							battack = "overdrive"..snd.sep..battack..snd.sep.."recoup"..snd.sep
-						elseif snd.pushattack then  
+						elseif snd.pushattack then  -- if they are a pushable npc (tcanna/drakuum/torturer) and we know we can shove, do it first
 							battack = "push "..snd.bashing.target..snd.sep.."recoup"..snd.sep
 							snd.pushattack = false
 						end
 					end
 				end
-      else
+      else -- if they're counter attacking, let's not do anything
         battack = ""
 			end
         
-			if snd.probed then
-			else
+			if snd.probed then -- If a npc is probed, move along
+			else -- else, in three areas that have advanced bashing, probe the npc to see if they are a punisher
 				if gmcp.Room.Info.area == "Tcanna Island" or gmcp.Room.Info.area == "Drakuum"  or gmcp.Room.Info.area == "the Torturers' Caverns" then   
-					battack = "probe "..snd.bashing.target..snd.sep..battack..snd.sep
-				end
+					battack = "probe "..snd.bashing.target..snd.sep..battack..snd.sep -- we're probing here and then attacking from above
+				end -- note, this is just to make sure you don't get owned by shielding on punisher type npcs
 			end
-      if tonumber(gmcp.Char.Vitals.bleeding) &gt; 500 and hasSkill("Clotting") then
+      if tonumber(gmcp.Char.Vitals.bleeding) &gt; 500 and hasSkill("Clotting") then -- if you are bleeding a lot and can clot, clot with your attack
         mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
         if mp &gt;= 50 then
           battack = "clot 500"..snd.sep..battack..snd.sep
         end  
       end 
         
-			if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack..snd.sep.."absorb ylem" end
+			if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack..snd.sep.."absorb ylem" end -- if you have a level 2 gauntlet, auto-absorb
       
-      if battack == "" then
+      if battack == "" and (snd.counterattack_active or not snd.defenses.def_reflection.state == "deffed") then -- if the basher couldn't change battack to something from your class, it will give an error
         echo("\nTried to bash, no class ability set.")
-      elseif battack ~= snd.last_attack and not snd.ylem_check then
-        snd.last_attack = battack
-        if battack ~= "none" then
+      elseif battack ~= snd.last_attack and not snd.ylem_check then -- if your battack isn't the same as your last attempted attack, and you aren't trying to capture ylem
+        snd.last_attack = battack -- ATTACK
+        if battack ~= "none" then -- if for some reason it's none as your attack, stand
           snd.send("qeb stand"..snd.sep..snd.last_attack)
         end
         snd.waiting.queue = true
@@ -70283,9 +70330,9 @@ function snd.akkari_bash()
   bp = tonumber(gmcp.Char.Vitals.blood)
   
 	if hp &lt;=40 and snd.shield_check() then
-    if snd.punisher then
+    if snd.punisher then -- if they will kill you for having a shield, don't do it
     else
-      battack = "touch shield"
+      battack = "touch shield" -- otherwise, shield
     end
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Vivify") then
     battack = "vivify"
@@ -75961,6 +76008,7 @@ end</script>
                end,
     Overhand = function(target)
                  snd.target_got("fallen")
+                 snd.lev_gone = true
                end,
     Batter = function(target, where)
                snd.last_hit_limb = where
@@ -76052,6 +76100,15 @@ end</script>
     Scourge = function(target, where)
                 snd.target_got(where.."_broken")
               end,
+    
+    Trap = function(target)
+                snd.target_got("sand_trapped")
+              end,
+              
+    Quicksand = function(target)
+                snd.target_got("quicksand")
+                snd.lev_gone = true
+              end,
 
   },
   
@@ -76074,7 +76131,8 @@ end</script>
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Breach = function(target)
-                 snd.target_got("fallen")
+                 snd.target_got("fallen")                
+                 snd.lev_gone = true
                end,
     Clobber = function(target, where)
                snd.last_hit_limb = where
@@ -76171,6 +76229,10 @@ end</script>
             end,
     Unseen = function(target, where)
                 snd.target_got(where.."_broken")
+              end,
+    Undertow = function(target)
+                snd.target_got("quicksand")
+                snd.lev_gone = true
               end,
     Shred = function(target, where)
                 snd.last_hit_limb = where
