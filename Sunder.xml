@@ -74260,6 +74260,7 @@ end</script>
  snd.loyalsattacking = false
  snd.my_dread = false
  snd.their_dread = false
+  snd.lev_gone = false
  
   if snd.gui.enabled then 
     color_enemy_affs()
