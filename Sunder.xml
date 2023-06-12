@@ -7100,10 +7100,12 @@ end</script>
 								<regexCodeList>
 									<string>Your fangs won't penetrate the odd waxy coating protecting them.</string>
 									<string>Your victim is protected by a hard coating.</string>
+									<string>^Your fangs won't penetrate the odd waxy coating protecting (\w+).$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
 									<integer>3</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -54909,13 +54911,13 @@ aff_troubled_breathing = {state = "healed", effect = "", cures = {}, assess = fa
 aff_vertigo = {state = "healed", effect = "", cures = {herb = "lobelia", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_vinethorns = {state = "healed", effect = "", cures = {special = "pull thorn from body"}, assess = false, timer = createStopWatch()},
 aff_vitalbane = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
-aff_void = {state = "healed", effect = "", cures = {salve = "caloric"}, assess = false, timer = createStopWatch()},
+aff_void = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_voidgaze = {state = "healed", effect = "gives stacking affs while active", cures = {salve = "restoration to head"}, assess = false, timer = createStopWatch()},
 aff_voidtrapped = {state = "healed", effect = "stuck prone for a bit via voidgaze", cures = {}, assess = false, timer = createStopWatch()},
 aff_vomiting = {state = "healed", effect = "", cures = {herb = "ginseng", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_voyria = {state = "healed", effect = "", cures = {vial = "immunity"}, assess = false, timer = createStopWatch()},
 aff_weak_grip = {state = "healed", effect = "bypass fist sigil", cures = {tree = "send", salve = "soothing to arms"}, assess = false, timer = createStopWatch()},
-aff_weakvoid = {state = "healed", effect = "", cures = {salve = "caloric"}, assess = false, timer = createStopWatch()},
+aff_weakvoid = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_whiplash = {state = "healed", effect = "head dmg", cures = {tree = "send", salve = "soothing to legs"}, assess = false, timer = createStopWatch()},
 aff_weariness = {state = "healed", effect = "", cures = {herb = "kelp", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_windbrand = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
