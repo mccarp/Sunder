@@ -44728,7 +44728,7 @@ end</script>
       -- If we can't undertow, roll with breach.
       elseif not snd.lev_gone then
         if hasSkill("Undertow") then
-          string = string.."tide undertow "..snd.target
+          string = string.."fog undertow "..snd.target
         elseif hasSkill("Breach") then
          string = string.."tide breach "..snd.target
         end
