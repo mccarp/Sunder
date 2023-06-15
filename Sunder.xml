@@ -13225,7 +13225,7 @@ end
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Sun tarot strip</name>
 										<script>if matches[2] == snd.target then
-	snd.target_got("deafness")
+	snd.target_got("hearing")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -14253,7 +14253,7 @@ snd.target_got("cold")</script>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Deafness strips</name>
-										<script>local aff = "deafness"
+										<script>local aff = "hearing"
 if matches[4] == snd.target then
 	snd.target_got(aff)
 end</script>
@@ -14320,8 +14320,10 @@ end
 											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+), ([a-zA-Z_ -]+) and ([a-zA-Z _ -]+)\.</string>
 											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+) and ([a-zA-Z _ -]+)\.</string>
 											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+).</string>
+											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+), ([a-zA-Z_ -]+), and ([a-zA-Z _ -]+)\.</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
@@ -36911,7 +36913,7 @@ function snd.attack_function()
 			   fury = "fury exhaust " ..snd.target.. "" ..snd.sep
 		   elseif fury_amount &gt; 49 and snd.checkAff("exhausted") and snd.checkAff("lethargy") and not snd.checkAff("masochism") then -- boosted
 			   fury = "fury threaten " ..snd.target.. " boost" ..snd.sep	
-		   elseif fury_amount &gt; 59 and snd.checkAff("lethargy") and not snd.checkAff("deafness") and snd.checksomeAffs({"halted", "paralysis"}, 1) and not snd.checkAff("exhausted") and not snd.checkAff("masochism") then
+		   elseif fury_amount &gt; 59 and snd.checkAff("lethargy") and not snd.checkAff("hearing") and snd.checksomeAffs({"halted", "paralysis"}, 1) and not snd.checkAff("exhausted") and not snd.checkAff("masochism") then
 			   fury = "fury shatter " ..snd.target.. "" ..snd.sep
 		   end
 
@@ -77349,8 +77351,8 @@ end</script>
                   if not dodge then
                     local aff = snd.maybe_affs[1]
                     if snd.cardshapes.oneiromancer[aff].card == "sphere" then
-                      if aff == "sensitivity" and not snd.have_aff("deafness") then
-                        aff = "deafness"
+                      if aff == "sensitivity" and not snd.have_aff("hearing") then
+                        aff = "hearing"
                       end
                       snd.target_got(aff)
                     end
@@ -77418,7 +77420,7 @@ end</script>
             end,
     Quetzal = function(target, attack)
               if attack == "Croon" then
-                snd.target_got("deafness")
+                snd.target_got("hearing")
               end
             end,          
 
