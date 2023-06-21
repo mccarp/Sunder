@@ -4627,7 +4627,7 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 						<regexCodeList />
 						<regexCodePropertyList />
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Pendulum back up</name>
+							<name>Pendulum / Bedevil Available</name>
 							<script>snd.balance.pendulum = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -4641,13 +4641,15 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^You feel your spirit swell with renewed energy\.$</string>
+								<string>^Your soul stirs with refreshed intensity\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Pendulum used</name>
+							<name>Pendulum / Bedevil Used</name>
 							<script>snd.balance.pendulum = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -4661,9 +4663,13 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^You use Purification Pendulum \((.+)\) on \w+\.$</string>
+								<string>^You use Ravaging Bedevil \((.+)\) on (\w+)\.$</string>
+								<string>Your soul is not yet ready to invoke that feat again yet.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>1</integer>
+								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -4682,7 +4688,7 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<regexCodeList />
 							<regexCodePropertyList />
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Zenith Gone</name>
+								<name>Zenith / Delirium Gone</name>
 								<script>snd.zenith = false
 snd.zenith_coming = false</script>
 								<triggerType>0</triggerType>
@@ -4697,13 +4703,15 @@ snd.zenith_coming = false</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>Your zenith of power fades and departs your body.</string>
+									<string>The joy of agonising delirium fades from you.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Zenith coming</name>
+								<name>Zenith / Delirium Coming</name>
 								<script>snd.zenith_coming = true</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -4719,35 +4727,19 @@ snd.zenith_coming = false</script>
 									<string>You are already reaching towards your zenith.</string>
 									<string>^Your eyes flash with light as you hone your focus, sinking into the wellspring of spirit within you.$</string>
 									<string>You use Purification Zenith.</string>
+									<string>You use Ravaging Delirium.</string>
+									<string>Soulfire burns in your veins, your thoughts consumed utterly by sweet, agonising delirium.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
 									<integer>1</integer>
 									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Zenith not going to happen</name>
-								<script>snd.zenith_nope = true</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You don't have enough psi energy to do that.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Firefist Up</name>
+								<name>Firefist / Ravage Used</name>
 								<script>snd.def_def("firefist")
 snd.firefist = true
 snd.firefist_cooldown = false</script>
@@ -4763,13 +4755,19 @@ snd.firefist_cooldown = false</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You use Purification Firefist.</string>
+									<string>You use Ravaging Ravage.</string>
+									<string>You cannot ravage an enemy again so soon.</string>
+									<string>You cannot ignite your fists again so soon.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Firefist down</name>
+								<name>Firefist / Ravage Down</name>
 								<script>snd.firefist = false
 snd.firefist_cooldown = false</script>
 								<triggerType>0</triggerType>
@@ -4784,13 +4782,15 @@ snd.firefist_cooldown = false</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>The flames around your fists are extinguished as their life is spent.</string>
+									<string>The crucious hellfire dissipates from your fists.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Firefist cooldown</name>
+								<name>Firefist / Ravage On Cooldown</name>
 								<script>snd.firefist_cooldown = true</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -4804,8 +4804,10 @@ snd.firefist_cooldown = false</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You may coat your fists in flames once more.</string>
+									<string>You may ravage an enemy again; let the flames of Perdition ignite your fists.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -4892,7 +4894,7 @@ snd.firefist_cooldown = false</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Wrath Used</name>
+								<name>Wrath / Predation Used</name>
 								<script>snd.wrath = false</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -4907,8 +4909,10 @@ snd.firefist_cooldown = false</script>
 								<regexCodeList>
 									<string>You use Zeal Wrath.</string>
 									<string>You are not quite ready to deliver your wrath.</string>
+									<string>You use Brutality Predation.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
@@ -49082,7 +49086,7 @@ end</script>
 						<name>Teradrim</name>
 						<script>--If checking for sand in room use the following 
 
--- table.contains(gmcp.Room.Info.details, "sand")</script>
+-- table.contains(gmcp.Room.Info.details, "sandy")</script>
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
@@ -49102,7 +49106,7 @@ end</script>
     local string = ""
     
     if not snd.waiting.queue then
-      if not table.isMember(gmcp.Room.Info.details, "sandy") then
+      if not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
       elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
@@ -49188,7 +49192,7 @@ end</script>
       if snd.target_impaled and hasSkill("Stonevice") then
         string = "earth stonevice"
       -- If there is no fog, let's get it going.
-      elseif not table.isMember(gmcp.Room.Info.details, "sandy") then
+      elseif not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
       elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
@@ -49286,7 +49290,7 @@ end</script>
  		  if snd.target_impaled and hasSkill("Stonevice") then
         string = "earth stonevice"
       -- If there is no fog, let's get it going.
-      elseif not table.isMember(gmcp.Room.Info.details, "sandy") then
+      elseif not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
       elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
@@ -73013,7 +73017,6 @@ snd.lev_gone = false
 --Zealot/Ravager
 snd.zenith = false
 snd.zenith_coming = false
-snd.zenith_nope = false
 snd.firefist = false
 snd.firefist_cooldown = true
 snd.swagger = 0
@@ -73136,6 +73139,8 @@ shyness = "digitalis",
 anorexia = "slike",
 belonephobia = "araceae",
 slickness = "gecko",
+
+stuttering = "jalk",
 
 voyria = "voyria", --immunity
 
@@ -74831,6 +74836,7 @@ end</script>
                 snd.onHit2({"Dodge", "Parry"}, "Zealot Sunkick")    
               end,
     Rampage = function(target, conditional)
+              snd.blitz = true
               if conditional == "start" then
                 enableTrigger("Rampage Affs")
               else
