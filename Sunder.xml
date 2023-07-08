@@ -71115,7 +71115,7 @@ function snd.revenant_bash()
   else
   	battack = "dpl "..snd.bashing.target
 	end
-	if (hp &gt;= 61 and endur &gt;= 60 and hasSkill("Duskosa")) and not snd.toggles.newbie then 
+	if (hp &gt;= 61 and wp &gt;= 50 and hasSkill("Duskosa")) and not snd.toggles.newbie then 
     battack = battack.. " duskosa duskosa"
   elseif not snd.toggles.newbie and hasSkill("Annul") then
     battack = "annul left"..snd.sep.."annul right"..snd.sep..battack
@@ -71285,7 +71285,7 @@ function snd.templar_bash()
   else
   	battack = "dsk "..snd.bashing.target
 	end
-	if (hp &gt;= 61 and endur &gt;= 60 and hasSkill("Sacrifice")) and not snd.toggles.newbie then 
+	if (hp &gt;= 61 and wp &gt;= 50 and hasSkill("Sacrifice")) and not snd.toggles.newbie then 
     battack = battack.. " sacrifice sacrifice"
   elseif not snd.toggles.newbie and hasSkill("Cleanse") then
     battack = "cleanse left"..snd.sep.."cleanse right"..snd.sep..battack
