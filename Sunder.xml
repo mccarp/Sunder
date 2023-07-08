@@ -20098,9 +20098,9 @@ disableTrigger("Tenacity Devastate")</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Throwing \w+ axes in a precise, savage pattern, \w+ shreds? apart (\w+)'s protective barriers with each passing of a blade\.$</string>
-									<string>^Throwing \w+ axes in a precise, savage pattern, \w+ rends? through (\w+)'s magical shield with a throwing axe, while a throwing axe flies past and finds purchase within \w+ vulnerable flesh\.$</string>
-									<string>^Throwing \w+ axes in a precise, savage pattern, \w+ rends? through (\w+)'s rebounding aura with a throwing axe, while a throwing axe flies past and finds purchase within \w+ vulnerable flesh\.$</string>
-									<string>^Weight shifting with each throw, \w+ launche?s? .+ axes towards (\w+), though they fly wide with the lack of protective barriers to direct their force\.$</string>
+									<string>^Throwing \w+ axes in a precise, savage pattern, \w+ rends? through (\w+)'s magical shield with .+, while .+ flies past and finds purchase within \w+ vulnerable flesh\.$</string>
+									<string>^Throwing \w+ axes in a precise, savage pattern, \w+ rends? through (\w+)'s rebounding aura with .+, while .+ flies past and finds purchase within \w+ vulnerable flesh\.$</string>
+									<string>^Weight shifting with each throw, \w+ launche?s? .+ towards (\w+), though they fly wide with the lack of protective barriers to direct their force\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -20190,7 +20190,7 @@ disableTrigger("Tenacity Chop")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^\w+ chops? into (\w+)'s (.+) with a powerful draw of a throwing axe, the blade sinking into \w+ flesh\.$</string>
+									<string>^\w+ chops? into (\w+)'s (.+) with a powerful draw of .+, the blade sinking into \w+ flesh\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -20215,7 +20215,7 @@ disableTrigger("Tenacity Assault")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^With a quick overhand throw, \w+ hurls? a throwing axe at (\w+), the blade tearing into the flesh of \w+ (.+)\.$</string>
+									<string>^With a quick overhand throw, \w+ hurls? .+ at (\w+), the blade tearing into the flesh of \w+ (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
