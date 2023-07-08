@@ -70988,7 +70988,7 @@ function snd.luminary_bash()
 	elseif snd.toggles.lightning then
   	battack = "evoke lightning "..snd.bashing.target
  	else
-  	battack = "smite "..snd.bashing.target.." angel power"
+  	battack = "smite "..snd.bashing.target.." angel empathy"
  	end
 end
 
