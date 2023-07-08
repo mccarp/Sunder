@@ -17641,7 +17641,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(.*) eyes widen as something unseen captivates (the )?\w+ attention, (the)?\w+ mind lost to the mystifying curse plaguing it.$</string>
+											<string>^(.*) eyes widen as something unseen captivates (the )?\w+ attention, (the )?\w+ mind lost to the mystifying curse plaguing it.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -17830,7 +17830,7 @@ end</script>
 									<name>Sciomancy Repay / Maldeiction Obeisance</name>
 									<script>snd.repay = snd.repay + 1
 
-repay_timer = tempTimer(10.0,[[snd.repay = snd.repay - 1;;if snd.repay &lt; 0 then snd.repay = 0]])</script>
+repay_timer = tempTimer(10.0, function() if snd.repay &gt; 0 then snd.repay = snd.repay - 1 end end)</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -60598,7 +60598,7 @@ snd.areas = {
 {area = "the forgotten depths of Mount Helba", level = "99", targets = {"a towering fungal abomination", "a withered fungal abomination"}},
 {area = "a basilisk lair", level = "100+", targets = {"the basilisk queen", "a cave basilisk", "an Ursal elite guard", "a blindfolded Utari"}, items = {"the corpse of a Utari soldier", "a large piece of debris",}},
 {area = "the Bakal Chasm", level = "100+", targets = {"an agitated basilisk", "an oversized, grey basilisk", "an armored, brown basilisk", "a spiked basilisk", "a grey and brown basilisk", "a blinded basilisk", "a juvenile basilisk", "a basilisk hatchling"}},
-{area = "Clawhook Range", level = "100+", targets = {"an agitated basilisk", "an Utari warrior", "an Ursal swordsman", "a Caentoi rogue", "a Tarpen bombardier", "a Golba brute", "a skulking Golban scout", "a fleet-footed Caentoi scout", "an oversized, grey basilisk", "an armored, brown basilisk", "a spiked basilisk", "a grey and brown basilisk", "a blinded basilisk", "a juvenile basilisk", "a basilisk hatchling", "a spine-necked arrex", "a sabre-toothed abosvi", "a prowling barbed abosvi" }},
+{area = "Clawhook Range", level = "100+", targets = {"an agitated basilisk", "an Utari warrior", "an Ursal swordsman", "a Caentoi rogue", "a Tarpen bombardier", "a Golba brute", "an oversized, grey basilisk", "an armored, brown basilisk", "a spiked basilisk", "a grey and brown basilisk", "a blinded basilisk", "a juvenile basilisk", "a basilisk hatchling", "a spine-necked arrex", "a sabre-toothed abosvi", "a prowling barbed abosvi" }},
 {area = "Eftehl Island", level = "100+", targets = {"a vibrantly pink flamingo", "a large sea turtle", "a steel-grey barracuda", "a sleek hammerhead shark", "a ghost of a castle servant", "a ghost of a castle guard", "a lumbering ogre ghost", "a ghost of a castle kitchen worker"}, items = {},},
 {area = "Tak-re", level = "99+", targets = {"a vicious, mutated shark", "a vicious, mutated shark", "a hundred-strings jellyfish", "a horrifically deformed woodpecker", "a warped squirrel", "a mutated deer", }, items = {},},
 {area = "Kkirrrr'shi Hive", level = "99+", targets = {"a rabid Hokkali drone", "a feral Hokkali soldier", "a rabid Hokkali drone", "a twisted Hokkali hunter", "a hideous Hokkali Queensguard", "a freshly spawned Hokkali ambusher",}, items = {},},
@@ -70980,7 +70980,6 @@ end
 
 function snd.luminary_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-  
 	if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
     else
@@ -70989,7 +70988,7 @@ function snd.luminary_bash()
 	elseif snd.toggles.lightning then
   	battack = "evoke lightning "..snd.bashing.target
  	else
-  	battack = "smite "..snd.bashing.target.." secret"
+  	battack = "smite "..snd.bashing.target.." angel power"
  	end
 end
 
