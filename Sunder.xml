@@ -34060,7 +34060,7 @@ wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
 mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
 endur = 100*(gmcp.Char.Vitals.ep/gmcp.Char.Vitals.maxep)
 bp = tonumber(gmcp.Char.Vitals.blood)
-bioessence = tonumber(gmcp.Char.Vitals.bio)
+bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
 
 if snd.class == "Akkari" then
   
@@ -45419,7 +45419,7 @@ end</script>
 snd.starting_attack()
 function snd.attack_function()
  local string = ""
- local bioessence = tonumber(gmcp.Char.Vitals.bio) 
+ local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
  local biostring = "" 
   
   if bioessence &gt; 1 then
@@ -45455,7 +45455,7 @@ end</script>
 snd.starting_attack()
 function snd.attack_function()
  local string = ""
- local bioessence = tonumber(gmcp.Char.Vitals.bio) 
+ local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
       local physcount = 0
       for aff in pairs(snd.physical_affs) do
           if table.contains(snd.target_has, snd.physical_affs[aff]) then
@@ -45471,7 +45471,7 @@ function snd.attack_function()
  
  local biostring = "" 
 
-      if tonumber(gmcp.Char.Vitals.bio) &gt; 0 then
+      if bioessence &gt; 0 then
       	biostring = "bio stimulant"..snd.sep
       end
 
@@ -45540,7 +45540,7 @@ function snd.attack_function()
       local string = "" 
       local biostring = "" 
       local call = "" 
-      local bioessence = tonumber(gmcp.Char.Vitals.bio) 
+      local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
 
       if bioessence &gt; 1 then
       	biostring = "bio stimulant"..snd.sep
@@ -70787,7 +70787,7 @@ end
 
 function snd.archivist_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-  bioessence = tonumber(gmcp.Char.Vitals.bio) 
+  bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
   mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
   
     if hp &lt;= 70 and not snd.knit and bioessence &gt; 0 and hasSkill("Knitting") then
