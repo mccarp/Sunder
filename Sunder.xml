@@ -54753,6 +54753,8 @@ snd.priorities =
     "def_hex_preservation",
     "def_ironbark",
     "def_selfishness",
+    "def_bloodrage",
+    "def_transcendence",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55888,6 +55890,7 @@ def_shadowblow = {defense = "shadowblow", type = "normal", effect = "Your shadow
 def_blurred = {defense = "blurred", type = "normal", effect = "Others cannot see your vitals", balance = {balanceequilibriumtake = "blood blur"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blur" },
 def_elusion = {defense = "elusion", type = "normal", effect = "You avoid opponents' blows", balance = {balanceequilibriumtake = "elusion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Elusion" },
 def_deathlink = {defense = "deathlink", type = "normal", effect = "You are linked to your coffin", balance = {balanceequilibriumtake = "deathlink"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deathlink" },
+def_bloodrage = {defense = "bloodrage", type = "normal", effect = "Transcend mortal limitations", balance = {balanceequilibriumtake = "blood enrage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Enrage"},
 
 --Ravager
 def_vinculum = {defense = "vinculum", type = "normal", effect = "Enabled your use of abilities", balance = {balanceequilibriumtake = "invoke vinculum"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vinculum" },
@@ -56434,6 +56437,7 @@ end</script>
   ["The Warden's blessing preserves you."] = "hex_preservation",
   ["Phantasmal ironbark girds your form."] = "ironbark",
   ["You are feeling quite selfish."] = "selfishness",
+  ["You are overwhelmed by a blood rage."] =  "bloodrage",
 
 }
  </script>
