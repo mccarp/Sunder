@@ -55891,6 +55891,8 @@ def_blurred = {defense = "blurred", type = "normal", effect = "Others cannot see
 def_elusion = {defense = "elusion", type = "normal", effect = "You avoid opponents' blows", balance = {balanceequilibriumtake = "elusion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Elusion" },
 def_deathlink = {defense = "deathlink", type = "normal", effect = "You are linked to your coffin", balance = {balanceequilibriumtake = "deathlink"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deathlink" },
 def_bloodrage = {defense = "bloodrage", type = "normal", effect = "Transcend mortal limitations", balance = {balanceequilibriumtake = "blood enrage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Enrage"},
+def_deluge = {defense = "deluge", type = "normal", effect = "Allows the user to fall below zero health, effectively making them immune to damage.", balance = {balanceequilibriumtake = "blood deluge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deluge"},
+
 
 --Ravager
 def_vinculum = {defense = "vinculum", type = "normal", effect = "Enabled your use of abilities", balance = {balanceequilibriumtake = "invoke vinculum"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vinculum" },
@@ -56438,6 +56440,7 @@ end</script>
   ["Phantasmal ironbark girds your form."] = "ironbark",
   ["You are feeling quite selfish."] = "selfishness",
   ["You are overwhelmed by a blood rage."] =  "bloodrage",
+  ["You have flooded your undead body with warm, pulsating lifeblood."] = "deluge",
 
 }
  </script>
@@ -71064,8 +71067,8 @@ function snd.praenomen_bash()
     end
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Mending") then
     battack = "mend"
-  elseif bp &gt;= 50 and hasSkill("Deluge") then
-    if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
+  elseif bp &gt;= 50 and hp &lt;= 30 and hasSkill("Deluge") then
+    if snd.balance.unbroken and snd.defenses.def_deluge.state == "down" then
       battack = "blood deluge"..snd.sep.."frenzy "..snd.bashing.target
     else
       battack = "frenzy "..snd.bashing.target
