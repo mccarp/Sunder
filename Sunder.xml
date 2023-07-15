@@ -50835,10 +50835,16 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>gauntlet change</name>
-					<script>snd.toggles.gauntlet_level = tonumber(matches[2])</script>
+					<script>if matches[3] then
+  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..matches[3].."&lt;red&gt;.")
+  snd.toggles.gauntlet_level = tonumber(matches[3])
+else
+  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..snd.toggles.gauntlet_level.."&lt;red&gt;.")
+end
+</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^mygauntlet (\d+)$</regex>
+					<regex>^(mygauntlet|mygauntlet (\d+))$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
