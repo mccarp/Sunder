@@ -14474,7 +14474,11 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>chasten</name>
 									<script>if multimatches[3][3] == snd.target then
- snd.target_got(multimatches[3][2])
+  if multimatches[3][2]=="self loathing" then
+    snd.target_got("self_loathing")
+  else
+   snd.target_got(multimatches[3][2])
+  end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>2</conditonLineDelta>
@@ -14489,7 +14493,7 @@ end</script>
 									<regexCodeList>
 										<string>^You direct a dark bolt of energy through .+ towards (\w+)\.$</string>
 										<string>1</string>
-										<string>^The curse of (\w+) is brought down onto (\w+)\.$</string>
+										<string>^The curse of (\w+|self loathing) is brought down onto (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -40837,17 +40841,20 @@ end</script>
 								<regex>^git$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>Smite - Straight damage</name>
+								<name>Lumi damage</name>
 								<script>if snd.class == "Luminary" then
-  snd.giving_battle = {"sensitivity", "stupidity", "vertigo", "self_pity", "migraine", "impatience"}
+  snd.giving_battle = {"impatience", "sensitivity","vertigo", "stupidity", "self_pity", "berserking", "migraine", "anorexia"}
   snd.giving_chasten =
     {
-      "dementia",
-      "loneliness",
-      "stupidity",
       "hypochondria",
+      "self_loathing",
+      "agony",
+      "lethargy",
       "recklessness",
       "masochism",
+	    "dementia",
+	    "stupidity",
+	    "anorexia",
       "paranoia",
       "lethargy",
     }
@@ -40855,8 +40862,8 @@ end</script>
 
   function snd.attack_function()
   local string = "contemplate "..snd.target..snd.sep
- 	if not string.find(gmcp.Char.Vitals.wield_right, "mace") then string = string.."quickwield right mace"..snd.sep end
-	if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then string = string.."quickwield left buckler"..snd.sep end
+     if not string.find(gmcp.Char.Vitals.wield_right, "mace") then string = string.."quickwield right mace"..snd.sep end
+    if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then string = string.."quickwield left buckler"..snd.sep end
   
   local battle = "none"
   local chasten = "none"
@@ -40875,10 +40882,6 @@ end</script>
     end
   end  
   
-  if snd.checksomeAffs(snd.entangleaffs, 1) then
-      overwhelm = true
-  end
-  
   if snd.balance.battle then
     string = string..snd.sep.."angel battle "..battle.." "..snd.target..snd.sep
     if snd.toggles.affcalling and not snd.target_gone then
@@ -40886,22 +40889,23 @@ end</script>
     end
   end
 
-
-  if snd.mana_percent &lt; 40 and not snd.used.shield then
-    string = "angel absolve " .. snd.target
-  elseif snd.mana_percent &lt; 40 and snd.used.shield then
-    string = "shield raze " .. snd.target .. snd.sep
-  elseif overwhelm then
-    string = "overwhelm "..snd.target..snd.sep
+  if snd.used.shield then
+  	string = string.."shield raze " .. snd.target .. snd.sep
+  elseif snd.mana_percent &lt; 40 then
+      string = string.."angel absolve " .. snd.target
+  elseif snd.proned() then
+    string = string.."quickwield left tower"..snd.sep.."shield overwhelm "..snd.target..snd.sep
+  elseif snd.used.rebounding then
+  	string = string.."shield raze " .. snd.target .. snd.sep
   else
-    string = string.."smite " .. snd.target ..snd.sep
+    string = string.."smite " .. snd.target .." secret"..snd.sep.."angel power"..snd.sep
   end
-  
+
   if snd.toggles.affcalling and not snd.target_gone then
     string = string .. "wt Chasten " .. snd.target .. ": " .. chasten .. snd.sep
   end
   string = string .. " chasten " .. snd.target .. " " .. chasten
-		
+        
     if string ~= snd.last_attack and not snd.waiting.queue then
       snd.last_attack = string
       snd.attack(snd.last_attack)
