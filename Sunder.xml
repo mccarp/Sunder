@@ -6390,8 +6390,10 @@ snd.updateItems()</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You cease to wield .+ in your (\w+) hand, securing it conveniently on your weaponbelt.$</string>
+							<string>^You cease wielding .+ in your (\w+) hand\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -6411,8 +6413,10 @@ snd.updateItems()</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You cease to wield .+ in your .+ hand and .+ in your .+ hand.</string>
+							<string>^You cease to wield .+\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -6461,8 +6465,10 @@ snd.updateItems()</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You pull .+ from your weaponbelt fluidly in your (\w+) hand\.$</string>
+							<string>^You start to wield .+ in your (left|right) hand\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
