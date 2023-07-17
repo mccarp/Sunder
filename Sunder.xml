@@ -20902,6 +20902,7 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>touched tree</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
+ snd.track_tree(matches[2])
  snd.target_cured("paresis")
  snd.target_cured("paralysis")
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
@@ -74633,6 +74634,9 @@ end</script>
  for limb in pairs(snd.limb_bruising) do
   snd.limb_bruising[limb] = 0
  end
+ for timer in pairs(snd.timers) do
+  snd.timers[timer] = {}
+ end
  snd.hypno = "none"
  snd.hyp = 0
  snd.last_hypno = 0
@@ -78231,6 +78235,7 @@ end</script>
 
   ["Hunting"] = {
     Fitness = function(target)
+                snd.track_fitness(snd.target)
                 snd.handleFitness()
               end,
   
@@ -79485,6 +79490,7 @@ snd.timers = snd.timers or {}
 snd.timers.pill = snd.timers.pill or {}
 snd.timers.focus = snd.timers.focus or {}
 snd.timers.tree = snd.timers.tree or {}
+snd.timers.fitness = snd.timers.fitness or {}
 snd.timers.restoration = snd.timers.restoration or {}
 snd.timers.rebounding = snd.timers.rebounding or {}
 snd.timers.induce = snd.timers.induce or {}
@@ -79589,6 +79595,12 @@ function snd.track_induce(target)
   end
 end
 
+function snd.track_fitness(target)
+  if target:lower() == snd.target:lower() then
+    snd.timers.fitness.start = os.clock()
+    snd.timers.fitness.limit = 20
+  end
+end
 </script>
 						<eventHandlerList />
 					</Script>
