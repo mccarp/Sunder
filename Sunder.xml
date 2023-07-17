@@ -54604,7 +54604,6 @@ snd.priorities =
     "def_shadow_engulf",
     "def_shadow_mantle",
     "def_blurring",
-    "def_sagacity",
     "def_thirdeye",
     "def_blindness",
     "def_deafness",
@@ -54689,7 +54688,6 @@ snd.priorities =
     "def_fog_obscure",
     "def_fluctuations",
     "def_arcaneskin",
-    "def_sagacity",
     "def_countercurrent",
     "def_missiles",
     "def_firefist",
@@ -55793,7 +55791,7 @@ def_nexus = {defense = "nexus", type = "normal", effect = "Setup your nexus", ba
 
 --Ascendril
 def_missiles = {defense = "missiles", type = "normal", effect = "PvE damage", balance = {balanceequilibriumtake = "cast missiles on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Missiles" },
-def_sagacity = {defense = "sagacity", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
+--def_sagacity = {defense = "sagacity", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 def_arcaneskin = {defense = "arcaneskin", type = "normal", effect = "Increased cutting/blunt resistances", balance = {balanceequilibrium = "cast arcaneskin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Arcaneskin"},
 def_countercurrent = {defense = "countercurrent", type = "normal", effect = "chance to resist venoms", balance = {balanceequilibrium = "cast countercurrent"}, state = "down", needit = false, timer = createStopWatch(), skill = "Countercurrent"},
 def_stalled = {defense = "stalled", type = "normal", effect = "holding an attack", balance = {balanceequilibrium = ""}, state = "down", needit = false, timer = createStopWatch(), skill = "Stall"},
@@ -56335,7 +56333,7 @@ end</script>
   ["You are unnaturally agile."] = "potence_dexterity",
   ["You are unnaturally strong."] = "potence_strength",
   ["You have flown into a battle rage."] = "herculeanrage",
-  ["Your sagacious mind empowers the moon tattoo."] = "sagacity",
+  ["Your sagacious mind empowers the moon tattoo."] = "empowered_moon",
   ["You are preparing arcane missiles."] = "missiles",
   ["You are protected by a thin layer of magic."] = "arcaneskin",
   ["You have the countercurrent defence."] = "countercurrent",
@@ -71185,7 +71183,7 @@ function snd.sciomancer_bash()
 	elseif snd.toggles.newbie then
   	  battack = battack..snd.sep.."cast ruin "..snd.bashing.target
   else
-    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 and hasSkill("Shadowprice") then
+    if hasSkill("Shadowprice") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 2  then
       battack = "shadowprice gloom " ..snd.bashing.target..snd.sep.."cast fever "..snd.bashing.target
     else
       battack = "cast fever " ..snd.bashing.target
@@ -72997,7 +72995,7 @@ def_catabolism = "once",
 
 ascendril = {
 def_countercurrent = "on",
-def_sagacity = "on",
+def_empowered_moon = "on",
 def_arcaneskin = "on",
 def_missiles = "once",
 },
@@ -73144,7 +73142,7 @@ def_rigor = "on",
 def_shadow_engulf  = "once",		
 def_shadow_mantle = "on",		
 def_blurring = "on",		
-def_sagacity = "on",
+def_empowered_moon = "on",
 },
 
 sentinel = {
