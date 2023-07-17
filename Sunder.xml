@@ -73952,8 +73952,10 @@ function snd.took_limb_dmg(limb, amount)
     if limb == snd.resto_limb and (amount == -30 or amount == -40) then
       snd.resto_limb = "none"
       if snd.limb_status[limb] == "mangled" then
+        snd.target_cured(limb:gsub(" ","_").."_mangled")
         snd.limb_status[limb] = "broken"
       elseif snd.limb_status[limb] == "broken" then
+        snd.target_cured(limb:gsub(" ","_").."_broken")
         snd.limb_status[limb] = "healed"
       end
     end
