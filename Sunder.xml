@@ -1218,10 +1218,10 @@ end</script>
     deleteLine()
   end
 snd.aff_cure(matches[2])
-if matches[2] == "left_arm_broken" or matches[2] == "right_arm_broken" then
+if matches[2] == "left_arm_crippled" or matches[2] == "right_arm_crippled" then
  snd.aff_remove("broken_arm")
 end
-if matches[2] == "left_leg_broken" or matches[2] == "right_leg_broken" then
+if matches[2] == "left_leg_crippled" or matches[2] == "right_leg_crippled" then
  snd.aff_remove("broken_leg")
 end</script>
 							<triggerType>0</triggerType>
@@ -12040,7 +12040,7 @@ end
 									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Wither Limb Messages</name>
 										<script>if snd.target == matches[2] then
-  snd.target_got(matches[3].."_broken")
+  snd.target_got(matches[3].."_crippled")
 end
 disableTrigger("Wither Limb Messages")</script>
 										<triggerType>0</triggerType>
@@ -12451,7 +12451,7 @@ end
 									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Spear Limb Messages</name>
 										<script>if snd.target == matches[2] then
-  snd.target_got(matches[3].."_broken")
+  snd.target_got(matches[3].."_crippled")
 end
 disableTrigger("Spear Limb Messages")</script>
 										<triggerType>0</triggerType>
@@ -12868,7 +12868,7 @@ end</script>
 									<regexCodePropertyList />
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Shrivel any further</name>
-										<script>snd.target_got(matches[2].."_broken")
+										<script>snd.target_got(matches[2].."_crippled")
 </script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -12890,8 +12890,8 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Legs already shriveled</name>
 										<script>if matches[2] == snd.target then
-		snd.target_got("right_leg_broken")
-		snd.target_got("left_leg_broken")
+		snd.target_got("right_leg_crippled")
+		snd.target_got("left_leg_crippled")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -12913,7 +12913,7 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Limb already shriveled</name>
 										<script>if matches[2] == snd.target then
- snd.target_got(matches[3].."_broken")
+ snd.target_got(matches[3].."_crippled")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -12935,8 +12935,8 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Arms shriveled</name>
 										<script>if matches[2] == snd.target then
-		snd.target_got("right_arm_broken")
-		snd.target_got("left_arm_broken")
+		snd.target_got("right_arm_crippled")
+		snd.target_got("left_arm_crippled")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -13589,7 +13589,7 @@ end</script>
 										<script>if matches[2] == "throat" then
   snd.target_got("crippled_throat")
 else
- snd.target_got(matches[2].."_broken")
+ snd.target_got(matches[2].."_crippled")
 end
 </script>
 										<triggerType>0</triggerType>
@@ -13612,8 +13612,8 @@ end
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Misfortune - Already broken both legs</name>
 										<script>if matches[2] == snd.target then
-		snd.target_got("right_leg_broken")
-		snd.target_got("left_leg_broken")
+		snd.target_got("right_leg_crippled")
+		snd.target_got("left_leg_crippled")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -13635,8 +13635,8 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Misfortune - Already broken both arms</name>
 										<script>if matches[2] == snd.target then
-		snd.target_got("right_arm_broken")
-		snd.target_got("left_arm_broken")
+		snd.target_got("right_arm_crippled")
+		snd.target_got("left_arm_crippled")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -14100,7 +14100,7 @@ end
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Moth - Proc</name>
 										<script>if matches[2] == snd.target then
- snd.target_got(matches[3].."_broken")
+ snd.target_got(matches[3].."_crippled")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -15172,8 +15172,8 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Broken Leg Check</name>
 									<script>if matches[2] == snd.target then
- snd.target_got("left_leg_broken")
- snd.target_got("right_leg_broken")
+ snd.target_got("left_leg_crippled")
+ snd.target_got("right_leg_crippled")
  snd.target_got("fallen")
 end</script>
 									<triggerType>0</triggerType>
@@ -16149,7 +16149,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Kai cripple limb breaks</name>
 								<script>if matches[2] == snd.target then
- snd.target_got(matches[4].."_broken")
+ snd.target_got(matches[4].."_crippled")
 end
 </script>
 								<triggerType>0</triggerType>
@@ -16336,7 +16336,7 @@ end</script>
 								<name>Wrench confirmation hit</name>
 								<script>if matches[2] == snd.target then
   if matches[1]:find("calmly wrench") then
-    if snd.checkAff(snd.affNameCheck(matches[3].."_broken")) then
+    if snd.checkAff(snd.affNameCheck(matches[3].."_crippled")) then
       snd.last_limb_dmg = 7
     else
       snd.last_limb_dmg = 14
@@ -18021,7 +18021,7 @@ if matches[2] == snd.target then
   if raloth_affs[matches[3]] then
     snd.target_got(raloth_affs[matches[3]])
   else
-    snd.target_got(matches[3].."_broken")
+    snd.target_got(matches[3].."_crippled")
   end
 end
 </script>
@@ -18115,7 +18115,7 @@ disableTrigger("Weaken arms or legs")</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Dhuriv Pierce/Sever</name>
 								<script>if matches[2] == snd.target then
- snd.target_got(matches[3]:gsub(" ", "_").."_broken")
+ snd.target_got(matches[3]:gsub(" ", "_").."_crippled")
 end
 disableTrigger("Dhuriv Pierce/Sever")</script>
 								<triggerType>0</triggerType>
@@ -18501,7 +18501,7 @@ if matches[2] == snd.target then
   if raloth_affs[matches[3]] then
     snd.target_got(raloth_affs[matches[3]])
   else
-    snd.target_got(matches[3].."_broken")
+    snd.target_got(matches[3].."_crippled")
   end
 end</script>
 								<triggerType>0</triggerType>
@@ -19132,7 +19132,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^A burst of colorless light from .+ - eerily silent despite the force of the blaze - and disrupts (\w+)'s equilibrium\.$</string>
+											<string>^A burst of colorless light from .+ - eerily silent despite the force of the blaze - disrupts (\w+)'s equilibrium\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -19994,7 +19994,7 @@ send("wt " ..matches[2].. " STUNNED with ANGUISH!")
 								<script>if matches[2] == snd.target then
  snd.last_hit_limb = matches[3]
  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
- snd.target_got(matches[3]:gsub(" ", "_").."_broken")
+ snd.target_got(matches[3]:gsub(" ", "_").."_crippled")
 end
 disableTrigger("Tenacity Cripple")
 
@@ -20720,9 +20720,9 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>discern</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
-  if matches[4]:find("broken") then 
-    local test = matches[4]:gsub("broken ", "")
-    snd.target_cured(test.."_broken")
+  if matches[4]:find("crippled") then 
+    local test = matches[4]:gsub("crippled ", "")
+    snd.target_cured(test.."_crippled")
   elseif matches[4] == "blood curse" then
     snd.target_cured("blood_curse")
   else
@@ -21093,8 +21093,8 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Spinecut fails</name>
 							<script>if matches[3] == snd.target then
-	snd.target_cured("left_leg_broken")
-	snd.target_cured("right_leg_broken")
+	snd.target_cured("left_leg_crippled")
+	snd.target_cured("right_leg_crippled")
 	snd.target_cured("confusion")
 end</script>
 							<triggerType>0</triggerType>
@@ -21513,7 +21513,7 @@ disableTrigger("Sunder Rebounding")</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Lycan limb break resist</name>
 							<script>if matches[2] == snd.target then
-  snd.target_cured(matches[4]:gsub(" ", "_").."_broken")
+  snd.target_cured(matches[4]:gsub(" ", "_").."_crippled")
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
   deleteFull()
 end</script>
@@ -21655,8 +21655,8 @@ end</script>
 						<name>stood</name>
 						<script>if matches[2] == snd.target then
  snd.target_cured("fallen")
- snd.target_cured("left_leg_broken")
- snd.target_cured("right_leg_broken")
+ snd.target_cured("left_leg_crippled")
+ snd.target_cured("right_leg_crippled")
  snd.target_cured("asleep")
 end
 </script>
@@ -22065,7 +22065,7 @@ end
   elseif matches[1]:find("throat") then
     snd.target_got("crippled_throat")
   else
-   snd.target_got(matches[3].."_broken")
+   snd.target_got(matches[3].."_crippled")
   end
 end
 </script>
@@ -23104,7 +23104,7 @@ end
   elseif matches[1]:find("throat") then
     snd.target_got("crippled_throat")
   else
-   snd.target_got(matches[3].."_broken")
+   snd.target_got(matches[3].."_crippled")
   end
 end
 </script>
@@ -23453,15 +23453,15 @@ end</script>
     snd.target_cured("crispy")
     snd.flamestack = 0
     table.insert(snd.last_affs, "ablaze")
-   elseif snd.checkAff(matches[4].."_broken") then
-    snd.target_cured(matches[4].."_broken")
-    table.insert(snd.last_affs, matches[4]:gsub(" ", "_").."_broken")
-   elseif snd.checkAff("a_broken_arm") and matches[4]:find("arm") then
-    snd.target_cured("a_broken_arm")
-    table.insert(snd.last_affs, "a_broken_arm")
-   elseif snd.checkAff("a_broken_leg") and matches[4]:find ("leg") then
-    snd.target_cured("a_broken_leg")
-    table.insert(snd.last_affs, "a_broken_leg")
+   elseif snd.checkAff(matches[4].."_crippled") then
+    snd.target_cured(matches[4].."_crippled")
+    table.insert(snd.last_affs, matches[4]:gsub(" ", "_").."_crippled")
+   elseif snd.checkAff("a_crippled_arm") and matches[4]:find("arm") then
+    snd.target_cured("a_crippled_arm")
+    table.insert(snd.last_affs, "a_crippled_arm")
+   elseif snd.checkAff("a_crippled_leg") and matches[4]:find ("leg") then
+    snd.target_cured("a_crippled_leg")
+    table.insert(snd.last_affs, "a_crippled_leg")
    elseif matches[4] == "torso" and snd.checkAff("cracked_ribs") then
     snd.target_cured("cracked_ribs")
     table.insert(snd.last_affs, "cracked_ribs")
@@ -23582,8 +23582,8 @@ end
 								<name>Prone w/leg breaks</name>
 								<script>if matches[2] == snd.target then
    snd.target_got("fallen")
-   snd.target_got("right_leg_broken")
-   snd.target_got("left_leg_broken")
+   snd.target_got("right_leg_crippled")
+   snd.target_got("left_leg_crippled")
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
   deleteFull()
 end
@@ -23608,7 +23608,7 @@ end
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>3P limb breaks from random sources</name>
 								<script>if matches[2] == snd.target then
- snd.target_got(matches[3].."_broken")
+ snd.target_got(matches[3].."_crippled")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -23699,12 +23699,12 @@ end
 								<name>untargetted mending legs</name>
 								<script>if matches[2]:lower() == snd.target:lower() then
   if not snd.checkAff("burnt_skin") then
-    if snd.checkAff("left_leg_broken") then
-      aff = "left_leg_broken"
-    elseif snd.checkAff("right_leg_broken") then
-      aff = "right_leg_broken"
+    if snd.checkAff("left_leg_crippled") then
+      aff = "left_leg_crippled"
+    elseif snd.checkAff("right_leg_crippled") then
+      aff = "right_leg_crippled"
     else
-      aff = "a_broken_leg"
+      aff = "a_crippled_leg"
     end
     snd.target_cured(aff)
   end
@@ -23732,12 +23732,12 @@ end</script>
 								<name>untargetted mending arms</name>
 								<script>if matches[2]:lower() == snd.target:lower() then
   if not snd.checkAff("burnt_skin") then
-    if snd.checkAff("left_arm_broken") then
-      aff = "left_arm_broken"
-    elseif snd.checkAff("right_arm_broken") then
-      aff = "right_arm_broken"
+    if snd.checkAff("left_arm_crippled") then
+      aff = "left_arm_crippled"
+    elseif snd.checkAff("right_arm_crippled") then
+      aff = "right_arm_crippled"
     else
-      aff = "a_broken_arm"
+      aff = "a_crippled_arm"
     end
     snd.target_cured(aff)
   end
@@ -23992,7 +23992,7 @@ end
 							</Trigger>
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Shockwave limb breaks</name>
-								<script>snd.target_got(matches[2].."_broken")
+								<script>snd.target_got(matches[2].."_crippled")
 enableTrigger("Shockwave Prompt Turnoff")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -24057,7 +24057,7 @@ disableTrigger("Barrage prompt turn off")</script>
 								<name>squeeze</name>
 								<script>if snd.target == matches[3] and matches[2] ~= "torso" then
   local limb = string.gsub(matches[2], " ", "_")
-  snd.target_got(limb.."_broken")
+  snd.target_got(limb.."_crippled")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -24240,7 +24240,7 @@ hitting = false</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>not crippled</name>
-								<script>snd.target_cured(matches[2].."_broken")</script>
+								<script>snd.target_cured(matches[2].."_crippled")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -24473,12 +24473,12 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Failed skullcrush</name>
-								<script>if snd.proned() and table.contains(snd.target_has, "head_broken") then
-  snd.target_cured("head_broken")
-elseif snd.proned() and not table.contains(snd.target_has, "head_broken") then
+								<script>if snd.proned() and table.contains(snd.target_has, "head_crippled") then
+  snd.target_cured("head_crippled")
+elseif snd.proned() and not table.contains(snd.target_has, "head_crippled") then
   snd.target_cured("fallen")
 else
-  snd.target_cured("head_broken")
+  snd.target_cured("head_crippled")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -34912,7 +34912,7 @@ function snd.attack_function()
  if not snd.waiting.queue then
     if snd.used.shield then
       string = "combo "..snd.target.." sck ucp ucp"
-    elseif (snd.checkAff("left_leg_broken") or snd.checkAff("right_leg_broken")) then
+    elseif (snd.checkAff("left_leg_crippled") or snd.checkAff("right_leg_crippled")) then
       string = "swk "..snd.target
     elseif snd.checkAff("fallen") and not snd.checkAff("writhe_impaled") then
 	    string = "bbt "..snd.target
@@ -34983,13 +34983,13 @@ if snd.class == "Monk" then
 		     tekuraKick = "axk"
 	    elseif snd.checkAff("head_mangled") and snd.proned() and snd.resto_limb ~= "head" then
 		     tekuraKick = "axk"
-	    elseif snd.stance ~= "bear" and snd.checksomeAffs({"left_arm_damaged", "right_arm_damaged"},2) and not snd.proned() then
+	    elseif snd.stance ~= "bear" and snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) and not snd.proned() then
 		     tekuraKick = "brs"
-	    elseif snd.stance ~= "dragon" and snd.stance ~= "scorpion" and not snd.checksomeAffs({"left_arm_damaged", "right_arm_damaged"},2) then
+	    elseif snd.stance ~= "dragon" and snd.stance ~= "scorpion" and not snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) then
 		     tekuraKick = "drs"
-	    elseif not snd.proned() and ((snd.limb_dmg["left leg"] or snd.limb_dmg["right leg"]) &gt;= 33.33 or snd.checksomeAffs({"left_leg_damaged", "right_leg_damaged"},1)) and snd.cureset ~= "sentinel" then
+	    elseif not snd.proned() and ((snd.limb_dmg["left leg"] or snd.limb_dmg["right leg"]) &gt;= 33.33 or snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1)) and snd.cureset ~= "sentinel" then
 		     tekuraKick = "swk"
-	    elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) and not snd.checkAff("collapsed_lung") then
+	    elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},2) and not snd.checkAff("collapsed_lung") then
 		     tekuraKick = "cmk"
 	    elseif snd.proned() and snd.limb_dmg["left leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left leg" then
 		     tekuraKick = "wrt left leg"
@@ -34999,13 +34999,13 @@ if snd.class == "Monk" then
 		     tekuraKick = "wrt left arm"
 	    elseif snd.proned() and snd.limb_dmg["right arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right arm" then
 		     tekuraKick = "wrt right arm"
-	    elseif snd.proned() and not snd.checkAff("left_leg_broken") and cantBeParried() and snd.resto_limb ~= "left leg" then
+	    elseif snd.proned() and not snd.checkAff("left_leg_crippled") and cantBeParried() and snd.resto_limb ~= "left leg" then
 		     tekuraKick = "wrt left leg"
-	    elseif snd.proned() and not snd.checkAff("right_leg_broken") and cantBeParried() and snd.resto_limb ~= "right leg" then
+	    elseif snd.proned() and not snd.checkAff("right_leg_crippled") and cantBeParried() and snd.resto_limb ~= "right leg" then
 		     tekuraKick = "wrt right leg"
-	    elseif snd.proned() and not snd.checkAff("left_arm_broken") and cantBeParried() and snd.resto_limb ~= "left arm" then
+	    elseif snd.proned() and not snd.checkAff("left_arm_crippled") and cantBeParried() and snd.resto_limb ~= "left arm" then
 		     tekuraKick = "wrt left arm"
-	    elseif snd.proned() and not snd.checkAff("right_arm_broken") and cantBeParried() and snd.resto_limb ~= "right arm" then
+	    elseif snd.proned() and not snd.checkAff("right_arm_crippled") and cantBeParried() and snd.resto_limb ~= "right arm" then
 		     tekuraKick = "wrt right arm"		
 			elseif snd.resto_limb ~= "head" and snd.resto_limb ~= "none" and snd.parried_limb ~= "head" and not cantBeParried() then
       	 tekuraKick = "wwk"
@@ -35045,13 +35045,13 @@ if snd.class == "Monk" then
 		     firstPunch = "pmp"
 	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and not snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 and tekuraKick ~= "mnk left" then
 		     firstPunch = "spp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and not snd.checkAff("left_leg_damaged") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 and tekuraKick ~= "snk left" then
+	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and not snd.checkAff("left_leg_broken") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 and tekuraKick ~= "snk left" then
 		     firstPunch = "hfp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and not snd.checkAff("right_leg_damaged") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 and tekuraKick ~= "snk right" then
+	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and not snd.checkAff("right_leg_broken") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 and tekuraKick ~= "snk right" then
 		     firstPunch = "hfp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and not snd.checkAff("right_arm_damaged") and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 and tekuraKick ~= "mnk right" then
+	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and not snd.checkAff("right_arm_broken") and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 and tekuraKick ~= "mnk right" then
 		     firstPunch = "spp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "head") and not snd.checkAff("head_damaged") and snd.resto_limb ~= "head" then
+	    elseif (cantBeParried() or snd.parried_limb ~= "head") and not snd.checkAff("head_broken") and snd.resto_limb ~= "head" then
 		     firstPunch = "ucp"
 	    else
 		     firstPunch = "hkp"
@@ -35096,7 +35096,7 @@ if snd.class == "Monk" then
 			     string = "mind blackout"
 		     elseif kai &gt;= 70 and snd.stance == "scorpion" then
 			     string = "kai enfeeble "..snd.target
-		     elseif kai &gt;= 40 and snd.stance ~= "scorpion" and not snd.checkAff("left_arm_broken") and not snd.checkAff("right_arm_broken") and not snd.checkAff("right_leg_broken") and not snd.checkAff("left_leg_broken") and ((snd.checkAff("blackout") and snd.resto_limb ~= "none") or not snd.enemy_restoration_balance) and snd.cureset ~= "shifter" then
+		     elseif kai &gt;= 40 and snd.stance ~= "scorpion" and not snd.checkAff("left_arm_crippled") and not snd.checkAff("right_arm_crippled") and not snd.checkAff("right_leg_crippled") and not snd.checkAff("left_leg_crippled") and ((snd.checkAff("blackout") and snd.resto_limb ~= "none") or not snd.enemy_restoration_balance) and snd.cureset ~= "shifter" then
 			     string = "kai cripple "..snd.target
 		     else
 			     string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
@@ -35109,7 +35109,7 @@ if snd.class == "Monk" then
 			   string = "combo "..snd.target.." axk ucp ucp"
 		   elseif snd.checkAff("blackout") and not snd.checkAff("disrupted") then
 			   string = "mind disrupt "..snd.target
-		   elseif snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},2) and snd.proned() then 
+		   elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},2) and snd.proned() then 
 			   if snd.balance.blackout and snd.mindlocked then
 				    string = "mind blackout"
 			   else
@@ -35310,7 +35310,7 @@ function snd.attack_function()
 	  if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") then
 	   broken = limbs[limb]
 		end
-	 elseif snd.checkAff(limbs[limb]:gsub(" ","_").."_broken") and snd.limb_dmg[limbs[limb]] &lt; 33.33 and crippled == "nothing" then
+	 elseif snd.checkAff(limbs[limb]:gsub(" ","_").."_crippled") and snd.limb_dmg[limbs[limb]] &lt; 33.33 and crippled == "nothing" then
 	  if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") then
 		 crippled = limbs[limb]
 		end
@@ -35413,8 +35413,8 @@ if snd.class == "Shapeshifter" then
 	 			end
   		end  --end of for loop  
   		for _, aff in pairs(snd.target_has) do
-      	if string.find(aff, "_broken") and snd.limb_status[aff:gsub("_broken ", "")] ~= "broken" and snd.limb_status[aff:gsub("_broken", "")] ~= "mangled" and snd.parried_limb ~= aff:gsub("_broken", "") then
-        	damaged = aff:gsub("_broken", "")
+      	if string.find(aff, "_crippled") and snd.limb_status[aff:gsub("_crippled ", "")] ~= "broken" and snd.limb_status[aff:gsub("_crippled", "")] ~= "mangled" and snd.parried_limb ~= aff:gsub("_crippled", "") then
+        	damaged = aff:gsub("_crippled", "")
           if damaged == "left_leg" then
             damaged = "left leg"
           elseif damaged == "right_leg" then
@@ -35603,7 +35603,7 @@ end</script>
 	 			left = "nothing"       
 	 			right = "nothing"          
 	 			for limb in pairs(limbs) do
-	  			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and not table.contains(snd.target_has, limb.."_broken") then  
+	  			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and not table.contains(snd.target_has, limb.."_crippled") then  
 		 				if right == "nothing" then  
 		  				right = limbs[limb]
 		 				elseif left == "nothing" then  
@@ -35919,8 +35919,8 @@ function snd.attack_function()
 	local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
 	if snd.target_locked() then
 		snd.giving = {
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"hearing",
 		"sensitivity",
 		"voyria"
@@ -36041,10 +36041,10 @@ function snd.attack_function()
 	local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
 
 		snd.giving = { -- the venoms we're going to apply while hypnosis is building, in prioritized order
-		"left_leg_broken",
-		"right_leg_broken",
-		"left_arm_broken",
-		"right_arm_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
+		"left_arm_crippled",
+		"right_arm_crippled",
 		"stupidity",
 		"anorexia",
 		"hearing",
@@ -36167,8 +36167,8 @@ function snd.attack_function()
 	local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
 	if snd.target_locked() then
 		snd.giving = {
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"hearing",
 		"sensitivity",
 		"voyria"
@@ -36344,8 +36344,8 @@ function snd.attack_function()
 	local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
 	if snd.target_locked() then
 		snd.giving = {
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"hearing",
 		"sensitivity",
 		"voyria"
@@ -36520,8 +36520,8 @@ function snd.attack_function()
 	local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
 	if snd.target_locked() then
 		snd.giving = {
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"hearing",
 		"sensitivity",
 		"voyria"
@@ -36800,10 +36800,10 @@ function snd.attack_function()
 		end
 		
 		snd.giving = {
-		  "left_leg_broken",
-		  "right_leg_broken",
-			"left_arm_broken",
-			"right_arm_broken",
+		  "left_leg_crippled",
+		  "right_leg_crippled",
+			"left_arm_crippled",
+			"right_arm_crippled",
 			"stupidity",
 			"anorexia",
 			"asthma",
@@ -36857,12 +36857,12 @@ function snd.attack_function()
 		--end
 
     --if snd.health_percent &gt; 35 and not indoors and snd.checkAff("sensitivity") and snd.proned() 
-    --and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
+    --and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
 		--	string = preatk.."axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
 		--	call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
 		--end
 		
-		if indoors and snd.checkAff("sensitivity") and snd.proned() and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
+		if indoors and snd.checkAff("sensitivity") and snd.proned() and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
 			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
 			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
 		end
@@ -36916,12 +36916,12 @@ function snd.attack_function()
 		"paresis",
 		"clumsiness",
 		"slickness",
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"anorexia",
 		"stupidity",
-		"left_leg_broken",
-		"left_arm_broken",
+		"left_leg_crippled",
+		"left_arm_crippled",
 		"haemophilia",
 		"allergies",
 		"vomiting",
@@ -37038,8 +37038,8 @@ function snd.attack_function()
       end
 
     snd.giving = {
-          "left_leg_broken",
-          "right_leg_broken",
+          "left_leg_crippled",
+          "right_leg_crippled",
           "anorexia",
           "slickness",
           "stupidity",
@@ -37047,8 +37047,8 @@ function snd.attack_function()
           "sensitivity",
           "weariness",
           "clumsiness",
-          "left_arm_broken",
-          "right_arm_broken",
+          "left_arm_crippled",
+          "right_arm_crippled",
     }
         for i in pairs(snd.giving) do
       if not snd.checkAff(snd.giving[i]) then
@@ -37123,12 +37123,12 @@ function snd.attack_function()
 		"paresis",
 		"clumsiness",
 		"slickness",
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"anorexia",
 		"stupidity",
-		"left_leg_broken",
-		"left_arm_broken",
+		"left_leg_crippled",
+		"left_arm_crippled",
 		"haemophilia",
 		"allergies",
 		"vomiting",
@@ -37153,7 +37153,7 @@ function snd.attack_function()
         end	
 	end	
 	
-	   if snd.proned() and snd.checkAff("head_damaged") and snd.checksomeAffs({"torso_damaged", "left_arm_damaged", "right_arm_damaged", "left_leg_damaged", "right_leg_damaged"}, 1) then
+	   if snd.proned() and snd.checkAff("head_broken") and snd.checksomeAffs({"torso_broken", "left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"}, 1) then
 	      if tonumber(axenumbers) &gt; 1 then
 		     string = "fury threaten " ..snd.target.. " boost"..snd.sep.."axe execute "..snd.target..snd.sep
 		  else
@@ -37234,9 +37234,9 @@ function snd.attack_function()
 		          tohit = "xentio"
 	           elseif not snd.checkAff("weariness") then
 		          tohit = "vernalius"
-	           elseif not snd.checkAff("left_leg_broken") or not snd.checkAff("right_leg_broken") then
+	           elseif not snd.checkAff("left_leg_crippled") or not snd.checkAff("right_leg_crippled") then
 		          tohit = "epseth"	
-	           elseif not snd.checkAff("left_arm_broken") or not snd.checkAff("right_arm_broken") then
+	           elseif not snd.checkAff("left_arm_crippled") or not snd.checkAff("right_arm_crippled") then
 		          tohit = "epteth"		              
 	           end	
 			end
@@ -37279,7 +37279,7 @@ function snd.attack_function()
 		   elseif not snd.checkAff("stupidity") then			
 			  string = fury.."axe lob "..snd.target.. " aconite"..snd.sep
 			  call = "wt Afflicting "..snd.target..": aconite"..snd.sep
-	     elseif not snd.checkAff("left_leg_broken") or not snd.checkAff("right_leg_broken") then
+	     elseif not snd.checkAff("left_leg_crippled") or not snd.checkAff("right_leg_crippled") then
 			  string = fury.."axe lob "..snd.target.. " epseth"..snd.sep
 			  call = "wt Afflicting "..snd.target..": epseth"..snd.sep	   
 		   elseif not snd.checkAff("clumsiness") then			
@@ -37358,8 +37358,8 @@ function snd.attack_function()
 		"vomiting",
 		"allergies",
 		"slickness",
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"anorexia",
 		"stupidity",
     }
@@ -37394,7 +37394,7 @@ for i in pairs(snd.giving) do
 			string = "fury halt "..snd.target.." boost"..snd.sep..string
 		end
 		
-		if snd.proned() and boosthalt and not snd.enraged and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
+		if snd.proned() and boosthalt and not snd.enraged and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
 			string = "fury enrage"..snd.sep..string
 		end
 
@@ -37464,8 +37464,8 @@ function snd.attack_function()
 		"slickness",
 		"anorexia",
 		"stupidity",
-		"left_leg_broken",
-		"right_leg_broken",
+		"left_leg_crippled",
+		"right_leg_crippled",
 		"clumsiness",
 		"haemophilia",
 		"allergies",
@@ -37509,7 +37509,7 @@ function snd.attack_function()
 			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 		end
 		
-    if snd.proned() and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
+    if snd.proned() and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
 			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
 			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
 		end
@@ -37612,7 +37612,7 @@ function snd.attack_function()
     elseif not snd.checkAff("haemophilia") and not snd.used.rebounding then
       string = "axe lacerate " .. snd.target
       
-    elseif snd.proned() and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) then
+    elseif snd.proned() and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
 			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
 			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]
       
@@ -39438,10 +39438,10 @@ function snd.attack_function()
  snd.primary_aff = {
     --"effused_blood",
     "blood_rune",
-    "left_leg_broken",
-    "right_leg_broken",
-    "left_arm_broken",
-    "right_arm_broken",
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "left_arm_crippled",
+    "right_arm_crippled",
     "paresis",
     "stupidity",
     "anorexia",
@@ -39683,7 +39683,7 @@ function snd.attack_function()
 
 	if snd.checkAff("stormtouched") and not snd.used.shield then
 		string = string..snd.sep.."cast lightning "..snd.target
-  elseif snd.used.shield or snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) or (snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
+  elseif snd.used.shield or snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) or (snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
 				string = "cast windlance " .. snd.target
 	else
   	if snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
@@ -40277,7 +40277,7 @@ end</script>
       elseif snd.glimpse == "none" and snd.checkAff("frostbrand") then
         string = "fulcrum catalyst " .. snd.target .. " frost"
       elseif snd.used.shield or 
-			(snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
+			(snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
 				string = "cast windlance " .. snd.target
       elseif snd.glimpse == "water" or snd.glimpse == "fire" or snd.glimpse == "air" then
         if gmcp.Char.Vitals.ability_bal == "1" then
@@ -40999,7 +40999,7 @@ if snd.class == "Oneiromancer" then
 				string = "order cerberus attack "..snd.target..snd.sep
 			elseif snd.theytumbling then
 				string ="unfurl hourglass and favor at "..snd.target..snd.sep
-			elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+			elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
 				string = "vanquish "..snd.target
 			elseif not snd.need_deform then
 				string = "starlight "..snd.target..snd.sep  
@@ -41233,7 +41233,7 @@ end</script>
 								<name>limbs</name>
 								<script>if snd.class == "Oneiromancer" then
 
-  snd.giving = {"left_leg_broken", "right_leg_broken","left_arm_broken", "right_arm_broken",}
+  snd.giving = {"left_leg_crippled", "right_leg_crippled","left_arm_crippled", "right_arm_crippled",}
   
   snd.starting_attack()
   
@@ -41244,7 +41244,7 @@ end</script>
         string = "touch hammer "..snd.target
       elseif snd.theytumbling then
         string = "impel athame at "..snd.target.." prefarar"..snd.sep    
-      elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+      elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
         string = "vanquish "..snd.target
       elseif not snd.checksomeAffs(snd.giving, 4) then
         for v in pairs(snd.giving) do
@@ -41280,7 +41280,7 @@ end</script>
 								<name>Vivi 2.0</name>
 								<script>if snd.class == "Oneiromancer" then
 
-  snd.giving = {"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken",}
+  snd.giving = {"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled",}
   
   snd.starting_attack()
   
@@ -41301,7 +41301,7 @@ end</script>
       string = "unfurl fire at me"
     elseif snd.used.shield then
       string = "touch hammer "..snd.target
-    elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+    elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
       string = "vanquish "..snd.target
     elseif not snd.checksomeAffs(snd.giving, 4) then
       for v in pairs(snd.giving) do
@@ -41642,7 +41642,7 @@ end</script>
   elseif snd.gravity &lt; 5 then
 		string = string.."spore ensnare "..snd.target
   else
-		if not snd.checkAff(targ:gsub(" ","_").."_broken") then 
+		if not snd.checkAff(targ:gsub(" ","_").."_crippled") then 
 			string = string.."spore degrade "..snd.target.." "..targ
 		else
 			if hasSkill("Bewitch") and snd.balance.sorcery_transfix  then
@@ -41857,8 +41857,8 @@ function snd.attack_function()
 			"confusion",
       "slickness",
       "anorexia",
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
       "heartflutter",
 			"vomiting",
 			"dizziness",
@@ -41919,7 +41919,7 @@ function snd.attack_function()
 			end
 		end
 
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
 			string = "dhuriv spinecut "..snd.target
 		end
 		
@@ -41950,8 +41950,8 @@ end</script>
 snd.current_offense = "SentLumiSupport"
 if snd.target_locked() then
 			snd.giving = {
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
       "confusion",
       "impairment",
 			"weariness",
@@ -41966,8 +41966,8 @@ if snd.target_locked() then
       "asthma",
       "slickness",
       "anorexia",
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
       "confusion",
       "weariness",
       "vomiting",
@@ -42036,7 +42036,7 @@ function snd.attack_function()
 			end
 		end
 
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
 			string = "dhuriv spinecut "..snd.target
 		end
 
@@ -42082,8 +42082,8 @@ snd.giving = {
 "asthma",
 "slickness",
 "confusion",
-"left_leg_broken",
-"right_leg_broken",
+"left_leg_crippled",
+"right_leg_crippled",
 "anorexia",
 "heartflutter",
 "sight",
@@ -42143,7 +42143,7 @@ snd.giving = {
 			end
 		end
 
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
 			string = "dhuriv spinecut "..snd.target
 		end
 			
@@ -42180,8 +42180,8 @@ function snd.attack_function()
 			snd.giving = {
 			"impairment",
 			"confusion",
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
 			"weariness",
 			"dizziness",
       }
@@ -42244,7 +42244,7 @@ function snd.attack_function()
 			end
 		end
 
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
 			string = "dhuriv spinecut "..snd.target
 		end
 		
@@ -42283,10 +42283,10 @@ snd.current_offense = "SentImpale"
 snd.giving = {
 
 "frozen",
-"left_leg_broken",
-"right_leg_broken",
-"left_arm_broken",
-"right_arm_broken",
+"left_leg_crippled",
+"right_leg_crippled",
+"left_arm_crippled",
+"right_arm_crippled",
 "asthma",
 "slickness",
 "paresis",
@@ -42330,10 +42330,10 @@ function snd.attack_function()
 		elseif snd.target_impaled then
 			string = "dhuriv gorge "..snd.target
 			
-		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_broken") and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) then
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_crippled") and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) then
 			string = "dhuriv pierce "..snd.target.." left"
 		
-		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_broken") and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) then
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_crippled") and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) then
 			string = "dhuriv pierce "..snd.target.." right"
 
   	elseif snd.proned() then         
@@ -42374,7 +42374,7 @@ function snd.attack_function()
 			end
 		end
 
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
 			string = "dhuriv spinecut "..snd.target
 		end
 		
@@ -42413,8 +42413,8 @@ function snd.attack_function()
     snd.giving = {
     "slickness",
     "asthma",
-    "left_leg_broken",
-    "right_leg_broken",
+    "left_leg_crippled",
+    "right_leg_crippled",
     "paresis",
     "confusion",
     "vomiting",
@@ -42427,10 +42427,10 @@ function snd.attack_function()
     snd.giving = {
     
     "frozen",
-    "left_leg_broken",
-    "right_leg_broken",
-    "left_arm_broken",
-    "right_arm_broken",
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "left_arm_crippled",
+    "right_arm_crippled",
     "anorexia",
     "stupidity",
     "asthma",
@@ -42467,11 +42467,11 @@ function snd.attack_function()
 		elseif left == "destroyed_throat" then
 			string = "dhuriv throatcrush "..snd.target
 
-		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_broken") 
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_crippled") 
 			and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) and snd.limb_status["right leg"] == "healed" then
 				string = "dhuriv pierce "..snd.target.." left"
 		
-		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_broken") 
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_crippled") 
 			and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) and snd.limb_status["left leg"] == "healed" then
 				string = "dhuriv pierce "..snd.target.." right"
 
@@ -42479,7 +42479,7 @@ function snd.attack_function()
 			left = snd.daunt_animals[left]
 			string = left..snd.target..snd.sep.."dhuriv flourish "..snd.target.." "..snd.effects[right]
 			
-		elseif snd.proned() and not snd.checksomeAffs({"left_leg_broken", "left_arm_broken", "right_arm_broken", "right_leg_broken"}, 2) then
+		elseif snd.proned() and not snd.checksomeAffs({"left_leg_crippled", "left_arm_crippled", "right_arm_crippled", "right_leg_crippled"}, 2) then
 			string = "qdmount"..snd.sep.."qmount "..snd.my_raloth..snd.sep.."order "..snd.my_raloth.." trample "..snd.target
 
 		else
@@ -42509,7 +42509,7 @@ function snd.attack_function()
 			end
 		end
 		
-		if snd.checksomeAffs({"confusion", "left_leg_broken", "right_leg_broken", "fallen", "heartflutter"}, 5) then
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
 			string = "dhuriv spinecut "..snd.target
 		end
 		
@@ -42996,8 +42996,8 @@ function snd.attack_function()
 
 		if snd.target_locked() then
 			snd.giving = {
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
 			"crippled",
 			"mental_disruption",
 			"physical_disruption",
@@ -43111,10 +43111,10 @@ function snd.attack_function()
 		end
 		-- set the affs we want to use
 			snd.giving = {
-			"left_arm_broken",
-			"right_arm_broken",    
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_arm_crippled",
+			"right_arm_crippled",    
+			"left_leg_crippled",
+			"right_leg_crippled",
       "stupidity",
 			"anorexia",
 			"slickness",
@@ -43215,8 +43215,8 @@ function snd.attack_function()
       "allergies",
       "haemophilia",
       "slickness",
-      "left_leg_broken",
-			"right_leg_broken",
+      "left_leg_crippled",
+			"right_leg_crippled",
       "anorexia",
       "stupidity",
       --"recklessness",
@@ -43382,8 +43382,8 @@ end</script>
       local extraaff = "sacrifice"
       if snd.checksomeAffs({"asthma", "slickness"}, 2) and snd.checksomeAffs({"weariness", "clumsiness", "hypochondria", "baldness"}, 1) then
         snd.giving = {            
-            "left_leg_broken",
-			      "right_leg_broken",
+            "left_leg_crippled",
+			      "right_leg_crippled",
             "asthma",
             "weariness",
             "clumsiness",
@@ -43400,8 +43400,8 @@ end</script>
             "weariness",
             "clumsiness",
             "slickness",
-            "left_leg_broken",
-			      "right_leg_broken",
+            "left_leg_crippled",
+			      "right_leg_crippled",
             "stupidity",
             "recklessness",
             "vomiting",
@@ -43642,8 +43642,8 @@ function snd.attack_function()
       "vomiting",
       "allergies",
       "slickness",
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
       "anorexia",
       "stupidity",
       }
@@ -43754,8 +43754,8 @@ function snd.attack_function()
 			"slickness",
 			"anorexia",
 			"stupidity",
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
 			"clumsiness",
 			"haemophilia",
 			"allergies",
@@ -44286,10 +44286,10 @@ end
 								<name>legs</name>
 								<script>if snd.class == "Warden" then
   snd.giving = {
-	"left_leg_broken",
-	"right_leg_broken",
-	"left_arm_broken",
-	"right_arm_broken",    
+	"left_leg_crippled",
+	"right_leg_crippled",
+	"left_arm_crippled",
+	"right_arm_crippled",    
   "stupidity",
 	"anorexia",
 	"slickness",
@@ -44951,7 +44951,7 @@ end</script>
       elseif snd.checksomeAffs({"recklessness", "dizziness", "sensitivity", "epilepsy", "stupidity"},4) and hasSkill("Gnash") then
         string = "fog gnash "..snd.target
       -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
-      elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},4) and hasSkill("Unseen") then
+      elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Unseen") then
         string = "fog unseen " .. snd.target
       -- All else, let's just smack
       else
@@ -45029,7 +45029,7 @@ end</script>
           string = "tide harpoon"
         end
       -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
-      elseif snd.proned() and snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},2) and hasSkill("Undulation") then
+      elseif snd.proned() and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},2) and hasSkill("Undulation") then
         if apparition &gt;= 3 and hasSkill("Apparition") then
           string = "fog unseen "..snd.target.." apparition"..snd.sep.."tide undulation"
         else
@@ -45144,7 +45144,7 @@ end</script>
           string = string.."fog terrors "..snd.target
         end
       -- Straight try to break all four limbs to help support limbs in the group.
-      elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},4) and hasSkill("Unseen") then
+      elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Unseen") then
         string = string.."fog unseen " .. snd.target
       else 
         string = "tide clobber "..snd.target
@@ -46214,10 +46214,10 @@ end</script>
 								<name>Carnifex Limb Aff Support (need Tundralhowl dog)</name>
 								<script>if snd.class == "Carnifex" then
 snd.giving = {
-"left_leg_broken",
-"right_leg_broken",
-"left_arm_broken",
-"right_arm_broken",
+"left_leg_crippled",
+"right_leg_crippled",
+"left_arm_crippled",
+"right_arm_crippled",
 "paresis",
 "asthma",
 "slickness",
@@ -47297,7 +47297,7 @@ end</script>
 								<name>limbs</name>
 								<script>if snd.class == "Indorani" then
 
-  snd.giving = {"left_leg_broken", "right_leg_broken","left_arm_broken", "right_arm_broken",}
+  snd.giving = {"left_leg_crippled", "right_leg_crippled","left_arm_crippled", "right_arm_crippled",}
   
   snd.starting_attack()
   
@@ -47306,7 +47306,7 @@ end</script>
     if not snd.waiting.queue then
       if snd.used.shield then
         string = "touch hammer "..snd.target
-      elseif snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken", "leeched_aura"}, 5) then
+      elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
         string = "vivsect "..snd.target
       elseif not snd.checksomeAffs(snd.giving, 4) then
         for v in pairs(snd.giving) do
@@ -47384,7 +47384,7 @@ end</script>
   		string = "touch hammer "..snd.target
     -- vivi/deform checks would prolly go here
       	  
-    elseif snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "left_arm_broken", "right_arm_broken"}, 4) and snd.checkAff("leeched_aura") then 
+    elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled", "left_arm_crippled", "right_arm_crippled"}, 4) and snd.checkAff("leeched_aura") then 
         string = "vivisect "..snd.target..snd.sep  
 	
 	elseif not snd.need_leech_aura and snd.deform and snd.aff_count_all() &gt;= 10 then
@@ -47443,7 +47443,7 @@ end</script>
       end
    
 
-      if snd.balance.envelop == true and snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "left_arm_broken", "right_arm_broken", "anorexia", "indifference"}, 2) then
+      if snd.balance.envelop == true and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled", "left_arm_crippled", "right_arm_crippled", "anorexia", "indifference"}, 2) then
         slstring = string.."order slime envelop "..snd.target..snd.sep
 	  end
       
@@ -48193,8 +48193,8 @@ function snd.attack_function()
 		-- we're going to use a different affliction stack if the target is locked
 		if snd.target_locked() then
 			snd.giving = {
-			"left_leg_broken",
-			"right_leg_broken",
+			"left_leg_crippled",
+			"right_leg_crippled",
 			"crippled",
 			"mental_disruption",
 			"physical_disruption",
@@ -48308,10 +48308,10 @@ end</script>
   		end
   		-- set the affs we want to use
   			snd.giving = {
-  			"left_arm_broken",
-  			"right_arm_broken",    
-  			"left_leg_broken",
-  			"right_leg_broken",
+  			"left_arm_crippled",
+  			"right_arm_crippled",    
+  			"left_leg_crippled",
+  			"right_leg_crippled",
         "stupidity",
   			"anorexia",
   			"slickness",
@@ -48413,8 +48413,8 @@ if snd.class == "Revenant" then
         "allergies",
         "haemophilia",
         "slickness",
-        "left_leg_broken",
-  			"right_leg_broken",
+        "left_leg_crippled",
+  			"right_leg_crippled",
         "anorexia",
         "stupidity",
         --"recklessness",
@@ -48969,8 +48969,8 @@ function snd.attack_function()
       "clumsiness",
       "paresis",     
       "sensitivity",
-      "left_leg_broken",
-      "right_leg_broken",      
+      "left_leg_crippled",
+      "right_leg_crippled",      
       "asthma",      
       "vomiting",
       "allergies",
@@ -49085,8 +49085,8 @@ function snd.attack_function()
       "sensitivity",
       "haemophilia",
       "slickness",
-      "left_leg_broken",
-      "right_leg_broken",
+      "left_leg_crippled",
+      "right_leg_crippled",
       --"anorexia",
       --"stupidity",
       --"recklessness",
@@ -49458,7 +49458,7 @@ end</script>
   elseif snd.gravity &lt; 5 then
 		string = string.."gravity grip "..snd.target
   else
-		if not snd.checkAff(targ:gsub(" ","_").."_broken") then
+		if not snd.checkAff(targ:gsub(" ","_").."_crippled") then
 			string = string.."gravity erupt "..snd.target..targ
 		else
 			if hasSkill("Transfix") then
@@ -49546,7 +49546,7 @@ end</script>
       elseif snd.checksomeAffs({"recklessness", "dizziness", "sensitivity", "epilepsy", "stupidity"},4) and hasSkill("Whip") then
         string = "sand whip "..snd.target
       -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
-      elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},4) and hasSkill("Scourge") then
+      elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Scourge") then
         string = "sand scourge " .. snd.target
       -- All else, let's just smack
       else
@@ -49624,7 +49624,7 @@ end</script>
           string = "earth impale"
         end
       -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
-      elseif snd.proned() and snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},2) and hasSkill("Quake") then
+      elseif snd.proned() and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},2) and hasSkill("Quake") then
         if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
           string = "sand scourge "..snd.target.." storm"..snd.sep.."earth quake"
         else
@@ -49730,7 +49730,7 @@ end</script>
           string = string.."sand curse "..snd.target
         end
       -- Straight try to break all four limbs to help support limbs in the group.
-      elseif not snd.checksomeAffs({"left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"},4) and hasSkill("Scourge") then
+      elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Scourge") then
         string = string.."sand scourge " .. snd.target
       else 
         string = "earth batter "..snd.target
@@ -49835,7 +49835,7 @@ end</script>
       elseif snd.glimpse == "none" and snd.checkAff("excess_phlegm") then
         string = "well actualize " .. snd.target .. " phlegm"
       elseif snd.used.shield or 
-			(snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
+			(snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
 				string = "humour perforate " .. snd.target
       elseif snd.glimpse == "phlegm" or snd.glimpse == "yellow" or snd.glimpse == "black" then
         if gmcp.Char.Vitals.ability_bal == "1" then
@@ -49929,7 +49929,7 @@ function snd.attack_function()
 
 	if snd.checkAff("stormtouched") and not snd.used.shield then
 		string = string..snd.sep.."humour synape "..snd.target
-  elseif snd.used.shield or snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) or (snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
+  elseif snd.used.shield or snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) or (snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
 				string = "humour perforate " .. snd.target
 	else
   	if snd.glimpse == "phlegm" or snd.glimpse == "yellow" or snd.glimpse == "black" then
@@ -51609,7 +51609,7 @@ save_fishinginfo_db()</script>
 --Reworked inspiration defense to be able to handle all stats appropriately and similar for battlehymn
 --Added cooldown check to aeon/hourglass usage in indo/oneiro alias
 --Updated lines/defenses for Oneiromancer that had been missed
---Updated 'a broken leg/arm' to 'a_broken_(leg/arm)' to stay in line with other affs
+--Updated 'a broken leg/arm' to 'a_crippled_(leg/arm)' to stay in line with other affs
 --Fixed up some logic with dodge and sun/sphere moon/hypercube
 
 --5.23
@@ -51700,7 +51700,7 @@ save_fishinginfo_db()</script>
 --Converted the snd.target_prone boolean variable to instead apply the "fallen" affliction, helping to separate cases where this distinction is necessary
 --Converted all writhe affs to be preceded by writhe_ to better work with the affliction names in game.
 --Updated no_parry() and proned() to include all affs that should be applicable
---Changed all instances of "a broken right/left leg/arm" to instead use the aetolian variant, left_leg_broken and etc.
+--Changed all instances of "a broken right/left leg/arm" to instead use the aetolian variant, left_leg_crippled and etc.
 --Self-pity will be recognized in the system as self_pity for conformity reasons
 --Added a function to more easily fix aff names so they don't need to be fixed in every instance
 --Templar affs mental/physical disrupt and crippled body similarly use _ instead of spaces
@@ -52625,10 +52625,10 @@ waterbreathing = 0,
 snd.physical_affs = {
 "paralysis",
 "paresis",
-"right_arm_broken",
-"left_arm_broken",
-"right_leg_broken",
-"left_leg_broken",
+"right_arm_crippled",
+"left_arm_crippled",
+"right_leg_crippled",
+"left_leg_crippled",
 "haemophilia",
 "asthma",
 "impairment",
@@ -53879,11 +53879,11 @@ end
 
 function snd.can_arms()
   if
+    snd.have_aff("left_arm_crippled") or
     snd.have_aff("left_arm_broken") or
-    snd.have_aff("left_arm_damaged") or
     snd.have_aff("left_arm_mangled") or
+    snd.have_aff("right_arm_crippled") or
     snd.have_aff("right_arm_broken") or
-    snd.have_aff("right_arm_damaged") or
     snd.have_aff("right_arm_mangled")
   then
     return false
@@ -53894,11 +53894,11 @@ end
 
 function snd.can_legs()
   if
+    snd.have_aff("left_leg_crippled") or
     snd.have_aff("left_leg_broken") or
-    snd.have_aff("left_leg_damaged") or
     snd.have_aff("left_leg_mangled") or
+    snd.have_aff("right_leg_crippled") or
     snd.have_aff("right_leg_broken") or
-    snd.have_aff("right_leg_damaged") or
     snd.have_aff("right_leg_mangled")
   then
     return false
@@ -54423,19 +54423,19 @@ snd.priorities =
     "aff_deadening",
     "aff_anorexia",
     "aff_head_mangled",
-    "aff_head_damaged",
+    "aff_head_broken",
     "aff_head_bruised_critical",
     "aff_head_bruised_moderate",
     "aff_head_bruised",
     "aff_destroyed_throat",
     "aff_left_arm_amputated",
     "aff_left_arm_mangled",
-    "aff_left_arm_damaged",
+    "aff_left_arm_broken",
     "aff_right_arm_amputated",
     "aff_right_arm_mangled",
-    "aff_right_arm_damaged",
-    "aff_left_arm_broken",
     "aff_right_arm_broken",
+    "aff_left_arm_crippled",
+    "aff_right_arm_crippled",
     "aff_left_arm_bruised_critical",
     "aff_left_arm_bruised_moderate",
     "aff_crushed_elbows",
@@ -54445,29 +54445,29 @@ snd.priorities =
     "aff_right_arm_bruised_moderate",
     "aff_right_arm_bruised",
     "aff_right_arm_dislocated",
-    "aff_broken_arm",
+    "aff_crippled_arm",
     "aff_left_leg_amputated",
     "aff_left_leg_mangled",
-    "aff_left_leg_damaged",
+    "aff_left_leg_broken",
     "aff_right_leg_amputated",
     "aff_right_leg_mangled",
-    "aff_right_leg_damaged",
+    "aff_right_leg_broken",
     "aff_left_leg_bruised_critical",
     "aff_right_leg_bruised_critical",
-    "aff_left_leg_broken",
-    "aff_right_leg_broken",
+    "aff_left_leg_crippled",
+    "aff_right_leg_crippled",
     "aff_left_leg_bruised_moderate",
     "aff_left_leg_bruised",
     "aff_left_leg_dislocated",
     "aff_right_leg_bruised_moderate",
-    "aff_broken_leg",
+    "aff_crippled_leg",
     "aff_right_leg_bruised",
     "aff_crushed_kneecaps",
     "aff_right_leg_dislocated",
     "aff_crushed_chest",
     "aff_voidgaze",
     "aff_torso_mangled",
-    "aff_torso_damaged",
+    "aff_torso_broken",
     "aff_torso_bruised_critical",
     "aff_heatspear",
     "aff_cracked_ribs",
@@ -55011,8 +55011,8 @@ aff_anorexia = {state = "healed", effect = "prevents eating", cures = {tree = "s
 aff_asthma = {state = "healed", effect = "prevents smoking", cures = {tree = "send", herb = "kelp"}, assess = false, timer = createStopWatch()},
 aff_slickness = {state = "healed", effect = "prevents applying salves", cures = {tree = "send", smoke = "valerian", herb = "bloodroot"}, assess = false, timer = createStopWatch()},
 
-aff_broken_arm = {state = "healed", effect = "", cures = {salve = "mending to arms", tree = "send"}, assess = false, timer = createStopWatch()},
-aff_broken_leg = {state = "healed", effect = "", cures = {salve = "mending to legs", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_crippled_arm = {state = "healed", effect = "", cures = {salve = "mending to arms", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_crippled_leg = {state = "healed", effect = "", cures = {salve = "mending to legs", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_adder_tarot = {state = "healed", effect = "", cures = {balanceequilibrium = "rip card from body"}, assess = false, timer = createStopWatch()},
 
 aff_ablaze = {state = "healed", effect = "", cures = {salve = "mending to body", tree = "send"}, assess = false, timer = createStopWatch()},
@@ -55116,11 +55116,11 @@ aff_haemophilia = {state = "healed", effect = "", cures = {herb = "ginseng", tre
 aff_hallucinations = {state = "healed", effect = "", cures = {herb = "ash", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_halted = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_hatred = {state = "healed", effect = "", cures = {herb = "ash", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
-aff_head_broken = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_head_crippled = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_head_bruised = {state = "healed", effect = "", cures = {salve = "mending to head"}, assess = false, timer = createStopWatch()},
 aff_head_bruised_critical = {state = "healed", effect = "", cures = {salve = "mending to head"}, assess = false, timer = createStopWatch()},
 aff_head_bruised_moderate = {state = "healed", effect = "", cures = {salve = "mending  to head"}, assess = false, timer = createStopWatch()},
-aff_head_damaged = {state = "healed", effect = "", cures = {salve = "restoration to head"}, assess = false, timer = createStopWatch()},
+aff_head_broken = {state = "healed", effect = "", cures = {salve = "restoration to head"}, assess = false, timer = createStopWatch()},
 aff_head_mangled = {state = "healed", effect = "", cures = {salve = "restoration to head"}, assess = false, timer = createStopWatch()},
 aff_head_ravaged = {state = "healed", effect = "not sure it's actually used since ravage is untargetted now", cures = {}, assess = false, timer = createStopWatch()},
 aff_heartflutter = {state = "healed", effect = "", cures = {herb = "bloodroot", tree = "send"}, assess = false, timer = createStopWatch()},
@@ -55150,21 +55150,21 @@ aff_justice = {state = "healed", effect = "", cures = {herb = "bellwort", tree =
 aff_laxity = {state = "healed", effect = "", cures = {herb = "bellwort", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_leeched_aura = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_left_arm_amputated = {state = "healed", effect = "", cures = {salve = "restoration to arms"}, assess = false, timer = createStopWatch()},
-aff_left_arm_broken = {state = "healed", effect = "", cures = {salve = "mending to arms", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_left_arm_crippled = {state = "healed", effect = "", cures = {salve = "mending to arms", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_left_arm_bruised = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
 aff_left_arm_bruised_critical = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
 aff_left_arm_bruised_moderate = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
-aff_left_arm_damaged = {state = "healed", effect = "", cures = {salve = "restoration to arms"}, assess = false, timer = createStopWatch()},
+aff_left_arm_broken = {state = "healed", effect = "", cures = {salve = "restoration to arms"}, assess = false, timer = createStopWatch()},
 aff_left_arm_dislocated = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
 aff_left_arm_mangled = {state = "healed", effect = "", cures = {salve = "restoration to arms"}, assess = false, timer = createStopWatch()},
 aff_left_arm_numbed = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_left_arm_ravaged = {state = "healed", effect = "not sure it's actually used since ravage is untargetted now", cures = {}, assess = false, timer = createStopWatch()},
 aff_left_leg_amputated = {state = "healed", effect = "", cures = {salve = "restoration to legs"}, assess = false, timer = createStopWatch()},
-aff_left_leg_broken = {state = "healed", effect = "", cures = {salve = "mending to legs", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_left_leg_crippled = {state = "healed", effect = "", cures = {salve = "mending to legs", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_left_leg_bruised = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
 aff_left_leg_bruised_critical = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
 aff_left_leg_bruised_moderate = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
-aff_left_leg_damaged = {state = "healed", effect = "", cures = {salve = "restoration to legs"}, assess = false, timer = createStopWatch()},
+aff_left_leg_broken = {state = "healed", effect = "", cures = {salve = "restoration to legs"}, assess = false, timer = createStopWatch()},
 aff_left_leg_dislocated = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
 aff_left_leg_mangled = {state = "healed", effect = "", cures = {salve = "restoration to legs"}, assess = false, timer = createStopWatch()},
 aff_left_leg_numbed = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -55232,21 +55232,21 @@ aff_rend = {state = "healed", effect = "", cures = {herb = "ginseng", tree = "se
 aff_resin_glauxe = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_resonance = {state = "healed", effect = "templar can assess/diagnose you for free", cures = {}, assess = false, timer = createStopWatch()},
 aff_right_arm_amputated = {state = "healed", effect = "", cures = {salve = "restoration to right arm"}, assess = false, timer = createStopWatch()},
-aff_right_arm_broken = {state = "healed", effect = "", cures = {salve = "mending to arms", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_right_arm_crippled = {state = "healed", effect = "", cures = {salve = "mending to arms", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_right_arm_bruised = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
 aff_right_arm_bruised_critical = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
 aff_right_arm_bruised_moderate = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
-aff_right_arm_damaged = {state = "healed", effect = "", cures = {salve = "restoration to right arm"}, assess = false, timer = createStopWatch()},
+aff_right_arm_broken = {state = "healed", effect = "", cures = {salve = "restoration to right arm"}, assess = false, timer = createStopWatch()},
 aff_right_arm_dislocated = {state = "healed", effect = "", cures = {salve = "mending to arms"}, assess = false, timer = createStopWatch()},
 aff_right_arm_mangled = {state = "healed", effect = "", cures = {salve = "restoration to right arm"}, assess = false, timer = createStopWatch()},
 aff_right_arm_numbed = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_right_arm_ravaged = {state = "healed", effect = "not sure it's actually used since ravage is untargetted now", cures = {}, assess = false, timer = createStopWatch()},
 aff_right_leg_amputated = {state = "healed", effect = "", cures = {salve = "restoration to right leg"}, assess = false, timer = createStopWatch()},
-aff_right_leg_broken = {state = "healed", effect = "", cures = {salve = "mending to legs", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_right_leg_crippled = {state = "healed", effect = "", cures = {salve = "mending to legs", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_right_leg_bruised = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
 aff_right_leg_bruised_critical = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
 aff_right_leg_bruised_moderate = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
-aff_right_leg_damaged = {state = "healed", effect = "", cures = {salve = "restoration to right leg"}, assess = false, timer = createStopWatch()},
+aff_right_leg_broken = {state = "healed", effect = "", cures = {salve = "restoration to right leg"}, assess = false, timer = createStopWatch()},
 aff_right_leg_dislocated = {state = "healed", effect = "", cures = {salve = "mending to legs"}, assess = false, timer = createStopWatch()},
 aff_right_leg_mangled = {state = "healed", effect = "", cures = {salve = "restoration to right leg"}, assess = false, timer = createStopWatch()},
 aff_right_leg_numbed = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -55318,7 +55318,7 @@ aff_thunderstorm = {state = "healed", effect = "", cures = {}, assess = false, t
 aff_torso_bruised = {state = "healed", effect = "", cures = {salve = "mending to torso"}, assess = false, timer = createStopWatch()},
 aff_torso_bruised_critical = {state = "healed", effect = "", cures = {salve = "mending to torso"}, assess = false, timer = createStopWatch()},
 aff_torso_bruised_moderate = {state = "healed", effect = "", cures = {salve = "mending to torso"}, assess = false, timer = createStopWatch()},
-aff_torso_damaged = {state = "healed", effect = "", cures = {salve = "restoration to torso"}, assess = false, timer = createStopWatch()},
+aff_torso_broken = {state = "healed", effect = "", cures = {salve = "restoration to torso"}, assess = false, timer = createStopWatch()},
 aff_torso_mangled = {state = "healed", effect = "", cures = {salve = "restoration to torso"}, assess = false, timer = createStopWatch()},
 aff_torso_ravaged = {state = "healed", effect = "not sure it's actually used since ravage is untargetted now", cures = {}, assess = false, timer = createStopWatch()},
 aff_tree_seared = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -72507,9 +72507,9 @@ end</script>
 						<script>
 function snd.do_tree(current)
  limb = false
- if string.find(current, "_broken") then
-  x = string.gsub(current, "_broken", "_damaged")
-  y = string.gsub(current, "_broken", "_mangled")
+ if string.find(current, "_crippled") then
+  x = string.gsub(current, "_crippled", "_broken")
+  y = string.gsub(current, "_crippled", "_mangled")
   if snd.have_aff(x) or snd.have_aff(y) then
    limb = true
   end
@@ -72661,10 +72661,10 @@ function snd.purge_check()
     
     for _, aff in pairs(snd.physical_affs) do
       if snd.have_aff(aff) and aff ~= "paralysis" then
-        local i, _ = string.find(aff, "_broken")
+        local i, _ = string.find(aff, "_crippled")
         if i then
           local s = string.sub(aff, 0, i - 1)
-          if snd.afflictions["aff_"..s.."_damaged"].state == "healed" then
+          if snd.afflictions["aff_"..s.."_broken"].state == "healed" then
             table.insert(purgable, aff)
           end
         else
@@ -72789,10 +72789,10 @@ function snd.purify_check()
     
     for _, aff in pairs(snd.physical_affs) do
       if snd.have_aff(aff) and aff ~= "paralysis" then
-        local i, _ = string.find(aff, "_broken")
+        local i, _ = string.find(aff, "_crippled")
         if i then
           local s = string.sub(aff, 0, i - 1)
-          if snd.afflictions["aff_"..s.."_damaged"].state == "healed" then
+          if snd.afflictions["aff_"..s.."_broken"].state == "healed" then
             table.insert(purifiable, aff)
           end
         else
@@ -72839,10 +72839,10 @@ function snd.panacea_check()
     
     for _, aff in pairs(snd.physical_affs) do
       if snd.have_aff(aff) and aff ~= "paralysis" then
-        local i, _ = string.find(aff, "_broken")
+        local i, _ = string.find(aff, "_crippled")
         if i then
           local s = string.sub(aff, 0, i - 1)
-          if snd.afflictions["aff_"..s.."_damaged"].state == "healed" then
+          if snd.afflictions["aff_"..s.."_broken"].state == "healed" then
             table.insert(panaceable, aff)
           end
         else
@@ -73562,10 +73562,10 @@ squelched = "selarnia",
 disfigurement = "monkshood",
 
 thin_blood = "scytherus",
-left_leg_broken = "epseth",
-right_leg_broken = "epseth",
-left_arm_broken = "epteth",
-right_arm_broken = "epteth",
+left_leg_crippled = "epseth",
+right_leg_crippled = "epseth",
+left_arm_crippled = "epteth",
+right_arm_crippled = "epteth",
 
 conviction = "conviction",
 mental_disruption = "disrupt",
@@ -73974,7 +73974,7 @@ function snd.target_got(affliction)
   local target_display_table = {}
   affliction = snd.affNameCheck(affliction)
 
-  if snd.checkAff(affliction) and affliction ~= "a_broken_leg" and affliction ~= "a_broken_arm" then
+  if snd.checkAff(affliction) and affliction ~= "a_crippled_leg" and affliction ~= "a_crippled_arm" then
     return
   end
   if snd.defended then
@@ -73990,31 +73990,31 @@ function snd.target_got(affliction)
     end
   end
   
-  if affliction == "a_broken_leg" and snd.checkAff("a_broken_leg") then
-    snd.target_cured("a_broken_leg")
-    affliction = "right_leg_broken"
-    snd.target_got("left_leg_broken")
+  if affliction == "a_crippled_leg" and snd.checkAff("a_crippled_leg") then
+    snd.target_cured("a_crippled_leg")
+    affliction = "right_leg_crippled"
+    snd.target_got("left_leg_crippled")
   end
   
-  if affliction == "a_broken_leg" and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) then
-    if snd.checkAff("right_leg_broken") then
-      affliction = "left_leg_broken"
+  if affliction == "a_crippled_leg" and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) then
+    if snd.checkAff("right_leg_crippled") then
+      affliction = "left_leg_crippled"
     else
-      affliction = "right_leg_broken"
+      affliction = "right_leg_crippled"
     end
   end
   
-  if affliction == "a_broken_arm" and snd.checkAff("a_broken_arm") then
-    snd.target_cured("a_broken_arm")
-    affliction = "right_arm_broken"
-    snd.target_got("left_arm_broken")
+  if affliction == "a_crippled_arm" and snd.checkAff("a_crippled_arm") then
+    snd.target_cured("a_crippled_arm")
+    affliction = "right_arm_crippled"
+    snd.target_got("left_arm_crippled")
   end
   
-  if affliction == "a_broken_arm" and snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},1) then
-    if snd.checkAff("right_arm_broken") then
-      affliction = "left_arm_broken"
+  if affliction == "a_crippled_arm" and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},1) then
+    if snd.checkAff("right_arm_crippled") then
+      affliction = "left_arm_crippled"
     else
-      affliction = "right_arm_broken"
+      affliction = "right_arm_crippled"
     end
   end
 
@@ -74076,11 +74076,11 @@ function snd.target_cured(affliction)
     end
   end 
   
-	if snd.checkAff("a_broken_arm") and (affliction == "right_arm_broken" or affliction == "left_arm_broken") and not snd.checkAff(affliction) then
-		affliction = "a_broken_arm"
+	if snd.checkAff("a_crippled_arm") and (affliction == "right_arm_crippled" or affliction == "left_arm_crippled") and not snd.checkAff(affliction) then
+		affliction = "a_crippled_arm"
 	end
-	if snd.checkAff("a_broken_leg") and (affliction == "right_leg_broken" or affliction == "left_leg_broken") and not snd.checkAff(affliction) then
-		affliction = "a_broken_leg"
+	if snd.checkAff("a_crippled_leg") and (affliction == "right_leg_crippled" or affliction == "left_leg_crippled") and not snd.checkAff(affliction) then
+		affliction = "a_crippled_leg"
 	end
   
   for i in pairs(snd.target_has) do
@@ -74428,11 +74428,11 @@ function snd.pendulum(direction)
         -- add limb damage to new limb
         snd.took_limb_dmg(k, -v)
         -- remove damage from current limb
-        if snd.checkAff(k:gsub(" ", "_") .. "_broken") then
+        if snd.checkAff(k:gsub(" ", "_") .. "_crippled") then
           -- we need to check for level one breaks as well
-          snd.target_got(pendulum_table[k][direction]:gsub(" ", "_") .. "_broken")
+          snd.target_got(pendulum_table[k][direction]:gsub(" ", "_") .. "_crippled")
           --add new limb break
-          snd.target_cured(k:gsub(" ", "_") .. "_broken")
+          snd.target_cured(k:gsub(" ", "_") .. "_crippled")
           --remove old
         end
         if snd.checkAff(k:gsub(" ", "_") .. "_dislocated") then
@@ -74770,16 +74770,16 @@ end
 function snd.venomEffect(venom)
 	local aff = ""
 	if venom == "epseth" then
-		if snd.checkAff("left_leg_broken") then
-			aff = "right_leg_broken"
+		if snd.checkAff("left_leg_crippled") then
+			aff = "right_leg_crippled"
 		else
-			aff = "left_leg_broken"
+			aff = "left_leg_crippled"
 		end
 	elseif venom == "epteth" then
-		if snd.checkAff("left_arm_broken") then
-			aff = "right_arm_broken"
+		if snd.checkAff("left_arm_crippled") then
+			aff = "right_arm_crippled"
 		else
-			aff = "left_arm_broken"
+			aff = "left_arm_crippled"
 		end
 	elseif venom == "prefarar" then
 		if snd.checkAff("hearing") then
@@ -75338,17 +75338,17 @@ end</script>
             	end
               if conditional:find("Arm") then
                 if snd.checkAff("ablaze") or snd.checkAff("emberbrand") then
-                  snd.target_got("left_arm_broken")
-                  snd.target_got("right_arm_broken")
+                  snd.target_got("left_arm_crippled")
+                  snd.target_got("right_arm_crippled")
                 else
-                  snd.target_got("a_broken_arm")
+                  snd.target_got("a_crippled_arm")
                 end
               else
                 if snd.checkAff("ablaze") or snd.checkAff("emberbrand") then
-                  snd.target_got("left_leg_broken")
-                  snd.target_got("right_leg_broken")
+                  snd.target_got("left_leg_crippled")
+                  snd.target_got("right_leg_crippled")
                 else
-                  snd.target_got("a_broken_leg")
+                  snd.target_got("a_crippled_leg")
                 end
               end
             end,
@@ -75442,7 +75442,7 @@ end</script>
                   snd.target_got("emberbrand")
                   if snd.checksomeAffs({"right_arm_mangled","left_arm_mangled","right_leg_mangled","left_leg_mangled","head_mangled","torso_mangled",}, 1) then
                     tempTimer(120, [[ snd.target_cured("emberbrand") ]])
-                  elseif snd.checksomeAffs({"right_arm_damaged","left_arm_damaged","right_leg_damaged","left_leg_damaged","head_damaged","torso_damaged",}, 1) then
+                  elseif snd.checksomeAffs({"right_arm_broken","left_arm_broken","right_leg_broken","left_leg_broken","head_broken","torso_broken",}, 1) then
                     tempTimer(90, [[ snd.target_cured("emberbrand") ]])
                   else
                     tempTimer(60, [[ snd.target_cured("emberbrand") ]])
@@ -75527,17 +75527,17 @@ end</script>
             	end
               if conditional:find("Arm") then
                 if snd.checkAff("ablaze") or snd.checkAff("excess_choleric") then
-                  snd.target_got("left_arm_broken")
-                  snd.target_got("right_arm_broken")
+                  snd.target_got("left_arm_crippled")
+                  snd.target_got("right_arm_crippled")
                 else
-                  snd.target_got("a_broken_arm")
+                  snd.target_got("a_crippled_arm")
                 end
               else
                 if snd.checkAff("ablaze") or snd.checkAff("excess_choleric") then
-                  snd.target_got("left_leg_broken")
-                  snd.target_got("right_leg_broken")
+                  snd.target_got("left_leg_crippled")
+                  snd.target_got("right_leg_crippled")
                 else
-                  snd.target_got("a_broken_leg")
+                  snd.target_got("a_crippled_leg")
                 end
               end
             end,
@@ -75631,7 +75631,7 @@ end</script>
                   snd.target_got("excess_choleric")
                   if snd.checksomeAffs({"right_arm_mangled","left_arm_mangled","right_leg_mangled","left_leg_mangled","head_mangled","torso_mangled",}, 1) then
                     tempTimer(120, [[ snd.target_cured("excess_choleric") ]])
-                  elseif snd.checksomeAffs({"right_arm_damaged","left_arm_damaged","right_leg_damaged","left_leg_damaged","head_damaged","torso_damaged",}, 1) then
+                  elseif snd.checksomeAffs({"right_arm_broken","left_arm_broken","right_leg_broken","left_leg_broken","head_broken","torso_broken",}, 1) then
                     tempTimer(90, [[ snd.target_cured("excess_choleric") ]])
                   else
                     tempTimer(60, [[ snd.target_cured("excess_choleric") ]])
@@ -75992,8 +75992,8 @@ end</script>
                    snd.need_leech_aura = false
                 end,                 
         Shrivel = function(target, where)
-                    if where == "arms" then snd.target_got("a_broken_arm")
-                    elseif where == "legs" then snd.target_got("a_broken_leg")
+                    if where == "arms" then snd.target_got("a_crippled_arm")
+                    elseif where == "legs" then snd.target_got("a_crippled_leg")
                     elseif where == "throat" then snd.target_got("crippled_throat")
                     else snd.target_got(where.." broken")
                     end
@@ -76462,7 +76462,7 @@ end</script>
                   end
                 end,
     Fracture = function(target, where)
-                 table.insert(snd.maybe_affs, where.."_broken")
+                 table.insert(snd.maybe_affs, where.."_crippled")
                  	snd.last_hit_limb = where
                 	if snd.limb_bruising[snd.last_hit_limb] == 0 then
                     snd.last_limb_dmg = 11.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
@@ -76538,7 +76538,7 @@ end</script>
               snd.target_got("slough")
             end,
     Scourge = function(target, where)
-                snd.target_got(where.."_broken")
+                snd.target_got(where.."_crippled")
               end,
     
     Trap = function(target)
@@ -76604,7 +76604,7 @@ end</script>
                   end
                 end,
     Buckle = function(target, where)                 
-                 table.insert(snd.maybe_affs, where.."_broken")
+                 table.insert(snd.maybe_affs, where.."_crippled")
                  	snd.last_hit_limb = where
                 	if snd.limb_bruising[snd.last_hit_limb] == 0 then
                     snd.last_limb_dmg = 11.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
@@ -76680,7 +76680,7 @@ end</script>
               snd.target_got("slough")
             end,
     Unseen = function(target, where)
-                snd.target_got(where.."_broken")
+                snd.target_got(where.."_crippled")
               end,
     Undertow = function(target)
                 snd.target_got("quicksand")
@@ -77119,14 +77119,14 @@ end</script>
                 snd.onHit2({"Dodge", "Parry"})
                end,
     Rend = function(target, limb)
-                table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_broken")
+                table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_crippled")
                 snd.last_hit_limb = limb
                 snd.last_limb_dmg = 5.81
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
     Hamstring = function(target, limb)
-                table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_broken")
+                table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_crippled")
                 snd.last_hit_limb = limb
                 snd.last_limb_dmg = 5.81
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -77775,8 +77775,8 @@ end</script>
                    snd.need_leech_aura = false
                 end,                 
         Misfortune = function(target, where)
-                    if where == "arms" then snd.target_got("a_broken_arm")
-                    elseif where == "legs" then snd.target_got("a_broken_leg")
+                    if where == "arms" then snd.target_got("a_crippled_arm")
+                    elseif where == "legs" then snd.target_got("a_crippled_leg")
                     elseif where == "throat" then snd.target_got("crippled_throat")
                     else snd.target_got(where.." broken")
                     end
@@ -78961,10 +78961,10 @@ snd.venom_affs =
 "stuttering",
 "deadening",
 "thin_blood",
-"left_leg_broken",
-"right_leg_broken",
-"left_arm_broken",
-"right_arm_broken",
+"left_leg_crippled",
+"right_leg_crippled",
+"left_arm_crippled",
+"right_arm_crippled",
 }
 
 
@@ -79089,10 +79089,10 @@ snd.censure_affs = {
 "stuttering",
 "deadening",
 "thin_blood",
-"left_leg_broken",
-"right_leg_broken",
-"left_arm_broken",
-"right_arm_broken",
+"left_leg_crippled",
+"right_leg_crippled",
+"left_arm_crippled",
+"right_arm_crippled",
 }
 
 snd.secondary_affs = {
@@ -79216,7 +79216,7 @@ end
 
 
 function snd.can_deliver()
-  if snd.checksomeAffs({"paralysis", "paresis", "right_arm_broken", "left_arm_broken", "right_leg_broken", "left_leg_broken", "haemophilia", "asthma", "impairment", "clumsiness", "vomiting", "sensitivity", "ringing_ears", "lethargy", "blood_poison", "blood_curse", "crippled_throat", "slough", "disfigurement", "blisters", "lightwound", "ablaze", "hypothermia", "shivering", "frozen", "limp_veins", "rend", "exhausted", "allergies", "addiction", "hypersomnia", "heartflutter", "whiplash", "backstrain", "sore_wrist", "sore_ankle", "burnt_eyes", "blurry_vision", "migraine", "deadening", "ice_encased",}, 1) 
+  if snd.checksomeAffs({"paralysis", "paresis", "right_arm_crippled", "left_arm_crippled", "right_leg_crippled", "left_leg_crippled", "haemophilia", "asthma", "impairment", "clumsiness", "vomiting", "sensitivity", "ringing_ears", "lethargy", "blood_poison", "blood_curse", "crippled_throat", "slough", "disfigurement", "blisters", "lightwound", "ablaze", "hypothermia", "shivering", "frozen", "limp_veins", "rend", "exhausted", "allergies", "addiction", "hypersomnia", "heartflutter", "whiplash", "backstrain", "sore_wrist", "sore_ankle", "burnt_eyes", "blurry_vision", "migraine", "deadening", "ice_encased",}, 1) 
   and snd.proned()
   then
     return true
@@ -79421,8 +79421,8 @@ end</script>
 						<script>function snd.handleExpunge()
   for aff in pairs(snd.physical_affs) do
     if snd.checkAff(snd.physical_affs[aff]) then
-      if string.find(snd.physical_affs[aff], "_broken") then
-        local string = string.gsub(snd.physical_affs[aff], "_broken", "")
+      if string.find(snd.physical_affs[aff], "_crippled") then
+        local string = string.gsub(snd.physical_affs[aff], "_crippled", "")
         string = string:gsub("_", " ")
         if snd.limb_status[string] == "healed" then
           snd.target_cured(snd.physical_affs[aff])
@@ -79466,8 +79466,8 @@ end</script>
  
   for _, v in pairs(limbs) do
 
-    if snd.checkAff(v:gsub(" ", "_").."_broken") and snd.limb_status[v] == "healed" then
-		  snd.target_cured(v:gsub(" ", "_").."_broken")
+    if snd.checkAff(v:gsub(" ", "_").."_crippled") and snd.limb_status[v] == "healed" then
+		  snd.target_cured(v:gsub(" ", "_").."_crippled")
     end
   end
 end</script>
@@ -80623,7 +80623,7 @@ if snd.limb_status["left leg"] == "mangled" then
 	snd.display.enemy_leftleg_color = "red" 
 elseif snd.limb_status["left leg"] == "damaged" then 
 	snd.display.enemy_leftleg_color = "gold" 
-elseif snd.checkAff("left_leg_broken") then
+elseif snd.checkAff("left_leg_crippled") then
 	snd.display.enemy_leftleg_color = "green" 
 else
 	snd.display.enemy_leftleg_color = "white"
@@ -80633,7 +80633,7 @@ if snd.limb_status["right leg"] == "mangled" then
 	snd.display.enemy_rightleg_color = "red" 
 elseif snd.limb_status["right leg"] == "damaged" then 
 	snd.display.enemy_rightleg_color = "gold" 
-elseif snd.checkAff("right_leg_broken") then
+elseif snd.checkAff("right_leg_crippled") then
 	snd.display.enemy_rightleg_color = "green" 
 else
 	snd.display.enemy_rightleg_color = "white"
@@ -80643,7 +80643,7 @@ if snd.limb_status["left arm"] == "mangled" then
 	snd.display.enemy_leftarm_color = "red" 
 elseif snd.limb_status["left arm"] == "damaged" then 
 	snd.display.enemy_leftarm_color = "gold" 
-elseif snd.checkAff("left_arm_broken") then
+elseif snd.checkAff("left_arm_crippled") then
 	snd.display.enemy_leftarm_color = "green" 
 else
 	snd.display.enemy_leftarm_color = "white"
@@ -80653,7 +80653,7 @@ if snd.limb_status["right arm"] == "mangled" then
 	snd.display.enemy_rightarm_color = "red" 
 elseif snd.limb_status["right arm"] == "damaged" then 
 	snd.display.enemy_rightarm_color = "gold" 
-elseif snd.checkAff("right_arm_broken") then
+elseif snd.checkAff("right_arm_crippled") then
 	snd.display.enemy_rightarm_color = "green" 
 else
 	snd.display.enemy_rightarm_color = "white"
@@ -80680,7 +80680,7 @@ function color_self_limbs()
 --consider using different symbols for the bruising levels
 if snd.afflictions.aff_torso_mangled.state == "afflicted" then 
 	snd.display.self_torso_color = "red" 
-elseif snd.afflictions.aff_torso_damaged.state == "afflicted" then 
+elseif snd.afflictions.aff_torso_broken.state == "afflicted" then 
 	snd.display.self_torso_color = "gold" 
 else
   snd.display.self_torso_color = "white"
@@ -80688,9 +80688,9 @@ end
 
 if snd.afflictions.aff_left_leg_mangled.state == "afflicted" then 
 	snd.display.self_leftleg_color = "red" 
-elseif snd.afflictions.aff_left_leg_damaged.state == "afflicted" then 
+elseif snd.afflictions.aff_left_leg_broken.state == "afflicted" then 
 	snd.display.self_leftleg_color = "gold" 
-elseif snd.afflictions.aff_left_leg_broken.state == "afflicted" then
+elseif snd.afflictions.aff_left_leg_crippled.state == "afflicted" then
 	snd.display.self_leftleg_color = "green" 
 else
 	snd.display.self_leftleg_color = "white"
@@ -80698,9 +80698,9 @@ end
 
 if snd.afflictions.aff_right_leg_mangled.state == "afflicted" then 
 	snd.display.self_rightleg_color = "red" 
-elseif snd.afflictions.aff_right_leg_damaged.state == "afflicted" then 
+elseif snd.afflictions.aff_right_leg_broken.state == "afflicted" then 
 	snd.display.self_rightleg_color = "gold" 
-elseif snd.afflictions.aff_right_leg_broken.state == "afflicted" then
+elseif snd.afflictions.aff_right_leg_crippled.state == "afflicted" then
 	snd.display.self_rightleg_color = "green" 
 else
 	snd.display.self_rightleg_color = "white"
@@ -80708,9 +80708,9 @@ end
 
 if snd.afflictions.aff_left_arm_mangled.state == "afflicted" then 
 	snd.display.self_leftarm_color = "red" 
-elseif snd.afflictions.aff_left_arm_damaged.state == "afflicted" then 
+elseif snd.afflictions.aff_left_arm_broken.state == "afflicted" then 
 	snd.display.self_leftarm_color = "gold" 
-elseif snd.afflictions.aff_left_arm_broken.state == "afflicted" then
+elseif snd.afflictions.aff_left_arm_crippled.state == "afflicted" then
 	snd.display.self_leftarm_color = "green" 
 else
 	snd.display.self_leftarm_color = "white"
@@ -80718,9 +80718,9 @@ end
 
 if snd.afflictions.aff_right_arm_mangled.state == "afflicted" then 
 	snd.display.self_rightarm_color = "red" 
-elseif snd.afflictions.aff_right_arm_damaged.state == "afflicted" then 
+elseif snd.afflictions.aff_right_arm_broken.state == "afflicted" then 
 	snd.display.self_rightarm_color = "gold" 
-elseif snd.afflictions.aff_right_arm_broken.state == "afflicted" then
+elseif snd.afflictions.aff_right_arm_crippled.state == "afflicted" then
 	snd.display.self_rightarm_color = "green" 
 else
 	snd.display.self_rightarm_color = "white"
@@ -80728,7 +80728,7 @@ end
 
 if snd.afflictions.aff_head_mangled.state == "afflicted" then 
 	snd.display.self_head_color = "red" 
-elseif snd.afflictions.aff_head_damaged.state == "afflicted" then 
+elseif snd.afflictions.aff_head_broken.state == "afflicted" then 
 	snd.display.self_head_color = "gold" 
 else
 	snd.display.self_head_color = "white"
