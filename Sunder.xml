@@ -23383,6 +23383,7 @@ end</script>
 								<script>if matches[2] == snd.target then
   if matches[2] == snd.target and matches[4]~= "head" and matches[4] ~= "torso" then
     snd.target_got(matches[4].." broken")
+    snd.target_got(matches[4].." crippled")
   end
   snd.message("&lt;red&gt;"..matches[2]..matches[3].." &lt;white&gt;"..matches[4].." was broken!")
   
