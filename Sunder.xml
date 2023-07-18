@@ -318,30 +318,6 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Praenomen Stalk</name>
-								<script>if snd.class == "Praenomen" then
-  snd.def_def("stalk")
-elseif snd.class == "Akkari" then
-  snd.def_def("muffle")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You stalk the night as a predator.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>ylem orbs</name>
 								<script>local color = {
   ["white"] = "white",
@@ -997,7 +973,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>turn off stalk</name>
-								<script>expandAlias("kd stalk")</script>
+								<script>expandAlias("kd stalking")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -1010,32 +986,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>Your power to conceal your movement is ineffective during the day.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>stop stalking</name>
-								<script>if snd.class == "Akkari" then
-  expandAlias("kd muffle")
-else
-  expandAlias("kd stalk")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
 									<string>You cannot muffle your footsteps during the day.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20816,6 +20770,7 @@ end</script>
 							<name>focus</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   snd.track_focus(snd.target)
+  snd.target_cured("impatience")
   snd.target_used("focus")
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
   deleteFull()
@@ -34248,7 +34203,7 @@ elseif snd.class == "Runecarver" then
 	if snd.toggles.newbie then
   	  snd.send("qeb hex enervate "..snd.target)
 	else
-		if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 and hasSkill("Spiritpact") then
+		if hasSkill("Spiritpact") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 then
 			snd.send("qeb spiritpact despair " ..snd.target..snd.sep.."hex malady "..snd.target)
 		else
 			snd.send("qeb hex malady " ..snd.target)
@@ -34260,7 +34215,7 @@ elseif snd.class == "Sciomancer" then
 	if snd.toggles.newbie then
   	  snd.send("qeb cast ruin "..snd.target)
 	else
-		if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 and hasSkill("Shadowprice") then
+		if hasSkill("Shadowprice") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 2 then
 			snd.send("qeb shadowprice gloom " ..snd.target..snd.sep.."cast fever "..snd.target)
 		else
 			snd.send("qeb cast fever " ..snd.target)
@@ -50269,7 +50224,7 @@ snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^fire</regex>
+								<regex>^fire$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Retch</name>
@@ -52946,6 +52901,14 @@ snd.landmarks = snd.landmarks or {
     snd.defenses.def_empowered_moon = snd.alternative_class_defenses.Runecarver_empowered_moon
   end
 
+  if snd.class == "Akkari" then
+    snd.defenses.def_stalking = snd.alternative_class_defenses.Akkari_stalking
+  end
+  
+  if snd.class == "Praenomen" then
+    snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
+  end
+  
   if snd.assumed_class ~= nil then return end
 	local stats = gmcp.Char.Vitals.charstats
 	for i,v in ipairs(stats) do
@@ -54573,7 +54536,6 @@ snd.priorities =
     "def_ardour_strength",
     "def_ardour_dexterity",
     "def_ardour_intelligence",
-    "def_muffle",
     "def_relentless",
     "def_resolved",
     "def_acuity",
@@ -54672,7 +54634,7 @@ snd.priorities =
     "def_lifescent",
     "def_lifevision",
     "def_veil",
-    "def_stalk",
+    "def_stalking",
     "def_concentrate",
     "def_entwine",
     "def_devilpact",
@@ -55770,7 +55732,6 @@ def_retaliation = {defense = "retaliation", type = "ivory", effect = "The Light 
 def_suppressed = {defense = "suppressed", type = "ivory", effect = "Others cannot see your vitals", balance = {balanceequilibriumtake = "spirit suppress"}, state = "down", needit = false, timer = createStopWatch(), skill = "Suppress" },
 def_holylight = {defense = "holylight", type = "ivory", effect = "Strike fear into enemies with the Light", balance = {balanceequilibriumtake = "spirit light"}, state = "down", needit = false, timer = createStopWatch(), skill = "Light"},
 def_bolster = {defense = "spiritbolster", type = "ivory", effect = "Reduce damage to your squire by half", balance = {balanceequilibriumtake = "spirit bolster"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bolster"},
-def_muffle = {defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = {balanceequilibriumtake = "muffle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Muffle" },
 def_unbroken = {defense = "unbroken", type = "ivory", effect = "Damage will not break you.", balance = {balanceequilibriumtake = "spirit unbroken"}, state = "down", needit = false, timer = createStopWatch(), skill = "Unbroken"},
 def_transcendence = {defense = "transcendence", type = "ivory", effect = "Transcend mortal limitations", balance = {balanceequilibriumtake = "spirit transcend"}, state = "down", needit = false, timer = createStopWatch(), skill = "Transcend"},
 
@@ -55900,7 +55861,6 @@ def_corpus_warding = {defense = "corpus_warding", type = "normal", effect = "For
 def_celerity = {defense = "celerity", type = "normal", effect = "Increased movement speed", balance = {balanceequilibriumtake = "celerity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity" },
 def_lifescent = {defense = "lifescent", type = "normal", effect = "Detect nearby prey movements", balance = {balanceequilibriumtake = "lifescent"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifescent" },
 def_veil = {defense = "veil", type = "normal", effect = "Hide deeper in the shadows", balance = {balanceequilibriumtake = "veil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Veil"},
-def_stalk = {defense = "stalk", type = "normal", effect = "Nighttime hiding in the shadows", balance = {balanceequilibriumtake = "stalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
 def_concentrate = {defense = "concentrate", type = "normal", effect = "Make your blood use more efficient", balance = {balanceequilibriumtake = "blood concentrate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Concentration" },
 def_shadowblow = {defense = "shadowblow", type = "normal", effect = "Your shadow strikes out at your attacker", balance = {balanceequilibriumtake = "blood shadow"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shadow" },
 def_blurred = {defense = "blurred", type = "normal", effect = "Others cannot see your vitals", balance = {balanceequilibriumtake = "blood blur"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blur" },
@@ -56063,6 +56023,8 @@ def_bending = {defense = "bending", type = "normal", effect = "magical damage re
 
 snd.alternative_class_defenses = {
 --Class catch
+Praenomen_stalking = {defense = "stalking", type = "normal", effect = "Nighttime hiding in the shadows", balance = {balanceequilibriumtake = "stalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
+Akkari_stalking = {defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = {balanceequilibriumtake = "muffle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Muffle" },
 Luminary_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "perform constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
 Earthcaller_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "dirge constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
 Indorani_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
@@ -56457,6 +56419,9 @@ end</script>
   ["You are feeling quite selfish."] = "selfishness",
   ["You are overwhelmed by a blood rage."] =  "bloodrage",
   ["You have flooded your undead body with warm, pulsating lifeblood."] = "deluge",
+  ["Shadows are gathered around your arm, waiting to defend you."] = "shadowblow",
+  ["You stalk the night as a predator."] = "stalking",
+
 
 }
  </script>
@@ -60566,7 +60531,7 @@ snd.areas = {
 {area = "the Dramedo Warrens", level = "90-100", targets = {"a vast ochre ooze", "a winged fungal horror", "a shambling fungal abomination", "a gigantic fungal strider", "a cloud of fungal spores"}}, 
 {area = "the Isle of Despair", level = "90-100", targets = {"a darkened soul", "a severed male head"}},
 {area = "the Shattered Vortex (Low Level)", level = "90-100", targets = {"a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone"}, items = {}},
-{area = "the Shattered Vortex (Shadow)", level = "90-100", targets = {"a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone", "a chaos storm", "a warped turtle", "a warrior of the Demonsbane", "a reinforcement warrior of the demonsbane", "a fetish-decorated shaman", "a guardian angel", "a nimble sentinel", "a stalwart templar", "an agile Sentaari monk", "a battle-worn Ascendril", "an Ascendril mage"}, items = {"a finger", "a chunk of grey stone", "a chunk of obsidian glass", "a chunk of green and blue stone", "a broken shard of ruby"}},
+{area = "the Shattered Vortex (Shadow)", level = "90-100", targets = {"a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone", "a chaos storm", "a petrified treant", "a warped turtle", "a warrior of the Demonsbane", "a reinforcement warrior of the demonsbane", "a fetish-decorated shaman", "a guardian angel", "a nimble sentinel", "a stalwart templar", "an agile Sentaari monk", "a battle-worn Ascendril", "an Ascendril mage"}, items = {"a finger", "a chunk of grey stone", "a chunk of obsidian glass", "a chunk of green and blue stone", "a broken shard of ruby"}},
 {area = "the Shattered Vortex (Spirit)", level = "90-100", targets = {"a chaos worm", "a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone", "a chaos storm", "a Sciomancer mage", "a warped indorani", "a strained indorani", "a crazed indorani", "a reinforcement warrior of the aztob", "a warrior of the Aztob", "a warped turtle", "a petrified treant", "a piece of an amalgamation"}, items = {"a finger", "a chunk of grey stone", "a chunk of obsidian glass", "a chunk of green and blue stone", "a broken shard of ruby"}},
 {area = "Tiyen Esityi", level = "95+", targets = {"Commander Marakhi", "Tirahl the Necromancer", "Lieutenant Gharvoi", "a ball of chitinous legs", "insubstantial whispers", "Quartermaster Kuius", "Lieutenant Chiakhi", "a crazed Nazetu cutter", "a mutated Nazetu intercessor", "a Nazetu cook", "a Nazetu halberdier", "a Nazetu provost", "a deformed Nazetu priest", "a Nazetu crossbowman", "a bound shade", "a Nazetu corrupter", "a Nazetu necromancer", "a supply officer", "a victimised intruder"}},
 {area = "the Nal'jin Depths", level = "95+", targets = {"an enormous spinelash fish", "a sinewy Nal'jin eel", "a shadow ray", "a serpentine jawsnapper"}},
@@ -72818,7 +72783,7 @@ end
 function snd.do_purify()
 
      if snd.class == "Praenomen" then
-        snd.send("purify")
+        snd.send("purify blood")
         echo("(purify)")
       else
         snd.send("succour")
@@ -72975,7 +72940,7 @@ def_relentless = "on",
 def_resolved = "on",
 def_celerity = "on",
 def_acuity = "on",
-def_muffle = "once",
+def_stalking = "once",
 def_suppressed = "once",
 def_retaliation = "once",
 def_ascetic = "on"
@@ -73110,7 +73075,7 @@ def_celerity = "once",
 def_lifescent = "once",
 def_lifevision = "once",
 -- def_veil = "on",
-def_stalk = "once",
+def_stalking = "once",
 def_concentrate = "on",
 def_shadowblow = "on",
 def_blurred = "once",
