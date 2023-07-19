@@ -52868,7 +52868,6 @@ snd.landmarks = snd.landmarks or {
   
   if snd.class == "Warden" then
     snd.defenses.def_shroud = snd.alternative_class_defenses.Warden_shroud
-    snd.defenses.def_rigor = snd.alternative_class_defenses.Warden_rigor
     snd.defenses.def_fearless = snd.alternative_class_defenses.Warden_fearless
   end
   
@@ -52894,7 +52893,6 @@ snd.landmarks = snd.landmarks or {
   
    if snd.class == "Sciomancer" then
     snd.defenses.def_empowered_moon = snd.alternative_class_defenses.Sciomancer_empowered_moon
-    snd.defenses.def_rigor = snd.alternative_class_defenses.Sciomancer_rigor
   end
   
    if snd.class == "Runecarver" then
@@ -54735,6 +54733,7 @@ snd.priorities =
     "def_transcendence",
     "def_featherstep",
     "def_rot_carpet",
+    "def_warding_rigor",
   }</script>
 						<eventHandlerList />
 					</Script>
