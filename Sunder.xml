@@ -54733,6 +54733,8 @@ snd.priorities =
     "def_selfishness",
     "def_bloodrage",
     "def_transcendence",
+    "def_featherstep",
+    "def_rot_carpet",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55891,11 +55893,13 @@ def_prowess = {defense = "prowess", type = "normal", effect = "WP drain but bett
 def_hex_stalk = {defense = "hex_stalk", type = "normal", effect = "Mask your movements", balance = {balanceequilibriumtake = "hex stalk "}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalk" },
 def_hex_preservation = {defense = "hex_preservation", type = "normal", effect = "Reduce damage taken from elements", balance = {balanceequilibriumtake = "hex preserve"}, state = "down", needit = false, timer = createStopWatch(), skill = "Preserve" },
 def_ironbark  = {defense = "ironbark", type = "normal", effect = "Better diverting", balance = {balanceequilibriumtake = "runecarve ironbark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ironbark" },
+def_rot_carpet = {defense = "rot_carpet", type = "normal", effect = "Levitation and Waterwalk", balance = {balanceequilibriumtake = "spore carpet"}, state = "down", needit = false, timer = createStopWatch(), skill = "Carpet" },
 
 --Sciomancer
 def_shadow_engulf   = {defense = "shadow_engulf", type = "normal", effect = "Mask your movements", balance = {balanceequilibriumtake = "cast engulf on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Engulf" },
 def_shadow_mantle  = {defense = "shadow_mantle", type = "normal", effect = "Reduce damage taken from elements", balance = {balanceequilibriumtake = "cast mantle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mantle" },
 def_blurring  = {defense = "blurring", type = "normal", effect = "Better diverting", balance = {balanceequilibriumtake = "cast blurring"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blurring" },
+def_featherstep = {defense = "featherstep", type = "normal", effect = "Levitation and Waterwalk", balance = {balanceequilibriumtake = "gravity featherstep"}, state = "down", needit = false, timer = createStopWatch(), skill = "Featherstep" },
 
 --Sentinel
 def_barkskin = {defense = "barkskin", type = "normal", effect = "10% Resist to Cutting/Blunt", balance = {needyequilibriumtake = "barkskin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Barkskin"},
@@ -56421,6 +56425,8 @@ end</script>
   ["You have flooded your undead body with warm, pulsating lifeblood."] = "deluge",
   ["Shadows are gathered around your arm, waiting to defend you."] = "shadowblow",
   ["You stalk the night as a predator."] = "stalking",
+  ["Your steps hardly touch the ground."] = "featherstep",
+  ["A carpet of fetid rot sprawls beneath your feet."] = "rot_carpet",
 
 
 }
