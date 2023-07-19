@@ -52868,7 +52868,6 @@ snd.landmarks = snd.landmarks or {
   
   if snd.class == "Warden" then
     snd.defenses.def_shroud = snd.alternative_class_defenses.Warden_shroud
-    snd.defenses.def_rigor = snd.alternative_class_defenses.Warden_rigor
     snd.defenses.def_fearless = snd.alternative_class_defenses.Warden_fearless
   end
   
@@ -52894,7 +52893,6 @@ snd.landmarks = snd.landmarks or {
   
    if snd.class == "Sciomancer" then
     snd.defenses.def_empowered_moon = snd.alternative_class_defenses.Sciomancer_empowered_moon
-    snd.defenses.def_rigor = snd.alternative_class_defenses.Sciomancer_rigor
   end
   
    if snd.class == "Runecarver" then
@@ -54735,6 +54733,7 @@ snd.priorities =
     "def_transcendence",
     "def_featherstep",
     "def_rot_carpet",
+    "def_warding_rigor",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55896,6 +55895,7 @@ def_ironbark  = {defense = "ironbark", type = "normal", effect = "Better diverti
 def_rot_carpet = {defense = "rot_carpet", type = "normal", effect = "Levitation and Waterwalk", balance = {balanceequilibriumtake = "spore carpet"}, state = "down", needit = false, timer = createStopWatch(), skill = "Carpet" },
 
 --Sciomancer
+def_rigor = {defense = "rigor", type = "normal", effect = "WP drain but better crit chance", balance = {balanceequilibriumtake = "cast rigor on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Rigor"},
 def_shadow_engulf   = {defense = "shadow_engulf", type = "normal", effect = "Mask your movements", balance = {balanceequilibriumtake = "cast engulf on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Engulf" },
 def_shadow_mantle  = {defense = "shadow_mantle", type = "normal", effect = "Reduce damage taken from elements", balance = {balanceequilibriumtake = "cast mantle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mantle" },
 def_blurring  = {defense = "blurring", type = "normal", effect = "Better diverting", balance = {balanceequilibriumtake = "cast blurring"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blurring" },
@@ -55989,6 +55989,7 @@ def_simulacrum_opening = {defense = "simulacrum_opening", type = "normal", effec
 def_severity = {defense = "severity", type = "normal", effect = "Attacks hit through parry.", balance = {needybalancetake = "warden severity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Severity"},
 def_roaring = {defense = "roaring", type = "normal", effect = "Make them prone/off bal.", balance = {needybalancetake = "warden roaring on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Roaring"},
 def_homage = {defense = "homage", type = "normal", effect = "Increased strength.", balance = {needyequilibriumtake = "warden homage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Homage"},
+def_warding_rigor = {defense = "warding_rigor", type = "normal", effect = "Cheap Furor.", balance = {needybalancetake = "warden rigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Rigor"},
 
 --Wayfarer
 def_ironskin = {defense = "ironskin", type = "normal", effect = "Resist physical damage", balance = {balanceequilibriumtake = "wayfare ironskin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ironskin" },
@@ -56038,8 +56039,6 @@ Warden_shroud = {defense = "shroud", type = "normal", effect = "Shrouded.",  bal
 Syssin_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "conjure cloak"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cloak" },
 Revenant_maingauche = {defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = {needyequilibriumtake = "maingauche"}, state = "down", needit = false, timer = createStopWatch(), skill = "MainGauche"},
 Templar_maingauche = {defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = {needyequilibriumtake = "maingauche"}, state = "down", needit = false, timer = createStopWatch(), skill = "MainGauche"},
-Sciomancer_rigor = {defense = "rigor", type = "normal", effect = "WP drain but better crit chance", balance = {balanceequilibriumtake = "cast rigor on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Rigor"},
-Warden_rigor = {defense = "rigor", type = "normal", effect = "Cheap Furor.", balance = {needybalancetake = "warden rigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Rigor"},
 Warden_fearless = {defense = "fearless", type = "normal", effect = "Protects against fear affliction.", balance = {special = "warden fortitude"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fortitude"},
 Ascendril_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 Bloodborn_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "unleash acumen"}, state = "down", needit = false, timer = createStopWatch(), skill = "Acumen" },
@@ -73114,6 +73113,7 @@ def_hex_stalk  = "once",
 def_hex_preservation = "once",        
 def_ironbark= "once",        
 def_empowered_moon = "once",
+def_rot_carpet = "once",
 },
 
 sciomancer = {						
@@ -73122,6 +73122,7 @@ def_shadow_engulf  = "once",
 def_shadow_mantle = "on",		
 def_blurring = "on",		
 def_empowered_moon = "on",
+def_featherstep = "once",
 },
 
 sentinel = {
