@@ -4584,6 +4584,46 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Fury used</name>
+							<script>snd.balance.fury = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^Fury Balance Used: .+ seconds$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Fury balance back</name>
+							<script>snd.balance.fury = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You can bring forth your fury again.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Zealot / Ravager</name>
@@ -36983,24 +37023,25 @@ end</script>
 snd.starting_attack()
 function snd.attack_function()
     if not snd.waiting.queue then
-        local string = "" -- we'll load this with our attack string
-        local call = "" -- and this with our affliction call
-        local touse = {}
-    local tohit = {}
-        local limb_tohit = ""
-        local extraaff = "asthma"
-    local fury = tonumber(gmcp.Char.Vitals.fury)
-    local execute_check = false
+      local string = "" -- we'll load this with our attack string
+      local call = "" -- and this with our affliction call
+      local touse = {}
+      local tohit = {}
+      local limb_tohit = "head" --default value
+      local extraaff = "asthma"
+      local fury = tonumber(gmcp.Char.Vitals.fury)
+      local execute_check = false
 
         -- set the limb order we want to hit
-        snd.giving_limbs = {"right leg", "left leg", "head", "left arm", "right arm", }
-    for k, v in pairs(snd.giving_limbs) do
-          if snd.limb_status[v] == "healed" and (snd.parried_limb ~= v or snd.no_parry() or fury &gt; 20) then
+      snd.giving_limbs = {"right leg", "left leg", "head", "left arm", "right arm", }
+      for k, v in pairs(snd.giving_limbs) do
+          if snd.limb_status[v] == "healed" and ((snd.parried_limb ~= v and snd.last_hit_limb ~= v) or snd.no_parry() or (fury &gt;= 30 and snd.balance.fury)) then
                 limb_tohit = v
+                break
           end
       end
 
-    snd.giving = {
+      snd.giving = {
           "left_leg_crippled",
           "right_leg_crippled",
           "anorexia",
@@ -37012,16 +37053,17 @@ function snd.attack_function()
           "clumsiness",
           "left_arm_crippled",
           "right_arm_crippled",
-    }
-        for i in pairs(snd.giving) do
-      if not snd.checkAff(snd.giving[i]) then
-        if not table.contains(touse, snd.giving[i]) then 
-          table.insert(tohit, extraaff)
+      }
+      for i in pairs(snd.giving) do
+        if not snd.checkAff(snd.giving[i]) then
+          if not table.contains(touse, snd.giving[i]) then 
+            table.insert(touse, snd.giving[i])
+          end
         end
       end
-        end
-
-for k, v in pairs(snd.limb_dmg) do
+      if #touse&lt;1 then table.insert(touse, extraaff) end
+      
+    for k, v in pairs(snd.limb_dmg) do
       if k ~= "torso" and k ~= "head" and snd.limb_status[k] ~= "healed" and snd.limb_status["head"] ~= "healed" and snd.checksomeAffs({"fallen", "prone", "frozen"},1) then
         execute_check = true
       end
@@ -37029,15 +37071,12 @@ for k, v in pairs(snd.limb_dmg) do
 
     for i in pairs(touse) do
             table.insert(tohit, snd.effects[touse[i]])
-        end
-
-        if snd.used.shield then
+    end
+    if snd.used.shield and snd.used.rebounding then
+            string = "axe devastate "..snd.target
+    elseif snd.used.shield or snd.used.rebounding then
             string = "axe devastate "..snd.target.." "..tohit[1]
             call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-        elseif snd.used.shield and snd.used.rebounding then
-            string = "axe devastate "..snd.target
-    elseif snd.used.rebounding then
-      string = "axe devastate "..snd.target.." "
     elseif execute_check then
       string = "axe execute "..snd.target
         else
@@ -37058,9 +37097,9 @@ for k, v in pairs(snd.limb_dmg) do
             tempTimer(snd.delay(), [[snd.waiting.queue = false]])
         end
     end
-end
+  end
 
-snd.attack_function()
+  snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
@@ -52405,6 +52444,7 @@ end
   unbroken = true,
   soulcage = true,
   wand = true,
+  fury = true
 }
 
 snd.waiting = snd.waiting or {
