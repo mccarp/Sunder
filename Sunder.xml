@@ -73997,6 +73997,14 @@ function snd.target_got(affliction)
   if snd.checkAff(affliction) and affliction ~= "a_crippled_leg" and affliction ~= "a_crippled_arm" then
     return
   end
+  if affliction == "a_crippled_leg" and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},2) then
+    return
+  end
+  if affliction == "a_crippled_arm" and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},2) then
+    return
+  end
+  
+  
   if snd.defended then
     return
   end
