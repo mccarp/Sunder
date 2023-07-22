@@ -20569,7 +20569,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+) body turns sickly as \w+ skin takes on a yellow shade\.$</string>
+									<string>^(\w+)'s body turns sickly as \w+ skin takes on a yellow shade\.$</string>
 									<string>^Motes of light pulse beneath (\w+)'s skin, .+ veins twisting oddly as the scouring incandescence wreaks havoc upon .+ insides.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
@@ -20601,7 +20601,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+) skin turns a sickly colour and black bile seeps from \w+ mouth\.$</string>
+									<string>^(\w+)'s skin turns a sickly colour and black bile seeps from \w+ mouth\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -23437,45 +23437,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>mending</name>
 								<script>if matches[2]:lower() == snd.target:lower() then
-  snd.target_last_used_salve = "mending"
-  if not snd.checkAff("burnt_skin") then
-   if snd.limb_bruising[matches[4]] &gt;= 3 then
-    snd.limb_bruising[matches[4]] = snd.limb_bruising[matches[4]]-1
-    table.insert(snd.last_affs, "bruising "..matches[4])
-   elseif snd.checkAff("destroyed_throat") and matches[4] == "head" then
-    snd.target_cured("destroyed_throat") 
-    table.insert(snd.last_affs, "destroyed_throat")
-   elseif snd.checkAff("crippled_throat") and matches[4] == "head" then
-    snd.target_cured("crippled_throat")
-    table.insert(snd.last_affs, "crippled_throat")
-   elseif snd.checkAff("lightwound") and matches[4] == "torso" then
-    snd.target_cured("lightwound")
-    table.insert(snd.last_affs, "lightwound")
-   elseif snd.checkAff("ablaze") and (matches[4] == "torso" or matches[4] == "skin") and not snd.checkAff("heatspear") then
-    snd.target_cured("ablaze")
-    snd.target_cured("crispy")
-    snd.flamestack = 0
-    table.insert(snd.last_affs, "ablaze")
-   elseif snd.checkAff(matches[4].."_crippled") then
-    snd.target_cured(matches[4].."_crippled")
-    table.insert(snd.last_affs, matches[4]:gsub(" ", "_").."_crippled")
-   elseif snd.checkAff("a_crippled_arm") and matches[4]:find("arm") then
-    snd.target_cured("a_crippled_arm")
-    table.insert(snd.last_affs, "a_crippled_arm")
-   elseif snd.checkAff("a_crippled_leg") and matches[4]:find ("leg") then
-    snd.target_cured("a_crippled_leg")
-    table.insert(snd.last_affs, "a_crippled_leg")
-   elseif matches[4] == "torso" and snd.checkAff("cracked_ribs") then
-    snd.target_cured("cracked_ribs")
-    table.insert(snd.last_affs, "cracked_ribs")
-   elseif snd.limb_bruising[matches[4]] &gt; 0 then
-    snd.limb_bruising[matches[4]] = snd.limb_bruising[matches[4]]-1
-    table.insert(snd.last_affs, "bruising "..matches[4])
-   elseif snd.checkAff(matches[4].." dislocated") then
-    snd.target_cured(matches[4].." dislocated")
-    table.insert(snd.last_affs, matches[4].." dislocated")
-   end
-	end
+  snd.mendingApply(matches[4])
 elseif snd.toggles.nontargetgags and snd.gui.enabled then
   deleteFull()
 end
@@ -23493,7 +23455,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+) presses a mending poultice against (the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin), rubbing the poultice into (the )?\w+ flesh\.$</string>
+									<string>^(\w+) presses a mending poultice against (the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into (the )?\w+ flesh\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -23693,72 +23655,6 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^(\w+) becomes flushed as .+ heals with quickened haste.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>untargetted mending legs</name>
-								<script>if matches[2]:lower() == snd.target:lower() then
-  if not snd.checkAff("burnt_skin") then
-    if snd.checkAff("left_leg_crippled") then
-      aff = "left_leg_crippled"
-    elseif snd.checkAff("right_leg_crippled") then
-      aff = "right_leg_crippled"
-    else
-      aff = "a_crippled_leg"
-    end
-    snd.target_cured(aff)
-  end
-elseif snd.toggles.nontargetgags and snd.gui.enabled then
-  deleteFull()
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^(\w+) presses a mending poultice against \w+ legs, rubbing the poultice into (the )?\w+ flesh\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>untargetted mending arms</name>
-								<script>if matches[2]:lower() == snd.target:lower() then
-  if not snd.checkAff("burnt_skin") then
-    if snd.checkAff("left_arm_crippled") then
-      aff = "left_arm_crippled"
-    elseif snd.checkAff("right_arm_crippled") then
-      aff = "right_arm_crippled"
-    else
-      aff = "a_crippled_arm"
-    end
-    snd.target_cured(aff)
-  end
-elseif snd.toggles.nontargetgags and snd.gui.enabled then
-  deleteFull()
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^(\w+) presses a mending poultice against \w+ arms, rubbing the poultice into (the )?\w+ flesh\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -37018,7 +36914,7 @@ end</script>
 								<regex>^lock$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>Limbs w/excute</name>
+								<name>Limbs w/execute</name>
 								<script>if snd.class == "Wayfarer" then
 snd.starting_attack()
 function snd.attack_function()
@@ -74484,6 +74380,121 @@ function snd.pendulum(direction)
         snd.limb_status[pendulum_table[part][direction]] = status
       end
     end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>mending tracking</name>
+					<packageName></packageName>
+					<script>local mendingCures =
+  {
+    ["head"] =
+      {
+        "head_bruised_critical",
+        "destroyed_throat",
+        "crippled_throat",
+        "head_bruised_moderate",
+        "head_bruised",
+      },
+    ["torso"] =
+      {
+        "torso_bruised_critical",
+        "lightwound",
+        "ablaze",
+        "cracked_ribs",
+        "torso_bruised_moderate",
+        "torso_bruised",
+      },
+    ["left arm"] =
+      {
+        "left_arm_bruised_critical",
+        "left_arm_crippled",
+        "a_crippled_arm",
+        "left_arm_bruised_moderate",
+        "left_arm_bruised",
+        "left_arm_dislocated",
+      },
+    ["right arm"] =
+      {
+        "right_arm_bruised_critical",
+        "right_arm_crippled",
+        "a_crippled_arm",
+        "right_arm_bruised_moderate",
+        "right_arm_bruised",
+        "right_arm_dislocated",
+      },
+    ["left leg"] =
+      {
+        "left_leg_bruised_critical",
+        "left_leg_crippled",
+        "a_crippled_leg",
+        "left_leg_bruised_moderate",
+        "left_leg_bruised",
+        "left_leg_dislocated",
+      },
+    ["right leg"] =
+      {
+        "right_leg_bruised_critical",
+        "right_leg_crippled",
+        "a_crippled_leg",
+        "right_leg_bruised_moderate",
+        "right_leg_bruised",
+        "right_leg_dislocated",
+      },
+  }
+local mendingMap =
+  {
+    legs = {"left leg", "right leg"},
+    arms = {"left arm", "right arm"},
+    skin = {"head", "torso", "left arm", "right arm", "left leg", "right leg"},
+    ["left leg"] = {"left leg"},
+    ["right leg"] = {"right leg"},
+    ["left arm"] = {"left arm"},
+    ["right arm"] = {"right arm"},
+    ["torso"] = {"torso"},
+    ["head"] = {"head"},
+  }
+
+local function mending(limb)
+  for _, aff in ipairs(mendingCures[limb]) do
+    if
+      aff:find("bruised") and
+      (
+        (aff:find("critical") and snd.limb_bruising[limb] &gt;= 3) or
+        (not aff:find("critical") and snd.limb_bruising[limb] &gt; 0)
+      )
+    then
+      snd.limb_bruising[limb] = math.min(3, snd.limb_bruising[limb]) - 1
+      table.insert(snd.last_affs, "bruising " .. limb)
+      return true
+    elseif snd.checkAff(aff) then
+      if aff == "ablaze" then
+        if not snd.checkAff("heatspear") then
+          snd.target_cured("ablaze")
+          snd.target_cured("crispy")
+          table.insert(snd.last_affs, "ablaze")
+          snd.flamestack = 0
+          return true
+        end
+      else
+        snd.target_cured(aff)
+        table.insert(snd.last_affs, aff)
+        return true
+      end
+    end
+  end
+  return false
+end
+
+function snd.mendingApply(location)
+  if snd.checkAff("burnt_skin") then
+    return
+  end
+  for _, limb in ipairs(mendingMap[location]) do
+    if mending(limb) then
+      return
+    end
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
