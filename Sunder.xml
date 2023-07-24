@@ -54756,7 +54756,7 @@ snd.method_priority = {
       table.insert(snd.queue, "queue")
     end
     if snd.bashing_loaded then
-      if #snd.gathering &gt;= 1 then
+      if #snd.gathering &gt; 0 or #snd.corpses &gt; 0 then
         table.insert(snd.queue, "loot")
       end
       if snd.toggles.bashing and snd.bashing_loaded then
