@@ -70489,17 +70489,20 @@ snd.global_targets = {
 					<name>run basher</name>
 					<packageName></packageName>
 					<script>local function getTarget(tab)
-  for _, targ in pairs(snd.possible_targets) do
-    if tab[targ] and tab[targ][1] then
-      return tab[targ][1], targ
-    end
-  end
-  for _, targ in pairs(snd.global_targets) do
-    if tab[targ] and tab[targ][1] then
+  for _, targ in pairs(table.n_union(snd.possible_targets, snd.global_targets)) do
+    if targ:sub(1,6) == "Match:" then
+      local pattern = targ:sub(7)
+      for name, ids in pairs(tab) do
+        if name:find(pattern) and tab[name][1] then
+          return tab[name][1], name
+        end
+      end
+    elseif tab[targ] and tab[targ][1] then
       return tab[targ][1], targ
     end
   end
 end
+
 
 function snd.runBasher()
   snd.gathering = {}
