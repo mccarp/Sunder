@@ -70384,7 +70384,7 @@ end</script>
 					<packageName></packageName>
 					<script>
 function snd.do_loot()
- if #snd.gathering &gt;= 1 then
+ if #snd.gathering &gt; 0 or #snd.corpses &gt; 0 then
   if snd.can_cast() and not snd.waiting.loot then
    snd.loot_it()
   end
@@ -70503,6 +70503,7 @@ end
 
 function snd.runBasher()
   snd.gathering = {}
+  snd.corpses = {}
   snd.bashing.targeted = false
   snd.bashing.target_priority = 10000
   snd.bashing.target = "none"
