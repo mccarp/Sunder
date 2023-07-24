@@ -70503,6 +70503,7 @@ end
 
 function snd.runBasher()
   snd.gathering = {}
+  snd.corpses = {}
   snd.bashing.targeted = false
   snd.bashing.target_priority = 10000
   snd.bashing.target = "none"
