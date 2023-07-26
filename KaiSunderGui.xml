@@ -2024,11 +2024,58 @@ end</script>
     kaiUI[tab]:show()
     kaiUI[tab .. "Console"]:show()
     kaiUI[tab .. "Console"]:raise()
+    kaiUI.chat.clearBlink(tab)
   end
 
   GUIframe.addWindow(kaiUI.chatContainer, "Chat", "bottomright")
   kaiUI.chat.click("All")
 end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Chat blinking</name>
+					<packageName></packageName>
+					<script>kaiUI.chat.blinking = kaiUI.chat.blinking or {}
+kaiUI.chat.blinkTimer = kaiUI.chat.blinkTimer
+
+local function killBlinkTimer()
+  if kaiUI.chat.blinkTimer then killTimer(kaiUI.chat.blinkTimer) end
+end
+
+function kaiUI.chat.clearBlink(chat)
+  if chat and chat~= "All" then
+    kaiUI.chat.blinking[chat] = nil
+    if not next(kaiUI.chat.blinking) then
+      killBlinkTimer()
+    end
+  else
+    kaiUI.chat.blinking = {}
+    killBlinkTimer()
+  end
+end
+
+function kaiUI.chat.startBlink(chat)
+  if kaiUI.chat.current == "All" then
+    return
+  end
+  if kaiUI.chat.current ~= chat then
+    kaiUI.chat.blinking[chat] = true
+    kaiUI.chat.doBlink()
+  end
+end
+
+function kaiUI.chat.doBlink()
+  killBlinkTimer()
+  if next(kaiUI.chat.blinking) then
+    for chat in pairs(kaiUI.chat.blinking) do
+      kaiUI[chat .. "Tab"]:flash()
+    end
+    kaiUI.AllTab:flash()
+    kaiUI.chat.blinkTimer = tempTimer(2, kaiUI.chat.doBlink)
+  end
+end
+
+</script>
 					<eventHandlerList />
 				</Script>
 				<ScriptGroup isActive="yes" isFolder="yes">
@@ -2166,6 +2213,7 @@ function kaiUI.chat.capture()
   -- -- enableTrigger("generic capture")
 -- end
   kaiUI[snd.last_channel .. "Console"]:decho(text.."\n")
+  kaiUI.chat.startBlink(snd.last_channel)
   kaiUI.AllConsole:decho(text.."\n")
 end
 
