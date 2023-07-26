@@ -47374,7 +47374,7 @@ snd.scythe_gash = {
               string = "frenzy "..snd.target..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target
               call = "Afflicting "..snd.target..": "..touse[1]..snd.sep..", "..touse[2]		   
            else
-			        string = "wipe weapon "..snd.sep.."gash "..snd.target.." "..snd.sep..gashaff[1].." lightly"..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target..snd.sep
+			        string = "wipe weapon "..snd.sep.."gash "..snd.target.." "..gashaff[1].." lightly"..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target..snd.sep
 			        call = "Afflicting "..snd.target..": " ..gashaff[1]..". Whispering: "..touse[1]..", "..touse[2]
 			     end
         end
