@@ -590,9 +590,9 @@ send("firstaid on")
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres start</name>
-								<script>snd.toggles.active = false
-send("firstaid off")
-</script>
+								<script>snd.toggles.active = true
+snd.def_def("spheres")
+send("firstaid on")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -614,8 +614,9 @@ send("firstaid off")
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres Inbetween</name>
-								<script>snd.toggles.active = false
-</script>
+								<script>if snd.defenses.def_spheres.needit then
+  snd.toggles.active = false
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -636,6 +637,7 @@ send("firstaid off")
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres Broke</name>
 								<script>snd.toggles.active = true
+send("firstaid on")
 </script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -656,10 +658,10 @@ send("firstaid off")
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Earthenform start</name>
-								<script>snd.toggles.active = false
-send("firstaid off")
-
-</script>
+								<script>if snd.defenses.def_permafrost.needit or snd.defense.def_earthenform.needit then
+  snd.toggles.active = false
+  send("firstaid off")
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -1943,10 +1945,10 @@ if triggertext:find("Substitute") then
    snd.aff_remove(a)
   end
 end
-
-if triggertext:find("Starburst") then
-   reset_check = true
-end
+-- 
+-- if triggertext:find("Starburst") then
+   -- reset_check = true
+-- end
 
 if triggertext:find("Mirror") and gmcp.Room.Info.num == 1330 then
    reset_check = true
@@ -1977,7 +1979,6 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You use Tattoos Starburst\.$</string>
 									<string>^The Hall of the Underking$</string>
 									<string>^Before the Soul Mirror$</string>
 									<string>Traversing the Void</string>
@@ -1986,9 +1987,38 @@ end</script>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
-									<integer>1</integer>
 									<integer>2</integer>
 									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Starburst</name>
+								<script>if multimatches[3][3] == gmcp.Char.Vitals.xp then --verified actually starbursted
+  snd.reset_me()
+  snd.toggles.active = false
+  for i in pairs(snd.my_limb_damage) do
+    snd.my_limb_damage[i] = 0
+  end
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>4</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You use Tattoos Starburst.</string>
+									<string>Your starburst tattoo flares as the world is momentarily tinted red.</string>
+									<string>^Experience Lost: (\d+) \[total: (\d+)\]$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>2</integer>
+									<integer>2</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
