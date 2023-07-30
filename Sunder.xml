@@ -4348,28 +4348,6 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<regexCodeList />
 							<regexCodePropertyList />
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Attend False</name>
-								<script>snd.can_attend = false</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You may not force their attendance again quite yet.</string>
-									<string>^You use Discipline Attend on \w+.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Attend True</name>
 								<script>snd.can_attend = true</script>
 								<triggerType>0</triggerType>
@@ -4384,8 +4362,36 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You may demand their attendance once more.</string>
+									<string>You can spew your blood once more.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Attend False</name>
+								<script>snd.can_attend = false</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You may not force their attendance again quite yet.</string>
+									<string>^You use Discipline Attend on \w+\.$</string>
+									<string>^You use Sanguis Spew on \w+\.$</string>
+									<string>You cannot spew forth your blood again so soon.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>1</integer>
+									<integer>1</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -4515,7 +4521,7 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Unbroken False</name>
 								<script>snd.balance.unbroken = false</script>
 								<triggerType>0</triggerType>
@@ -4537,7 +4543,7 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Unbroken True</name>
 								<script>snd.balance.unbroken = true</script>
 								<triggerType>0</triggerType>
@@ -33751,302 +33757,12 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>single attack</name>
-					<script>hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
-mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
-endur = 100*(gmcp.Char.Vitals.ep/gmcp.Char.Vitals.maxep)
-bp = tonumber(gmcp.Char.Vitals.blood)
-bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
-
-if snd.class == "Akkari" then
-  
-	snd.send("qeb denounce "..snd.target)
-
-elseif snd.class == "Alchemist" then
-	
-    if wp &gt;= 45 and tonumber(gmcp.Char.Vitals.volatility) &gt; 3 then
-      snd.send("qeb alchemy catalyse"..snd.sep.."alchemy virulent "..snd.target)
-    else
-      snd.send("qeb alchemy virulent "..snd.target)
-    end 
-
-elseif snd.class == "Archivist" then
-  
-    if bioessence &gt; 1 and hasSkill("Stimulant") then
-		snd.send("qeb incite crux "..snd.target..snd.sep.."bio stimulant")
-    else
-		snd.send("qeb incite crux " ..snd.target)
-    end
-
-elseif snd.class == "Ascendril" then
-	
-	if hasSkill("Quickcast") then
-		if not snd.fulcrum_exists then
-			snd.send("qeb fulcrum construct")
-		elseif snd.fulcrum_call then
-			snd.send("qeb fulcrum recall")
-		else
-			if snd.toggles.prism then
-				if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air" then
-					snd.send("qeb cast prism firelash "..snd.target)
-				elseif gmcp.Char.Vitals.resonance == "air" then
-					snd.send("qeb cast prism frostblade "..snd.target)
-				elseif gmcp.Char.Vitals.resonance == "fire" then
-					snd.send("qeb cast prism windlance "..snd.target)
-				end
-			else
-				if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air"  then
-					snd.send("qeb cast frostblade "..snd.target)
-				elseif gmcp.Char.Vitals.resonance == "water" then
-					snd.send("qeb cast firelash "..snd.target)
-				elseif gmcp.Char.Vitals.resonance == "fire" then
-					snd.send("qeb cast windlance "..snd.target)
-				end
-			end
-		end
-	else
-		snd.send("qeb cast firelash "..snd.target)
-	end
-
-elseif snd.class == "Bard" then
-
-    if tonumber(gmcp.Char.Vitals.dithering) &gt; 0 then
-      snd.send("qeb tempo "..snd.target)
-    else
-      snd.send("qeb weave tearing "..snd.target)
-    end
-
-elseif snd.class == "Bloodborn" then
-
-	if hasSkill("Primacy") then    
-		if not snd.fulcrum_exists then
-			snd.send("qeb well draw")
-		elseif snd.fulcrum_call then
-			snd.send("qeb well recall")
-		else
-			if snd.toggles.prism then
-				if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black" then
-					snd.send("qeb unleash triplicate disgorge "..snd.target)
-				elseif gmcp.Char.Vitals.aspect == "black" then
-					snd.send("qeb unleash triplicate flense "..snd.target)
-				elseif gmcp.Char.Vitals.aspect == "yellow" then
-					snd.send("qeb unleash triplicate befoul "..snd.target)
-				end
-			else
-				if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black"  then
-					snd.send("qeb humour flense "..snd.target)
-				elseif gmcp.Char.Vitals.aspect == "phlegm" then
-					snd.send("qeb humour disgorge "..snd.target)
-				elseif gmcp.Char.Vitals.aspect == "yellow" then
-					snd.send("qeb humour befoul "..snd.target)
-				end
-			end
-		end
-	else
-		snd.send("qeb humour disgorge "..snd.target)
-	end
-
-elseif snd.class == "Carnifex" then
-	
-	snd.send("qeb hammer doublebash "..snd.target)
-
-elseif snd.class == "Earthcaller" then
-	
-	if snd.toggles.lightning then
-		snd.send("qeb tectonic ashfall "..snd.target)
-	else
-		snd.send("qeb quash "..snd.target)
- 	end
-
-elseif snd.class == "Indorani" then
-  
-	if snd.wielded.left.name =="bonedagger" or snd.wielded.right.name == "bonedagger" then
-		snd.send("qeb flick bonedagger at "..snd.target)
-	else
-		snd.send("qeb decay "..snd.target)
-	end
-
-elseif snd.class == "Luminary" then
-  
-	if snd.toggles.lightning then
-		snd.send("qeb evoke lightning "..snd.target)
-	else
-		snd.send("qeb smite "..snd.target)
- 	end
-
-elseif snd.class == "Monk" then
-  
-	if snd.toggles.cobra and hasSkill("Cobra") then
-		if snd.stance ~= "cobra" then
-			snd.send("qeb cbs")
-		else
-			snd.send("qeb combo "..snd.target.." sdk sdk")
-		end
-	else 
-		snd.send("qeb combo "..snd.target.." sdk ucp ucp")
-	end
-
-elseif snd.class == "Oneiromancer" then
-
-	if snd.wielded.left.name == "athame" or snd.wielded.right.name == "athame" then
-		snd.send("qeb impel athame at "..snd.target)
-	else
-		snd.send("qeb starlight "..snd.target)
-	end
-
-elseif snd.class == "Praenomen" then
- 
-	snd.send("qeb frenzy "..snd.target)
-
-elseif snd.class == "Ravager" then
-  
-	if not snd.can_arms and hasSkill("Concussion") then
-		snd.send("qeb concuss "..snd.target)
-	else
-		snd.send("qeb onslaught "..snd.target.." bully bully")
-	end
-
-elseif snd.class == "Revenant" then
-
-	if snd.toggles.newbie then
-		snd.send("qeb annul left"..snd.sep.."annul right"..snd.sep.."rivebash "..snd.target)
-	elseif (snd.wielded.left.name:find("warhammer") or snd.wielded.left.name:find("bastard") or snd.wielded.left.name:find("bardiche")) and hasSkill("Fell") then
-		if hp &gt;= 61 and endur &gt;= 60 and hasSkill("Duskosa") then
-			snd.send("qeb fell "..snd.target.." duskosa duskosa")
-		else
-			snd.send("qeb fell "..snd.target)
-		end
-	else
-		if hp &gt;= 61 and endur &gt;= 60 and hasSkill("Duskosa") then
-			snd.send("qeb dpl "..snd.target.." duskosa duskosa")
-		else
-			snd.send("qeb dpl "..snd.target)
-		end
-	end
-
-elseif snd.class == "Runecarver" then
-    
-	if snd.toggles.newbie then
-  	  snd.send("qeb hex enervate "..snd.target)
-	else
-		if hasSkill("Spiritpact") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 then
-			snd.send("qeb spiritpact despair " ..snd.target..snd.sep.."hex malady "..snd.target)
-		else
-			snd.send("qeb hex malady " ..snd.target)
-		end
-	end
-
-elseif snd.class == "Sciomancer" then
-    
-	if snd.toggles.newbie then
-  	  snd.send("qeb cast ruin "..snd.target)
-	else
-		if hasSkill("Shadowprice") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 2 then
-			snd.send("qeb shadowprice gloom " ..snd.target..snd.sep.."cast fever "..snd.target)
-		else
-			snd.send("qeb cast fever " ..snd.target)
-		end
-	end
- 
-elseif snd.class == "Sentinel" then
-	
-	if snd.toggles.newbie then
-		snd.send("qeb dhuriv combo "..snd.target.." slash stab")
- 	else
-		snd.send("qeb dhuriv combo "..snd.target.." crosscut thrust")
- 	end
-
-elseif snd.class == "Shaman" then
-
-    if wp &gt;= 45 and tonumber(gmcp.Char.Vitals.energy) &gt; 3 then
-      snd.send("qeb commune boost"..snd.sep.."commune lightning "..snd.target)
-    else
-      snd.send("qeb commune lightning "..snd.target)
-    end 
-
-elseif snd.class == "Shapeshifter" then
-	
-	snd.send("qeb combo "..snd.target.." slash slash")
-
-elseif snd.class == "Syssin" then
-  
-	if not snd.balance.backstab and hasSkill("Backstab") then
-		if snd.wielding("dirk") then
-			snd.send("qeb backstab "..snd.target)
-	 	else
-			if hasSkill("Quickwield") then
-				snd.send("qeb quickwield right dirk"..snd.sep.."backstab "..snd.target)
-			else
-				snd.send("qeb wield dirk")
-			end
-	 	end
-	elseif snd.toggles.newbie then
-		if snd.wielding("whip") then
-			snd.send("qeb garrote "..snd.target)
-		else
-			if hasSkill("Quickwield") then
-				snd.send("qeb quickwield left whip"..snd.sep.."garrote "..snd.target)
-			else
-				snd.send("qeb wield whip")
-			end
-		end
-	else
-		snd.send("qeb bite "..snd.target.." camus")
- 	end
-
-elseif snd.class == "Templar" then
-
-	if snd.toggles.newbie then
-		snd.send("qeb cleanse left"..snd.sep.."cleanse right"..snd.sep.."strikebash "..snd.target)
-	elseif (snd.wielded.left.name:find("warhammer") or snd.wielded.left.name:find("bastard") or snd.wielded.left.name:find("glaive")) and hasSkill("Doubleswing") then
-		if hp &gt;= 61 and endur &gt;= 60 and hasSkill("Sacrifice") then
-			snd.send("qeb dsw "..snd.target.." sacrifice sacrifice")
-		else
-			snd.send("qeb dsw "..snd.target)
-		end
-	else
-		if hp &gt;= 61 and endur &gt;= 60 and hasSkill("Sacrifice") then
-			snd.send("qeb dsk "..snd.target.." sacrifice sacrifice")
-		else
-			snd.send("qeb dsk "..snd.target)
-		end
-	end
-
-elseif snd.class == "Teradrim" then
-	
-	if snd.balance.momentum and hasSkill("Momentum") and endur &lt;= 45 then
-		snd.send("qeb earth momentum "..snd.sep.."earth batter "..snd.target..snd.sep.."golem recover")
-	else
-		snd.send("qeb earth batter "..snd.target..snd.sep.."golem recover")
-	end
-
-elseif snd.class == "Tidesage" then
-	
-	if snd.balance.momentum and hasSkill("Hightide") and endur&lt;=45 then
-		snd.send("qeb tide hightide "..snd.sep.."tide clobber "..snd.target..snd.sep.."synth recuperate")
-	else
-		snd.send("qeb tide clobber "..snd.target..snd.sep.."synth recuperate")
-	end
-
-elseif snd.class == "Warden" then
-	
-	if gmcp.Char.Vitals.wield_left:find("scythe") then
-		snd.send("qeb warden lacerate "..snd.target)
-	else
-		snd.send("qeb warden maul "..snd.target)
-	end
-
-elseif snd.class == "Wayfarer" then
-  
-	snd.send("qeb axe chop "..snd.target)
-
-elseif snd.class == "Zealot" then
-  
-	if not snd.can_arms and hasSkill("Sunkick") then
-		snd.send("qeb sunkick "..snd.target)
-	else
-		snd.send("qeb flow "..snd.target.." pummel pummel")
-	end
+					<script>if snd.bashing.target ~= snd.target then snd.bashing.target = snd.target end
+for k,v in pairs(snd.class_list) do
+  if snd.class_list[k].class == snd.class then
+  v.func()
+  snd.send("qeb stand"..snd.sep..battack)
+  end
 end</script>
 					<command></command>
 					<packageName></packageName>
