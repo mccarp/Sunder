@@ -50442,7 +50442,13 @@ local value = (matches[5]:lower()):title()
 local tether = ""
 
 if table.contains(valid_fields, field) then
-
+  if field == "city" then
+    local valid_cities = {"Enorian","Spinesreach","Bloodloch","Duiran","None"}
+    if not table.contains(valid_cities, value) then
+      snd.message("Invalid city. Your options are: "..table.concat(valid_cities, ", "))
+      return
+    end
+  end
   sndNDB.players[name][field] = value
 
   if sndNDB.players[name].city == "Duiran" or sndNDB.players[name].city == "Enorian" then 
