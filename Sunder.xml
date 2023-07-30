@@ -14074,7 +14074,9 @@ end
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>cold hit from starlight + glaciation</name>
 										<script>--assuming this line only happens in 1st person on starlight hits against your target
-snd.target_got("cold")</script>
+if matches[2] == snd.target then
+  snd.target_got("cold")
+end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
@@ -14086,9 +14088,11 @@ snd.target_got("cold")</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^Living ice takes root in \w+ flesh, leaving \w+ trembling.$</string>
+											<string>^You open an astral channel at your extended fingertips, willing a surge of wintry moonlight to freeze (\w+)\.$</string>
+											<string>^\w+ extends \w+ hands, compelling a surge of wintry moonlight to freeze (\w+)\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
