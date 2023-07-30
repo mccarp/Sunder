@@ -35,6 +35,7 @@
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>prompt</name>
 					<script>cecho(" &lt;red&gt;[&lt;white&gt;" .. snd.target .. "&lt;red&gt;]")
+snd.illusion_found = false
 if snd.offense_loaded then
   local msg
   snd.battle_aff = "none"
@@ -6403,8 +6404,8 @@ raiseEvent("sunder_item_update")</script>
 					<regexCodePropertyList />
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Gate - Someone is using an ability</name>
-						<script>if matches[2] then
-  snd.hitting = matches[2]
+						<script>if multimatches[1][2]~="You" then
+  snd.hitting = multimatches[1][2]
   if snd.who_called_affs ~= snd.hitting then
     snd.maybe_affs = {}
   end
@@ -6433,12 +6434,12 @@ snd.skill_being_used = ""
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>You use</string>
-							<string>^(\w+) uses</string>
+							<string>^(\w+) uses? (\w+)</string>
+							<string>return snd.illusionChecks.abilityGate()</string>
 						</regexCodeList>
 						<regexCodePropertyList>
-							<integer>2</integer>
 							<integer>1</integer>
+							<integer>4</integer>
 						</regexCodePropertyList>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Basic attack</name>
@@ -15144,11 +15145,7 @@ end
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Illusion Stop</name>
-								<script>if snd.illusion_found == true then
-  snd.illusion_found = false
-else 
-  snd.illusion_found = true
-end</script>
+								<script></script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -15160,13 +15157,37 @@ end</script>
 								<colorTriggerFgColor>#008000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>FG6BG2</string>
 									<string>** Illusion **</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>6</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Illusion color trigger</name>
+									<script>if snd.illusion_found == true then
+  snd.illusion_found = false
+else 
+  snd.illusion_found = true
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#008000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>FG6BG2</string>
+										<string>return snd.afflictions.aff_flash_blindness.state~="healed"</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>6</integer>
+										<integer>4</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>battered</name>
@@ -53360,6 +53381,29 @@ function snd.are_we_with_grouped()
     return good2go
  end   
  </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Illusion checking functions</name>
+						<packageName></packageName>
+						<script>snd = snd or {}
+snd.illusionChecks = snd.illusionChecks or {}
+
+function snd.illusionChecks.abilityGate()
+  if snd.illusion_found then
+    return false
+  end
+  if snd.afflictions.aff_flash_blindness.state ~= "healed" then
+    return true
+  end
+  --make sure word 1 and 3 of the line have different colors if you're not flash blinded
+  local words = string.split(getCurrentLine(), " ")
+  selectString(words[1], 1)
+  local color1 = table.concat({getFgColor()}, "")
+  selectString(words[3], 1)
+  local color2 = table.concat({getFgColor()}, "")
+  return color1 ~= color2
+end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
