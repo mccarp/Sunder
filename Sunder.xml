@@ -33777,6 +33777,7 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>single attack</name>
 					<script>if snd.bashing.target ~= snd.target then snd.bashing.target = snd.target end
+battack = ""
 for k,v in pairs(snd.class_list) do
   if snd.class_list[k].class == snd.class then
   v.func()
