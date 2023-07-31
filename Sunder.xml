@@ -6087,16 +6087,10 @@ snd.probed = true</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>It weighs about</string>
-						<string>He weighs about</string>
-						<string>She weighs about</string>
-						<string>They weigh about</string>
+						<string>^(It|He|She|They) (weighs about|(is|are) strangely weightless\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -33783,6 +33777,7 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>single attack</name>
 					<script>if snd.bashing.target ~= snd.target then snd.bashing.target = snd.target end
+battack = ""
 for k,v in pairs(snd.class_list) do
   if snd.class_list[k].class == snd.class then
   v.func()
@@ -59552,7 +59547,7 @@ snd.bashing_area_beginning_rooms ={
   ["the Ruins of Masilia"] = "20450",
   ["The Forgotten Mausoleum"] = "59862",
   ["the Ilhavon Forest"] = "26690",
-  ["the Bloodwood"] = "57521",
+  ["the Bloodwood"] = "57544",
   ["the Isle of Polyargos"] = "36824",
   ["Mount Humgurd"] = "23128",
   ["the Teshen Caldera"] = "55276",
@@ -59756,7 +59751,7 @@ snd.areas = {
 {area = "Mount Heylai", level = "55-60", targets = {"a young dwarf", "an adolescent dwarf", "an armored dwarf", "a dwarf geared up for battle", "a dwarven warrior", "a dwarven miner", "a female dwarven villager", "a dwarven girl", "a dwarven boy"}},
 {area = "the Siroccian Tunnels", level = "65-75", targets = {"a lurking shadow", "a spatial anomaly", "a crystal-encrusted golem", "a massive striped worm", "a disembodied soul", "a voracious blind-fish"}},
 {area = "Rotfang Warren", level = "20-30", targets = {"a large rat", "a robed and cowled priest", "a spindly village alpha", "a white-nosed bat", "a large, juicy cavehopper", "a hunched villager", "a gaunt villager", "a drooling village child"}},
-{area = "the Isle of Polyargos", level = "20-25", targets = {"a filthy harpy", "a barnacle-encrusted oyster", "a pathetic leper", "a leper child", "an old leper", "Kru'lax, the Harpy Queen", "a speckled, brown turtle"}},
+{area = "the Isle of Polyargos", level = "20-25", targets = {"a filthy harpy", "a barnacle-encrusted oyster", "Kru'lax, the Harpy Queen", "a speckled, brown turtle"}},
 {area = "the Khauskin Mines", level = "50-60", targets = {"a soft-shelled klikkin", "a grotesque fangtooth", "a burly Dwarven miner"}, items = {"a durable pickaxe", "a rough and jagged diamond", "a rough and jagged emerald", "a rough and jagged sapphire", "a rough and jagged ruby", "a small sack of black powder"}},
 {area = "the Morgun Forest", level = "45+", targets = {"a sturdy oak", "a poisonous hemlock bush", "a pine sapling", "a strong pine", "a young beech tree", "a sinuous willow tree", "a willow sappling", "an enchanting meayan", "an oak sapling", "a prickly raspberry bush", "a handsom nayar", "a young willow tree", "a fluffy jambaali", "a young maple tree", "a young pine tree", "a young oak", "a wild boar", "a young beech tree"}},
 {area = "Catacombs beneath Djeir", level = "40+", targets = {"a djeirani ghost",}},
@@ -65004,38 +64999,37 @@ sunder_areaPaths = {
     v4964 = "24410"
   },
   ["the Bloodwood"] = {
-    v57548 = "57614",
-    v57614 = "57612",
-    v57612 = "57613",
-    v57613 = "57602",
-    v57602 = "57601",
-    v57601 = "57599",
-    v57599 = "57600",
-    v57600 = "57589",
-    v57589 = "57590",
-    v57590 = "57581",
-    v57581 = "57582",
-    v57582 = "57573",
-    v57573 = "57535",
     v57535 = "57536",
     v57536 = "57537",
-    v57537 = "57542",
-    v57542 = "57543",
-    v57543 = "74773",
-    v74773 = "57547",
-    v57547 = "57544",
+    v57537 = "57573",
+    v57542 = "57535",
+    v57543 = "57542",
     v57544 = "57552",
+    v57547 = "74773",
     v57552 = "57554",
     v57554 = "57555",
     v57555 = "57572",
+    v57570 = "57583",
     v57572 = "57570",
-    v57570 = "57584",
+    v57573 = "57582",
+    v57581 = "57589",
+    v57582 = "57581",
+    v57583 = "57584",
     v57584 = "57585",
     v57585 = "57588",
     v57588 = "57604",
+    v57589 = "57590",
+    v57590 = "57600",
+    v57599 = "57601",
+    v57600 = "57599",
+    v57601 = "57602",
+    v57602 = "57613",
+    v57603 = "57547",
     v57604 = "57603",
-    v57603 = "57583",
-    v57583 = "ptcity",
+    v57612 = "57614",
+    v57613 = "57612",
+    v57614 = "ptcity",
+    v74773 = "57543"
   },
   ["the Cathedral of Gloaming"] = {
     v22702 = "22703",
