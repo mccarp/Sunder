@@ -6087,16 +6087,10 @@ snd.probed = true</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>It weighs about</string>
-						<string>He weighs about</string>
-						<string>She weighs about</string>
-						<string>They weigh about</string>
+						<string>^(It|He|She|They) (weighs about|(is|are) strangely weightless\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
