@@ -1980,14 +1980,14 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^The Hall of the Underking$</string>
-									<string>^Before the Soul Mirror$</string>
+									<string>The Hall of the Underking.</string>
+									<string>Before the Soul Mirror.</string>
 									<string>Traversing the Void</string>
 									<string>Blackness.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>1</integer>
-									<integer>1</integer>
+									<integer>3</integer>
+									<integer>3</integer>
 									<integer>2</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
@@ -69956,9 +69956,9 @@ function snd.alchemist_bash()
     end
   else
     if wp&gt;=45 and tonumber(gmcp.Char.Vitals.volatility) &gt; 3 then
-      battack = battack..snd.sep.."alchemy catalyse"..snd.sep.."alchemy virulent "..snd.bashing.target
+      battack = battack.."alchemy catalyse"..snd.sep.."alchemy virulent "..snd.bashing.target
     else
-      battack = battack..snd.sep.."alchemy virulent "..snd.bashing.target
+      battack = battack.."alchemy virulent "..snd.bashing.target
     end 
 	end
   
@@ -70174,15 +70174,17 @@ end
 function snd.monk_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
   mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
+  --ensure battack is cleared going into this.
+  battack = ""
   
   if mp &gt;= 30 and hp &lt;= 75 and snd.transmutation and hasSkill("Transmute") then
-    battack = battack..snd.sep.."transmute mana 1000"..snd.sep
+    battack = battack.."transmute mana 1000"..snd.sep
     tempTimer(2,[[snd.transmutation = true]])
   end
   
   if not snd.balance.numbness and hasSkill("Numbness") then
     if hp &lt;= 70 then
-        battack = battack..snd.sep.."numb"..snd.sep
+        battack = battack.."numb"..snd.sep
     end
   end
   
@@ -70193,14 +70195,13 @@ function snd.monk_bash()
     end
 	elseif snd.toggles.cobra and hasSkill("Cobra") then
   	if snd.stance ~= "cobra" then
-      battack = battack..snd.sep.."cbs"
+      battack = battack.."cbs"
     else
-      battack = battack..snd.sep.."combo "..snd.bashing.target.." sdk sdk"
+      battack = battack.."combo "..snd.bashing.target.." sdk sdk"
     end
   else 
-    battack = battack..snd.sep.."combo "..snd.bashing.target.." sdk ucp ucp"
+    battack = battack.."combo "..snd.bashing.target.." sdk ucp ucp"
 	end
-
 end
 
 function snd.oneiromancer_bash()
@@ -70253,6 +70254,7 @@ function snd.ravager_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
   mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
   wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
+  battack = ""
   
   if tonumber(gmcp.Char.Vitals.bleeding) &gt; 1000 and snd.cauterize and mp &gt;= 15 and hasSkill("Prolong") then
     battack = "enact prolong me"..snd.sep
@@ -70263,16 +70265,17 @@ function snd.ravager_bash()
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
       if hasSkill("Seethe") then
-        battack = battack..snd.sep.."seethe"
+        battack = battack.."seethe"
       end
     else
-      battack = battack..snd.sep.."touch shield"
+      battack = battack.."touch shield"
     end
   elseif not snd.can_arms() and hasSkill("Concussion") then
-    battack = "concuss "..snd.bashing.target
+    battack = battack.."concuss "..snd.bashing.target
 	else
-		battack = "onslaught "..snd.bashing.target.." bully bully"
+		battack = battack.."onslaught "..snd.bashing.target.." bully bully"
 	end
+
 end
 
 function snd.revenant_bash()
@@ -70316,7 +70319,7 @@ function snd.runecarver_bash()
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "runecarve branch"
 	elseif snd.toggles.newbie then
-  	  battack = battack..snd.sep.."hex enervate "..snd.bashing.target
+  	  battack = "hex enervate "..snd.bashing.target
   else
     if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 2 and hasSkill("Spiritpact") then
       battack = "spiritpact despair " ..snd.bashing.target..snd.sep.."hex malady "..snd.bashing.target
@@ -70372,17 +70375,17 @@ function snd.shaman_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp) 
   mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
   wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
-  
+  battack = ""
   if snd.familiar and snd.balance.morph and hasSkill("Morph") then
     if snd.shamanpet == "bear" then
-      battack = battack..snd.sep.."order spirit passive"..snd.sep.."familiar morph spider"..snd.sep
+      battack = "order spirit passive"..snd.sep.."familiar morph spider"
     elseif snd.shamanpet == "spider" then
-      battack = battack..snd.sep.."order spirit passive"..snd.sep.."familiar morph bear"..snd.sep
+      battack = "order spirit passive"..snd.sep.."familiar morph bear"
     else
-      battack = battack..snd.sep.."order spirit passive"..snd.sep.."familiar morph bear"..snd.sep
+      battack = "order spirit passive"..snd.sep.."familiar morph bear"
     end
   else
-    battack = battack..snd.sep.."familiar recall"..snd.sep.."order spirit passive"..snd.sep.."order spirit follow me"..snd.sep
+    battack = "familiar recall"..snd.sep.."order spirit passive"..snd.sep.."order spirit follow me"
   end
 
   if hp &lt;=40 and snd.shield_check() then
@@ -70422,10 +70425,10 @@ function snd.syssin_bash()
     end
   elseif not snd.balance.backstab and hasSkill("Backstab") then
     if snd.wielding("dirk") then
-      battack = battack..snd.sep.."backstab "..snd.bashing.target
+      battack = "backstab "..snd.bashing.target
 	 	else
       if hasSkill("Quickwield") then
-        battack = battack..snd.sep.."quickwield right dirk"..snd.sep.."backstab "..snd.bashing.target
+        battack = "quickwield right dirk"..snd.sep.."backstab "..snd.bashing.target
       else
         battack = "wield dirk"
       end
@@ -70481,7 +70484,7 @@ function snd.teradrim_bash()
       battack = "sand shield me"
     end
   elseif snd.balance.momentum and hasSkill("Momentum") and endur&lt;=45 then
-    battack = battack..snd.sep.."earth momentum "..snd.sep.."earth batter "..snd.bashing.target..snd.sep.."golem recover"
+    battack = "earth momentum "..snd.sep.."earth batter "..snd.bashing.target..snd.sep.."golem recover"
   else
 		battack = "earth batter "..snd.bashing.target..snd.sep.."golem recover"
 	end
@@ -70498,7 +70501,7 @@ function snd.tidesage_bash()
       battack = "fog harden me"
     end
   elseif snd.balance.momentum and hasSkill("Hightide") and endur&lt;=45 then
-    battack = battack..snd.sep.."tide hightide "..snd.sep.."tide clobber "..snd.bashing.target..snd.sep.."synth recuperate"
+    battack = "tide hightide "..snd.sep.."tide clobber "..snd.bashing.target..snd.sep.."synth recuperate"
   else
 		battack = "tide clobber "..snd.bashing.target..snd.sep.."synth recuperate"
 	end
@@ -70515,7 +70518,7 @@ function snd.warden_bash()
   elseif hp &lt;= 60 and snd.soul &gt;= 60 then
     battack = "ancest suffuse health"
 	else
-    if gmcp.Char.Vitals.wield_left:find("scythe") then
+    if gmcp.Char.Vitals.wield_left:find("scythe") or gmcp.Char.Vitals.wield_left:find("greatspear") then
       battack = "warden lacerate "..snd.bashing.target
     else
       battack = "warden maul "..snd.bashing.target
@@ -70545,7 +70548,7 @@ function snd.zealot_bash()
   hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
   mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
   wp = 100*(gmcp.Char.Vitals.wp/gmcp.Char.Vitals.maxwp)
-  
+  battack = ""
   if tonumber(gmcp.Char.Vitals.bleeding) &gt; 1000 and snd.cauterize and hasSkill("Cauterize") and mp &gt;= 15 then
     battack = "enact cauterize me"..snd.sep
     snd.cauterize = false
@@ -70554,16 +70557,16 @@ function snd.zealot_bash()
 
   if hp &lt;=40 then
     if snd.shield_check() and not snd.punisher then
-      battack = battack..snd.sep.."touch shield"
+      battack = battack.."touch shield"
     else
       if hasSkill("Respiration") then
-        battack = battack..snd.sep.."respiration"
+        battack = battack.."respiration"
       end
     end
   elseif not snd.can_arms() and hasSkill("Sunkick") then
-    battack = "sunkick "..snd.bashing.target
+    battack = battack.."sunkick "..snd.bashing.target
 	else
-		battack = battack..snd.sep.."flow "..snd.bashing.target.." pummel pummel"
+		battack = battack.."flow "..snd.bashing.target.." pummel pummel"
 	end
 end</script>
 					<eventHandlerList />
