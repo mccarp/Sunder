@@ -1198,6 +1198,26 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Hidden affliction</name>
+							<script>snd.hidden_afflictions = snd.hidden_afflictions + 1</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You have been afflicted with a hidden affliction!</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Other Lines</name>
 							<script></script>
@@ -1312,10 +1332,11 @@ end</script>
 							</Trigger>
 						</TriggerGroup>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>diag stat</name>
+							<name>diag start</name>
 							<script>for i in pairs(snd.afflictions) do
  snd.aff_remove(i)
-end</script>
+end
+snd.hidden_afflictions = 0</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>99</mStayOpen>
@@ -1785,6 +1806,7 @@ snd.clear_afflictions("smoke")</script>
     deleteLine()
   end
 snd.aff_gain(matches[2])
+snd.hidden_afflictions = math.max(0, snd.hidden_afflictions - 1)
 if snd.class == "Zealot" and not snd.swaggered then
     if snd.swagger &lt; 2 then
       snd.send("qeb swagger")
@@ -6396,7 +6418,7 @@ raiseEvent("sunder_item_update")</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList />
 					<regexCodePropertyList />
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Gate - Someone is using an ability</name>
 						<script>if multimatches[1][2]~="You" then
   snd.hitting = multimatches[1][2]
@@ -33377,6 +33399,18 @@ end
 						<packageName></packageName>
 						<regex>^prism$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Hidden afflictions diagnose count</name>
+						<script>if matches[2] then
+  cecho("&lt;red&gt;You will diagnose at &lt;yellow&gt;"..matches[2].."&lt;red&gt; hidden afflictions.")
+  snd.toggles.diagaffs = tonumber(matches[2])
+else
+  cecho("&lt;red&gt;You currently diagnose at&lt;yellow&gt; "..snd.toggles.diagaffs.."&lt;red&gt; hidden afflictions.")
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>(?i)^diagaffs(?: (\d+))?$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -51685,6 +51719,7 @@ vermin = false, -- Toggle vermin walker/basher
 goggles = false, -- Do you have the antiquated artifact goggles?
 goggle_level = 0,
 gauntlet_level = 0,
+diagaffs = 3,
 nontargetgags = true, -- spam filter for removing non-target curing
 fitness = true, -- have access to the fitness ability
 shrug = false, -- have access to shrug
@@ -51808,6 +51843,7 @@ purify = false,
 panacea = false,
 melting = false
 }
+snd.hidden_afflictions = snd.hidden_afflictions or 0
 
 snd.my_limb_damage = snd.my_limb_damage or {
 head = 0,
@@ -53232,6 +53268,7 @@ end</script>
   for i in pairs(snd.balance) do
     snd.balance[i] = true
   end
+  snd.hidden_afflictions = 0
   snd.parrying = "none"
   snd.crescentable = true
 end</script>
@@ -53471,6 +53508,8 @@ snd.priorities =
     "def_miasma",
     "def_warmth",
     "def_cloak_tattoo",
+    
+    "diagnose",
     
     "attack",
     
@@ -54036,6 +54075,11 @@ snd.method_priority = {
       if snd.need_dome then
         table.insert(snd.queue, "dome")
       end
+      
+      if snd.toggles.diagaffs~= 0 and snd.hidden_afflictions &gt;= snd.toggles.diagaffs then
+        table.insert(snd.queue, "diagnose")
+      end
+
 
     end
     if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
@@ -54077,7 +54121,9 @@ function snd.do_stuff()
     snd.do_panacea()
   elseif i == "dome" then
     snd.do_dome()
-   else
+  elseif i == "diagnose" then
+    snd.do_diagnose()
+  else
     for _,z in pairs(snd.method_priority) do
      if snd.afflictions[i] ~= nil then
       if snd.afflictions[i].cures[z.balance] ~= nil then
@@ -54667,6 +54713,9 @@ end
 
 function snd.aff_cure(affliction)
  snd.message("You: &lt;green&gt;HEAL&lt;DeepSkyBlue&gt; "..affliction..".", "affliction")
+ if snd.afflictions["aff_"..affliction].state=="healed" then
+  snd.hidden_afflictions = math.max(0, snd.hidden_afflictions - 1)
+ end
  snd.aff_remove(affliction)
 end
 
@@ -56562,10 +56611,17 @@ function snd_toggleLoad()
 	end
 	
 	table.load(load_loc, snd.toggles)
+  
   --make sure gag toggle exists, it's new!
   if snd.toggles.gags == nil then
     snd.toggles.gags = true
   end
+  
+  --make sure diagaffs toggle exists.
+  if snd.toggles.diagaffs == nil then
+    snd.toggles.diagaffs = 3
+  end
+  
 	snd.message("Toggles found; we loaded them in just fine.")
   snd.goggle_update()
 	snd_toggleSave(false)
@@ -56613,6 +56669,7 @@ dome = {info = "Do you want Sunder to auto dome for you?", command = "toggle dom
 auto_reject = {info = "Should we auto reject lust attempts?", command = "toggle reject"},
 prism = {info = "Do you want to prism/triplicate bash?", command = "toggle prism"},
 enrich = {info = "Do you want to enrich while you bash?", command = "toggle enrich"},
+diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", command = "diagaffs &lt;#&gt;"}
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -72037,6 +72094,21 @@ function snd.do_panacea()
       tempTimer(snd.delay(), [[snd.waiting.panacea = false]])
 end
 </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Diagnose</name>
+						<packageName></packageName>
+						<script>
+function snd.do_diagnose()
+ if snd.full_balance() then
+  snd.send("diagnose")
+  snd.last_type = "diagnose"
+  snd.last_item = "send"
+  snd.waiting.balance = true
+  tempTimer(snd.delay(), [[snd.waiting.balance = false]])
+ end
+end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
