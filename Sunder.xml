@@ -33316,7 +33316,7 @@ snd.goggle_update()
 						<name>Goggle level</name>
 						<script>if matches[3] then
   cecho("&lt;red&gt;You have set your ylem goggles level to:&lt;orange_red&gt; "..matches[3].."&lt;red&gt;.")
-  snd.toggles.goggle_level = matches[3]
+  snd.toggles.goggle_level = tonumber(matches[3])
   snd.goggle_update()
 else
   cecho("&lt;red&gt;You have set your ylem goggles level to:&lt;orange_red&gt; "..snd.toggles.goggle_level.."&lt;red&gt;.")
