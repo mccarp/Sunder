@@ -75524,6 +75524,13 @@ end</script>
   },
   
   ["Mentis"] = {
+    Whisper = function(target)
+                for _, aff in pairs(snd.maybe_affs) do
+                  if not table.contains(snd.venoms, snd.maybe_affs[1]) then
+                    snd.target_got(aff) 
+                  end
+                end
+              end,
     Mesmerize = function(target, blindness)
                   snd.target_got("sight")
                   if not blindness then  
