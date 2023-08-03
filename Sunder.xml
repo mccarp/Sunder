@@ -7979,18 +7979,12 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>aff called by vamps</name>
 						<script>if matches[3]:lower() == snd.target:lower() then
-  snd.maybe_affs = {}
-
-   for aff in string.gmatch(matches[4]:lower(), '([^, ]+)') do
-       if aff ~= "whispering:" and aff ~= "dictating" then
-          aff = aff:gsub("%.", "")      
-          table.insert(snd.maybe_affs, aff)         
-       end
-      end
-
+  snd.maybe_affs = {matches[4]}
+  snd.target_got(matches[5])
+  snd.target_got(matches[6])
   snd.hitting = matches[2]
   snd.who_called_affs = matches[2]
 end
@@ -8007,7 +8001,7 @@ end
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^\(Web\): (\w+) says, "Afflicting (\w+): (\w+)\. Whispering: (\w+), (\w+)\.$</string>
+							<string>^\(Web\): (\w+) says, "Afflicting (\w+): (\w+)\. (?:Whispering|Dictating): (\w+), (\w+)\."$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -72866,6 +72860,38 @@ hemorrhage = "hemorrhage",
 rend = "rend",
 }
 
+snd.venoms = {
+    "sumac",
+    "xentio",
+    "oleander",
+    "eurypteria",
+    "kalmia",
+    "digitalis",
+    "darkshade",
+    "curare",
+    "epteth",
+    "prefarar",
+    "monkshood",
+    "euphorbia",
+    "colocasia",
+    "oculus",
+    "hepafarin",
+    "camus",
+    "vernalius",
+    "epseth",
+    "larkspur",
+    "slike",
+    "voyria",
+    "delphinium",
+    "vardrax",
+    "loki",
+    "aconite",
+    "selarnia",
+    "gecko",
+    "scytherus",
+    "ouabain",
+  }
+
 function snd.rev_empower(aff)
 
    local revenant = {
@@ -74229,6 +74255,7 @@ local affs_to_change = {
   ["cracked ribs"] = "cracked_ribs",
   ["self loathing"] = "self_loathing",
   ["blood curse"] = "blood_curse",
+  ["lovers"] = "lovers_effect",
 }
   
   if affs_to_change[aff] then
@@ -77489,7 +77516,7 @@ end</script>
                     snd.took_limb_dmg(-15, limb)
                   end,
     Censure = function(target, lenient)
-            snd.onHit2({"Dodge", "Rebounding"})
+--                --should be handled by weapon hit confirmation.
            end,
     
     Bloodlet = function(target)
@@ -77509,6 +77536,13 @@ end</script>
   },
   
   ["Dictum"] = {
+    Dictate = function(target)
+                for _, aff in pairs(snd.maybe_affs) do
+                  if not table.contains(snd.venoms, snd.maybe_affs[1]) then
+                    snd.target_got(aff) 
+                  end
+                end
+              end,
     Exhort = function(target, blindness)
                   snd.target_got("sight")
                   if not blindness then  
