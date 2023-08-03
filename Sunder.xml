@@ -7979,18 +7979,12 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>aff called by vamps</name>
 						<script>if matches[3]:lower() == snd.target:lower() then
-  snd.maybe_affs = {}
-
-   for aff in string.gmatch(matches[4]:lower(), '([^, ]+)') do
-       if aff ~= "whispering:" and aff ~= "dictating" then
-          aff = aff:gsub("%.", "")      
-          table.insert(snd.maybe_affs, aff)         
-       end
-      end
-
+  snd.maybe_affs = {matches[4]}
+  snd.target_got(matches[5])
+  snd.target_got(matches[6])
   snd.hitting = matches[2]
   snd.who_called_affs = matches[2]
 end
@@ -8007,7 +8001,7 @@ end
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^\(Web\): (\w+) says, "Afflicting (\w+): (\w+)\. Whispering: (\w+), (\w+)\.$</string>
+							<string>^\(Web\): (\w+) says, "Afflicting (\w+): (\w+)\. (?:Whispering|Dictating): (\w+), (\w+)\."$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -53960,6 +53954,16 @@ snd.priorities =
     "def_featherstep",
     "def_rot_carpet",
     "def_warding_rigor",
+    "def_greenfoot",
+    "def_oath_durdalis",
+    "def_oath_forestwalker",
+    "def_oath_blade",
+    "def_oath_shaman",
+    "def_oath_tranquility",
+    "def_oath_primeval",
+    "def_oath_rhythm",
+    
+    "def_blightbringer",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -54969,7 +54973,7 @@ def_conduit_crutch  = {defense = "conduit_crutch", type = "normal", effect = "Gi
 def_discipline_fieldstudies  = {defense = "discipline_fieldstudies", type = "normal", effect = "Heals you in forests", balance = {balanceequilibriumtake = "discipline field studies recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
 def_discipline_research  = {defense = "discipline_research", type = "normal", effect = "Heals mental afflictions", balance = {balanceequilibriumtake = "discipline research recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
 def_discipline_biology  = {defense = "discipline_biology", type = "normal", effect = "Heals afflictions", balance = {balanceequilibriumtake = "discipline biology recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_blightbringer  = {defense = "blightbringer", type = "normal", effect = "Bring your nature with you", balance = {balanceequilibriumtake = "botany blightbringer on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Greenfoot"},
+def_blightbringer  = {defense = "blightbringer", type = "normal", effect = "Bring your nature with you", balance = {balanceequilibriumtake = "botany blightbringer on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blightbringer"},
 
 --Archivist
 def_spheres = {defense = "spheres", type = "normal", effect = "Spheres defense for Archivist", balance = {needyequilibriumtake = "contemplate spheres"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spheres" },
@@ -55141,10 +55145,15 @@ def_protection = {defense = "protection", type = "normal", effect = "Resistance 
 def_shaman_spiritsight = {defense = "shaman_spiritsight", type = "normal", effect = "You get loki 2.0.", balance = {balanceequilibriumtake = "shaman spiritsight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spiritsight" },
 def_lifebloom = {defense = "lifebloom", type = "normal", effect = "Restore HP upon getting low health.", balance = {balanceequilibriumtake = "commune lifebloom"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifebloom"},
 def_shaman_warding  = {defense = "shaman_warding", type = "normal", effect = "Give mental affs when your parry is hit.", balance = {balanceequilibriumtake = "shaman warding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warding" },
-def_oath_forestwalker  = {defense = "forestwalker", type = "normal", effect = "Heals you in forests", balance = {balanceequilibriumtake = "oath forestwalker activate"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_oath_tranquility  = {defense = "tranquility", type = "normal", effect = "Heals afflictions", balance = {balanceequilibriumtake = "oath tranquility activate"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_oath_shaman  = {defense = "elder shaman", type = "normal", effect = "Heals mental afflictions", balance = {balanceequilibriumtake = "oath eldershaman activate"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
 def_greenfoot  = {defense = "greenfoot", type = "normal", effect = "Bring your nature with you", balance = {balanceequilibriumtake = "nature greenfoot on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Greenfoot"},
+def_oath_durdalis = {defense = "oath_durdalis", type = "normal", effect = "Absorb an elemental attack every 60 sec", balance = {balanceequilibriumtake = "oath durdalis activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_forestwalker = {defense = "oath_forestwalker", type = "normal", effect = "Recover health while in overgrowth/forest", balance = {balanceequilibriumtake = "oath forestwalker activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_blade = {defense = "oath_blade", type = "normal", effect = "25% chance you won't consume 1 primal energy charge", balance = {balanceequilibriumtake = "oath blade activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_tranquility = {defense = "oath_tranquility", type = "normal", effect = "Periodically cure an affliction as long as not paralyzed", balance = {balanceequilibriumtake = "oath tranquility activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_shaman = {defense = "oath_shaman", type = "normal", effect = "2% chance to resist mental affliction", balance = {balanceequilibriumtake = "oath shaman activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_primeval = {defense = "oath_primeval", type = "normal", effect = "Your familiars attack faster!", balance = {balanceequilibriumtake = "oath shaman activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_rhythm = {defense = "oath_rhythm", type = "normal", effect = "prevents force abilities and effects", balance = {balanceequilibriumtake = "oath rhythm activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+
 
 --Shapeshifter
 def_weathering = {defense = "weathering", type = "normal", effect = "Cold resistance", balance = {special = "weathering"}, state = "down", needit = false, timer = createStopWatch(), skill = "Weathering"},
@@ -55650,8 +55659,14 @@ end</script>
   ["You stalk the night as a predator."] = "stalking",
   ["Your steps hardly touch the ground."] = "featherstep",
   ["A carpet of fetid rot sprawls beneath your feet."] = "rot_carpet",
-
-
+  ["Plants sprout before your footsteps."] = "greenfoot",
+  ["You have enacted the Oath of the Durdalis."] = "oath_durdalis",
+  ["You have enacted the Oath of the Forestwalker."] = "oath_forestwalker",
+  ["You have enacted the Oath of the Elder Shaman."] = "oath_shaman",
+  ["You have enacted the Oath of the Nature's Blade."] = "oath_blade",
+  ["You have enacted the Oath of the Tranquility."] = "oath_tranquility",
+  ["You have enacted the Oath of the Primeval."] = "oath_primeval",
+  ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
 }
  </script>
 							<eventHandlerList />
@@ -71196,7 +71211,7 @@ function snd.bashing_cleanup()
   end
 end
 
--- Sample cleanup function. needs to be lowercase classname_cleanup() for it to work.
+-- Sample cleanup function. needs to be lowercase snd.classname_cleanup() for it to work.
 -- function snd.templar_cleanup()
   -- local bleed = tonumber(gmcp.Char.Vitals.bleeding)
   -- local hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
@@ -72845,6 +72860,38 @@ hemorrhage = "hemorrhage",
 rend = "rend",
 }
 
+snd.venoms = {
+    "sumac",
+    "xentio",
+    "oleander",
+    "eurypteria",
+    "kalmia",
+    "digitalis",
+    "darkshade",
+    "curare",
+    "epteth",
+    "prefarar",
+    "monkshood",
+    "euphorbia",
+    "colocasia",
+    "oculus",
+    "hepafarin",
+    "camus",
+    "vernalius",
+    "epseth",
+    "larkspur",
+    "slike",
+    "voyria",
+    "delphinium",
+    "vardrax",
+    "loki",
+    "aconite",
+    "selarnia",
+    "gecko",
+    "scytherus",
+    "ouabain",
+  }
+
 function snd.rev_empower(aff)
 
    local revenant = {
@@ -74208,6 +74255,7 @@ local affs_to_change = {
   ["cracked ribs"] = "cracked_ribs",
   ["self loathing"] = "self_loathing",
   ["blood curse"] = "blood_curse",
+  ["lovers"] = "lovers_effect",
 }
   
   if affs_to_change[aff] then
@@ -77468,7 +77516,7 @@ end</script>
                     snd.took_limb_dmg(-15, limb)
                   end,
     Censure = function(target, lenient)
-            snd.onHit2({"Dodge", "Rebounding"})
+--                --should be handled by weapon hit confirmation.
            end,
     
     Bloodlet = function(target)
@@ -77488,6 +77536,13 @@ end</script>
   },
   
   ["Dictum"] = {
+    Dictate = function(target)
+                for _, aff in pairs(snd.maybe_affs) do
+                  if not table.contains(snd.venoms, snd.maybe_affs[1]) then
+                    snd.target_got(aff) 
+                  end
+                end
+              end,
     Exhort = function(target, blindness)
                   snd.target_got("sight")
                   if not blindness then  
