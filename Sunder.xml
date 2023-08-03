@@ -19054,7 +19054,7 @@ end</script>
 									</Trigger>
 								</TriggerGroup>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Weapon Hit Confirmation</name>
 								<script>-- generic weapon lines that both classes use</script>
 								<triggerType>0</triggerType>
@@ -19414,9 +19414,9 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>scimitar attacks</name>
-									<script>if matches[2] == snd.target and (matches[1]:find("scimitar") or matches[1]:find("shotel")) then
+									<script>if matches[2] == snd.target and (matches[1]:find("scimitar") or matches[1]:find("shotel") or matches[1]:find("sabre")) then
   snd.onHit2({"Rebounding", "Dodge"}, "Templar")
 end</script>
 									<triggerType>0</triggerType>
@@ -77509,7 +77509,9 @@ end</script>
   
 --Akkari
   ["Ascendance"] = {
-  
+    Ague = function(target)
+                snd.target_got("cold")
+              end,
     Penitence = function(target)
                 snd.target_got("slickness")
                 snd.used.paste = false
@@ -77524,8 +77526,8 @@ end</script>
                     snd.took_limb_dmg(-15, limb)
                   end,
     Censure = function(target, lenient)
---                --should be handled by weapon hit confirmation.
-           end,
+                    enableTrigger("Weapon Hit Confirmation")
+                  end,
     
     Bloodlet = function(target)
                 snd.target_got("rend")
