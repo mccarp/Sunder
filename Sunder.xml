@@ -7908,14 +7908,15 @@ snd.maybe_affs = {}</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>batter call</name>
 						<script>if string.title(matches[4]) == snd.target then
- snd.maybe_affs = {}
+ local maybe_affs = {}
  for aff in string.gmatch(matches[5], '([^, ]+)') do
-  table.insert(snd.maybe_affs, aff)
+  table.insert(maybe_affs, aff)
+ end
+ for aff in pairs(maybe_affs) do
+  snd.target_got(maybe_affs[aff])
  end
 end
-for aff in pairs(snd.maybe_affs) do
- snd.target_got(snd.maybe_affs[aff])
-end</script>
+</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>20</mStayOpen>
@@ -19699,7 +19700,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>manta</name>
 									<script>if matches[2] == snd.target then
-  snd.onHit2({"Rebounding", "Dodge"}, "Templar2h")
+  snd.onHit2({"Rebounding", "Dodge"})
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
