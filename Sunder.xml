@@ -19701,7 +19701,8 @@ end</script>
 									<name>manta</name>
 									<script>if matches[2] == snd.target then
   snd.onHit2({"Rebounding", "Dodge"})
-end</script>
+end
+disableTrigger("Weapon Hit Confirmation")</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -37655,7 +37656,7 @@ snd.akkari_attend()
       else
     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
-      fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
+      fcall = "Afflicting "..snd.target..": "..snd.effects[gashaff[1]].." "
   elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
       if gashaff[1] == "black_bile" then
       pattack = "denounce "..snd.target.." corruption"..snd.sep
@@ -38264,7 +38265,7 @@ snd.scythe_gash = {
               call = "wt Afflicting "..snd.target..": "..touse[1]..snd.sep..", "..touse[2]		   
            else
 			        string = "wipe weapon"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]].." lenient"..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target..snd.sep
-			        call = "wt Afflicting "..snd.target..": " ..gashaff[1]..". Whispering: "..touse[1]..", "..touse[2]
+			        call = "wt Afflicting "..snd.target..": " ..snd.effects[gashaff[1]]..". Whispering: "..touse[1]..", "..touse[2]
 			     end
         end
 
@@ -38442,7 +38443,7 @@ if snd.class == "Akkari" then
             snd.effects[gashaff[1]] ..
             snd.sep
         end
-        fcall = "Afflicting " .. snd.target .. ": " .. gashaff[1] .. " "
+        fcall = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. " "
       elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
         if gashaff[1] == "black_bile" then
           pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
