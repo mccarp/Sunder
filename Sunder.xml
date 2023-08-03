@@ -33810,7 +33810,11 @@ end</script>
 battack = ""
 for k,v in pairs(snd.class_list) do
   if snd.class_list[k].class == snd.class then
-  v.func()
+  if snd[v.class:lower().."_bash_override"] then
+    snd[v.class:lower().."_bash_override"]()
+  else
+    v.func()
+  end
   snd.send("qeb stand"..snd.sep..battack)
   end
 end</script>
@@ -69961,7 +69965,11 @@ function snd.bashing_function()
 				for k,v in pairs(snd.class_list) do
 					if snd.class_list[k].class == snd.class then -- check current class to class bash list above
             battack = "" -- set attack from 'none' to "" so it can be set in the class basher, will provide error if it can't get a class ability
-						v.func() -- set attack from class basher
+						if snd[v.class:lower().."_bash_override"] then
+              snd[v.class:lower().."_bash_override"]()
+            else
+              v.func() -- set attack from class basher
+            end 
 						if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
 							battack = "overdrive"..snd.sep..battack..snd.sep.."recoup"..snd.sep
 						elseif snd.pushattack then  -- if they are a pushable npc (tcanna/drakuum/torturer) and we know we can shove, do it first
