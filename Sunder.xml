@@ -53966,6 +53966,13 @@ snd.priorities =
     "def_oath_rhythm",
     
     "def_blightbringer",
+    "def_discipline_fieldstudies",
+    "def_discipline_compounding",
+    "def_discipline_research",
+    "def_discipline_experimentation",
+    "def_discipline_pnp",
+    "def_discipline_biology",
+    "def_discipline_chemistry",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -54972,10 +54979,15 @@ def_obfuscation = {defense = "obfuscation", type = "normal", effect = "Resistanc
 def_cognisance = {defense = "cognisance", type = "normal", effect = "You get loki 2.0.", balance = {balanceequilibriumtake = "derive cognisance on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cognisance" },
 def_resuscitation = {defense = "resuscitation", type = "normal", effect = "Restore HP upon getting low health.", balance = {balanceequilibriumtake = "alchemy resuscitation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Resuscitation"},
 def_conduit_crutch  = {defense = "conduit_crutch", type = "normal", effect = "Give mental affs when your parry is hit.", balance = {balanceequilibriumtake = "derive crutch"}, state = "down", needit = false, timer = createStopWatch(), skill = "Crutch" },
-def_discipline_fieldstudies  = {defense = "discipline_fieldstudies", type = "normal", effect = "Heals you in forests", balance = {balanceequilibriumtake = "discipline field studies recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_discipline_research  = {defense = "discipline_research", type = "normal", effect = "Heals mental afflictions", balance = {balanceequilibriumtake = "discipline research recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_discipline_biology  = {defense = "discipline_biology", type = "normal", effect = "Heals afflictions", balance = {balanceequilibriumtake = "discipline biology recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
 def_blightbringer  = {defense = "blightbringer", type = "normal", effect = "Bring your nature with you", balance = {balanceequilibriumtake = "botany blightbringer on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blightbringer"},
+def_discipline_fieldstudies  = {defense = "discipline_fieldstudies", type = "normal", effect = "Heals you in forests", balance = {balanceequilibriumtake = "discipline field studies recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_research  = {defense = "discipline_research", type = "normal", effect = "Heals mental afflictions", balance = {balanceequilibriumtake = "discipline research recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_biology  = {defense = "discipline_biology", type = "normal", effect = "Heals afflictions", balance = {balanceequilibriumtake = "discipline biology recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_compounding  = {defense = "discipline_compounding", type = "normal", effect = "Chance to save catalysts", balance = {balanceequilibriumtake = "discipline compounding recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_pnp  = {defense = "discipline_pnp", type = "normal", effect = "Immune to forced actions", balance = {balanceequilibriumtake = "discipline procedure &amp; protocol recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_chemistry  = {defense = "discipline_chemistry", type = "normal", effect = "Negate elemental attack on a cooldown", balance = {balanceequilibriumtake = "discipline chemistry recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_experimentation  = {defense = "discipline_experimentation", type = "normal", effect = "Experiment strikes faster", balance = {balanceequilibriumtake = "discipline experimentation recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+
 
 --Archivist
 def_spheres = {defense = "spheres", type = "normal", effect = "Spheres defense for Archivist", balance = {needyequilibriumtake = "contemplate spheres"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spheres" },
@@ -55669,6 +55681,15 @@ end</script>
   ["You have enacted the Oath of the Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
+  
+  ["The blight spreads wherever you may roam."] = "blightbringer",
+  ["You are recalling the discipline of Field Studies."] = "discipline_fieldstudies",
+  ["You are recalling the discipline of Compounding."] = "discipline_compounding",
+  ["You are recalling the discipline of Research."] = "discipline_research",
+  ["You are recalling the discipline of Experimentation."] = "discipline_experimentation",
+  ["You are recalling the discipline of Procedure &amp; Protocol."] = "discipline_pnp",
+  ["You are recalling the discipline of Biology."] = "discipline_biology",
+  ["You are recalling the discipline of Chemistry."] = "discipline_chemistry",
 }
  </script>
 							<eventHandlerList />
