@@ -565,7 +565,6 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres stop</name>
 								<script>snd.toggles.active = true
-snd.def_def("spheres")
 send("firstaid on")
 </script>
 								<triggerType>0</triggerType>
@@ -589,13 +588,14 @@ send("firstaid on")
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres start</name>
-								<script>snd.toggles.active = true
-snd.def_def("spheres")
-send("firstaid on")</script>
+								<script>if snd.defenses.def_spheres.needit then
+  snd.toggles.active = false
+  send("firstaid off")
+end</script>
 								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
+								<conditonLineDelta>1</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
 								<mCommand></mCommand>
 								<packageName></packageName>
@@ -7061,8 +7061,10 @@ end
 									<string>^White flames suddenly encase .+, burning away (\w+)('s|') rebounding aura\.$</string>
 									<string>^You lash out with .+ and crumple (\w+)('s|') aura of rebounding\.$</string>
 									<string>^A line of inky blackness leaps from .+, annihilating (\w+)'s aura of rebounding in a darkling burst\.$</string>
+									<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -7280,8 +7282,10 @@ end</script>
 									<string>^You use Tenacity Devastate on (\w+).$</string>
 									<string>^You use Tenacity Devastate \(fail\) on (\w+).$</string>
 									<string>^You touch your tattoo and summon the hammer but (\w+) isn't protected.$</string>
+									<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -14720,7 +14724,7 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^(\w+) begins to fume at the mouth and turns bright red.$</string>
-										<string>^(\w+) grabs your arm and begins to chew, drooling all the while.$</string>
+										<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
