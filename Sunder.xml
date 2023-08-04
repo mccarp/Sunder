@@ -565,7 +565,6 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres stop</name>
 								<script>snd.toggles.active = true
-snd.def_def("spheres")
 send("firstaid on")
 </script>
 								<triggerType>0</triggerType>
@@ -589,13 +588,14 @@ send("firstaid on")
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spheres start</name>
-								<script>snd.toggles.active = true
-snd.def_def("spheres")
-send("firstaid on")</script>
+								<script>if snd.defenses.def_spheres.needit then
+  snd.toggles.active = false
+  send("firstaid off")
+end</script>
 								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
+								<conditonLineDelta>1</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
 								<mCommand></mCommand>
 								<packageName></packageName>
@@ -7061,8 +7061,10 @@ end
 									<string>^White flames suddenly encase .+, burning away (\w+)('s|') rebounding aura\.$</string>
 									<string>^You lash out with .+ and crumple (\w+)('s|') aura of rebounding\.$</string>
 									<string>^A line of inky blackness leaps from .+, annihilating (\w+)'s aura of rebounding in a darkling burst\.$</string>
+									<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -7280,8 +7282,10 @@ end</script>
 									<string>^You use Tenacity Devastate on (\w+).$</string>
 									<string>^You use Tenacity Devastate \(fail\) on (\w+).$</string>
 									<string>^You touch your tattoo and summon the hammer but (\w+) isn't protected.$</string>
+									<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -14720,7 +14724,7 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^(\w+) begins to fume at the mouth and turns bright red.$</string>
-										<string>^(\w+) grabs your arm and begins to chew, drooling all the while.$</string>
+										<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -19701,7 +19705,8 @@ end</script>
 									<name>manta</name>
 									<script>if matches[2] == snd.target then
   snd.onHit2({"Rebounding", "Dodge"})
-end</script>
+end
+disableTrigger("Weapon Hit Confirmation")</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -33809,7 +33814,11 @@ end</script>
 battack = ""
 for k,v in pairs(snd.class_list) do
   if snd.class_list[k].class == snd.class then
-  v.func()
+  if snd[v.class:lower().."_bash_override"] then
+    snd[v.class:lower().."_bash_override"]()
+  else
+    v.func()
+  end
   snd.send("qeb stand"..snd.sep..battack)
   end
 end</script>
@@ -37655,7 +37664,7 @@ snd.akkari_attend()
       else
     	pattack = "wipe left"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]]..snd.sep
       end
-      fcall = "Afflicting "..snd.target..": "..gashaff[1].." "
+      fcall = "Afflicting "..snd.target..": "..snd.effects[gashaff[1]].." "
   elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
       if gashaff[1] == "black_bile" then
       pattack = "denounce "..snd.target.." corruption"..snd.sep
@@ -38264,7 +38273,7 @@ snd.scythe_gash = {
               call = "wt Afflicting "..snd.target..": "..touse[1]..snd.sep..", "..touse[2]		   
            else
 			        string = "wipe weapon"..snd.sep.."censure "..snd.target.." "..snd.effects[gashaff[1]].." lenient"..snd.sep.."dictate "..touse[1].." "..touse[2].." "..snd.target..snd.sep
-			        call = "wt Afflicting "..snd.target..": " ..gashaff[1]..". Whispering: "..touse[1]..", "..touse[2]
+			        call = "wt Afflicting "..snd.target..": " ..snd.effects[gashaff[1]]..". Whispering: "..touse[1]..", "..touse[2]
 			     end
         end
 
@@ -38442,7 +38451,7 @@ if snd.class == "Akkari" then
             snd.effects[gashaff[1]] ..
             snd.sep
         end
-        fcall = "Afflicting " .. snd.target .. ": " .. gashaff[1] .. " "
+        fcall = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. " "
       elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
         if gashaff[1] == "black_bile" then
           pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
@@ -53965,6 +53974,13 @@ snd.priorities =
     "def_oath_rhythm",
     
     "def_blightbringer",
+    "def_discipline_fieldstudies",
+    "def_discipline_compounding",
+    "def_discipline_research",
+    "def_discipline_experimentation",
+    "def_discipline_pnp",
+    "def_discipline_biology",
+    "def_discipline_chemistry",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -54971,10 +54987,15 @@ def_obfuscation = {defense = "obfuscation", type = "normal", effect = "Resistanc
 def_cognisance = {defense = "cognisance", type = "normal", effect = "You get loki 2.0.", balance = {balanceequilibriumtake = "derive cognisance on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cognisance" },
 def_resuscitation = {defense = "resuscitation", type = "normal", effect = "Restore HP upon getting low health.", balance = {balanceequilibriumtake = "alchemy resuscitation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Resuscitation"},
 def_conduit_crutch  = {defense = "conduit_crutch", type = "normal", effect = "Give mental affs when your parry is hit.", balance = {balanceequilibriumtake = "derive crutch"}, state = "down", needit = false, timer = createStopWatch(), skill = "Crutch" },
-def_discipline_fieldstudies  = {defense = "discipline_fieldstudies", type = "normal", effect = "Heals you in forests", balance = {balanceequilibriumtake = "discipline field studies recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_discipline_research  = {defense = "discipline_research", type = "normal", effect = "Heals mental afflictions", balance = {balanceequilibriumtake = "discipline research recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
-def_discipline_biology  = {defense = "discipline_biology", type = "normal", effect = "Heals afflictions", balance = {balanceequilibriumtake = "discipline biology recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Generic"},
 def_blightbringer  = {defense = "blightbringer", type = "normal", effect = "Bring your nature with you", balance = {balanceequilibriumtake = "botany blightbringer on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blightbringer"},
+def_discipline_fieldstudies  = {defense = "discipline_fieldstudies", type = "normal", effect = "Heals you in forests", balance = {balanceequilibriumtake = "discipline field studies recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_research  = {defense = "discipline_research", type = "normal", effect = "Heals mental afflictions", balance = {balanceequilibriumtake = "discipline research recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_biology  = {defense = "discipline_biology", type = "normal", effect = "Heals afflictions", balance = {balanceequilibriumtake = "discipline biology recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_compounding  = {defense = "discipline_compounding", type = "normal", effect = "Chance to save catalysts", balance = {balanceequilibriumtake = "discipline compounding recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_pnp  = {defense = "discipline_pnp", type = "normal", effect = "Immune to forced actions", balance = {balanceequilibriumtake = "discipline procedure &amp; protocol recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_chemistry  = {defense = "discipline_chemistry", type = "normal", effect = "Negate elemental attack on a cooldown", balance = {balanceequilibriumtake = "discipline chemistry recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+def_discipline_experimentation  = {defense = "discipline_experimentation", type = "normal", effect = "Experiment strikes faster", balance = {balanceequilibriumtake = "discipline experimentation recall"}, state = "down", needit = false, timer = createStopWatch(), skill ="Disciplines"},
+
 
 --Archivist
 def_spheres = {defense = "spheres", type = "normal", effect = "Spheres defense for Archivist", balance = {needyequilibriumtake = "contemplate spheres"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spheres" },
@@ -55668,6 +55689,15 @@ end</script>
   ["You have enacted the Oath of the Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
+  
+  ["The blight spreads wherever you may roam."] = "blightbringer",
+  ["You are recalling the discipline of Field Studies."] = "discipline_fieldstudies",
+  ["You are recalling the discipline of Compounding."] = "discipline_compounding",
+  ["You are recalling the discipline of Research."] = "discipline_research",
+  ["You are recalling the discipline of Experimentation."] = "discipline_experimentation",
+  ["You are recalling the discipline of Procedure &amp; Protocol."] = "discipline_pnp",
+  ["You are recalling the discipline of Biology."] = "discipline_biology",
+  ["You are recalling the discipline of Chemistry."] = "discipline_chemistry",
 }
  </script>
 							<eventHandlerList />
@@ -69722,7 +69752,9 @@ end</script>
 					<packageName></packageName>
 					<script>
 snd.global_items = {
-
+-- "a sample of fur and hide",
+-- "a dirt sample",
+-- "a delicate flora sample",
 }
 
 snd.global_targets = {
@@ -69937,7 +69969,11 @@ function snd.bashing_function()
 				for k,v in pairs(snd.class_list) do
 					if snd.class_list[k].class == snd.class then -- check current class to class bash list above
             battack = "" -- set attack from 'none' to "" so it can be set in the class basher, will provide error if it can't get a class ability
-						v.func() -- set attack from class basher
+						if snd[v.class:lower().."_bash_override"] then
+              snd[v.class:lower().."_bash_override"]()
+            else
+              v.func() -- set attack from class basher
+            end 
 						if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
 							battack = "overdrive"..snd.sep..battack..snd.sep.."recoup"..snd.sep
 						elseif snd.pushattack then  -- if they are a pushable npc (tcanna/drakuum/torturer) and we know we can shove, do it first
