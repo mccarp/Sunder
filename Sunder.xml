@@ -24397,7 +24397,7 @@ end
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList />
 					<regexCodePropertyList />
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>batter call</name>
 						<script>if string.title(matches[4]) == snd.target then
  snd.maybe_affs = {}
@@ -55661,10 +55661,10 @@ end</script>
   ["You are blessed with miraculous strength."] = "ardour_strength",
   ["You are blessed with miraculous intelligence."] = "ardour_intelligence",
   ["You are blessed with miraculous dexterity."] = "ardour_dexterity",
-  ["Your constitution is bolstered by an Earthen battle hymn"] = "battlehymn_constitution",
-  ["Your intelligence is bolstered by an Earthen battle hymn"] = "battlehymn_intelligence",
-  ["Your dexterity is bolstered by an Earthen battle hymn"] = "battlehymn_dexterity",
-  ["Your strength is bolstered by an Earthen battle hymn"] = "battlehymn_strength",
+  ["Your constitution is bolstered by an Earthen battle hymn."] = "battlehymn_constitution",
+  ["Your intelligence is bolstered by an Earthen battle hymn."] = "battlehymn_intelligence",
+  ["Your dexterity is bolstered by an Earthen battle hymn."] = "battlehymn_dexterity",
+  ["Your strength is bolstered by an Earthen battle hymn."] = "battlehymn_strength",
   ["Your being is protected by the soulcage."] = "soulcage",
   ["You will forestall poisonous harm."] = "forestall",
   ["Your moon tattoo is being empowered."] = "empowered_moon",
