@@ -388,6 +388,92 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Manifestation Phantasms</name>
+								<script>snd.def_def(matches[2].."_phantasm")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You are surrounded by phantasms of (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Manifestation Chimeras</name>
+								<script>local chimeras = matches[2]:split(" and ")
+for _, chimera in pairs(chimeras) do
+  snd.def_def(chimera.."_chimera")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You have consumed and chimerized the following: (.+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Righteousness Aura</name>
+								<script>snd.def_def(matches[2].."_aura")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You are protected by an aura of (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Righteousness Blessings</name>
+								<script>local blessings = matches[2]:split(" and ")
+for _, blessing in pairs(blessings) do
+  snd.def_def(blessing.."_blessing")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You are benefiting from the blessings of (.+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>defline gain</name>
@@ -1036,6 +1122,341 @@ end</script>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Manifestation</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Metabolize</name>
+									<script>local defName = "def_"..multimatches[2][2]:lower().."_chimera"
+if snd.toggles.gags then
+  deleteLine()
+end
+snd.def_take(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>2</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Manifestation Metabolize.</string>
+										<string>^Your (\w+) chimerized phantasm has been metabolized\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Quell - Main</name>
+									<script>local defName = "def_"..matches[2]:lower().."_phantasm"
+snd.def_take(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You destroy your (\w+) phantasm with a dismissive flick of your hand, absorbing its energy back into your body\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Quell - Chimerized</name>
+									<script>local defName = "def_"..matches[2]:lower().."_chimera"
+snd.def_take(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You grit your teeth, diffusing your chimerized (\w+) phantasm throughout your body\.$</string>
+										<string>^You have not chimerized a (\w+) phantasm\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Quell - All</name>
+									<script>local chimeras =
+  {
+    "def_influence_chimera",
+    "def_congeal_chimera",
+    "def_leech_chimera",
+    "def_claw_chimera",
+    "def_mire_chimera",
+    "def_choke_chimera",
+    "def_wail_chimera",
+    "def_absorb_chimera",
+    "def_siphon_chimera",
+    "def_symbiosis_chimera",
+  }
+for _, def in pairs(chimeras) do
+  snd.def_take(def)
+end
+</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You release your chimerized phantasms, diffusing their essence throughout your body.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Main phantasm</name>
+									<script>local defName = "def_"..multimatches[2][2]:lower().."_phantasm"
+snd.def_gain(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>1</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Manifestation Phantasm.</string>
+										<string>^Tendrils of shadowy essence slither out from your mouth, manifesting at your command into the (\w+) phantasm\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Chimerized Phantasm</name>
+									<script>local defName = "def_"..multimatches[2][2]:lower().."_chimera"
+snd.def_gain(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>1</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Manifestation Chimerization.</string>
+										<string>^You open your mouth wide, vision going black momentarily as you utterly devour your (\w+) phantasm, chimerizing it deep beneath your flesh to amplify its effects\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Righteousness</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Aura</name>
+									<script>local defName = "def_"..multimatches[2][2]:lower().."_aura"
+snd.def_gain(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>1</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Righteousness Aura.</string>
+										<string>^You focus momentarily as you envelop yourself in the righteous aura of (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Aura off</name>
+									<script>local defName = "def_"..matches[2]:lower().."_aura"
+snd.def_take(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You focus and the aura of (\w+) flickers and fades away\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Blessing</name>
+									<script>local defName = "def_"..multimatches[2][2]:lower().."_blessing"
+snd.def_gain(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>1</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Righteousness Blessing.</string>
+										<string>^You focus on your (\w+) aura and draw its power into you, focusing it onto your body\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Blessing off</name>
+									<script>local defName = "def_"..matches[2]:lower().."_blessing"
+snd.def_take(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You focus and cleanse yourself of the (\w+) blessing\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>All blessings off</name>
+									<script>local blessings =
+  {
+    "def_accuracy_blessing",
+    "def_protection_blessing",
+    "def_healing_blessing",
+    "def_purity_blessing",
+    "def_justice_blessing",
+    "def_pestilence_blessing",
+    "def_spellbane_blessing",
+    "def_cleansing_blessing",
+    "def_meditation_blessing",
+    "def_redemption_blessing",
+  }
+for _, def in pairs(blessings) do
+  snd.def_take(def)
+end
+</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You have no blessings to turn off.</string>
+										<string>You cleanse yourself of any active blessings.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Absorb</name>
+									<script>local defName = "def_"..multimatches[3][2]:lower().."_blessing"
+snd.def_take(defName)</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>2</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Righteousness Absorb.</string>
+										<string>You draw one of your blessings into yourself, using its power to heal your wounds.</string>
+										<string>^Your (\w+) blessing has been absorbed\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
 						</TriggerGroup>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>resurgence</name>
@@ -6918,6 +7339,7 @@ end</script>
 								<script>if snd.target == matches[2] then
  snd.used.paste = true
  snd.waiting.queue = false
+ snd.target_cured("no_paste")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -6938,7 +7360,8 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>has paste</name>
-								<script>snd.used.paste = true</script>
+								<script>snd.used.paste = true
+snd.target_cured("no_paste")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -37763,7 +38186,7 @@ snd.akkari_attend()
       string = "spirit exorcise "..snd.target
       fcall = ""
       scall = ""
-    elseif snd.checkAff("no_paste") and (snd.checkAff("feast") or snd.can_deliver()) then
+    elseif snd.can_deliver() then
       string = "deliver "..snd.target..snd.sep..sattack
       fcall = ""
     elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
@@ -53981,6 +54404,50 @@ snd.priorities =
     "def_discipline_pnp",
     "def_discipline_biology",
     "def_discipline_chemistry",
+    
+    "def_influence_phantasm",
+    "def_congeal_phantasm",
+    "def_leech_phantasm",
+    "def_claw_phantasm",
+    "def_mire_phantasm",
+    "def_choke_phantasm",
+    "def_wail_phantasm",
+    "def_absorb_phantasm",
+    "def_siphon_phantasm",
+    "def_symbiosis_phantasm",
+    
+    "def_influence_chimera",
+    "def_congeal_chimera",
+    "def_leech_chimera",
+    "def_claw_chimera",
+    "def_mire_chimera",
+    "def_choke_chimera",
+    "def_wail_chimera",
+    "def_absorb_chimera",
+    "def_siphon_chimera",
+    "def_symbiosis_chimera",
+    
+    "def_accuracy_aura",
+    "def_protection_aura",
+    "def_healing_aura",
+    "def_purity_aura",
+    "def_justice_aura",
+    "def_pestilence_aura",
+    "def_spellbane_aura",
+    "def_cleansing_aura",
+    "def_meditation_aura",
+    "def_redemption_aura",
+    
+    "def_accuracy_blessing",
+    "def_protection_blessing",
+    "def_healing_blessing",
+    "def_purity_blessing",
+    "def_justice_blessing",
+    "def_pestilence_blessing",
+    "def_spellbane_blessing",
+    "def_cleansing_blessing",
+    "def_meditation_blessing",
+    "def_redemption_blessing",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55137,6 +55604,30 @@ def_predation = {defense = "predation", type = "normal", effect = "see what othe
 def_delirium = {defense = "delirium", type = "normal", effect = "cure a random AFF, use certain attacks off bal", balance = {balanceequilibriumtake = "invoke delirium"}, state = "down", needit = false, timer = createStopWatch(), skill = "Delirium" },
 def_ravage = {defense = "ravage", type = "normal", effect = "makes your fists attack cause ablaze", balance = {balanceequilibriumtake = "invoke ravage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ravage" },
 
+--Revenant
+def_influence_phantasm = {defense = "influence_phantasm", type = "normal", effect = "Increase chance of hitting", balance = {balanceequilibriumtake = "phantasm influence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Influence"},
+def_congeal_phantasm = {defense = "congeal_phantasm", type = "normal", effect = "15% cutting/blunt/magic resist", balance = {balanceequilibriumtake = "phantasm congeal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Congeal"},
+def_leech_phantasm = {defense = "leech_phantasm", type = "normal", effect = "Increased constitution, regenerate health", balance = {balanceequilibriumtake = "phantasm leech"}, state = "down", needit = false, timer = createStopWatch(), skill = "Leech"},
+def_claw_phantasm = {defense = "claw_phantasm", type = "normal", effect = "Increased strength, damage enemies", balance = {balanceequilibriumtake = "phantasm claw"}, state = "down", needit = false, timer = createStopWatch(), skill = "Claw"},
+def_mire_phantasm = {defense = "mire_phantasm", type = "normal", effect = "Decrease non-natural healing", balance = {balanceequilibriumtake = "phantasm mire"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mire"},
+def_choke_phantasm = {defense = "choke_phantasm", type = "normal", effect = "Randomly afflict enemies", balance = {balanceequilibriumtake = "phantasm choke"}, state = "down", needit = false, timer = createStopWatch(), skill = "Choke"},
+def_wail_phantasm = {defense = "wail_phantasm", type = "normal", effect = "Increase mana costs", balance = {balanceequilibriumtake = "phantasm wail"}, state = "down", needit = false, timer = createStopWatch(), skill = "Wail"},
+def_absorb_phantasm = {defense = "absorb_phantasm", type = "normal", effect = "Randomly cure afflictions", balance = {balanceequilibriumtake = "phantasm absorb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Absorb"},
+def_siphon_phantasm = {defense = "siphon_phantasm", type = "normal", effect = "Increased intelligence, regenerate mana", balance = {balanceequilibriumtake = "phantasm siphon"}, state = "down", needit = false, timer = createStopWatch(), skill = "Siphon"},
+def_symbiosis_phantasm = {defense = "symbiosis_phantasm", type = "normal", effect = "Heal when killing things", balance = {balanceequilibriumtake = "phantasm symbiosis"}, state = "down", needit = false, timer = createStopWatch(), skill = "Symbiosis"},
+
+def_influence_chimera = {defense = "influence_chimera", type = "normal", effect = "Increased chance to hit", balance = {balanceequilibriumtake = "phantasm devour influence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chimerization"},
+def_congeal_chimera = {defense = "congeal_chimera", type = "normal", effect = "5% cutting/blunt/magic resist", balance = {balanceequilibriumtake = "phantasm devour congeal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chimerization"},
+def_leech_chimera = {defense = "leech_chimera", type = "normal", effect = "Regenerate health", balance = {balanceequilibriumtake = "phantasm devour leech"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chimerization"},
+def_claw_chimera = {defense = "claw_chimera", type = "normal", effect = "Damage enemies", balance = {balanceequilibriumtake = "phantasm devour claw"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chimerization"},
+def_mire_chimera = {defense = "mire_chimera", type = "normal", effect = "Decrease non-natural healing", balance = {balanceequilibriumtake = "phantasm devour mire"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chimerization"},
+def_choke_chimera = {defense = "choke_chimera", type = "normal", effect = "Randomly afflict enemies", balance = {balanceequilibriumtake = "phantasm devour choke"}, state = "down", needit = false, timer = createStopWatch(), skill = "Choke"},
+def_wail_chimera = {defense = "wail_chimera", type = "normal", effect = "Increase mana costs", balance = {balanceequilibriumtake = "phantasm devour wail"}, state = "down", needit = false, timer = createStopWatch(), skill = "Wail"},
+def_absorb_chimera = {defense = "absorb_chimera", type = "normal", effect = "Randomly cure afflictions", balance = {balanceequilibriumtake = "phantasm devour absorb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Absorb"},
+def_siphon_chimera = {defense = "siphon_chimera", type = "normal", effect = "Regenerate mana", balance = {balanceequilibriumtake = "phantasm devour siphon"}, state = "down", needit = false, timer = createStopWatch(), skill = "Siphon"},
+def_symbiosis_chimera = {defense = "symbiosis_chimera", type = "normal", effect = "Heal when killing things", balance = {balanceequilibriumtake = "phantasm devour symbiosis"}, state = "down", needit = false, timer = createStopWatch(), skill = "Symbiosis"},
+
+
 --Runecarver
 def_prowess = {defense = "prowess", type = "normal", effect = "WP drain but better crit chance", balance = {balanceequilibriumtake = "runecarve prowess on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Prowess" },
 def_hex_stalk = {defense = "hex_stalk", type = "normal", effect = "Mask your movements", balance = {balanceequilibriumtake = "hex stalk "}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalk" },
@@ -55202,6 +55693,29 @@ def_lipreading = {defense = "lipreading", type = "normal", effect = "Hear throug
 
 --Templar
 def_maingauche = {defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = {needyequilibriumtake = "maingauche"}, state = "down", needit = false, timer = createStopWatch(), skill = "MainGauche"},
+
+def_accuracy_aura = {defense = "accuracy_aura", type = "normal", effect = "Increase chance of hitting", balance = {balanceequilibriumtake = "aura accuracy"}, state = "down", needit = false, timer = createStopWatch(), skill = "Accuracy"},
+def_protection_aura = {defense = "protection_aura", type = "normal", effect = "15% cutting/blunt/magic resist", balance = {balanceequilibriumtake = "aura protection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Protection"},
+def_healing_aura = {defense = "healing_aura", type = "normal", effect = "Increased constitution, regenerate health", balance = {balanceequilibriumtake = "aura healing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Healing"},
+def_purity_aura = {defense = "purity_aura", type = "normal", effect = "Increased strength, damage enemies", balance = {balanceequilibriumtake = "aura purity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Purity"},
+def_justice_aura = {defense = "justice_aura", type = "normal", effect = "Decrease non-natural healing", balance = {balanceequilibriumtake = "aura justice"}, state = "down", needit = false, timer = createStopWatch(), skill = "Justice"},
+def_pestilence_aura = {defense = "pestilence_aura", type = "normal", effect = "Randomly afflict enemies", balance = {balanceequilibriumtake = "aura pestilence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Pestilence"},
+def_spellbane_aura = {defense = "spellbane_aura", type = "normal", effect = "Increase mana costs", balance = {balanceequilibriumtake = "aura spellbane"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spellbane"},
+def_cleansing_aura = {defense = "cleansing_aura", type = "normal", effect = "Randomly cure afflictions", balance = {balanceequilibriumtake = "aura cleansing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cleansing"},
+def_meditation_aura = {defense = "meditation_aura", type = "normal", effect = "Increased intelligence, regenerate mana", balance = {balanceequilibriumtake = "aura meditation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Meditation"},
+def_redemption_aura = {defense = "redemption_aura", type = "normal", effect = "Heal when killing things", balance = {balanceequilibriumtake = "aura redemption"}, state = "down", needit = false, timer = createStopWatch(), skill = "Redemption"},
+
+def_accuracy_blessing = {defense = "accuracy_blessing", type = "normal", effect = "Increased chance to hit", balance = {balanceequilibriumtake = "aura blessing accuracy"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blessing"},
+def_protection_blessing = {defense = "protection_blessing", type = "normal", effect = "5% cutting/blunt/magic resist", balance = {balanceequilibriumtake = "aura blessing protection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blessing"},
+def_healing_blessing = {defense = "healing_blessing", type = "normal", effect = "Regenerate health", balance = {balanceequilibriumtake = "aura blessing healing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blessing"},
+def_purity_blessing = {defense = "purity_blessing", type = "normal", effect = "Damage enemies", balance = {balanceequilibriumtake = "aura blessing purity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blessing"},
+def_justice_blessing = {defense = "justice_blessing", type = "normal", effect = "Decrease non-natural healing", balance = {balanceequilibriumtake = "aura blessing justice"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blessing"},
+def_pestilence_blessing = {defense = "pestilence_blessing", type = "normal", effect = "Randomly afflict enemies", balance = {balanceequilibriumtake = "aura blessing pestilence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Pestilence"},
+def_spellbane_blessing = {defense = "spellbane_blessing", type = "normal", effect = "Increase mana costs", balance = {balanceequilibriumtake = "aura blessing spellbane"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spellbane"},
+def_cleansing_blessing = {defense = "cleansing_blessing", type = "normal", effect = "Randomly cure afflictions", balance = {balanceequilibriumtake = "aura blessing cleansing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cleansing"},
+def_meditation_blessing = {defense = "meditation_blessing", type = "normal", effect = "Regenerate mana", balance = {balanceequilibriumtake = "aura blessing meditation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Meditation"},
+def_redemption_blessing = {defense = "redemption_blessing", type = "normal", effect = "Heal when killing things", balance = {balanceequilibriumtake = "aura blessing redemption"}, state = "down", needit = false, timer = createStopWatch(), skill = "Redemption"},
+
 
 --Teradrim
 def_earthenform = {defense = "earthenform", type = "normal", effect = "Embrace your earthen features", balance = {balanceequilibriumtake = "earthenform embrace"}, state = "down", needit = false, timer = createStopWatch(), skill = "Earthenform" },
@@ -78691,7 +79205,7 @@ function snd.akkari_attend()
 end
 
 function snd.can_deliver()
-  if ((snd.aff_count_physical() &gt;= 1 or snd.proned()) or snd.checkAff("feast")) and snd.checkAff("no_paste")
+  if ((snd.aff_count_physical() &gt;= 1 or snd.proned()) or snd.checkAff("feast")) and not snd.used.paste
   then
     return true
   else
