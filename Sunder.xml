@@ -55549,7 +55549,7 @@ def_inspiration_constitution = {defense = "inspiration_constitution", type = "no
 
 --Monk
 def_vitality = {defense = "vitality", type = "normal", effect = "You will get a burst of HP when near death", balance = {needyequilibriumtake = "vitality"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vitality"},
-def_kaido_regeneration = {defense = "kaido_regeneration", type = "normal", effect = "HP regen", balance = {special = "regeneration on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Regeneration"},
+def_kaido_regeneration = {defense = "regeneration", type = "normal", effect = "HP regen", balance = {special = "regeneration on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Regeneration"},
 def_constitution = {defense = "constitution", type = "normal", effect = "Protection from nausea", balance = {needyequilibriumtake = "constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
 def_split_mind = {defense = "split_mind", type = "normal", effect = "Constant meditation", balance = {needyequilibriumtake = "split mind"}, state = "down", needit = false, timer = createStopWatch(), skill = "Splitting"},
 def_kaido_immunity = {defense = "kaido_immunity", type = "normal", effect = "You will auto cure the next poison you are hit with", balance = {needyequilibriumtake = "immunity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Immunity"},
@@ -57169,17 +57169,11 @@ function snd_toggleLoad()
 		snd.message("Toggle save file not found; will save when you next disconnect/QQ.")
 		return
 	end
-	
-	table.load(load_loc, snd.toggles)
-  
-  --make sure gag toggle exists, it's new!
-  if snd.toggles.gags == nil then
-    snd.toggles.gags = true
-  end
-  
-  --make sure diagaffs toggle exists.
-  if snd.toggles.diagaffs == nil then
-    snd.toggles.diagaffs = 3
+	local loadedToggles = {}
+	table.load(load_loc, loadedToggles)
+
+  for key, value in pairs(loadedToggles) do
+    snd.toggles[key]=value
   end
   
 	snd.message("Toggles found; we loaded them in just fine.")
@@ -73657,7 +73651,7 @@ yarrow = {
 epidermal_torso = {
 "anorexia",
 "gorged",
-"effused_blood",
+--"effused_blood",
 },
 
 epidermal_head = {
@@ -73672,7 +73666,7 @@ epidermal_head = {
 epidermal = {
 "anorexia",
 "gorged",
-"effused_blood",
+--"effused_blood",
 "indifference",
 "stuttering",
 "blurry_vision",
@@ -79111,7 +79105,7 @@ snd.akkari_eq_affs = {
 	--"sight",
 	"writhe_transfix",
 	"blood_curse",
-	"blood_rune",
+--	"blood_rune",
 	"feast",
 }
 
