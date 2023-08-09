@@ -3560,6 +3560,30 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Used Eq or Balance</name>
+							<script>snd.track_eqbal(tonumber(matches[2]))</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(?:Balance|Left Hand Balance|Right Hand Balance) Used: (.+) seconds$</string>
+								<string>^Time to recover: (.+) seconds$</string>
+								<string>^Equilibrium Used: (.+) seconds$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>No cooldowns, add your cd to here if you want</name>
 							<script>snd.balance.crystal = true
 snd.balance.wand = true</script>
@@ -74705,7 +74729,8 @@ end</script>
  for limb in pairs(snd.limb_bruising) do
   snd.limb_bruising[limb] = 0
  end
- for timer in pairs(snd.timers) do
+ local enemyTimers = {"fitness","focus","pill","rebounding","restoration","tree"}
+ for _, timer in pairs(enemyTimers) do
   snd.timers[timer] = {}
  end
  snd.hypno = "none"
@@ -79688,6 +79713,8 @@ snd.timers.fitness = snd.timers.fitness or {}
 snd.timers.restoration = snd.timers.restoration or {}
 snd.timers.rebounding = snd.timers.rebounding or {}
 snd.timers.induce = snd.timers.induce or {}
+snd.timers.eqbal = snd.timers.eqbal or {}
+
 
 for k, _ in pairs(snd.timers) do
   snd.timers[k] = {["start"] = nil, ["limit"] = nil}
@@ -79723,6 +79750,19 @@ function snd.timer_check(which, time_left, mode)
     else
       return false
     end
+  end
+end
+
+function snd.timer_get_time(which)
+  if
+    snd.timers[which] ~= nil and
+    snd.timers[which]["start"] ~= nil and
+    snd.timers[which]["limit"] ~= nil
+  then
+    local time = (snd.timers[which]["start"] + snd.timers[which]["limit"]) - os.clock()
+    return time &gt; 0 and time or 0
+  else
+    return 0
   end
 end</script>
 						<eventHandlerList />
@@ -79795,7 +79835,23 @@ function snd.track_fitness(target)
     snd.timers.fitness.limit = 20
   end
 end
-</script>
+
+function snd.track_eqbal(time)
+  if not snd.timer_check("eqbal", time) then
+    snd.timers.eqbal.start = os.clock()
+    snd.timers.eqbal.limit = time
+  end
+end
+
+function snd.eqbal_timer_check(timer, time, mode)
+    if mode == nil then
+      mode = "more than"
+    end
+    local eqbal_time = snd.timer_get_time("eqbal")
+    local timer_time = snd.timer_get_time("timer")
+    local adjusted_time = math.max(0, timer_time - eqbal_time)
+    return (mode == "more than") == (adjusted_time &gt; time)
+end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
