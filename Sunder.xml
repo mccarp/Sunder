@@ -79848,7 +79848,7 @@ function snd.eqbal_timer_check(timer, time, mode)
       mode = "more than"
     end
     local eqbal_time = snd.timer_get_time("eqbal")
-    local timer_time = snd.timer_get_time("timer")
+    local timer_time = snd.timer_get_time(timer)
     local adjusted_time = math.max(0, timer_time - eqbal_time)
     return (mode == "more than") == (adjusted_time &gt; time)
 end</script>
