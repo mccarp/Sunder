@@ -71396,7 +71396,7 @@ function snd.teradrim_bash()
     else
       battack = "sand shield me"
     end
-  elseif snd.balance.momentum and hasSkill("Momentum") and endur&lt;=45 then
+  elseif snd.balance.momentum and hasSkill("Momentum") and endur&gt;=45 then
     battack = "earth momentum "..snd.sep.."earth batter "..snd.bashing.target..snd.sep.."golem recover"
   else
 		battack = "earth batter "..snd.bashing.target..snd.sep.."golem recover"
@@ -71413,7 +71413,7 @@ function snd.tidesage_bash()
     else
       battack = "fog harden me"
     end
-  elseif snd.balance.momentum and hasSkill("Hightide") and endur&lt;=45 then
+  elseif snd.balance.momentum and hasSkill("Hightide") and endur&gt;=45 then
     battack = "tide hightide "..snd.sep.."tide clobber "..snd.bashing.target..snd.sep.."synth recuperate"
   else
 		battack = "tide clobber "..snd.bashing.target..snd.sep.."synth recuperate"
