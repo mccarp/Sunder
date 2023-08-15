@@ -745,7 +745,7 @@ send("firstaid on")
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Earthenform start</name>
-								<script>if snd.defenses.def_permafrost.needit or snd.defense.def_earthenform.needit then
+								<script>if snd.defenses.def_permafrost.needit or snd.defenses.def_earthenform.needit then
   snd.toggles.active = false
   send("firstaid off")
 end</script>
