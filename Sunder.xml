@@ -745,7 +745,7 @@ send("firstaid on")
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Earthenform start</name>
-								<script>if snd.defenses.def_permafrost.needit or snd.defense.def_earthenform.needit then
+								<script>if snd.defenses.def_permafrost.needit or snd.defenses.def_earthenform.needit then
   snd.toggles.active = false
   send("firstaid off")
 end</script>
@@ -23677,13 +23677,13 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>broke</name>
 								<script>if matches[2] == snd.target then
-  if matches[2] == snd.target and matches[4]~= "head" and matches[4] ~= "torso" then
-    snd.target_got(matches[4].." broken")
-    snd.target_got(matches[4].." crippled")
+  if matches[2] == snd.target and matches[3]~= "head" and matches[3] ~= "torso" then
+    snd.target_got(matches[3].." broken")
+    snd.target_got(matches[3].." crippled")
   end
-  snd.message("&lt;red&gt;"..matches[2]..matches[3].." &lt;white&gt;"..matches[4].." was broken!")
+  snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was broken!")
   
-  snd.limb_status[matches[4]] = "broken"
+  snd.limb_status[matches[3]] = "broken"
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end</script>
@@ -23698,9 +23698,15 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)('s|') (.+) breaks from all the damage\.$</string>
+									<string>^(\w+)'s? (.+) breaks from all the damage\.$</string>
+									<string>^(\w+)'s? (.+) is shredded into meaty ribbons\.$</string>
+									<string>^(\w+) grows sluggish, .+ (head) marred with trauma\.$</string>
+									<string>^(\w+) shudders from the discomfort suffered to .+ (torso)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -23708,12 +23714,12 @@ end</script>
 								<name>mangled</name>
 								<script>
 if matches[2] == snd.target then
-  snd.message("&lt;red&gt;"..matches[2]..matches[3].." &lt;white&gt;"..matches[4].." was mangled!")
+  snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was mangled!")
   if matches[2] == snd.target then
-   snd.last_hit_limb = matches[4]
-   snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[4]]
+   snd.last_hit_limb = matches[3]
+   snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
    snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-   snd.limb_status[matches[4]] = "mangled"
+   snd.limb_status[matches[3]] = "mangled"
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
@@ -23729,9 +23735,11 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)('s|') (.+) has been beaten into uselessness\.$</string>
+									<string>^(\w+)'s? (.+) has been (?:beaten|torn) into uselessness\.$</string>
+									<string>^(\w+) groans loudly, clutching .+ mangled and bloodied (head)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -54474,6 +54482,11 @@ snd.priorities =
     "def_cleansing_blessing",
     "def_meditation_blessing",
     "def_redemption_blessing",
+    
+    "def_sand_conceal",
+    "def_projection",
+    "def_surefooted",
+    "def_disturbances",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55745,18 +55758,24 @@ def_redemption_blessing = {defense = "redemption_blessing", type = "normal", eff
 
 --Teradrim
 def_earthenform = {defense = "earthenform", type = "normal", effect = "Embrace your earthen features", balance = {balanceequilibriumtake = "earthenform embrace"}, state = "down", needit = false, timer = createStopWatch(), skill = "Earthenform" },
+def_surefooted = {defense = "surefooted", type = "normal", effect = "Increased Celery", balance = {balanceequilibriumtake = "earth surefooted"}, state = "down", needit = false, timer = createStopWatch(), skill = "Surefooted" },
 def_entwine = {defense = "entwine", type = "normal", effect = "Disarm when someone goes for your parried limb", balance = {balanceequilibriumtake = "earth entwine"}, state = "down", needit = false, timer = createStopWatch(), skill = "Entwine" },
 def_ricochet =  {defense = "ricochet", type = "normal", effect = "Bounce attacks back to cripple limbs at times", balance = {balanceequilibriumtake = "earth ricochet"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ricochet" },
 def_twinsoul = {defense = "twinsoul", type = "normal", effect = "Link your soul to your golem", balance = {balanceequilibriumtake = "golem twinsoul on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Twinsoul" },
 def_earth_resonance = {defense = "earth_resonance", type = "normal", effect = "Boosted health/mana regen", balance = {balanceequilibriumtake = "earth resonance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Resonance" },
 def_stonebind = {defense = "stonebind", type = "normal", effect = "They can't take your weapon", balance = {balanceequilibriumtake = "earth stonebind"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stonebind" },
-def_erosion = {defense = "erosion", type = "normal", effect = "Erosion is useful on your weapon if you're sand sweltering", balance = {balanceequilibriumtake = "earth imbue erosion"}, state = "down", needit = false, timer = createStopWatch(), skill = "Erosion" },
+def_erosion = {defense = "imbue_erosion", type = "normal", effect = "Erosion is useful on your weapon if you're sand sweltering", balance = {balanceequilibriumtake = "earth imbue erosion"}, state = "down", needit = false, timer = createStopWatch(), skill = "Erosion" },
 def_imbue_stonefury = {defense = "imbue_stonefury", type = "normal", effect = "Stonefury is useful on your weapon for bashing", balance = {balanceequilibriumtake = "earth imbue stonefury"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stonefury" },
 def_sand_swelter = {defense = "sand_swelter", type = "normal", effect = "Your sands hit people in the room", balance = {balanceequilibriumtake = "sand swelter on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Swelter" },
+def_projection  = {defense = "projection", type = "normal", effect = "Remotely control sand abilities", balance = {balanceequilibriumtake = "sand projection on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Projection" },
+def_sand_conceal  = {defense = "sand_conceal", type = "normal", effect = "Become concealed by your sand", balance = {balanceequilibriumtake = "sand conceal on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Concealment" },
+def_disturbances  = {defense = "disturbances", type = "normal", effect = "Your sand informs you of who moves in and out", balance = {balanceequilibriumtake = "sand disturbances on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Disturbances"},
+def_momentum = {defense = "momentum", type = "normal", effect = "Strike faster", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Momentum" },
+
 
 --Tidesage
 def_permafrost = {defense = "permafrost", type = "SeaGreen", effect = "Embrace the gales of the distant oceans", balance = {balanceequilibriumtake = "tide permafrost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Permafrost" },
-def_sealegs = {defense = "sealegs", type = "SeaGreen", effect = "Sea legs allow you to move faster", balance = {balanceequilibriumtake = "tide sealegs"}, state = "down", needit = false, timer = createStopWatch(), skull = "Sealegs" },
+def_sealegs = {defense = "sealegs", type = "SeaGreen", effect = "Sea legs allow you to move faster", balance = {balanceequilibriumtake = "tide sealegs"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sealegs" },
 def_wavebreaking = {defense = "wavebreaking", type = "SeaGreen", effect = "Disarm when someone goes for your parried limb", balance = {balanceequilibriumtake = "tide wavebreak"}, state = "down", needit = false, timer = createStopWatch(), skill = "Wavebreak" },
 def_tideflux =  {defense = "tideflux", type = "SeaGreen", effect = "Bounce attacks back to cripple limbs at times", balance = {balanceequilibriumtake = "tide flux"}, state = "down", needit = false, timer = createStopWatch(), skill = "Flux" },
 def_lifebond = {defense = "lifebond", type = "SeaGreen", effect = "Link your soul to your elemental", balance = {balanceequilibriumtake = "synth lifebond on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifebond" },
@@ -56238,6 +56257,12 @@ end</script>
   ["You are recalling the discipline of Procedure &amp; Protocol."] = "discipline_pnp",
   ["You are recalling the discipline of Biology."] = "discipline_biology",
   ["You are recalling the discipline of Chemistry."] = "discipline_chemistry",
+  
+  ["You are projecting your will through your sand."] = "projection",
+  ["You are concentrating on maintaining a sure foot."] = "surefooted",
+  ["You are attuned to disturbances within your sand domain."] = "disturbances",
+  ["Sand is softening your footsteps."] = "sand_conceal",
+  ["You are moving with increased momentum."] = "momentum",
 }
  </script>
 							<eventHandlerList />
