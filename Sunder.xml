@@ -23677,13 +23677,13 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>broke</name>
 								<script>if matches[2] == snd.target then
-  if matches[2] == snd.target and matches[4]~= "head" and matches[4] ~= "torso" then
-    snd.target_got(matches[4].." broken")
-    snd.target_got(matches[4].." crippled")
+  if matches[2] == snd.target and matches[3]~= "head" and matches[3] ~= "torso" then
+    snd.target_got(matches[3].." broken")
+    snd.target_got(matches[3].." crippled")
   end
-  snd.message("&lt;red&gt;"..matches[2]..matches[3].." &lt;white&gt;"..matches[4].." was broken!")
+  snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was broken!")
   
-  snd.limb_status[matches[4]] = "broken"
+  snd.limb_status[matches[3]] = "broken"
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end</script>
@@ -23698,9 +23698,15 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)('s|') (.+) breaks from all the damage\.$</string>
+									<string>^(\w+)'s? (.+) breaks from all the damage\.$</string>
+									<string>^(\w+)'s? (.+) is shredded into meaty ribbons\.$</string>
+									<string>^(\w+) grows sluggish, .+ (head) marred with trauma\.$</string>
+									<string>^(\w+) shudders from the discomfort suffered to .+ (torso)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -23708,12 +23714,12 @@ end</script>
 								<name>mangled</name>
 								<script>
 if matches[2] == snd.target then
-  snd.message("&lt;red&gt;"..matches[2]..matches[3].." &lt;white&gt;"..matches[4].." was mangled!")
+  snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was mangled!")
   if matches[2] == snd.target then
-   snd.last_hit_limb = matches[4]
-   snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[4]]
+   snd.last_hit_limb = matches[3]
+   snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
    snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-   snd.limb_status[matches[4]] = "mangled"
+   snd.limb_status[matches[3]] = "mangled"
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
@@ -23729,9 +23735,11 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)('s|') (.+) has been beaten into uselessness\.$</string>
+									<string>^(\w+)'s? (.+) has been (?:beaten|torn) into uselessness\.$</string>
+									<string>^(\w+) groans loudly, clutching .+ mangled and bloodied (head)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
