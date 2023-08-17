@@ -55703,7 +55703,7 @@ def_oath_forestwalker = {defense = "oath_forestwalker", type = "normal", effect 
 def_oath_blade = {defense = "oath_blade", type = "normal", effect = "25% chance you won't consume 1 primal energy charge", balance = {balanceequilibriumtake = "oath blade activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
 def_oath_tranquility = {defense = "oath_tranquility", type = "normal", effect = "Periodically cure an affliction as long as not paralyzed", balance = {balanceequilibriumtake = "oath tranquility activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
 def_oath_shaman = {defense = "oath_shaman", type = "normal", effect = "2% chance to resist mental affliction", balance = {balanceequilibriumtake = "oath shaman activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
-def_oath_primeval = {defense = "oath_primeval", type = "normal", effect = "Your familiars attack faster!", balance = {balanceequilibriumtake = "oath shaman activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
+def_oath_primeval = {defense = "oath_primeval", type = "normal", effect = "Your familiars attack faster!", balance = {balanceequilibriumtake = "oath primeval activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
 def_oath_rhythm = {defense = "oath_rhythm", type = "normal", effect = "prevents force abilities and effects", balance = {balanceequilibriumtake = "oath rhythm activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
 
 
@@ -56244,8 +56244,8 @@ end</script>
   ["You have enacted the Oath of the Durdalis."] = "oath_durdalis",
   ["You have enacted the Oath of the Forestwalker."] = "oath_forestwalker",
   ["You have enacted the Oath of the Elder Shaman."] = "oath_shaman",
-  ["You have enacted the Oath of the Nature's Blade."] = "oath_blade",
-  ["You have enacted the Oath of the Tranquility."] = "oath_tranquility",
+  ["You have enacted the Oath of Nature's Blade."] = "oath_blade",
+  ["You have enacted the Oath of Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
   
