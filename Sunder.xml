@@ -2382,6 +2382,11 @@ elseif triggertext:find("Void") then
     reset_check = true
     expandAlias("sndoff")
   end
+elseif triggertext:find("desolate mire") then
+  if gmcp.Room.Info.num == 60044 then
+    reset_check = true
+    expandAlias("sndoff")
+  end
 end
 
 if triggertext:find("Substitute") then
@@ -2427,11 +2432,13 @@ end</script>
 									<string>Before the Soul Mirror.</string>
 									<string>Traversing the Void</string>
 									<string>Blackness.</string>
+									<string>A strange and desolate mire.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
 									<integer>3</integer>
 									<integer>2</integer>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -73934,6 +73941,7 @@ snd.target_impaled = false -- do we specifically have our target imapled
 snd.effects = {
 --venoms
 sight = "oculus",
+blurry_vision = "oculus",
 hearing = "prefarar",
 asthma = "kalmia", 
 paresis = "curare", 
@@ -74018,6 +74026,8 @@ function snd.rev_empower(aff)
         ["disrupt"] = "dirne",
         ["cripple"] = "azu",
         ["hemorrhage"] = "wilave",
+        ["crippled_body"] = "azu",
+
                     }
     if revenant[aff] == nil then return aff
     else return revenant[aff]
