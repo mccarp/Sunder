@@ -78818,6 +78818,9 @@ end</script>
     Starburst = function(target)
                 snd.reset_target()
             end,
+    Feather = function(target)
+               snd.target_cured("fallen")   
+             end,
   
   },
   
