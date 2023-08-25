@@ -55834,6 +55834,8 @@ def_zenith = {defense = "zenith", type = "normal", effect = "cure a random AFF, 
 def_mindspark = {defense = "mindspark", type = "normal", effect = "raises your intelligence", balance = {balanceequilibrium = "psi mindspark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mindspark" },
 def_bending = {defense = "bending", type = "normal", effect = "magical damage reduction or something", balance = {balanceequilibrium = "psi bending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bending"},
 
+--making sure empowered moon is in here to avoid errors, regardless of class
+def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 }
 
 snd.alternative_class_defenses = {
@@ -60212,7 +60214,7 @@ snd.bashing_area_beginning_rooms ={
   ["the Nal'jin Depths"] = "38090",
   ["Drakuum"] = "19854",
   ["the Fengard Keep"] = "3273",
-  ["the Isle of Ollin"] = "19626",
+  ["the Isle of Ollin"] = "72008",
   ["Raugol Fissure"] = "49749",
   ["the village of Bihrkaen"] = "56647",
   ["the Barony of Dun Valley"] = "5029",
