@@ -20165,6 +20165,35 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Scythe</name>
+									<script>if matches[2] == snd.target then
+  snd.onHit2({"Rebounding", "Dodge"})
+end
+disableTrigger("Weapon Hit Confirmation")</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ extends into a lunging arc, assaulting (\w+) with .+\.$</string>
+										<string>^Spinning .+ around himself, \w+ gashes open (\w+)\.$</string>
+										<string>^\w+ draws back .+ before viciously slicing (\w+)\.$</string>
+										<string>^\w+ messily tears up (\w+) with a strike from .+\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Anguish used</name>
@@ -20976,8 +21005,12 @@ end</script>
 							<name>discern</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   if matches[4]:find("crippled") then 
-    local test = matches[4]:gsub("crippled ", "")
-    snd.target_cured(test.."_crippled")
+    if matches[4] == "crippled body" or matches[4] == "crippled" then
+      snd.target_cured(matches[4])
+    else
+      local test = matches[4]:gsub("crippled ", "")
+      snd.target_cured(test.."_crippled")
+    end
   elseif matches[4] == "blood curse" then
     snd.target_cured("blood_curse")
   else
@@ -74030,8 +74063,6 @@ function snd.rev_empower(aff)
         ["disrupt"] = "dirne",
         ["cripple"] = "azu",
         ["hemorrhage"] = "wilave",
-        ["crippled_body"] = "azu",
-
                     }
     if revenant[aff] == nil then return aff
     else return revenant[aff]
@@ -76647,7 +76678,7 @@ end</script>
                     snd.took_limb_dmg(-15, limb)
                   end,
     Gash = function(target, lightly)
-            snd.onHit2({"Dodge", "Rebounding"})
+            enableTrigger("Weapon Hit Confirmation")
            end,
     
     Clawing = function(target)
