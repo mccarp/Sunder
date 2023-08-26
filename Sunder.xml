@@ -52080,6 +52080,7 @@ fish = fish or {}</script>
 					<name>login</name>
 					<packageName></packageName>
 					<script>function snd.login()
+  tempTimer(0, function()
   sendGMCP([[Core.Supports.Add ["Comm.Channel 1", "IRE.Time 1"] ]]) -- allows us to use GMCP for communication and time tracking
   snd.pipes_lit = false
   
@@ -52112,6 +52113,7 @@ fish = fish or {}</script>
   end
                 
   --tempTimer(10, [[if not sndNDB.highlightNames then expandAlias("sndb hl") end]])
+  end)
 end
 
 
