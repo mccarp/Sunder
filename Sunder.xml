@@ -71159,9 +71159,9 @@ function snd.alchemist_bash()
     end
   else
     if wp&gt;=45 and tonumber(gmcp.Char.Vitals.volatility) &gt; 3 then
-      battack = battack.."alchemy catalyse"..snd.sep.."alchemy virulent "..snd.bashing.target
+      battack = battack.."alchemy catalyse"..snd.sep.."alchemy static "..snd.bashing.target
     else
-      battack = battack.."alchemy virulent "..snd.bashing.target
+      battack = battack.."alchemy static "..snd.bashing.target
     end 
 	end
   
