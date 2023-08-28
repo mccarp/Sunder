@@ -18882,8 +18882,10 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>whip attacks</name>
 									<script>if matches[2] == snd.target then
-  snd.onHit2()
- end</script>
+  if not (snd.used.rebounding or snd.used.shield) then
+    snd.onHit2()
+  end
+end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -18895,7 +18897,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+) seems to jolt as (the )?\w+ flays the (shield|rebounding) defence from (the )?\w+\.$</string>
+										<string>^\w+ sends .+ to flay (\w+), lashing out with the tip\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
