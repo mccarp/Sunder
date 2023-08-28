@@ -18897,7 +18897,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+) seems to jolt as (the )?\w+ flays the (shield|rebounding) defence from (the )?\w+\.$</string>
+										<string>^\w+ sends .+ to flay (\w+), lashing out with the tip\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
