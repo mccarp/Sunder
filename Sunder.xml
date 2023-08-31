@@ -33857,6 +33857,16 @@ end</script>
 						<packageName></packageName>
 						<regex>(?i)^diagaffs(?: (\d+))?$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Chameleon Targets</name>
+						<script>local people = matches[2]:gsub(",", "")
+peopleTable = matches[2]:split(" ")
+snd.toggles.chameleonPeople = peopleTable
+snd.message("Will try to chameleon as one of: "..table.concat(snd.toggles.chameleonPeople, ", "))</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>(?i)^chamtargets (.+)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -52144,6 +52154,7 @@ calling = false, -- call targets on web chat
 listening = false, -- listening to targets on web chat
 affcalling = false, -- announce afflictions as you hit
 chameleon = false, -- use chameleon to change name on qw/who
+chameleonPeople = {"Benedicto"},
 standing = true, -- like healing, also incomplete
 clotting = true, -- incomplete
 bashing = false, -- bashing! Woo!
@@ -52190,13 +52201,12 @@ gags = true,
     snd.toggles[toggle] = false
     snd.message(string.title(toggle) .. " &lt;red&gt;OFF&lt;white&gt;!", "toggle")
     if toggle == "chameleon" then
-      expandAlias("kd chameleon", false)
+      snd.defenses["def_chameleon"].needit = false
     end
   else
     snd.toggles[toggle] = true
     snd.message(string.title(toggle) .. " &lt;green&gt;ON&lt;white&gt;!", "toggle")
     if toggle == "chameleon" then
-      snd.load_def(snd.class:lower())
       snd.defenses["def_chameleon"].needit = true
     end
   end
@@ -70031,12 +70041,12 @@ function snd.do_balance_equilibrium_need(current)
   if snd.defenses[current] ~= nil then
    if snd.defenses[current].state == "down" and snd.defenses[current].needit then
     if current:find("chameleon") then
-      local chameleon_table = {}
-      for k, v in pairs(sndNDB.players) do
-        table.insert(chameleon_table, k)
+      local cham_check = snd.toggles.chameleonPeople[math.random(#snd.toggles.chameleonPeople)]
+      if hasSkill("Chameleon","raceskills") then
+        snd.send("chameleon "..cham_check)
+      else
+        snd.send(snd.defenses[current].balance.balanceequilibrium..cham_check)
       end
-      local cham_check = chameleon_table[math.random(#chameleon_table)]
-      snd.send(snd.defenses[current].balance.balanceequilibrium..cham_check..snd.sep.."chameleon "..cham_check)
     else
       snd.send(snd.defenses[current].balance.balanceequilibrium)
     end
@@ -70912,31 +70922,30 @@ function snd.load_def(option)
     end
     for i in pairs(snd.defenses) do
       snd.defenses[i].needit = false
-      for h in pairs(my_def_choice_and_generic_defenses) do
-        if
-          my_def_choice_and_generic_defenses[h] == "once" and
-          (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
-        then
-          if h == i then
-            if snd.defenses[i].state ~= "deffed" then
-              snd.defenses[i].needit = true
-              table.insert(snd.less_defs, i)
-            end
+    end
+    for h in pairs(my_def_choice_and_generic_defenses) do
+      if
+        my_def_choice_and_generic_defenses[h] == "once" and
+        (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
+      then
+        if snd.defenses[h].state ~= "deffed" then
+          snd.defenses[h].needit = true
+          table.insert(snd.less_defs, h)
+        end
+      elseif
+        my_def_choice_and_generic_defenses[h] == "on" and (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
+      then
+        if h == "def_vitality" then
+          if snd.balance.vitality then
+            snd.defenses[h].needit = true
           end
-        elseif
-          my_def_choice_and_generic_defenses[h] == "on" and (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
-        then
-          if h == i then
-            if i == "def_vitality" then
-              if snd.balance.vitality then
-                snd.defenses[i].needit = true
-              end
-            else
-              snd.defenses[i].needit = true
-            end
-          end
+        else
+          snd.defenses[h].needit = true
         end
       end
+      --add chameleon if you have the toggle for it
+      snd.defenses.def_chameleon.needit = snd.toggles.chameleon
+
     end
   else
     snd.message("No such defense option as &lt;red&gt;" .. option .. "&lt;white&gt;!", "echo")
