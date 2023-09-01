@@ -57586,7 +57586,7 @@ end
 						<script>-- Used for automatic custom path making
 
 function snd_bashAreas(areas_chosen)
-  local areas = string.split(areas_chosen, ", ")
+  local areas = string.split(string.lower(areas_chosen), ", ")
   local num_areas = #areas - 1
   local full_list_of_areas = mmp.deepcopy(sunder_areaPaths)
   if not sunder_areaPaths then
