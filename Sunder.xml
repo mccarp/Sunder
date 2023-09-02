@@ -33588,9 +33588,10 @@ snd.send("config simple_diag on")
 snd.send("config curemsgs default")
 snd.send("config fishnumbers on")
 snd.send("gathering on")
-sndNDB_Install()
-sndNDB.highlightNames = false
-</script>
+if not sndNDB.installed then
+  sndNDB_Install()
+  sndNDB.highlightNames = false
+end</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^\?setup$</regex>
