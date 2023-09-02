@@ -20741,7 +20741,7 @@ end
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^A fervent .* lurches at (\w+) with violent purpose before turning away at the last moment, its feinting manouevre leaving .* mind reeling.$</string>
+										<string>^A fervent .+ lurches at (\w+) with violent purpose before turning away at the last moment, its feinting manoeuvre leaving .+ mind reeling.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -33588,9 +33588,10 @@ snd.send("config simple_diag on")
 snd.send("config curemsgs default")
 snd.send("config fishnumbers on")
 snd.send("gathering on")
-sndNDB_Install()
-sndNDB.highlightNames = false
-</script>
+if not sndNDB.installed then
+  sndNDB_Install()
+  sndNDB.highlightNames = false
+end</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^\?setup$</regex>
@@ -54592,7 +54593,9 @@ snd.method_priority = {
       if snd.moving_to ~= "none" then
         table.insert(snd.queue, "moving")
       end
-      if snd.toggles.active and snd.have_aff("asthma") and snd.have_aff("slickness") and gmcp.Char.Vitals.pipe == "1" then
+      if snd.toggles.active and
+      (snd.fitness_override and snd.fitness_override()) or
+      (not snd.fitness_override and (snd.have_aff("asthma") and snd.have_aff("slickness") and gmcp.Char.Vitals.pipe == "1")) then
         snd.need_fitness = true
         table.insert(snd.queue, "fitness")
       else
@@ -57586,7 +57589,7 @@ end
 						<script>-- Used for automatic custom path making
 
 function snd_bashAreas(areas_chosen)
-  local areas = string.split(areas_chosen, ", ")
+  local areas = string.split(string.lower(areas_chosen), ", ")
   local num_areas = #areas - 1
   local full_list_of_areas = mmp.deepcopy(sunder_areaPaths)
   if not sunder_areaPaths then
@@ -57903,7 +57906,7 @@ snd.areas = {
 {area = "the Western Tundra", level = "40+", targets = {"a fur-clad troll worker", "a squat penguin", "a hunter clad in furs", "a massive orgyuk", "a bull mugyik", "a dusky mugyik", "a female mugyik", "a white mugyik calf"}},
 {area = "the Ilhavon Forest", level = "40+", targets = {"a burrowing owl", "a golden scale rattlesnake", "a lumbering brown bear", "a plump duck", "a loosely clad Trollish woman", "a scarred Trollish man", "a blackbird", "a bear cub", "a giant pugnax crab", "a catfish", "a lake trout", "a school of fish", "an eerily glowing jellyfish", "a harpoon scorpion", "a dull brown lamprey", "a large buck", "a white tailed doe", "a young foal", "a moth", "a gargantuan cicada", "a magpie", "a frazzled-looking possum"}},
 {area = "the Dakhota hills", level = "25+", targets = {"a striped sea krait", "a brown rockling", "a grey wolf"}},
-{area = "Siha Dylis", level = "30-35", targets = {"Krrtig, the goblin guard captain", "Tithy, the burial guard", "a goblin batrider",  "a goblin man", "a goblin woman", "a kobold male", "a kobold woman", "Head Foreman Cadric", "Foreman Dugan", "Lissta, a kobold spirit-mage",  "Deela, a kobold spirit-mage", "Mo, a kobold spirit-mage", "Riku, a goblin boy", "a disoriented cave bat", "a small red squirrel", "Maggie, a goblin woman", "Trak, a goblin boy"}},
+{area = "Siha Dylis", level = "30-35", targets = {"Krrtig, the Goblin guard captain", "Tithy, the burial guard", "a Goblin batrider",  "a Goblin man", "a Goblin woman", "a Kobold male", "a Kobold woman", "Head Foreman Cadric", "Foreman Dugan", "Lissta, a Kobold spirit-mage",  "Deela, a Kobold spirit-mage", "Mo, a Kobold spirit-mage", "Riku, a Goblin boy", "a disoriented cave bat", "a small red squirrel", "Maggie, a Goblin woman", "Trak, a Goblin boy"}},
 {area = "the Barony of Dun Valley", level = "40-45", targets = {"a black and tan bloodhound", "a capybara", "an insignificant lime caterpillar",  "a dangerous water snake", "a male gorilla", "a spotted jaguar", "a poisonous snake", "a squirming white grub", "a tree frog", "a speckled, brown turtle",  "an opossum", "a slender mud adder", "a katydid", "a greyish green crocodile", "the Great Bull Elephant", "a crab", "a large red crab", "a school of piranha", "a raccoon", "a rune-covered lodestone golem", "a muscular mountain lion", "a bighorn sheep"}},
 {area = "the Hlugnic Labyrinth", level = "70+", targets = {"a rune-covered lodestone golem", "an enormous spinelash fish", "a Hlugnic runeguard",  "a warden of the Hlugnic clans", "a boisterous Hlugna man", "Deorkaan, the Hlugna smithy", "a burly, stone-fisted laborer", "Foreman Grummosh"}},
 {area = "the Valley of Kalebb", level = "1", targets = {"a long, thin grass snake", "Loraine, a village priestess", "Shanea, a village elder", "Morrid, a village elder", "a small child", "a female villager", "a villager", "a village farmer", "Lassorn, a village cooper", "a tower guard",  "Elenina, the astrologer", "a tower watchman", "the head scholar of Kalebb", "a scholar of Kalebb", "Muiran, a trapper", "a plump wild rabbit",  "a speckled, brown turtle", "a bald eagle", "a large, speckled turtle", "a small green water snake", "Edgar, the gardener", "Gaerath, the guard captain"}},
