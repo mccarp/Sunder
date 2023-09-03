@@ -29610,7 +29610,22 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>vermin</name>
 						<script>if snd.toggles.vermin then
-  send("k vermin")
+  if snd.toggles.newbie then
+    send("k vermin")
+  else
+  --single attack logic
+    snd.bashing.target = "vermin"
+    for k,v in pairs(snd.class_list) do
+      if snd.class_list[k].class == snd.class then
+      if snd[v.class:lower().."_bash_override"] then
+        snd[v.class:lower().."_bash_override"]()
+      else
+        v.func()
+      end
+      snd.send("qeb stand"..snd.sep..battack)
+      end
+    end
+  end
 end
 snd.vermin = snd.vermin + 1
 if snd.vermin &gt;= 3 then
