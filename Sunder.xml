@@ -29610,7 +29610,23 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>vermin</name>
 						<script>if snd.toggles.vermin then
-  send("k vermin")
+  if snd.toggles.newbie then
+    send("k vermin")
+  else
+  --single attack logic
+    snd.bashing.target = "vermin"
+    battack = ""
+    for k,v in pairs(snd.class_list) do
+      if snd.class_list[k].class == snd.class then
+      if snd[v.class:lower().."_bash_override"] then
+        snd[v.class:lower().."_bash_override"]()
+      else
+        v.func()
+      end
+      snd.send("qeb stand"..snd.sep..battack)
+      end
+    end
+  end
 end
 snd.vermin = snd.vermin + 1
 if snd.vermin &gt;= 3 then
@@ -29727,9 +29743,9 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList />
 					<regexCodePropertyList />
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>True Who Parsing</name>
-						<script>for word in string.gmatch(matches[1], '[^.,%s]+') do
+						<script>for word in string.gmatch(multimatches[1][1], '[^.,%s]+') do
     if word ~= "and" then
         table.insert(snd.true_who, word)
     end
@@ -29743,7 +29759,7 @@ disableTrigger("QWP for level 20 goggles")
 
    </script>
 						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
+						<conditonLineDelta>1</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
 						<mCommand></mCommand>
 						<packageName></packageName>
@@ -29754,8 +29770,12 @@ disableTrigger("QWP for level 20 goggles")
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^(.+)\.$</string>
+							<string>1</string>
+							<string>^There (are \d+ people total online with \d+ people that are hidden from you\.|is 1 person online\. Lonely you!)$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>5</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -33623,7 +33643,7 @@ send(" ")</script>
 						<script>snd.toggle("lighting")</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(lgt|toggle lightning|toggle pipes)$</regex>
+						<regex>^(lgt|toggle lighting|toggle pipes)$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>on</name>
@@ -50785,7 +50805,7 @@ else
 	end
 	sendGMCP("Comm.Channel.Players")
 	send(" ")
-	if snd.toggles.goggle_level == "20" then
+	if tonumber(snd.toggles.goggle_level) == 20 then
     snd.true_who = {}
     enableTrigger("QWP for level 20 goggles")
     send("qw")
