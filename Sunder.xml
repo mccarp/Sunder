@@ -76070,13 +76070,17 @@ end</script>
            
   Needle = function(target, venom)
             if not venom then
-              snd.needle = snd.venomEffect(snd.maybe_affs)
+              if snd.maybe_affs[1] then
+                snd.needle = snd.venomEffect(snd.maybe_affs[1])
+              else
+                snd.needle = "none"
+              end
             elseif venom ~= "dodge" then
               if snd.needle == "none" then
                 snd.needle = snd.venomEffect(venom)
                 end
               end
-            end,         
+            end,    
   
   
   
