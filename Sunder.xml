@@ -53527,7 +53527,8 @@ function snd.can_rage()
   if
     (snd.class == "Templar" or snd.class == "Revenant" or snd.class == "Shapeshifter") and
     hasSkill("Rage") and
-    snd.balance.rage
+    snd.balance.rage and
+    snd.not_aff("besilence")
   then
     return true
   else
