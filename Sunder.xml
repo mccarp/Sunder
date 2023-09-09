@@ -4540,8 +4540,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<string>You are unable to absorb another affliction so soon.</string>
 								<string>As you lift your arms overhead, the dust and earth around you rise up, collecting in a cloud about your person. The cloud thickens and cakes over your flesh, and when it falls away, you feel healthier.</string>
 								<string>You use Wavebreaking Yearn.</string>
+								<string>You use Terramancy Absorb.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
@@ -21917,8 +21919,10 @@ end</script>
 							<string>(\w+) is already upon the ground.</string>
 							<string>^(\w+) is knocked to the ground by a sudden powerful gust of wind\.$</string>
 							<string>^(\w+) leaps up in what is apparently an attempt at a graceful swan dive\. (The )?\w+ smacks head ?first into shallow water\.$</string>
+							<string>^Being unconscious, (\w+) falls over\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -36574,7 +36578,7 @@ end</script>
 								<script>if snd.class == "Wayfarer" then -- Requires dropstrike
 snd.starting_attack()
 function snd.attack_function()
-	if not snd.waiting.queue then
+    if not snd.waiting.queue then
 		local string = "" -- we'll load this with our attack string
 		local call = "" -- and this with our affliction call
 		local touse = {}
@@ -36585,6 +36589,8 @@ function snd.attack_function()
 		local indoors = table.contains(gmcp.Room.Info.details, "indoors")
 		local enrage = false
 		--local preatk = "qa "..snd.target..snd.sep
+    
+    if gmcp.Char.Vitals.wield_left == "empty" and gmcp.Char.Vitals.wield_right == "empty" then return end
 		
 		if tonumber(gmcp.Char.Vitals.fury) &gt;=40 then
 			shatter = true -- spam it
@@ -36599,16 +36605,17 @@ function snd.attack_function()
 		end
 		
 		snd.giving = {
-		  "left_leg_crippled",
-		  "right_leg_crippled",
-			"left_arm_crippled",
+      "left_leg_crippled",
+      "right_leg_crippled",
+      "left_arm_crippled",
 			"right_arm_crippled",
-			"stupidity",
-			"anorexia",
-			"asthma",
-			"slickness",
-			"paresis",
-			"clumsiness",
+      "anorexia",
+      "asthma",
+      "slickness",
+      "stupidity",
+      "paresis",
+      "clumsiness",
+      "sensitivity",
     }
 		if #missing == 2 and not snd.used.shield and not snd.used.rebounding then
 			venom = snd.effects[missing[1]]
@@ -36616,17 +36623,17 @@ function snd.attack_function()
 			venom = snd.effects[missing[1]]
 		end
 		
-  	for i in pairs(snd.giving) do
+      for i in pairs(snd.giving) do
       if not snd.checkAff(snd.giving[i]) then
         if not table.contains(touse, snd.giving[i]) then 
-          table.insert(tohit, extraaff)
-				end
-  		end
-  	end
-		
-		for i in pairs(touse) do
+          table.insert(touse, snd.giving[i])
+                end
+          end
+      end
+        
+        for i in pairs(touse) do
         table.insert(tohit, snd.effects[touse[i]])
-		end
+        end
 		
 		while #tohit &lt; 3 do
 			table.insert(tohit, extraaff)
@@ -36642,24 +36649,26 @@ function snd.attack_function()
 			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 		end
 		
-    --quickassess doesn't exist, so we can't use this
-		--if snd.health_percent &lt;= 35 and not indoors then
-		--	if not snd.used_rebounding and not snd.highjumped then
-		--	string = "highjump"
-		--	elseif snd.highjumped == true then
-		--		string = "axe dropstrike "..snd.target.." "..tohit[1]
-		--		call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-			--elseif snd.used_rebounding then
-		--	string = "axe devastate "..snd.target.." "..tohit[1]
-		--	call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-		--	end
-		--end
+    
+        --Can we do this based on number of affs?
+		if snd.aff_count_all() &gt; 8 and not indoors then
+			if not snd.used_rebounding and not snd.highjumped then
+			string = "highjump"
+			elseif snd.highjumped == true then
+				string = "axe dropstrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
+			elseif snd.used_rebounding then
+			string = "axe devastate "..snd.target.." "..tohit[1]
+			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
+			end
+		end
 
-    --if snd.health_percent &gt; 35 and not indoors and snd.checkAff("sensitivity") and snd.proned() 
-    --and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
-		--	string = preatk.."axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
-		--	call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
-		--end
+    
+        if snd.aff_count_all() &gt; 8 and not indoors and snd.checkAff("sensitivity") and snd.proned() 
+    and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
+			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
+			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
+		end
 		
 		if indoors and snd.checkAff("sensitivity") and snd.proned() and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
 			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
@@ -36700,12 +36709,13 @@ end</script>
 								<script>if snd.class == "Wayfarer" then
 snd.starting_attack()
 function snd.attack_function()
-	if not snd.waiting.queue then
+    if not snd.waiting.queue then
 		local string = ""
 		local call = "" 
 		local touse = {}
 		local tohit = {}
-		--local preatk = "qa "..snd.target..snd.sep
+
+if gmcp.Char.Vitals.wield_left == "empty" and gmcp.Char.Vitals.wield_right == "empty" then return end
 		
 		local fury_amount = tonumber(gmcp.Char.Vitals.fury)
 		local fury = ""
@@ -36713,6 +36723,7 @@ function snd.attack_function()
 		snd.giving = {
 		"asthma",
 		"paresis",
+    "sensitivity",
 		"clumsiness",
 		"slickness",
 		"left_leg_crippled",
@@ -36725,7 +36736,6 @@ function snd.attack_function()
 		"allergies",
 		"vomiting",
 		"recklessness",
-		"sensitivity",
 		"sight",
 		"shyness",
 		"dizziness",
@@ -36811,314 +36821,106 @@ snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^lock$</regex>
+								<regex>^gaff$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>Limbs w/execute</name>
+								<name>Group Limbs w/execute</name>
 								<script>if snd.class == "Wayfarer" then
 snd.starting_attack()
 function snd.attack_function()
-    if not snd.waiting.queue then
-      local string = "" -- we'll load this with our attack string
-      local call = "" -- and this with our affliction call
-      local touse = {}
-      local tohit = {}
-      local limb_tohit = "head" --default value
-      local extraaff = "asthma"
-      local fury = tonumber(gmcp.Char.Vitals.fury)
-      local execute_check = false
 
-        -- set the limb order we want to hit
-      snd.giving_limbs = {"right leg", "left leg", "head", "left arm", "right arm", }
-      for k, v in pairs(snd.giving_limbs) do
-          if snd.limb_status[v] == "healed" and ((snd.parried_limb ~= v and snd.last_hit_limb ~= v) or snd.no_parry() or (fury &gt;= 30 and snd.balance.fury)) then
-                limb_tohit = v
-                break
-          end
+  if not snd.waiting.queue then
+    local string = ""
+    local call = ""
+		local limb_tohit = ""
+    local targ = "nothing"
+		local touse = {}
+    local tohit = {}
+    local execute_check = false
+    local fury = tonumber(gmcp.Char.Vitals.fury)
+    local distract = false
+      if snd.balance.fury and fury &gt;=30 then
+        distract = true
       end
-
-      snd.giving = {
-          "left_leg_crippled",
-          "right_leg_crippled",
-          "anorexia",
-          "slickness",
-          "stupidity",
-          "asthma",
-          "sensitivity",
-          "weariness",
-          "clumsiness",
-          "left_arm_crippled",
-          "right_arm_crippled",
-      }
-      for i in pairs(snd.giving) do
-        if not snd.checkAff(snd.giving[i]) then
-          if not table.contains(touse, snd.giving[i]) then 
-            table.insert(touse, snd.giving[i])
-          end
+ 
+    
+	  snd.giving_limbs = {"head", "right leg", "left leg", "left arm", "right arm",}  
+    for k, v in pairs(snd.giving_limbs) do
+      if snd.limb_status[v] == "healed" and ((snd.parried_limb ~= v and snd.last_hit_limb ~= v) or snd.no_parry() or distract) then
+        limb_tohit = v
+        break
+      end
+    end
+        
+    snd.giving = {
+      "left_leg_crippled",
+      "right_leg_crippled",
+      "left_arm_crippled",
+      "right_arm_crippled",
+      "anorexia",
+      "asthma",
+      "slickness",
+      "stupidity",
+      "paresis",
+      "sensitivity",
+      "weariness",
+      "clumsiness",
+    }
+    
+    for i in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[i]) then
+        if not table.contains(touse, snd.giving[i]) then 
+          table.insert(touse, snd.giving[i])
         end
       end
-      if #touse&lt;1 then table.insert(touse, extraaff) end
-      
+		end
+    
     for k, v in pairs(snd.limb_dmg) do
       if k ~= "torso" and k ~= "head" and snd.limb_status[k] ~= "healed" and snd.limb_status["head"] ~= "healed" and snd.checksomeAffs({"fallen", "prone", "frozen"},1) then
         execute_check = true
       end
     end
-
+    
     for i in pairs(touse) do
-            table.insert(tohit, snd.effects[touse[i]])
-    end
+			table.insert(tohit, snd.effects[touse[i]])
+		end
+      
     if snd.used.shield and snd.used.rebounding then
-            string = "axe devastate "..snd.target
+      string = "axe devastate "..snd.target
     elseif snd.used.shield or snd.used.rebounding then
-            string = "axe devastate "..snd.target.." "..tohit[1]
-            call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
+      string = "axe devastate "..snd.target.." "..tohit[1]
+      call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
     elseif execute_check then
       string = "axe execute "..snd.target
-        else
-            string = "fury distract "..snd.target..snd.sep.."axe chop "..snd.target.." "..limb_tohit .." "..tohit[1]
-            call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-        end
-
-        -- prepend our affliction call, if we need one
-        if snd.toggles.affcalling and not snd.target_gone then
-            string = call..string
-        end
-
-        -- handle anti-spam and the actual attacking now
-        if string ~= snd.last_attack and not snd.waiting.queue then
-            snd.last_attack = string
-            snd.attack(snd.last_attack)
-            snd.waiting.queue = true
-            tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-        end
+    elseif snd.checksomeAffs({"right_leg_crippled", "left_leg_crippled", "right_leg_broken", "left_leg_broken"}, 1) and not snd.checkAff("fallen") then
+      string = "axe sweep "..snd.target
+    else
+      string = "axe chop "..snd.target.." "..limb_tohit.." "..tohit[1]
+      call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
     end
-  end
+    
+    if distract then
+      string = "fury distract "..snd.target..snd.sep..string
+    end
 
-  snd.attack_function()
+		if snd.toggles.affcalling and not snd.target_gone then
+			string = call..string
+		end
+  
+  	if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+  
+  end
+end
+snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^limbs$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Wayfarer Group Affs</name>
-								<script>if snd.class == "Wayfarer" then
-snd.starting_attack()
-function snd.attack_function()
-	if not snd.waiting.queue then
-		local string = ""
-		local call = "" 
-		local touse = "none"
-		local tohit = "none"
-		--local preatk = "qa "..snd.target..snd.sep
-		local axenumbers = 2
-		local fury_amount = tonumber(gmcp.Char.Vitals.fury)
-		local fury = ""
-
-		snd.giving = {
-		"asthma",
-		"paresis",
-		"clumsiness",
-		"slickness",
-		"left_leg_crippled",
-		"right_leg_crippled",
-		"anorexia",
-		"stupidity",
-		"left_leg_crippled",
-		"left_arm_crippled",
-		"haemophilia",
-		"allergies",
-		"vomiting",
-		"recklessness",
-		"sensitivity",
-		"sight",
-		"shyness",
-		"dizziness",
-    }
-		
-		
-		
-	 if not snd.have_aff("blackout") then
-        if string.find(gmcp.Char.Vitals.wield_left, "axe") and string.find(gmcp.Char.Vitals.wield_right, "axe") then
-            axenumbers = 2
-        elseif not string.find(gmcp.Char.Vitals.wield_left, "axe") and string.find(gmcp.Char.Vitals.wield_right, "axe") then
-            axenumbers = 1
-        elseif string.find(gmcp.Char.Vitals.wield_left, "axe") and not string.find(gmcp.Char.Vitals.wield_right, "axe") then
-            axenumbers = 1  
-        elseif not string.find(gmcp.Char.Vitals.wield_left, "axe") and not string.find(gmcp.Char.Vitals.wield_right, "axe") then
-            axenumbers = 0   
-        end	
-	end	
-	
-	   if snd.proned() and snd.checkAff("head_broken") and snd.checksomeAffs({"torso_broken", "left_arm_broken", "right_arm_broken", "left_leg_broken", "right_leg_broken"}, 1) then
-	      if tonumber(axenumbers) &gt; 1 then
-		     string = "fury threaten " ..snd.target.. " boost"..snd.sep.."axe execute "..snd.target..snd.sep
-		  else
-		     echo("Waiting to be able to execute!!!")
-		     return
-		  end
-		
-       elseif snd.target_aegis and fury_amount &lt; 79 then
-	      if tonumber(axenumbers) &gt; 1 then
-		     string = string.. "axe whirlwind curare"..snd.sep
-		  else
-		     echo("do nothing")
-		  return
-		  end
-		  
-	   elseif snd.used.shield then
-	        if fury_amount &gt; 49 then
-			   fury = "fury threaten " ..snd.target.. " boost"..snd.sep
-			   
-			   if snd.checkAff("asthma") and snd.checksomeAffs({"paresis", "paralysis"}, 1) and snd.checksomeAffs({"stupidity", "muddled"}, 1) and not snd.checkAff("slickness") then
-                  string = fury.."axe lob " ..snd.target.. " gecko"..snd.sep
-				  call = "wt Afflicting "..snd.target..": gecko"..snd.sep 				  
-			   elseif snd.checkAff("slickness") and not snd.checkAff("anorexia") then
-			      string = fury.."axe lob "..snd.target.. " slike"..snd.sep
-				  call = "wt Afflicting "..snd.target..": slike"..snd.sep				  
-			   elseif not snd.checkAff("slickness") and snd.checkAff("anorexia") then
-			      string = fury.."axe lob "..snd.target.. " gecko"..snd.sep
-				  call = "wt Afflicting "..snd.target..": gecko"..snd.sep 					  
-               elseif not snd.checkAff("asthma") and snd.checkAff("slickness") then
-			      string = fury.."axe lob "..snd.target.. " kalmia"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": kalmia"..snd.sep 	
-               elseif not snd.checksomeAffs({"paresis", "paralysis"}, 1) then	
-			      string = fury.."axe lob "..snd.target.. " curare"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": curare"..snd.sep 					  
-               elseif not snd.checkAff("asthma") then			
-			      string = fury.."axe lob "..snd.target.. " kalmia"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": kalmia"..snd.sep 					  
-               elseif not snd.checkAff("stupidity") then			
-			      string = fury.."axe lob "..snd.target.. " aconite"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": aconite"..snd.sep 					   
-               elseif not snd.checkAff("clumsiness") then			
-			      string = fury.."axe lob "..snd.target.. " xentio"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": xentio"..snd.sep 		
-               elseif not snd.checkAff("weariness") then			
-			      string = fury.."axe lob "..snd.target.. " vernalius"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": vernalius"..snd.sep 	
-               elseif not snd.checkAff("sensitivity") then			
-			      string = fury.."axe lob "..snd.target.. " prefarar"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": prefarar"..snd.sep 				  
-               elseif not snd.checkAff("allergies") then			
-			      string = fury.."axe lob "..snd.target.. " darkshade"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": darkshade"..snd.sep 
-               elseif not snd.checkAff("shyness") then			
-			      string = fury.."axe lob "..snd.target.. " digitalis"..snd.sep
- 				  call = "wt Afflicting "..snd.target..": digitalis"..snd.sep			  
-               else
-			      string = fury.."axe bash "..snd.target..snd.sep
- 	   
-			   end
-			  
-		    else
-		
-		       if snd.checkAff("asthma") and snd.checkAff("anorexia") and not snd.checkAff("slickness") then
-                  tohit = "gecko"
-               elseif not snd.checkAff("asthma") and snd.checkAff("anorexia") and snd.checkAff("slickness") then
-                  tohit = "kalmia"	
-	           elseif not snd.checkAff("anorexia") then
-		          tohit = "slike"
-	           elseif not snd.checkAff("stupidity") then
-		         tohit = "aconite"
-	           elseif not snd.checkAff("asthma") then
-		          tohit = "kalmia"
-	           elseif not snd.checkAff("slickness") then
-		          tohit = "gecko"
-	           elseif not snd.checksomeAffs({"paresis", "paralysis"}, 1) then
-		          tohit = "curare"
-	           elseif not snd.checkAff("clumsiness") then
-		          tohit = "xentio"
-	           elseif not snd.checkAff("weariness") then
-		          tohit = "vernalius"
-	           elseif not snd.checkAff("left_leg_crippled") or not snd.checkAff("right_leg_crippled") then
-		          tohit = "epseth"	
-	           elseif not snd.checkAff("left_arm_crippled") or not snd.checkAff("right_arm_crippled") then
-		          tohit = "epteth"		              
-	           end	
-			end
-			
-			string = "axe devastate "..snd.target.. " " ..tohit.. ""..snd.sep
-  	        call = "wt Afflicting "..snd.target..": "..tohit..""..snd.sep
-			
-        else
-			 
-		   if fury_amount &gt; 49 and not snd.checkAff("lethargy") and not snd.checkAff("halted") then -- boosted
-			   fury = "fury halt " ..snd.target.. " boost" ..snd.sep
-		   elseif fury_amount &gt; 29 and not snd.checkAff("weariness") then
-			   fury = "fury shake " ..snd.target.. "" ..snd.sep
-		   elseif fury_amount &gt; 29 and not snd.checkAff("exhausted") and snd.checkAff("lethargy") then
-			   fury = "fury exhaust " ..snd.target.. "" ..snd.sep
-		   elseif fury_amount &gt; 49 and snd.checkAff("exhausted") and snd.checkAff("lethargy") and not snd.checkAff("masochism") then -- boosted
-			   fury = "fury threaten " ..snd.target.. " boost" ..snd.sep	
-		   elseif fury_amount &gt; 59 and snd.checkAff("lethargy") and not snd.checkAff("hearing") and snd.checksomeAffs({"halted", "paralysis"}, 1) and not snd.checkAff("exhausted") and not snd.checkAff("masochism") then
-			   fury = "fury shatter " ..snd.target.. "" ..snd.sep
-		   end
-
-		   if snd.checkAff("asthma") and snd.checksomeAffs({"paresis", "paralysis"}, 1) and snd.checksomeAffs({"stupidity", "muddled"}, 1) and not snd.checkAff("slickness") then
-			  string = fury.."axe lob " ..snd.target.. " gecko"..snd.sep
-			  call = "wt Afflicting "..snd.target..": gecko"..snd.sep 				  
-		   elseif snd.checkAff("slickness") and not snd.checkAff("anorexia") then
-			  string = fury.."axe lob "..snd.target.. " slike"..snd.sep
-			  call = "wt Afflicting "..snd.target..": slike"..snd.sep				  
-		   elseif not snd.checkAff("slickness") and snd.checkAff("anorexia") then
-			  string = fury.."axe lob "..snd.target.. " gecko"..snd.sep
-			  call = "wt Afflicting "..snd.target..": gecko"..snd.sep 					  
-		   elseif not snd.checkAff("asthma") and snd.checkAff("slickness") then
-			  string = fury.."axe lob "..snd.target.. " kalmia"..snd.sep
-			  call = "wt Afflicting "..snd.target..": kalmia"..snd.sep 	
-		   elseif not snd.checksomeAffs({"paresis", "paralysis"}, 1) then	
-			  string = fury.."axe lob "..snd.target.. " curare"..snd.sep
-			  call = "wt Afflicting "..snd.target..": curare"..snd.sep 					  
-		   elseif not snd.checkAff("asthma") then			
-			  string = fury.."axe lob "..snd.target.. " kalmia"..snd.sep
-			  call = "wt Afflicting "..snd.target..": kalmia"..snd.sep 					  
-		   elseif not snd.checkAff("stupidity") then			
-			  string = fury.."axe lob "..snd.target.. " aconite"..snd.sep
-			  call = "wt Afflicting "..snd.target..": aconite"..snd.sep
-	     elseif not snd.checkAff("left_leg_crippled") or not snd.checkAff("right_leg_crippled") then
-			  string = fury.."axe lob "..snd.target.. " epseth"..snd.sep
-			  call = "wt Afflicting "..snd.target..": epseth"..snd.sep	   
-		   elseif not snd.checkAff("clumsiness") then			
-			  string = fury.."axe lob "..snd.target.. " xentio"..snd.sep
-			  call = "wt Afflicting "..snd.target..": xentio"..snd.sep 		
-		   elseif not snd.checkAff("weariness") then			
-			  string = fury.."axe lob "..snd.target.. " vernalius"..snd.sep
-			  call = "wt Afflicting "..snd.target..": vernalius"..snd.sep 	
-		   elseif not snd.checkAff("sensitivity") then			
-			  string = fury.."axe lob "..snd.target.. " prefarar"..snd.sep
-			  call = "wt Afflicting "..snd.target..": prefarar"..snd.sep 				  
-		   elseif not snd.checkAff("allergies") then			
-			  string = fury.."axe lob "..snd.target.. " darkshade"..snd.sep
-			  call = "wt Afflicting "..snd.target..": darkshade"..snd.sep         
-		   elseif not snd.checkAff("shyness") then			
-			  string = fury.."axe lob "..snd.target.. " digitalis"..snd.sep
-			  call = "wt Afflicting "..snd.target..": digitalis"..snd.sep			  
-		   else
-			  string = fury.."axe bash "..snd.target..snd.sep
-
-		   end 
-	    end
-			   
-	if snd.toggles.affcalling and not snd.target_gone and call ~= nil then
-		string = call..string
-	end
-
-	if string ~= snd.last_attack and not snd.waiting.queue then
-		snd.last_attack = string
-		snd.attack(snd.last_attack)
-		snd.waiting.queue = true
-		tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-	end
-end
-end
-		
-snd.attack_function()
-end			   </script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gaff$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -37132,7 +36934,7 @@ end			   </script>
 								<script>if snd.class == "Wayfarer" then
 snd.starting_attack()
 function snd.attack_function()
-	
+    
 	if not snd.waiting.queue then
 	
 		local string = ""
@@ -37146,12 +36948,14 @@ function snd.attack_function()
 		else
 			boosthalt = false
 		end
+    
+    if gmcp.Char.Vitals.wield_left == "empty" and gmcp.Char.Vitals.wield_right == "empty" then return end
 		
 		snd.giving = {
 		"hearing",
-		"sensitivity",
 		"sight",
 		"paresis",
+    "sensitivity",
 		"asthma",
 		"vomiting",
 		"allergies",
@@ -37162,17 +36966,17 @@ function snd.attack_function()
 		"stupidity",
     }
 		
-for i in pairs(snd.giving) do
+      for i in pairs(snd.giving) do
       if not snd.checkAff(snd.giving[i]) then
         if not table.contains(touse, snd.giving[i]) then 
-          table.insert(tohit, extraaff)
+          table.insert(touse, snd.giving[i])
+                end
+          end
+      end
+        
+        for i in pairs(touse) do
+        table.insert(tohit, snd.effects[touse[i]])
         end
- 			end
-		end
-		
-		for i in pairs(touse) do
-			table.insert(tohit, snd.effects[touse[i]])
-		end
 		
 		while #tohit &lt; 3 do
 			table.insert(tohit, extraaff)
@@ -37210,140 +37014,10 @@ for i in pairs(snd.giving) do
 end
 
 snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^dmg$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>lock into slaughter</name>
-								<script>if snd.class == "Wayfarer" then
-snd.starting_attack()
-function snd.attack_function()
-	if not snd.waiting.queue then
-		local string = "" -- we'll load this with our attack string
-		local call = "" -- and this with our affliction call
-		local touse = {}
-		local tohit = {}
-		local extraaff = "asthma"
-		local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
-		local shatter = false
-		local boostshatter = false
-		local indoors = table.contains(gmcp.Room.Info.details, "indoors")
-		local enrage = false
-		--local preatk = "qa "..snd.target..snd.sep
-		
-		if tonumber(gmcp.Char.Vitals.fury) &gt;=40 then
-			shatter = true -- spam it
-		else
-			shatter = false
-		end
-
-		if tonumber(gmcp.Char.Vitals.fury) &gt;=60 then
-			boostshatter = true -- spam it
-		else
-			boostshatter = false
-		end
-
-		if tonumber(gmcp.Char.Vitals.fury) &gt;=50 then
-			enrage = true
-		else
-			enrage = false
-		end
-		
-		-- set the affs we want to use
-		snd.giving = {
-		"paresis",
-		"asthma",
-		"weariness",
-		"sight",
-		"sensitivity",
-		"slickness",
-		"anorexia",
-		"stupidity",
-		"left_leg_crippled",
-		"right_leg_crippled",
-		"clumsiness",
-		"haemophilia",
-		"allergies",
-		"vomiting",
-		"recklessness",
-		"dizziness",
-    }
-		if #missing == 2 and not snd.used.shield and not snd.used.rebounding then
-			venom = snd.effects[missing[1]]
-		elseif #missing == 1 and not snd.used.shield then
-			venom = snd.effects[missing[1]]
-		end
-		
-		-- pick affs from the list above
-  	for i in pairs(snd.giving) do
-  		-- make sure not to double up paresis and paralysis
-  		if not snd.checkAff(snd.giving[i]) then
-  			-- and don't add an aff we've already got one higher in the list!
-				if not table.contains(touse, snd.giving[i]) then 
-				table.insert(tohit, extraaff)
-				end
-  		end
-  	end
-		
-		for i in pairs(touse) do
-        table.insert(tohit, snd.effects[touse[i]])
-		end
-		
-		while #tohit &lt; 3 do
-			table.insert(tohit, extraaff)
-		end
-		
-		-- now to decide what attack to use!
-		if snd.used.shield then
-			string = "axe devastate "..snd.target.." "..tohit[1]
-			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-		elseif snd.used.shield and snd.used.rebounding then
-			string = "axe devastate "..snd.target
-		else
-			string = "axe lob "..snd.target.." "..tohit[1]
-			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-		end
-		
-    if snd.proned() and snd.checkAff("sensitivity") and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) then
-			string = "axe slaughter "..snd.target.." "..tohit[2].." "..tohit[1]
-			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
-		end
-		
-		if shatter and #missing &gt; 2 and not snd.checkAff("sensitivity") and not snd.enraged then
-			string = "fury shatter "..snd.target..snd.sep..string
-		end
-		
-		if boostshatter and #missing &lt;= 2 and not snd.checkAff("sensitivity") and not snd.enraged then
-			string = "fury shatter "..snd.target.." boost"..snd.sep..string
-		end
-		
-		if enrage == true and not snd.enraged and snd.checkAff("sensitivity") then
-			string = "fury enrage "..snd.sep..string
-		end
-		
-		-- prepend our affliction call, if we need one
-		if snd.toggles.affcalling and not snd.target_gone then
-			string = call..string
-		end
-		
-		-- handle anti-spam and the actual attacking now
-		if string ~= snd.last_attack and not snd.waiting.queue then
-			snd.last_attack = string
-			snd.attack(snd.last_attack)
-			snd.waiting.queue = true
-			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-		end
-	end
-end
-
-snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^gaff$</regex>
+								<regex>^dmg$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Lacerate (Bleed) focused</name>
@@ -53525,7 +53199,8 @@ function snd.can_rage()
   if
     (snd.class == "Templar" or snd.class == "Revenant" or snd.class == "Shapeshifter") and
     hasSkill("Rage") and
-    snd.balance.rage
+    snd.balance.rage and
+    snd.not_aff("besilence")
   then
     return true
   else
@@ -70856,33 +70531,19 @@ end
 					<Script isActive="yes" isFolder="no">
 						<name>panacea / subvert</name>
 						<packageName></packageName>
-						<script>panacea_threshold = 2
-
-function snd.panacea_check()
--- Attempt to purge if don't have paralysis and have at least 2 curable physical affs.
-  if snd.balance.panacea and not snd.waiting.panacea and not snd.have_aff("paralysis") then
-    local panaceable = {}
-    
-    for _, aff in pairs(snd.physical_affs) do
-      if snd.have_aff(aff) and aff ~= "paralysis" then
-        local i, _ = string.find(aff, "_crippled")
-        if i then
-          local s = string.sub(aff, 0, i - 1)
-          if snd.afflictions["aff_"..s.."_broken"].state == "healed" then
-            table.insert(panaceable, aff)
-          end
-        else
-          table.insert(panaceable, aff)
-        end
-      end
+						<script>function snd.panacea_check()
+  if snd.balance.panacea and not snd.waiting.panacea and not (snd.have_aff("paresis") or snd.have_aff("paralysis")) then
+    if snd.panacea_override then
+      return snd.panacea_override()
     end
-    
-    if #panaceable &gt;= panacea_threshold then
+    if snd.checksomeSelfAffs({"asthma","slickness","anorexia","impatience"},2) then
       return true
-    else
-      return false
+    end
+    if snd.have_aff("impatience") and snd.checksomeSelfAffs(snd.mental_affs, 3) then
+      return true
     end
   end
+  return false
 end
 
 function snd.do_panacea()
@@ -76082,13 +75743,17 @@ end</script>
            
   Needle = function(target, venom)
             if not venom then
-              snd.needle = snd.venomEffect(snd.maybe_affs)
+              if snd.maybe_affs[1] then
+                snd.needle = snd.venomEffect(snd.maybe_affs[1])
+              else
+                snd.needle = "none"
+              end
             elseif venom ~= "dodge" then
               if snd.needle == "none" then
                 snd.needle = snd.venomEffect(venom)
                 end
               end
-            end,         
+            end,    
   
   
   
