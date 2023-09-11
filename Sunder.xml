@@ -73723,7 +73723,12 @@ end</script>
       Vorpal = function()
                  enableTrigger("vorpal confirmation")
                end,        
-
+      Iceblast = function(target, modifier)
+          snd.target_got("cold")
+          if modifier == "two-hand" then
+            snd.target_got("cold")
+          end
+      end,
   },
   
 --Shaman
@@ -75317,7 +75322,12 @@ end</script>
       Atdum = function()
            enableTrigger("atdum confirmation")
          end,      
-
+      Telvi = function(target, modifier)
+          snd.target_got("cold")
+          if modifier == "two-hand" then
+            snd.target_got("cold")
+          end
+      end,
   },
 --Warden
   ["Warding"] = {
