@@ -72743,7 +72743,11 @@ end</script>
 					<name>All attacks</name>
 					<packageName></packageName>
 					<script>snd.all_class_attacks = {
-
+  ["Enchantment"] = {
+    Frostblast = function(target)
+      snd.target_got("cold")
+    end,
+  },
 --Luminary
   ["Spirituality"] = {
   
