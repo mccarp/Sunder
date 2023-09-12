@@ -10523,7 +10523,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Stab Failure</name>
 									<script>disableTrigger("Anelace Stab Handling")
-</script>
+--unsure what other fail conditions might stop this, so also closing it on prompt.</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -10537,10 +10537,12 @@ end</script>
 									<regexCodeList>
 										<string>^Stepping quickly out of the way, \w+ dodges the attack.$</string>
 										<string>You strike out clumsily and miss your mark.</string>
+										<string></string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
 										<integer>3</integer>
+										<integer>7</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -75810,8 +75812,7 @@ end</script>
   
     Anelace = function(target, stab)
             if stab then
-               snd.target_got("hollow")
-               snd.target_got("narcolepsy")
+               enableTrigger("Anelace Stab Handling")
              end
             end,
              
