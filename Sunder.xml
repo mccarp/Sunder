@@ -7077,6 +7077,44 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Synthesis/Animation gate.</name>
+						<script>snd.hitting = matches[2]
+snd.maybe_affs = {}
+disableTrigger("Sunder Dodge")
+disableTrigger("Sunder Parry")
+disableTrigger("Sunder Rebounding")
+disableTrigger("Monk Hit Tracking")
+snd.last_affs = {}
+snd.last_limb_dmg = 0
+snd.last_hit_limb = "none"
+snd.using_both_hands = 0
+snd.skill_being_used = ""
+
+if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
+  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
+    snd.all_class_attacks[matches[3]][matches[4]](matches[6],matches[5])
+    snd.getting_hit = matches[6]
+    snd.skill_being_used = matches[4]
+  end
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(\w+ .+) uses (Animation|Synthesis) (\w+)(?: \((.+)\))? on (\w+)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Razing</name>
@@ -7182,7 +7220,7 @@ snd.getting_hit = "You"
     snd.target_cured("besilence")
   else 
   snd.track_rebounding(snd.target)
-  tempTimer(6, [[
+  snd.reboundingTimer = tempTimer(6, [[
                 snd.used.rebounding = true;
                 snd.waiting_queue = false;
                 if snd.toggles.attacking then snd.attack_function() end
@@ -74408,7 +74446,33 @@ end</script>
   },
   
   ["Animation"] = {
-        
+      Heartpunch = function(target)
+                if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
+                snd.target_got("heartflutter")
+              end,
+      Rip = function(target, limb)
+                if limb ~= "torso" then
+                  local limb = string.gsub(limb, " ", "_")
+                  snd.target_got(limb.."_crippled")
+                end
+              end,
+      Wrack = function(target)
+                snd.target_got("paresis")
+                snd.target_got("heartflutter")
+              end,
+      Shout = function(target)
+                snd.target_got("blurry_vision")
+              end,
+      Grapple = function(target)
+                snd.target_got("writhe_grappled")
+              end,
+      Shatter = function(target)
+                snd.used.shield = false
+              end,
+      Wrench = function(target, limb)
+                table.insert(snd.maybe_affs, 1, limb.."_dislocated")
+                snd.onHit2({"Dodge", "Parry"})
+              end,  
   },
 
 --Tidesage
@@ -74551,15 +74615,33 @@ end</script>
   },
   
   ["Synthesis"] = {
-    
-    Trammel = function(target)
+      Trammel = function(target)
+                if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
                 snd.target_got("heartflutter")
               end,
-        Deconstruct = function(target, limb)
-                  table.insert(snd.maybe_affs, 1, limb.."_dislocated")
-                  snd.onHit2({"Dodge", "Parry"})
+      Squeeze = function(target, limb)
+                if limb ~= "torso" then
+                  local limb = string.gsub(limb, " ", "_")
+                  snd.target_got(limb.."_crippled")
+                end
               end,
-        
+      Chime = function(target)
+                snd.target_got("paresis")
+                snd.target_got("heartflutter")
+              end,
+      Concuss = function(target)
+                snd.target_got("blurry_vision")
+              end,
+      Clutch = function(target)
+                snd.target_got("writhe_grappled")
+              end,
+      Nullify = function(target)
+                snd.used.shield = false
+              end,
+      Deconstruct = function(target, limb)
+                table.insert(snd.maybe_affs, 1, limb.."_dislocated")
+                snd.onHit2({"Dodge", "Parry"})
+              end,  
   },
 --Carnifex
   ["Savagery"] = {
