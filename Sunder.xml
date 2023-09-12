@@ -21272,6 +21272,7 @@ end
     ["entanglement by ropes"] = "ropes",
     ["tied ropes"] = "bind",
     ["impalement"] = "impaled",
+    ["grappling"] = "grappled",
     }
     
   snd.target_cured("writhe_"..writhe_table[matches[3]])
@@ -21292,8 +21293,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^(\w+) has writhed free of \w+ (.+)\.$</string>
+								<string>^(\w+) has freed \w+ from the (grappling)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -71642,6 +71645,7 @@ snd.entangleaffs = {
 	"writhe_necklock",
   "writhe_ropes",
   "writhe_vines",
+  "writhe_grappled",
  }
 
 
@@ -72610,6 +72614,7 @@ function snd.no_parry()
 	"writhe_necklock",
   "writhe_ropes",
   "writhe_vines",
+  "writhe_grappled",
  }
  if snd.class == "sentinel" then
   table.insert(noparryaffs, "paresis")
@@ -72636,6 +72641,7 @@ function snd.proned()
 	"writhe_necklock",
   "writhe_ropes",
   "writhe_vines",
+  "writhe_grappled",
   "fallen",
   "asleep",
  }
