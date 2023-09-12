@@ -52531,6 +52531,10 @@ end</script>
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
   end
   
+  if hasSkill("Insomnia") then
+    snd.defenses.def_insomnia = snd.alternative_class_defenses.Skill_insomnia
+  end
+  
   if snd.assumed_class ~= nil then return end
 	local stats = gmcp.Char.Vitals.charstats
 	for i,v in ipairs(stats) do
@@ -55617,6 +55621,7 @@ Ascendril_empowered_moon = {defense = "empowered_moon", type = "normal", effect 
 Bloodborn_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "unleash acumen"}, state = "down", needit = false, timer = createStopWatch(), skill = "Acumen" },
 Sciomancer_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 Runecarver_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "runecarve mysticism"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mysticism" },
+Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = {special = "insomnia"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insomnia"},
 }
 
 
