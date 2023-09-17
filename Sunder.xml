@@ -15653,13 +15653,17 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>battered</name>
-								<script>snd.target_got(one)
-snd.target_got(two)
-snd.target_got(three)</script>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Mind batter</name>
+								<script>if multimatches[1][2] == snd.target then
+  for aff in string.gmatch(multimatches[2][2]:lower(), '(%a+)') do
+    if aff ~= "and" then
+      snd.target_got(aff)
+    end
+  end
+end</script>
 								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
+								<conditonLineDelta>1</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
 								<mCommand></mCommand>
 								<packageName></packageName>
@@ -15669,9 +15673,11 @@ snd.target_got(three)</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You thrust out and batter (\w+)('s|') mind, making (the )?\w+ reel\.$</string>
+									<string>^You thrust out and batter (\w+)('s|') mind, making (the )?\w+ reel under your might\.$</string>
+									<string>^The telepathic blow struck with (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -16389,6 +16395,9 @@ end</script>
 								<script>-- Only adding limb damage if we see the hit connect message.
 if snd.target == snd.getting_hit then
   snd.last_hit_limb = matches[2]
+  if snd.hitting == "You" and snd.stance == "cobra" or snd.stance == "tiger" then
+    snd.last_limb_dmg = snd.last_limb_dmg * 1.2
+  end
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   
   if #snd.maybe_affs &gt;= 1 then
@@ -16423,6 +16432,7 @@ disableTrigger("Monk Hit Tracking")</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Cometkick Collapsed Lung</name>
 								<script>if snd.target == matches[2] then
+  snd.target_got("weak_grip")
   snd.target_got("collapsed_lung")
 end</script>
 								<triggerType>0</triggerType>
@@ -16664,6 +16674,29 @@ disableTrigger("Wrench confirmation hit")</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>New trigger</name>
+								<script>if matches[2] == snd.target then
+  snd.target_cured("fallen")
+  snd.theytumbling = false
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) backs away and out of \w+(?:'s)? reach\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -74932,7 +74965,6 @@ end</script>
               end,
     Cometkick = function(target)
               	snd.last_limb_dmg = 5.5
-                snd.target_got("weak_grip")
                 enableTrigger("Monk Hit Tracking")
               end,
     Hook = function(target)
@@ -74953,8 +74985,8 @@ end</script>
               end,
     Palmstrike = function(target)
                 snd.last_limb_dmg = 3
+                table.insert(snd.maybe_affs, "blurry_vision")
                 enableTrigger("Monk Hit Tracking")
-              	snd.target_got("blurry_vision")
               end,
     Jab = function(target)
               	snd.last_limb_dmg = 5
