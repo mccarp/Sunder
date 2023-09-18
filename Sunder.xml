@@ -21082,7 +21082,7 @@ end</script>
 							<name>discern</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   if matches[4]:find("crippled") then 
-    if matches[4] == "crippled body" or matches[4] == "crippled" then
+    if matches[4] == "crippled body" or matches[4] == "crippled" or matches[4] =="crippled throat" then
       snd.target_cured(matches[4])
     else
       local test = matches[4]:gsub("crippled ", "")
