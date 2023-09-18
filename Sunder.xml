@@ -7077,6 +7077,44 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Synthesis/Animation gate.</name>
+						<script>snd.hitting = matches[2]
+snd.maybe_affs = {}
+disableTrigger("Sunder Dodge")
+disableTrigger("Sunder Parry")
+disableTrigger("Sunder Rebounding")
+disableTrigger("Monk Hit Tracking")
+snd.last_affs = {}
+snd.last_limb_dmg = 0
+snd.last_hit_limb = "none"
+snd.using_both_hands = 0
+snd.skill_being_used = ""
+
+if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
+  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
+    snd.all_class_attacks[matches[3]][matches[4]](matches[6],matches[5])
+    snd.getting_hit = matches[6]
+    snd.skill_being_used = matches[4]
+  end
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(\w+ .+) uses (Animation|Synthesis) (\w+)(?: \((.+)\))? on (\w+)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Razing</name>
@@ -7182,7 +7220,7 @@ snd.getting_hit = "You"
     snd.target_cured("besilence")
   else 
   snd.track_rebounding(snd.target)
-  tempTimer(6, [[
+  snd.reboundingTimer = tempTimer(6, [[
                 snd.used.rebounding = true;
                 snd.waiting_queue = false;
                 if snd.toggles.attacking then snd.attack_function() end
@@ -10523,7 +10561,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Stab Failure</name>
 									<script>disableTrigger("Anelace Stab Handling")
-</script>
+--unsure what other fail conditions might stop this, so also closing it on prompt.</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -10537,10 +10575,12 @@ end</script>
 									<regexCodeList>
 										<string>^Stepping quickly out of the way, \w+ dodges the attack.$</string>
 										<string>You strike out clumsily and miss your mark.</string>
+										<string></string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
 										<integer>3</integer>
+										<integer>7</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -15613,13 +15653,17 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>battered</name>
-								<script>snd.target_got(one)
-snd.target_got(two)
-snd.target_got(three)</script>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Mind batter</name>
+								<script>if multimatches[1][2] == snd.target then
+  for aff in string.gmatch(multimatches[2][2]:lower(), '(%a+)') do
+    if aff ~= "and" then
+      snd.target_got(aff)
+    end
+  end
+end</script>
 								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
+								<conditonLineDelta>1</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
 								<mCommand></mCommand>
 								<packageName></packageName>
@@ -15629,9 +15673,11 @@ snd.target_got(three)</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You thrust out and batter (\w+)('s|') mind, making (the )?\w+ reel\.$</string>
+									<string>^You thrust out and batter (\w+)('s|') mind, making (the )?\w+ reel under your might\.$</string>
+									<string>^The telepathic blow struck with (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -16349,6 +16395,9 @@ end</script>
 								<script>-- Only adding limb damage if we see the hit connect message.
 if snd.target == snd.getting_hit then
   snd.last_hit_limb = matches[2]
+  if snd.hitting == "You" and snd.stance == "cobra" or snd.stance == "tiger" then
+    snd.last_limb_dmg = snd.last_limb_dmg * 1.2
+  end
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   
   if #snd.maybe_affs &gt;= 1 then
@@ -16383,6 +16432,7 @@ disableTrigger("Monk Hit Tracking")</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Cometkick Collapsed Lung</name>
 								<script>if snd.target == matches[2] then
+  snd.target_got("weak_grip")
   snd.target_got("collapsed_lung")
 end</script>
 								<triggerType>0</triggerType>
@@ -16624,6 +16674,29 @@ disableTrigger("Wrench confirmation hit")</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>New trigger</name>
+								<script>if matches[2] == snd.target then
+  snd.target_cured("fallen")
+  snd.theytumbling = false
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) backs away and out of \w+(?:'s)? reach\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -21232,6 +21305,7 @@ end
     ["entanglement by ropes"] = "ropes",
     ["tied ropes"] = "bind",
     ["impalement"] = "impaled",
+    ["grappling"] = "grappled",
     }
     
   snd.target_cured("writhe_"..writhe_table[matches[3]])
@@ -21252,8 +21326,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^(\w+) has writhed free of \w+ (.+)\.$</string>
+								<string>^(\w+) has freed \w+ from the (grappling)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -52488,6 +52564,10 @@ end</script>
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
   end
   
+  if hasSkill("Insomnia") then
+    snd.defenses.def_insomnia = snd.alternative_class_defenses.Skill_insomnia
+  end
+  
   if snd.assumed_class ~= nil then return end
 	local stats = gmcp.Char.Vitals.charstats
 	for i,v in ipairs(stats) do
@@ -55574,6 +55654,7 @@ Ascendril_empowered_moon = {defense = "empowered_moon", type = "normal", effect 
 Bloodborn_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "unleash acumen"}, state = "down", needit = false, timer = createStopWatch(), skill = "Acumen" },
 Sciomancer_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 Runecarver_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "runecarve mysticism"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mysticism" },
+Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = {special = "insomnia"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insomnia"},
 }
 
 
@@ -57451,6 +57532,7 @@ snd.bashing_area_beginning_rooms ={
   ["the Maestral Shoals"] = "48770",
   ["Upper Tiyen"] = "38894",
   ["Lower Tiyen"] = "39070",
+  ["Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa"] = "74470",
 }
 </script>
 						<eventHandlerList />
@@ -57508,7 +57590,7 @@ snd.areas = {
 {area = "the village of Rahveir", level = "Newbie", targets = {"a disgustingly warped missionary", "a malevolent poltergeist", "a corrupted spirit"}, items = {"a strange black sphere"}},
 {area = "Forsaken Evlasu", level = "Newbie", targets = {"an unnaturally lithe, shadowy aberration", "a hideous winged aberration", "a grotesque, warped aberration", "a corrupted cultist"}, items = {"a cluster of pure white starflower", "a corrupted aberration's feather", "a blighted branch", "a minute, corrupted totem"}},
 {area = "Yohanan Village", level = "Newbie", targets = {"a fleshless skeleton", "a female villager", "a villager", "an old guard", "a small girl", "a young village guard", "a mangy rat", "a cave bat"}, items = {}},
-{area = "Difohr Passage", level = "Quest", targets = {"a skittering onyx eld"}},
+{area = "Difohr Passage", level = "Quest", targets = {"a fragmented eld of shadowy onyx","a shattered eld monstrosity","a skittering onyx eld"}},
 {area = "Myesian Run", level = "Quest", targets = {"a skittering verdant eld"}},
 {area = "Cinderbreach Mine", level = "Quest", targets = {"a fiery crimson fragmented eld", "a shattered eld monstrosity", "a skittering crimson eld"}, items = {}},
 {area = "Radial Dig Shaft #15", level = "Quest", targets = {"a shattered eld monstrosity", "an icy azure fragmented eld", "a skittering azure eld"}, items = {}},
@@ -57632,6 +57714,7 @@ snd.areas = {
 {area = "a deep underground cavern", level = "99+", targets = {"a Chaos-warped Chiav guard", "a Chaos-warped gargantuan carrier centipede", "a Chaos-warped egg-laying spider", "a demonic Chaos-warped spider"}},
 {area = "the Liruma Crater", level = "???", targets = {"Match:a horrifically deformed adventurer resembling %a+", "a feral, misshapen hare", "a disfigured sheep", "an irradiated hyena", "a malformed Ophidian woman", "a twitching, ylem-bathed Mitrine", "a two-headed buffalo", "a deformed lynx",}},
 {area = "a volcanic island", level = "99+", targets = {  "a many-legged cinder crawler", "a sinuous elemental of acerbic smoke",  "an enraged hyriamah", "a firebound terror", "a cumbrous magma beast", "a fierce, lithely limbed firedancer", }},
+{area = "Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa", level = "99+", targets = {"a four-winged ayvarin", "a swift vukon", "a predatory kashnalda",}},
 }
 
 sunder_areaPaths = {
@@ -68077,6 +68160,82 @@ sunder_areaPaths = {
   v39962 = "39960",
   v39960 = "ptcity",
   },
+["Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa"] = {
+  v73321 = "74269",
+  v73345 = "73353",
+  v73353 = "73357",
+  v73357 = "73358",
+  v73358 = "73369",
+  v73369 = "74414",
+  v73372 = "73321",
+  v73374 = "73372",
+  v73417 = "73374",
+  v73482 = "73417",
+  v73518 = "74366",
+  v73838 = "73938",
+  v73839 = "73935",
+  v73935 = "73838",
+  v73936 = "74520",
+  v73938 = "73936",
+  v74164 = "74165",
+  v74165 = "74167",
+  v74167 = "74168",
+  v74168 = "74177",
+  v74177 = "74272",
+  v74188 = "74859",
+  v74189 = "74188",
+  v74192 = "74189",
+  v74193 = "74192",
+  v74269 = "74193",
+  v74272 = "73518",
+  v74343 = "74345",
+  v74345 = "74356",
+  v74346 = "73482",
+  v74356 = "74527",
+  v74361 = "74393",
+  v74363 = "74367",
+  v74366 = "74363",
+  v74367 = "74674",
+  v74368 = "74462",
+  v74369 = "74389",
+  v74389 = "74391",
+  v74391 = "74392",
+  v74392 = "73345",
+  v74393 = "74464",
+  v74394 = "74466",
+  v74397 = "74394",
+  v74414 = "74164",
+  v74462 = "74397",
+  v74463 = "74368",
+  v74464 = "74463",
+  v74466 = "74467",
+  v74467 = "74472",
+  v74470 = "74369",
+  v74471 = "74564",
+  v74472 = "74678",
+  v74477 = "74478",
+  v74478 = "74479",
+  v74479 = "74480",
+  v74480 = "74471",
+  v74519 = "74522",
+  v74520 = "74525",
+  v74521 = "74343",
+  v74522 = "74521",
+  v74525 = "74519",
+  v74527 = "74346",
+  v74564 = "74618",
+  v74618 = "74669",
+  v74669 = "73839",
+  v74674 = "74361",
+  v74678 = "74679",
+  v74679 = "74680",
+  v74680 = "74477",
+  v74856 = "75023",
+  v74857 = "74856",
+  v74858 = "74857",
+  v74859 = "74858",
+  v75023 = "ptcity"
+  },
 }
 
 </script>
@@ -71602,6 +71761,7 @@ snd.entangleaffs = {
 	"writhe_necklock",
   "writhe_ropes",
   "writhe_vines",
+  "writhe_grappled",
  }
 
 
@@ -72570,6 +72730,7 @@ function snd.no_parry()
 	"writhe_necklock",
   "writhe_ropes",
   "writhe_vines",
+  "writhe_grappled",
  }
  if snd.class == "sentinel" then
   table.insert(noparryaffs, "paresis")
@@ -72596,6 +72757,7 @@ function snd.proned()
 	"writhe_necklock",
   "writhe_ropes",
   "writhe_vines",
+  "writhe_grappled",
   "fallen",
   "asleep",
  }
@@ -72743,7 +72905,11 @@ end</script>
 					<name>All attacks</name>
 					<packageName></packageName>
 					<script>snd.all_class_attacks = {
-
+  ["Enchantment"] = {
+    Frostblast = function(target)
+      snd.target_got("cold")
+    end,
+  },
 --Luminary
   ["Spirituality"] = {
   
@@ -73723,7 +73889,12 @@ end</script>
       Vorpal = function()
                  enableTrigger("vorpal confirmation")
                end,        
-
+      Iceblast = function(target, modifier)
+          snd.target_got("cold")
+          if modifier == "two-hand" then
+            snd.target_got("cold")
+          end
+      end,
   },
   
 --Shaman
@@ -74397,7 +74568,33 @@ end</script>
   },
   
   ["Animation"] = {
-        
+      Heartpunch = function(target)
+                if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
+                snd.target_got("heartflutter")
+              end,
+      Rip = function(target, limb)
+                if limb ~= "torso" then
+                  local limb = string.gsub(limb, " ", "_")
+                  snd.target_got(limb.."_crippled")
+                end
+              end,
+      Wrack = function(target)
+                snd.target_got("paresis")
+                snd.target_got("heartflutter")
+              end,
+      Shout = function(target)
+                snd.target_got("blurry_vision")
+              end,
+      Grapple = function(target)
+                snd.target_got("writhe_grappled")
+              end,
+      Shatter = function(target)
+                snd.used.shield = false
+              end,
+      Wrench = function(target, limb)
+                table.insert(snd.maybe_affs, 1, limb.."_dislocated")
+                snd.onHit2({"Dodge", "Parry"})
+              end,  
   },
 
 --Tidesage
@@ -74540,15 +74737,33 @@ end</script>
   },
   
   ["Synthesis"] = {
-    
-    Trammel = function(target)
+      Trammel = function(target)
+                if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
                 snd.target_got("heartflutter")
               end,
-        Deconstruct = function(target, limb)
-                  table.insert(snd.maybe_affs, 1, limb.."_dislocated")
-                  snd.onHit2({"Dodge", "Parry"})
+      Squeeze = function(target, limb)
+                if limb ~= "torso" then
+                  local limb = string.gsub(limb, " ", "_")
+                  snd.target_got(limb.."_crippled")
+                end
               end,
-        
+      Chime = function(target)
+                snd.target_got("paresis")
+                snd.target_got("heartflutter")
+              end,
+      Concuss = function(target)
+                snd.target_got("blurry_vision")
+              end,
+      Clutch = function(target)
+                snd.target_got("writhe_grappled")
+              end,
+      Nullify = function(target)
+                snd.used.shield = false
+              end,
+      Deconstruct = function(target, limb)
+                table.insert(snd.maybe_affs, 1, limb.."_dislocated")
+                snd.onHit2({"Dodge", "Parry"})
+              end,  
   },
 --Carnifex
   ["Savagery"] = {
@@ -74750,7 +74965,6 @@ end</script>
               end,
     Cometkick = function(target)
               	snd.last_limb_dmg = 5.5
-                snd.target_got("weak_grip")
                 enableTrigger("Monk Hit Tracking")
               end,
     Hook = function(target)
@@ -74771,8 +74985,8 @@ end</script>
               end,
     Palmstrike = function(target)
                 snd.last_limb_dmg = 3
+                table.insert(snd.maybe_affs, "blurry_vision")
                 enableTrigger("Monk Hit Tracking")
-              	snd.target_got("blurry_vision")
               end,
     Jab = function(target)
               	snd.last_limb_dmg = 5
@@ -75317,7 +75531,12 @@ end</script>
       Atdum = function()
            enableTrigger("atdum confirmation")
          end,      
-
+      Telvi = function(target, modifier)
+          snd.target_got("cold")
+          if modifier == "two-hand" then
+            snd.target_got("cold")
+          end
+      end,
   },
 --Warden
   ["Warding"] = {
@@ -75796,8 +76015,7 @@ end</script>
   
     Anelace = function(target, stab)
             if stab then
-               snd.target_got("hollow")
-               snd.target_got("narcolepsy")
+               enableTrigger("Anelace Stab Handling")
              end
             end,
              
@@ -77665,7 +77883,8 @@ v26841 = "38090",
 v38090 = "26994",
 v26994 = "11326",
 v11326 = "11311",
-v11311 = "25738",
+v11311 = "77437",
+v77437 = "25738",
 v25738 = "19602",
 v19602 = "53444",
 v53444 = "3430",
@@ -77717,7 +77936,8 @@ v63763 = "14439",
 v14439 = "63730",
 v63730 = "20855",
 v20855 = "8795",
-v8795 = "58675",
+v8795 = "61323",
+v61323 = "58675",
 v58675 = "54699",
 v54699 = "13425",
 v13425 = "59187",
@@ -77772,9 +77992,9 @@ v31576 = "55276",
 v55276 = "58912",
 v58912 = "20835",
 v20835 = "21286",
-v21286 = "22866",
-v22866 = "23202",
-v23202 = "57559",
+v21286 = "23202",
+v23202 = "77434",
+v77434 = "57559",
 v57559 = "4964",
 v4964 = "2036",
 v2036 = "38894",
