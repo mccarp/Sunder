@@ -171,6 +171,7 @@ snd.new.room = false</script>
 							<script>for i in pairs(snd.defenses) do
  snd.def_remove(i)
 end
+snd.runemarkMajor, snd.runemarkMinor = "none", "none"
 snd.parrying = "none"</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -24447,8 +24448,8 @@ snd.runemarkMajor = matches[3]</script>
 								<name>Tidesage daubs</name>
 								<script>local daubMap =
   {tentacle = "red", wave = "blue", mouth = "yellow", cephalopod = "green", fin = "purple", eye = "gold"}
-snd.runemarkMinor = daubMap[matches[3]]
-snd.runemarkMajor = daubMap[matches[2]]</script>
+snd.runemarkMinor = daubMap[matches.minor]
+snd.runemarkMajor = daubMap[matches.major]</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -24460,10 +24461,12 @@ snd.runemarkMajor = daubMap[matches[2]]</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You paint yourself with the greater mark of the (\w+) then daub the lesser mark of the (\w+) upon it\.$</string>
+									<string>^You paint yourself with the greater mark of the (?&lt;major&gt;\w+) then daub the lesser mark of the (?&lt;minor&gt;\w+) upon it\.$</string>
+									<string>^You have daubed a (?&lt;minor&gt;\w+) lesser mark onto a (?&lt;major&gt;\w+) greater mark\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>0</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
