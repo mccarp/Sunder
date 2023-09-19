@@ -42,7 +42,7 @@ if snd.offense_loaded then
   snd.chasten_aff = "none"
   snd.last_cured = ""
   snd.rebounded = false
-  if snd.toggle.alerts then
+  if snd.toggles.alerts then
     snd.run_alerts()
   end
   if #snd.alertness &gt;= 1 and snd.toggles.affcalling then
