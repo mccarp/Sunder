@@ -3873,14 +3873,76 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 							<regexCodeList>
 								<string>You cannot deliver the curse of Aeon again so soon.</string>
 								<string>You cannot stretch the flow of time via an hourglass again so soon.</string>
-								<string>^Unfurling an hourglass in \w+'s direction, you watch as the sleek silver shades distort around \w+ to slow \w+ innate sense of time and possibility\.$</string>
-								<string>^You unfurl an hourglass toward (\w+) amidst a shimmer of sleek silver.$</string>
-								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Hourglass used</name>
+							<script>snd.balance.aeon = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>1</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You unfurl an hourglass toward (\w+) amidst a shimmer of sleek silver\.$</string>
+								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Aeon used</name>
+							<script>snd.balance.aeon = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>1</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^Standing the Aeon on your open palm, you blow it lightly at \w+\.$</string>
+								<string>^You watch as it seems to slow \w+'s? movement through the time stream\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Person aeoned.</name>
+							<script>if matches[2] == snd.target then
+  snd.target_got("aeon")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time\.$</string>
+								<string>^You watch as it seems to slow (\w+)'s? movement through the time stream\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -74120,10 +74182,7 @@ end</script>
                    snd.target_got("lovers_effect")  
                  end,
 
-        Aeon = function(target, speed)
-                if not speed then
-                  snd.target_got("aeon")
-                end
+        Aeon = function(target)
                 snd.target_got("no_speed") 
         end,
         
@@ -75939,12 +75998,9 @@ end</script>
                    snd.target_got("lovers_effect")  
                  end,
 
-        Hourglass = function(target, speed)
-                if not speed then
-                  snd.target_got("aeon")
-                end
-                snd.target_got("no_speed")
-        end,
+        Hourglass = function(target)
+                   snd.target_got("no_speed")
+                 end,
         
         Knight = function(target)
                    snd.target_got("justice") 
