@@ -42,7 +42,9 @@ if snd.offense_loaded then
   snd.chasten_aff = "none"
   snd.last_cured = ""
   snd.rebounded = false
-  --snd.run_alerts()
+  if snd.toggle.alerts then
+    snd.run_alerts()
+  end
   if #snd.alertness &gt;= 1 and snd.toggles.affcalling then
     dir = snd.parseDir(snd.alertnessDir)
     msg = "wt [" .. string.upper(snd.alertType) .. "] -" .. string.upper(dir) .. "- "
@@ -21833,8 +21835,16 @@ disableTrigger("Sunder Dodge")</script>
 								<string>^Stepping quickly out of the way, (\w+) dodges the attack\.$</string>
 								<string>^(\w+) twists and turns \w+ body, dodging the attack.$</string>
 								<string>^Shifting \w+ body, (\w+) weaves out of harm at the last moment\.$</string>
+								<string>^You strike clumsily at (\w+), completely missing .+ with .+\.$</string>
+								<string>^\w+ strikes clumsily at (\w+) with .+, completely missing \w+\.$</string>
+								<string>^Your vision blurs as you strike at (\w+) and miss with .+\.$</string>
+								<string>^\w+ blinks and rubs \w+ eye as (?:the )?\w+ misses (\w+) with .+\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -21996,8 +22006,12 @@ end</script>
 							<string>^(\w+) is knocked to the ground by a sudden powerful gust of wind\.$</string>
 							<string>^(\w+) leaps up in what is apparently an attempt at a graceful swan dive\. (The )?\w+ smacks head ?first into shallow water\.$</string>
 							<string>^Being unconscious, (\w+) falls over\.$</string>
+							<string>^(\w+) appears dizzy and falls to the ground\.$</string>
+							<string>^(\w+) is already fallen upon the ground\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -24213,8 +24227,9 @@ end</script>
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Barrage hit confirmation</name>
 								<script>if matches[2] == snd.target then
+ snd.barrageCounter = snd.barrageCounter + 1
  snd.last_hit_limb = matches[3]
- snd.last_limb_dmg = 3.99
+ snd.last_limb_dmg = snd.calcTeradrimLimbDamage("barrage"..snd.barrageCounter)
  snd.took_limb_dmg(matches[3], snd.last_limb_dmg)
  snd.onHit2({"Parry", "Rebounding", "Dodge"})
 end
@@ -24400,6 +24415,54 @@ end</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Teradrim runemarks</name>
+								<script>snd.runemarkMinor = matches[2]
+snd.runemarkMajor = matches[3]</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You have a (\w+) minor rune painted upon a (\w+) major rune.$</string>
+									<string>^You quickly inscribe a (\w+) rune upon a (\w+) rune on yourself with ink.$</string>
+									<string>You paint yourself with the greater mark of the tentacle then daub the lesser mark of the tentacle upon it.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>0</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Tidesage daubs</name>
+								<script>local daubMap =
+  {tentacle = "red", wave = "blue", mouth = "yellow", cephalopod = "green", fin = "purple", eye = "gold"}
+snd.runemarkMinor = daubMap[matches[3]]
+snd.runemarkMajor = daubMap[matches[2]]</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You paint yourself with the greater mark of the (\w+) then daub the lesser mark of the (\w+) upon it\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -33968,6 +34031,30 @@ snd.message("Will try to chameleon as one of: "..table.concat(snd.toggles.chamel
 						<packageName></packageName>
 						<regex>(?i)^chamtargets (.+)$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>target rune for tidesage/teradrim</name>
+						<script>snd.toggles.targetrune = not snd.toggles.targetrune
+if snd.toggles.targetrune then
+  cecho("&lt;red&gt;Will now factor in targeting rune for tidesage/teradrim limb damage.")
+else
+  cecho("&lt;red&gt;Will no longer factor in targeting rune for tidesage/teradrim limb damage.")
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle targetrune$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>^toggle alerts$</name>
+						<script>snd.toggles.alerts = not snd.toggles.alerts
+if snd.toggles.alerts then
+  cecho("&lt;red&gt;Will now display alerts on your prompt.")
+else
+  cecho("&lt;red&gt;Will no longer display alerts on your prompt.")
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle alerts$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -34822,195 +34909,91 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Limbs</name>
-								<script>-- NOTE: this is a route that is based off of another system's route and has potential to be 1v1, but needs work.
-
-if snd.class == "Monk" then
-
+								<script>if snd.class == "Monk" then
+ 
   snd.starting_attack()
+ 
   function snd.attack_function()
-
-    local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-    local kai = tonumber(gmcp.Char.Vitals.kai) 
-    local string = "" -- this will populate with our attack
-    local call = "" -- this will be for affliction calling
-
     if not snd.waiting.queue then
-
-      limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
-      snd.giving = {"anorexia", "stupidity", "epilepsy", "deadening", "recklessness", "dizziness", "hallucinations"}
-      
-      if (snd.limb_dmg["head"] &gt; 33.33 or snd.limb_dmg["left leg"] &gt; 33.33 or snd.limb_dmg["right leg"] &gt; 33.33) and not snd.checkAff("stupidity") then 
-        snd.mindAffliction = "stupidity"
-	    elseif not snd.checkAff("confusion") and snd.checkAff("blackout") then 
-        snd.mindAffliction = "confuse"
-      elseif not snd.checkAff("paresis") or snd.checkAff("paralysis") then
-        snd.mindAffliction = "paralyse"
-	    else
-        snd.mindAffliction = "none"
-        for i in pairs(snd.giving) do
-          if not snd.checkAff(snd.giving[i]) then
-            if snd.mindAffliction == "none" then
-              snd.mindAffliction = snd.giving[i]
+ 
+      local string = "" -- this will populate with our attack
+      local call = "" -- call your aff you're pushing
+      local kai = tonumber(gmcp.Char.Vitals.kai) 
+ 
+      snd.giving = {"stupidity", "anorexia", "paresis", "recklessness", "confusion", "epilepsy"}      
+ 
+      snd.mindAffliction = "none"
+      for i in pairs(snd.giving) do
+        if not snd.checkAff(snd.giving[i]) then
+          if snd.mindAffliction == "none" then
+            snd.mindAffliction = snd.giving[i]
+            if snd.mindAffliction == "confusion" then
+              snd.mindAffliction = "confuse"
+            elseif snd.mindAffliction == "paresis" then
+              snd.mindAffliction = "paralyse"
             end
           end
-        end    
+        end
       end
-
+ 
       if snd.used.shield then
-	       tekuraKick = "sck"
-      elseif snd.limb_dmg["head"] &gt;= 66.66 and snd.proned() and snd.resto_limb ~= "head" then
-		     tekuraKick = "axk"
-	    elseif snd.checkAff("head_mangled") and snd.proned() and snd.resto_limb ~= "head" then
-		     tekuraKick = "axk"
-	    elseif snd.stance ~= "bear" and snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) and not snd.proned() then
-		     tekuraKick = "brs"
-	    elseif snd.stance ~= "dragon" and snd.stance ~= "scorpion" and not snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) then
-		     tekuraKick = "drs"
-	    elseif not snd.proned() and ((snd.limb_dmg["left leg"] or snd.limb_dmg["right leg"]) &gt;= 33.33 or snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1)) and snd.cureset ~= "sentinel" then
-		     tekuraKick = "swk"
-	    elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},2) and not snd.checkAff("collapsed_lung") then
-		     tekuraKick = "cmk"
-	    elseif snd.proned() and snd.limb_dmg["left leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left leg" then
-		     tekuraKick = "wrt left leg"
-	    elseif snd.proned() and snd.limb_dmg["right leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right leg" then
-		     tekuraKick = "wrt right leg"
-	    elseif snd.proned() and snd.limb_dmg["left arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left arm" then
-		     tekuraKick = "wrt left arm"
-	    elseif snd.proned() and snd.limb_dmg["right arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right arm" then
-		     tekuraKick = "wrt right arm"
-	    elseif snd.proned() and not snd.checkAff("left_leg_crippled") and cantBeParried() and snd.resto_limb ~= "left leg" then
-		     tekuraKick = "wrt left leg"
-	    elseif snd.proned() and not snd.checkAff("right_leg_crippled") and cantBeParried() and snd.resto_limb ~= "right leg" then
-		     tekuraKick = "wrt right leg"
-	    elseif snd.proned() and not snd.checkAff("left_arm_crippled") and cantBeParried() and snd.resto_limb ~= "left arm" then
-		     tekuraKick = "wrt left arm"
-	    elseif snd.proned() and not snd.checkAff("right_arm_crippled") and cantBeParried() and snd.resto_limb ~= "right arm" then
-		     tekuraKick = "wrt right arm"		
-			elseif snd.resto_limb ~= "head" and snd.resto_limb ~= "none" and snd.parried_limb ~= "head" and not cantBeParried() then
-      	 tekuraKick = "wwk"
-	    elseif snd.limb_dmg["left leg"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" then
-		     tekuraKick = "snk left"
-	    elseif snd.limb_dmg["right arm"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "right arm") and snd.resto_limb ~= "right arm" then
-		     tekuraKick = "mnk right"			
-	    elseif snd.limb_dmg["left arm"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "left arm") and snd.resto_limb ~= "left arm" then
-		     tekuraKick = "mnk left"
-	    elseif snd.limb_dmg["right leg"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" then
-		     tekuraKick = "snk right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 then
-		     tekuraKick = "snk left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and snd.resto_limb ~= "left arm" and snd.limb_dmg["right arm"] &lt; 66.66 then
-		     tekuraKick = "mnk right"		
-	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and snd.resto_limb ~= "right arm" and snd.limb_dmg["left arm"] &lt; 66.66 then
-		     tekuraKick = "mnk left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 then
-		     tekuraKick = "snk right"
+        tekuraKick = "sck"
+      elseif snd.stance ~= "tiger" then
+		     tekuraKick = "tgs"
+	    elseif (snd.checkAff("writhe_impaled") or snd.checkAff("head_mangled") or snd.limb_dmg["head"] &gt;= 66.66) and snd.checkAff("fallen") then
+        tekuraKick = "axk"
+      elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) and not snd.checkAff("fallen") then
+        tekuraKick = "swk"
+      elseif snd.limb_dmg["left leg"] &lt; 33.33 and (snd.no_parry() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" then
+        tekuraKick = "snk left"
+	    elseif snd.limb_dmg["right leg"] &lt; 33.33 and (snd.no_parry() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" then
+        tekuraKick = "snk right"
 	    else 
-		     tekuraKick = "wwk"
+        tekuraKick = "wwk"
       end
-
-      if snd.checkAff("numb_arms") and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     firstPunch = "hfp left"
-	    elseif snd.proned() and snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     firstPunch = "hfp left"
-	    elseif snd.checkAff("numb_arms") and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-		     firstPunch = "hfp right"
-	    elseif snd.proned() and snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-		     firstPunch = "hfp right"
-	    elseif snd.checkAff("numb_arms") and snd.resto_limb ~= "head" then
-		     firstPunch = "ucp"
-	    elseif (snd.cureset == "shifter" or snd.cureset == "praenomen") and not snd.checkAff("crippled_throat") and not snd.enemy_restoration_balance then
-		     firstPunch = "tsp"
-		  elseif snd.mindAffliction == "stupidity" and not snd.checkAff("dizziness") then
-		     firstPunch = "pmp"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and not snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 and tekuraKick ~= "mnk left" then
-		     firstPunch = "spp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and not snd.checkAff("left_leg_broken") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 and tekuraKick ~= "snk left" then
-		     firstPunch = "hfp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and not snd.checkAff("right_leg_broken") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 and tekuraKick ~= "snk right" then
-		     firstPunch = "hfp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and not snd.checkAff("right_arm_broken") and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 and tekuraKick ~= "mnk right" then
-		     firstPunch = "spp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "head") and not snd.checkAff("head_broken") and snd.resto_limb ~= "head" then
-		     firstPunch = "ucp"
-	    else
-		     firstPunch = "hkp"
+ 
+      if snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+        firstPunch = "hfp left"
+      elseif snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+        firstPunch = "hfp right"
+      else
+		    firstPunch = "hkp"
       end
-
-      if snd.checkAff("numb_arms") and not snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     secondPunch = "hfp left"
-	    elseif snd.proned() and snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     secondPunch = "hfp left"
-	    elseif snd.checkAff("numb_arms") and not snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-    	 	 secondPunch = "hfp right"
-	    elseif snd.proned() and snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-		     secondPunch = "hfp right"
-	    elseif snd.checkAff("numb_arms") and snd.resto_limb ~= "head" then
-		     secondPunch = "ucp"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 then
-		     secondPunch = "hfp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and snd.limb_dmg["right arm"] &lt; 33.33 and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 then
-		     secondPunch = "spp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and snd.limb_dmg["left arm"] &lt; 33.33 and snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 then
-		     secondPunch = "spp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 then
-		     secondPunch = "hfp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "head") and snd.resto_limb ~= "head" then
-		     secondPunch = "ucp"
-	    else
-		     secondPunch = "hkp"
+ 
+      if snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+        secondPunch = "hfp left"
+      elseif snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+        secondPunch = "hfp right"
+      else
+		    secondPunch = "hkp"
       end
-
-      if not snd.proned() then
-	       if hp &lt;= 35 and kai &gt;= 21 then 
-			     string = "kai heal"
-         elseif not snd.mindlocked and not snd.locking then
-           string = "mind lock "..snd.target
-		     elseif snd.used.shield then
-		       string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.." "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
-		     elseif not snd.checkAff("turmoil") then
-			     string = "blp "..snd.target
-			   elseif snd.limb_dmg["left leg"] &gt;= 33.33 and snd.limb_dmg["right leg"] &gt;= 33.33 and snd.limb_dmg["left arm"] &gt;= 33.33 and snd.limb_dmg["right arm"] &gt;= 33.33 and snd.limb_dmg["head"] &lt; 66.66 then 
-			     string = "combo "..snd.target.." wrt left leg ucp ucp "..snd.sep.."mind "..snd.mindAffliction.." "..snd.target
-		     elseif ((snd.limb_dmg["left arm"] &gt;= 26 and snd.limb_dmg["left arm"] &lt;= 33.33 and snd.resto_limb ~= "left arm") or (snd.limb_dmg["right arm"] &gt;= 26 and snd.limb_dmg["right arm"] &lt;= 33.33 and snd.resto_limb ~= "right arm") or (snd.limb_dmg["left leg"] &gt;= 26 and snd.limb_dmg["left leg"] &lt;= 33.33 and snd.resto_limb ~= "left leg") or (snd.limb_dmg["right leg"] &gt;= 26 and snd.limb_dmg["right leg"] &lt;= 33.33 and snd.resto_limb ~= "right leg")) and snd.balance.blackout and snd.mindlocked then
-			     string = "mind blackout"
-		     elseif kai &gt;= 70 and snd.stance == "scorpion" then
-			     string = "kai enfeeble "..snd.target
-		     elseif kai &gt;= 40 and snd.stance ~= "scorpion" and not snd.checkAff("left_arm_crippled") and not snd.checkAff("right_arm_crippled") and not snd.checkAff("right_leg_crippled") and not snd.checkAff("left_leg_crippled") and ((snd.checkAff("blackout") and snd.resto_limb ~= "none") or not snd.enemy_restoration_balance) and snd.cureset ~= "shifter" then
+ 
+      if snd.theytumbling then
+        string = "slt "..snd.target
+      elseif snd.checkAff("fallen") and not snd.checkAff("writhe_impaled") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "right_arm_broken", "left_arm_broken"},1) then
+        string = "bbt "..snd.target
+      elseif kai &gt;= 40 and not snd.enemy_restoration_balance and snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "right_arm_broken", "left_arm_broken"},1) then
 			     string = "kai cripple "..snd.target
-		     else
-			     string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
-		     end
-       elseif (snd.limb_dmg["head"] &gt;= 56 or snd.checkAff("head_mangled")) and snd.proned() and cantBeParried() then
-    	   string = "combo "..snd.target.." axk ucp ucp"
-		   elseif snd.target_impaled then
-			   string = "combo "..snd.target.." axk ucp ucp"
-		   elseif (snd.checkAff("head_mangled") or snd.limb_dmg["head"] &gt;= 66.66) and snd.proned() then
-			   string = "combo "..snd.target.." axk ucp ucp"
-		   elseif snd.checkAff("blackout") and not snd.checkAff("disrupted") then
-			   string = "mind disrupt "..snd.target
-		   elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},2) and snd.proned() then 
-			   if snd.balance.blackout and snd.mindlocked then
-				    string = "mind blackout"
-			   else
-				    string = "mind batter "..snd.target.." epilepsy dizziness stupidity"
-			   end
-       elseif snd.checkAff("fallen") and not snd.checkAff("writhe_impaled") then
-         string = "bbt "..snd.target
-		   end
-    
-		   if snd.toggles.affcalling and not snd.target_gone then
-			   string = call..snd.sep..string
-		   end
-
-       if string ~= snd.last_attack and not snd.waiting.queue then
-         snd.last_attack = string
-         snd.attack(snd.last_attack)
-         snd.waiting.queue = true
-         tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-       end
+      else
+        string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
+        call = "wt Afflicting "..snd.target..": "..snd.mindAffliction..snd.sep
+      end
+ 
+      if snd.toggles.affcalling and not snd.target_gone then
+        string = call..string
+		  end
+ 
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+ 
     end
+ 
   end
-snd.attack_function()
+  snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
@@ -51961,6 +51944,8 @@ fastwalk = false,
 prism = false,
 enrich = false,
 gags = true,
+targetrune = false,
+alerts = false,
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -71289,6 +71274,8 @@ snd.fulcrum_exists = false
 
 --Teradrim / Tidesage
 snd.lev_gone = false
+snd.runemarkMajor = "none"
+snd.runemarkMinor = "none"
 
 --Zealot/Ravager
 snd.zenith = false
@@ -72602,7 +72589,7 @@ end</script>
           if snd.faction == "spirit" then
             snd.send("wt I'm melting! I'm melting!")
           elseif snd.faction == "shadow" then
-            --snd.send("wt I'm really close to death.")
+            snd.send("wt I'm really close to death.")
           end
           snd.waiting.melting = true
           tempTimer(5, [[snd.waiting.melting = false]])
@@ -74433,19 +74420,13 @@ end</script>
   ["Terramancy"] = {
     Gutsmash = function(target)
                 snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 11.99
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("gutsmash")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Facesmash = function(target)
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 12.99
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-                snd.onHit2({"Dodge", "Parry", "Rebounding"})
-               end,
-    Shred = function(target, where)
-                snd.last_hit_limb = where
-                snd.last_limb_dmg = 6.99
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("facesmash")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
@@ -74455,7 +74436,7 @@ end</script>
                end,
     Batter = function(target, where)
                snd.last_hit_limb = where
-               snd.last_limb_dmg = 13.74
+               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("batter")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
@@ -74465,7 +74446,7 @@ end</script>
                 end,
     Furor = function(target, where)
              	snd.last_hit_limb = where
-            	snd.last_limb_dmg = 7.8
+            	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("furor")
             	snd.took_limb_dmg(where, snd.last_limb_dmg)
               snd.onHit2({"Dodge", "Parry", "Rebounding"})
             end,
@@ -74479,64 +74460,56 @@ end</script>
     Fracture = function(target, where)
                  table.insert(snd.maybe_affs, where.."_crippled")
                  	snd.last_hit_limb = where
-                	if snd.limb_bruising[snd.last_hit_limb] == 0 then
-                    snd.last_limb_dmg = 11.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 1 then
-                    snd.last_limb_dmg = 15.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 2 then
-                    snd.last_limb_dmg = 19.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 3 then
-                    snd.last_limb_dmg = 23.99
-                  end
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("fracture")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,  
     Skullbash = function(target)
                  	snd.last_hit_limb = "head"
-                	snd.last_limb_dmg = 17.65
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("skullbash")
                   local afflist = {"whiplash", "indifference", "smashed_throat"}
-                  local check = 0
-                  for _, v in pairs(afflist) do if snd.limb_bruising["head"] &gt; check then
+                  for k, v in pairs(afflist) do if snd.limb_bruising["head"] &gt;= k then
                     table.insert(snd.maybe_affs, v)
-                    check = check + 1 
                     end
                   end
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"}, "Teradrim Skullbash")
                end,
     Pulp = function(target)
-           	snd.last_hit_limb = "torso"
-          	snd.last_limb_dmg = 8.6
-          	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-            snd.onHit2({"Dodge", "Rebounding"})
-         end, 
-  Impale = function(target, failed)
-             if failed then
-               snd.removeProneStates(true)
-             else
-               snd.target_got("writhe_impaled")
-               snd.theytumbling = false
-               if snd.hitting == "You" then
-                snd.target_impaled = true
-               end
-            end
-          end,
-  Stonevice = function(target)
-                snd.target_cured("writhe_impaled")
-                snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 10
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-              end,
-  Barrage = function(target)
-              enableTrigger("Barrage hit confirmation")
+               	snd.last_hit_limb = "torso"
+                table.insert(snd.maybe_affs, "collapsed_lung")
+              	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("pulp")
+              	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                snd.onHit2({"Dodge", "Rebounding"})
+             end, 
+    Impale = function(target, failed)
+               if failed then
+                 snd.removeProneStates(true)
+               else
+                 snd.target_got("writhe_impaled")
+                 snd.theytumbling = false
+                 if snd.hitting == "You" then
+                  snd.target_impaled = true
+                 end
+              end
             end,
-            
+    Stonevice = function(target)
+                  snd.target_cured("writhe_impaled")
+                  snd.last_hit_limb = "torso"
+                  snd.last_limb_dmg = 10
+                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                end,
+    Barrage = function(target)
+                snd.barrageCounter = 0
+                enableTrigger("Barrage hit confirmation")
+              end,
+              
     Slam = function(target, where)
                   snd.last_hit_limb = where
-                	snd.last_limb_dmg = 9.99
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("slam")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
-          end,
+              end,
   },
   
   ["Desiccation"] = {
@@ -74601,13 +74574,13 @@ end</script>
  ["Wavebreaking"] = {
     Ram = function(target)
                 snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 12
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("ram")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Crest = function(target)
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 13
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crest")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
@@ -74617,13 +74590,13 @@ end</script>
                end,
     Clobber = function(target, where)
                snd.last_hit_limb = where
-               snd.last_limb_dmg = 13.75
+               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("clobber")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Crack = function(target, where)
                snd.last_hit_limb = where
-               snd.last_limb_dmg = 10.49
+               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crack")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
@@ -74633,7 +74606,7 @@ end</script>
                 end,
     Pitch = function(target, where)
              	snd.last_hit_limb = where
-            	snd.last_limb_dmg = 7.8
+            	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("pitch")
             	snd.took_limb_dmg(where, snd.last_limb_dmg)
               snd.onHit2({"Dodge", "Parry", "Rebounding"})
             end,
@@ -74647,26 +74620,16 @@ end</script>
     Buckle = function(target, where)                 
                  table.insert(snd.maybe_affs, where.."_crippled")
                  	snd.last_hit_limb = where
-                	if snd.limb_bruising[snd.last_hit_limb] == 0 then
-                    snd.last_limb_dmg = 11.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 1 then
-                    snd.last_limb_dmg = 15.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 2 then
-                    snd.last_limb_dmg = 19.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 3 then
-                    snd.last_limb_dmg = 23.99
-                  end
+                  snd.last_limb_dmg = snd.calcTeradrimLimbDamage("buckle")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,  
     Gybe = function(target)
                  	snd.last_hit_limb = "head"
-                	snd.last_limb_dmg = 17.65
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("gybe")
                   local afflist = {"whiplash", "indifference", "smashed_throat"}
-                  local check = 0
-                  for _, v in pairs(afflist) do if snd.limb_bruising["head"] &gt; check then
+                  for k, v in pairs(afflist) do if snd.limb_bruising["head"] &gt;= k then
                     table.insert(snd.maybe_affs, v)
-                    check = check + 1 
                     end
                   end
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -74674,34 +74637,36 @@ end</script>
                end,
     Wreck = function(target)
            	snd.last_hit_limb = "torso"
-          	snd.last_limb_dmg = 8.6
+            table.insert(snd.maybe_affs, "collapsed_lung")
+          	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("wreck")
           	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
             snd.onHit2({"Dodge", "Rebounding"})
          end, 
-  Harpoon = function(target, failed)
-             if failed then
-               snd.removeProneStates(true)
-             else
-               snd.target_got("writhe_impaled")
-               snd.theytumbling = false
-               if snd.hitting == "You" then
-                snd.target_impaled = true
-               end
-            end
-          end,
-  Eviscerate = function(target)
-                snd.target_cured("writhe_impaled")
-                snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 10
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-              end,
-  Broadside = function(target)
-              enableTrigger("Barrage hit confirmation")
+    Harpoon = function(target, failed)
+               if failed then
+                 snd.removeProneStates(true)
+               else
+                 snd.target_got("writhe_impaled")
+                 snd.theytumbling = false
+                 if snd.hitting == "You" then
+                  snd.target_impaled = true
+                 end
+              end
             end,
-            
+    Eviscerate = function(target)
+                  snd.target_cured("writhe_impaled")
+                  snd.last_hit_limb = "torso"
+                  snd.last_limb_dmg = 10
+                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                end,
+    Broadside = function(target)
+                snd.barrageCounter = 0
+                enableTrigger("Barrage hit confirmation")
+              end,
+              
     Crack = function(target, where)
                   snd.last_hit_limb = where
-                	snd.last_limb_dmg = 9.99
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crack")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
           end,
@@ -77451,6 +77416,55 @@ end</script>
 		else
 		return false
 	end 
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Teradrim/Tidesage stuff</name>
+						<packageName></packageName>
+						<script>local mirrors = {
+    ram = "gutsmash",
+    crest = "facesmash",
+    clobber = "batter",  
+    pitch = "furor",
+    buckle = "fracture",
+    gybe = "skullbash",
+    wreck = "pulp",
+  }
+local attackDamage = {
+  gutsmash = 11.99,
+  facesmash = 12.99,
+  batter = 13.74,
+  furor = 7.79,
+  fracture = 12,
+  skullbash = 16,
+  pulp = 9.41,
+  slam = 10,
+  barrage1 = 4,
+  barrage2 = 3.5,
+  barrage3 = 3.06
+}
+
+function snd.calcTeradrimLimbDamage(skill)
+  local attack = mirrors[skill] or skill
+  local damage = attackDamage[attack]
+  if attack == "fracture" then
+    damage = damage + 4 * math.min(3, snd.limb_bruising[snd.last_hit_limb])
+  end
+  if snd.hitting == "You" then
+    if snd.toggles.targetrune then
+      damage = damage *1.05
+    end
+    if snd.runemarkMajor == "red" then
+      damage = damage * 1.25
+    elseif snd.runemarkMajor == "blue" then
+      damage = damage * 0.75
+    end
+    if snd.runeMarkMinor == "red" and attack == "fracture" then
+      damage = damage * 1.08
+    end
+  end
+  return round(damage,2)
 end</script>
 						<eventHandlerList />
 					</Script>
