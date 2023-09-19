@@ -53507,6 +53507,9 @@ end</script>
   snd.hidden_afflictions = 0
   snd.parrying = "none"
   snd.crescentable = true
+  
+  snd.runemarkMajor = "none"
+  snd.runemarkMinor = "none"
 end</script>
 						<eventHandlerList />
 					</Script>
@@ -57518,6 +57521,7 @@ snd.bashing_area_beginning_rooms ={
   ["Upper Tiyen"] = "38894",
   ["Lower Tiyen"] = "39070",
   ["Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa"] = "74470",
+  ["a dimly lit subterranean river"] = "76514",
 }
 </script>
 						<eventHandlerList />
@@ -57700,6 +57704,7 @@ snd.areas = {
 {area = "the Liruma Crater", level = "???", targets = {"Match:a horrifically deformed adventurer resembling %a+", "a feral, misshapen hare", "a disfigured sheep", "an irradiated hyena", "a malformed Ophidian woman", "a twitching, ylem-bathed Mitrine", "a two-headed buffalo", "a deformed lynx",}},
 {area = "a volcanic island", level = "99+", targets = {  "a many-legged cinder crawler", "a sinuous elemental of acerbic smoke",  "an enraged hyriamah", "a firebound terror", "a cumbrous magma beast", "a fierce, lithely limbed firedancer", }},
 {area = "Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa", level = "99+", targets = {"a four-winged ayvarin", "a swift vukon", "a predatory kashnalda",}},
+{area = "a dimly lit subterranean river", level = "99+", targets = {"an iridescent bubble of elemental energies", "a long-finned, cerulean amphibian", "a billowing cloud of shifting luminescence", "a spiny many-armed water elemental", "a tempestuous wave elemental", "a shimmering piscine elemental"}},
 }
 
 sunder_areaPaths = {
@@ -68221,6 +68226,81 @@ sunder_areaPaths = {
   v74859 = "74858",
   v75023 = "ptcity"
   },
+["a dimly lit subterranean river"] = {
+  v76514 = "76515",
+  v76515 = "76516",
+  v76516 = "76517",
+  v76517 = "76518",
+  v76518 = "76519",
+  v76519 = "76535",
+  v76535 = "76648",
+  v76536 = "76537",
+  v76537 = "76538",
+  v76538 = "76539",
+  v76539 = "76540",
+  v76540 = "76541",
+  v76541 = "76542",
+  v76542 = "76543",
+  v76543 = "76574",
+  v76574 = "76575",
+  v76575 = "76576",
+  v76576 = "76577",
+  v76577 = "76652",
+  v76578 = "76585",
+  v76585 = "76586",
+  v76586 = "76587",
+  v76587 = "76588",
+  v76588 = "76589",
+  v76589 = "76722",
+  v76591 = "76593",
+  v76592 = "76591",
+  v76593 = "76594",
+  v76594 = "76595",
+  v76595 = "76596",
+  v76596 = "76608",
+  v76597 = "76604",
+  v76604 = "76605",
+  v76605 = "76606",
+  v76606 = "76607",
+  v76607 = "ptcity",
+  v76608 = "76609",
+  v76609 = "76724",
+  v76611 = "76612",
+  v76612 = "76650",
+  v76613 = "76614",
+  v76614 = "76634",
+  v76615 = "76617",
+  v76617 = "76619",
+  v76618 = "76621",
+  v76619 = "76597",
+  v76621 = "76633",
+  v76622 = "76578",
+  v76628 = "76536",
+  v76631 = "76622",
+  v76632 = "76631",
+  v76633 = "76628",
+  v76634 = "76666",
+  v76637 = "76632",
+  v76639 = "76642",
+  v76640 = "76637",
+  v76641 = "76640",
+  v76642 = "76615",
+  v76648 = "76649",
+  v76649 = "76613",
+  v76650 = "76639",
+  v76652 = "76641",
+  v76654 = "76655",
+  v76655 = "76764",
+  v76666 = "76618",
+  v76722 = "76828",
+  v76724 = "76725",
+  v76725 = "76726",
+  v76726 = "76611",
+  v76764 = "76592",
+  v76828 = "76829",
+  v76829 = "76830",
+  v76830 = "76654"
+},
 }
 
 </script>
