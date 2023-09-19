@@ -44464,7 +44464,7 @@ end</script>
       if not table.isMember(gmcp.Room.Info.details, "fogged") then
         string = "fog inundate"
       -- If you don't have apparition up, let's do it.
-      elseif not apparition &gt;= 0 and hasSkill("Apparition") then
+      elseif apparition == 0 and hasSkill("Apparition") then
         string = "fog apparition"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
@@ -44550,7 +44550,7 @@ end</script>
       elseif not table.isMember(gmcp.Room.Info.details, "fogged") then
         string = "fog inundate"
       -- If you don't have apparition up, let's do it.
-      elseif not apparition &gt;= 0 and hasSkill("Apparition") then
+      elseif apparition == 0 and hasSkill("Apparition") then
         string = "fog apparition"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
@@ -44655,7 +44655,7 @@ end</script>
       elseif not table.isMember(gmcp.Room.Info.details, "fogged") then
         string = "fog inundate"
       -- If you don't have apparition up, let's do it.
-      elseif not apparition &gt;= 0 and hasSkill("Apparition") then
+      elseif apparition == 0 and hasSkill("Apparition") then
         string = "fog apparition"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
@@ -44676,7 +44676,7 @@ end</script>
       -- We want levitation gone for more damage. Let's try undertow to make it so they can't put it up fast if it's not gone yet.
       -- If we can't undertow, roll with breach.
       elseif not snd.lev_gone then
-        if hasSkill("Undertow") then
+        if hasSkill("Undertow") and snd.proned() then
           string = string.."fog undertow "..snd.target
         elseif hasSkill("Breach") then
          string = string.."tide breach "..snd.target
@@ -49059,7 +49059,7 @@ end</script>
       if not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
-      elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
+      elseif sandstorm == 0 and hasSkill("Sandstorm") then
         string = "sand storm"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
@@ -49145,7 +49145,7 @@ end</script>
       elseif not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
-      elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
+      elseif sandstorm == 0 and hasSkill("Sandstorm") then
         string = "sand storm"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
@@ -49243,7 +49243,7 @@ end</script>
       elseif not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
-      elseif not sandstorm &gt;= 0 and hasSkill("Sandstorm") then
+      elseif sandstorm == 0 and hasSkill("Sandstorm") then
         string = "sand storm"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
@@ -49262,7 +49262,7 @@ end</script>
       -- We want levitation gone for more damage. Let's try quicksand to make it so they can't put it up fast if it's not gone yet.
       -- If we can't quicksand, roll with overhand.
       elseif not snd.lev_gone then
-        if hasSkill("Quicksand") then
+        if hasSkill("Quicksand") and snd.proned() then
           string = string.."sand quicksand "..snd.target
         elseif hasSkill("Overhand") then
          string = string.."earth overhand "..snd.target
