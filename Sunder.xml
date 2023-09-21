@@ -34120,6 +34120,39 @@ end</script>
 						<packageName></packageName>
 						<regex>^toggle alerts$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>set 200 race</name>
+						<script>local ascendantTypes =
+{
+  "none",
+  -- "adherent", split this up into the flavors below
+  "seraph",
+  "aetherial",
+  "titan",
+  "glacian",
+  "nocturn",
+  "sagani",
+  "chaos",
+  "tiarna",
+  "astral",
+  
+  "instinct",
+  "malevolent",
+  "strife",
+  "corruption",
+  "memory",
+  "tyranny",
+}
+if table.contains(ascendantTypes, matches[2]:lower()) then
+  snd.toggles.ascendedtype = matches[2]:lower()
+  cecho("&lt;red&gt;Ascended race set to: "..matches[2]:lower())
+else
+  cecho("&lt;red&gt;Invalid ascended race. Options are: "..table.concat(ascendantTypes, ", "))
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle ascendant (\w+)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -34545,8 +34578,12 @@ send(" ")</script>
 					<script>local selection = ""
 if matches[3] then 
   selection = matches[3] 
-else 
-  selection = snd.class:lower() 
+else
+  if snd.class == "None" and snd.toggles.ascendedtype ~= "none" then
+    selection = snd.toggles.ascendedtype
+  else
+    selection = snd.class:lower()
+  end
 end
 
 if snd.class == "Ascendril" then send("simultaneity") end
@@ -34562,9 +34599,7 @@ else
   send("def", false)
 end
 
-snd.load_def(selection)
-
-</script>
+snd.load_def(selection)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^(ldd (.*)|defup)$</regex>
@@ -52011,6 +52046,7 @@ enrich = false,
 gags = true,
 targetrune = false,
 alerts = false,
+ascendedtype = "none",
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -53586,6 +53622,7 @@ end</script>
     snd.class = snd.assumed_class
   else
     snd.class = gmcp.Char.Status.class
+    if snd.class == "(None)" then snd.class = "None" end
   end
   snd.city = gmcp.Char.Status.city
   if snd.city == "Spinesreach" or snd.city == "Bloodloch" then
@@ -54330,6 +54367,84 @@ snd.priorities =
     "def_projection",
     "def_surefooted",
     "def_disturbances",
+    
+    --200 stuffs
+    
+    "def_adherent_barrier",
+    "def_adherent_presence",
+    "def_adherent_mortalfire",
+    "def_adherent_mortalfire_stored",
+    "def_adherent_synchroneity",
+    
+    "def_adherent_avengement",
+    "def_adherent_turmoil",
+    "def_adherent_malevolence",
+    "def_adherent_ruination",
+    "def_adherent_indomitable",
+    "def_adherent_acid",
+    
+    "def_glacian_penumbra",
+    "def_glacian_presence",
+    "def_glacian_silhouette",
+    "def_glacian_twilight",
+    "def_glacian_adumbration",
+    "def_glacian_adumbration_stored",
+    
+    "def_tiarna_bulwark",
+    "def_tiarna_cultivation",
+    "def_tiarna_presence",
+    "def_tiarna_shelter",
+    "def_tiarna_shelter_stored",
+    "def_tiarna_unleash",
+    
+    "def_aetherial_bastion",
+    "def_aetherial_presence",
+    "def_aetherial_band",
+    "def_aetherial_band_stored",
+    "def_aetherial_agility",
+    "def_aetherial_torment",
+    
+    "def_seraph_presence",
+    "def_seraph_radiate",
+    "def_seraph_corona",
+    "def_seraph_corona_stored",
+    "def_seraph_parhelion",
+    "def_seraph_halo",
+    
+    "def_titan_disruption",
+    "def_titan_irradiance",
+    "def_titan_multicore",
+    "def_titan_presence",
+    "def_titan_remnant",
+    "def_titan_remnant_stored",
+
+    "def_astral_chaosspores",
+    "def_astral_dreamtide",
+    "def_astral_dreamtide_store",
+    "def_astral_presence",
+    "def_astral_recursion",
+    "def_astral_refulgence",
+    
+    "def_nocturn_bloodcoat",
+    "def_nocturn_double",
+    "def_nocturn_haze",
+    "def_nocturn_presence",
+    "def_nocturn_shadow",
+    "def_nocturn_shadow_stored",
+    
+    "def_sagani_epicentre",
+    "def_sagani_helix",
+    "def_sagani_helix_stored",
+    "def_sagani_presence",
+    "def_sagani_similitude",
+    "def_sagani_wall",
+    
+    "def_chaos_entropy",
+    "def_chaos_figment",
+    "def_chaos_figment_stored",
+    "def_chaos_fork",
+    "def_chaos_presence",
+    "def_chaos_shroud",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55685,6 +55800,111 @@ def_zenith = {defense = "zenith", type = "normal", effect = "cure a random AFF, 
 def_mindspark = {defense = "mindspark", type = "normal", effect = "raises your intelligence", balance = {balanceequilibrium = "psi mindspark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mindspark" },
 def_bending = {defense = "bending", type = "normal", effect = "magical damage reduction or something", balance = {balanceequilibrium = "psi bending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bending"},
 
+--adherent
+def_adherent_form = {defense = "adherent_form", type = "normal", effect = "You are pissed", balance = {balanceequilibriumtake = "ascend soul brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_barrier = {defense = "adherent_barrier", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "adherent barrier"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_presence = {defense = "adherent_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "adherent presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_synchroneity = {defense = "adherent_synchroneity", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "adherent synchroneity on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_mortalfire = {defense = "adherent_mortalfire", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "adherent mortalfire"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_mortalfire_stored = {defense = "adherent_mortalfire_stored", type = "normal", effect = "Raises mortalfire when &lt;40% health", balance = {balanceequilibriumtake = "adherent mortalfire store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_store = {defense = "adherent_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_avengement = {defense = "adherent_avengement", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent avengement on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_malevolence = {defense = "adherent_malevolence", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent malevolence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_turmoil = {defense = "adherent_turmoil", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent turmoil on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_ruination = {defense = "adherent_ruination", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent ruination on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_indomitable = {defense = "adherent_indomitable", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent indomitable on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_acid = {defense = "adherent_acid", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent acid on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--glacian
+def_glacian_form = {defense = "glacian_form", type = "normal", effect = "Glacian go BRRRRR", balance = {balanceequilibriumtake = "transfigure physiology brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_penumbra = {defense = "glacian_penumbra", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "glacian penumbra"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_presence = {defense = "glacian_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "glacian presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_silhouette = {defense = "glacian_silhouette", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "glacian silhouette on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_adumbration = {defense = "glacian_adumbration", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "glacian adumbration"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_adumbration_stored = {defense = "glacian_adumbration_stored", type = "normal", effect = "Raises adumbration when &lt;40% health", balance = {balanceequilibriumtake = "glacian adumbration store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_store = {defense = "glacian_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_twilight = {defense = "glacian_twilight", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "glacian twilight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--tiarna
+def_tiarna_form = {defense = "tiarna_form", type = "normal", effect = "Rustle rustle", balance = {balanceequilibriumtake = "rhythm thrum brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_bulwark = {defense = "tiarna_bulwark", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "tiarna_bulwark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_presence = {defense = "tiarna_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "tiarna presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_unleash = {defense = "tiarna_unleash", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "tiarna unleash on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_shelter = {defense = "tiarna_shelter", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "tiarna shelter"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_shelter_stored = {defense = "tiarna_shelter_stored", type = "normal", effect = "Raises shelter when &lt;40% health", balance = {balanceequilibriumtake = "tiarna shelter store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_store = {defense = "tiarna_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_cultivation = {defense = "tiarna_cultivation", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "tiarna cultivation on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--Seraph
+def_seraph_form = {defense = "seraph_form", type = "gold", effect = "Be not afraid!", balance = {balanceequilibrium = "sunrise embrace brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_presence = {defense = "seraph_presence", type = "gold", effect = "Seraph Crit and Dodge", balance = {balanceequilibrium = "seraph presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_radiate = {defense = "seraph_radiate", type = "gold", effect = "Seraph periodic magic damage", balance = {balanceequilibrium = "seraph radiate on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_corona = {defense = "seraph_corona", type = "gold", effect = "Blocks the next attack", balance = {balanceequilibrium = "seraph corona"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_corona_stored = {defense = "seraph_corona_stored", type = "gold", effect = "A corona will protect you in your hour of need", balance = {balanceequilibrium = "seraph corona store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_parhelion = {defense = "seraph_parhelion", type = "gold", effect = "Seraph chance to duplicate attack", balance = {balanceequilibrium = "seraph parhelion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_halo = {defense = "seraph_halo", type = "gold", effect = "Seraph absorb aff and defence", balance = {special = "seraph halo"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_store = {defense = "seraph_store", type = "gold", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--aetherial
+def_aetherial_form = {defense = "aetherial_form", type = "normal", effect = "You are a star", balance = {balanceequilibriumtake = "arise heavens brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_bastion = {defense = "aetherial_bastion", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "aetherial bastion"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_presence = {defense = "aetherial_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "aetherial presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_torment = {defense = "aetherial_torment", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "aetherial torment on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_agility = {defense = "aetherial_agility", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "aetherial agility on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_band = {defense = "aetherial_band", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "aetherial band"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_band_stored = {defense = "aetherial_band_stored", type = "normal", effect = "Will raise band if &lt;40% health", balance = {balanceequilibriumtake = "aetherial band store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_store = {defense = "aetherial_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--titan
+def_titan_form = {defense = "titan_form", type = "normal", effect = "100% pure beef", balance = {balanceequilibriumtake = "awaken core brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_irradiance = {defense = "titan_irradiance", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "titan irradiance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_presence = {defense = "titan_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "titan presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_disruption = {defense = "titan_disruption", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "titan disruption on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_multicore = {defense = "titan_multicore", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "titan multicore on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_remnant = {defense = "titan_remnant", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "titan remnant"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_remnant_stored = {defense = "titan_remnant_stored", type = "normal", effect = "Will raise remnant if &lt;40% health", balance = {balanceequilibriumtake = "titan remnant store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_store = {defense = "titan_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--astral
+def_astral_form = {defense = "astral_form", type = "normal", effect = "Taste the rainbow", balance = {balanceequilibriumtake = "masque self brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_refulgence = {defense = "astral_refulgence", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "astral refulgence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_presence = {defense = "astral_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "astral presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_chaosspores = {defense = "astral_chaosspores", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "astral spores on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_recursion = {defense = "astral_recursion", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "astral recursion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_dreamtide = {defense = "astral_dreamtide", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "astral dreamtide"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_dreamtide_store = {defense = "astral_dreamtide_store", type = "normal", effect = "Will raise dreamtide if &lt;40% health", balance = {balanceequilibriumtake = "astral dreamtide store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_store = {defense = "astral_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--nocturn
+def_nocturn_form = {defense = "nocturn_form", type = "normal", effect = "I vant to suck your blood!", balance = {balanceequilibriumtake = "shadow meld brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_bloodcoat = {defense = "nocturn_bloodcoat", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "nocturn_bloodcoat"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_presence = {defense = "nocturn_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "nocturn presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_haze = {defense = "nocturn_haze", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "nocturn haze on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_double = {defense = "nocturn_double", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "nocturn double on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_shadow = {defense = "nocturn_shadow", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "nocturn shadow"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_shadow_stored = {defense = "nocturn_shadow_stored", type = "normal", effect = "Will raise shadow if &lt;40% health", balance = {balanceequilibriumtake = "nocturn shadow store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_store = {defense = "astral_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--sagani
+def_sagani_form = {defense = "sagani_form", type = "normal", effect = "You're the Avatar!", balance = {balanceequilibriumtake = "sagani coalesce brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_wall = {defense = "sagani_wall", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "sagani wall"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_presence = {defense = "sagani_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "sagani presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_epicentre = {defense = "sagani_epicentre", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "sagani epicentre on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_similitude = {defense = "sagani_similitude", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "sagani similitude on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_helix = {defense = "sagani_helix", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "sagani helix"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_helix_stored = {defense = "sagani_helix_stored", type = "normal", effect = "Will raise helix if &lt;40% health", balance = {balanceequilibriumtake = "sagani helix store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_store = {defense = "sagani_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--Chaos
+def_chaos_form = {defense = "chaos_form", type = "normal", effect = "LeT's GeT cHaOtIc!!!", balance = {balanceequilibriumtake = "embrace chaos brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_shroud = {defense = "chaos_shroud", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "chaos shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_presence = {defense = "chaos_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "chaos presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_entropy = {defense = "chaos_entropy", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "chaos entropy on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_fork = {defense = "chaos_fork", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "chaos fork on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_figment = {defense = "chaos_figment", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "chaos figment"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_figment_stored = {defense = "chaos_figment_stored", type = "normal", effect = "Will raise figment if &lt;40% health", balance = {balanceequilibriumtake = "chaos figment store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_store = {defense = "chaos_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
 --making sure empowered moon is in here to avoid errors, regardless of class
 def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 }
@@ -55718,7 +55938,27 @@ Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents slee
 						<Script isActive="yes" isFolder="no">
 							<name>give/take defenses</name>
 							<packageName></packageName>
-							<script>
+							<script>local formDefs = {
+	def_adherent_form = true,
+	def_seraph_form = true,
+	def_aetherial_form = true,
+	def_titan_form = true,
+	def_glacian_form = true,
+	def_nocturn_form = true,
+	def_sagani_form = true,
+	def_chaos_form = true,
+	def_astral_form = true,
+  def_tiarna_form = true,
+}
+
+local function check200(defense)
+  if formDefs[defense] then
+    snd.skills = {}
+    sendGMCP("Char.Skills.get")
+    send("")
+  end
+end
+
 function snd.def_check()
  for i in pairs(snd.defenses) do
   if i == "def_speed" or i == "def_rebounding" or i == "def_deafness" or i == "def_fangbarrier" then
@@ -55742,6 +55982,7 @@ function snd.def_gain(defense)
  if not string.find(defense, "def_") then
   defense = "def_"..defense
  end
+ check200(defense)
  x = stopStopWatch(snd.defenses[defense].timer)
 -- resetStopWatch(snd.defenses[defense].timer)
  snd.def_have(defense)
@@ -55783,7 +56024,7 @@ function snd.def_take(defense)
  if not string.find(defense, "def_") then
   defense = "def_"..defense
  end
-
+ check200(defense)
  if snd.defenses[defense].state == "deffed" then
 --  deleteLine()
   snd.message("You: &lt;red&gt;LOSE &lt;white&gt;"..defense..".", "defense")
@@ -56113,6 +56354,111 @@ end</script>
   ["You are attuned to disturbances within your sand domain."] = "disturbances",
   ["Sand is softening your footsteps."] = "sand_conceal",
   ["You are moving with increased momentum."] = "momentum",
+  
+  --Adherent
+  ["You are protected by an Adherent's barrier."] = "adherent_barrier",
+  ["You walk as an Adherent of the Virtues."] = "adherent_form",
+  ["You have wreathed yourself in mortal fire."] = "adherent_mortalfire",
+  ["You have stored your mortal fire."] = "adherent_mortalfire_stored",
+  ["You are projecting your Adherent's presence."] = "adherent_presence",
+  ["Your essence empowers your sanctuary."] = "adherent_store",
+  ["You transcend mortal limitations."] = "adherent_synchroneity",
+  ["Your indomitable will is overwhelming your enemies."] = "adherent_indomitable",
+  ["Pure hostility emanates off you."] = "adherent_malevolence",
+  ["An aura of turmoil seethes around you."] = "adherent_turmoil",
+  ["You are wreaking ruination on those around you."] = "adherent_ruination",
+  ["You are inflicting vengeance against your enemies."] = "adherent_avengement",
+  ["You are wreathed in a storm of acid rain."] = "adherent_acid",
+  
+  --Glacian
+  ["You have transfigured your physiology; you are a Glacian."] = "glacian_form",
+  ["A cloak of midnight is protecting you."] = "glacian_penumbra",
+  ["You are exuding the presence of winter's chill."] = "glacian_presence",
+  ["Your silhouette is mirroring your attacks."] = "glacian_silhouette",
+  ["You have fused your frozen form to the tundral drifts."] = "glacian_store",
+  ["You are wreathed in an aura of twilight."] = "glacian_twilight",
+  ["Your shadow is absorbing attacks in your stead."] = "glacian_adumbration",
+  ["Your shadow will come to your aid when needed."] = "glacian_adumbration_stored",
+  
+  --Tiarna
+  ["You are surrounded by a bulwark of the wilds."] = "tiarna_bulwark",
+  ["You are cultivating the wilds wherever you walk."] = "tiarna_cultivation",
+  ["You have taken the form of a Tiarna an-Kiar."] = "tiarna_form",
+  ["You are sensing the presence of the Rhythm around you."] = "tiarna_presence",
+  ["Nature's protective shelter watches over you."] = "tiarna_shelter",
+  ["Nature's shelter will come to your rescue."] = "tiarna_shelter_stored",
+  ["You are attuned to the Grove of Isolation."] = "tiarna_store",
+  ["The savage fury of the wilds will echo your attacks."] = "tiarna_unleash",
+  
+  --Aetherial
+  ["The bastion of Tharbar and Shenna is with you"] = "aetherial_bastion",
+  ["The presence of Izu-Ari is bolstering your fortunes"] = "aetherial_presence",
+  ["Shenebre's agility will bring double the pain"] = "aetherial_agility",
+  ["Ontesme is tormenting foes on your behalf"] = "aetherial_torment",
+  ["The silver band of Sekhtet is protecting you"] = "aetherial_band",
+  ["Sekhtet's protective band will come to your aid."] = "aetherial_band_stored",
+  ["You are attuned to Agorra, the celestial marketplace."] = "aetherial_store",
+  ["You have arisen to the form of an Aetherial."] = "aetherial_form",
+  
+  --Seraph
+  ["You are a Seraph; a holy warrior of Rahiela."] = "seraph_form",
+  ["You are protected by a golden halo."] = "seraph_halo",
+  ["You are projecting the brilliance of Rahiela."] = "seraph_presence",
+  ["You are radiating fiery incandescence."] = "seraph_radiance",
+  ["A corona will protect you in your hour of need."] = "seraph_corona",
+  ["Your wings are touched by the twin parhelion."] = "seraph_parhelion",
+  ["A corona will protect you in your hour of need."] = "seraph_corona_stored",
+  ["Your soul is pledged to the Solar Enclave."] = "seraph_store",
+  
+  --Titan
+  ["Your crackling aura strikes at your foes."] = "titan_disruption",
+  ["Your core has awoken, granting you the full mantle of the Titan."] = "titan_form",
+  ["You bathed in the irradiance of ylem energy."] = "titan_irradiance",
+  ["Your core has been split into two halves."] = "titan_multicore",
+  ["You are extending your Titanic aura to others."] = "titan_presence",
+  ["A jittering remnant of ley-light stands nearby."] = "titan_remnant",
+  ["A remnant of ley-light will come to your rescue."] = "titan_remnant_stored",
+  ["You have stored away a part of your soul deep within the leylines."] = "titan_store",
+  
+  --Astral
+  ["The sickly virulence of chaos spills from you."] = "astral_chaosspores",
+  ["You are protected by the waves of the dreamtide."] = "astral_dreamtide",
+  ["Dormant dreamtides will come to your aid."] = "astral_dreamtide_store",
+  ["You stand amongst the nobility of Astral Chaos."] = "astral_form",
+  ["Chaotic fortune blesses your frame."] = "astral_presence",
+  ["The duality of indigo is mirroring your actions."] = "astral_recursion",
+  ["Orange light wreathes you in a fiery shield."] = "astral_refulgence",
+  ["You are attuned to the boughs of the worldflower."] = "astral_store",
+  
+  --Nocturn
+  ["A layer of hardened blood protects your body in a sanguine shield."] = "nocturn_bloodcoat",
+  ["Your blood double mimics your attacks."] = "nocturn_double",
+  ["You have seized mastery over blood and shadow, assuming the Nocturn form."] = "nocturn_form",
+  ["Shadow haze coils about your body with untapped violence."] = "nocturn_haze",
+  ["You are empowering the blood of yourself and your allies."] = "nocturn_presence",
+  ["Your shadow readies itself to take the next attack against you."] = "nocturn_shadow",
+  ["Your shadow moves autonomously, ready to protect you at the right moment."] = "nocturn_shadow_stored",
+  ["You have imbued the sanguine realm with your presence."] = "nocturn_store",
+  
+  --sagani
+  ["You are wreathed in the storm's fury: all will suffer."] = "sagani_epicentre",
+  ["You exist as a Sagani; a coalescion of elements given form."] = "sagani_form",
+  ["A helix of air is protecting you."] = "sagani_helix",
+  ["A helix of elemental air will aid you when needed."] = "sagani_helix_stored",
+  ["The presence of elemental harmony confers good fortune."] = "sagani_presence",
+  ["Arcane similitude renders you twice as effective."] = "sagani_similitude",
+  ["You are attuned to your locus of elements."] = "sagani_store",
+  ["A wall of stone is encircling you."] = "sagani_wall",
+  
+  --chaos
+  ["Your chaotic energy strikes at your foes."] = "chaos_entropy",
+  ["An illusory figment of Chaos stands next to you."] = "chaos_figment",
+  ["A figment of Chaos will come to your rescue."] = "chaos_figment_stored",
+  ["You are splitting your realities."] = "chaos_fork",
+  ["You have embraced the full form of a Chaos Lord."] = "chaos_form",
+  ["You are extending your Chaotic aura to others."] = "chaos_presence",
+  ["You are surrounded by a shroud of Chaos."] = "chaos_shroud",
+  ["You have stored away a part of your soul in the safety of Chaos."] = "chaos_store",
 }
  </script>
 							<eventHandlerList />
@@ -68634,6 +68980,7 @@ end</script>
 {class = "Warden", func = function(current) snd.warden_bash() end},
 {class = "Wayfarer", func = function(current) snd.wayfarer_bash() end},
 {class = "Zealot", func = function(current) snd.zealot_bash() end},
+{class = "None", func = function(current) snd.none_bash() end}, --200
 }
 
 function snd.shield_check()
@@ -69365,7 +69712,41 @@ function snd.zealot_bash()
 	else
 		battack = battack.."flow "..snd.bashing.target.." pummel pummel"
 	end
-end</script>
+end
+
+local ascendedAttacks = {
+  malevolent = "adherent blossom",
+  strife = "adherent shards",
+  corruption = "adherent spiral",
+  memory = "adherent shend",
+  tyranny = "adherent oppress",
+  instinct = "adherent embitter",
+  
+  seraph = "seraph admonish",
+  aetherial = "aetherial spiral",
+  titan = "titan fissure",
+  glacian = "glacian frostbite",
+  nocturn = "nocturn curse",
+  sagani = "sagani quarrel",
+  chaos = "chaos havoc",
+  tiarna = "tiarna fulminate",
+  astral = "astral evert",
+  none = "kill",
+}
+
+function snd.none_bash() --super basic bashing function for 200's.
+  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+	
+  if hp &lt;=40 and snd.shield_check() then
+    if snd.punisher then
+    else
+      battack = "touch shield"
+    end
+	else
+    battack = ascendedAttacks[snd.toggles.ascendedtype].." "..snd.target
+	end
+end
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -70879,12 +71260,14 @@ function snd.load_def(option)
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
-    if gmcp.Char.Status.race == "Azudim" then
-      snd.def_options[option]["def_miasma"] = "on"
-    elseif gmcp.Char.Status.race == "Yeleni" then
-      snd.def_options[option]["def_warmth"] = "on"
-    elseif gmcp.Char.Status.race == "Idreth" then
-      snd.def_options[option]["def_safeguard"] = "on"
+    if snd.class~="None" then --200 check
+      if gmcp.Char.Status.race:sub(1,6) == "Azudim" then
+        snd.def_options[option]["def_miasma"] = "on"
+      elseif gmcp.Char.Status.race:sub(1,6) == "Yeleni" then
+        snd.def_options[option]["def_warmth"] = "on"
+      elseif gmcp.Char.Status.race:sub(1,6) == "Idreth" then
+        snd.def_options[option]["def_safeguard"] = "on"
+      end
     end
     local my_def_choice_and_generic_defenses = {}
     if option ~= "none" then
@@ -71261,6 +71644,113 @@ def_deflection = "on",
 def_mindspark = "on",
 
 },
+--200s
+malevolent = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_malevolence = "on",
+},
+strife = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_turmoil = "on",
+},
+corruption = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_acid = "on",
+},
+memory = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_ruination = "on",
+},
+tyranny = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_indomitable = "on",
+},
+instinct = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_avengement = "on",
+},
+
+tiarna = {
+  def_tiarna_bulwark = "on",
+  def_tiarna_cultivation = "on",
+  def_tiarna_presence = "on",
+  def_tiarna_shelter_stored = "once",
+  def_tiarna_unleash = "on",
+},
+glacian = {
+  def_glacian_penumbra = "on",
+  def_glacian_presence = "on",
+  def_glacian_silhouette = "on",
+  def_glacian_twilight = "on",
+  def_glacian_adumbration_stored = "once",
+},
+aetherial = {
+  def_aetherial_bastion = "on",
+  def_aetherial_presence = "on",
+  def_aetherial_torment = "on",
+  def_aetherial_agility = "on",
+  def_aetherial_band_stored = "once",
+},
+seraph = {
+  def_seraph_radiate = "on",
+  def_seraph_presence = "on",
+  def_seraph_corona_stored = "once",
+  def_seraph_parhelion = "on",
+  def_seraph_halo = "on",
+},
+titan = {
+  def_titan_disruption = "on",
+  def_titan_irradiance = "on",
+  def_titan_multicore = "on",
+  def_titan_presence = "on",
+  def_titan_remnant_stored = "once",
+},
+astral = {
+  def_astral_chaosspores = "on",
+  def_astral_dreamtide_store = "once",
+  def_astral_presence = "on",
+  def_astral_recursion = "on",
+  def_astral_refulgence = "on"
+},
+nocturn = {
+  def_nocturn_haze = "on",
+  def_nocturn_double = "on",
+  def_nocturn_presence = "on",
+  def_nocturn_bloodcoat = "on",
+  def_nocturn_shadow_stored = "once",
+},
+sagani = {
+  def_sagani_epicentre = "on",
+  def_sagani_helix_stored = "once",
+  def_sagani_presence = "on",
+  def_sagani_similitude = "on",
+  def_sagani_wall = "on",
+},
+chaos = {
+  def_chaos_entropy = "on",
+  def_chaos_figment_stored = "once",
+  def_chaos_fork = "on",
+  def_chaos_presence = "on",
+  def_chaos_shroud = "on",
+}
 
 }</script>
 					<eventHandlerList />
@@ -72993,6 +73483,7 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
   	"writhe_necklock",
     "writhe_ropes",
     "writhe_vines",
+    "writhe_grappled",
    }
    
    local other_prones = {
