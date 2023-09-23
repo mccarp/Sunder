@@ -42,7 +42,9 @@ if snd.offense_loaded then
   snd.chasten_aff = "none"
   snd.last_cured = ""
   snd.rebounded = false
-  --snd.run_alerts()
+  if snd.toggles.alerts then
+    snd.run_alerts()
+  end
   if #snd.alertness &gt;= 1 and snd.toggles.affcalling then
     dir = snd.parseDir(snd.alertnessDir)
     msg = "wt [" .. string.upper(snd.alertType) .. "] -" .. string.upper(dir) .. "- "
@@ -169,6 +171,7 @@ snd.new.room = false</script>
 							<script>for i in pairs(snd.defenses) do
  snd.def_remove(i)
 end
+snd.runemarkMajor, snd.runemarkMinor = "none", "none"
 snd.parrying = "none"</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -3870,14 +3873,76 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 							<regexCodeList>
 								<string>You cannot deliver the curse of Aeon again so soon.</string>
 								<string>You cannot stretch the flow of time via an hourglass again so soon.</string>
-								<string>^Unfurling an hourglass in \w+'s direction, you watch as the sleek silver shades distort around \w+ to slow \w+ innate sense of time and possibility\.$</string>
-								<string>^You unfurl an hourglass toward (\w+) amidst a shimmer of sleek silver.$</string>
-								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Hourglass used</name>
+							<script>snd.balance.aeon = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>1</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You unfurl an hourglass toward (\w+) amidst a shimmer of sleek silver\.$</string>
+								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Aeon used</name>
+							<script>snd.balance.aeon = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>1</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^Standing the Aeon on your open palm, you blow it lightly at \w+\.$</string>
+								<string>^You watch as it seems to slow \w+'s? movement through the time stream\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Person aeoned.</name>
+							<script>if matches[2] == snd.target then
+  snd.target_got("aeon")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time\.$</string>
+								<string>^You watch as it seems to slow (\w+)'s? movement through the time stream\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -21833,8 +21898,16 @@ disableTrigger("Sunder Dodge")</script>
 								<string>^Stepping quickly out of the way, (\w+) dodges the attack\.$</string>
 								<string>^(\w+) twists and turns \w+ body, dodging the attack.$</string>
 								<string>^Shifting \w+ body, (\w+) weaves out of harm at the last moment\.$</string>
+								<string>^You strike clumsily at (\w+), completely missing .+ with .+\.$</string>
+								<string>^\w+ strikes clumsily at (\w+) with .+, completely missing \w+\.$</string>
+								<string>^Your vision blurs as you strike at (\w+) and miss with .+\.$</string>
+								<string>^\w+ blinks and rubs \w+ eye as (?:the )?\w+ misses (\w+) with .+\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -21996,8 +22069,12 @@ end</script>
 							<string>^(\w+) is knocked to the ground by a sudden powerful gust of wind\.$</string>
 							<string>^(\w+) leaps up in what is apparently an attempt at a graceful swan dive\. (The )?\w+ smacks head ?first into shallow water\.$</string>
 							<string>^Being unconscious, (\w+) falls over\.$</string>
+							<string>^(\w+) appears dizzy and falls to the ground\.$</string>
+							<string>^(\w+) is already fallen upon the ground\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -24213,8 +24290,9 @@ end</script>
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Barrage hit confirmation</name>
 								<script>if matches[2] == snd.target then
+ snd.barrageCounter = snd.barrageCounter + 1
  snd.last_hit_limb = matches[3]
- snd.last_limb_dmg = 3.99
+ snd.last_limb_dmg = snd.calcTeradrimLimbDamage("barrage"..snd.barrageCounter)
  snd.took_limb_dmg(matches[3], snd.last_limb_dmg)
  snd.onHit2({"Parry", "Rebounding", "Dodge"})
 end
@@ -24232,35 +24310,6 @@ enableTrigger("Barrage prompt turn off")</script>
 								<regexCodeList>
 									<string>^\w+ strikes? out at (\w+)'s (.+) as \w+ barrage continues.$</string>
 									<string>^\w+ bombards? (\w+)\'s (.+) as \w+ relentless broadside continues the assault.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Earth Pulp</name>
-								<script>if matches[2] == snd.target then
- snd.last_hit_limb = "torso"
- snd.last_limb_dmg = 11
- snd.took_limb_dmg("torso", snd.last_limb_dmg)
- snd.target_got("collapsed_lung")
-end
-
-</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^Standing over (\w+)'s supine form, (the )?\w+ brings? (the )?\w+ flail smashing down hard into (the )?\w+ chest.$</string>
-									<string>^Looming over (\w+)'s fallen form with a confident swagger, \w+ draws? back .+ and brings? it down forcefully into (the )?\w+ chest.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -24401,6 +24450,56 @@ end</script>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Teradrim runemarks</name>
+								<script>snd.runemarkMinor = matches[2]
+snd.runemarkMajor = matches[3]</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You have a (\w+) minor rune painted upon a (\w+) major rune.$</string>
+									<string>^You quickly inscribe a (\w+) rune upon a (\w+) rune on yourself with ink.$</string>
+									<string>You paint yourself with the greater mark of the tentacle then daub the lesser mark of the tentacle upon it.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>0</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Tidesage daubs</name>
+								<script>local daubMap =
+  {tentacle = "red", wave = "blue", mouth = "yellow", cephalopod = "green", fin = "purple", eye = "gold"}
+snd.runemarkMinor = daubMap[matches.minor]
+snd.runemarkMajor = daubMap[matches.major]</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You paint yourself with the greater mark of the (?&lt;major&gt;\w+) then daub the lesser mark of the (?&lt;minor&gt;\w+) upon it\.$</string>
+									<string>^You have daubed a (?&lt;minor&gt;\w+) lesser mark onto a (?&lt;major&gt;\w+) greater mark\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>0</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -33968,6 +34067,63 @@ snd.message("Will try to chameleon as one of: "..table.concat(snd.toggles.chamel
 						<packageName></packageName>
 						<regex>(?i)^chamtargets (.+)$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>target rune for tidesage/teradrim</name>
+						<script>snd.toggles.targetrune = not snd.toggles.targetrune
+if snd.toggles.targetrune then
+  cecho("&lt;red&gt;Will now factor in targeting rune for tidesage/teradrim limb damage.")
+else
+  cecho("&lt;red&gt;Will no longer factor in targeting rune for tidesage/teradrim limb damage.")
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle targetrune$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>^toggle alerts$</name>
+						<script>snd.toggles.alerts = not snd.toggles.alerts
+if snd.toggles.alerts then
+  cecho("&lt;red&gt;Will now display alerts on your prompt.")
+else
+  cecho("&lt;red&gt;Will no longer display alerts on your prompt.")
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle alerts$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>set 200 race</name>
+						<script>local ascendantTypes =
+{
+  "none",
+  -- "adherent", split this up into the flavors below
+  "seraph",
+  "aetherial",
+  "titan",
+  "glacian",
+  "nocturn",
+  "sagani",
+  "chaos",
+  "tiarna",
+  "astral",
+  
+  "instinct",
+  "malevolent",
+  "strife",
+  "corruption",
+  "memory",
+  "tyranny",
+}
+if table.contains(ascendantTypes, matches[2]:lower()) then
+  snd.toggles.ascendedtype = matches[2]:lower()
+  cecho("&lt;red&gt;Ascended race set to: "..matches[2]:lower())
+else
+  cecho("&lt;red&gt;Invalid ascended race. Options are: "..table.concat(ascendantTypes, ", "))
+end</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle ascendant (\w+)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -34393,8 +34549,12 @@ send(" ")</script>
 					<script>local selection = ""
 if matches[3] then 
   selection = matches[3] 
-else 
-  selection = snd.class:lower() 
+else
+  if snd.class == "None" and snd.toggles.ascendedtype ~= "none" then
+    selection = snd.toggles.ascendedtype
+  else
+    selection = snd.class:lower()
+  end
 end
 
 if snd.class == "Ascendril" then send("simultaneity") end
@@ -34410,9 +34570,7 @@ else
   send("def", false)
 end
 
-snd.load_def(selection)
-
-</script>
+snd.load_def(selection)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^(ldd (.*)|defup)$</regex>
@@ -34822,195 +34980,91 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Limbs</name>
-								<script>-- NOTE: this is a route that is based off of another system's route and has potential to be 1v1, but needs work.
-
-if snd.class == "Monk" then
-
+								<script>if snd.class == "Monk" then
+ 
   snd.starting_attack()
+ 
   function snd.attack_function()
-
-    local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-    local kai = tonumber(gmcp.Char.Vitals.kai) 
-    local string = "" -- this will populate with our attack
-    local call = "" -- this will be for affliction calling
-
     if not snd.waiting.queue then
-
-      limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
-      snd.giving = {"anorexia", "stupidity", "epilepsy", "deadening", "recklessness", "dizziness", "hallucinations"}
-      
-      if (snd.limb_dmg["head"] &gt; 33.33 or snd.limb_dmg["left leg"] &gt; 33.33 or snd.limb_dmg["right leg"] &gt; 33.33) and not snd.checkAff("stupidity") then 
-        snd.mindAffliction = "stupidity"
-	    elseif not snd.checkAff("confusion") and snd.checkAff("blackout") then 
-        snd.mindAffliction = "confuse"
-      elseif not snd.checkAff("paresis") or snd.checkAff("paralysis") then
-        snd.mindAffliction = "paralyse"
-	    else
-        snd.mindAffliction = "none"
-        for i in pairs(snd.giving) do
-          if not snd.checkAff(snd.giving[i]) then
-            if snd.mindAffliction == "none" then
-              snd.mindAffliction = snd.giving[i]
+ 
+      local string = "" -- this will populate with our attack
+      local call = "" -- call your aff you're pushing
+      local kai = tonumber(gmcp.Char.Vitals.kai) 
+ 
+      snd.giving = {"stupidity", "anorexia", "paresis", "recklessness", "confusion", "epilepsy"}      
+ 
+      snd.mindAffliction = "none"
+      for i in pairs(snd.giving) do
+        if not snd.checkAff(snd.giving[i]) then
+          if snd.mindAffliction == "none" then
+            snd.mindAffliction = snd.giving[i]
+            if snd.mindAffliction == "confusion" then
+              snd.mindAffliction = "confuse"
+            elseif snd.mindAffliction == "paresis" then
+              snd.mindAffliction = "paralyse"
             end
           end
-        end    
+        end
       end
-
+ 
       if snd.used.shield then
-	       tekuraKick = "sck"
-      elseif snd.limb_dmg["head"] &gt;= 66.66 and snd.proned() and snd.resto_limb ~= "head" then
-		     tekuraKick = "axk"
-	    elseif snd.checkAff("head_mangled") and snd.proned() and snd.resto_limb ~= "head" then
-		     tekuraKick = "axk"
-	    elseif snd.stance ~= "bear" and snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) and not snd.proned() then
-		     tekuraKick = "brs"
-	    elseif snd.stance ~= "dragon" and snd.stance ~= "scorpion" and not snd.checksomeAffs({"left_arm_broken", "right_arm_broken"},2) then
-		     tekuraKick = "drs"
-	    elseif not snd.proned() and ((snd.limb_dmg["left leg"] or snd.limb_dmg["right leg"]) &gt;= 33.33 or snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1)) and snd.cureset ~= "sentinel" then
-		     tekuraKick = "swk"
-	    elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},2) and not snd.checkAff("collapsed_lung") then
-		     tekuraKick = "cmk"
-	    elseif snd.proned() and snd.limb_dmg["left leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left leg" then
-		     tekuraKick = "wrt left leg"
-	    elseif snd.proned() and snd.limb_dmg["right leg"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right leg" then
-		     tekuraKick = "wrt right leg"
-	    elseif snd.proned() and snd.limb_dmg["left arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "left arm" then
-		     tekuraKick = "wrt left arm"
-	    elseif snd.proned() and snd.limb_dmg["right arm"] &lt; 33.33 and cantBeParried() and snd.resto_limb ~= "right arm" then
-		     tekuraKick = "wrt right arm"
-	    elseif snd.proned() and not snd.checkAff("left_leg_crippled") and cantBeParried() and snd.resto_limb ~= "left leg" then
-		     tekuraKick = "wrt left leg"
-	    elseif snd.proned() and not snd.checkAff("right_leg_crippled") and cantBeParried() and snd.resto_limb ~= "right leg" then
-		     tekuraKick = "wrt right leg"
-	    elseif snd.proned() and not snd.checkAff("left_arm_crippled") and cantBeParried() and snd.resto_limb ~= "left arm" then
-		     tekuraKick = "wrt left arm"
-	    elseif snd.proned() and not snd.checkAff("right_arm_crippled") and cantBeParried() and snd.resto_limb ~= "right arm" then
-		     tekuraKick = "wrt right arm"		
-			elseif snd.resto_limb ~= "head" and snd.resto_limb ~= "none" and snd.parried_limb ~= "head" and not cantBeParried() then
-      	 tekuraKick = "wwk"
-	    elseif snd.limb_dmg["left leg"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" then
-		     tekuraKick = "snk left"
-	    elseif snd.limb_dmg["right arm"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "right arm") and snd.resto_limb ~= "right arm" then
-		     tekuraKick = "mnk right"			
-	    elseif snd.limb_dmg["left arm"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "left arm") and snd.resto_limb ~= "left arm" then
-		     tekuraKick = "mnk left"
-	    elseif snd.limb_dmg["right leg"] &lt; 33.33 and (cantBeParried() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" then
-		     tekuraKick = "snk right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 then
-		     tekuraKick = "snk left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and snd.resto_limb ~= "left arm" and snd.limb_dmg["right arm"] &lt; 66.66 then
-		     tekuraKick = "mnk right"		
-	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and snd.resto_limb ~= "right arm" and snd.limb_dmg["left arm"] &lt; 66.66 then
-		     tekuraKick = "mnk left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 then
-		     tekuraKick = "snk right"
+        tekuraKick = "sck"
+      elseif snd.stance ~= "tiger" then
+		     tekuraKick = "tgs"
+	    elseif (snd.checkAff("writhe_impaled") or snd.checkAff("head_mangled") or snd.limb_dmg["head"] &gt;= 66.66) and snd.checkAff("fallen") then
+        tekuraKick = "axk"
+      elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) and not snd.checkAff("fallen") then
+        tekuraKick = "swk"
+      elseif snd.limb_dmg["left leg"] &lt; 33.33 and (snd.no_parry() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" then
+        tekuraKick = "snk left"
+	    elseif snd.limb_dmg["right leg"] &lt; 33.33 and (snd.no_parry() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" then
+        tekuraKick = "snk right"
 	    else 
-		     tekuraKick = "wwk"
+        tekuraKick = "wwk"
       end
-
-      if snd.checkAff("numb_arms") and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     firstPunch = "hfp left"
-	    elseif snd.proned() and snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     firstPunch = "hfp left"
-	    elseif snd.checkAff("numb_arms") and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-		     firstPunch = "hfp right"
-	    elseif snd.proned() and snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-		     firstPunch = "hfp right"
-	    elseif snd.checkAff("numb_arms") and snd.resto_limb ~= "head" then
-		     firstPunch = "ucp"
-	    elseif (snd.cureset == "shifter" or snd.cureset == "praenomen") and not snd.checkAff("crippled_throat") and not snd.enemy_restoration_balance then
-		     firstPunch = "tsp"
-		  elseif snd.mindAffliction == "stupidity" and not snd.checkAff("dizziness") then
-		     firstPunch = "pmp"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and not snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 and tekuraKick ~= "mnk left" then
-		     firstPunch = "spp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and not snd.checkAff("left_leg_broken") and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 and tekuraKick ~= "snk left" then
-		     firstPunch = "hfp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and not snd.checkAff("right_leg_broken") and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 and tekuraKick ~= "snk right" then
-		     firstPunch = "hfp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and not snd.checkAff("right_arm_broken") and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 and tekuraKick ~= "mnk right" then
-		     firstPunch = "spp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "head") and not snd.checkAff("head_broken") and snd.resto_limb ~= "head" then
-		     firstPunch = "ucp"
-	    else
-		     firstPunch = "hkp"
+ 
+      if snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+        firstPunch = "hfp left"
+      elseif snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+        firstPunch = "hfp right"
+      else
+		    firstPunch = "hkp"
       end
-
-      if snd.checkAff("numb_arms") and not snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     secondPunch = "hfp left"
-	    elseif snd.proned() and snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-		     secondPunch = "hfp left"
-	    elseif snd.checkAff("numb_arms") and not snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-    	 	 secondPunch = "hfp right"
-	    elseif snd.proned() and snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-		     secondPunch = "hfp right"
-	    elseif snd.checkAff("numb_arms") and snd.resto_limb ~= "head" then
-		     secondPunch = "ucp"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right leg") and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 66.66 then
-		     secondPunch = "hfp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "right arm") and snd.limb_dmg["right arm"] &lt; 33.33 and snd.resto_limb ~= "right arm" and snd.limb_dmg["right arm"] &lt; 66.66 then
-		     secondPunch = "spp right"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left arm") and snd.limb_dmg["left arm"] &lt; 33.33 and snd.resto_limb ~= "left arm" and snd.limb_dmg["left arm"] &lt; 66.66 then
-		     secondPunch = "spp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "left leg") and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 66.66 then
-		     secondPunch = "hfp left"
-	    elseif (cantBeParried() or snd.parried_limb ~= "head") and snd.resto_limb ~= "head" then
-		     secondPunch = "ucp"
-	    else
-		     secondPunch = "hkp"
+ 
+      if snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
+        secondPunch = "hfp left"
+      elseif snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
+        secondPunch = "hfp right"
+      else
+		    secondPunch = "hkp"
       end
-
-      if not snd.proned() then
-	       if hp &lt;= 35 and kai &gt;= 21 then 
-			     string = "kai heal"
-         elseif not snd.mindlocked and not snd.locking then
-           string = "mind lock "..snd.target
-		     elseif snd.used.shield then
-		       string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.." "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
-		     elseif not snd.checkAff("turmoil") then
-			     string = "blp "..snd.target
-			   elseif snd.limb_dmg["left leg"] &gt;= 33.33 and snd.limb_dmg["right leg"] &gt;= 33.33 and snd.limb_dmg["left arm"] &gt;= 33.33 and snd.limb_dmg["right arm"] &gt;= 33.33 and snd.limb_dmg["head"] &lt; 66.66 then 
-			     string = "combo "..snd.target.." wrt left leg ucp ucp "..snd.sep.."mind "..snd.mindAffliction.." "..snd.target
-		     elseif ((snd.limb_dmg["left arm"] &gt;= 26 and snd.limb_dmg["left arm"] &lt;= 33.33 and snd.resto_limb ~= "left arm") or (snd.limb_dmg["right arm"] &gt;= 26 and snd.limb_dmg["right arm"] &lt;= 33.33 and snd.resto_limb ~= "right arm") or (snd.limb_dmg["left leg"] &gt;= 26 and snd.limb_dmg["left leg"] &lt;= 33.33 and snd.resto_limb ~= "left leg") or (snd.limb_dmg["right leg"] &gt;= 26 and snd.limb_dmg["right leg"] &lt;= 33.33 and snd.resto_limb ~= "right leg")) and snd.balance.blackout and snd.mindlocked then
-			     string = "mind blackout"
-		     elseif kai &gt;= 70 and snd.stance == "scorpion" then
-			     string = "kai enfeeble "..snd.target
-		     elseif kai &gt;= 40 and snd.stance ~= "scorpion" and not snd.checkAff("left_arm_crippled") and not snd.checkAff("right_arm_crippled") and not snd.checkAff("right_leg_crippled") and not snd.checkAff("left_leg_crippled") and ((snd.checkAff("blackout") and snd.resto_limb ~= "none") or not snd.enemy_restoration_balance) and snd.cureset ~= "shifter" then
+ 
+      if snd.theytumbling then
+        string = "slt "..snd.target
+      elseif snd.checkAff("fallen") and not snd.checkAff("writhe_impaled") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "right_arm_broken", "left_arm_broken"},1) then
+        string = "bbt "..snd.target
+      elseif kai &gt;= 40 and not snd.enemy_restoration_balance and snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "right_arm_broken", "left_arm_broken"},1) then
 			     string = "kai cripple "..snd.target
-		     else
-			     string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
-		     end
-       elseif (snd.limb_dmg["head"] &gt;= 56 or snd.checkAff("head_mangled")) and snd.proned() and cantBeParried() then
-    	   string = "combo "..snd.target.." axk ucp ucp"
-		   elseif snd.target_impaled then
-			   string = "combo "..snd.target.." axk ucp ucp"
-		   elseif (snd.checkAff("head_mangled") or snd.limb_dmg["head"] &gt;= 66.66) and snd.proned() then
-			   string = "combo "..snd.target.." axk ucp ucp"
-		   elseif snd.checkAff("blackout") and not snd.checkAff("disrupted") then
-			   string = "mind disrupt "..snd.target
-		   elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},2) and snd.proned() then 
-			   if snd.balance.blackout and snd.mindlocked then
-				    string = "mind blackout"
-			   else
-				    string = "mind batter "..snd.target.." epilepsy dizziness stupidity"
-			   end
-       elseif snd.checkAff("fallen") and not snd.checkAff("writhe_impaled") then
-         string = "bbt "..snd.target
-		   end
-    
-		   if snd.toggles.affcalling and not snd.target_gone then
-			   string = call..snd.sep..string
-		   end
-
-       if string ~= snd.last_attack and not snd.waiting.queue then
-         snd.last_attack = string
-         snd.attack(snd.last_attack)
-         snd.waiting.queue = true
-         tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-       end
+      else
+        string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
+        call = "wt Afflicting "..snd.target..": "..snd.mindAffliction..snd.sep
+      end
+ 
+      if snd.toggles.affcalling and not snd.target_gone then
+        string = call..string
+		  end
+ 
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+ 
     end
+ 
   end
-snd.attack_function()
+  snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
@@ -51961,6 +52015,9 @@ fastwalk = false,
 prism = false,
 enrich = false,
 gags = true,
+targetrune = false,
+alerts = false,
+ascendedtype = "none",
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -53522,6 +53579,9 @@ end</script>
   snd.hidden_afflictions = 0
   snd.parrying = "none"
   snd.crescentable = true
+  
+  snd.runemarkMajor = "none"
+  snd.runemarkMinor = "none"
 end</script>
 						<eventHandlerList />
 					</Script>
@@ -53533,6 +53593,7 @@ end</script>
     snd.class = snd.assumed_class
   else
     snd.class = gmcp.Char.Status.class
+    if snd.class == "(None)" then snd.class = "None" end
   end
   snd.city = gmcp.Char.Status.city
   if snd.city == "Spinesreach" or snd.city == "Bloodloch" then
@@ -54277,6 +54338,84 @@ snd.priorities =
     "def_projection",
     "def_surefooted",
     "def_disturbances",
+    
+    --200 stuffs
+    
+    "def_adherent_barrier",
+    "def_adherent_presence",
+    "def_adherent_mortalfire",
+    "def_adherent_mortalfire_stored",
+    "def_adherent_synchroneity",
+    
+    "def_adherent_avengement",
+    "def_adherent_turmoil",
+    "def_adherent_malevolence",
+    "def_adherent_ruination",
+    "def_adherent_indomitable",
+    "def_adherent_acid",
+    
+    "def_glacian_penumbra",
+    "def_glacian_presence",
+    "def_glacian_silhouette",
+    "def_glacian_twilight",
+    "def_glacian_adumbration",
+    "def_glacian_adumbration_stored",
+    
+    "def_tiarna_bulwark",
+    "def_tiarna_cultivation",
+    "def_tiarna_presence",
+    "def_tiarna_shelter",
+    "def_tiarna_shelter_stored",
+    "def_tiarna_unleash",
+    
+    "def_aetherial_bastion",
+    "def_aetherial_presence",
+    "def_aetherial_band",
+    "def_aetherial_band_stored",
+    "def_aetherial_agility",
+    "def_aetherial_torment",
+    
+    "def_seraph_presence",
+    "def_seraph_radiate",
+    "def_seraph_corona",
+    "def_seraph_corona_stored",
+    "def_seraph_parhelion",
+    "def_seraph_halo",
+    
+    "def_titan_disruption",
+    "def_titan_irradiance",
+    "def_titan_multicore",
+    "def_titan_presence",
+    "def_titan_remnant",
+    "def_titan_remnant_stored",
+
+    "def_astral_chaosspores",
+    "def_astral_dreamtide",
+    "def_astral_dreamtide_store",
+    "def_astral_presence",
+    "def_astral_recursion",
+    "def_astral_refulgence",
+    
+    "def_nocturn_bloodcoat",
+    "def_nocturn_double",
+    "def_nocturn_haze",
+    "def_nocturn_presence",
+    "def_nocturn_shadow",
+    "def_nocturn_shadow_stored",
+    
+    "def_sagani_epicentre",
+    "def_sagani_helix",
+    "def_sagani_helix_stored",
+    "def_sagani_presence",
+    "def_sagani_similitude",
+    "def_sagani_wall",
+    
+    "def_chaos_entropy",
+    "def_chaos_figment",
+    "def_chaos_figment_stored",
+    "def_chaos_fork",
+    "def_chaos_presence",
+    "def_chaos_shroud",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55632,6 +55771,111 @@ def_zenith = {defense = "zenith", type = "normal", effect = "cure a random AFF, 
 def_mindspark = {defense = "mindspark", type = "normal", effect = "raises your intelligence", balance = {balanceequilibrium = "psi mindspark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mindspark" },
 def_bending = {defense = "bending", type = "normal", effect = "magical damage reduction or something", balance = {balanceequilibrium = "psi bending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bending"},
 
+--adherent
+def_adherent_form = {defense = "adherent_form", type = "normal", effect = "You are pissed", balance = {balanceequilibriumtake = "ascend soul brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_barrier = {defense = "adherent_barrier", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "adherent barrier"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_presence = {defense = "adherent_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "adherent presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_synchroneity = {defense = "adherent_synchroneity", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "adherent synchroneity on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_mortalfire = {defense = "adherent_mortalfire", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "adherent mortalfire"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_mortalfire_stored = {defense = "adherent_mortalfire_stored", type = "normal", effect = "Raises mortalfire when &lt;40% health", balance = {balanceequilibriumtake = "adherent mortalfire store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_store = {defense = "adherent_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_avengement = {defense = "adherent_avengement", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent avengement on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_malevolence = {defense = "adherent_malevolence", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent malevolence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_turmoil = {defense = "adherent_turmoil", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent turmoil on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_ruination = {defense = "adherent_ruination", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent ruination on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_indomitable = {defense = "adherent_indomitable", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent indomitable on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_adherent_acid = {defense = "adherent_acid", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "adherent acid on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--glacian
+def_glacian_form = {defense = "glacian_form", type = "normal", effect = "Glacian go BRRRRR", balance = {balanceequilibriumtake = "transfigure physiology brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_penumbra = {defense = "glacian_penumbra", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "glacian penumbra"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_presence = {defense = "glacian_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "glacian presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_silhouette = {defense = "glacian_silhouette", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "glacian silhouette on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_adumbration = {defense = "glacian_adumbration", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "glacian adumbration"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_adumbration_stored = {defense = "glacian_adumbration_stored", type = "normal", effect = "Raises adumbration when &lt;40% health", balance = {balanceequilibriumtake = "glacian adumbration store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_store = {defense = "glacian_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_glacian_twilight = {defense = "glacian_twilight", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "glacian twilight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--tiarna
+def_tiarna_form = {defense = "tiarna_form", type = "normal", effect = "Rustle rustle", balance = {balanceequilibriumtake = "rhythm thrum brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_bulwark = {defense = "tiarna_bulwark", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "tiarna_bulwark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_presence = {defense = "tiarna_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "tiarna presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_unleash = {defense = "tiarna_unleash", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "tiarna unleash on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_shelter = {defense = "tiarna_shelter", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "tiarna shelter"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_shelter_stored = {defense = "tiarna_shelter_stored", type = "normal", effect = "Raises shelter when &lt;40% health", balance = {balanceequilibriumtake = "tiarna shelter store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_store = {defense = "tiarna_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_cultivation = {defense = "tiarna_cultivation", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "tiarna cultivation on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--Seraph
+def_seraph_form = {defense = "seraph_form", type = "gold", effect = "Be not afraid!", balance = {balanceequilibrium = "sunrise embrace brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_presence = {defense = "seraph_presence", type = "gold", effect = "Seraph Crit and Dodge", balance = {balanceequilibrium = "seraph presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_radiate = {defense = "seraph_radiate", type = "gold", effect = "Seraph periodic magic damage", balance = {balanceequilibrium = "seraph radiate on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_corona = {defense = "seraph_corona", type = "gold", effect = "Blocks the next attack", balance = {balanceequilibrium = "seraph corona"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_corona_stored = {defense = "seraph_corona_stored", type = "gold", effect = "A corona will protect you in your hour of need", balance = {balanceequilibrium = "seraph corona store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_parhelion = {defense = "seraph_parhelion", type = "gold", effect = "Seraph chance to duplicate attack", balance = {balanceequilibrium = "seraph parhelion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_halo = {defense = "seraph_halo", type = "gold", effect = "Seraph absorb aff and defence", balance = {special = "seraph halo"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_seraph_store = {defense = "seraph_store", type = "gold", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--aetherial
+def_aetherial_form = {defense = "aetherial_form", type = "normal", effect = "You are a star", balance = {balanceequilibriumtake = "arise heavens brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_bastion = {defense = "aetherial_bastion", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "aetherial bastion"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_presence = {defense = "aetherial_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "aetherial presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_torment = {defense = "aetherial_torment", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "aetherial torment on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_agility = {defense = "aetherial_agility", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "aetherial agility on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_band = {defense = "aetherial_band", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "aetherial band"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_band_stored = {defense = "aetherial_band_stored", type = "normal", effect = "Will raise band if &lt;40% health", balance = {balanceequilibriumtake = "aetherial band store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_aetherial_store = {defense = "aetherial_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--titan
+def_titan_form = {defense = "titan_form", type = "normal", effect = "100% pure beef", balance = {balanceequilibriumtake = "awaken core brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_irradiance = {defense = "titan_irradiance", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "titan irradiance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_presence = {defense = "titan_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "titan presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_disruption = {defense = "titan_disruption", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "titan disruption on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_multicore = {defense = "titan_multicore", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "titan multicore on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_remnant = {defense = "titan_remnant", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "titan remnant"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_remnant_stored = {defense = "titan_remnant_stored", type = "normal", effect = "Will raise remnant if &lt;40% health", balance = {balanceequilibriumtake = "titan remnant store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_titan_store = {defense = "titan_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--astral
+def_astral_form = {defense = "astral_form", type = "normal", effect = "Taste the rainbow", balance = {balanceequilibriumtake = "masque self brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_refulgence = {defense = "astral_refulgence", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "astral refulgence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_presence = {defense = "astral_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "astral presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_chaosspores = {defense = "astral_chaosspores", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "astral spores on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_recursion = {defense = "astral_recursion", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "astral recursion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_dreamtide = {defense = "astral_dreamtide", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "astral dreamtide"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_dreamtide_store = {defense = "astral_dreamtide_store", type = "normal", effect = "Will raise dreamtide if &lt;40% health", balance = {balanceequilibriumtake = "astral dreamtide store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_store = {defense = "astral_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--nocturn
+def_nocturn_form = {defense = "nocturn_form", type = "normal", effect = "I vant to suck your blood!", balance = {balanceequilibriumtake = "shadow meld brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_bloodcoat = {defense = "nocturn_bloodcoat", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "nocturn_bloodcoat"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_presence = {defense = "nocturn_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "nocturn presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_haze = {defense = "nocturn_haze", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "nocturn haze on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_double = {defense = "nocturn_double", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "nocturn double on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_shadow = {defense = "nocturn_shadow", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "nocturn shadow"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_shadow_stored = {defense = "nocturn_shadow_stored", type = "normal", effect = "Will raise shadow if &lt;40% health", balance = {balanceequilibriumtake = "nocturn shadow store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_nocturn_store = {defense = "astral_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--sagani
+def_sagani_form = {defense = "sagani_form", type = "normal", effect = "You're the Avatar!", balance = {balanceequilibriumtake = "sagani coalesce brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_wall = {defense = "sagani_wall", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "sagani wall"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_presence = {defense = "sagani_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "sagani presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_epicentre = {defense = "sagani_epicentre", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "sagani epicentre on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_similitude = {defense = "sagani_similitude", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "sagani similitude on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_helix = {defense = "sagani_helix", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "sagani helix"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_helix_stored = {defense = "sagani_helix_stored", type = "normal", effect = "Will raise helix if &lt;40% health", balance = {balanceequilibriumtake = "sagani helix store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_sagani_store = {defense = "sagani_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
+--Chaos
+def_chaos_form = {defense = "chaos_form", type = "normal", effect = "LeT's GeT cHaOtIc!!!", balance = {balanceequilibriumtake = "embrace chaos brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_shroud = {defense = "chaos_shroud", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "chaos shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_presence = {defense = "chaos_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "chaos presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_entropy = {defense = "chaos_entropy", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "chaos entropy on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_fork = {defense = "chaos_fork", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "chaos fork on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_figment = {defense = "chaos_figment", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "chaos figment"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_figment_stored = {defense = "chaos_figment_stored", type = "normal", effect = "Will raise figment if &lt;40% health", balance = {balanceequilibriumtake = "chaos figment store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_chaos_store = {defense = "chaos_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
 --making sure empowered moon is in here to avoid errors, regardless of class
 def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 }
@@ -55665,7 +55909,27 @@ Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents slee
 						<Script isActive="yes" isFolder="no">
 							<name>give/take defenses</name>
 							<packageName></packageName>
-							<script>
+							<script>local formDefs = {
+	def_adherent_form = true,
+	def_seraph_form = true,
+	def_aetherial_form = true,
+	def_titan_form = true,
+	def_glacian_form = true,
+	def_nocturn_form = true,
+	def_sagani_form = true,
+	def_chaos_form = true,
+	def_astral_form = true,
+  def_tiarna_form = true,
+}
+
+local function check200(defense)
+  if formDefs[defense] then
+    snd.skills = {}
+    sendGMCP("Char.Skills.get")
+    send("")
+  end
+end
+
 function snd.def_check()
  for i in pairs(snd.defenses) do
   if i == "def_speed" or i == "def_rebounding" or i == "def_deafness" or i == "def_fangbarrier" then
@@ -55689,6 +55953,7 @@ function snd.def_gain(defense)
  if not string.find(defense, "def_") then
   defense = "def_"..defense
  end
+ check200(defense)
  x = stopStopWatch(snd.defenses[defense].timer)
 -- resetStopWatch(snd.defenses[defense].timer)
  snd.def_have(defense)
@@ -55730,7 +55995,7 @@ function snd.def_take(defense)
  if not string.find(defense, "def_") then
   defense = "def_"..defense
  end
-
+ check200(defense)
  if snd.defenses[defense].state == "deffed" then
 --  deleteLine()
   snd.message("You: &lt;red&gt;LOSE &lt;white&gt;"..defense..".", "defense")
@@ -56060,6 +56325,111 @@ end</script>
   ["You are attuned to disturbances within your sand domain."] = "disturbances",
   ["Sand is softening your footsteps."] = "sand_conceal",
   ["You are moving with increased momentum."] = "momentum",
+  
+  --Adherent
+  ["You are protected by an Adherent's barrier."] = "adherent_barrier",
+  ["You walk as an Adherent of the Virtues."] = "adherent_form",
+  ["You have wreathed yourself in mortal fire."] = "adherent_mortalfire",
+  ["You have stored your mortal fire."] = "adherent_mortalfire_stored",
+  ["You are projecting your Adherent's presence."] = "adherent_presence",
+  ["Your essence empowers your sanctuary."] = "adherent_store",
+  ["You transcend mortal limitations."] = "adherent_synchroneity",
+  ["Your indomitable will is overwhelming your enemies."] = "adherent_indomitable",
+  ["Pure hostility emanates off you."] = "adherent_malevolence",
+  ["An aura of turmoil seethes around you."] = "adherent_turmoil",
+  ["You are wreaking ruination on those around you."] = "adherent_ruination",
+  ["You are inflicting vengeance against your enemies."] = "adherent_avengement",
+  ["You are wreathed in a storm of acid rain."] = "adherent_acid",
+  
+  --Glacian
+  ["You have transfigured your physiology; you are a Glacian."] = "glacian_form",
+  ["A cloak of midnight is protecting you."] = "glacian_penumbra",
+  ["You are exuding the presence of winter's chill."] = "glacian_presence",
+  ["Your silhouette is mirroring your attacks."] = "glacian_silhouette",
+  ["You have fused your frozen form to the tundral drifts."] = "glacian_store",
+  ["You are wreathed in an aura of twilight."] = "glacian_twilight",
+  ["Your shadow is absorbing attacks in your stead."] = "glacian_adumbration",
+  ["Your shadow will come to your aid when needed."] = "glacian_adumbration_stored",
+  
+  --Tiarna
+  ["You are surrounded by a bulwark of the wilds."] = "tiarna_bulwark",
+  ["You are cultivating the wilds wherever you walk."] = "tiarna_cultivation",
+  ["You have taken the form of a Tiarna an-Kiar."] = "tiarna_form",
+  ["You are sensing the presence of the Rhythm around you."] = "tiarna_presence",
+  ["Nature's protective shelter watches over you."] = "tiarna_shelter",
+  ["Nature's shelter will come to your rescue."] = "tiarna_shelter_stored",
+  ["You are attuned to the Grove of Isolation."] = "tiarna_store",
+  ["The savage fury of the wilds will echo your attacks."] = "tiarna_unleash",
+  
+  --Aetherial
+  ["The bastion of Tharbar and Shenna is with you"] = "aetherial_bastion",
+  ["The presence of Izu-Ari is bolstering your fortunes"] = "aetherial_presence",
+  ["Shenebre's agility will bring double the pain"] = "aetherial_agility",
+  ["Ontesme is tormenting foes on your behalf"] = "aetherial_torment",
+  ["The silver band of Sekhtet is protecting you"] = "aetherial_band",
+  ["Sekhtet's protective band will come to your aid."] = "aetherial_band_stored",
+  ["You are attuned to Agorra, the celestial marketplace."] = "aetherial_store",
+  ["You have arisen to the form of an Aetherial."] = "aetherial_form",
+  
+  --Seraph
+  ["You are a Seraph; a holy warrior of Rahiela."] = "seraph_form",
+  ["You are protected by a golden halo."] = "seraph_halo",
+  ["You are projecting the brilliance of Rahiela."] = "seraph_presence",
+  ["You are radiating fiery incandescence."] = "seraph_radiance",
+  ["A corona will protect you in your hour of need."] = "seraph_corona",
+  ["Your wings are touched by the twin parhelion."] = "seraph_parhelion",
+  ["A corona will protect you in your hour of need."] = "seraph_corona_stored",
+  ["Your soul is pledged to the Solar Enclave."] = "seraph_store",
+  
+  --Titan
+  ["Your crackling aura strikes at your foes."] = "titan_disruption",
+  ["Your core has awoken, granting you the full mantle of the Titan."] = "titan_form",
+  ["You bathed in the irradiance of ylem energy."] = "titan_irradiance",
+  ["Your core has been split into two halves."] = "titan_multicore",
+  ["You are extending your Titanic aura to others."] = "titan_presence",
+  ["A jittering remnant of ley-light stands nearby."] = "titan_remnant",
+  ["A remnant of ley-light will come to your rescue."] = "titan_remnant_stored",
+  ["You have stored away a part of your soul deep within the leylines."] = "titan_store",
+  
+  --Astral
+  ["The sickly virulence of chaos spills from you."] = "astral_chaosspores",
+  ["You are protected by the waves of the dreamtide."] = "astral_dreamtide",
+  ["Dormant dreamtides will come to your aid."] = "astral_dreamtide_store",
+  ["You stand amongst the nobility of Astral Chaos."] = "astral_form",
+  ["Chaotic fortune blesses your frame."] = "astral_presence",
+  ["The duality of indigo is mirroring your actions."] = "astral_recursion",
+  ["Orange light wreathes you in a fiery shield."] = "astral_refulgence",
+  ["You are attuned to the boughs of the worldflower."] = "astral_store",
+  
+  --Nocturn
+  ["A layer of hardened blood protects your body in a sanguine shield."] = "nocturn_bloodcoat",
+  ["Your blood double mimics your attacks."] = "nocturn_double",
+  ["You have seized mastery over blood and shadow, assuming the Nocturn form."] = "nocturn_form",
+  ["Shadow haze coils about your body with untapped violence."] = "nocturn_haze",
+  ["You are empowering the blood of yourself and your allies."] = "nocturn_presence",
+  ["Your shadow readies itself to take the next attack against you."] = "nocturn_shadow",
+  ["Your shadow moves autonomously, ready to protect you at the right moment."] = "nocturn_shadow_stored",
+  ["You have imbued the sanguine realm with your presence."] = "nocturn_store",
+  
+  --sagani
+  ["You are wreathed in the storm's fury: all will suffer."] = "sagani_epicentre",
+  ["You exist as a Sagani; a coalescion of elements given form."] = "sagani_form",
+  ["A helix of air is protecting you."] = "sagani_helix",
+  ["A helix of elemental air will aid you when needed."] = "sagani_helix_stored",
+  ["The presence of elemental harmony confers good fortune."] = "sagani_presence",
+  ["Arcane similitude renders you twice as effective."] = "sagani_similitude",
+  ["You are attuned to your locus of elements."] = "sagani_store",
+  ["A wall of stone is encircling you."] = "sagani_wall",
+  
+  --chaos
+  ["Your chaotic energy strikes at your foes."] = "chaos_entropy",
+  ["An illusory figment of Chaos stands next to you."] = "chaos_figment",
+  ["A figment of Chaos will come to your rescue."] = "chaos_figment_stored",
+  ["You are splitting your realities."] = "chaos_fork",
+  ["You have embraced the full form of a Chaos Lord."] = "chaos_form",
+  ["You are extending your Chaotic aura to others."] = "chaos_presence",
+  ["You are surrounded by a shroud of Chaos."] = "chaos_shroud",
+  ["You have stored away a part of your soul in the safety of Chaos."] = "chaos_store",
 }
  </script>
 							<eventHandlerList />
@@ -57533,6 +57903,7 @@ snd.bashing_area_beginning_rooms ={
   ["Upper Tiyen"] = "38894",
   ["Lower Tiyen"] = "39070",
   ["Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa"] = "74470",
+  ["a dimly lit subterranean river"] = "76514",
 }
 </script>
 						<eventHandlerList />
@@ -57715,6 +58086,7 @@ snd.areas = {
 {area = "the Liruma Crater", level = "???", targets = {"Match:a horrifically deformed adventurer resembling %a+", "a feral, misshapen hare", "a disfigured sheep", "an irradiated hyena", "a malformed Ophidian woman", "a twitching, ylem-bathed Mitrine", "a two-headed buffalo", "a deformed lynx",}},
 {area = "a volcanic island", level = "99+", targets = {  "a many-legged cinder crawler", "a sinuous elemental of acerbic smoke",  "an enraged hyriamah", "a firebound terror", "a cumbrous magma beast", "a fierce, lithely limbed firedancer", }},
 {area = "Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa", level = "99+", targets = {"a four-winged ayvarin", "a swift vukon", "a predatory kashnalda",}},
+{area = "a dimly lit subterranean river", level = "99+", targets = {"an iridescent bubble of elemental energies", "a long-finned, cerulean amphibian", "a billowing cloud of shifting luminescence", "a spiny many-armed water elemental", "a tempestuous wave elemental", "a shimmering piscine elemental"}},
 }
 
 sunder_areaPaths = {
@@ -68236,6 +68608,81 @@ sunder_areaPaths = {
   v74859 = "74858",
   v75023 = "ptcity"
   },
+["a dimly lit subterranean river"] = {
+  v76514 = "76515",
+  v76515 = "76516",
+  v76516 = "76517",
+  v76517 = "76518",
+  v76518 = "76519",
+  v76519 = "76535",
+  v76535 = "76648",
+  v76536 = "76537",
+  v76537 = "76538",
+  v76538 = "76539",
+  v76539 = "76540",
+  v76540 = "76541",
+  v76541 = "76542",
+  v76542 = "76543",
+  v76543 = "76574",
+  v76574 = "76575",
+  v76575 = "76576",
+  v76576 = "76577",
+  v76577 = "76652",
+  v76578 = "76585",
+  v76585 = "76586",
+  v76586 = "76587",
+  v76587 = "76588",
+  v76588 = "76589",
+  v76589 = "76722",
+  v76591 = "76593",
+  v76592 = "76591",
+  v76593 = "76594",
+  v76594 = "76595",
+  v76595 = "76596",
+  v76596 = "76608",
+  v76597 = "76604",
+  v76604 = "76605",
+  v76605 = "76606",
+  v76606 = "76607",
+  v76607 = "ptcity",
+  v76608 = "76609",
+  v76609 = "76724",
+  v76611 = "76612",
+  v76612 = "76650",
+  v76613 = "76614",
+  v76614 = "76634",
+  v76615 = "76617",
+  v76617 = "76619",
+  v76618 = "76621",
+  v76619 = "76597",
+  v76621 = "76633",
+  v76622 = "76578",
+  v76628 = "76536",
+  v76631 = "76622",
+  v76632 = "76631",
+  v76633 = "76628",
+  v76634 = "76666",
+  v76637 = "76632",
+  v76639 = "76642",
+  v76640 = "76637",
+  v76641 = "76640",
+  v76642 = "76615",
+  v76648 = "76649",
+  v76649 = "76613",
+  v76650 = "76639",
+  v76652 = "76641",
+  v76654 = "76655",
+  v76655 = "76764",
+  v76666 = "76618",
+  v76722 = "76828",
+  v76724 = "76725",
+  v76725 = "76726",
+  v76726 = "76611",
+  v76764 = "76592",
+  v76828 = "76829",
+  v76829 = "76830",
+  v76830 = "76654"
+},
 }
 
 </script>
@@ -68382,6 +68829,9 @@ snd.global_targets = {
 "a menacing Caentoi cutthroat",
 "a grimy bandit",
 "a wounded bandit",
+"a cutthroat pirate",
+"a cutthroat pirate captain",
+"a pirate lookout",
 
 }</script>
 					<eventHandlerList />
@@ -68420,7 +68870,7 @@ function snd.runBasher()
       end
     elseif
       (string.find(item, "the corpse of") and not string.find(item, "staked")) or
-      (string.find(item, "the remains of") and not string.find(item, "staked"))
+      (string.find(item, "the remains of %u%a+") and not string.find(item, "staked"))
     then
       for id in pairs(snd.items[item]) do
         table.insert(snd.corpses, snd.items[item][id])
@@ -68504,6 +68954,7 @@ end</script>
 {class = "Warden", func = function(current) snd.warden_bash() end},
 {class = "Wayfarer", func = function(current) snd.wayfarer_bash() end},
 {class = "Zealot", func = function(current) snd.zealot_bash() end},
+{class = "None", func = function(current) snd.none_bash() end}, --200
 }
 
 function snd.shield_check()
@@ -69235,7 +69686,41 @@ function snd.zealot_bash()
 	else
 		battack = battack.."flow "..snd.bashing.target.." pummel pummel"
 	end
-end</script>
+end
+
+local ascendedAttacks = {
+  malevolent = "adherent blossom",
+  strife = "adherent shards",
+  corruption = "adherent spiral",
+  memory = "adherent shend",
+  tyranny = "adherent oppress",
+  instinct = "adherent embitter",
+  
+  seraph = "seraph admonish",
+  aetherial = "aetherial spiral",
+  titan = "titan fissure",
+  glacian = "glacian frostbite",
+  nocturn = "nocturn curse",
+  sagani = "sagani quarrel",
+  chaos = "chaos havoc",
+  tiarna = "tiarna fulminate",
+  astral = "astral evert",
+  none = "kill",
+}
+
+function snd.none_bash() --super basic bashing function for 200's.
+  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+	
+  if hp &lt;=40 and snd.shield_check() then
+    if snd.punisher then
+    else
+      battack = "touch shield"
+    end
+	else
+    battack = ascendedAttacks[snd.toggles.ascendedtype].." "..snd.target
+	end
+end
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -70749,12 +71234,14 @@ function snd.load_def(option)
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
-    if gmcp.Char.Status.race == "Azudim" then
-      snd.def_options[option]["def_miasma"] = "on"
-    elseif gmcp.Char.Status.race == "Yeleni" then
-      snd.def_options[option]["def_warmth"] = "on"
-    elseif gmcp.Char.Status.race == "Idreth" then
-      snd.def_options[option]["def_safeguard"] = "on"
+    if snd.class~="None" then --200 check
+      if gmcp.Char.Status.race:sub(1,6) == "Azudim" then
+        snd.def_options[option]["def_miasma"] = "on"
+      elseif gmcp.Char.Status.race:sub(1,6) == "Yeleni" then
+        snd.def_options[option]["def_warmth"] = "on"
+      elseif gmcp.Char.Status.race:sub(1,6) == "Idreth" then
+        snd.def_options[option]["def_safeguard"] = "on"
+      end
     end
     local my_def_choice_and_generic_defenses = {}
     if option ~= "none" then
@@ -71131,6 +71618,113 @@ def_deflection = "on",
 def_mindspark = "on",
 
 },
+--200s
+malevolent = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_malevolence = "on",
+},
+strife = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_turmoil = "on",
+},
+corruption = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_acid = "on",
+},
+memory = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_ruination = "on",
+},
+tyranny = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_indomitable = "on",
+},
+instinct = {
+  def_adherent_barrier = "on",
+  def_adherent_presence = "on",
+  def_adherent_synchroneity = "on",
+  def_adherent_mortalfire_stored = "once",
+  def_adherent_avengement = "on",
+},
+
+tiarna = {
+  def_tiarna_bulwark = "on",
+  def_tiarna_cultivation = "on",
+  def_tiarna_presence = "on",
+  def_tiarna_shelter_stored = "once",
+  def_tiarna_unleash = "on",
+},
+glacian = {
+  def_glacian_penumbra = "on",
+  def_glacian_presence = "on",
+  def_glacian_silhouette = "on",
+  def_glacian_twilight = "on",
+  def_glacian_adumbration_stored = "once",
+},
+aetherial = {
+  def_aetherial_bastion = "on",
+  def_aetherial_presence = "on",
+  def_aetherial_torment = "on",
+  def_aetherial_agility = "on",
+  def_aetherial_band_stored = "once",
+},
+seraph = {
+  def_seraph_radiate = "on",
+  def_seraph_presence = "on",
+  def_seraph_corona_stored = "once",
+  def_seraph_parhelion = "on",
+  def_seraph_halo = "on",
+},
+titan = {
+  def_titan_disruption = "on",
+  def_titan_irradiance = "on",
+  def_titan_multicore = "on",
+  def_titan_presence = "on",
+  def_titan_remnant_stored = "once",
+},
+astral = {
+  def_astral_chaosspores = "on",
+  def_astral_dreamtide_store = "once",
+  def_astral_presence = "on",
+  def_astral_recursion = "on",
+  def_astral_refulgence = "on"
+},
+nocturn = {
+  def_nocturn_haze = "on",
+  def_nocturn_double = "on",
+  def_nocturn_presence = "on",
+  def_nocturn_bloodcoat = "on",
+  def_nocturn_shadow_stored = "once",
+},
+sagani = {
+  def_sagani_epicentre = "on",
+  def_sagani_helix_stored = "once",
+  def_sagani_presence = "on",
+  def_sagani_similitude = "on",
+  def_sagani_wall = "on",
+},
+chaos = {
+  def_chaos_entropy = "on",
+  def_chaos_figment_stored = "once",
+  def_chaos_fork = "on",
+  def_chaos_presence = "on",
+  def_chaos_shroud = "on",
+}
 
 }</script>
 					<eventHandlerList />
@@ -71289,6 +71883,8 @@ snd.fulcrum_exists = false
 
 --Teradrim / Tidesage
 snd.lev_gone = false
+snd.runemarkMajor = "none"
+snd.runemarkMinor = "none"
 
 --Zealot/Ravager
 snd.zenith = false
@@ -72602,7 +73198,7 @@ end</script>
           if snd.faction == "spirit" then
             snd.send("wt I'm melting! I'm melting!")
           elseif snd.faction == "shadow" then
-            --snd.send("wt I'm really close to death.")
+            snd.send("wt I'm really close to death.")
           end
           snd.waiting.melting = true
           tempTimer(5, [[snd.waiting.melting = false]])
@@ -72861,6 +73457,7 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
   	"writhe_necklock",
     "writhe_ropes",
     "writhe_vines",
+    "writhe_grappled",
    }
    
    local other_prones = {
@@ -74050,10 +74647,7 @@ end</script>
                    snd.target_got("lovers_effect")  
                  end,
 
-        Aeon = function(target, speed)
-                if not speed then
-                  snd.target_got("aeon")
-                end
+        Aeon = function(target)
                 snd.target_got("no_speed") 
         end,
         
@@ -74433,39 +75027,34 @@ end</script>
   ["Terramancy"] = {
     Gutsmash = function(target)
                 snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 11.99
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("gutsmash")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Facesmash = function(target)
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 12.99
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-                snd.onHit2({"Dodge", "Parry", "Rebounding"})
-               end,
-    Shred = function(target, where)
-                snd.last_hit_limb = where
-                snd.last_limb_dmg = 6.99
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("facesmash")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Overhand = function(target)
-                 snd.target_got("fallen")
+                 table.insert(snd.maybe_affs, "fallen")
                  snd.lev_gone = true
+                 snd.onHit2({"Dodge"})
                end,
     Batter = function(target, where)
                snd.last_hit_limb = where
-               snd.last_limb_dmg = 13.74
+               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("batter")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Shockwave = function(target)
-                  snd.target_got("prone")
+                  snd.target_got("fallen")
                   enableTrigger("Shockwave limb breaks")
                 end,
     Furor = function(target, where)
              	snd.last_hit_limb = where
-            	snd.last_limb_dmg = 7.8
+            	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("furor")
             	snd.took_limb_dmg(where, snd.last_limb_dmg)
               snd.onHit2({"Dodge", "Parry", "Rebounding"})
             end,
@@ -74479,64 +75068,56 @@ end</script>
     Fracture = function(target, where)
                  table.insert(snd.maybe_affs, where.."_crippled")
                  	snd.last_hit_limb = where
-                	if snd.limb_bruising[snd.last_hit_limb] == 0 then
-                    snd.last_limb_dmg = 11.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 1 then
-                    snd.last_limb_dmg = 15.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 2 then
-                    snd.last_limb_dmg = 19.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 3 then
-                    snd.last_limb_dmg = 23.99
-                  end
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("fracture")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,  
     Skullbash = function(target)
                  	snd.last_hit_limb = "head"
-                	snd.last_limb_dmg = 17.65
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("skullbash")
                   local afflist = {"whiplash", "indifference", "smashed_throat"}
-                  local check = 0
-                  for _, v in pairs(afflist) do if snd.limb_bruising["head"] &gt; check then
+                  for k, v in pairs(afflist) do if snd.limb_bruising["head"] &gt;= k then
                     table.insert(snd.maybe_affs, v)
-                    check = check + 1 
                     end
                   end
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"}, "Teradrim Skullbash")
                end,
     Pulp = function(target)
-           	snd.last_hit_limb = "torso"
-          	snd.last_limb_dmg = 8.6
-          	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-            snd.onHit2({"Dodge", "Rebounding"})
-         end, 
-  Impale = function(target, failed)
-             if failed then
-               snd.removeProneStates(true)
-             else
-               snd.target_got("writhe_impaled")
-               snd.theytumbling = false
-               if snd.hitting == "You" then
-                snd.target_impaled = true
-               end
-            end
-          end,
-  Stonevice = function(target)
-                snd.target_cured("writhe_impaled")
-                snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 10
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-              end,
-  Barrage = function(target)
-              enableTrigger("Barrage hit confirmation")
+               	snd.last_hit_limb = "torso"
+                table.insert(snd.maybe_affs, "collapsed_lung")
+              	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("pulp")
+              	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                snd.onHit2({"Dodge", "Parry", "Rebounding"})
+             end, 
+    Impale = function(target, failed)
+               if failed then
+                 snd.removeProneStates(true)
+               else
+                 snd.target_got("writhe_impaled")
+                 snd.theytumbling = false
+                 if snd.hitting == "You" then
+                  snd.target_impaled = true
+                 end
+              end
             end,
-            
+    Stonevice = function(target)
+                  snd.target_cured("writhe_impaled")
+                  snd.last_hit_limb = "torso"
+                  snd.last_limb_dmg = 10
+                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                end,
+    Barrage = function(target)
+                snd.barrageCounter = 0
+                enableTrigger("Barrage hit confirmation")
+              end,
+              
     Slam = function(target, where)
                   snd.last_hit_limb = where
-                	snd.last_limb_dmg = 9.99
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("slam")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
-          end,
+              end,
   },
   
   ["Desiccation"] = {
@@ -74601,39 +75182,40 @@ end</script>
  ["Wavebreaking"] = {
     Ram = function(target)
                 snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 12
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("ram")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Crest = function(target)
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 13
+                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crest")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Breach = function(target)
-                 snd.target_got("fallen")                
+                 table.insert(snd.maybe_affs, "fallen")
                  snd.lev_gone = true
+                 snd.onHit2({"Dodge"})
                end,
     Clobber = function(target, where)
                snd.last_hit_limb = where
-               snd.last_limb_dmg = 13.75
+               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("clobber")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Crack = function(target, where)
                snd.last_hit_limb = where
-               snd.last_limb_dmg = 10.49
+               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crack")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Capsize = function(target)
-                  snd.target_got("prone")
+                  snd.target_got("fallen")
                   enableTrigger("Shockwave limb breaks")
                 end,
     Pitch = function(target, where)
              	snd.last_hit_limb = where
-            	snd.last_limb_dmg = 7.8
+            	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("pitch")
             	snd.took_limb_dmg(where, snd.last_limb_dmg)
               snd.onHit2({"Dodge", "Parry", "Rebounding"})
             end,
@@ -74647,26 +75229,16 @@ end</script>
     Buckle = function(target, where)                 
                  table.insert(snd.maybe_affs, where.."_crippled")
                  	snd.last_hit_limb = where
-                	if snd.limb_bruising[snd.last_hit_limb] == 0 then
-                    snd.last_limb_dmg = 11.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 1 then
-                    snd.last_limb_dmg = 15.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 2 then
-                    snd.last_limb_dmg = 19.99 + (snd.limb_bruising[snd.last_hit_limb]+1)
-                  elseif snd.limb_bruising[snd.last_hit_limb] == 3 then
-                    snd.last_limb_dmg = 23.99
-                  end
+                  snd.last_limb_dmg = snd.calcTeradrimLimbDamage("buckle")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,  
     Gybe = function(target)
                  	snd.last_hit_limb = "head"
-                	snd.last_limb_dmg = 17.65
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("gybe")
                   local afflist = {"whiplash", "indifference", "smashed_throat"}
-                  local check = 0
-                  for _, v in pairs(afflist) do if snd.limb_bruising["head"] &gt; check then
+                  for k, v in pairs(afflist) do if snd.limb_bruising["head"] &gt;= k then
                     table.insert(snd.maybe_affs, v)
-                    check = check + 1 
                     end
                   end
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -74674,34 +75246,36 @@ end</script>
                end,
     Wreck = function(target)
            	snd.last_hit_limb = "torso"
-          	snd.last_limb_dmg = 8.6
+            table.insert(snd.maybe_affs, "collapsed_lung")
+          	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("wreck")
           	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-            snd.onHit2({"Dodge", "Rebounding"})
+            snd.onHit2({"Dodge", "Parry", "Rebounding"})
          end, 
-  Harpoon = function(target, failed)
-             if failed then
-               snd.removeProneStates(true)
-             else
-               snd.target_got("writhe_impaled")
-               snd.theytumbling = false
-               if snd.hitting == "You" then
-                snd.target_impaled = true
-               end
-            end
-          end,
-  Eviscerate = function(target)
-                snd.target_cured("writhe_impaled")
-                snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 10
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-              end,
-  Broadside = function(target)
-              enableTrigger("Barrage hit confirmation")
+    Harpoon = function(target, failed)
+               if failed then
+                 snd.removeProneStates(true)
+               else
+                 snd.target_got("writhe_impaled")
+                 snd.theytumbling = false
+                 if snd.hitting == "You" then
+                  snd.target_impaled = true
+                 end
+              end
             end,
-            
+    Eviscerate = function(target)
+                  snd.target_cured("writhe_impaled")
+                  snd.last_hit_limb = "torso"
+                  snd.last_limb_dmg = 10
+                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                end,
+    Broadside = function(target)
+                snd.barrageCounter = 0
+                enableTrigger("Barrage hit confirmation")
+              end,
+              
     Crack = function(target, where)
                   snd.last_hit_limb = where
-                	snd.last_limb_dmg = 9.99
+                	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crack")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
           end,
@@ -75891,12 +76465,9 @@ end</script>
                    snd.target_got("lovers_effect")  
                  end,
 
-        Hourglass = function(target, speed)
-                if not speed then
-                  snd.target_got("aeon")
-                end
-                snd.target_got("no_speed")
-        end,
+        Hourglass = function(target)
+                   snd.target_got("no_speed")
+                 end,
         
         Knight = function(target)
                    snd.target_got("justice") 
@@ -77451,6 +78022,55 @@ end</script>
 		else
 		return false
 	end 
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Teradrim/Tidesage stuff</name>
+						<packageName></packageName>
+						<script>local mirrors = {
+    ram = "gutsmash",
+    crest = "facesmash",
+    clobber = "batter",  
+    pitch = "furor",
+    buckle = "fracture",
+    gybe = "skullbash",
+    wreck = "pulp",
+  }
+local attackDamage = {
+  gutsmash = 11.99,
+  facesmash = 12.99,
+  batter = 13.74,
+  furor = 7.79,
+  fracture = 12,
+  skullbash = 16,
+  pulp = 9.41,
+  slam = 10,
+  barrage1 = 4,
+  barrage2 = 3.5,
+  barrage3 = 3.06
+}
+
+function snd.calcTeradrimLimbDamage(skill)
+  local attack = mirrors[skill] or skill
+  local damage = attackDamage[attack]
+  if attack == "fracture" then
+    damage = damage + 4 * math.min(3, snd.limb_bruising[snd.last_hit_limb])
+  end
+  if snd.hitting == "You" then
+    if snd.toggles.targetrune then
+      damage = damage *1.05
+    end
+    if snd.runemarkMajor == "red" then
+      damage = damage * 1.25
+    elseif snd.runemarkMajor == "blue" then
+      damage = damage * 0.75
+    end
+    if snd.runeMarkMinor == "red" and attack == "fracture" then
+      damage = damage * 1.08
+    end
+  end
+  return round(damage,2)
 end</script>
 						<eventHandlerList />
 					</Script>
