@@ -24316,35 +24316,6 @@ enableTrigger("Barrage prompt turn off")</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Earth Pulp</name>
-								<script>if matches[2] == snd.target then
- snd.last_hit_limb = "torso"
- snd.last_limb_dmg = 11
- snd.took_limb_dmg("torso", snd.last_limb_dmg)
- snd.target_got("collapsed_lung")
-end
-
-</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^Standing over (\w+)'s supine form, (the )?\w+ brings? (the )?\w+ flail smashing down hard into (the )?\w+ chest.$</string>
-									<string>^Looming over (\w+)'s fallen form with a confident swagger, \w+ draws? back .+ and brings? it down forcefully into (the )?\w+ chest.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Shockwave limb breaks</name>
 								<script>snd.target_got(matches[2].."_crippled")
@@ -68896,7 +68867,7 @@ function snd.runBasher()
       end
     elseif
       (string.find(item, "the corpse of") and not string.find(item, "staked")) or
-      (string.find(item, "the remains of") and not string.find(item, "staked"))
+      (string.find(item, "the remains of %u%a+") and not string.find(item, "staked"))
     then
       for id in pairs(snd.items[item]) do
         table.insert(snd.corpses, snd.items[item][id])
@@ -75064,8 +75035,9 @@ end</script>
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Overhand = function(target)
-                 snd.target_got("fallen")
+                 table.insert(snd.maybe_affs, "fallen")
                  snd.lev_gone = true
+                 snd.onHit2({"Dodge"})
                end,
     Batter = function(target, where)
                snd.last_hit_limb = where
@@ -75074,7 +75046,7 @@ end</script>
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Shockwave = function(target)
-                  snd.target_got("prone")
+                  snd.target_got("fallen")
                   enableTrigger("Shockwave limb breaks")
                 end,
     Furor = function(target, where)
@@ -75113,7 +75085,7 @@ end</script>
                 table.insert(snd.maybe_affs, "collapsed_lung")
               	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("pulp")
               	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-                snd.onHit2({"Dodge", "Rebounding"})
+                snd.onHit2({"Dodge", "Parry", "Rebounding"})
              end, 
     Impale = function(target, failed)
                if failed then
@@ -75218,8 +75190,9 @@ end</script>
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Breach = function(target)
-                 snd.target_got("fallen")                
+                 table.insert(snd.maybe_affs, "fallen")
                  snd.lev_gone = true
+                 snd.onHit2({"Dodge"})
                end,
     Clobber = function(target, where)
                snd.last_hit_limb = where
@@ -75234,7 +75207,7 @@ end</script>
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Capsize = function(target)
-                  snd.target_got("prone")
+                  snd.target_got("fallen")
                   enableTrigger("Shockwave limb breaks")
                 end,
     Pitch = function(target, where)
@@ -75273,7 +75246,7 @@ end</script>
             table.insert(snd.maybe_affs, "collapsed_lung")
           	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("wreck")
           	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-            snd.onHit2({"Dodge", "Rebounding"})
+            snd.onHit2({"Dodge", "Parry", "Rebounding"})
          end, 
     Harpoon = function(target, failed)
                if failed then
