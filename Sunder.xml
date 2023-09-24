@@ -25680,8 +25680,10 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>You channel pure soul energy into an ethereal soul cleaver until it is crackling with ominous, red sparks. Barely able to contain your desire for more souls to harvest, you swing an ethereal soul cleaver in an arc, releasing its culling energy in a wave around you.</string>
+										<string>You use Deathlore Cull</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>3</integer>
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -25910,10 +25912,12 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^You drive the shaft of (.*) into the ground with a resounding slam, ashockwave of energy rippling out to banish your ancestral opponents.$</string>
+										<string>^You drive the shaft of (.*) into the ground with a resounding slam, a shockwave of energy rippling out to banish your ancestral opponents.$</string>
+										<string>You use Ancestry Lunge.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
+										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
