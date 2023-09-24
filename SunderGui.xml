@@ -2025,7 +2025,7 @@ function gmcp_communication()
     if table.isMember(mobs_to_ignore, talker) then return end
     --You can choose whether you want it to match only names that are in the database (excluding divine)
     --Or if you want it to just match any one word name. Some NPCs might slip through.
-    if string.match(talker, "%W") then return end
+    if string.match(talker, "%W") and not talker:find("the gloriously%-bearded") then return end
     --[[ if sndNDB.players[talker] == nil then
       if not table.isMember(sndNDB.divine, talker) then 
         return 
