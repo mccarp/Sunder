@@ -57572,6 +57572,9 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
 	{from = 19753, to = 19754, command = [=[script: send("enter maiden") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 19773, to = 18761, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 18761, to = 19773, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
+  {from = 19763, to = 19764, command = [=[enter portal]=], locked = false, weight = 0},
+  {from = 19764, to = 19763, command = [=[enter portal]=], locked = false, weight = 0},
+	
 	
 	
 --squal in/out exits
