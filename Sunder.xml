@@ -14894,7 +14894,7 @@ end</script>
   snd.target_got(multimatches[2][2])
 end</script>
 									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
+									<conditonLineDelta>1</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
 									<mCommand></mCommand>
 									<packageName></packageName>
@@ -14906,6 +14906,30 @@ end</script>
 									<regexCodeList>
 										<string>^You stare intently at (\w+), opening \w+ mind to the unspeakable visions that spew from the bowels of hell\.$</string>
 										<string>^\w+ cries out, suddenly afflicted with (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Angel afflictions</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your angel afflicts (\w+) with (.+)\.$</string>
+										<string>^Your angel restores (\w+)'s? (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -14999,7 +15023,7 @@ end</script>
 									<regexCodeList>
 										<string>^You raise an? .+ imperiously towards \w+, exerting a subduing force upon \w+ skeletal frame\.$</string>
 										<string>1</string>
-										<string>^You amplify the damage to (\w+)'s skeleton, splintering bone levying the curse of (\w+)\.$</string>
+										<string>^You amplify the damage to (\w+)'s skeleton, splintering bone levying the curse of (.+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -15008,13 +15032,14 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>aftershock ticks</name>
+									<name>aftershock/shadowed ticks</name>
 									<script>local aff = {
   chars = "disfigurement",
   disorients = "dizziness",
   stiffens = "stiffness",
   ignites = "ablaze",
   weakens = "weariness",
+  burns = "ablaze",
 }
 if snd.target == matches[2] then
   snd.target_got(aff[matches[3]])
@@ -15031,8 +15056,34 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^Your body radiates waves of pressure, superheating (\w+)'s vicinity as it (\w+) \w+\.$</string>
+										<string>^(\w+) writhes in pain as your brilliant light burns and (\w+) \w+\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Swarm afflicts</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your swarm afflicts (\w+) with (.*).$</string>
+										<string>^Your swarm restores (\w+)'s? (hearing)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
