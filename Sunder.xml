@@ -6634,6 +6634,27 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Apothecary mob dead.</name>
+					<script>snd.no_target()
+snd.send("ql")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^The last \w+ has fallen! .+ has been wiped out!$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>GUI</name>
@@ -14848,7 +14869,7 @@ end</script>
   snd.target_got(multimatches[2][2])
 end</script>
 									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
+									<conditonLineDelta>1</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
 									<mCommand></mCommand>
 									<packageName></packageName>
@@ -14860,6 +14881,30 @@ end</script>
 									<regexCodeList>
 										<string>^You stare intently at (\w+), opening \w+ mind to the unspeakable visions that spew from the bowels of hell\.$</string>
 										<string>^\w+ cries out, suddenly afflicted with (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Angel afflictions</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your angel afflicts (\w+) with (.+)\.$</string>
+										<string>^Your angel restores (\w+)'s? (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -14953,7 +14998,7 @@ end</script>
 									<regexCodeList>
 										<string>^You raise an? .+ imperiously towards \w+, exerting a subduing force upon \w+ skeletal frame\.$</string>
 										<string>1</string>
-										<string>^You amplify the damage to (\w+)'s skeleton, splintering bone levying the curse of (\w+)\.$</string>
+										<string>^You amplify the damage to (\w+)'s skeleton, splintering bone levying the curse of (.+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -14962,13 +15007,14 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>aftershock ticks</name>
+									<name>aftershock/shadowed ticks</name>
 									<script>local aff = {
   chars = "disfigurement",
   disorients = "dizziness",
   stiffens = "stiffness",
   ignites = "ablaze",
   weakens = "weariness",
+  burns = "ablaze",
 }
 if snd.target == matches[2] then
   snd.target_got(aff[matches[3]])
@@ -14985,8 +15031,34 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^Your body radiates waves of pressure, superheating (\w+)'s vicinity as it (\w+) \w+\.$</string>
+										<string>^(\w+) writhes in pain as your brilliant light burns and (\w+) \w+\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Swarm afflicts</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your swarm afflicts (\w+) with (.*).$</string>
+										<string>^Your swarm restores (\w+)'s? (hearing)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -15009,11 +15081,10 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 1</name>
 									<script>if matches[2] == snd.target then
-
   snd.last_limb_dmg = 2.5
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.onHit2({"Dodge", "Parry"})
-  snd.crush_first_choice = snd.last_hit_limb
+  snd.luminary_crush_first_choice = snd.last_hit_limb
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -15035,10 +15106,10 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 2</name>
 									<script>if snd.getting_hit == snd.target then
-  local amount = 2.5 --buckler is 2.5
-  if matches[1]:find("tower") then
+  local amount = 2.5 --buckler/cavalry is 2.5
+  if matches[1]:find("tower") or matches[1]:find("kite") then
     amount = 12.5
-  elseif matches[1]:find("kite") then
+  elseif matches[1]:find("banded") then
     amount = 10
   end
   snd.last_limb_dmg = amount
@@ -15046,9 +15117,9 @@ end</script>
   snd.onHit2({"Dodge", "Parry"})
   
   --We also need to add the difference to the first attack. Since you don't know what shield they're using until part 2, it's a little wonky.
-  if amount &gt; 2.5 then -- already good if it's buckler
+  if amount &gt; 2.5 and snd.luminary_crush_first_choice then -- already good if it's buckler
     snd.took_limb_dmg(snd.luminary_crush_first_choice, amount-2.5) -- add the amount minus what we've already given
-    snd.crush_first_choice = nil
+    snd.luminary_crush_first_choice = nil
   end
 end
 disableTrigger("Crush Confirmation")</script>
@@ -25583,8 +25654,10 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>You channel pure soul energy into an ethereal soul cleaver until it is crackling with ominous, red sparks. Barely able to contain your desire for more souls to harvest, you swing an ethereal soul cleaver in an arc, releasing its culling energy in a wave around you.</string>
+										<string>You use Deathlore Cull</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>3</integer>
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -25813,10 +25886,12 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^You drive the shaft of (.*) into the ground with a resounding slam, ashockwave of energy rippling out to banish your ancestral opponents.$</string>
+										<string>^You drive the shaft of (.*) into the ground with a resounding slam, a shockwave of energy rippling out to banish your ancestral opponents.$</string>
+										<string>You use Ancestry Lunge.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
+										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -34124,6 +34199,14 @@ end</script>
 						<packageName></packageName>
 						<regex>^toggle ascendant (\w+)$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Set your mount</name>
+						<script>snd.toggles.mount = matches[2]
+cecho("&lt;red&gt;Your mount's ID has been set to: "..snd.toggles.mount)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^snd mount (\d+)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -34133,7 +34216,7 @@ end</script>
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>mount</name>
-						<script>snd.send("qeb recall "..snd.mount..snd.sep.."recall mount"..snd.sep.."quickmount "..snd.mount)
+						<script>snd.send("qeb recall "..snd.toggles.mount..snd.sep.."recall mount"..snd.sep.."quickmount "..snd.toggles.mount)
 </script>
 						<command></command>
 						<packageName></packageName>
@@ -34141,7 +34224,7 @@ end</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>dismount</name>
-						<script>snd.send("qeb qdmount"..snd.sep.."order "..snd.mount.." follow me")</script>
+						<script>snd.send("qeb qdmount"..snd.sep.."order "..snd.toggles.mount.." follow me")</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^dm$</regex>
@@ -34511,6 +34594,19 @@ end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^move to next area$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Apothecary mode</name>
+					<script>if matches[2] then
+  snd.apothecaryEnabled = matches[2] == "on"
+else
+  snd.apothecaryEnabled = not snd.apothecaryEnabled
+end
+
+cecho("&lt;green&gt;Apothecary mode: &lt;orange&gt;"..(snd.apothecaryEnabled and "ON!" or "OFF!"))</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^snd apothecary(?: (on|off))?$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -41036,7 +41132,7 @@ end</script>
       end
       if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then 
         paystring = "hex obeisance"..snd.sep 
-      elseif snd.spay == false and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then
+      elseif snd.repay &lt;1 and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then
         paystring = "hex obeisance"..snd.sep
       else 
         paystring = "" 
@@ -41157,7 +41253,7 @@ function snd.attack_function()
   	cecho("&lt;red&gt;\n"..snd.gravity.." " ..tonumber(gmcp.Char.Vitals.spiritpact))
 		
 --			if not snd.checksomeAffs({"fungal_invasion","inoculated"}, 2) and not snd.used.shield then gstring = "spore inoculate " ..snd.target..snd.sep.."spore infect " ..snd.target..snd.sep else gstring = "" end
-      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then paystring = "hex obeisance"..snd.sep elseif snd.spay == false and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then paystring = "hex obeisance"..snd.sep else paystring = "" end
+      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then paystring = "hex obeisance"..snd.sep elseif snd.repay&lt;1 and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then paystring = "hex obeisance"..snd.sep else paystring = "" end
 
 	if snd.used.shield then
     if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
@@ -48803,7 +48899,7 @@ end
       end
       if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.shadowprice) &gt;= 3 and not snd.checkAff("gloom") then 
         paystring = "cast repay"..snd.sep 
-      elseif snd.spay == false and tonumber(gmcp.Char.Vitals.shadowprice) == 4 then
+      elseif snd.repay &lt; 1 and tonumber(gmcp.Char.Vitals.shadowprice) == 4 then
         paystring = "cast repay"..snd.sep
       else 
         paystring = "" 
@@ -48928,7 +49024,7 @@ function snd.attack_function()
   	cecho("&lt;red&gt;\n"..snd.gravity.." " ..tonumber(gmcp.Char.Vitals.shadowprice))
 		
 --			if not snd.checksomeAffs({"impede","imbued"}, 2) and not snd.used.shield then gstring = "gravity imbue " ..snd.target..snd.sep.."gravity impede " ..snd.target..snd.sep else gstring = "" end
-      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.shadowprice) &gt;= 3 and not snd.checkAff("gloom") then paystring = "cast repay"..snd.sep elseif snd.spay == false and tonumber(gmcp.Char.Vitals.shadowprice) == 4 then paystring = "cast repay"..snd.sep else paystring = "" end
+      if snd.repay  &lt; 2 and tonumber(gmcp.Char.Vitals.shadowprice) &gt;= 3 and not snd.checkAff("gloom") then paystring = "cast repay"..snd.sep elseif snd.repay&lt;1 and tonumber(gmcp.Char.Vitals.shadowprice) == 4 then paystring = "cast repay"..snd.sep else paystring = "" end
 
 	if snd.used.shield then
     if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
@@ -51957,7 +52053,7 @@ registerAnonymousEventHandler("gmcp.Char.Name", "snd.login")</script>
 						<name>options</name>
 						<packageName></packageName>
 						<script>snd.sep = snd.sep or "\\" -- important! CONFIG SEPARATOR value
-snd.mount = snd.mount or "79667" -- your horse's ID number
+--snd.mount = snd.mount or "79667" -- your horse's ID number
 
 
 snd.faction = snd.faction or "" -- your faction, spirit or shadow
@@ -52018,6 +52114,7 @@ gags = true,
 targetrune = false,
 alerts = false,
 ascendedtype = "none",
+mount = "123456",
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -57458,6 +57555,9 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
 	{from = 19753, to = 19754, command = [=[script: send("enter maiden") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 19773, to = 18761, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 18761, to = 19773, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
+  {from = 19763, to = 19764, command = [=[enter portal]=], locked = false, weight = 0},
+  {from = 19764, to = 19763, command = [=[enter portal]=], locked = false, weight = 0},
+	
 	
 	
 --squal in/out exits
@@ -57483,6 +57583,9 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
   
   --Xaanhal seal
   {from = 36688, to = 36710, command = [=[script: send("touch seal")]=], locked = false, weight = 0},
+  
+  --Spiral of the Corrupt
+  {from = 36270, to = 36271, command = [=[enter whirlpool]=], locked = false, weight = 0},
 }
 
 local lockExits = {
@@ -57792,7 +57895,7 @@ snd.bashing_area_beginning_rooms ={
   ["Spiral of the Corrupt"] = "36271",
   ["Forsaken Evlasu"] = "53280",
   ["the Maghuir Fissure"] = "ptmaghuir",
-  ["the Village of Torston"] = "17612",
+  ["the village of Torston"] = "17612",
   ["the Kalydian Forest"] = "19810",
   ["the Torturers' Caverns"] = "23202",
   ["the Forgotten Dome"] = "54770",
@@ -57904,6 +58007,7 @@ snd.bashing_area_beginning_rooms ={
   ["Lower Tiyen"] = "39070",
   ["Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa"] = "74470",
   ["a dimly lit subterranean river"] = "76514",
+  ["the Offspring"] = "77437",
 }
 </script>
 						<eventHandlerList />
@@ -58038,7 +58142,7 @@ snd.areas = {
 {area = "the Village of Kornar", level = "25-35", targets = {"a necromantic guard", "a Bloodloch soldier", "a conjured wraith", "a Bloodloch lich", "a female villager", "an undead villager", "Mala, the Artisan", "Firthar", "Hassik, the village elder", "an undead minion", "an undead child", "Moritsio, Owner of the Pub", "Igrar, Captain of the Gral", "a wealthy sailor"  } },
 {area = "the Arurer Haven", level = "60", targets = {"a youthful priest", "a savvy priestess", "a budding priestess", "an aged priest", "Gunder, a retired sailor", "Father Garron, the priest", "Tisian, a young priest", "a young celestial angel" } },
 {area = "the lost city of Iviofiyiedu", level = "45-55", targets = { "a ghost of a Mhun guard", "a ghost of a Mhun soldier", "General Abeshentesh", "a ghost of a male Mhun", "a ghost of a female Mhun", "a ghost of a young Mhun", "a mhun instructor", "Blacksmith Udhomentesh", "Fathientesh, a mhun crafter", "Dhemosh, a mhun miner" } },
-{area = "the Village of Torston", level = "40+", targets = {"a mottled brown frog", "a venomous water snake", "a vicious snapping turtle", "a fierce crocodile", "an irritated crow", "a tall Horkvali woman", "a wary Xorani guard", "a stalwart Horkvali guard", "Estok, the guard captain", "a dusky-skinned Grook man", "a plump white grub", "a dark-skinned Grook woman", "a carefree Grook boy", "the impish outcast, Qezirath", "a frail Xorani man", "a little Grook girl", "Lesiv, the Torstonite chieftain"}},
+{area = "the village of Torston", level = "40+", targets = {"a mottled brown frog", "a venomous water snake", "a vicious snapping turtle", "a fierce crocodile", "an irritated crow", "a tall Horkvali woman", "a wary Xorani guard", "a stalwart Horkvali guard", "Estok, the guard captain", "a dusky-skinned Grook man", "a plump white grub", "a dark-skinned Grook woman", "a carefree Grook boy", "the impish outcast, Qezirath", "a frail Xorani man", "a little Grook girl", "Lesiv, the Torstonite chieftain"}},
 {area = "the Cathedral of Gloaming", level = "35-40", targets = {"a Dwarven priest"}},
 {area = "the Vilimo Fields", level = "35-40", targets = {"Nysaac", "a field harvester", "a field monitor", "a decaying donkey", "Laoghaire, the monitor", "Maeron, the Quartermaster", "Administrator Kamakshi", "a semi-conscious young woman", "a semi-conscious young man","a semi-conscious elderly man", "a semi-conscious elderly woman", "a semi-conscious man", "a semi-conscious woman", "an undead bloodhound", "a field hauler", "a spectral minion"}},
 {area = "the Mannaseh Swamp", level = "35-40", targets = {"a savage mutant pumpkin", "a muddy Trollish child", "a slender mud adder", "a rugged Trollish man", "a plump Trollish woman", "a lumbering Troll guard", "an elderly Troll priest", "a lean guard hound", "a traitorous Mitrine hunter","a black ram", "a militant Troll warrior", "a Troll ritualist", "an arachnid Chiav guard", "an arachnid Chiav enforcer", "an arachnid Chiav archer","an immense Trollish chieftain", "a lanky, Trollish witch doctor"}},
@@ -58087,6 +58191,7 @@ snd.areas = {
 {area = "a volcanic island", level = "99+", targets = {  "a many-legged cinder crawler", "a sinuous elemental of acerbic smoke",  "an enraged hyriamah", "a firebound terror", "a cumbrous magma beast", "a fierce, lithely limbed firedancer", }},
 {area = "Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa", level = "99+", targets = {"a four-winged ayvarin", "a swift vukon", "a predatory kashnalda",}},
 {area = "a dimly lit subterranean river", level = "99+", targets = {"an iridescent bubble of elemental energies", "a long-finned, cerulean amphibian", "a billowing cloud of shifting luminescence", "a spiny many-armed water elemental", "a tempestuous wave elemental", "a shimmering piscine elemental"}},
+{area = "the Offspring", level = "90+", targets = {"a pudgy water badger", "a flat-snouted scaled sheep", "a chromatic aquatic dragonfly", " a muscular freshwater hound", "a long-tailed bullfrog", "an amphibious, ebon-winged hawk", "a predatory river canine",}},
 }
 
 sunder_areaPaths = {
@@ -67205,7 +67310,7 @@ sunder_areaPaths = {
     v21465 = "ptcity",
     v24640 = "21442"
   },
-  ["the Village of Torston"] = {
+  ["the village of Torston"] = {
     v17428 = "17600",
     v17429 = "17428",
     v17430 = "17432",
@@ -68683,9 +68788,200 @@ sunder_areaPaths = {
   v76829 = "76830",
   v76830 = "76654"
 },
+["the Offspring"] = {
+  v76288 = "78253",
+  v76289 = "76884",
+  v76290 = "76948",
+  v76291 = "76906",
+  v76292 = "76832",
+  v76293 = "76907",
+  v76300 = "76780",
+  v76303 = "77843",
+  v76356 = "76957",
+  v76734 = "76300",
+  v76780 = "78469",
+  v76823 = "76864",
+  v76824 = "76833",
+  v76825 = "76826",
+  v76826 = "76292",
+  v76831 = "76824",
+  v76832 = "76823",
+  v76833 = "76840",
+  v76834 = "76835",
+  v76835 = "76958",
+  v76836 = "76837",
+  v76837 = "77232",
+  v76838 = "76839",
+  v76839 = "76844",
+  v76840 = "76841",
+  v76841 = "76842",
+  v76842 = "76879",
+  v76844 = "76857",
+  v76857 = "76868",
+  v76858 = "76866",
+  v76859 = "77158",
+  v76862 = "76863",
+  v76863 = "77270",
+  v76864 = "76834",
+  v76865 = "77025",
+  v76866 = "76872",
+  v76868 = "76869",
+  v76869 = "76870",
+  v76870 = "76876",
+  v76872 = "76874",
+  v76873 = "76831",
+  v76874 = "76888",
+  v76876 = "76878",
+  v76877 = "76836",
+  v76878 = "76858",
+  v76879 = "76885",
+  v76882 = "76947",
+  v76883 = "77130",
+  v76884 = "76288",
+  v76885 = "76887",
+  v76887 = "76877",
+  v76888 = "77072",
+  v76889 = "76859",
+  v76890 = "76891",
+  v76891 = "76892",
+  v76892 = "76894",
+  v76893 = "78328",
+  v76894 = "76910",
+  v76895 = "76904",
+  v76904 = "76905",
+  v76905 = "76882",
+  v76906 = "76289",
+  v76907 = "76963",
+  v76909 = "77141",
+  v76910 = "76965",
+  v76911 = "76293",
+  v76912 = "76911",
+  v76914 = "76916",
+  v76916 = "76895",
+  v76917 = "76912",
+  v76926 = "76917",
+  v76935 = "76926",
+  v76946 = "76935",
+  v76947 = "76946",
+  v76948 = "76291",
+  v76957 = "76290",
+  v76958 = "77146",
+  v76960 = "76356",
+  v76963 = "76960",
+  v76965 = "76966",
+  v76966 = "77021",
+  v77021 = "77148",
+  v77022 = "77023",
+  v77023 = "77024",
+  v77024 = "77026",
+  v77025 = "76889",
+  v77026 = "77069",
+  v77069 = "77070",
+  v77070 = "77071",
+  v77071 = "76873",
+  v77072 = "77073",
+  v77073 = "77074",
+  v77074 = "77076",
+  v77076 = "77077",
+  v77077 = "77078",
+  v77078 = "77152",
+  v77130 = "77022",
+  v77131 = "76825",
+  v77134 = "76883",
+  v77135 = "77134",
+  v77141 = "77135",
+  v77143 = "76909",
+  v77144 = "77143",
+  v77146 = "77144",
+  v77148 = "77131",
+  v77152 = "77153",
+  v77153 = "77154",
+  v77154 = "77155",
+  v77155 = "77157",
+  v77157 = "77323",
+  v77158 = "77159",
+  v77159 = "77160",
+  v77160 = "77161",
+  v77161 = "77162",
+  v77162 = "77163",
+  v77163 = "ptcity",
+  v77174 = "77175",
+  v77175 = "76838",
+  v77232 = "77174",
+  v77270 = "76865",
+  v77271 = "76862",
+  v77319 = "77271",
+  v77320 = "77319",
+  v77321 = "77320",
+  v77322 = "77321",
+  v77323 = "77322",
+  v77437 = "77495",
+  v77495 = "77842",
+  v77842 = "78130",
+  v77843 = "77844",
+  v77844 = "77845",
+  v77845 = "77846",
+  v77846 = "77847",
+  v77847 = "77848",
+  v77848 = "77849",
+  v77849 = "78151",
+  v78130 = "78131",
+  v78131 = "78132",
+  v78132 = "78144",
+  v78140 = "76303",
+  v78144 = "81176",
+  v78151 = "78252",
+  v78252 = "76893",
+  v78253 = "78254",
+  v78254 = "78255",
+  v78255 = "76890",
+  v78328 = "78604",
+  v78469 = "78140",
+  v78604 = "78605",
+  v78605 = "76914",
+  v81176 = "76734"
+},
 }
 
 </script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Apothecary targets</name>
+					<packageName></packageName>
+					<script>snd.apoAreas = {
+{area = "the Itzatl Morass", level = "apothecary", targets = {"an oversized fly", "an oversized earthworm", "a poisonous water moccasin", "a silent reed cat","a green slime toad", "a long-toothed beaver", "Match:a family of %a+ beavers",}},
+{area = "the Isle of Ollin", level = "apothecary", targets = {"a dark-furred, rabid boar", "Match:a sounder of %a+ boars", "a wild boar"}},
+{area = "the Morgun Forest", level = "apothecary", targets = {"a dark-furred, rabid boar", "Match:a sounder of %a+ boars", "a wild boar"}},
+{area = "the village of Torston", level = "apothecary", targets = {"a venomous water snake", "a fierce crocodile", "Match:a bask of %a+ crocodiles", "a greyish green crocodile"}},
+{area = "the Barony of Dun Valley", level = "apothecary", targets = {"a muscular mountain lion", "Match:a bask of %a+ crocodiles", "a greyish green crocodile"}},
+{area = "the Central Wilderness", level = "apothecary", targets = {"a gnat", "a mottled green bullfrog", "a dragonfly", "Match:a swarm of %a+ dragonflies"}},
+{area = "Scidve", level = "apothecary", targets = {"a large gray and black dugger", "a dark black snake", "a slender mud adder"}},
+{area = "the Pash valley", level = "apothecary", targets = {"a bald eagle"}},
+{area = "the Shamtota Hills", level = "apothecary", targets = {"a bald eagle"}},
+{area = "the Fractal Bloom", level = "apothecary", targets = {"a squat crystalline entity", "a slender crystalline entity", "a radiant crystalline entity", "a faceted crystalline entity", "a fractured crystalline entity", "a towering crystalline entity"}},
+{area = "Khauskin Mines", level = "apothecary", targets = {"a grotesque fangtooth", "a large, deepwater salmon", "a school of fish", "a powerful-looking swordfish", "a mantaglow fish", "a large blackfish", "a huge beluga sturgeon", "a plated ixthean", "an angler fish"}},
+{area = "Eastern Ithmia", level = "apothecary", targets = {"a great white stag"}},
+{area = "the Dolbodi Campsite", level = "apothecary", targets = {"a great white stag", "Match:a herd of %a+ white stags"}},
+{area = "the Fengard Keep", level = "apothecary", targets = {"a massive argobole", "a fiery phenkyre", "a vicious horned garwhol", "an ogre berserker", "Match:a horde of %a+ rats", "a large rat"}},
+{area = "Huanazedha", level = "apothecary", targets = {"Match:a horde of %a+ rats", "a large rat"}},
+{area = "the Southern Tundra", level = "apothecary", targets = {"Match:a bachelor herd of %a+ young bull mugyiks", "a white mugyik calf", "a dusky mugyik", "a bull mugyik"}},
+{area = "the Western Tundra", level = "apothecary", targets = {"Match:a bachelor herd of %a+ young bull mugyiks", "a white mugyik calf", "a dusky mugyik", "a bull mugyik"}},
+{area = "the Northern Tundra", level = "apothecary", targets = {"Match:a bachelor herd of %a+ young bull mugyiks", "a white mugyik calf", "a dusky mugyik", "a bull mugyik"}},
+{area = "the Western Itzatl Rainforest", level = "apothecary", targets = {"an iridescent tizapez", "an orange, black-striped tiger", "an enormous anaconda", "Match:a flock of %a+ mesias", "a silver-eared mesia",}},
+{area = "the Mamashi Grasslands", level = "apothecary", targets = {"a swiftly moving dragonfly", "Match:a swarm of %a+ dragonflies", "a Mamashi lioness", "a Mamashi lion", "a Mamashi lion cub", "Match:a pride of %a+ lions", }},
+{area = "a snake pit", level = "50-60", targets = {"a venenigol snake", "an andragil snake", "a tiny hatchling", "a large sertag snake", "a grassel snake","a muselon snake", "Nandqua, mate of Namaqua", "Namaqua, Queen of Serpents"}},
+{area = "the Centipede Cave", level = "25-35", targets = {"a large centipede", "a skittering centipede", "a chitinous centipede", "a venomous centipede", "a juvenile centipede", "a massive centipede queen"}},
+{area = "Luzith's Lair", level = "95+", targets = {"a mass of deadly trap spiders", "a deadly trap spider", "a monstrous arachnid", "a vicious little spider", "a large, crystalline spider", "a flying spider", "a sentinel spider", "a slender, female arachnoid"}},
+{area = "the Nal'jin Depths", level = "95+", targets = {"an enormous spinelash fish"}},
+{area = "the Hlugnic Labyrinth", level = "70+", targets = {"an enormous spinelash fish"}},
+{area = "Perilaus", level = "25-35", targets = {"a school of spinebacks", "a striped sea krait", "a water viper"}},
+{area = "the Undercity of Djeir", level = "30-50", targets = {"a mutated crawler fish", "an elusive black fish", "a striped siriskal fish", "a striped sea krait"}},
+{area = "the Festering Wastes", level = "30-50", targets = {"a darkly patterned sand viper", "a small yellow rattlesnake", "a tiny black scorpion",}},
+{area = "the Mhojave desert", level = "30+", targets = {"a sidewinder", "a rattlesnake",}},
+{area = "the Vashnar mountains", level = "45+", targets = {"a muscular mountain lion", "a grey mountain snake"}},
+{area = "the Den of Shadows", level = "99+", targets = {"a tan sidewinder", "a black boa", "a grey krait", "a tan python", "a brown adder", "a white sidewinder", "a black python", "a white krait", "a brown cobra", "a black adder", "a white boa", "a grey adder", "a brown krait", "a white python", "a brown sidewinder", "a tan adder", "a tan boa", "a grey sidewinder", "a tan cobra", "a tan krait", "a brown python", "a grey cobra", "a black sidewinder", "a grey boa", "a white adder", "a brown boa", "a black krait", "a black python", "a grey python", "a black cobra"}},
+}</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -68697,21 +68993,22 @@ function snd.load_targets(area)
  snd.area_found = false
  snd.possible_targets = {}
  snd.possible_items = {}
- for i in ipairs(snd.areas) do
-  if snd.areas[i].area == area then
+ local areas = snd.apothecaryEnabled and snd.apoAreas or snd.areas
+ if snd.apothecaryEnabled then
+    cecho("\n&lt;orange&gt;Apothecary mode")
+ end
+ for i in ipairs(areas) do
+  if areas[i].area == area then
    snd.area_found = true
    snd.bashing.target_type = "long"
-   snd.possible_targets = snd.areas[i].targets
-   echo("\n Level Range: "..snd.areas[i].level)
+   snd.possible_targets = areas[i].targets
+   echo("\n Level Range: "..areas[i].level)
    cecho("\n&lt;green&gt;Possible Targets:")
    for h in ipairs(snd.possible_targets) do
     echo("\n "..snd.possible_targets[h])
    end
-   if snd.areas[i].items then
-    snd.possible_items = snd.areas[i].items
-   end
-   if snd.areas[i].items then
-    snd.possible_items = snd.areas[i].items
+   if areas[i].items then
+    snd.possible_items = areas[i].items
     cecho("\n&lt;green&gt;Gathering Items:")
     for k in ipairs(snd.possible_items) do
      echo("\n "..snd.possible_items[k])
@@ -68833,6 +69130,11 @@ snd.global_targets = {
 "a cutthroat pirate captain",
 "a pirate lookout",
 
+--Bloodloch patrols Quest
+"a belligerent rebel",
+"a freedom fighter",
+"an escaped slave",
+"a deserter",
 }</script>
 					<eventHandlerList />
 				</Script>
