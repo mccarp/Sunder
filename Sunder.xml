@@ -15106,10 +15106,10 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 2</name>
 									<script>if snd.getting_hit == snd.target then
-  local amount = 2.5 --buckler is 2.5
-  if matches[1]:find("tower") then
+  local amount = 2.5 --buckler/cavalry is 2.5
+  if matches[1]:find("tower") or matches[1]:find("kite") then
     amount = 12.5
-  elseif matches[1]:find("kite") then
+  elseif matches[1]:find("banded") then
     amount = 10
   end
   snd.last_limb_dmg = amount
