@@ -15207,10 +15207,18 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spur</name>
-								<script>if snd.target == matches[3] then
- snd.target_got(matches[2])
+								<script>if matches[3] == snd.target then  
+	if matches[2] == "sensitivity" then
+  	if snd.checkAff("hearing") then
+  		snd.target_got("sensitivity")
+  	else
+  		snd.target_got("hearing")
+  	end
+  else
+  		snd.target_got(matches[2])
+  end
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -15223,8 +15231,8 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You use Subjugation Spur \((\w+)\) on (\w+)\.$</string>
-									<string>^\w+ uses Subjugation Spur \((\w+)\) on (\w+)\.$</string>
+									<string>^You use Subjugation Spur \((.+)\) on (\w+)\.$</string>
+									<string>^\w+ uses Subjugation Spur \((.+)\) on (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -15892,7 +15900,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You use Spirituality Battle \((\w+)\) on (\w+)\.$</string>
+									<string>^You use Spirituality Battle \((.+)\) on (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -73816,6 +73824,11 @@ end</script>
             snd.last_hit_limb = limb
             enableTrigger("Crush Confirmation")
           end,
+  Crash = function(target, failure)
+            if not failure then
+              snd.target_got("disrupted")
+            end
+          end,
   
   Smash = function(target, limb)
            	snd.last_hit_limb = limb
@@ -76580,7 +76593,11 @@ end</script>
             snd.last_hit_limb = limb
             enableTrigger("Crush Confirmation")
           end,
-  
+  Crash = function(target, failure)
+            if not failure then
+              snd.target_got("disrupted")
+            end
+          end,
   Obliterate = function(target, limb)
            	snd.last_hit_limb = limb
           	snd.last_limb_dmg = 25
