@@ -15081,11 +15081,10 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 1</name>
 									<script>if matches[2] == snd.target then
-
   snd.last_limb_dmg = 2.5
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.onHit2({"Dodge", "Parry"})
-  snd.crush_first_choice = snd.last_hit_limb
+  snd.luminary_crush_first_choice = snd.last_hit_limb
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -15118,9 +15117,9 @@ end</script>
   snd.onHit2({"Dodge", "Parry"})
   
   --We also need to add the difference to the first attack. Since you don't know what shield they're using until part 2, it's a little wonky.
-  if amount &gt; 2.5 then -- already good if it's buckler
+  if amount &gt; 2.5 and snd.luminary_crush_first_choice then -- already good if it's buckler
     snd.took_limb_dmg(snd.luminary_crush_first_choice, amount-2.5) -- add the amount minus what we've already given
-    snd.crush_first_choice = nil
+    snd.luminary_crush_first_choice = nil
   end
 end
 disableTrigger("Crush Confirmation")</script>
@@ -34200,6 +34199,14 @@ end</script>
 						<packageName></packageName>
 						<regex>^toggle ascendant (\w+)$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Set your mount</name>
+						<script>snd.toggles.mount = matches[2]
+cecho("&lt;red&gt;Your mount's ID has been set to: "..snd.toggles.mount)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^snd mount (\d+)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -34209,7 +34216,7 @@ end</script>
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>mount</name>
-						<script>snd.send("qeb recall "..snd.mount..snd.sep.."recall mount"..snd.sep.."quickmount "..snd.mount)
+						<script>snd.send("qeb recall "..snd.toggles.mount..snd.sep.."recall mount"..snd.sep.."quickmount "..snd.toggles.mount)
 </script>
 						<command></command>
 						<packageName></packageName>
@@ -34217,7 +34224,7 @@ end</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>dismount</name>
-						<script>snd.send("qeb qdmount"..snd.sep.."order "..snd.mount.." follow me")</script>
+						<script>snd.send("qeb qdmount"..snd.sep.."order "..snd.toggles.mount.." follow me")</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^dm$</regex>
@@ -52046,7 +52053,7 @@ registerAnonymousEventHandler("gmcp.Char.Name", "snd.login")</script>
 						<name>options</name>
 						<packageName></packageName>
 						<script>snd.sep = snd.sep or "\\" -- important! CONFIG SEPARATOR value
-snd.mount = snd.mount or "79667" -- your horse's ID number
+--snd.mount = snd.mount or "79667" -- your horse's ID number
 
 
 snd.faction = snd.faction or "" -- your faction, spirit or shadow
@@ -52107,6 +52114,7 @@ gags = true,
 targetrune = false,
 alerts = false,
 ascendedtype = "none",
+mount = "123456",
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -57575,6 +57583,9 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
   
   --Xaanhal seal
   {from = 36688, to = 36710, command = [=[script: send("touch seal")]=], locked = false, weight = 0},
+  
+  --Spiral of the Corrupt
+  {from = 36270, to = 36271, command = [=[enter whirlpool]=], locked = false, weight = 0},
 }
 
 local lockExits = {
