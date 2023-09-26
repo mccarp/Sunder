@@ -15064,6 +15064,30 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Reckoning (hellsight mirror)</name>
+									<script>if multimatches[1][2] == snd.target then
+  snd.target_got(multimatches[2][2])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>1</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Relaxing a fraction of your iron will, you mouth a wordless litany, fixating upon (\w+) as you direct the Dirge to grant \w+ a glimpse of the oblivion that awaits\.$</string>
+										<string>^\w+ cries out, suddenly afflicted with (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Crush Confirmation</name>
@@ -75521,6 +75545,8 @@ end</script>
             end,
     Stonevice = function(target)
                   snd.target_cured("writhe_impaled")
+                  snd.target_got("lightwound")
+                  snd.target_got("deepwound")
                   snd.last_hit_limb = "torso"
                   snd.last_limb_dmg = 10
                   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -75682,6 +75708,8 @@ end</script>
             end,
     Eviscerate = function(target)
                   snd.target_cured("writhe_impaled")
+                  snd.target_got("lightwound")
+                  snd.target_got("deepwound")
                   snd.last_hit_limb = "torso"
                   snd.last_limb_dmg = 10
                   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
