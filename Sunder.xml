@@ -210,55 +210,11 @@ snd.parrying = "none"</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>hiding</name>
-								<script>if snd.class == "Praenomen" then
-  snd.def_def("veil")
-else
-  snd.def_def("hiding")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You have used great guile to conceal yourself.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Runemark have</name>
-								<script>local minor = matches[2]
-local major = matches[3]
-snd.def_def("runemark")</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^You have a (\w+) minor rune painted upon a (\w+) major rune.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Cruelty have</name>
+								<name>Cruelty/Homage have</name>
 								<script>if snd.class == "Carnifex" then
   snd.def_def("cruelty")
+else
+  snd.def_def("homage")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -274,30 +230,6 @@ end</script>
 									<string>Your strength has been bolstered.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Veil</name>
-								<script>if snd.class == "Praenomen" then
-  snd.def_def("veil")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^You are veiled.$</string>
-									<string>You are already hidden</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -52771,10 +52703,12 @@ end</script>
 
   if snd.class == "Akkari" then
     snd.defenses.def_stalking = snd.alternative_class_defenses.Akkari_stalking
+    snd.defenses.def_hiding = snd.alternative_class_defenses.Akkari_hiding
   end
   
   if snd.class == "Praenomen" then
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
+    snd.defenses.def_hiding = snd.alternative_class_defenses.Praenomen_hiding
   end
   
   if hasSkill("Insomnia") then
@@ -54325,7 +54259,6 @@ snd.priorities =
     "def_celerity",
     "def_lifescent",
     "def_lifevision",
-    "def_veil",
     "def_stalking",
     "def_concentrate",
     "def_entwine",
@@ -54393,6 +54326,7 @@ snd.priorities =
     "def_ancest_blessing_safeguard",
     "def_ancestral_bolster",
     "def_homage",
+    "def_cruelty",
     "def_intervention",
     "def_displacement",
     "def_severity",
@@ -55565,7 +55499,6 @@ def_resolved = {defense = "resolved", type = "ivory", effect = "Resolve yourself
 def_celerity = {defense = "celerity", type = "normal", effect = "Increased movement speed", balance = {balanceequilibriumtake = "celerity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity" },
 def_acuity = {defense = "acuity", type = "ivory", effect = "Detect nearby movements", balance = {balanceequilibriumtake = "acuity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Acuity" },
 def_lifevision = {defense = "lifevision", type = "normal", effect = "See things in the shadows", balance = {balanceequilibriumtake = "lifevision"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifevision" },
-def_dim = {defense = "dim", type = "ivory", effect = "Conceal your fervor", balance = {balanceequilibriumtake = "dim"}, state = "down", needit = false, timer = createStopWatch(), skill = "Dim"},
 def_transience = {defense = "transience", type = "ivory", effect = "You avoid opponents' blows", balance = {balanceequilibriumtake = "transience"}, state = "down", needit = false, timer = createStopWatch(), skill = "Transience" },
 def_entrench = {defense = "entrench", type = "ivory", effect = "You are linked to your coffin", balance = {balanceequilibriumtake = "entrench"}, state = "down", needit = false, timer = createStopWatch(), skill = "Entrench" },
 def_ascetic = {defense = "ascetic", type = "ivory", effect = "Make your spirit use more efficient", balance = {balanceequilibriumtake = "spirit ascetic"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ascetic" },
@@ -55643,6 +55576,8 @@ def_hound_opening = {defense = "hound_opening", type = "normal", effect = "Incre
 def_bruteforce = {defense = "bruteforce", type = "normal", effect = "Attacks hit through parry.", balance = {needybalancetake = "hammer force"}, state = "down", needit = false, timer = createStopWatch(), skill = "BruteForce"},
 def_herculeanrage = {defense = "herculean rage", type = "normal", effect = "Make them prone/off bal.", balance = {needybalancetake = "hammer rage on"}, state = "down", needit = false, timer = createStopWatch(), skill = "HerculeanRage"},
 def_houndmark = {defense = "houndmark", type = "yellow", effect = "hounds go zoom", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_cruelty = {defense = "cruelty", type = "normal", effect = "Increased strength.", balance = {needyequilibriumtake = "cruelty"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cruelty"},
+
 
 --Earthcaller
 def_heatshield = {defense = "heatshield", type = "normal", effect = "Light-based damage resistance", balance = {needyequilibriumtake = "tectonic heatshield"}, state = "down", needit = false, timer = createStopWatch(), skill = "Heatshield" },
@@ -55706,7 +55641,6 @@ def_fortify = {defense = "fortify", type = "normal", effect = "Fortify your body
 def_corpus_warding = {defense = "corpus_warding", type = "normal", effect = "Fortify your body to take less magical damage", balance = {balanceequilibriumtake = "ward"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warding" },
 def_celerity = {defense = "celerity", type = "normal", effect = "Increased movement speed", balance = {balanceequilibriumtake = "celerity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity" },
 def_lifescent = {defense = "lifescent", type = "normal", effect = "Detect nearby prey movements", balance = {balanceequilibriumtake = "lifescent"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifescent" },
-def_veil = {defense = "veil", type = "normal", effect = "Hide deeper in the shadows", balance = {balanceequilibriumtake = "veil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Veil"},
 def_concentrate = {defense = "concentrate", type = "normal", effect = "Make your blood use more efficient", balance = {balanceequilibriumtake = "blood concentrate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Concentration" },
 def_shadowblow = {defense = "shadowblow", type = "normal", effect = "Your shadow strikes out at your attacker", balance = {balanceequilibriumtake = "blood shadow"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shadow" },
 def_blurred = {defense = "blurred", type = "normal", effect = "Others cannot see your vitals", balance = {balanceequilibriumtake = "blood blur"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blur" },
@@ -56038,6 +55972,9 @@ def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "ext
 
 snd.alternative_class_defenses = {
 --Class catch
+Praenomen_hiding = {defense = "hiding", type = "normal", effect = "Hide deeper in the shadows", balance = {balanceequilibriumtake = "veil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Veil"},
+Akkari_hiding = {defense = "hiding", type = "ivory", effect = "Conceal your fervor", balance = {balanceequilibriumtake = "dim"}, state = "down", needit = false, timer = createStopWatch(), skill = "Dim"},
+
 Praenomen_stalking = {defense = "stalking", type = "normal", effect = "Nighttime hiding in the shadows", balance = {balanceequilibriumtake = "stalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
 Akkari_stalking = {defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = {balanceequilibriumtake = "muffle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Muffle" },
 Luminary_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "perform constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
@@ -56369,7 +56306,7 @@ end</script>
   ["You are punctuating your attacks with thunderous roars."] = "roaring",
   ["You have received the ancestral safeguard blessing."] = "ancest_blessing_safeguard",
   ["Your fortitude is bolstered by the ancestors."] = "ancestral_bolster",
-  ["Your strength has been bolstered."] = "homage",
+  --["Your strength has been bolstered."] = "homage",
   ["You will wreak defiant vengeance on your killer."] = "defiance",
   ["Your aura is concealed by a redoubt."] = "redoubt",
   ["You are infused with the glacial cold of the Astral."] = "glaciation",
@@ -56466,6 +56403,7 @@ end</script>
   ["You have enacted the Oath of Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
+  ["You have used great guile to conceal yourself."] = "hiding",
   
   ["The blight spreads wherever you may roam."] = "blightbringer",
   ["You are recalling the discipline of Field Studies."] = "discipline_fieldstudies",
@@ -71816,6 +71754,7 @@ def_soul_fracture = "on",
 def_soul_body = "once",
 def_gripping = "on",
 def_herculeanrage = "once",
+def_cruelty = "on",
 },
 
 earthcaller = {

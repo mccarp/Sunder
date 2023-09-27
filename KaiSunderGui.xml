@@ -2797,20 +2797,13 @@ else
 	snd.display.enemy_anorexia_color = "white"
 end
 
-local pseudo_check = false
-for _, v in ipairs(snd.entangleaffs) do
-	if snd.checkAff(v) then
-		pseudo_check = true
-		break
-	end
-end
 
-if snd.checkAff("fallen") then 
-	snd.display.enemy_prone_color = "red" 
-elseif pseudo_check then
-	snd.display.enemy_prone_color = "yellow" 
+if gmcp.Char.Vitals.fallen == "1" then 
+	snd.display.self_prone_color = "red" 
+elseif gmcp.Char.Vitals.prone == "1" then
+	snd.display.self_prone_color = "yellow" 
 else
-	snd.display.enemy_prone_color = "white"
+	snd.display.self_prone_color = "white"
 end
 
 
