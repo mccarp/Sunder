@@ -906,17 +906,9 @@ else
 	snd.display.self_anorexia_color = "white"
 end
 
-local pseudo_check = false
-for _, v in ipairs(snd.entangleaffs) do
-	if snd.have_aff(v) then
-		pseudo_check = true
-		break
-	end
-end
-
-if snd.have_aff("prone") then 
+if gmcp.Char.Vitals.fallen == "1" then 
 	snd.display.self_prone_color = "red" 
-elseif pseudo_check then
+elseif gmcp.Char.Vitals.prone == "1" then
 	snd.display.self_prone_color = "yellow" 
 else
 	snd.display.self_prone_color = "white"

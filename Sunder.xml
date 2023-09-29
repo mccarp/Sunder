@@ -210,55 +210,11 @@ snd.parrying = "none"</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>hiding</name>
-								<script>if snd.class == "Praenomen" then
-  snd.def_def("veil")
-else
-  snd.def_def("hiding")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You have used great guile to conceal yourself.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Runemark have</name>
-								<script>local minor = matches[2]
-local major = matches[3]
-snd.def_def("runemark")</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^You have a (\w+) minor rune painted upon a (\w+) major rune.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Cruelty have</name>
+								<name>Cruelty/Homage have</name>
 								<script>if snd.class == "Carnifex" then
   snd.def_def("cruelty")
+else
+  snd.def_def("homage")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -274,30 +230,6 @@ end</script>
 									<string>Your strength has been bolstered.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Veil</name>
-								<script>if snd.class == "Praenomen" then
-  snd.def_def("veil")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^You are veiled.$</string>
-									<string>You are already hidden</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -6175,6 +6107,8 @@ end
 if tonumber(snd.toggles.gauntlet_level) &lt;2 then 
   snd.send("qeb absorb ylem")
   snd.ylem_check = true
+elseif not snd.toggles.bashing then
+  snd.send("absorb ylem")
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -15062,6 +14996,30 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Reckoning (hellsight mirror)</name>
+									<script>if multimatches[1][2] == snd.target then
+  snd.target_got(multimatches[2][2])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>1</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Relaxing a fraction of your iron will, you mouth a wordless litany, fixating upon (\w+) as you direct the Dirge to grant \w+ a glimpse of the oblivion that awaits\.$</string>
+										<string>^\w+ cries out, suddenly afflicted with (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Crush Confirmation</name>
@@ -15207,10 +15165,18 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Spur</name>
-								<script>if snd.target == matches[3] then
- snd.target_got(matches[2])
+								<script>if matches[3] == snd.target then  
+	if matches[2] == "sensitivity" then
+  	if snd.checkAff("hearing") then
+  		snd.target_got("sensitivity")
+  	else
+  		snd.target_got("hearing")
+  	end
+  else
+  		snd.target_got(matches[2])
+  end
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -15223,8 +15189,8 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You use Subjugation Spur \((\w+)\) on (\w+)\.$</string>
-									<string>^\w+ uses Subjugation Spur \((\w+)\) on (\w+)\.$</string>
+									<string>^You use Subjugation Spur \((.+)\) on (\w+)\.$</string>
+									<string>^\w+ uses Subjugation Spur \((.+)\) on (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -15892,7 +15858,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You use Spirituality Battle \((\w+)\) on (\w+)\.$</string>
+									<string>^You use Spirituality Battle \((.+)\) on (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -21740,6 +21706,28 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Armor tattoo expired</name>
+							<script>if matches[2] == snd.target then
+  snd.target_cured("armor_tattoo")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The armour tattoo on (\w+) ceases to gleam\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists/Undos</name>
@@ -23935,6 +23923,9 @@ if matches[2] == snd.target then
   if matches[2] == snd.target then
    snd.last_hit_limb = matches[3]
    snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
+   if snd.checkAff("armor_tattoo") then 
+    snd.last_limb_dmg = snd.last_limb_dmg*2 --make sure this doesn't do wonky
+   end
    snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
    snd.limb_status[matches[3]] = "mangled"
   end
@@ -52712,10 +52703,12 @@ end</script>
 
   if snd.class == "Akkari" then
     snd.defenses.def_stalking = snd.alternative_class_defenses.Akkari_stalking
+    snd.defenses.def_hiding = snd.alternative_class_defenses.Akkari_hiding
   end
   
   if snd.class == "Praenomen" then
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
+    snd.defenses.def_hiding = snd.alternative_class_defenses.Praenomen_hiding
   end
   
   if hasSkill("Insomnia") then
@@ -54266,7 +54259,6 @@ snd.priorities =
     "def_celerity",
     "def_lifescent",
     "def_lifevision",
-    "def_veil",
     "def_stalking",
     "def_concentrate",
     "def_entwine",
@@ -54334,6 +54326,7 @@ snd.priorities =
     "def_ancest_blessing_safeguard",
     "def_ancestral_bolster",
     "def_homage",
+    "def_cruelty",
     "def_intervention",
     "def_displacement",
     "def_severity",
@@ -54776,6 +54769,7 @@ aff_ablaze = {state = "healed", effect = "", cures = {salve = "mending to body",
 aff_accursed = {state = "healed", effect = "", cures = {herb = "bellwort", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_achromatopsia = {state = "healed", effect = "colors leeched away", cures = {}, assess = false, timer = createStopWatch()},
 aff_addiction = {state = "healed", effect = "", cures = {herb = "ginseng", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_aftershock = {state = "healed", effect = "gain affs if earthcaller seismicity hits you", cures = {}, assess = false, timer = createStopWatch()},
 aff_agony = {state = "healed", effect = "", cures = {herb = "bellwort", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_agoraphobia = {state = "healed", effect = "", cures = {herb = "lobelia", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_allergies = {state = "healed", effect = "", cures = {herb = "ginseng", tree = "send"}, assess = false, timer = createStopWatch()},
@@ -55506,7 +55500,6 @@ def_resolved = {defense = "resolved", type = "ivory", effect = "Resolve yourself
 def_celerity = {defense = "celerity", type = "normal", effect = "Increased movement speed", balance = {balanceequilibriumtake = "celerity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity" },
 def_acuity = {defense = "acuity", type = "ivory", effect = "Detect nearby movements", balance = {balanceequilibriumtake = "acuity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Acuity" },
 def_lifevision = {defense = "lifevision", type = "normal", effect = "See things in the shadows", balance = {balanceequilibriumtake = "lifevision"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifevision" },
-def_dim = {defense = "dim", type = "ivory", effect = "Conceal your fervor", balance = {balanceequilibriumtake = "dim"}, state = "down", needit = false, timer = createStopWatch(), skill = "Dim"},
 def_transience = {defense = "transience", type = "ivory", effect = "You avoid opponents' blows", balance = {balanceequilibriumtake = "transience"}, state = "down", needit = false, timer = createStopWatch(), skill = "Transience" },
 def_entrench = {defense = "entrench", type = "ivory", effect = "You are linked to your coffin", balance = {balanceequilibriumtake = "entrench"}, state = "down", needit = false, timer = createStopWatch(), skill = "Entrench" },
 def_ascetic = {defense = "ascetic", type = "ivory", effect = "Make your spirit use more efficient", balance = {balanceequilibriumtake = "spirit ascetic"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ascetic" },
@@ -55584,6 +55577,8 @@ def_hound_opening = {defense = "hound_opening", type = "normal", effect = "Incre
 def_bruteforce = {defense = "bruteforce", type = "normal", effect = "Attacks hit through parry.", balance = {needybalancetake = "hammer force"}, state = "down", needit = false, timer = createStopWatch(), skill = "BruteForce"},
 def_herculeanrage = {defense = "herculean rage", type = "normal", effect = "Make them prone/off bal.", balance = {needybalancetake = "hammer rage on"}, state = "down", needit = false, timer = createStopWatch(), skill = "HerculeanRage"},
 def_houndmark = {defense = "houndmark", type = "yellow", effect = "hounds go zoom", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_cruelty = {defense = "cruelty", type = "normal", effect = "Increased strength.", balance = {needyequilibriumtake = "cruelty"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cruelty"},
+
 
 --Earthcaller
 def_heatshield = {defense = "heatshield", type = "normal", effect = "Light-based damage resistance", balance = {needyequilibriumtake = "tectonic heatshield"}, state = "down", needit = false, timer = createStopWatch(), skill = "Heatshield" },
@@ -55647,7 +55642,6 @@ def_fortify = {defense = "fortify", type = "normal", effect = "Fortify your body
 def_corpus_warding = {defense = "corpus_warding", type = "normal", effect = "Fortify your body to take less magical damage", balance = {balanceequilibriumtake = "ward"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warding" },
 def_celerity = {defense = "celerity", type = "normal", effect = "Increased movement speed", balance = {balanceequilibriumtake = "celerity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity" },
 def_lifescent = {defense = "lifescent", type = "normal", effect = "Detect nearby prey movements", balance = {balanceequilibriumtake = "lifescent"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifescent" },
-def_veil = {defense = "veil", type = "normal", effect = "Hide deeper in the shadows", balance = {balanceequilibriumtake = "veil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Veil"},
 def_concentrate = {defense = "concentrate", type = "normal", effect = "Make your blood use more efficient", balance = {balanceequilibriumtake = "blood concentrate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Concentration" },
 def_shadowblow = {defense = "shadowblow", type = "normal", effect = "Your shadow strikes out at your attacker", balance = {balanceequilibriumtake = "blood shadow"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shadow" },
 def_blurred = {defense = "blurred", type = "normal", effect = "Others cannot see your vitals", balance = {balanceequilibriumtake = "blood blur"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blur" },
@@ -55979,6 +55973,9 @@ def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "ext
 
 snd.alternative_class_defenses = {
 --Class catch
+Praenomen_hiding = {defense = "hiding", type = "normal", effect = "Hide deeper in the shadows", balance = {balanceequilibriumtake = "veil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Veil"},
+Akkari_hiding = {defense = "hiding", type = "ivory", effect = "Conceal your fervor", balance = {balanceequilibriumtake = "dim"}, state = "down", needit = false, timer = createStopWatch(), skill = "Dim"},
+
 Praenomen_stalking = {defense = "stalking", type = "normal", effect = "Nighttime hiding in the shadows", balance = {balanceequilibriumtake = "stalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
 Akkari_stalking = {defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = {balanceequilibriumtake = "muffle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Muffle" },
 Luminary_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "perform constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
@@ -56310,7 +56307,7 @@ end</script>
   ["You are punctuating your attacks with thunderous roars."] = "roaring",
   ["You have received the ancestral safeguard blessing."] = "ancest_blessing_safeguard",
   ["Your fortitude is bolstered by the ancestors."] = "ancestral_bolster",
-  ["Your strength has been bolstered."] = "homage",
+  --["Your strength has been bolstered."] = "homage",
   ["You will wreak defiant vengeance on your killer."] = "defiance",
   ["Your aura is concealed by a redoubt."] = "redoubt",
   ["You are infused with the glacial cold of the Astral."] = "glaciation",
@@ -56407,6 +56404,7 @@ end</script>
   ["You have enacted the Oath of Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
+  ["You have used great guile to conceal yourself."] = "hiding",
   
   ["The blight spreads wherever you may roam."] = "blightbringer",
   ["You are recalling the discipline of Field Studies."] = "discipline_fieldstudies",
@@ -57538,7 +57536,7 @@ dome = {info = "Do you want Sunder to auto dome for you?", command = "toggle dom
 auto_reject = {info = "Should we auto reject lust attempts?", command = "toggle reject"},
 prism = {info = "Do you want to prism/triplicate bash?", command = "toggle prism"},
 enrich = {info = "Do you want to enrich while you bash?", command = "toggle enrich"},
-diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", command = "diagaffs &lt;#&gt;"}
+diagaffs = {info = "How many hidden affs before you diagnose?", command = "diagaffs &lt;#&gt;"}
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -57555,10 +57553,8 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
 	{from = 19753, to = 19754, command = [=[script: send("enter maiden") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 19773, to = 18761, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 18761, to = 19773, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
-  {from = 19763, to = 19764, command = [=[enter portal]=], locked = false, weight = 0},
+	{from = 19763, to = 19764, command = [=[enter portal]=], locked = false, weight = 0},
   {from = 19764, to = 19763, command = [=[enter portal]=], locked = false, weight = 0},
-	
-	
 	
 --squal in/out exits
 	{from = 68055, to = 14926, command = [=[script: send("say yes, let me through") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
@@ -57586,6 +57582,21 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
   
   --Spiral of the Corrupt
   {from = 36270, to = 36271, command = [=[enter whirlpool]=], locked = false, weight = 0},
+  
+  --Neutral Delve portal
+  {from = 5467, to = 35520, command = [=[enter portal]=], locked = false, weight = 0},
+  {from = 35521, to = 5467, command = [=[enter portal]=], locked = false, weight = 0},
+  
+  --Dramedo pass Elevator
+  {from = 55724, to = 35648, command = [=[script: send("ride elevator") mmp.customwalkdelay(10)]=], locked = false, weight = 50},
+  {from = 35648, to = 55724, command = [=[script: send("ride elevator") mmp.customwalkdelay(10)]=], locked = false, weight = 50},
+
+  --Shattered Vortex
+  {from = 4101, to = 36540, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+  {from = 36540, to = 4101, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+
+  {from = 36079, to = 56731, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+  {from = 56731, to = 36079, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
 }
 
 local lockExits = {
@@ -57605,8 +57616,22 @@ local lockExits = {
   {55187, "west"},
 }
 
+local ferries = { 6550, 6551, 6558, 6559, 18199, 19622, 19623, 20067, 35629, 39839, 54221, 69250, 69534, 71720, 71884, 73215}
+local function addFerries()
+  local ferryRooms = getRoomUserData(1, "ferry rooms")
+  ferryRooms = ferryRooms~="" and yajl.to_value(ferryRooms) or {}
+  for _, room in pairs(ferries) do
+    if not table.contains(ferryRooms, ferries) then
+      table.insert(ferryRooms, room)
+    end
+  end
+  setRoomUserData(1, "ferry rooms", yajl.to_string(ferryRooms))
+  mmp.ferry_rooms = {}
+  mmp.ferriesfix()
+end
 
 function snd.mapTweaks()
+  addFerries()
   for _, exitInfo in pairs(specialExits) do
     addSpecialExit(exitInfo.from, exitInfo.to, exitInfo.command)
     lockSpecialExit(exitInfo.from, exitInfo.to, exitInfo.command, exitInfo.locked)
@@ -65636,150 +65661,213 @@ sunder_areaPaths = {
     v28511 = "28514",
     v28514 = "10042"
   },
-  ["the Ruins of Farsai"] = {
-    v17032 = "17052",
-    v17052 = "17145",
-    v17053 = "17054",
-    v17054 = "17055",
-    v17055 = "17056",
-    v17056 = "17057",
-    v17057 = "17058",
-    v17058 = "17068",
-    v17059 = "17138",
-    v17060 = "17059",
-    v17061 = "17060",
-    v17062 = "17061",
-    v17063 = "17062",
-    v17064 = "17063",
-    v17065 = "17064",
-    v17066 = "17065",
-    v17067 = "17066",
-    v17068 = "17069",
-    v17069 = "17147",
-    v17070 = "17125",
-    v17071 = "17070",
-    v17072 = "17071",
-    v17073 = "17124",
-    v17074 = "17073",
-    v17075 = "17076",
-    v17076 = "17077",
-    v17077 = "17074",
-    v17078 = "17079",
-    v17079 = "17128",
-    v17080 = "17087",
-    v17081 = "17080",
-    v17082 = "17094",
-    v17083 = "17082",
-    v17084 = "17083",
-    v17085 = "17067",
-    v17086 = "17085",
-    v17087 = "17086",
-    v17088 = "17084",
-    v17089 = "17088",
-    v17090 = "17089",
-    v17091 = "17137",
-    v17092 = "17091",
-    v17093 = "17149",
-    v17094 = "17095",
-    v17095 = "17096",
-    v17096 = "17131",
-    v17097 = "17108",
-    v17098 = "17099",
-    v17099 = "17100",
-    v17100 = "17101",
-    v17101 = "17102",
-    v17102 = "17103",
-    v17103 = "17104",
-    v17104 = "17116",
-    v17105 = "17151",
-    v17107 = "17097",
-    v17108 = "17109",
-    v17109 = "17110",
-    v17110 = "17093",
-    v17111 = "17144",
-    v17112 = "17111",
-    v17113 = "17112",
-    v17114 = "17113",
-    v17115 = "17114",
-    v17116 = "17115",
-    v17117 = "17122",
-    v17118 = "17123",
-    v17119 = "17120",
-    v17120 = "17118",
-    v17121 = "17119",
-    v17122 = "17121",
-    v17123 = "17296",
-    v17124 = "17072",
-    v17125 = "17127",
-    v17126 = "17078",
-    v17127 = "17126",
-    v17128 = "17130",
-    v17129 = "17098",
-    v17130 = "17129",
-    v17131 = "17132",
-    v17132 = "17133",
-    v17133 = "17136",
-    v17134 = "17081",
-    v17135 = "17134",
-    v17136 = "17135",
-    v17137 = "17090",
-    v17138 = "17139",
-    v17139 = "17140",
-    v17140 = "17141",
-    v17141 = "17143",
-    v17142 = "17201",
-    v17143 = "17142",
-    v17144 = "17117",
-    v17145 = "17053",
-    v17146 = "17075",
-    v17147 = "17146",
-    v17149 = "17092",
-    v17150 = "17107",
-    v17151 = "17150",
-    v17201 = "17203",
-    v17203 = "17204",
-    v17204 = "17205",
-    v17205 = "17206",
-    v17206 = "17207",
-    v17207 = "17208",
-    v17208 = "17209",
-    v17209 = "17210",
-    v17210 = "17211",
-    v17211 = "17212",
-    v17212 = "17213",
-    v17213 = "17214",
-    v17214 = "17215",
-    v17215 = "17216",
-    v17216 = "17217",
-    v17217 = "17220",
-    v17218 = "17219",
-    v17219 = "17229",
-    v17220 = "17221",
-    v17221 = "17222",
-    v17222 = "17223",
-    v17223 = "17224",
-    v17224 = "17227",
-    v17225 = "17226",
-    v17226 = "17218",
-    v17227 = "17228",
-    v17228 = "17225",
-    v17229 = "17230",
-    v17230 = "17231",
-    v17231 = "ptcity",
-    v17296 = "17298",
-    v17297 = "17299",
-    v17298 = "17297",
-    v17299 = "17300",
-    v17300 = "17301",
-    v17301 = "17303",
-    v17303 = "17309",
-    v17309 = "17310",
-    v17310 = "17314",
-    v17311 = "17105",
-    v17312 = "17311",
-    v17313 = "17312",
-    v17314 = "17313"
-  },
+ ["the Ruins of Farsai"] = {
+  v17032 = "17052",
+  v17052 = "17053",
+  v17053 = "17070",
+  v17054 = "17058",
+  v17055 = "17054",
+  v17056 = "17055",
+  v17057 = "17056",
+  v17058 = "17068",
+  v17059 = "17060",
+  v17060 = "17138",
+  v17061 = "17062",
+  v17062 = "17063",
+  v17063 = "17064",
+  v17064 = "17065",
+  v17065 = "17066",
+  v17066 = "17067",
+  v17067 = "17148",
+  v17068 = "17147",
+  v17069 = "17059",
+  v17070 = "17071",
+  v17071 = "17072",
+  v17072 = "17125",
+  v17073 = "17124",
+  v17074 = "17098",
+  v17075 = "17057",
+  v17076 = "17075",
+  v17077 = "17076",
+  v17078 = "17077",
+  v17079 = "17128",
+  v17080 = "17079",
+  v17081 = "17080",
+  v17082 = "17081",
+  v17083 = "17082",
+  v17084 = "17083",
+  v17085 = "17086",
+  v17086 = "17087",
+  v17087 = "17201",
+  v17088 = "17089",
+  v17089 = "17090",
+  v17090 = "17091",
+  v17091 = "17137",
+  v17092 = "17093",
+  v17093 = "17149",
+  v17094 = "17088",
+  v17095 = "17134",
+  v17096 = "17131",
+  v17097 = "17096",
+  v17098 = "17078",
+  v17099 = "17100",
+  v17100 = "17101",
+  v17101 = "17102",
+  v17102 = "17103",
+  v17103 = "17104",
+  v17104 = "17105",
+  v17105 = "17151",
+  v17106 = "17107",
+  v17107 = "17097",
+  v17108 = "17115",
+  v17109 = "17108",
+  v17110 = "17109",
+  v17111 = "17144",
+  v17112 = "17111",
+  v17113 = "17112",
+  v17114 = "17113",
+  v17115 = "17114",
+  v17117 = "17122",
+  v17118 = "17123",
+  v17119 = "17120",
+  v17120 = "17118",
+  v17121 = "17119",
+  v17122 = "17121",
+  v17123 = "17296",
+  v17124 = "17074",
+  v17125 = "17127",
+  v17126 = "17073",
+  v17127 = "17126",
+  v17128 = "17130",
+  v17129 = "17099",
+  v17130 = "17129",
+  v17131 = "17132",
+  v17132 = "17133",
+  v17133 = "17095",
+  v17134 = "17135",
+  v17135 = "17136",
+  v17136 = "17094",
+  v17137 = "17092",
+  v17138 = "17140",
+  v17139 = "17141",
+  v17140 = "17139",
+  v17141 = "17143",
+  v17142 = "17061",
+  v17143 = "17142",
+  v17144 = "17145",
+  v17145 = "17162",
+  v17146 = "17069",
+  v17147 = "17146",
+  v17148 = "17085",
+  v17149 = "17110",
+  v17150 = "17106",
+  v17151 = "17150",
+  v17152 = "17200",
+  v17153 = "17152",
+  v17154 = "17153",
+  v17155 = "17154",
+  v17156 = "17155",
+  v17157 = "17156",
+  v17158 = "17157",
+  v17159 = "17158",
+  v17160 = "17159",
+  v17161 = "17160",
+  v17162 = "17161",
+  v17163 = "17204",
+  v17164 = "17163",
+  v17165 = "17164",
+  v17166 = "17165",
+  v17167 = "17166",
+  v17168 = "17167",
+  v17169 = "17168",
+  v17170 = "17169",
+  v17171 = "17170",
+  v17172 = "17171",
+  v17173 = "17172",
+  v17174 = "17173",
+  v17175 = "17174",
+  v17176 = "17175",
+  v17177 = "17176",
+  v17178 = "17177",
+  v17179 = "17178",
+  v17180 = "17179",
+  v17181 = "17180",
+  v17182 = "17181",
+  v17183 = "17182",
+  v17184 = "17183",
+  v17185 = "17184",
+  v17186 = "17185",
+  v17187 = "17186",
+  v17188 = "17187",
+  v17189 = "17188",
+  v17190 = "17189",
+  v17191 = "17190",
+  v17192 = "17191",
+  v17193 = "17192",
+  v17194 = "17193",
+  v17195 = "17194",
+  v17196 = "17195",
+  v17197 = "17196",
+  v17198 = "17197",
+  v17199 = "17198",
+  v17200 = "17199",
+  v17201 = "17202",
+  v17202 = "17203",
+  v17203 = "17084",
+  v17204 = "17205",
+  v17205 = "17206",
+  v17206 = "17207",
+  v17207 = "17208",
+  v17208 = "17209",
+  v17209 = "17210",
+  v17210 = "17211",
+  v17211 = "17212",
+  v17212 = "17213",
+  v17213 = "17214",
+  v17214 = "17215",
+  v17215 = "17216",
+  v17216 = "17217",
+  v17217 = "17220",
+  v17218 = "17219",
+  v17219 = "17229",
+  v17220 = "17221",
+  v17221 = "17222",
+  v17222 = "17224",
+  v17223 = "17227",
+  v17224 = "17223",
+  v17225 = "17226",
+  v17226 = "17218",
+  v17227 = "17228",
+  v17228 = "17225",
+  v17229 = "17230",
+  v17230 = "17231",
+  v17231 = "17232",
+  v17232 = "17233",
+  v17233 = "17234",
+  v17234 = "17235",
+  v17235 = "17236",
+  v17236 = "17237",
+  v17237 = "17238",
+  v17238 = "17239",
+  v17239 = "17240",
+  v17240 = "17244",
+  v17242 = "17243",
+  v17243 = "17117",
+  v17244 = "17242",
+  v17296 = "17297",
+  v17297 = "17298",
+  v17298 = "17299",
+  v17299 = "17300",
+  v17300 = "17301",
+  v17301 = "17303",
+  v17303 = "17309",
+  v17309 = "17310",
+  v17310 = "17314",
+  v17311 = "17312",
+  v17312 = "ptcity",
+  v17313 = "17311",
+  v17314 = "17313"
+},
   ["the Ruins of Masilia"] = {
     v20421 = "20423",
     v20422 = "20424",
@@ -69135,6 +69223,14 @@ snd.global_targets = {
 "a freedom fighter",
 "an escaped slave",
 "a deserter",
+
+--resistance event
+"a lithe Utari bladedancer",
+"a Tarpen demolitionist",
+"an Ursal crossbowman",
+"a Praexi skirmisher",
+"a towering Golban linebreaker",
+"a grim Caentoi pikeman",
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -69587,7 +69683,7 @@ function snd.luminary_bash()
 	elseif snd.toggles.lightning then
   	battack = "evoke lightning "..snd.bashing.target
  	else
-  	battack = "smite "..snd.bashing.target.." angel empathy"
+  	battack = "smite "..snd.bashing.target..snd.sep.."angel power"
  	end
 end
 
@@ -71686,6 +71782,7 @@ def_soul_fracture = "on",
 def_soul_body = "once",
 def_gripping = "on",
 def_herculeanrage = "once",
+def_cruelty = "on",
 },
 
 earthcaller = {
@@ -72722,6 +72819,11 @@ end
 
 function snd.took_limb_dmg(limb, amount)
   if limb and amount then
+  
+    if snd.checkAff("armor_tattoo") and amount &gt; 0 then
+      amount = amount/2
+      snd.last_limb_dmg = amount
+    end
    
     snd.limb_dmg[limb] = snd.limb_dmg[limb] + amount
     if snd.limb_dmg[limb] &lt; 0 then
@@ -73815,6 +73917,11 @@ end</script>
   Crush = function(target, limb)
             snd.last_hit_limb = limb
             enableTrigger("Crush Confirmation")
+          end,
+  Crash = function(target, failure)
+            if not failure then
+              snd.target_got("disrupted")
+            end
           end,
   
   Smash = function(target, limb)
@@ -75405,6 +75512,8 @@ end</script>
             end,
     Stonevice = function(target)
                   snd.target_cured("writhe_impaled")
+                  snd.target_got("lightwound")
+                  snd.target_got("deepwound")
                   snd.last_hit_limb = "torso"
                   snd.last_limb_dmg = 10
                   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -75566,6 +75675,8 @@ end</script>
             end,
     Eviscerate = function(target)
                   snd.target_cured("writhe_impaled")
+                  snd.target_got("lightwound")
+                  snd.target_got("deepwound")
                   snd.last_hit_limb = "torso"
                   snd.last_limb_dmg = 10
                   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -76580,7 +76691,11 @@ end</script>
             snd.last_hit_limb = limb
             enableTrigger("Crush Confirmation")
           end,
-  
+  Crash = function(target, failure)
+            if not failure then
+              snd.target_got("disrupted")
+            end
+          end,
   Obliterate = function(target, limb)
            	snd.last_hit_limb = limb
           	snd.last_limb_dmg = 25
@@ -77207,6 +77322,10 @@ end</script>
             end,
     Feather = function(target)
                snd.target_cured("fallen")   
+             end,
+    Armour = function(target)
+               snd.target_got("armor_tattoo")
+               tempTimer(10, function() snd.target_cured("armor_tattoo") end)
              end,
   
   },
@@ -78511,7 +78630,7 @@ function snd.clearTargetList()
 	snd.targeting.list = {}
 	snd.e.echo("Target list cleared!", true, true)
 	
-	if snd.toggles.calling and snd.toggles.calling then 
+	if snd.toggles.calling then 
 		send("wt Target list cleared.")
 	end
 

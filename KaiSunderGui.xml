@@ -2647,11 +2647,10 @@ function display_enemy_affs()
       table.insert(target_display_table, "&lt;center&gt;" .. v .. "&lt;/center&gt;")
     end
     eaffs:echo(table.concat(target_display_table))
-    --color_enemy_affs()
-    color_enemy_limbs()
   else
     eaffs:echo("&lt;center&gt;enemy affs&lt;/center&gt;")
   end
+  color_enemy_affs()
 end
 
 registerAnonymousEventHandler("sunder_enemy_affs_updated", "display_enemy_affs")</script>
@@ -2798,20 +2797,13 @@ else
 	snd.display.enemy_anorexia_color = "white"
 end
 
-local pseudo_check = false
-for _, v in ipairs(snd.entangleaffs) do
-	if snd.checkAff(v) then
-		pseudo_check = true
-		break
-	end
-end
 
-if snd.checkAff("fallen") then 
-	snd.display.enemy_prone_color = "red" 
-elseif pseudo_check then
-	snd.display.enemy_prone_color = "yellow" 
+if gmcp.Char.Vitals.fallen == "1" then 
+	snd.display.self_prone_color = "red" 
+elseif gmcp.Char.Vitals.prone == "1" then
+	snd.display.self_prone_color = "yellow" 
 else
-	snd.display.enemy_prone_color = "white"
+	snd.display.self_prone_color = "white"
 end
 
 
@@ -2891,6 +2883,8 @@ elimbs:echo("&lt;center&gt;".."&lt;span style=\"color:"..snd.display.enemy_head_
 				)
 end
 
+registerAnonymousEventHandler("sunder_enemy_limbs_updated","color_enemy_limbs")
+
 function color_self_limbs()
 
 --consider using different symbols for the bruising levels
@@ -2899,7 +2893,7 @@ if snd.afflictions.aff_torso_mangled.state == "afflicted" then
 elseif snd.afflictions.aff_torso_broken.state == "afflicted" then 
 	snd.display.self_torso_color = "gold" 
 else
-	snd.display.self_leftleg_color = "white"
+	snd.display.self_torso_color = "white"
 end
 
 if snd.afflictions.aff_left_leg_mangled.state == "afflicted" then 
@@ -2957,7 +2951,9 @@ mylimbs:echo("&lt;center&gt;".."&lt;span style=\"color:"..snd.display.self_head_
 						"&lt;center&gt;".."&lt;span style=\"color:"..snd.display.self_leftleg_color.."\"&gt;"..snd.display.self_leftleg.."&lt;/span&gt;"..
 						"&lt;span style=\"color:"..snd.display.self_rightleg_color.."\"&gt;"..snd.display.self_rightleg.."&lt;/span&gt;".."&lt;/center&gt;"	
 				)
-end</script>
+end
+
+registerAnonymousEventHandler("sunder_my_limbs_updated","color_self_limbs")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
