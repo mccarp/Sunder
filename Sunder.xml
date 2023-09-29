@@ -57536,7 +57536,7 @@ dome = {info = "Do you want Sunder to auto dome for you?", command = "toggle dom
 auto_reject = {info = "Should we auto reject lust attempts?", command = "toggle reject"},
 prism = {info = "Do you want to prism/triplicate bash?", command = "toggle prism"},
 enrich = {info = "Do you want to enrich while you bash?", command = "toggle enrich"},
-diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", command = "diagaffs &lt;#&gt;"}
+diagaffs = {info = "How many hidden affs before you diagnose?", command = "diagaffs &lt;#&gt;"}
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -57553,10 +57553,8 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
 	{from = 19753, to = 19754, command = [=[script: send("enter maiden") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 19773, to = 18761, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
 	{from = 18761, to = 19773, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
-  {from = 19763, to = 19764, command = [=[enter portal]=], locked = false, weight = 0},
+	{from = 19763, to = 19764, command = [=[enter portal]=], locked = false, weight = 0},
   {from = 19764, to = 19763, command = [=[enter portal]=], locked = false, weight = 0},
-	
-	
 	
 --squal in/out exits
 	{from = 68055, to = 14926, command = [=[script: send("say yes, let me through") mmp.customwalkdelay(3)]=], locked = false, weight = 0},
@@ -57584,6 +57582,21 @@ diagaffs = {info = "How many hidden afflictions do you want to diagnose at?", co
   
   --Spiral of the Corrupt
   {from = 36270, to = 36271, command = [=[enter whirlpool]=], locked = false, weight = 0},
+  
+  --Neutral Delve portal
+  {from = 5467, to = 35520, command = [=[enter portal]=], locked = false, weight = 0},
+  {from = 35521, to = 5467, command = [=[enter portal]=], locked = false, weight = 0},
+  
+  --Dramedo pass Elevator
+  {from = 55724, to = 35648, command = [=[script: send("ride elevator") mmp.customwalkdelay(10)]=], locked = false, weight = 50},
+  {from = 35648, to = 55724, command = [=[script: send("ride elevator") mmp.customwalkdelay(10)]=], locked = false, weight = 50},
+
+  --Shattered Vortex
+  {from = 4101, to = 36540, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+  {from = 36540, to = 4101, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+
+  {from = 36079, to = 56731, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+  {from = 56731, to = 36079, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
 }
 
 local lockExits = {
@@ -57603,8 +57616,22 @@ local lockExits = {
   {55187, "west"},
 }
 
+local ferries = { 6550, 6551, 6558, 6559, 18199, 19622, 19623, 20067, 35629, 39839, 54221, 69250, 69534, 71720, 71884, 73215}
+local function addFerries()
+  local ferryRooms = getRoomUserData(1, "ferry rooms")
+  ferryRooms = ferryRooms~="" and yajl.to_value(ferryRooms) or {}
+  for _, room in pairs(ferries) do
+    if not table.contains(ferryRooms, ferries) then
+      table.insert(ferryRooms, room)
+    end
+  end
+  setRoomUserData(1, "ferry rooms", yajl.to_string(ferryRooms))
+  mmp.ferry_rooms = {}
+  mmp.ferriesfix()
+end
 
 function snd.mapTweaks()
+  addFerries()
   for _, exitInfo in pairs(specialExits) do
     addSpecialExit(exitInfo.from, exitInfo.to, exitInfo.command)
     lockSpecialExit(exitInfo.from, exitInfo.to, exitInfo.command, exitInfo.locked)
@@ -69656,7 +69683,7 @@ function snd.luminary_bash()
 	elseif snd.toggles.lightning then
   	battack = "evoke lightning "..snd.bashing.target
  	else
-  	battack = "smite "..snd.bashing.target.." angel empathy"
+  	battack = "smite "..snd.bashing.target..snd.sep.."angel power"
  	end
 end
 
@@ -78603,7 +78630,7 @@ function snd.clearTargetList()
 	snd.targeting.list = {}
 	snd.e.echo("Target list cleared!", true, true)
 	
-	if snd.toggles.calling and snd.toggles.calling then 
+	if snd.toggles.calling then 
 		send("wt Target list cleared.")
 	end
 
