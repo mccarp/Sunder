@@ -1743,7 +1743,7 @@ snd.hidden_afflictions = 0</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^afflicted with ([a-z_]+)\.$</string>
+									<string>^afflicted with ([a-z_-]+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -28033,13 +28033,8 @@ if snd.class ~= matches[2] then
 end
 raiseEvent("sunder_update_vitals")
 
-tempTimer(1, [[if snd.skills ~= {} then
-                snd.skills = {}
-                snd.skills.tattoos_on_me = {}
-                snd.skills.raceskills = {}
-               end
-               send("ab")]])
-tempTimer(1.5, [[populate_skills()]])</script>
+tempTimer(1, function() sendGMCP("Char.Skills.get") send("") end)
+</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -52034,14 +52029,7 @@ fish = fish or {}</script>
   send("config separator", false)
   
   tempTimer(1, function() raiseEvent("sunder_login") end)
-  tempTimer(2.5, [[
-  							snd.changeClass();
-                if snd.skills ~= {} then
-                  snd.skills = {}
-                  snd.skills.tattoos_on_me = {}
-                  snd.skills.raceskills = {}
-                end
-                sendGMCP("Char.Skills.get")]])
+  tempTimer(2.5, function() snd.changeClass() sendGMCP("Char.Skills.get") send("") end)
   tempTimer(4, [[send("tattoos", false)]])
   snd.registerCityMarks()
   local x, y = string.match(gmcp.Char.Status.level, "(.*) (.*)")
@@ -56046,7 +56034,6 @@ Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents slee
 
 local function check200(defense)
   if formDefs[defense] then
-    snd.skills = {}
     sendGMCP("Char.Skills.get")
     send("")
   end
