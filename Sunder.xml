@@ -2300,7 +2300,7 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList />
 							<regexCodePropertyList />
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>general deaths</name>
 								<script>local reset_check = false
 local triggertext = matches[1]
@@ -2407,7 +2407,7 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Vampire/Akkari death</name>
 								<script>if gmcp.Char.Vitals.hp == "1" then
   snd.reset_me()
@@ -52044,6 +52044,34 @@ end
 
 
 registerAnonymousEventHandler("gmcp.Char.Name", "snd.login")</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Death handling</name>
+					<packageName></packageName>
+					<script>function snd.deathCheck()
+  if gmcp.Char.Afflictions.Add.name == "dead" then
+      snd.reset_me()
+      snd.toggles.active = false
+      raiseEvent("sunder_update_toggles")
+      for i in pairs(snd.my_limb_damage) do
+       snd.my_limb_damage[i] = 0
+      end
+  end
+end
+
+function snd.deathClear()
+  for _, aff in pairs(gmcp.Char.Afflictions.Remove) do
+    if aff == "dead" then
+     snd.reset_me()
+     snd.toggles.active = true
+     raiseEvent("sunder_update_toggles")
+    end
+  end
+end
+
+registerAnonymousEventHandler("gmcp.Char.Afflictions.Add", "snd.deathCheck")
+registerAnonymousEventHandler("gmcp.Char.Afflictions.Remove", "snd.deathClear")</script>
 					<eventHandlerList />
 				</Script>
 				<ScriptGroup isActive="yes" isFolder="yes">
