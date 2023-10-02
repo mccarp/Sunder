@@ -70962,32 +70962,44 @@ end</script>
 					<Script isActive="yes" isFolder="no">
 						<name>eat</name>
 						<packageName></packageName>
-						<script>
+						<script>-- 
+-- function snd.do_eat(current)
+ -- if snd.defenses[current] ~= nil then
+  -- if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
+   -- snd.cur.herb = snd.defenses[current].balance.eat
+   -- if snd.have_slow() then
+    -- if snd.outred[snd.cur.herb] &gt;= 1 then
+     -- snd.eat(current)
+     -- return
+    -- elseif snd.not_entangled() then
+     -- snd.send("outr "..snd.cur.herb)
+     -- return
+    -- else
+     -- return
+    -- end
+   -- elseif snd.not_entangled() then
+    -- if snd.defenses[current] ~= nil then
+     -- snd.send("outr "..snd.cur.herb)
+     -- snd.eat(current)
+    -- end
+   -- else
+    -- if snd.defenses[current] ~= nil then
+     -- if snd.outred[snd.cur.herb] &gt;= 1 then
+      -- snd.eat(current)
+     -- end
+    -- end
+   -- end
+  -- end
+ -- end
+-- end
+
+
 function snd.do_eat(current)
  if snd.defenses[current] ~= nil then
   if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
    snd.cur.herb = snd.defenses[current].balance.eat
-   if snd.have_slow() then
-    if snd.outred[snd.cur.herb] &gt;= 1 then
-     snd.eat(current)
-     return
-    elseif snd.not_entangled() then
-     snd.send("outr "..snd.cur.herb)
-     return
-    else
-     return
-    end
-   elseif snd.not_entangled() then
-    if snd.defenses[current] ~= nil then
-     snd.send("outr "..snd.cur.herb)
-     snd.eat(current)
-    end
-   else
-    if snd.defenses[current] ~= nil then
-     if snd.outred[snd.cur.herb] &gt;= 1 then
-      snd.eat(current)
-     end
-    end
+   if snd.not_entangled() then
+    snd.eat(current)
    end
   end
  end
@@ -71035,61 +71047,84 @@ end
 					<Script isActive="yes" isFolder="no">
 						<name>herb</name>
 						<packageName></packageName>
-						<script>
+						<script>-- 
+-- function snd.do_herb(current)
+ -- if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
+  -- if snd.afflictions[current] ~= nil then
+    -- if snd.afflictions[current].state == "afflicted" then
+      -- snd.cur.herb = snd.afflictions[current].cures.herb
+    -- else
+      -- return
+    -- end
+  -- else
+    -- if snd.defenses[current].state == "down" and snd.defenses[current].needit then
+      -- snd.cur.herb = snd.defenses[current].balance.herb
+    -- else
+      -- return
+    -- end
+  -- end
+  -- if snd.have_slow() then
+    -- if snd.afflictions[current] ~= nil then
+      -- if snd.outred[snd.cur.herb] &gt;= 1 then
+        -- snd.herb(current)
+        -- return
+      -- elseif snd.not_entangled() then
+        -- snd.send("outr "..snd.cur.herb)
+        -- return
+      -- else
+        -- return
+      -- end
+    -- elseif snd.defenses[current] ~= nil then
+      -- if snd.outred[snd.cur.herb] &gt;= 1 then
+        -- snd.herb(current)
+        -- return
+      -- elseif snd.not_entangled() then
+        -- snd.send("outr "..snd.cur.herb)
+        -- return
+      -- else
+        -- return
+        -- end
+      -- end
+    -- elseif snd.not_entangled() then
+      -- if snd.afflictions[current] ~= nil then
+        -- snd.send("outr "..snd.cur.herb)
+        -- snd.herb(current)
+      -- elseif snd.defenses[current] ~= nil then
+        -- snd.send("outr "..snd.cur.herb)
+        -- snd.herb(current)
+      -- end
+    -- else
+      -- if snd.afflictions[current] ~= nil then
+        -- if snd.outred[snd.cur.herb] &gt;= 1 then
+          -- snd.herb(current)
+        -- end
+      -- elseif snd.defenses[current] ~= nil then
+        -- if snd.outred[snd.cur.herb] &gt;= 1 then
+          -- snd.herb(current)
+        -- end
+      -- end
+    -- end
+  -- end
+-- end
+
 function snd.do_herb(current)
- if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
-  if snd.afflictions[current] ~= nil then
-    if snd.afflictions[current].state == "afflicted" then
-      snd.cur.herb = snd.afflictions[current].cures.herb
-    else
-      return
-    end
-  else
-    if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-      snd.cur.herb = snd.defenses[current].balance.herb
-    else
-      return
-    end
-  end
-  if snd.have_slow() then
+  if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
     if snd.afflictions[current] ~= nil then
-      if snd.outred[snd.cur.herb] &gt;= 1 then
-        snd.herb(current)
-        return
-      elseif snd.not_entangled() then
-        snd.send("outr "..snd.cur.herb)
-        return
+      if snd.afflictions[current].state == "afflicted" then
+        snd.cur.herb = snd.afflictions[current].cures.herb
       else
         return
-      end
-    elseif snd.defenses[current] ~= nil then
-      if snd.outred[snd.cur.herb] &gt;= 1 then
-        snd.herb(current)
-        return
-      elseif snd.not_entangled() then
-        snd.send("outr "..snd.cur.herb)
-        return
-      else
-        return
-        end
-      end
-    elseif snd.not_entangled() then
-      if snd.afflictions[current] ~= nil then
-        snd.send("outr "..snd.cur.herb)
-        snd.herb(current)
-      elseif snd.defenses[current] ~= nil then
-        snd.send("outr "..snd.cur.herb)
-        snd.herb(current)
       end
     else
-      if snd.afflictions[current] ~= nil then
-        if snd.outred[snd.cur.herb] &gt;= 1 then
-          snd.herb(current)
-        end
-      elseif snd.defenses[current] ~= nil then
-        if snd.outred[snd.cur.herb] &gt;= 1 then
-          snd.herb(current)
-        end
+      if snd.defenses[current].state == "down" and snd.defenses[current].needit then
+        snd.cur.herb = snd.defenses[current].balance.herb
+      else
+        return
+      end
+    end
+    if snd.not_entangled() then
+      if snd.afflictions[current] ~= nil or snd.defenses[current]~= nil then
+        snd.herb(current)
       end
     end
   end
