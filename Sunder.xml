@@ -2285,6 +2285,47 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>No arrows in ya</name>
+							<script>snd.aff_remove("barbed_arrow")
+snd.waiting.queue = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>There is not an arrow in your body to remove.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Pulled out an arrow</name>
+							<script>snd.waiting.queue = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You shudder in pain as you wrench the bloody arrow from your flesh.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Death resets (personal affs)</name>
 							<script></script>
@@ -53957,6 +53998,8 @@ snd.priorities =
     
     "diagnose",
     
+    "barbed_arrow",
+
     "attack",
     
     "aff_bleeding",
@@ -54671,6 +54714,10 @@ snd.method_priority = {
       if snd.toggles.diagaffs~= 0 and snd.hidden_afflictions &gt;= snd.toggles.diagaffs then
         table.insert(snd.queue, "diagnose")
       end
+      
+      if snd.have_aff("barbed_arrow") then
+        table.insert(snd.queue, "barbed_arrow")
+      end
 
 
     end
@@ -54690,6 +54737,8 @@ function snd.do_stuff()
   if table.contains(snd.queue, i) then
    if i == "queue" then
     snd.send_attack(snd.queued)
+   elseif i == "barbed_arrow" then
+    snd.pull_arrow()
    elseif i == "bashing" then
     snd.bashing_function()
    elseif i == "lighting" then
@@ -55195,6 +55244,10 @@ aff_fungal_invasion = {state = "healed", effect = "10% slower pills, cured by re
 aff_preymark = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_woe_curse = {state = "healed", effect = "hides scio affs and generally a bad time", cures = {}, assess = false, timer = createStopWatch()},
 aff_mystified = {state = "healed", effect = "stuck prone for a bit via voidgaze", cures = {}, assess = false, timer = createStopWatch()},
+
+--barbed arrow, ouch!
+aff_barbed_arrow = {state = "healed", effect = "10 stacks kills", cures = {balanceequilibriumtake = "pull arrow from body"}, assess = false, timer = createStopWatch()},
+
 }
 </script>
 							<eventHandlerList />
@@ -55498,7 +55551,7 @@ def_nightsight = {defense = "nightsight", type = "normal", effect = "Allows glan
 def_fitness = {defense = "fitness", type = "normal", effect = "Protects from asthma", balance = {balanceequilibriumtake = "fitness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fitness"},
 def_divert_melee = {defense = "divert_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "divert melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Jerk"},
 def_dodge_melee = {defense = "dodge_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "dodge melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sidestep"},
-def_clarity = {defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = {needyequilibriumtake = "clarity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Clarity"},
+def_clarity = {defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = {needyequilibriumtake = "clarity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Clarity", tree = "Survival"},
 def_shroud = { }, -- handled and set per class elsewhere
 def_manipulation_dome = {defense = "manipulation_dome", type = "normal", effect = "cheap prism", balance = {needyequilibriumtake = "manipulate pylon for dome"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_gripping = {defense = "gripping", type = "normal", effect = "Prevents disarming", balance = {balanceequilibrium = "grip"}, state = "down", needit = false, timer = createStopWatch(), skill = "Gripping"},
@@ -71699,6 +71752,18 @@ function snd.do_diagnose()
 end</script>
 						<eventHandlerList />
 					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Barbed arrows</name>
+						<packageName></packageName>
+						<script>function snd.pull_arrow()
+  if not snd.waiting.queue then
+    snd.send("qeb pull arrow from body")
+    snd.waiting.queue = true
+    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<Script isActive="yes" isFolder="no">
 					<name>load defenses</name>
@@ -71732,14 +71797,14 @@ function snd.load_def(option)
     for h in pairs(my_def_choice_and_generic_defenses) do
       if
         my_def_choice_and_generic_defenses[h] == "once" and
-        (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
+        (hasSkill(snd.defenses[h].skill, snd.defenses[h].tree) or snd.assumed_class ~= nil)
       then
         if snd.defenses[h].state ~= "deffed" then
           snd.defenses[h].needit = true
           table.insert(snd.less_defs, h)
         end
       elseif
-        my_def_choice_and_generic_defenses[h] == "on" and (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
+        my_def_choice_and_generic_defenses[h] == "on" and (hasSkill(snd.defenses[h].skill, snd.defenses[h].tree) or snd.assumed_class ~= nil)
       then
         if h == "def_vitality" then
           if snd.balance.vitality then
