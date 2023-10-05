@@ -1743,7 +1743,7 @@ snd.hidden_afflictions = 0</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^afflicted with ([a-z_]+)\.$</string>
+									<string>^afflicted with ([a-z_-]+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -2285,6 +2285,47 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>No arrows in ya</name>
+							<script>snd.aff_remove("barbed_arrow")
+snd.waiting.queue = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>There is not an arrow in your body to remove.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Pulled out an arrow</name>
+							<script>snd.waiting.queue = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You shudder in pain as you wrench the bloody arrow from your flesh.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Death resets (personal affs)</name>
 							<script></script>
@@ -2300,7 +2341,7 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList />
 							<regexCodePropertyList />
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>general deaths</name>
 								<script>local reset_check = false
 local triggertext = matches[1]
@@ -2405,6 +2446,34 @@ end</script>
 									<integer>2</integer>
 									<integer>2</integer>
 									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Vampire/Akkari death</name>
+								<script>if gmcp.Char.Vitals.hp == "1" then
+  snd.reset_me()
+  snd.toggles.active = false
+  for i in pairs(snd.my_limb_damage) do
+    snd.my_limb_damage[i] = 0
+  end
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>Stricken, you collapse to the ground. Unable to maintain the composure of your physical form any longer, you feel your body shrivel and wither away as you revert to your mistform.</string>
+									<string>Defeated, your physical form collapses like a dead weight upon the ground. Holy light</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>2</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -28005,13 +28074,8 @@ if snd.class ~= matches[2] then
 end
 raiseEvent("sunder_update_vitals")
 
-tempTimer(1, [[if snd.skills ~= {} then
-                snd.skills = {}
-                snd.skills.tattoos_on_me = {}
-                snd.skills.raceskills = {}
-               end
-               send("ab")]])
-tempTimer(1.5, [[populate_skills()]])</script>
+tempTimer(1, function() sendGMCP("Char.Skills.get") send("") end)
+</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -52006,14 +52070,7 @@ fish = fish or {}</script>
   send("config separator", false)
   
   tempTimer(1, function() raiseEvent("sunder_login") end)
-  tempTimer(2.5, [[
-  							snd.changeClass();
-                if snd.skills ~= {} then
-                  snd.skills = {}
-                  snd.skills.tattoos_on_me = {}
-                  snd.skills.raceskills = {}
-                end
-                sendGMCP("Char.Skills.get")]])
+  tempTimer(2.5, function() snd.changeClass() sendGMCP("Char.Skills.get") send("") end)
   tempTimer(4, [[send("tattoos", false)]])
   snd.registerCityMarks()
   local x, y = string.match(gmcp.Char.Status.level, "(.*) (.*)")
@@ -52028,6 +52085,34 @@ end
 
 
 registerAnonymousEventHandler("gmcp.Char.Name", "snd.login")</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Death handling</name>
+					<packageName></packageName>
+					<script>function snd.deathCheck()
+  if gmcp.Char.Afflictions.Add.name == "dead" then
+      snd.reset_me()
+      snd.toggles.active = false
+      raiseEvent("sunder_update_toggles")
+      for i in pairs(snd.my_limb_damage) do
+       snd.my_limb_damage[i] = 0
+      end
+  end
+end
+
+function snd.deathClear()
+  for _, aff in pairs(gmcp.Char.Afflictions.Remove) do
+    if aff == "dead" then
+     snd.reset_me()
+     snd.toggles.active = true
+     raiseEvent("sunder_update_toggles")
+    end
+  end
+end
+
+registerAnonymousEventHandler("gmcp.Char.Afflictions.Add", "snd.deathCheck")
+registerAnonymousEventHandler("gmcp.Char.Afflictions.Remove", "snd.deathClear")</script>
 					<eventHandlerList />
 				</Script>
 				<ScriptGroup isActive="yes" isFolder="yes">
@@ -53913,6 +53998,8 @@ snd.priorities =
     
     "diagnose",
     
+    "barbed_arrow",
+
     "attack",
     
     "aff_bleeding",
@@ -54627,6 +54714,10 @@ snd.method_priority = {
       if snd.toggles.diagaffs~= 0 and snd.hidden_afflictions &gt;= snd.toggles.diagaffs then
         table.insert(snd.queue, "diagnose")
       end
+      
+      if snd.have_aff("barbed_arrow") then
+        table.insert(snd.queue, "barbed_arrow")
+      end
 
 
     end
@@ -54646,6 +54737,8 @@ function snd.do_stuff()
   if table.contains(snd.queue, i) then
    if i == "queue" then
     snd.send_attack(snd.queued)
+   elseif i == "barbed_arrow" then
+    snd.pull_arrow()
    elseif i == "bashing" then
     snd.bashing_function()
    elseif i == "lighting" then
@@ -55151,6 +55244,10 @@ aff_fungal_invasion = {state = "healed", effect = "10% slower pills, cured by re
 aff_preymark = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_woe_curse = {state = "healed", effect = "hides scio affs and generally a bad time", cures = {}, assess = false, timer = createStopWatch()},
 aff_mystified = {state = "healed", effect = "stuck prone for a bit via voidgaze", cures = {}, assess = false, timer = createStopWatch()},
+
+--barbed arrow, ouch!
+aff_barbed_arrow = {state = "healed", effect = "10 stacks kills", cures = {balanceequilibriumtake = "pull arrow from body"}, assess = false, timer = createStopWatch()},
+
 }
 </script>
 							<eventHandlerList />
@@ -55454,7 +55551,7 @@ def_nightsight = {defense = "nightsight", type = "normal", effect = "Allows glan
 def_fitness = {defense = "fitness", type = "normal", effect = "Protects from asthma", balance = {balanceequilibriumtake = "fitness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fitness"},
 def_divert_melee = {defense = "divert_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "divert melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Jerk"},
 def_dodge_melee = {defense = "dodge_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "dodge melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sidestep"},
-def_clarity = {defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = {needyequilibriumtake = "clarity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Clarity"},
+def_clarity = {defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = {needyequilibriumtake = "clarity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Clarity", tree = "Survival"},
 def_shroud = { }, -- handled and set per class elsewhere
 def_manipulation_dome = {defense = "manipulation_dome", type = "normal", effect = "cheap prism", balance = {needyequilibriumtake = "manipulate pylon for dome"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_gripping = {defense = "gripping", type = "normal", effect = "Prevents disarming", balance = {balanceequilibrium = "grip"}, state = "down", needit = false, timer = createStopWatch(), skill = "Gripping"},
@@ -55783,7 +55880,7 @@ def_redemption_blessing = {defense = "redemption_blessing", type = "normal", eff
 --Teradrim
 def_earthenform = {defense = "earthenform", type = "normal", effect = "Embrace your earthen features", balance = {balanceequilibriumtake = "earthenform embrace"}, state = "down", needit = false, timer = createStopWatch(), skill = "Earthenform" },
 def_surefooted = {defense = "surefooted", type = "normal", effect = "Increased Celery", balance = {balanceequilibriumtake = "earth surefooted"}, state = "down", needit = false, timer = createStopWatch(), skill = "Surefooted" },
-def_entwine = {defense = "entwine", type = "normal", effect = "Disarm when someone goes for your parried limb", balance = {balanceequilibriumtake = "earth entwine"}, state = "down", needit = false, timer = createStopWatch(), skill = "Entwine" },
+def_entwine = {defense = "entwine", type = "normal", effect = "Disarm when someone goes for your parried limb", balance = {balanceequilibrium = "earth entwine"}, state = "down", needit = false, timer = createStopWatch(), skill = "Entwine" },
 def_ricochet =  {defense = "ricochet", type = "normal", effect = "Bounce attacks back to cripple limbs at times", balance = {balanceequilibriumtake = "earth ricochet"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ricochet" },
 def_twinsoul = {defense = "twinsoul", type = "normal", effect = "Link your soul to your golem", balance = {balanceequilibriumtake = "golem twinsoul on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Twinsoul" },
 def_earth_resonance = {defense = "earth_resonance", type = "normal", effect = "Boosted health/mana regen", balance = {balanceequilibriumtake = "earth resonance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Resonance" },
@@ -55800,7 +55897,7 @@ def_momentum = {defense = "momentum", type = "normal", effect = "Strike faster",
 --Tidesage
 def_permafrost = {defense = "permafrost", type = "SeaGreen", effect = "Embrace the gales of the distant oceans", balance = {balanceequilibriumtake = "tide permafrost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Permafrost" },
 def_sealegs = {defense = "sealegs", type = "SeaGreen", effect = "Sea legs allow you to move faster", balance = {balanceequilibriumtake = "tide sealegs"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sealegs" },
-def_wavebreaking = {defense = "wavebreaking", type = "SeaGreen", effect = "Disarm when someone goes for your parried limb", balance = {balanceequilibriumtake = "tide wavebreak"}, state = "down", needit = false, timer = createStopWatch(), skill = "Wavebreak" },
+def_wavebreaking = {defense = "wavebreaking", type = "SeaGreen", effect = "Disarm when someone goes for your parried limb", balance = {balanceequilibrium = "tide wavebreak"}, state = "down", needit = false, timer = createStopWatch(), skill = "Wavebreak" },
 def_tideflux =  {defense = "tideflux", type = "SeaGreen", effect = "Bounce attacks back to cripple limbs at times", balance = {balanceequilibriumtake = "tide flux"}, state = "down", needit = false, timer = createStopWatch(), skill = "Flux" },
 def_lifebond = {defense = "lifebond", type = "SeaGreen", effect = "Link your soul to your elemental", balance = {balanceequilibriumtake = "synth lifebond on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifebond" },
 def_shore_leave = {defense = "shore_leave", type = "SeaGreen", effect = "Boosted health/mana regen", balance = {balanceequilibriumtake = "tide shore"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shore" },
@@ -56018,7 +56115,6 @@ Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents slee
 
 local function check200(defense)
   if formDefs[defense] then
-    snd.skills = {}
     sendGMCP("Char.Skills.get")
     send("")
   end
@@ -70919,32 +71015,44 @@ end</script>
 					<Script isActive="yes" isFolder="no">
 						<name>eat</name>
 						<packageName></packageName>
-						<script>
+						<script>-- 
+-- function snd.do_eat(current)
+ -- if snd.defenses[current] ~= nil then
+  -- if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
+   -- snd.cur.herb = snd.defenses[current].balance.eat
+   -- if snd.have_slow() then
+    -- if snd.outred[snd.cur.herb] &gt;= 1 then
+     -- snd.eat(current)
+     -- return
+    -- elseif snd.not_entangled() then
+     -- snd.send("outr "..snd.cur.herb)
+     -- return
+    -- else
+     -- return
+    -- end
+   -- elseif snd.not_entangled() then
+    -- if snd.defenses[current] ~= nil then
+     -- snd.send("outr "..snd.cur.herb)
+     -- snd.eat(current)
+    -- end
+   -- else
+    -- if snd.defenses[current] ~= nil then
+     -- if snd.outred[snd.cur.herb] &gt;= 1 then
+      -- snd.eat(current)
+     -- end
+    -- end
+   -- end
+  -- end
+ -- end
+-- end
+
+
 function snd.do_eat(current)
  if snd.defenses[current] ~= nil then
   if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
    snd.cur.herb = snd.defenses[current].balance.eat
-   if snd.have_slow() then
-    if snd.outred[snd.cur.herb] &gt;= 1 then
-     snd.eat(current)
-     return
-    elseif snd.not_entangled() then
-     snd.send("outr "..snd.cur.herb)
-     return
-    else
-     return
-    end
-   elseif snd.not_entangled() then
-    if snd.defenses[current] ~= nil then
-     snd.send("outr "..snd.cur.herb)
-     snd.eat(current)
-    end
-   else
-    if snd.defenses[current] ~= nil then
-     if snd.outred[snd.cur.herb] &gt;= 1 then
-      snd.eat(current)
-     end
-    end
+   if snd.not_entangled() then
+    snd.eat(current)
    end
   end
  end
@@ -70992,61 +71100,84 @@ end
 					<Script isActive="yes" isFolder="no">
 						<name>herb</name>
 						<packageName></packageName>
-						<script>
+						<script>-- 
+-- function snd.do_herb(current)
+ -- if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
+  -- if snd.afflictions[current] ~= nil then
+    -- if snd.afflictions[current].state == "afflicted" then
+      -- snd.cur.herb = snd.afflictions[current].cures.herb
+    -- else
+      -- return
+    -- end
+  -- else
+    -- if snd.defenses[current].state == "down" and snd.defenses[current].needit then
+      -- snd.cur.herb = snd.defenses[current].balance.herb
+    -- else
+      -- return
+    -- end
+  -- end
+  -- if snd.have_slow() then
+    -- if snd.afflictions[current] ~= nil then
+      -- if snd.outred[snd.cur.herb] &gt;= 1 then
+        -- snd.herb(current)
+        -- return
+      -- elseif snd.not_entangled() then
+        -- snd.send("outr "..snd.cur.herb)
+        -- return
+      -- else
+        -- return
+      -- end
+    -- elseif snd.defenses[current] ~= nil then
+      -- if snd.outred[snd.cur.herb] &gt;= 1 then
+        -- snd.herb(current)
+        -- return
+      -- elseif snd.not_entangled() then
+        -- snd.send("outr "..snd.cur.herb)
+        -- return
+      -- else
+        -- return
+        -- end
+      -- end
+    -- elseif snd.not_entangled() then
+      -- if snd.afflictions[current] ~= nil then
+        -- snd.send("outr "..snd.cur.herb)
+        -- snd.herb(current)
+      -- elseif snd.defenses[current] ~= nil then
+        -- snd.send("outr "..snd.cur.herb)
+        -- snd.herb(current)
+      -- end
+    -- else
+      -- if snd.afflictions[current] ~= nil then
+        -- if snd.outred[snd.cur.herb] &gt;= 1 then
+          -- snd.herb(current)
+        -- end
+      -- elseif snd.defenses[current] ~= nil then
+        -- if snd.outred[snd.cur.herb] &gt;= 1 then
+          -- snd.herb(current)
+        -- end
+      -- end
+    -- end
+  -- end
+-- end
+
 function snd.do_herb(current)
- if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
-  if snd.afflictions[current] ~= nil then
-    if snd.afflictions[current].state == "afflicted" then
-      snd.cur.herb = snd.afflictions[current].cures.herb
-    else
-      return
-    end
-  else
-    if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-      snd.cur.herb = snd.defenses[current].balance.herb
-    else
-      return
-    end
-  end
-  if snd.have_slow() then
+  if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
     if snd.afflictions[current] ~= nil then
-      if snd.outred[snd.cur.herb] &gt;= 1 then
-        snd.herb(current)
-        return
-      elseif snd.not_entangled() then
-        snd.send("outr "..snd.cur.herb)
-        return
+      if snd.afflictions[current].state == "afflicted" then
+        snd.cur.herb = snd.afflictions[current].cures.herb
       else
         return
-      end
-    elseif snd.defenses[current] ~= nil then
-      if snd.outred[snd.cur.herb] &gt;= 1 then
-        snd.herb(current)
-        return
-      elseif snd.not_entangled() then
-        snd.send("outr "..snd.cur.herb)
-        return
-      else
-        return
-        end
-      end
-    elseif snd.not_entangled() then
-      if snd.afflictions[current] ~= nil then
-        snd.send("outr "..snd.cur.herb)
-        snd.herb(current)
-      elseif snd.defenses[current] ~= nil then
-        snd.send("outr "..snd.cur.herb)
-        snd.herb(current)
       end
     else
-      if snd.afflictions[current] ~= nil then
-        if snd.outred[snd.cur.herb] &gt;= 1 then
-          snd.herb(current)
-        end
-      elseif snd.defenses[current] ~= nil then
-        if snd.outred[snd.cur.herb] &gt;= 1 then
-          snd.herb(current)
-        end
+      if snd.defenses[current].state == "down" and snd.defenses[current].needit then
+        snd.cur.herb = snd.defenses[current].balance.herb
+      else
+        return
+      end
+    end
+    if snd.not_entangled() then
+      if snd.afflictions[current] ~= nil or snd.defenses[current]~= nil then
+        snd.herb(current)
       end
     end
   end
@@ -71621,6 +71752,18 @@ function snd.do_diagnose()
 end</script>
 						<eventHandlerList />
 					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Barbed arrows</name>
+						<packageName></packageName>
+						<script>function snd.pull_arrow()
+  if not snd.waiting.queue then
+    snd.send("qeb pull arrow from body")
+    snd.waiting.queue = true
+    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<Script isActive="yes" isFolder="no">
 					<name>load defenses</name>
@@ -71654,14 +71797,14 @@ function snd.load_def(option)
     for h in pairs(my_def_choice_and_generic_defenses) do
       if
         my_def_choice_and_generic_defenses[h] == "once" and
-        (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
+        (hasSkill(snd.defenses[h].skill, snd.defenses[h].tree) or snd.assumed_class ~= nil)
       then
         if snd.defenses[h].state ~= "deffed" then
           snd.defenses[h].needit = true
           table.insert(snd.less_defs, h)
         end
       elseif
-        my_def_choice_and_generic_defenses[h] == "on" and (hasSkill(snd.defenses[h].skill) or snd.assumed_class ~= nil)
+        my_def_choice_and_generic_defenses[h] == "on" and (hasSkill(snd.defenses[h].skill, snd.defenses[h].tree) or snd.assumed_class ~= nil)
       then
         if h == "def_vitality" then
           if snd.balance.vitality then
