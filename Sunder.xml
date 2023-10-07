@@ -69519,18 +69519,18 @@ function snd.bashing_function()
         battack = ""
 			end
         
-			if snd.probed then -- If a npc is probed, move along
-			else -- else, in three areas that have advanced bashing, probe the npc to see if they are a punisher
-				if gmcp.Room.Info.area == "Tcanna Island" or gmcp.Room.Info.area == "Drakuum"  or gmcp.Room.Info.area == "the Torturers' Caverns" then   
-					battack = "probe "..snd.bashing.target..snd.sep..battack..snd.sep -- we're probing here and then attacking from above
-				end -- note, this is just to make sure you don't get owned by shielding on punisher type npcs
-			end
-      if tonumber(gmcp.Char.Vitals.bleeding) &gt; 500 and hasSkill("Clotting") then -- if you are bleeding a lot and can clot, clot with your attack
-        mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
-        if mp &gt;= 50 then
-          battack = "clot 500"..snd.sep..battack..snd.sep
-        end  
-      end 
+			-- if snd.probed then -- If a npc is probed, move along
+			-- else -- else, in three areas that have advanced bashing, probe the npc to see if they are a punisher
+				-- if gmcp.Room.Info.area == "Tcanna Island" or gmcp.Room.Info.area == "Drakuum"  or gmcp.Room.Info.area == "the Torturers' Caverns" then   
+					-- battack = "probe "..snd.bashing.target..snd.sep..battack..snd.sep -- we're probing here and then attacking from above
+				-- end -- note, this is just to make sure you don't get owned by shielding on punisher type npcs
+			-- end
+      -- if tonumber(gmcp.Char.Vitals.bleeding) &gt; 500 and hasSkill("Clotting") then -- if you are bleeding a lot and can clot, clot with your attack
+        -- mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
+        -- if mp &gt;= 50 then
+          -- battack = "clot 500"..snd.sep..battack..snd.sep
+        -- end  
+      -- end 
         
 			if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack..snd.sep.."absorb ylem" end -- if you have a level 2 gauntlet, auto-absorb
       
