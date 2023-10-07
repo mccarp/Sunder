@@ -76964,7 +76964,7 @@ end</script>
   
   ["Tectonics"] = {
     Ashfall = function(target)
-                 snd.target_got("epilepsy")
+                 snd.target_got("allergies")
                 end,
                 
     Transfixion = function(target, blindness)
