@@ -21943,7 +21943,6 @@ end</script>
     end
   end
   
-  snd.parried_limb = snd.last_hit_limb
   snd.templar_last_limb = snd.last_hit_limb
   
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
@@ -25133,6 +25132,38 @@ end
 								<string>^You will now target attacks with your (right|left) arm wherever you see an opening\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Parry tracking</name>
+							<script>if matches[2] == snd.target then
+  snd.parried_limb = matches[3]
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) parries the attack on \w+ (.+) with a deft maneuver\.$</string>
+								<string>^(\w+) guards the attack on \w+ (.+)\.$</string>
+								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm and twists it\.$</string>
+								<string>^With a free hand, (\w+) fends off the attack on (?:the \w+'s|\w+) (.+)\.$</string>
+								<string>^With a predatory growl, (\w+) opposes the attack on \w+ (.+), denying it purchase\.$</string>
+								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm, and shakes you violently\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
