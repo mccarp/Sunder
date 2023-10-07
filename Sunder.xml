@@ -72657,7 +72657,7 @@ end
 snd.spirituality_attacks = {
 paresis = "shield strike",
 sight = "shield brilliance",
-berserking = "shield facesmash",
+misery = "shield facesmash",
 weariness = "shield punch",
 asthma = "shield slam",
 haemophilia = "shield slam",
@@ -72668,12 +72668,12 @@ writhe_transfix = "evoke transfixion",
 snd.subjugation_attacks = {
 paresis = "shield strike",
 sight = "shield horrify",
-berserking = "shield facesmash",
+misery = "shield facesmash",
 weariness = "shield punch",
 asthma = "shield slam",
 haemophilia = "shield slam",
 confusion = "dirge hysteria",
-writhe_transfix = "dirge transfixion",
+writhe_transfix = "tectonic transfixion",
 }
 
 snd.hound_attacks = {
@@ -73323,7 +73323,7 @@ function snd.onHit2(checks, conditional)
         table.remove(snd.maybe_affs, 2) 
       end      
       
-      if aff == "berserking" and conditional == "Luminary Facesmash" and snd.maybe_affs[2] == "sight" then
+      if aff == "misery" and conditional == "Luminary Facesmash" and snd.maybe_affs[2] == "sight" then
         snd.target_got("sight")
         table.insert(snd.last_affs, "sight")
         table.remove(snd.maybe_affs, 2) 
