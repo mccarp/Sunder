@@ -54624,6 +54624,12 @@ snd.priorities =
     "def_chaos_fork",
     "def_chaos_presence",
     "def_chaos_shroud",
+    
+    "def_catching",
+    "def_phalanx",
+    "def_anthem",
+    "def_rallied",
+    "def_bolstered_morale",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55777,6 +55783,7 @@ def_elusion = {defense = "elusion", type = "normal", effect = "You avoid opponen
 def_deathlink = {defense = "deathlink", type = "normal", effect = "You are linked to your coffin", balance = {balanceequilibriumtake = "deathlink"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deathlink" },
 def_bloodrage = {defense = "bloodrage", type = "normal", effect = "Transcend mortal limitations", balance = {balanceequilibriumtake = "blood enrage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Enrage"},
 def_deluge = {defense = "deluge", type = "normal", effect = "Allows the user to fall below zero health, effectively making them immune to damage.", balance = {balanceequilibriumtake = "blood deluge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deluge"},
+def_arrow_catching = {defense = "arrow_catching", type = "normal", effect = "You have a chance to catch arrows", balance = {balanceequilibriumtake = "catching"}, state = "down", needit = false, timer = createStopWatch(), skill = "Catching"},
 
 
 --Ravager
@@ -55972,7 +55979,12 @@ def_axe_avert = {defense = "axe_avert", type = "normal", effect = "Knock away pr
 def_axe_obstruct = {defense = "axe_obstruct", type = "normal", effect = "Smack those feared away", balance = {balanceequilibriumtake = "axe obstruct on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Obstruct"},
 def_axe_repel = {defense = "axe_repel", type = "normal", effect = "Stop them from cleaving you", balance = {balanceequilibriumtake = "axe repel on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Repel"},
 def_bloodtrails = {defense = "bloodtrails", type = "normal", effect = "Trace those bloody trails", balance = {balanceequilibriumtake = "wayfare bloodtrails on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodtrails"},
-def_phalanx = {defense = "phalanx", type = "normal", effect = "Give group cut/blunt defense bonus", balance = {balanceequilibriumtake = "fury battlechant phalanx"}, state = "down", needit = false, timer = createStopWatch(), skill = "Phalanx"},
+def_phalanx = {defense = "phalanx", type = "normal", effect = "Give group cut/blunt defense bonus", balance = {balanceequilibriumtake = "fury battlechant phalanx"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_anthem = {defense = "anthem", type = "normal", effect = "Give group extra damage", balance = {balanceequilibriumtake = "fury battlechant anthem"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_rallied = {defense = "rallied", type = "normal", effect = "Reduce groups willpower and endurance costs", balance = {balanceequilibriumtake = "fury battlechant rally"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_bolstered_morale = {defense = "bolstered_morale", type = "normal", effect = "Give group extra damage", balance = {balanceequilibriumtake = "fury battlechant bolster"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_battlechant = {defense = "battlechant", type = "normal", effect = "Maintaining a supporting shout", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+
 
 --Zealot
 def_firefist = {defense = "firefist", type = "normal", effect = "makes your fists attack cause ablaze", balance = {balanceequilibriumtake = "enact firefist"}, state = "down", needit = false, timer = createStopWatch(), skill = "Firefist" },
@@ -56339,6 +56351,9 @@ end</script>
   ["You are supporting your allies with your battlechant."] = "battlechant",
   ["Your limb-shattering blows incite fear in your enemies."] = "brutality",
   ["You have adopted a defensive position."] = "phalanx",
+  ["You have been spurred into a blood frenzy."] = "anthem",
+  ["You are filled with heroic resolve."] = "rallied",
+  ["Your morale has been bolstered."] = "bolstered_morale",
   ["You are harnessing your inner rage."] = "dauntless",
   ["You are ready to deflect incoming incoming projectiles."] = "axe_avert",
   ["You will strike down those who flee in terror."] = "axe_obstruct",
@@ -56531,7 +56546,9 @@ end</script>
   ["You have enacted the Oath of Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
+  
   ["You have used great guile to conceal yourself."] = "hiding",
+  ["You are focusing on catching arrows."] = "arrow_catching",
   
   ["The blight spreads wherever you may roam."] = "blightbringer",
   ["You are recalling the discipline of Field Studies."] = "discipline_fieldstudies",
