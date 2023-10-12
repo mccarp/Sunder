@@ -71892,7 +71892,9 @@ function snd.load_def(option)
       snd.defenses[i].needit = false
     end
     for h in pairs(my_def_choice_and_generic_defenses) do
-      if
+      if not snd.defenses[h] then
+        snd.message("Oops! Looks like you have the defense \""..h.."\" in your defense options, and it's not properly defined.")
+      elseif
         my_def_choice_and_generic_defenses[h] == "once" and
         (hasSkill(snd.defenses[h].skill, snd.defenses[h].tree) or snd.assumed_class ~= nil)
       then
