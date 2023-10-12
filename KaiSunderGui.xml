@@ -2587,7 +2587,7 @@ function kaiUI.onItemsRemove()
     if item2.id == item.id then
       table.remove(kaiUI.itemsHere, index)
       kaiUI.writeItemsHere()
-      if kaiUI.itemsSorted then
+      if kaiUI.itemsSorted and kaiUI.itemsSorted[item.attrib] then
         kaiUI.itemsSorted[item.attrib][item.name] =
           (kaiUI.itemsSorted[item.attrib][item.name] or 0) - 1
         if kaiUI.itemsSorted[item.attrib][item.name] &lt;= 0 then

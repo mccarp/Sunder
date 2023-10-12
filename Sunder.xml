@@ -21943,7 +21943,6 @@ end</script>
     end
   end
   
-  snd.parried_limb = snd.last_hit_limb
   snd.templar_last_limb = snd.last_hit_limb
   
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
@@ -22158,6 +22157,55 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 					</TriggerGroup>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Wounds other</name>
+						<script>if matches[2] == snd.target then
+   enableTrigger("Wounds capture stuff")
+else
+  disableTrigger("Wounds capture stuff")
+end
+</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>7</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^You take a moment to assess how damaged (\w+)'s limbs are:$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Wounds capture stuff</name>
+							<script>local limb = matches[2]:lower()
+local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
+local dmg = tonumber(matches[3])
+snd.took_limb_dmg(limb, dmg - snd.limb_dmg[limb])
+snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(.+): +(\d{1,2}\.\d{2})% \((\w+) bruising\)$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>proned</name>
 						<script>if matches[2] == snd.target then
@@ -25133,6 +25181,38 @@ end
 								<string>^You will now target attacks with your (right|left) arm wherever you see an opening\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Parry tracking</name>
+							<script>if matches[2] == snd.target then
+  snd.parried_limb = matches[3]
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) parries the attack on \w+ (.+) with a deft maneuver\.$</string>
+								<string>^(\w+) guards the attack on \w+ (.+)\.$</string>
+								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm and twists it\.$</string>
+								<string>^With a free hand, (\w+) fends off the attack on (?:the \w+'s|\w+) (.+)\.$</string>
+								<string>^With a predatory growl, (\w+) opposes the attack on \w+ (.+), denying it purchase\.$</string>
+								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm, and shakes you violently\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -54593,6 +54673,12 @@ snd.priorities =
     "def_chaos_fork",
     "def_chaos_presence",
     "def_chaos_shroud",
+    
+    "def_catching",
+    "def_phalanx",
+    "def_anthem",
+    "def_rallied",
+    "def_bolstered_morale",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -55746,6 +55832,7 @@ def_elusion = {defense = "elusion", type = "normal", effect = "You avoid opponen
 def_deathlink = {defense = "deathlink", type = "normal", effect = "You are linked to your coffin", balance = {balanceequilibriumtake = "deathlink"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deathlink" },
 def_bloodrage = {defense = "bloodrage", type = "normal", effect = "Transcend mortal limitations", balance = {balanceequilibriumtake = "blood enrage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Enrage"},
 def_deluge = {defense = "deluge", type = "normal", effect = "Allows the user to fall below zero health, effectively making them immune to damage.", balance = {balanceequilibriumtake = "blood deluge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deluge"},
+def_arrow_catching = {defense = "arrow_catching", type = "normal", effect = "You have a chance to catch arrows", balance = {balanceequilibriumtake = "catching"}, state = "down", needit = false, timer = createStopWatch(), skill = "Catching"},
 
 
 --Ravager
@@ -55941,7 +56028,12 @@ def_axe_avert = {defense = "axe_avert", type = "normal", effect = "Knock away pr
 def_axe_obstruct = {defense = "axe_obstruct", type = "normal", effect = "Smack those feared away", balance = {balanceequilibriumtake = "axe obstruct on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Obstruct"},
 def_axe_repel = {defense = "axe_repel", type = "normal", effect = "Stop them from cleaving you", balance = {balanceequilibriumtake = "axe repel on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Repel"},
 def_bloodtrails = {defense = "bloodtrails", type = "normal", effect = "Trace those bloody trails", balance = {balanceequilibriumtake = "wayfare bloodtrails on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodtrails"},
-def_phalanx = {defense = "phalanx", type = "normal", effect = "Give group cut/blunt defense bonus", balance = {balanceequilibriumtake = "fury battlechant phalanx"}, state = "down", needit = false, timer = createStopWatch(), skill = "Phalanx"},
+def_phalanx = {defense = "phalanx", type = "normal", effect = "Give group cut/blunt defense bonus", balance = {balanceequilibriumtake = "fury battlechant phalanx"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_anthem = {defense = "anthem", type = "normal", effect = "Give group extra damage", balance = {balanceequilibriumtake = "fury battlechant anthem"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_rallied = {defense = "rallied", type = "normal", effect = "Reduce groups willpower and endurance costs", balance = {balanceequilibriumtake = "fury battlechant rally"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_bolstered_morale = {defense = "bolstered_morale", type = "normal", effect = "Give group extra damage", balance = {balanceequilibriumtake = "fury battlechant bolster"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_battlechant = {defense = "battlechant", type = "normal", effect = "Maintaining a supporting shout", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+
 
 --Zealot
 def_firefist = {defense = "firefist", type = "normal", effect = "makes your fists attack cause ablaze", balance = {balanceequilibriumtake = "enact firefist"}, state = "down", needit = false, timer = createStopWatch(), skill = "Firefist" },
@@ -56308,6 +56400,9 @@ end</script>
   ["You are supporting your allies with your battlechant."] = "battlechant",
   ["Your limb-shattering blows incite fear in your enemies."] = "brutality",
   ["You have adopted a defensive position."] = "phalanx",
+  ["You have been spurred into a blood frenzy."] = "anthem",
+  ["You are filled with heroic resolve."] = "rallied",
+  ["Your morale has been bolstered."] = "bolstered_morale",
   ["You are harnessing your inner rage."] = "dauntless",
   ["You are ready to deflect incoming incoming projectiles."] = "axe_avert",
   ["You will strike down those who flee in terror."] = "axe_obstruct",
@@ -56320,10 +56415,10 @@ end</script>
   ["You are preparing to entwine your flail against hostile weapons."] = "entwine",
   ["Your soul is entwined around your golem's."] = "twinsoul",
   ["Your soul is resonating with the earth."] = "earth_resonance",
-  ["Your flail imbued with the raw force of the desert."] = "imbue_erosion",
+  ["Your flail imbued with the raw force of the desert."] = "erosion",
   ["Your arms have been bound in stone."] = "stonebind",
   ["You have imbued the fury of the Earthen into your flail."] = "imbue_stonefury",
-  ["You are channeling the will of the Earthen."] = "imbue_will",
+--  ["You are channeling the will of the Earthen."] = "imbue_will",
   ["You are focusing your energy into sweltering your sands."] = "sand_swelter",
   ["Gnashing your tongue, your mouth salivates with fluid."] = "salivate",
   ["Your coat of fur has been thickened."] = "thickfur",
@@ -56500,7 +56595,9 @@ end</script>
   ["You have enacted the Oath of Tranquility."] = "oath_tranquility",
   ["You have enacted the Oath of the Primeval."] = "oath_primeval",
   ["You have enacted the Oath of the Rhythm."] = "oath_rhythm",
+  
   ["You have used great guile to conceal yourself."] = "hiding",
+  ["You are focusing on catching arrows."] = "arrow_catching",
   
   ["The blight spreads wherever you may roam."] = "blightbringer",
   ["You are recalling the discipline of Field Studies."] = "discipline_fieldstudies",
@@ -58266,7 +58363,6 @@ snd.areas = {
 {area = "the village of Torston", level = "40+", targets = {"a mottled brown frog", "a venomous water snake", "a vicious snapping turtle", "a fierce crocodile", "an irritated crow", "a tall Horkvali woman", "a wary Xorani guard", "a stalwart Horkvali guard", "Estok, the guard captain", "a dusky-skinned Grook man", "a plump white grub", "a dark-skinned Grook woman", "a carefree Grook boy", "the impish outcast, Qezirath", "a frail Xorani man", "a little Grook girl", "Lesiv, the Torstonite chieftain"}},
 {area = "the Cathedral of Gloaming", level = "35-40", targets = {"a Dwarven priest"}},
 {area = "the Vilimo Fields", level = "35-40", targets = {"Nysaac", "a field harvester", "a field monitor", "a decaying donkey", "Laoghaire, the monitor", "Maeron, the Quartermaster", "Administrator Kamakshi", "a semi-conscious young woman", "a semi-conscious young man","a semi-conscious elderly man", "a semi-conscious elderly woman", "a semi-conscious man", "a semi-conscious woman", "an undead bloodhound", "a field hauler", "a spectral minion"}},
-{area = "the Mannaseh Swamp", level = "35-40", targets = {"a savage mutant pumpkin", "a muddy Trollish child", "a slender mud adder", "a rugged Trollish man", "a plump Trollish woman", "a lumbering Troll guard", "an elderly Troll priest", "a lean guard hound", "a traitorous Mitrine hunter","a black ram", "a militant Troll warrior", "a Troll ritualist", "an arachnid Chiav guard", "an arachnid Chiav enforcer", "an arachnid Chiav archer","an immense Trollish chieftain", "a lanky, Trollish witch doctor"}},
 {area = "Mount Hubride", level = "55-60", targets = {"a troll warrior", "a rugged roll miner", "a female troll villager", "a small, troll child", "a male troll villager"}},
 {area = "Mount Heylai", level = "55-60", targets = {"a young dwarf", "an adolescent dwarf", "an armored dwarf", "a dwarf geared up for battle", "a dwarven warrior", "a dwarven miner", "a female dwarven villager", "a dwarven girl", "a dwarven boy"}},
 {area = "the Siroccian Tunnels", level = "65-75", targets = {"a lurking shadow", "a spatial anomaly", "a crystal-encrusted golem", "a massive striped worm", "a disembodied soul", "a voracious blind-fish"}},
@@ -69137,6 +69233,7 @@ sunder_areaPaths = {
 {area = "the Itzatl Morass", level = "apothecary", targets = {"an oversized fly", "an oversized earthworm", "a poisonous water moccasin", "a silent reed cat","a green slime toad", "a long-toothed beaver", "Match:a family of %a+ beavers",}},
 {area = "the Isle of Ollin", level = "apothecary", targets = {"a dark-furred, rabid boar", "Match:a sounder of %a+ boars", "a wild boar"}},
 {area = "the Morgun Forest", level = "apothecary", targets = {"a dark-furred, rabid boar", "Match:a sounder of %a+ boars", "a wild boar"}},
+{area = "the Aureliana Forest", level = "apothecary", targets ={"a dark-furred, rabid boar", "Match:a sounder of %a+ boars", "a wild boar"}},
 {area = "the village of Torston", level = "apothecary", targets = {"a venomous water snake", "a fierce crocodile", "Match:a bask of %a+ crocodiles", "a greyish green crocodile"}},
 {area = "the Barony of Dun Valley", level = "apothecary", targets = {"a muscular mountain lion", "Match:a bask of %a+ crocodiles", "a greyish green crocodile"}},
 {area = "the Central Wilderness", level = "apothecary", targets = {"a gnat", "a mottled green bullfrog", "a dragonfly", "Match:a swarm of %a+ dragonflies"}},
@@ -69488,18 +69585,18 @@ function snd.bashing_function()
         battack = ""
 			end
         
-			if snd.probed then -- If a npc is probed, move along
-			else -- else, in three areas that have advanced bashing, probe the npc to see if they are a punisher
-				if gmcp.Room.Info.area == "Tcanna Island" or gmcp.Room.Info.area == "Drakuum"  or gmcp.Room.Info.area == "the Torturers' Caverns" then   
-					battack = "probe "..snd.bashing.target..snd.sep..battack..snd.sep -- we're probing here and then attacking from above
-				end -- note, this is just to make sure you don't get owned by shielding on punisher type npcs
-			end
-      if tonumber(gmcp.Char.Vitals.bleeding) &gt; 500 and hasSkill("Clotting") then -- if you are bleeding a lot and can clot, clot with your attack
-        mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
-        if mp &gt;= 50 then
-          battack = "clot 500"..snd.sep..battack..snd.sep
-        end  
-      end 
+			-- if snd.probed then -- If a npc is probed, move along
+			-- else -- else, in three areas that have advanced bashing, probe the npc to see if they are a punisher
+				-- if gmcp.Room.Info.area == "Tcanna Island" or gmcp.Room.Info.area == "Drakuum"  or gmcp.Room.Info.area == "the Torturers' Caverns" then   
+					-- battack = "probe "..snd.bashing.target..snd.sep..battack..snd.sep -- we're probing here and then attacking from above
+				-- end -- note, this is just to make sure you don't get owned by shielding on punisher type npcs
+			-- end
+      -- if tonumber(gmcp.Char.Vitals.bleeding) &gt; 500 and hasSkill("Clotting") then -- if you are bleeding a lot and can clot, clot with your attack
+        -- mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
+        -- if mp &gt;= 50 then
+          -- battack = "clot 500"..snd.sep..battack..snd.sep
+        -- end  
+      -- end 
         
 			if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack..snd.sep.."absorb ylem" end -- if you have a level 2 gauntlet, auto-absorb
       
@@ -71795,7 +71892,9 @@ function snd.load_def(option)
       snd.defenses[i].needit = false
     end
     for h in pairs(my_def_choice_and_generic_defenses) do
-      if
+      if not snd.defenses[h] then
+        snd.message("Oops! Looks like you have the defense \""..h.."\" in your defense options, and it's not properly defined.")
+      elseif
         my_def_choice_and_generic_defenses[h] == "once" and
         (hasSkill(snd.defenses[h].skill, snd.defenses[h].tree) or snd.assumed_class ~= nil)
       then
@@ -72626,7 +72725,7 @@ end
 snd.spirituality_attacks = {
 paresis = "shield strike",
 sight = "shield brilliance",
-berserking = "shield facesmash",
+misery = "shield facesmash",
 weariness = "shield punch",
 asthma = "shield slam",
 haemophilia = "shield slam",
@@ -72637,12 +72736,12 @@ writhe_transfix = "evoke transfixion",
 snd.subjugation_attacks = {
 paresis = "shield strike",
 sight = "shield horrify",
-berserking = "shield facesmash",
+misery = "shield facesmash",
 weariness = "shield punch",
 asthma = "shield slam",
 haemophilia = "shield slam",
 confusion = "dirge hysteria",
-writhe_transfix = "dirge transfixion",
+writhe_transfix = "tectonic transfixion",
 }
 
 snd.hound_attacks = {
@@ -73292,7 +73391,7 @@ function snd.onHit2(checks, conditional)
         table.remove(snd.maybe_affs, 2) 
       end      
       
-      if aff == "berserking" and conditional == "Luminary Facesmash" and snd.maybe_affs[2] == "sight" then
+      if aff == "misery" and conditional == "Luminary Facesmash" and snd.maybe_affs[2] == "sight" then
         snd.target_got("sight")
         table.insert(snd.last_affs, "sight")
         table.remove(snd.maybe_affs, 2) 
@@ -76933,7 +77032,7 @@ end</script>
   
   ["Tectonics"] = {
     Ashfall = function(target)
-                 snd.target_got("epilepsy")
+                 snd.target_got("allergies")
                 end,
                 
     Transfixion = function(target, blindness)
