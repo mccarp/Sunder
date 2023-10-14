@@ -71876,15 +71876,15 @@ function snd.load_def(option)
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
-    if snd.class~="None" then --200 check
-      if gmcp.Char.Status.race:sub(1,6) == "Azudim" then
-        snd.def_options[option]["def_miasma"] = "on"
-      elseif gmcp.Char.Status.race:sub(1,6) == "Yeleni" then
-        snd.def_options[option]["def_warmth"] = "on"
-      elseif gmcp.Char.Status.race:sub(1,6) == "Idreth" then
-        snd.def_options[option]["def_safeguard"] = "on"
-      end
+--    if snd.class~="None" then --200 check
+    if gmcp.Char.Status.race:sub(1,6) == "Azudim" then
+      snd.def_options[option]["def_miasma"] = "on"
+    elseif gmcp.Char.Status.race:sub(1,6) == "Yeleni" then
+      snd.def_options[option]["def_warmth"] = "on"
+    elseif gmcp.Char.Status.race:sub(1,6) == "Idreth" then
+      snd.def_options[option]["def_safeguard"] = "on"
     end
+--    end
     local my_def_choice_and_generic_defenses = {}
     if option ~= "none" then
       my_def_choice_and_generic_defenses =
@@ -73296,8 +73296,8 @@ function snd.alertnessHit(dir, name, type)
   if snd.alertnessDir ~= "none" and snd.alertnessDir ~= dir then
     snd.alertness = {}
   end
-  if sndNDB.players[gmcp.Char.Status.name].tether ~= nil and sndNDB.players[name].tether ~= nil then
-    if sndNDB.players[gmcp.Char.Status.name].tether ~= sndNDB.players[name].tether then
+  if sndNDB.players[gmcp.Char.Status.name].city ~= nil and sndNDB.players[name].city ~= nil then
+    if sndNDB.players[gmcp.Char.Status.name].city ~= sndNDB.players[name].city then
       table.insert(snd.alertness, name)
       snd.alertnessDir = dir
       snd.alertType = type
