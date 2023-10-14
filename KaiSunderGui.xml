@@ -2578,6 +2578,7 @@ function kaiUI.onItemsAdd()
     if not kaiUI.itemsSorted then
       sortItems()
     end
+    kaiUI.itemsSorted[item.attrib] = kaiUI.itemsSorted[item.attrib] or {}
     kaiUI.itemsSorted[item.attrib][item.name] = (kaiUI.itemsSorted[item.attrib][item.name] or 0) + 1
     kaiUI.writeItemsHere()
   else
