@@ -70137,7 +70137,7 @@ function snd.syssin_bash()
     else
       battack = "touch shield"
     end
-  elseif not snd.balance.backstab and hasSkill("Backstab") then
+  elseif snd.balance.backstab and hasSkill("Backstab") then
     if snd.wielding("dirk") then
       battack = "backstab "..snd.bashing.target
 	 	else
