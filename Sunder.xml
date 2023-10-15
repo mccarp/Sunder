@@ -4287,10 +4287,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You use Assassination Backstab on \w+\.$</string>
+								<string>You use Assassination Backstab on </string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
+								<integer>2</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
