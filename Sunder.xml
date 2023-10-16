@@ -69833,7 +69833,7 @@ function snd.carnifex_bash()
   elseif hp &lt;= 60 and snd.soul &gt;= 60 then
     battack = "soul consume for health"
 	else
-    battack = "hammer doublebash "..snd.bashing.target
+    battack = "pole spinslash "..snd.bashing.target
 	end
 end
 
