@@ -6954,9 +6954,9 @@ snd.skill_being_used = ""
 							<script>
 if snd.target == matches[5] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[5])
     snd.getting_hit = matches[5]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[5])
   end
 end
 
@@ -6985,17 +6985,17 @@ end</script>
 							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
   if matches[4] == "Shadowprice" then
     if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
-      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
       snd.skill_being_used = matches[5]
+      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
     end
    elseif matches[4] == "Spiritpact" then
     if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
-      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
       snd.skill_being_used = matches[5]
+      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
     end  
   elseif snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-      snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
       snd.skill_being_used = matches[4]
+      snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
   end
   snd.getting_hit = matches[6]
 end
@@ -7054,9 +7054,9 @@ end</script>
 							<name>Conditional w/shadowprice</name>
 							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
     snd.getting_hit = matches[6]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
   end
 end
 -- This might be only Hew and if so it's a pain in the ass.
@@ -7087,8 +7087,8 @@ end</script>
 							<name>Self skills (heals, shields, etc)</name>
 							<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]]()
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]]()
   end
 end</script>
 							<triggerType>0</triggerType>
@@ -7112,8 +7112,8 @@ end</script>
 							<name>Self skills (heals, shields, etc) with conditional</name>
 							<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[2], matches[5])
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[2], matches[5])
   end
 end</script>
 							<triggerType>0</triggerType>
@@ -7127,7 +7127,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) uses? (\w+) (\w+) \((\w+)\).$</string>
+								<string>^(\w+) uses? (\w+) (\w+) \((.+)\).$</string>
 								<string>^(\w+) uses? (\w+) (\w+) (\w+).$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -7139,9 +7139,9 @@ end</script>
 							<name>Attack w/double conditional</name>
 							<script>if snd.target == matches[7] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[7], matches[5], matches[6])
     snd.getting_hit = matches[7]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[7], matches[5], matches[6])
   end
 end
 
@@ -7182,9 +7182,9 @@ snd.skill_being_used = ""
 
 if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[6],matches[5])
     snd.getting_hit = matches[6]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[6],matches[5])
   end
 end</script>
 						<triggerType>0</triggerType>
@@ -73086,7 +73086,7 @@ function snd.took_limb_dmg(limb, amount)
     else
       cecho("&lt;red&gt; " .. limb .. ": " .. snd.limb_dmg[limb])
     end
-    
+
     if limb == snd.resto_limb and (amount == -30 or amount == -40) then
       snd.resto_limb = "none"
       if snd.limb_status[limb] == "mangled" then
@@ -73096,8 +73096,15 @@ function snd.took_limb_dmg(limb, amount)
         snd.target_cured(limb:gsub(" ","_").."_broken")
         snd.limb_status[limb] = "healed"
       end
+    elseif snd.skill_being_used == "Rekindle" or snd.skill_being_used == "Reconstruct" then
+      if snd.limb_dmg[limb] &lt; 33.33 then
+        snd.target_cured(limb:gsub(" ","_").."_broken")
+        snd.limb_status[limb] = "healed"
+      elseif snd.limb_dmg[limb] &lt; 66.66 then
+        snd.target_cured(limb:gsub(" ","_").."_mangled")
+        snd.limb_status[limb] = "broken"
+      end
     end
-    
     local totaldmg = 0
   	snd.limb_dmg.total = 0
     for k, v in pairs(snd.limb_dmg) do
@@ -75353,7 +75360,7 @@ end</script>
                end
             end,
     Reconstruct = function(target, limb)
-                    snd.took_limb_dmg(-15, limb)
+                    snd.took_limb_dmg(limb, 15)
                   end,
     Gash = function(target, lightly)
             enableTrigger("Weapon Hit Confirmation")
@@ -77401,7 +77408,7 @@ end</script>
                end
             end,
     Rekindle = function(target, limb)
-                    snd.took_limb_dmg(-15, limb)
+                    snd.took_limb_dmg(limb, -15)
                   end,
     Censure = function(target, lenient)
                     enableTrigger("Weapon Hit Confirmation")
