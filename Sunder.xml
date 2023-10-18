@@ -2420,15 +2420,25 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Starburst</name>
-								<script>if multimatches[3][3] == gmcp.Char.Vitals.xp then --verified actually starbursted
-  snd.reset_me()
-  snd.toggles.active = false
-  for i in pairs(snd.my_limb_damage) do
-    snd.my_limb_damage[i] = 0
-  end
+								<script>for i in pairs(snd.defenses) do
+  snd.defenses[i].needit = false
+end
+
+snd.reset_me()
+
+snd.toggles.bashing = false
+snd.toggles.attacking = false
+snd.toggles.fasthunt = false
+
+raiseEvent("sunder_update_toggles")
+
+for i=1, 10 do cecho("\n&lt;gold&gt;You starbursted!") end
+
+for i in pairs(snd.my_limb_damage) do
+  snd.my_limb_damage[i] = 0
 end</script>
 								<triggerType>0</triggerType>
-								<conditonLineDelta>4</conditonLineDelta>
+								<conditonLineDelta>1</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
 								<mCommand></mCommand>
 								<packageName></packageName>
@@ -2439,12 +2449,12 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You use Tattoos Starburst.</string>
+									<string>return snd.illusionChecks.abilityGate()</string>
 									<string>Your starburst tattoo flares as the world is momentarily tinted red.</string>
-									<string>^Experience Lost: (\d+) \[total: (\d+)\]$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>2</integer>
-									<integer>2</integer>
+									<integer>3</integer>
+									<integer>4</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -73089,12 +73099,17 @@ function snd.took_limb_dmg(limb, amount)
 
     if limb == snd.resto_limb and (amount == -30 or amount == -40) then
       snd.resto_limb = "none"
-      if snd.limb_status[limb] == "mangled" then
+      if snd.limb_dmg[limb] &lt; 33.33 then
+        if snd.limb_status[limb] == "mangled" then
+          snd.limb_status[limb] = "broken"
+          snd.target_cured(limb:gsub(" ","_").."_mangled")
+        else
+          snd.target_cured(limb:gsub(" ","_").."_broken")
+          snd.limb_status[limb] = "healed"
+        end
+      elseif snd.limb_dmg[limb] &lt; 66.66 then
         snd.target_cured(limb:gsub(" ","_").."_mangled")
         snd.limb_status[limb] = "broken"
-      elseif snd.limb_status[limb] == "broken" then
-        snd.target_cured(limb:gsub(" ","_").."_broken")
-        snd.limb_status[limb] = "healed"
       end
     elseif snd.skill_being_used == "Rekindle" or snd.skill_being_used == "Reconstruct" then
       if snd.limb_dmg[limb] &lt; 33.33 then
