@@ -55671,9 +55671,9 @@ def_cerulean_orb = {defense= "cerulean_orb", type = "ansiLightBlue", effect = "p
 def_white_orb = {defense= "white_orb", type = "ghost_white", effect = "increased ylem gain from eld", balance = {special = "activate white orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 --Generic endgame
-def_safeguard = {defense = "safeguard", type = "normal", effect = "Increased resistances", balance = {special = "safeguard"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
-def_warmth = {defense = "warmth", type = "normal", effect = "Increased resistances", balance = {special = "warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
-def_miasma = {defense = "miasma", type = "normal", effect = "Increased resistances", balance = {special = "miasma"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
+def_safeguard = {defense = "safeguard", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "safeguard"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
+def_warmth = {defense = "warmth", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
+def_miasma = {defense = "miasma", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "miasma"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
 
 --Raceskills or tattoos
 def_pacing = {defense = "pacing", type = "red", effect = "Keep up while following", balance = {needybalancetake = "pacing on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Pacing"},
