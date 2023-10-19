@@ -17396,7 +17396,7 @@ end
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Patches of (\w+)'s body puckers and blackens, brittle as old paper yet slick with some kind of slimeas the shaderot worsens.$</string>
+										<string>^Patches of (\w+)'s body puckers and blackens, brittle as old paper yet slick with some kind of slime as the shaderot worsens.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -17426,7 +17426,7 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Singularity disrupted</name>
-									<script>snd.target_got("disrupted")</script>
+									<script>--This has a chance to aff vomiting</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -21386,7 +21386,7 @@ end</script>
     if matches[4] == "epidermal" then
       snd.target_last_used_salve = "epidermal"
       if matches[6] == "head" then
-        if snd.checksomeAffs({"stuttering","blurry_vision","indifference","sight"}, 1) then
+        if snd.checksomeAffs({"stuttering","blurry_vision","indifference","burnt_eyes","sight"}, 1) then
           snd.target_used("epidermal_head")
         else
           snd.target_got("sight")
@@ -72945,6 +72945,7 @@ epidermal_head = {
 "indifference",
 "stuttering",
 "blurry_vision",
+"burnt_eyes",
 "blindness",
 "gloom",
 "deafness"
@@ -73283,6 +73284,11 @@ function snd.target_used(curative)
               snd.target_cured(snd.cures[curative][affliction])
               aff_found = true
             end
+          elseif curative == "epidermal_head" then
+            if snd.cures[curative][affliction] ~= "gloom" then
+              snd.target_cured(snd.cures[curative][affliction])
+            end
+            aff_found = true
           else
             snd.target_cured(snd.cures[curative][affliction])
             aff_found = true
@@ -75631,9 +75637,6 @@ end</script>
                 end,
       Gloom = function(target)
                 snd.target_got("gloom")
-              	if table.contains(gmcp.Room.Info.details, "darkness") then
-              		snd.target_got("nyctophobia")
-                end  
               end,
       Shaderot = function(target, shadowprice)
                    snd.target_got("rot_benign")
