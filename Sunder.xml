@@ -4318,8 +4318,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^You may backstab another once more\.$</string>
+								<string>^You quietly step back and twirl .+ in your hand\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -17418,7 +17420,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Your singularity corrupts (\w+) with (\w+).$</string>
+										<string>^Your singularity corrupts (\w+) with (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -17550,6 +17552,28 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^(\w+) draws a sudden breath, blackened gaze blinking once as if finding something to focus on, (\w+) body beginning to move.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Shadowbrand cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("shadowbrand")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The Shadowbrand fades away from (\w+)'s forehead\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -18323,6 +18347,28 @@ end</script>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Preymark cured</name>
+										<script>if matches[2] == snd.target then
+  snd.target_cured("preymark")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The grim tattoo marking (\w+) as prey fades from .+ hand\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -70170,14 +70216,14 @@ function snd.shapeshifter_bash()
 end
 
 function snd.syssin_bash()
-  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-  
+  local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+  local endur = 100*(gmcp.Char.Vitals.ep/gmcp.Char.Vitals.maxep)
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
     else
       battack = "touch shield"
     end
-  elseif snd.balance.backstab and hasSkill("Backstab") then
+  elseif snd.balance.backstab and hasSkill("Backstab") and endur &gt; 75 then
     if snd.wielding("dirk") then
       battack = "backstab "..snd.bashing.target
 	 	else
@@ -75674,6 +75720,10 @@ end</script>
       Fever = function(target, shadowprice)
                    snd.target_got("vomiting")
                    snd.target_got("haemophilia")
+                   if snd.checkAff("dementia") then
+                     snd.target_cured("dementia")
+                     snd.target_got("hallucinations")
+                   end
                   end,                   
       Shadowsphere = function(target, shadowprice)
                       if snd.hitting == "You" then snd.balance.shadowsphere = false end
@@ -75681,8 +75731,13 @@ end</script>
                       if shadowprice then snd.target_got("nyctophobia")	end
                     end,                   
       Falter = function(target, shadowprice)
-                	if snd.checkAff("dizziness") then snd.target_got("dementia")
-                  elseif snd.checkAff("weariness") then snd.target_got("exhaustion") end
+                	if snd.checkAff("dizziness") then snd.target_got("dementia") end
+                  if snd.checkAff("weariness") then snd.target_got("exhausted") end
+                end,
+      Shadowbrand = function(target, conditional)
+                  if conditional == "Shadowprice" or conditional == "end" then
+                    snd.target_got("shadowbrand")
+                  end
                 end,
   },
   
@@ -75702,7 +75757,11 @@ end</script>
               snd.last_hit_limb = limb
               local dmg = { [0] = 4, [1] = 8, [2] = 13, [3] = 19, [4] = 25, [5] = 33}
               snd.took_limb_dmg(snd.last_hit_limb, dmg[snd.gravity])
-              snd.gravity = 0
+              if snd.checkAff("shadowbrand") and snd.gravity &gt; 2 then
+                snd.target_cured("shadowbrand")
+              else
+                snd.gravity = 0
+              end
               if snd.class == "Sciomancer" then
               	snd.message("&lt;red&gt;Gravity Total: &lt;white&gt;"..snd.gravity)
               end
@@ -75716,7 +75775,7 @@ end</script>
           	
           	if snd.hitting == "You" then
           		if snd.gravity &gt;= 0 then
-          			snd.gravity = snd.gravity+1
+          			snd.gravity = math.min(5, snd.gravity+1)
           		end
           	end
 
@@ -77957,6 +78016,10 @@ end</script>
       Malady = function(target, spiritpact)
                    snd.target_got("vomiting")
                    snd.target_got("haemophilia")
+                   if snd.checkAff("dementia") then
+                     snd.target_cured("dementia")
+                     snd.target_got("hallucinations")
+                   end
                   end,                   
       Woe = function(target, spiritpact)
                       if snd.hitting == "You" then snd.balance.shadowsphere = false end
@@ -77964,8 +78027,13 @@ end</script>
                       if spiritpact then snd.target_got("nyctophobia")	end
                     end,                   
       Anathemise = function(target, spiritpact)
-                	if snd.checkAff("dizziness") then snd.target_got("dementia")
-                  elseif snd.checkAff("weariness") then snd.target_got("exhaustion") end
+                	if snd.checkAff("dizziness") then snd.target_got("dementia") end
+                  if snd.checkAff("weariness") then snd.target_got("exhausted") end
+                end,
+      Preymark = function(target, conditional)
+                  if conditional == "Spiritpack" or conditional == "end" then
+                    snd.target_got("preymark")
+                  end
                 end,
   },
   
@@ -77985,7 +78053,11 @@ end</script>
               snd.last_hit_limb = limb
               local dmg = { [0] = 4, [1] = 8, [2] = 13, [3] = 19, [4] = 25, [5] = 33}
               snd.took_limb_dmg(snd.last_hit_limb, dmg[snd.gravity])
-              snd.gravity = 0
+              if snd.checkAff("preymark") and snd.gravity &gt; 2 then
+                snd.target_cured("preymark")
+              else
+                snd.gravity = 0
+              end
               if snd.class == "Runecarver" then
               	snd.message("&lt;red&gt;Fungal Total: &lt;white&gt;"..snd.gravity)
               end
@@ -77999,7 +78071,7 @@ end</script>
           	
           	if snd.hitting == "You" then
           		if snd.gravity &gt;= 0 then
-          			snd.gravity = snd.gravity+1
+          			snd.gravity = math.min(5, snd.gravity+1)
           		end
           	end
 
@@ -78010,6 +78082,11 @@ end</script>
     Inoculation = function(target)
                snd.target_got("inoculated") -- imbued
              end,
+  },
+  ["Weaponry"] = {
+    Attack = function(target)
+      enableTrigger("Weapon Hit Confirmation")
+    end,
   },
 
 }</script>
