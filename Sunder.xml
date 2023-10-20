@@ -18346,8 +18346,21 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Sciomancy Repay / Maldeiction Obeisance</name>
 									<script>snd.repay = snd.repay + 1
-
-repay_timer = tempTimer(10.0, function() if snd.repay &gt; 0 then snd.repay = snd.repay - 1 end end)</script>
+snd.repay_timers = snd.repay_timers or {}
+local index = #snd.repay_timers + 1
+local time = 10
+if snd.have_aff("laxity") then
+  time = time + 2
+end
+local command = function()
+                  if snd.repay &gt; 0 then
+                    snd.repay = snd.repay - 1
+                  end
+                  snd.repay_timers[index] = nil
+                  snd.core()
+                end
+                
+snd.repay_timers[index] = {timer = tempTimer(time, command), command = command}</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -18365,6 +18378,41 @@ repay_timer = tempTimer(10.0, function() if snd.repay &gt; 0 then snd.repay = sn
 									<regexCodePropertyList>
 										<integer>3</integer>
 										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Syncopate tracking for repay</name>
+									<script>local syncopateTime = 3
+for _, aff in pairs(snd.mental_affs) do
+  if snd.have_aff(aff) then
+    syncopateTime = syncopateTime+1
+  end
+end
+syncopateTime = syncopateTime + snd.hidden_afflictions
+if snd.repay_timers then
+  for index, timerInfo in pairs(snd.repay_timers) do
+    local timeRemaining = remainingTime(timerInfo.timer)
+    killTimer(timerInfo.timer)
+    timerInfo.timer = tempTimer(timeRemaining+syncopateTime, timerInfo.command)
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ uses Numerology Syncopate on you\.$</string>
+										<string>return snd.illusionChecks.abilityGate()</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>4</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -19672,7 +19720,7 @@ end</script>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>atdum confirmation</name>
 										<script>if matches[3] == snd.target then
   snd.onHit2({})
@@ -73245,19 +73293,12 @@ function snd.target_used(curative)
       for i in pairs(snd.target_has) do
         if snd.target_has[i] == snd.cures[curative][affliction] and not aff_found then
           if curative == "panacea" then
-            if snd.cures[curative][affliction] == "rot_body" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_body")
-            elseif snd.cures[curative][affliction] == "rot_wither" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_wither")
-            elseif snd.cures[curative][affliction] == "rot_heat" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_heat")
-            elseif snd.cures[curative][affliction] == "rot_spirit" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_spirit")
-            elseif snd.cures[curative][affliction] == "rot_benign" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_benign")
+            if snd.cures[curative][affliction]:sub(1,4) == "rot_" and snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) then
+                --won't get cured here
+            else
+              snd.target_cured(snd.cures[curative][affliction])
+              aff_found = true
             end
-            snd.target_cured(snd.cures[curative][affliction])
-            aff_found = true
           elseif snd.target_has[i] == "blighted" or snd.target_has[i] == "infested" then
             if not snd.checkAff("dread") then
               snd.target_cured(snd.cures[curative][affliction])
