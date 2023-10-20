@@ -2465,8 +2465,11 @@ local infoColors =
     mt = "&lt;DarkGoldenrod&gt;",
     cm = "&lt;LightSkyBlue&gt;",
     mxt = "&lt;chartreuse&gt;",
+    mB = "&lt;hot_pink&gt;",
+    mE = "&lt;purple&gt;",
+    aggro = "&lt;OrangeRed&gt;",
   }
-local sortOrder = {"c", "none", "mx","mh", "mxt", "m", "mt", "cm", "t", "et", "ct", "md", "mdt",}
+local sortOrder = {"mE","mb","aggro","c", "none", "mx","mh", "mxt", "m", "mt", "cm", "t", "et", "ct", "md", "mdt",}
 
 local function printLine(number, name, attrib, spacing)
   local color = infoColors[attrib] or "&lt;LightGoldenrod&gt;"
@@ -2489,6 +2492,9 @@ local function sortItems()
   end
   for k, item in pairs(kaiUI.itemsHere) do
     local attrib = item.attrib or "none"
+    if item.icon == "face-angry-horns" then
+      attrib = "aggro"
+    end
     if not table.contains(sortOrder, attrib) then
       display(attrib)
     else
@@ -2527,7 +2533,8 @@ function kaiUI.writeItems2()
     end
   else
     for _, item in pairs(kaiUI.itemsHere) do
-      printLine(item.id, item.name, item.attrib, 6)
+      local attrib = item.icon == "face-angry-horns" and "aggro" or item.attrib
+      printLine(item.id, item.name, attrib, 6)
     end
   end
 end
@@ -2571,6 +2578,7 @@ function kaiUI.onItemsAdd()
     if not kaiUI.itemsSorted then
       sortItems()
     end
+    kaiUI.itemsSorted[item.attrib] = kaiUI.itemsSorted[item.attrib] or {}
     kaiUI.itemsSorted[item.attrib][item.name] = (kaiUI.itemsSorted[item.attrib][item.name] or 0) + 1
     kaiUI.writeItemsHere()
   else

@@ -2420,15 +2420,25 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Starburst</name>
-								<script>if multimatches[3][3] == gmcp.Char.Vitals.xp then --verified actually starbursted
-  snd.reset_me()
-  snd.toggles.active = false
-  for i in pairs(snd.my_limb_damage) do
-    snd.my_limb_damage[i] = 0
-  end
+								<script>for i in pairs(snd.defenses) do
+  snd.defenses[i].needit = false
+end
+
+snd.reset_me()
+
+snd.toggles.bashing = false
+snd.toggles.attacking = false
+snd.toggles.fasthunt = false
+
+raiseEvent("sunder_update_toggles")
+
+for i=1, 10 do cecho("\n&lt;gold&gt;You starbursted!") end
+
+for i in pairs(snd.my_limb_damage) do
+  snd.my_limb_damage[i] = 0
 end</script>
 								<triggerType>0</triggerType>
-								<conditonLineDelta>4</conditonLineDelta>
+								<conditonLineDelta>1</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
 								<mCommand></mCommand>
 								<packageName></packageName>
@@ -2439,12 +2449,12 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You use Tattoos Starburst.</string>
+									<string>return snd.illusionChecks.abilityGate()</string>
 									<string>Your starburst tattoo flares as the world is momentarily tinted red.</string>
-									<string>^Experience Lost: (\d+) \[total: (\d+)\]$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>2</integer>
-									<integer>2</integer>
+									<integer>3</integer>
+									<integer>4</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -4287,10 +4297,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You use Assassination Backstab on \w+\.$</string>
+								<string>You use Assassination Backstab on </string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
+								<integer>2</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -4308,8 +4318,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^You may backstab another once more\.$</string>
+								<string>^You quietly step back and twirl .+ in your hand\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -6954,9 +6966,9 @@ snd.skill_being_used = ""
 							<script>
 if snd.target == matches[5] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[5])
     snd.getting_hit = matches[5]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[5])
   end
 end
 
@@ -6985,17 +6997,17 @@ end</script>
 							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
   if matches[4] == "Shadowprice" then
     if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
-      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
       snd.skill_being_used = matches[5]
+      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
     end
    elseif matches[4] == "Spiritpact" then
     if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
-      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
       snd.skill_being_used = matches[5]
+      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
     end  
   elseif snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-      snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
       snd.skill_being_used = matches[4]
+      snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
   end
   snd.getting_hit = matches[6]
 end
@@ -7054,9 +7066,9 @@ end</script>
 							<name>Conditional w/shadowprice</name>
 							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
     snd.getting_hit = matches[6]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
   end
 end
 -- This might be only Hew and if so it's a pain in the ass.
@@ -7087,8 +7099,8 @@ end</script>
 							<name>Self skills (heals, shields, etc)</name>
 							<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]]()
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]]()
   end
 end</script>
 							<triggerType>0</triggerType>
@@ -7112,8 +7124,8 @@ end</script>
 							<name>Self skills (heals, shields, etc) with conditional</name>
 							<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[2], matches[5])
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[2], matches[5])
   end
 end</script>
 							<triggerType>0</triggerType>
@@ -7127,7 +7139,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) uses? (\w+) (\w+) \((\w+)\).$</string>
+								<string>^(\w+) uses? (\w+) (\w+) \((.+)\).$</string>
 								<string>^(\w+) uses? (\w+) (\w+) (\w+).$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -7139,9 +7151,9 @@ end</script>
 							<name>Attack w/double conditional</name>
 							<script>if snd.target == matches[7] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[7], matches[5], matches[6])
     snd.getting_hit = matches[7]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[7], matches[5], matches[6])
   end
 end
 
@@ -7182,9 +7194,9 @@ snd.skill_being_used = ""
 
 if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[6],matches[5])
     snd.getting_hit = matches[6]
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](matches[6],matches[5])
   end
 end</script>
 						<triggerType>0</triggerType>
@@ -12756,7 +12768,7 @@ end
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList />
 									<regexCodePropertyList />
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Maul Hit Confirmation</name>
 										<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -17386,7 +17398,7 @@ end
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Patches of (\w+)'s body puckers and blackens, brittle as old paper yet slick with some kind of slimeas the shaderot worsens.$</string>
+										<string>^Patches of (\w+)'s body puckers and blackens, brittle as old paper yet slick with some kind of slime as the shaderot worsens.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -17408,7 +17420,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Your singularity corrupts (\w+) with (\w+).$</string>
+										<string>^Your singularity corrupts (\w+) with (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -17416,7 +17428,7 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Singularity disrupted</name>
-									<script>snd.target_got("disrupted")</script>
+									<script>--This has a chance to aff vomiting</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -17540,6 +17552,28 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^(\w+) draws a sudden breath, blackened gaze blinking once as if finding something to focus on, (\w+) body beginning to move.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Shadowbrand cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("shadowbrand")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The Shadowbrand fades away from (\w+)'s forehead\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -18316,6 +18350,28 @@ end</script>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Preymark cured</name>
+										<script>if matches[2] == snd.target then
+  snd.target_cured("preymark")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The grim tattoo marking (\w+) as prey fades from .+ hand\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
 								</TriggerGroup>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -18336,8 +18392,21 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Sciomancy Repay / Maldeiction Obeisance</name>
 									<script>snd.repay = snd.repay + 1
-
-repay_timer = tempTimer(10.0, function() if snd.repay &gt; 0 then snd.repay = snd.repay - 1 end end)</script>
+snd.repay_timers = snd.repay_timers or {}
+local index = #snd.repay_timers + 1
+local time = 10
+if snd.have_aff("laxity") then
+  time = time + 2
+end
+local command = function()
+                  if snd.repay &gt; 0 then
+                    snd.repay = snd.repay - 1
+                  end
+                  snd.repay_timers[index] = nil
+                  snd.core()
+                end
+                
+snd.repay_timers[index] = {timer = tempTimer(time, command), command = command}</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -18355,6 +18424,41 @@ repay_timer = tempTimer(10.0, function() if snd.repay &gt; 0 then snd.repay = sn
 									<regexCodePropertyList>
 										<integer>3</integer>
 										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Syncopate tracking for repay</name>
+									<script>local syncopateTime = 3
+for _, aff in pairs(snd.mental_affs) do
+  if snd.have_aff(aff) then
+    syncopateTime = syncopateTime+1
+  end
+end
+syncopateTime = syncopateTime + snd.hidden_afflictions
+if snd.repay_timers then
+  for index, timerInfo in pairs(snd.repay_timers) do
+    local timeRemaining = remainingTime(timerInfo.timer)
+    killTimer(timerInfo.timer)
+    timerInfo.timer = tempTimer(timeRemaining+syncopateTime, timerInfo.command)
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ uses Numerology Syncopate on you\.$</string>
+										<string>return snd.illusionChecks.abilityGate()</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>4</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -19662,7 +19766,7 @@ end</script>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>atdum confirmation</name>
 										<script>if matches[3] == snd.target then
   snd.onHit2({})
@@ -21376,7 +21480,7 @@ end</script>
     if matches[4] == "epidermal" then
       snd.target_last_used_salve = "epidermal"
       if matches[6] == "head" then
-        if snd.checksomeAffs({"stuttering","blurry_vision","indifference","sight"}, 1) then
+        if snd.checksomeAffs({"stuttering","blurry_vision","indifference","burnt_eyes","sight"}, 1) then
           snd.target_used("epidermal_head")
         else
           snd.target_got("sight")
@@ -22739,7 +22843,7 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Heelrush</name>
 									<script></script>
 									<triggerType>0</triggerType>
@@ -24105,7 +24209,10 @@ end</script>
   snd.track_restoration(matches[2])
   snd.current_restoration_aff = ""
   local aff_restoration_timer = true
-    
+  local restoTime = 4.05
+  if snd.checkAff("rot_body") then
+    restoTime = restoTime + 4.3
+  end
   if snd.resto_limb == "torso" then
     if snd.checkAff("collapsed_lung") then
       snd.current_restoration_aff = "collapsed_lung"
@@ -24121,7 +24228,7 @@ end</script>
       snd.current_restoration_aff = "deepwound"
     else
       aff_restoration_timer = false
-      restoration_timer = tempTimer(4.05, [[if snd.enemy_used_regenerate == true then
+      restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
                                               snd.took_limb_dmg(snd.resto_limb, -40)
                                             else 
                                               snd.took_limb_dmg(snd.resto_limb, -30)
@@ -24137,7 +24244,7 @@ end</script>
       snd.current_restoration_aff = "voidgaze"
     else
       aff_restoration_timer = false
-      restoration_timer = tempTimer(4.05, [[if snd.enemy_used_regenerate == true then
+      restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
                                               snd.took_limb_dmg(snd.resto_limb, -40)
                                             else 
                                               snd.took_limb_dmg(snd.resto_limb, -30)
@@ -24147,7 +24254,7 @@ end</script>
 --All limbs don't have special resto affs, so just remove the damage accrued.
   else
     aff_restoration_timer = false
-      restoration_timer = tempTimer(4.05, [[if snd.enemy_used_regenerate == true then
+      restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
                                               snd.took_limb_dmg(snd.resto_limb, -40)
                                             else 
                                               snd.took_limb_dmg(snd.resto_limb, -30)
@@ -24155,7 +24262,7 @@ end</script>
                                   ]])
   end
 
-  if aff_restoration_timer then restoration_timer = tempTimer(4.05,[[snd.target_cured(snd.current_restoration_aff)]]) end
+  if aff_restoration_timer then restoration_timer = tempTimer(restoTime,[[snd.target_cured(snd.current_restoration_aff)]]) end
 
 end
 
@@ -28517,32 +28624,9 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>spirit globe</name>
-							<script>if snd.faction == "spirit" then
- snd.send("get globe")
-end</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff007f</mFgColor>
-							<mBgColor>#000000</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>Pulsing faintly, a globe of glowing spirit lies here.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>0</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>shadow globe</name>
-							<script>if snd.faction == "shadow" then
- snd.send("get globe")
-end</script>
+							<script>snd.send("get globe")
+</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -28555,8 +28639,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>A globe of gloaming shadow rests upon the ground here, glistening darkly.</string>
+								<string>Pulsing faintly, a globe of glowing spirit lies here.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>0</integer>
 								<integer>0</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -34447,7 +34533,7 @@ for _, landmark in ipairs(snd.landmarks_descs) do
 end</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^landmarks$</regex>
+						<regex>^snd landmarks$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>landmarks</name>
@@ -51295,7 +51381,7 @@ elseif matches[3] then
 else
   snd.fishinginfo.currentfish = snd.fishinginfo.currentfish or {}
   snd.fishmsg("&lt;SeaGreen&gt;You have &lt;green&gt;"..snd.fishinginfo.currentfish.. "&lt;SeaGreen&gt; fish in your bucket(s)!")
-  demonnic.chat:cecho("Misc", "&lt;LightSeaGreen&gt;FISHBUCKET: &lt;SeaGreen&gt;You have &lt;green&gt;" ..snd.fishinginfo.currentfish.. "&lt;SeaGreen&gt; fish in your bucket(s)!\n")
+--  demonnic.chat:cecho("Misc", "&lt;LightSeaGreen&gt;FISHBUCKET: &lt;SeaGreen&gt;You have &lt;green&gt;" ..snd.fishinginfo.currentfish.. "&lt;SeaGreen&gt; fish in your bucket(s)!\n")
 end
 
 
@@ -52172,21 +52258,24 @@ registerAnonymousEventHandler("gmcp.Char.Name", "snd.login")</script>
 					<packageName></packageName>
 					<script>function snd.deathCheck()
   if gmcp.Char.Afflictions.Add.name == "dead" then
-      snd.reset_me()
-      snd.toggles.active = false
-      raiseEvent("sunder_update_toggles")
-      for i in pairs(snd.my_limb_damage) do
-       snd.my_limb_damage[i] = 0
-      end
+    snd.reset_me()
+    snd.toggles.active = false
+    raiseEvent("sunder_update_toggles")
+    for i in pairs(snd.my_limb_damage) do
+      snd.my_limb_damage[i] = 0
+    end
   end
 end
 
 function snd.deathClear()
   for _, aff in pairs(gmcp.Char.Afflictions.Remove) do
     if aff == "dead" then
-     snd.reset_me()
-     snd.toggles.active = true
-     raiseEvent("sunder_update_toggles")
+      snd.reset_me()
+      for i in pairs(snd.defenses) do
+        snd.defenses[i].needit = false
+      end
+      snd.toggles.active = true
+      raiseEvent("sunder_update_toggles")
     end
   end
 end
@@ -55658,9 +55747,9 @@ def_cerulean_orb = {defense= "cerulean_orb", type = "ansiLightBlue", effect = "p
 def_white_orb = {defense= "white_orb", type = "ghost_white", effect = "increased ylem gain from eld", balance = {special = "activate white orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 --Generic endgame
-def_safeguard = {defense = "safeguard", type = "normal", effect = "Increased resistances", balance = {special = "safeguard"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
-def_warmth = {defense = "warmth", type = "normal", effect = "Increased resistances", balance = {special = "warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
-def_miasma = {defense = "miasma", type = "normal", effect = "Increased resistances", balance = {special = "miasma"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
+def_safeguard = {defense = "safeguard", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "safeguard"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
+def_warmth = {defense = "warmth", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
+def_miasma = {defense = "miasma", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "miasma"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
 
 --Raceskills or tattoos
 def_pacing = {defense = "pacing", type = "red", effect = "Keep up while following", balance = {needybalancetake = "pacing on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Pacing"},
@@ -58409,6 +58498,7 @@ snd.areas = {
 {area = "Mejev Nider Nesve wo Ti, Matati wo Eja sota Aran wo Aransa", level = "99+", targets = {"a four-winged ayvarin", "a swift vukon", "a predatory kashnalda",}},
 {area = "a dimly lit subterranean river", level = "99+", targets = {"an iridescent bubble of elemental energies", "a long-finned, cerulean amphibian", "a billowing cloud of shifting luminescence", "a spiny many-armed water elemental", "a tempestuous wave elemental", "a shimmering piscine elemental"}},
 {area = "the Offspring", level = "90+", targets = {"a pudgy water badger", "a flat-snouted scaled sheep", "a chromatic aquatic dragonfly", " a muscular freshwater hound", "a long-tailed bullfrog", "an amphibious, ebon-winged hawk", "a predatory river canine",}},
+{area = "Endless Battlefield", level = "90+", targets = {"a blood-drenched soldier wielding a claymore", "a blood-drenched swordsman", "a blood-drenched spear fighter", "a blood-drenched archer",}},
 }
 
 sunder_areaPaths = {
@@ -69341,6 +69431,7 @@ snd.global_items = {
 
 snd.global_targets = {
 --elds
+"Match:a coalition of %a+ Dramlai Defenders",
 "a billowing dust eld",
 "an oozing magma eld",
 "a shifting sand eld",
@@ -69828,7 +69919,7 @@ function snd.carnifex_bash()
   elseif hp &lt;= 60 and snd.soul &gt;= 60 then
     battack = "soul consume for health"
 	else
-    battack = "hammer doublebash "..snd.bashing.target
+    battack = "pole spinslash "..snd.bashing.target
 	end
 end
 
@@ -70125,14 +70216,14 @@ function snd.shapeshifter_bash()
 end
 
 function snd.syssin_bash()
-  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-  
+  local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+  local endur = 100*(gmcp.Char.Vitals.ep/gmcp.Char.Vitals.maxep)
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
     else
       battack = "touch shield"
     end
-  elseif not snd.balance.backstab and hasSkill("Backstab") then
+  elseif snd.balance.backstab and hasSkill("Backstab") and endur &gt; 75 then
     if snd.wielding("dirk") then
       battack = "backstab "..snd.bashing.target
 	 	else
@@ -71872,15 +71963,15 @@ function snd.load_def(option)
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
-    if snd.class~="None" then --200 check
-      if gmcp.Char.Status.race:sub(1,6) == "Azudim" then
-        snd.def_options[option]["def_miasma"] = "on"
-      elseif gmcp.Char.Status.race:sub(1,6) == "Yeleni" then
-        snd.def_options[option]["def_warmth"] = "on"
-      elseif gmcp.Char.Status.race:sub(1,6) == "Idreth" then
-        snd.def_options[option]["def_safeguard"] = "on"
-      end
+--    if snd.class~="None" then --200 check
+    if gmcp.Char.Status.race:sub(1,6) == "Azudim" then
+      snd.def_options[option]["def_miasma"] = "on"
+    elseif gmcp.Char.Status.race:sub(1,6) == "Yeleni" then
+      snd.def_options[option]["def_warmth"] = "on"
+    elseif gmcp.Char.Status.race:sub(1,6) == "Idreth" then
+      snd.def_options[option]["def_safeguard"] = "on"
     end
+--    end
     local my_def_choice_and_generic_defenses = {}
     if option ~= "none" then
       my_def_choice_and_generic_defenses =
@@ -72930,6 +73021,7 @@ epidermal_head = {
 "indifference",
 "stuttering",
 "blurry_vision",
+"burnt_eyes",
 "blindness",
 "gloom",
 "deafness"
@@ -73081,18 +73173,30 @@ function snd.took_limb_dmg(limb, amount)
     else
       cecho("&lt;red&gt; " .. limb .. ": " .. snd.limb_dmg[limb])
     end
-    
+
     if limb == snd.resto_limb and (amount == -30 or amount == -40) then
       snd.resto_limb = "none"
-      if snd.limb_status[limb] == "mangled" then
+      if snd.limb_dmg[limb] &lt; 33.33 then
+        if snd.limb_status[limb] == "mangled" then
+          snd.limb_status[limb] = "broken"
+          snd.target_cured(limb:gsub(" ","_").."_mangled")
+        else
+          snd.target_cured(limb:gsub(" ","_").."_broken")
+          snd.limb_status[limb] = "healed"
+        end
+      elseif snd.limb_dmg[limb] &lt; 66.66 then
         snd.target_cured(limb:gsub(" ","_").."_mangled")
         snd.limb_status[limb] = "broken"
-      elseif snd.limb_status[limb] == "broken" then
+      end
+    elseif snd.skill_being_used == "Rekindle" or snd.skill_being_used == "Reconstruct" then
+      if snd.limb_dmg[limb] &lt; 33.33 then
         snd.target_cured(limb:gsub(" ","_").."_broken")
         snd.limb_status[limb] = "healed"
+      elseif snd.limb_dmg[limb] &lt; 66.66 then
+        snd.target_cured(limb:gsub(" ","_").."_mangled")
+        snd.limb_status[limb] = "broken"
       end
     end
-    
     local totaldmg = 0
   	snd.limb_dmg.total = 0
     for k, v in pairs(snd.limb_dmg) do
@@ -73238,24 +73342,24 @@ function snd.target_used(curative)
       for i in pairs(snd.target_has) do
         if snd.target_has[i] == snd.cures[curative][affliction] and not aff_found then
           if curative == "panacea" then
-            if snd.cures[curative][affliction] == "rot_body" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_body")
-            elseif snd.cures[curative][affliction] == "rot_wither" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_wither")
-            elseif snd.cures[curative][affliction] == "rot_heat" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_heat")
-            elseif snd.cures[curative][affliction] == "rot_spirit" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_spirit")
-            elseif snd.cures[curative][affliction] == "rot_benign" and (not snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) and table.contains(gmcp.Room.Info.details, "darkness")) then
-              snd.target_cured("rot_benign")
+            if snd.cures[curative][affliction]:sub(1,4) == "rot_" and snd.checksomeAffs({"woe_curse","shadowsphere",}, 1) then
+                --won't get cured here
+            else
+              snd.target_cured(snd.cures[curative][affliction])
+              aff_found = true
             end
-            snd.target_cured(snd.cures[curative][affliction])
-            aff_found = true
           elseif snd.target_has[i] == "blighted" or snd.target_has[i] == "infested" then
             if not snd.checkAff("dread") then
               snd.target_cured(snd.cures[curative][affliction])
               aff_found = true
             end
+          elseif curative == "epidermal_head" then
+            if snd.cures[curative][affliction] ~= "gloom" then
+              snd.target_cured(snd.cures[curative][affliction])
+            end
+            aff_found = true
+          elseif snd.cures[curative][affliction] == "no_caloric" and snd.checkAff("rot_heat") then
+            --nothing happens
           else
             snd.target_cured(snd.cures[curative][affliction])
             aff_found = true
@@ -73292,8 +73396,8 @@ function snd.alertnessHit(dir, name, type)
   if snd.alertnessDir ~= "none" and snd.alertnessDir ~= dir then
     snd.alertness = {}
   end
-  if sndNDB.players[gmcp.Char.Status.name].tether ~= nil and sndNDB.players[name].tether ~= nil then
-    if sndNDB.players[gmcp.Char.Status.name].tether ~= sndNDB.players[name].tether then
+  if sndNDB.players[gmcp.Char.Status.name].city ~= nil and sndNDB.players[name].city ~= nil then
+    if sndNDB.players[gmcp.Char.Status.name].city ~= sndNDB.players[name].city then
       table.insert(snd.alertness, name)
       snd.alertnessDir = dir
       snd.alertType = type
@@ -75348,7 +75452,7 @@ end</script>
                end
             end,
     Reconstruct = function(target, limb)
-                    snd.took_limb_dmg(-15, limb)
+                    snd.took_limb_dmg(limb, 15)
                   end,
     Gash = function(target, lightly)
             enableTrigger("Weapon Hit Confirmation")
@@ -75604,9 +75708,6 @@ end</script>
                 end,
       Gloom = function(target)
                 snd.target_got("gloom")
-              	if table.contains(gmcp.Room.Info.details, "darkness") then
-              		snd.target_got("nyctophobia")
-                end  
               end,
       Shaderot = function(target, shadowprice)
                    snd.target_got("rot_benign")
@@ -75619,6 +75720,10 @@ end</script>
       Fever = function(target, shadowprice)
                    snd.target_got("vomiting")
                    snd.target_got("haemophilia")
+                   if snd.checkAff("dementia") then
+                     snd.target_cured("dementia")
+                     snd.target_got("hallucinations")
+                   end
                   end,                   
       Shadowsphere = function(target, shadowprice)
                       if snd.hitting == "You" then snd.balance.shadowsphere = false end
@@ -75626,8 +75731,13 @@ end</script>
                       if shadowprice then snd.target_got("nyctophobia")	end
                     end,                   
       Falter = function(target, shadowprice)
-                	if snd.checkAff("dizziness") then snd.target_got("dementia")
-                  elseif snd.checkAff("weariness") then snd.target_got("exhaustion") end
+                	if snd.checkAff("dizziness") then snd.target_got("dementia") end
+                  if snd.checkAff("weariness") then snd.target_got("exhausted") end
+                end,
+      Shadowbrand = function(target, conditional)
+                  if conditional == "Shadowprice" or conditional == "end" then
+                    snd.target_got("shadowbrand")
+                  end
                 end,
   },
   
@@ -75647,7 +75757,11 @@ end</script>
               snd.last_hit_limb = limb
               local dmg = { [0] = 4, [1] = 8, [2] = 13, [3] = 19, [4] = 25, [5] = 33}
               snd.took_limb_dmg(snd.last_hit_limb, dmg[snd.gravity])
-              snd.gravity = 0
+              if snd.checkAff("shadowbrand") and snd.gravity &gt; 2 then
+                snd.target_cured("shadowbrand")
+              else
+                snd.gravity = 0
+              end
               if snd.class == "Sciomancer" then
               	snd.message("&lt;red&gt;Gravity Total: &lt;white&gt;"..snd.gravity)
               end
@@ -75661,7 +75775,7 @@ end</script>
           	
           	if snd.hitting == "You" then
           		if snd.gravity &gt;= 0 then
-          			snd.gravity = snd.gravity+1
+          			snd.gravity = math.min(5, snd.gravity+1)
           		end
           	end
 
@@ -77396,7 +77510,7 @@ end</script>
                end
             end,
     Rekindle = function(target, limb)
-                    snd.took_limb_dmg(-15, limb)
+                    snd.took_limb_dmg(limb, -15)
                   end,
     Censure = function(target, lenient)
                     enableTrigger("Weapon Hit Confirmation")
@@ -77902,6 +78016,10 @@ end</script>
       Malady = function(target, spiritpact)
                    snd.target_got("vomiting")
                    snd.target_got("haemophilia")
+                   if snd.checkAff("dementia") then
+                     snd.target_cured("dementia")
+                     snd.target_got("hallucinations")
+                   end
                   end,                   
       Woe = function(target, spiritpact)
                       if snd.hitting == "You" then snd.balance.shadowsphere = false end
@@ -77909,8 +78027,13 @@ end</script>
                       if spiritpact then snd.target_got("nyctophobia")	end
                     end,                   
       Anathemise = function(target, spiritpact)
-                	if snd.checkAff("dizziness") then snd.target_got("dementia")
-                  elseif snd.checkAff("weariness") then snd.target_got("exhaustion") end
+                	if snd.checkAff("dizziness") then snd.target_got("dementia") end
+                  if snd.checkAff("weariness") then snd.target_got("exhausted") end
+                end,
+      Preymark = function(target, conditional)
+                  if conditional == "Spiritpack" or conditional == "end" then
+                    snd.target_got("preymark")
+                  end
                 end,
   },
   
@@ -77930,7 +78053,11 @@ end</script>
               snd.last_hit_limb = limb
               local dmg = { [0] = 4, [1] = 8, [2] = 13, [3] = 19, [4] = 25, [5] = 33}
               snd.took_limb_dmg(snd.last_hit_limb, dmg[snd.gravity])
-              snd.gravity = 0
+              if snd.checkAff("preymark") and snd.gravity &gt; 2 then
+                snd.target_cured("preymark")
+              else
+                snd.gravity = 0
+              end
               if snd.class == "Runecarver" then
               	snd.message("&lt;red&gt;Fungal Total: &lt;white&gt;"..snd.gravity)
               end
@@ -77944,7 +78071,7 @@ end</script>
           	
           	if snd.hitting == "You" then
           		if snd.gravity &gt;= 0 then
-          			snd.gravity = snd.gravity+1
+          			snd.gravity = math.min(5, snd.gravity+1)
           		end
           	end
 
@@ -77955,6 +78082,11 @@ end</script>
     Inoculation = function(target)
                snd.target_got("inoculated") -- imbued
              end,
+  },
+  ["Weaponry"] = {
+    Attack = function(target)
+      enableTrigger("Weapon Hit Confirmation")
+    end,
   },
 
 }</script>
@@ -78699,6 +78831,7 @@ end</script>
     buckle = "fracture",
     gybe = "skullbash",
     wreck = "pulp",
+    crack = "slam",
   }
 local attackDamage = {
   gutsmash = 11.99,
@@ -79057,6 +79190,9 @@ function snd.track_restoration(target)
   if target:lower() == snd.target:lower() then
     snd.timers.restoration.start = os.clock()
     local limit = 4.15
+    if snd.checkAff("rot_body") then
+      limit = limit+4.3
+    end
     snd.timers.restoration.limit = limit
   end
 end
