@@ -12766,7 +12766,7 @@ end
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList />
 									<regexCodePropertyList />
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Maul Hit Confirmation</name>
 										<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -28527,32 +28527,9 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>spirit globe</name>
-							<script>if snd.faction == "spirit" then
- snd.send("get globe")
-end</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff007f</mFgColor>
-							<mBgColor>#000000</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>Pulsing faintly, a globe of glowing spirit lies here.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>0</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>shadow globe</name>
-							<script>if snd.faction == "shadow" then
- snd.send("get globe")
-end</script>
+							<script>snd.send("get globe")
+</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -28565,8 +28542,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>A globe of gloaming shadow rests upon the ground here, glistening darkly.</string>
+								<string>Pulsing faintly, a globe of glowing spirit lies here.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>0</integer>
 								<integer>0</integer>
 							</regexCodePropertyList>
 						</Trigger>
