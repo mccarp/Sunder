@@ -24163,7 +24163,10 @@ end</script>
   snd.track_restoration(matches[2])
   snd.current_restoration_aff = ""
   local aff_restoration_timer = true
-    
+  local restoTime = 4.05
+  if snd.checkAff("rot_body") then
+    restoTime = restoTime + 4.3
+  end
   if snd.resto_limb == "torso" then
     if snd.checkAff("collapsed_lung") then
       snd.current_restoration_aff = "collapsed_lung"
@@ -24179,7 +24182,7 @@ end</script>
       snd.current_restoration_aff = "deepwound"
     else
       aff_restoration_timer = false
-      restoration_timer = tempTimer(4.05, [[if snd.enemy_used_regenerate == true then
+      restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
                                               snd.took_limb_dmg(snd.resto_limb, -40)
                                             else 
                                               snd.took_limb_dmg(snd.resto_limb, -30)
@@ -24195,7 +24198,7 @@ end</script>
       snd.current_restoration_aff = "voidgaze"
     else
       aff_restoration_timer = false
-      restoration_timer = tempTimer(4.05, [[if snd.enemy_used_regenerate == true then
+      restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
                                               snd.took_limb_dmg(snd.resto_limb, -40)
                                             else 
                                               snd.took_limb_dmg(snd.resto_limb, -30)
@@ -24205,7 +24208,7 @@ end</script>
 --All limbs don't have special resto affs, so just remove the damage accrued.
   else
     aff_restoration_timer = false
-      restoration_timer = tempTimer(4.05, [[if snd.enemy_used_regenerate == true then
+      restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
                                               snd.took_limb_dmg(snd.resto_limb, -40)
                                             else 
                                               snd.took_limb_dmg(snd.resto_limb, -30)
@@ -24213,7 +24216,7 @@ end</script>
                                   ]])
   end
 
-  if aff_restoration_timer then restoration_timer = tempTimer(4.05,[[snd.target_cured(snd.current_restoration_aff)]]) end
+  if aff_restoration_timer then restoration_timer = tempTimer(restoTime,[[snd.target_cured(snd.current_restoration_aff)]]) end
 
 end
 
@@ -73309,6 +73312,8 @@ function snd.target_used(curative)
               snd.target_cured(snd.cures[curative][affliction])
             end
             aff_found = true
+          elseif snd.cures[curative][affliction] == "no_caloric" and snd.checkAff("rot_heat") then
+            --nothing happens
           else
             snd.target_cured(snd.cures[curative][affliction])
             aff_found = true
@@ -79108,6 +79113,9 @@ function snd.track_restoration(target)
   if target:lower() == snd.target:lower() then
     snd.timers.restoration.start = os.clock()
     local limit = 4.15
+    if snd.checkAff("rot_body") then
+      limit = limit+4.3
+    end
     snd.timers.restoration.limit = limit
   end
 end
