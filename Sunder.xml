@@ -55716,7 +55716,7 @@ def_levitation = {defense = "levitation", type = "normal", effect = "Protects ag
 def_frost = {defense = "temperance", type = "normal", effect = "Protects against fire damage", balance = {vial = "frost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_speed = {defense = "speed", type = "green", effect = "Protects against aeon affliction", balance = {drink = "speed"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_caloric = {defense = "insulation", type = "normal", effect = "Protects against cold damage", balance = {salve = "caloric"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_vigor = {defense = "vigor", type = "normal", effect = "Critical hits heal you", balance = {drink = "vigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_vigor = {defense = "vigor", type = "normal", effect = "Critical hits heal you", balance = {vial = "vigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_fangbarrier = {defense = "fangbarrier", type = "normal", effect = "Protects against syssin bites", balance = {special = "apply paste"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_rebounding = {defense = "rebounding", type = "blue", effect = "Causes weapon attacks to backfire", balance = {smoke = "reishi"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_reflection = {defense = "reflection", type = "blue", effect = "Takes your place for 1 attack", balance = {special = "cast reflection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Reflection"},
