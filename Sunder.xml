@@ -74037,6 +74037,13 @@ function snd.target_locked()
     and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1) then
     return true
   end
+  
+  if snd.checkAff("slough") and snd.checkAff("paresis") and 
+    ((snd.checkAff("anorexia", 1) and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1)) or
+      snd.checkAff("destroyed_throat"))
+     then
+    return true
+  end
 
 	return false
 end
