@@ -22038,7 +22038,7 @@ end</script>
 							<name>Sunder Parry</name>
 							<script>if matches[2] == snd.target then
   if #snd.last_affs &gt;= 1 then
-    if snd.last_affs[1] == "blaze" then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
       snd.used.rebounding = true
     else
       for i in pairs(snd.last_affs) do
@@ -22092,7 +22092,7 @@ disableTrigger("Sunder Parry")</script>
 							<name>Sunder Dodge</name>
 							<script>if matches[2] == snd.target then
   if #snd.last_affs &gt;= 1 then
-    if snd.last_affs[1] == "blaze" then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
       snd.used.rebounding = true
     else
       for i in pairs(snd.last_affs) do
@@ -42980,11 +42980,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dsk "..snd.target.." blaze "..tohit[1]
-				call = "wt Afflicting "..snd.target..": blaze, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -43069,11 +43069,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
 				string = "razestrike "..snd.target.." "..tohit[1]
-				call = "wt Afflicting "..snd.target..": Blaze, "..tohit[1]..snd.sep
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif iceblast then
 				string = "blade release right iceblast "..snd.target..snd.sep.."blade release left iceblast "..snd.target..snd.sep.."dsk "..snd.target.." "..tohit[2].." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
@@ -43169,11 +43169,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dsk "..snd.target.." blaze "..tohit[1]
-				call = "wt Afflicting "..snd.target..": blaze, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal then
 				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -43342,11 +43342,11 @@ end</script>
       while #tohit &lt; 3 do
         table.insert(tohit, extraaff)
       end
-      if snd.used.shield then
-        string = "raze " .. snd.target
-      elseif snd.used.rebounding then
-        string = "razestrike " .. snd.target .. " " .. tohit[1]
-        call = "wt Afflicting " .. snd.target .. ": " .. tohit[1] .. snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
       else
         string = "dsk " .. snd.target .. " " .. tohit[2] .. " " .. tohit[1]
         call = "wt Afflicting " .. snd.target .. ": " .. tohit[2] .. ", " .. tohit[1] .. snd.sep
@@ -43452,11 +43452,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dsk "..snd.target.." blaze "..tohit[1]
-				call = "wt Afflicting "..snd.target..": blaze, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -43597,10 +43597,10 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "rsk "..snd.target.." "..tohit[1]
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			else
 				string = "dsk "..snd.target.." "..tohit[2].." "..tohit[1]
@@ -43712,10 +43712,10 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "rsk "..snd.target.." "..tohit[1]
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			else
 				string = "dsk "..snd.target.." "..tohit[2].." "..tohit[1]
@@ -43914,7 +43914,7 @@ function snd.attack_function()
 	 -- end limb picking logic
 	 -- on to attacking logic!
 	 if snd.used.shield and snd.used.rebounding then -- baddie is turtling
-    string = "raze "..snd.target -- raze has static balance cost
+    string = "razestrike "..snd.target.." blaze"
 	 elseif snd.used.shield or snd.used.rebounding then
     string = "target nothing with left"..snd.sep.."target "..right.." with right"..snd.sep.."razestrike "..snd.target.." trauma"
 	 -- here's the tricky part, we're checking for optimal conditions
@@ -43989,7 +43989,7 @@ function snd.attack_function()
 	 end
   end
   if snd.used.shield and snd.used.rebounding then
-   string = "raze "..snd.target
+   string = "razestrike "..snd.target .." blaze"
 	elseif snd.used.shield then
 	 string = "target nothing with left"..snd.sep.."target "..left.." with right"..snd.sep.."razestrike "..snd.target.." trauma"
   elseif rupture ~= "none" then
@@ -48177,11 +48177,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dpl "..snd.target.." wasi "..snd.rev_empower(tohit[1])
-				call = "wt Afflicting "..snd.target..": wasi, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "deceive "..snd.target.." wasi"
+      elseif snd.used.shield or snd.used.rebounding then
+				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -48266,10 +48266,10 @@ end</script>
   				table.insert(tohit, extraaff)
   			end
   			-- now to decide what attack to use!
-  			if snd.used.shield then
-  				string = "raze "..snd.target
-  			elseif snd.used.rebounding then
-  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
+  			if snd.used.shield and snd.used.rebounding then
+  				string = "deceive "..snd.target.." wasi"
+        elseif snd.used.shield or snd.used.rebounding then
+  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			elseif telvi then
   				string = "blade scribe right telvi "..snd.target..snd.sep.."blade scribe left telvi "..snd.target..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
@@ -48367,11 +48367,11 @@ if snd.class == "Revenant" then
   				table.insert(tohit, extraaff)
   			end
   			-- now to decide what attack to use!
-  			if snd.used.shield then
-  				string = "raze "..snd.target
-  			elseif snd.used.rebounding then
-  				string = "dpl "..snd.target.." wasi "..snd.rev_empower(tohit[1])
-  				call = "wt Afflicting "..snd.target..": wasi, "..tohit[1]..snd.sep
+  			if snd.used.shield and snd.used.rebounding then
+  				string = "deceive "..snd.target.." wasi"
+        elseif snd.used.shield or snd.used.rebounding then
+  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+  				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			elseif atdum then -- vorpal equiv
   				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -48457,10 +48457,10 @@ end
   				table.insert(tohit, extraaff)
   			end
   			-- now to decide what attack to use!
-  			if snd.used.shield then
-  				string = "raze "..snd.target
-  			elseif snd.used.rebounding then
-  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
+  			if snd.used.shield and snd.used.rebounding then
+  				string = "deceive "..snd.target.." wasi"
+        elseif snd.used.shield or snd.used.rebounding then
+  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			else
   				string = "dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
@@ -73422,7 +73422,7 @@ function snd.onHit()
   snd.last_affs = {}
 
   if #snd.maybe_affs &gt;= 1 and (snd.getting_hit == snd.target) then
-    if snd.maybe_affs[1] == "blaze" then
+    if snd.maybe_affs[1] == "blaze" or snd.maybe_affs[1] == "wasi" then
       snd.used.rebounding = false
       table.remove(snd.maybe_affs, 1)
     else
