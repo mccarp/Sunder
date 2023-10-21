@@ -6210,10 +6210,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>chaos worm</name>
-					<script>snd.bashing.target = "worm"
-if snd.toggles.calling then
- snd.send("wt target: worm")
-end</script>
+					<script>snd.bashing.target = "worm"</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
