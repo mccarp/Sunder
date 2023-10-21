@@ -69548,8 +69548,8 @@ function snd.runBasher()
         table.insert(snd.gathering, snd.items[item][id])
       end
     elseif
-      (string.find(item, "the corpse of") and not string.find(item, "staked")) or
-      (string.find(item, "the remains of %u%a+") and not string.find(item, "staked"))
+      (item:find("the corpse of") or item:find("the discarded remains of") or item:find("the withered husk of"))
+      and not item:find("staked")
     then
       for id in pairs(snd.items[item]) do
         table.insert(snd.corpses, snd.items[item][id])
