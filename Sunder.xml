@@ -704,6 +704,28 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Earthenform/Permafrost interrupted.</name>
+								<script>snd.toggles.active = true
+send("firstaid on")
+</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You cease your focus upon attaining the earthen form, your mass returning to normal as the earth falls from your body.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Earthenform finish</name>
 								<script>snd.toggles.active = true
 send("firstaid on")</script>
@@ -20812,9 +20834,10 @@ disableTrigger("Fury Shatter Second Aff")</script>
 								<name>Tenacity Chop</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
-  if snd.checkAff("assault_damage") then
+  local aff = "assault_damage_"..snd.last_hit_limb:gsub(" ","_")
+  if snd.checkAff(aff) then
     snd.last_limb_dmg = 11
-    snd.target_cured("assault_damage") 
+    snd.target_cured(aff) 
   end
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
@@ -20841,7 +20864,10 @@ disableTrigger("Tenacity Chop")</script>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  table.insert(snd.last_affs, "assault_damage")
+  local aff = "assault_damage_"..snd.last_hit_limb:gsub(" ","_")
+  snd.target_got(aff)
+  tempTimer(2, function() snd.target_cured(aff) end)
+  table.insert(snd.last_affs, aff)
 end
 disableTrigger("Tenacity Assault")</script>
 								<triggerType>0</triggerType>
@@ -76702,9 +76728,9 @@ end</script>
           	end
             snd.last_hit_limb = "head"
             snd.last_limb_dmg = 9
-            if snd.checkAff("assault_damage") then
+            if snd.checkAff("assault_damage_head") then
               snd.last_limb_dmg = 12
-              snd.target_cured("assault_damage") 
+              snd.target_cured("assault_damage_head") 
             end
             snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
             snd.onHit2({"Rebounding", "Dodge", "Parry"})
@@ -76722,9 +76748,9 @@ end</script>
 
             snd.last_hit_limb = "torso"
             snd.last_limb_dmg = 14
-            if snd.checkAff("assault_damage") then
+            if snd.checkAff("assault_damage_torso") then
               snd.last_limb_dmg = 17
-              snd.target_cured("assault_damage") 
+              snd.target_cured("assault_damage_torso") 
             end
             snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
             snd.onHit2({"Parry", "Rebounding", "Dodge"})
@@ -76745,9 +76771,7 @@ end</script>
           end,
     Assault = function(target)
             enableTrigger("Tenacity Assault")
-            snd.target_got("assault_damage")
             snd.last_limb_dmg = 4
-            tempTimer(2, [[snd.target_cured("assault_damage")]])
             snd.onHit2({"Parry", "Dodge"})
           end,
     Punish = function(target)
