@@ -720,8 +720,10 @@ send("firstaid on")
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You cease your focus upon attaining the earthen form, your mass returning to normal as the earth falls from your body.</string>
+									<string>Warmth returns to the air as your concentration falters, the aura of permafrost dispersing before it can fully form.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -21379,20 +21381,9 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>discern</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
-  if matches[4]:find("crippled") then 
-    if matches[4] == "crippled body" or matches[4] == "crippled" or matches[4] =="crippled throat" then
-      snd.target_cured(matches[4])
-    else
-      local test = matches[4]:gsub("crippled ", "")
-      snd.target_cured(test.."_crippled")
-    end
-  elseif matches[4] == "blood curse" then
-    snd.target_cured("blood_curse")
-  else
-    snd.target_cured(matches[4])
-    if matches[4] == "ablaze" then
-      snd.flamestack = 0
-    end
+  snd.target_cured(matches[4])
+  if matches[4] == "ablaze" then
+    snd.flamestack = 0
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
@@ -74204,18 +74195,13 @@ end
 function snd.affNameCheck(aff)
 
 local affs_to_change = {
-  ["limp veins"] = "limp_veins",
-  ["thin blood"] = "thin_blood",
   ["heart flutter"] = "heartflutter",
   ["self-pity"] = "self_pity",
-  ["mental disruption"] = "mental_disruption",
-  ["physical disruption"] = "physical_disruption",
-  ["blurry vision"] = "blurry_vision",
-  ["destroyed throat"] = "destroyed_throat",
-  ["cracked ribs"] = "cracked_ribs",
-  ["self loathing"] = "self_loathing",
-  ["blood curse"] = "blood_curse",
   ["lovers"] = "lovers_effect",
+  ["crippled left leg"] = "left_leg_crippled",
+  ["crippled right leg"] = "right_leg_crippled",
+  ["crippled left arm"] = "left_arm_crippled",
+  ["crippled right arm"] = "right_arm_crippled",
 }
   
   if affs_to_change[aff] then
