@@ -72276,7 +72276,6 @@ def_corner = "once",
 syssin = {
 def_warding = "once",
 def_finesse = "once",
-def_hiding = "once",
 def_shadowsight = "once",
 def_ghost = "on",
 def_shroud = "on",
@@ -74064,7 +74063,7 @@ function snd.target_locked()
   
   if (snd.checksomeAffs({"paresis", "tree_seared", "faulted"}, 1) or snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},2)) and --can't tree
       (snd.checksomeAffs({"asthma", "slickness"}, 2) or snd.checkAff("slough")) and --can't apply, and can't smoke if can't apply is through slickness.
-      ((snd.checkAff("anorexia", 1) and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1)) or
+      ((snd.checkAff("anorexia") and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1)) or
       snd.checkAff("destroyed_throat")) --can't eat, and if via anorexia, can't be focused off
       then
       return true
