@@ -70242,7 +70242,7 @@ function snd.syssin_bash()
       battack = "backstab "..snd.bashing.target
 	 	else
       if hasSkill("Quickwield") then
-        battack = "quickwield right dirk"..snd.sep.."backstab "..snd.bashing.target
+        battack = "quickwield left dirk"..snd.sep.."backstab "..snd.bashing.target
       else
         battack = "wield dirk"
       end
