@@ -19074,7 +19074,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Omen Down</name>
 								<script>snd.incomingomen = false
-snd.message(matches[3].." has been struck by omen!", "dendara")
+snd.message(matches[2].." has been struck by omen!", "dendara")
 </script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
