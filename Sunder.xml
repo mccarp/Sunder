@@ -75323,10 +75323,12 @@ end</script>
                     snd.target_got("stormbolt_cloud")
                   end
                 end,
-    Sporulation = function(target)
-    --This never shows boosted message.
+    Sporulation = function(target, boosted)
                 snd.target_got("impatience")
                 snd.target_got("confusion")
+                  if boosted then
+                    snd.target_got("hallucinations")
+                  end
               end,
     Effusion = function(target)
                 snd.target_got("sight")
@@ -77480,10 +77482,12 @@ end</script>
                   snd.target_got("stormbolt_cloud")
                 end
               end,
-    Neurotic = function(target) --0 expert
-    --This never shows boosted message.
+    Neurotic = function(target, boosted)
                 snd.target_got("impatience")
                 snd.target_got("confusion")
+                  if boosted then
+                    snd.target_got("hallucinations")
+                  end
               end,
     Rousing = function(target) --33 fabled
                 snd.target_got("sight")
