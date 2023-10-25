@@ -46363,7 +46363,7 @@ function snd.attack_function()
   end
   if spur ~= "none" then
    if snd.toggles.affcalling and not snd.target_gone then
-	  string = "wt Spur "..snd.target..": "..battle..snd.sep
+	  string = "wt Spur "..snd.target..": "..spur..snd.sep
 	 end
    string = string.."osso spur "..spur.." "..snd.target..snd.sep
   end
@@ -46752,7 +46752,7 @@ end</script>
         if
           not snd.checkAff(snd.giving_subdue[i]) and
           subdue == "none" and
-          snd.giving_subdue[i] ~= battle
+          snd.giving_subdue[i] ~= spur
         then
           subdue = snd.giving_subdue[i]
         end
