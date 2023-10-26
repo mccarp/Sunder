@@ -22522,7 +22522,8 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>asleep</name>
 						<script>if matches[2] == snd.target then
- snd.target_got("asleep")
+  snd.target_got("asleep")
+  snd.target_got("fallen")
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -22536,8 +22537,10 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^(\w+)'s? eyes close suddenly as \w+ falls asleep\.$</string>
+							<string>^(\w+) gives in to exhaustion, drifting off to sleep\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
