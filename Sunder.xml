@@ -21563,6 +21563,8 @@ end</script>
 							<name>poultice</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   snd.target_cured("slickness")
+  snd.target_cured("slough")
+  if snd.sloughTimer then killTimer(snd.sloughTimer) end
   if not snd.checkAff("burnt_skin") then
     if matches[4] == "epidermal" then
       snd.target_last_used_salve = "epidermal"
@@ -22438,8 +22440,10 @@ end</script>
 							<string>^Being unconscious, (\w+) falls over\.$</string>
 							<string>^(\w+) appears dizzy and falls to the ground\.$</string>
 							<string>^(\w+) is already fallen upon the ground\.$</string>
+							<string>^With a struggle, (\w+) attempts to call upon \w+ willpower reserves, however the effort leaves \w+ looking dizzy and weak. \w+ eyes quickly grow unfocused and .+ sways? slightly before crashing heavily to the ground, and \w+ quickly slips into unconsciousness.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -75994,6 +75998,10 @@ end</script>
               snd.used.shield = true
              end,
     Curse = function(target)
+              if not snd.checkAff("slough") then
+                if snd.sloughTimer then killTimer(snd.sloughTimer) end
+                snd.sloughTimer = tempTimer(16, function() snd.target_cured("slough") end)
+              end
               snd.target_got("slough")
             end,
     Scourge = function(target, where)
@@ -76157,6 +76165,10 @@ end</script>
               snd.used.shield = true
              end,
     Terrors = function(target)
+              if not snd.checkAff("slough") then
+                if snd.sloughTimer then killTimer(snd.sloughTimer) end
+                snd.sloughTimer = tempTimer(16, function() snd.target_cured("slough") end)
+              end
               snd.target_got("slough")
             end,
     Unseen = function(target, where)
