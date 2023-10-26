@@ -40534,7 +40534,7 @@ end</script>
 								<name>Group Affs - Used to lock someone in place</name>
 								<script>-- The purpose of this is to lock someone down with disrupt so they cannot use lock-breakers to escape.
 if snd.class == "Luminary" then
-  snd.giving_shield = {"sight", "paresis", "weariness", "confusion", "writhe_transfix", "asthma", "berserking"}
+  snd.giving_shield = {"sight", "paresis", "weariness", "confusion", "writhe_transfix", "asthma", "misery"}
   snd.giving_battle = {"impatience", "stupidity", "sensitivity", "self_pity", "vertigo"}
   snd.giving_chasten = {"hypochondria", "stupidity", "recklessness", "lethargy", "masochism", "dementia", "paranoia", "anorexia",}
   snd.starting_attack()
@@ -40616,7 +40616,7 @@ if snd.class == "Luminary" then
       --Add shield/evoke/perform attacks
       string = string .. shield .. " " .. snd.target .. snd.sep
       --Add chasten choice
-      if not shield:find("slam") or shield:find("transfix") or shield:find("dazzle") or shield:find("crash") then
+      if not (shield:find("slam") or shield:find("transfix") or shield:find("dazzle") or shield:find("crash") or shield:find("facesmash")) then
         if chasten == "none" then
           string = string .. "chasten " .. snd.target
         else
