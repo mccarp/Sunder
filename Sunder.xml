@@ -704,6 +704,30 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Earthenform/Permafrost interrupted.</name>
+								<script>snd.toggles.active = true
+send("firstaid on")
+</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You cease your focus upon attaining the earthen form, your mass returning to normal as the earth falls from your body.</string>
+									<string>Warmth returns to the air as your concentration falters, the aura of permafrost dispersing before it can fully form.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Earthenform finish</name>
 								<script>snd.toggles.active = true
 send("firstaid on")</script>
@@ -6210,10 +6234,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>chaos worm</name>
-					<script>snd.bashing.target = "worm"
-if snd.toggles.calling then
- snd.send("wt target: worm")
-end</script>
+					<script>snd.bashing.target = "worm"</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -19053,7 +19074,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Omen Down</name>
 								<script>snd.incomingomen = false
-snd.message(matches[3].." has been struck by omen!", "dendara")
+snd.message(matches[2].." has been struck by omen!", "dendara")
 </script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -20611,6 +20632,79 @@ send("wt " ..matches[2].. " STUNNED with ANGUISH!")
 							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Teradrim</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Room got sandy</name>
+								<script>local index = table.index_of(gmcp.Room.Info.details,"sandy")
+if not index then 
+  table.insert(gmcp.Room.Info.details, "sandy")
+end
+</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^\w+ uses? Desiccation Flood\.$</string>
+									<string>^\w+ uses? Desiccation Desert\.$</string>
+									<string>^A cascade of sand flows in from the \w+, settling over the surroundings\.$</string>
+									<string>^A swirling cloud of dust and sand sweeps in from the \w+, blanketing the area with a layer of sand\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Sand gone</name>
+								<script>local index = table.index_of(gmcp.Room.Info.details,"sandy")
+if index then 
+  table.remove(gmcp.Room.Info.details, index)
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>There is not enough sand present in this location.</string>
+									<string>The sand pervading this area blows away as the magics controlling it disperse.</string>
+									<string>^\w+ uses? Desiccation Whirl\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</TriggerGroup>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Wayfarer</name>
 							<script></script>
 							<triggerType>0</triggerType>
@@ -20815,9 +20909,10 @@ disableTrigger("Fury Shatter Second Aff")</script>
 								<name>Tenacity Chop</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
-  if snd.checkAff("assault_damage") then
+  local aff = "assault_damage_"..snd.last_hit_limb:gsub(" ","_")
+  if snd.checkAff(aff) then
     snd.last_limb_dmg = 11
-    snd.target_cured("assault_damage") 
+    snd.target_cured(aff) 
   end
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
@@ -20844,7 +20939,10 @@ disableTrigger("Tenacity Chop")</script>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  table.insert(snd.last_affs, "assault_damage")
+  local aff = "assault_damage_"..snd.last_hit_limb:gsub(" ","_")
+  snd.target_got(aff)
+  tempTimer(2, function() snd.target_cured(aff) end)
+  table.insert(snd.last_affs, aff)
 end
 disableTrigger("Tenacity Assault")</script>
 								<triggerType>0</triggerType>
@@ -21356,20 +21454,9 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>discern</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
-  if matches[4]:find("crippled") then 
-    if matches[4] == "crippled body" or matches[4] == "crippled" or matches[4] =="crippled throat" then
-      snd.target_cured(matches[4])
-    else
-      local test = matches[4]:gsub("crippled ", "")
-      snd.target_cured(test.."_crippled")
-    end
-  elseif matches[4] == "blood curse" then
-    snd.target_cured("blood_curse")
-  else
-    snd.target_cured(matches[4])
-    if matches[4] == "ablaze" then
-      snd.flamestack = 0
-    end
+  snd.target_cured(matches[4])
+  if matches[4] == "ablaze" then
+    snd.flamestack = 0
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
@@ -21476,6 +21563,8 @@ end</script>
 							<name>poultice</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   snd.target_cured("slickness")
+  snd.target_cured("slough")
+  if snd.sloughTimer then killTimer(snd.sloughTimer) end
   if not snd.checkAff("burnt_skin") then
     if matches[4] == "epidermal" then
       snd.target_last_used_salve = "epidermal"
@@ -22038,7 +22127,7 @@ end</script>
 							<name>Sunder Parry</name>
 							<script>if matches[2] == snd.target then
   if #snd.last_affs &gt;= 1 then
-    if snd.last_affs[1] == "blaze" then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
       snd.used.rebounding = true
     else
       for i in pairs(snd.last_affs) do
@@ -22092,7 +22181,7 @@ disableTrigger("Sunder Parry")</script>
 							<name>Sunder Dodge</name>
 							<script>if matches[2] == snd.target then
   if #snd.last_affs &gt;= 1 then
-    if snd.last_affs[1] == "blaze" then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
       snd.used.rebounding = true
     else
       for i in pairs(snd.last_affs) do
@@ -22351,8 +22440,10 @@ end</script>
 							<string>^Being unconscious, (\w+) falls over\.$</string>
 							<string>^(\w+) appears dizzy and falls to the ground\.$</string>
 							<string>^(\w+) is already fallen upon the ground\.$</string>
+							<string>^With a struggle, (\w+) attempts to call upon \w+ willpower reserves, however the effort leaves \w+ looking dizzy and weak. \w+ eyes quickly grow unfocused and .+ sways? slightly before crashing heavily to the ground, and \w+ quickly slips into unconsciousness.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -24755,12 +24846,10 @@ snd.runemarkMajor = matches[3]</script>
 								<regexCodeList>
 									<string>^You have a (\w+) minor rune painted upon a (\w+) major rune.$</string>
 									<string>^You quickly inscribe a (\w+) rune upon a (\w+) rune on yourself with ink.$</string>
-									<string>You paint yourself with the greater mark of the tentacle then daub the lesser mark of the tentacle upon it.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
-									<integer>0</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -24785,7 +24874,7 @@ snd.runemarkMajor = daubMap[matches.major]</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
-									<integer>0</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -40449,7 +40538,7 @@ end</script>
 								<name>Group Affs - Used to lock someone in place</name>
 								<script>-- The purpose of this is to lock someone down with disrupt so they cannot use lock-breakers to escape.
 if snd.class == "Luminary" then
-  snd.giving_shield = {"sight", "paresis", "weariness", "confusion", "writhe_transfix", "asthma", "berserking"}
+  snd.giving_shield = {"sight", "paresis", "weariness", "confusion", "writhe_transfix", "asthma", "misery"}
   snd.giving_battle = {"impatience", "stupidity", "sensitivity", "self_pity", "vertigo"}
   snd.giving_chasten = {"hypochondria", "stupidity", "recklessness", "lethargy", "masochism", "dementia", "paranoia", "anorexia",}
   snd.starting_attack()
@@ -40531,7 +40620,7 @@ if snd.class == "Luminary" then
       --Add shield/evoke/perform attacks
       string = string .. shield .. " " .. snd.target .. snd.sep
       --Add chasten choice
-      if not shield:find("slam") or shield:find("transfix") or shield:find("dazzle") or shield:find("crash") then
+      if not (shield:find("slam") or shield:find("transfix") or shield:find("dazzle") or shield:find("crash") or shield:find("facesmash")) then
         if chasten == "none" then
           string = string .. "chasten " .. snd.target
         else
@@ -42980,11 +43069,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dsk "..snd.target.." blaze "..tohit[1]
-				call = "wt Afflicting "..snd.target..": blaze, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -43069,11 +43158,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
 				string = "razestrike "..snd.target.." "..tohit[1]
-				call = "wt Afflicting "..snd.target..": Blaze, "..tohit[1]..snd.sep
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif iceblast then
 				string = "blade release right iceblast "..snd.target..snd.sep.."blade release left iceblast "..snd.target..snd.sep.."dsk "..snd.target.." "..tohit[2].." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
@@ -43169,11 +43258,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dsk "..snd.target.." blaze "..tohit[1]
-				call = "wt Afflicting "..snd.target..": blaze, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal then
 				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -43342,11 +43431,11 @@ end</script>
       while #tohit &lt; 3 do
         table.insert(tohit, extraaff)
       end
-      if snd.used.shield then
-        string = "raze " .. snd.target
-      elseif snd.used.rebounding then
-        string = "razestrike " .. snd.target .. " " .. tohit[1]
-        call = "wt Afflicting " .. snd.target .. ": " .. tohit[1] .. snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
       else
         string = "dsk " .. snd.target .. " " .. tohit[2] .. " " .. tohit[1]
         call = "wt Afflicting " .. snd.target .. ": " .. tohit[2] .. ", " .. tohit[1] .. snd.sep
@@ -43452,11 +43541,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dsk "..snd.target.." blaze "..tohit[1]
-				call = "wt Afflicting "..snd.target..": blaze, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -43597,10 +43686,10 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "rsk "..snd.target.." "..tohit[1]
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			else
 				string = "dsk "..snd.target.." "..tohit[2].." "..tohit[1]
@@ -43712,10 +43801,10 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "rsk "..snd.target.." "..tohit[1]
+			if snd.used.shield and snd.used.rebounding then
+				string = "razestrike "..snd.target.." blaze"
+			elseif snd.used.rebounding or snd.used.shield then
+				string = "razestrike "..snd.target.." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			else
 				string = "dsk "..snd.target.." "..tohit[2].." "..tohit[1]
@@ -43914,7 +44003,7 @@ function snd.attack_function()
 	 -- end limb picking logic
 	 -- on to attacking logic!
 	 if snd.used.shield and snd.used.rebounding then -- baddie is turtling
-    string = "raze "..snd.target -- raze has static balance cost
+    string = "razestrike "..snd.target.." blaze"
 	 elseif snd.used.shield or snd.used.rebounding then
     string = "target nothing with left"..snd.sep.."target "..right.." with right"..snd.sep.."razestrike "..snd.target.." trauma"
 	 -- here's the tricky part, we're checking for optimal conditions
@@ -43989,7 +44078,7 @@ function snd.attack_function()
 	 end
   end
   if snd.used.shield and snd.used.rebounding then
-   string = "raze "..snd.target
+   string = "razestrike "..snd.target .." blaze"
 	elseif snd.used.shield then
 	 string = "target nothing with left"..snd.sep.."target "..left.." with right"..snd.sep.."razestrike "..snd.target.." trauma"
   elseif rupture ~= "none" then
@@ -46351,7 +46440,7 @@ function snd.attack_function()
   end
   if spur ~= "none" then
    if snd.toggles.affcalling and not snd.target_gone then
-	  string = "wt Spur "..snd.target..": "..battle..snd.sep
+	  string = "wt Spur "..snd.target..": "..spur..snd.sep
 	 end
    string = string.."osso spur "..spur.." "..snd.target..snd.sep
   end
@@ -46740,7 +46829,7 @@ end</script>
         if
           not snd.checkAff(snd.giving_subdue[i]) and
           subdue == "none" and
-          snd.giving_subdue[i] ~= battle
+          snd.giving_subdue[i] ~= spur
         then
           subdue = snd.giving_subdue[i]
         end
@@ -48177,11 +48266,11 @@ function snd.attack_function()
 				table.insert(tohit, extraaff)
 			end
 			-- now to decide what attack to use!
-			if snd.used.shield then
-				string = "raze "..snd.target
-			elseif snd.used.rebounding then
-				string = "dpl "..snd.target.." wasi "..snd.rev_empower(tohit[1])
-				call = "wt Afflicting "..snd.target..": wasi, "..tohit[1]..snd.sep
+			if snd.used.shield and snd.used.rebounding then
+				string = "deceive "..snd.target.." wasi"
+      elseif snd.used.shield or snd.used.rebounding then
+				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -48266,10 +48355,10 @@ end</script>
   				table.insert(tohit, extraaff)
   			end
   			-- now to decide what attack to use!
-  			if snd.used.shield then
-  				string = "raze "..snd.target
-  			elseif snd.used.rebounding then
-  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
+  			if snd.used.shield and snd.used.rebounding then
+  				string = "deceive "..snd.target.." wasi"
+        elseif snd.used.shield or snd.used.rebounding then
+  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			elseif telvi then
   				string = "blade scribe right telvi "..snd.target..snd.sep.."blade scribe left telvi "..snd.target..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
@@ -48367,11 +48456,11 @@ if snd.class == "Revenant" then
   				table.insert(tohit, extraaff)
   			end
   			-- now to decide what attack to use!
-  			if snd.used.shield then
-  				string = "raze "..snd.target
-  			elseif snd.used.rebounding then
-  				string = "dpl "..snd.target.." wasi "..snd.rev_empower(tohit[1])
-  				call = "wt Afflicting "..snd.target..": wasi, "..tohit[1]..snd.sep
+  			if snd.used.shield and snd.used.rebounding then
+  				string = "deceive "..snd.target.." wasi"
+        elseif snd.used.shield or snd.used.rebounding then
+  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+  				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			elseif atdum then -- vorpal equiv
   				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
@@ -48457,10 +48546,10 @@ end
   				table.insert(tohit, extraaff)
   			end
   			-- now to decide what attack to use!
-  			if snd.used.shield then
-  				string = "raze "..snd.target
-  			elseif snd.used.rebounding then
-  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
+  			if snd.used.shield and snd.used.rebounding then
+  				string = "deceive "..snd.target.." wasi"
+        elseif snd.used.shield or snd.used.rebounding then
+  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			else
   				string = "dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
@@ -54150,8 +54239,8 @@ snd.priorities =
   {
     "lighting",
     "def_speed",
-    "aff_prone",
-    "aff_adder_tarot",
+    -- "aff_prone",
+    -- "aff_adder_tarot",
     
     "fitness",
     "shrugging",
@@ -54171,22 +54260,22 @@ snd.priorities =
 
     "attack",
     
-    "aff_bleeding",
-    "aff_voyria",
+    -- "aff_bleeding",
+    -- "aff_voyria",
     "def_spheres",
     "def_earthenform",
     "def_permafrost",
     "def_focalmark",
-    "aff_health_10",
-    "aff_health_35",
-    "aff_health_55",
-    "aff_health_low",
-    "aff_health_75",
-    "aff_mana_10",
-    "aff_mana_35",
-    "aff_mana_55",
-    "aff_mana_low",
-    "aff_mana_75",
+    -- "aff_health_10",
+    -- "aff_health_35",
+    -- "aff_health_55",
+    -- "aff_health_low",
+    -- "aff_health_75",
+    -- "aff_mana_10",
+    -- "aff_mana_35",
+    -- "aff_mana_55",
+    -- "aff_mana_low",
+    -- "aff_mana_75",
     "def_chameleon",
     
     "loot",
@@ -54195,187 +54284,187 @@ snd.priorities =
     "bashing",
     "moving",
     
-    "aff_aeon",
-    "aff_paralysis",
-    "aff_paresis",
-    "aff_mirroring",
-    "aff_crippled_body",
-    "aff_crippled",
-    "aff_heartflutter",
-    "aff_slough",
-    "def_firefly_tattoo",
-    "aff_rot_body",
-    "aff_rot_wither",
-    "aff_baldness",
-    "aff_clumsiness",
-    "aff_hypochondria",
-    "aff_weariness",
-    "aff_asthma",
-    "aff_sensitivity",
-    "aff_blood_poison",
-    "aff_limp_veins",
-    "aff_slickness",
-    "aff_disfigurement",
-    "aff_squelched",
-    "aff_migraine",
-    "aff_self-pity",
-    "aff_stupidity",
-    "aff_dizziness",
-    "aff_shyness",
-    "aff_epilepsy",
-    "aff_impatience",
-    "aff_dissonance",
-    "aff_infested",
-    "aff_itchy",
-    "aff_rot_heat",
-    "aff_rot_spirit",
-    "aff_accursed",
-    "aff_agony",
-    "aff_body_odor",
-    "aff_haemophilia",
-    "aff_mental_disruption",
-    "aff_physical_disruption",
-    "aff_allergies",
-    "aff_vomiting",
-    "aff_thin_blood",
-    "aff_rend",
-    "aff_lethargy",
-    "aff_ringing_ears",
-    "aff_addiction",
-    "aff_exhausted",
-    "aff_hubris",
-    "aff_pacifism",
-    "aff_peace",
-    "aff_lovers_effect",
-    "aff_superstition",
-    "aff_generosity",
-    "aff_justice",
-    "aff_egocentric",
-    "aff_commitment_fear",
-    "aff_recklessness",
-    "aff_masochism",
-    "aff_agoraphobia",
-    "aff_loneliness",
-    "aff_berserking",
-    "aff_vertigo",
-    "aff_claustrophobia",
-    "aff_nyctophobia",
-    "aff_sadness",
-    "aff_confusion",
-    "aff_dementia",
-    "aff_hallucinations",
-    "aff_paranoia",
-    "aff_hypersomnia",
-    "aff_hatred",
-    "aff_blood_curse",
-    "aff_blighted",
-    "aff_plodding",
-    "aff_idiocy",
-    "aff_withering",
-    "aff_hellsight",
-    "aff_deadening",
-    "aff_anorexia",
-    "aff_head_mangled",
-    "aff_head_broken",
-    "aff_head_bruised_critical",
-    "aff_head_bruised_moderate",
-    "aff_head_bruised",
-    "aff_destroyed_throat",
-    "aff_left_arm_amputated",
-    "aff_left_arm_mangled",
-    "aff_left_arm_broken",
-    "aff_right_arm_amputated",
-    "aff_right_arm_mangled",
-    "aff_right_arm_broken",
-    "aff_left_arm_crippled",
-    "aff_right_arm_crippled",
-    "aff_left_arm_bruised_critical",
-    "aff_left_arm_bruised_moderate",
-    "aff_crushed_elbows",
-    "aff_left_arm_bruised",
-    "aff_left_arm_dislocated",
-    "aff_right_arm_bruised_critical",
-    "aff_right_arm_bruised_moderate",
-    "aff_right_arm_bruised",
-    "aff_right_arm_dislocated",
-    "aff_crippled_arm",
-    "aff_left_leg_amputated",
-    "aff_left_leg_mangled",
-    "aff_left_leg_broken",
-    "aff_right_leg_amputated",
-    "aff_right_leg_mangled",
-    "aff_right_leg_broken",
-    "aff_left_leg_bruised_critical",
-    "aff_right_leg_bruised_critical",
-    "aff_left_leg_crippled",
-    "aff_right_leg_crippled",
-    "aff_left_leg_bruised_moderate",
-    "aff_left_leg_bruised",
-    "aff_left_leg_dislocated",
-    "aff_right_leg_bruised_moderate",
-    "aff_crippled_leg",
-    "aff_right_leg_bruised",
-    "aff_crushed_kneecaps",
-    "aff_right_leg_dislocated",
-    "aff_crushed_chest",
-    "aff_voidgaze",
-    "aff_torso_mangled",
-    "aff_torso_broken",
-    "aff_torso_bruised_critical",
-    "aff_heatspear",
-    "aff_cracked_ribs",
-    "aff_torso_bruised_moderate",
-    "aff_torso_bruised",
-    "aff_spinal_rip",
-    "aff_selarnia",
-    "aff_mauled_face",
-    "aff_burnt_skin",
-    "aff_collapsed_lung",
-    "aff_ablaze",
-    "aff_crippled_throat",
-    "aff_throatclaw",
-    "aff_smashed_throat",
-    "aff_deepwound",
-    "aff_lightwound",
-    "aff_pre_restore_head",
-    "aff_pre_restore_left_arm",
-    "aff_pre_restore_left_leg",
-    "aff_pre_restore_right_arm",
-    "aff_pre_restore_right_leg",
-    "aff_pre_restore_torso",
-    "aff_gorged",
-    "aff_effused_blood",
-    "aff_indifference",
-    "aff_stuttering",
-    "aff_blurry_vision",
-    "aff_burnt_eyes",
-    "aff_gloom",
-    "aff_rot_benign",
-    "aff_frozen",
-    "aff_shivering",
-    "aff_disrupted",
-    "aff_fear",
-    "aff_premonition",
-    "aff_vinethorns",
-    "aff_void",
-    "aff_weakvoid",
-    "aff_grappled",
-    "aff_writhe_armpitlock",
-    "aff_writhe_bind",
-    "aff_writhe_grappled",
-    "aff_writhe_gunk",
-    "aff_writhe_hoist",
-    "aff_writhe_impaled",
-    "aff_writhe_lure",
-    "aff_writhe_necklock",
-    "aff_writhe_ropes",
-    "aff_writhe_tar",
-    "aff_writhe_thighlock",
-    "aff_writhe_transfix",
-    "aff_writhe_vines",
-    "aff_writhe_web",
-    "aff_dazed",
-    "aff_embedded_axe",
+    -- "aff_aeon",
+    -- "aff_paralysis",
+    -- "aff_paresis",
+    -- "aff_mirroring",
+    -- "aff_crippled_body",
+    -- "aff_crippled",
+    -- "aff_heartflutter",
+    -- "aff_slough",
+    -- "def_firefly_tattoo",
+    -- "aff_rot_body",
+    -- "aff_rot_wither",
+    -- "aff_baldness",
+    -- "aff_clumsiness",
+    -- "aff_hypochondria",
+    -- "aff_weariness",
+    -- "aff_asthma",
+    -- "aff_sensitivity",
+    -- "aff_blood_poison",
+    -- "aff_limp_veins",
+    -- "aff_slickness",
+    -- "aff_disfigurement",
+    -- "aff_squelched",
+    -- "aff_migraine",
+    -- "aff_self-pity",
+    -- "aff_stupidity",
+    -- "aff_dizziness",
+    -- "aff_shyness",
+    -- "aff_epilepsy",
+    -- "aff_impatience",
+    -- "aff_dissonance",
+    -- "aff_infested",
+    -- "aff_itchy",
+    -- "aff_rot_heat",
+    -- "aff_rot_spirit",
+    -- "aff_accursed",
+    -- "aff_agony",
+    -- "aff_body_odor",
+    -- "aff_haemophilia",
+    -- "aff_mental_disruption",
+    -- "aff_physical_disruption",
+    -- "aff_allergies",
+    -- "aff_vomiting",
+    -- "aff_thin_blood",
+    -- "aff_rend",
+    -- "aff_lethargy",
+    -- "aff_ringing_ears",
+    -- "aff_addiction",
+    -- "aff_exhausted",
+    -- "aff_hubris",
+    -- "aff_pacifism",
+    -- "aff_peace",
+    -- "aff_lovers_effect",
+    -- "aff_superstition",
+    -- "aff_generosity",
+    -- "aff_justice",
+    -- "aff_egocentric",
+    -- "aff_commitment_fear",
+    -- "aff_recklessness",
+    -- "aff_masochism",
+    -- "aff_agoraphobia",
+    -- "aff_loneliness",
+    -- "aff_berserking",
+    -- "aff_vertigo",
+    -- "aff_claustrophobia",
+    -- "aff_nyctophobia",
+    -- "aff_sadness",
+    -- "aff_confusion",
+    -- "aff_dementia",
+    -- "aff_hallucinations",
+    -- "aff_paranoia",
+    -- "aff_hypersomnia",
+    -- "aff_hatred",
+    -- "aff_blood_curse",
+    -- "aff_blighted",
+    -- "aff_plodding",
+    -- "aff_idiocy",
+    -- "aff_withering",
+    -- "aff_hellsight",
+    -- "aff_deadening",
+    -- "aff_anorexia",
+    -- "aff_head_mangled",
+    -- "aff_head_broken",
+    -- "aff_head_bruised_critical",
+    -- "aff_head_bruised_moderate",
+    -- "aff_head_bruised",
+    -- "aff_destroyed_throat",
+    -- "aff_left_arm_amputated",
+    -- "aff_left_arm_mangled",
+    -- "aff_left_arm_broken",
+    -- "aff_right_arm_amputated",
+    -- "aff_right_arm_mangled",
+    -- "aff_right_arm_broken",
+    -- "aff_left_arm_crippled",
+    -- "aff_right_arm_crippled",
+    -- "aff_left_arm_bruised_critical",
+    -- "aff_left_arm_bruised_moderate",
+    -- "aff_crushed_elbows",
+    -- "aff_left_arm_bruised",
+    -- "aff_left_arm_dislocated",
+    -- "aff_right_arm_bruised_critical",
+    -- "aff_right_arm_bruised_moderate",
+    -- "aff_right_arm_bruised",
+    -- "aff_right_arm_dislocated",
+    -- "aff_crippled_arm",
+    -- "aff_left_leg_amputated",
+    -- "aff_left_leg_mangled",
+    -- "aff_left_leg_broken",
+    -- "aff_right_leg_amputated",
+    -- "aff_right_leg_mangled",
+    -- "aff_right_leg_broken",
+    -- "aff_left_leg_bruised_critical",
+    -- "aff_right_leg_bruised_critical",
+    -- "aff_left_leg_crippled",
+    -- "aff_right_leg_crippled",
+    -- "aff_left_leg_bruised_moderate",
+    -- "aff_left_leg_bruised",
+    -- "aff_left_leg_dislocated",
+    -- "aff_right_leg_bruised_moderate",
+    -- "aff_crippled_leg",
+    -- "aff_right_leg_bruised",
+    -- "aff_crushed_kneecaps",
+    -- "aff_right_leg_dislocated",
+    -- "aff_crushed_chest",
+    -- "aff_voidgaze",
+    -- "aff_torso_mangled",
+    -- "aff_torso_broken",
+    -- "aff_torso_bruised_critical",
+    -- "aff_heatspear",
+    -- "aff_cracked_ribs",
+    -- "aff_torso_bruised_moderate",
+    -- "aff_torso_bruised",
+    -- "aff_spinal_rip",
+    -- "aff_selarnia",
+    -- "aff_mauled_face",
+    -- "aff_burnt_skin",
+    -- "aff_collapsed_lung",
+    -- "aff_ablaze",
+    -- "aff_crippled_throat",
+    -- "aff_throatclaw",
+    -- "aff_smashed_throat",
+    -- "aff_deepwound",
+    -- "aff_lightwound",
+    -- "aff_pre_restore_head",
+    -- "aff_pre_restore_left_arm",
+    -- "aff_pre_restore_left_leg",
+    -- "aff_pre_restore_right_arm",
+    -- "aff_pre_restore_right_leg",
+    -- "aff_pre_restore_torso",
+    -- "aff_gorged",
+    -- "aff_effused_blood",
+    -- "aff_indifference",
+    -- "aff_stuttering",
+    -- "aff_blurry_vision",
+    -- "aff_burnt_eyes",
+    -- "aff_gloom",
+    -- "aff_rot_benign",
+    -- "aff_frozen",
+    -- "aff_shivering",
+    -- "aff_disrupted",
+    -- "aff_fear",
+    -- "aff_premonition",
+    -- "aff_vinethorns",
+    -- "aff_void",
+    -- "aff_weakvoid",
+    -- "aff_grappled",
+    -- "aff_writhe_armpitlock",
+    -- "aff_writhe_bind",
+    -- "aff_writhe_grappled",
+    -- "aff_writhe_gunk",
+    -- "aff_writhe_hoist",
+    -- "aff_writhe_impaled",
+    -- "aff_writhe_lure",
+    -- "aff_writhe_necklock",
+    -- "aff_writhe_ropes",
+    -- "aff_writhe_tar",
+    -- "aff_writhe_thighlock",
+    -- "aff_writhe_transfix",
+    -- "aff_writhe_vines",
+    -- "aff_writhe_web",
+    -- "aff_dazed",
+    -- "aff_embedded_axe",
     
     "def_gripping",
     "def_vigor",
@@ -55398,7 +55487,6 @@ aff_debilitated = {state = "healed", effect = "", cures = {}, assess = false, ti
 aff_inhibited = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 
 --Earthcaller
-aff_aftershocks = {state = "healed", effect = "gain affs if earthcaller seismicity hits you", cures = {}, assess = false, timer = createStopWatch()},
 aff_faulted = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 
 --octopus
@@ -55716,7 +55804,7 @@ def_levitation = {defense = "levitation", type = "normal", effect = "Protects ag
 def_frost = {defense = "temperance", type = "normal", effect = "Protects against fire damage", balance = {vial = "frost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_speed = {defense = "speed", type = "green", effect = "Protects against aeon affliction", balance = {drink = "speed"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_caloric = {defense = "insulation", type = "normal", effect = "Protects against cold damage", balance = {salve = "caloric"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_vigor = {defense = "vigor", type = "normal", effect = "Critical hits heal you", balance = {drink = "vigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_vigor = {defense = "vigor", type = "normal", effect = "Critical hits heal you", balance = {vial = "vigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_fangbarrier = {defense = "fangbarrier", type = "normal", effect = "Protects against syssin bites", balance = {special = "apply paste"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_rebounding = {defense = "rebounding", type = "blue", effect = "Causes weapon attacks to backfire", balance = {smoke = "reishi"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_reflection = {defense = "reflection", type = "blue", effect = "Takes your place for 1 attack", balance = {special = "cast reflection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Reflection"},
@@ -69551,8 +69639,8 @@ function snd.runBasher()
         table.insert(snd.gathering, snd.items[item][id])
       end
     elseif
-      (string.find(item, "the corpse of") and not string.find(item, "staked")) or
-      (string.find(item, "the remains of %u%a+") and not string.find(item, "staked"))
+      (item:find("the corpse of") or item:find("the discarded remains of") or item:find("the withered husk of"))
+      and not item:find("staked")
     then
       for id in pairs(snd.items[item]) do
         table.insert(snd.corpses, snd.items[item][id])
@@ -70228,7 +70316,7 @@ function snd.syssin_bash()
       battack = "backstab "..snd.bashing.target
 	 	else
       if hasSkill("Quickwield") then
-        battack = "quickwield right dirk"..snd.sep.."backstab "..snd.bashing.target
+        battack = "quickwield left dirk"..snd.sep.."backstab "..snd.bashing.target
       else
         battack = "wield dirk"
       end
@@ -72262,7 +72350,6 @@ def_corner = "once",
 syssin = {
 def_warding = "once",
 def_finesse = "once",
-def_hiding = "once",
 def_shadowsight = "once",
 def_ghost = "on",
 def_shroud = "on",
@@ -73422,7 +73509,7 @@ function snd.onHit()
   snd.last_affs = {}
 
   if #snd.maybe_affs &gt;= 1 and (snd.getting_hit == snd.target) then
-    if snd.maybe_affs[1] == "blaze" then
+    if snd.maybe_affs[1] == "blaze" or snd.maybe_affs[1] == "wasi" then
       snd.used.rebounding = false
       table.remove(snd.maybe_affs, 1)
     else
@@ -74040,6 +74127,22 @@ function snd.target_locked()
     and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1) then
     return true
   end
+  
+  if snd.checkAff("slough") and snd.checkAff("paresis") and 
+    ((snd.checkAff("anorexia", 1) and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1)) or
+      snd.checkAff("destroyed_throat"))
+     then
+    return true
+  end
+  
+  if (snd.checksomeAffs({"paresis", "tree_seared", "faulted"}, 1) or snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled"},2)) and --can't tree
+      (snd.checksomeAffs({"asthma", "slickness"}, 2) or snd.checkAff("slough")) and --can't apply, and can't smoke if can't apply is through slickness.
+      ((snd.checkAff("anorexia") and snd.checksomeAffs({"stupidity", "impatience", "muddled", "egocentric"}, 1)) or
+      snd.checkAff("destroyed_throat")) --can't eat, and if via anorexia, can't be focused off
+      then
+      return true
+  end
+      
 
 	return false
 end
@@ -74174,18 +74277,13 @@ end
 function snd.affNameCheck(aff)
 
 local affs_to_change = {
-  ["limp veins"] = "limp_veins",
-  ["thin blood"] = "thin_blood",
   ["heart flutter"] = "heartflutter",
   ["self-pity"] = "self_pity",
-  ["mental disruption"] = "mental_disruption",
-  ["physical disruption"] = "physical_disruption",
-  ["blurry vision"] = "blurry_vision",
-  ["destroyed throat"] = "destroyed_throat",
-  ["cracked ribs"] = "cracked_ribs",
-  ["self loathing"] = "self_loathing",
-  ["blood curse"] = "blood_curse",
   ["lovers"] = "lovers_effect",
+  ["crippled left leg"] = "left_leg_crippled",
+  ["crippled right leg"] = "right_leg_crippled",
+  ["crippled left arm"] = "left_arm_crippled",
+  ["crippled right arm"] = "right_arm_crippled",
 }
   
   if affs_to_change[aff] then
@@ -75301,10 +75399,12 @@ end</script>
                     snd.target_got("stormbolt_cloud")
                   end
                 end,
-    Sporulation = function(target)
-    --This never shows boosted message.
+    Sporulation = function(target, boosted)
                 snd.target_got("impatience")
                 snd.target_got("confusion")
+                  if boosted then
+                    snd.target_got("hallucinations")
+                  end
               end,
     Effusion = function(target)
                 snd.target_got("sight")
@@ -75898,6 +75998,10 @@ end</script>
               snd.used.shield = true
              end,
     Curse = function(target)
+              if not snd.checkAff("slough") then
+                if snd.sloughTimer then killTimer(snd.sloughTimer) end
+                snd.sloughTimer = tempTimer(16, function() snd.target_cured("slough") end)
+              end
               snd.target_got("slough")
             end,
     Scourge = function(target, where)
@@ -76061,6 +76165,10 @@ end</script>
               snd.used.shield = true
              end,
     Terrors = function(target)
+              if not snd.checkAff("slough") then
+                if snd.sloughTimer then killTimer(snd.sloughTimer) end
+                snd.sloughTimer = tempTimer(16, function() snd.target_cured("slough") end)
+              end
               snd.target_got("slough")
             end,
     Unseen = function(target, where)
@@ -76698,9 +76806,9 @@ end</script>
           	end
             snd.last_hit_limb = "head"
             snd.last_limb_dmg = 9
-            if snd.checkAff("assault_damage") then
+            if snd.checkAff("assault_damage_head") then
               snd.last_limb_dmg = 12
-              snd.target_cured("assault_damage") 
+              snd.target_cured("assault_damage_head") 
             end
             snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
             snd.onHit2({"Rebounding", "Dodge", "Parry"})
@@ -76718,9 +76826,9 @@ end</script>
 
             snd.last_hit_limb = "torso"
             snd.last_limb_dmg = 14
-            if snd.checkAff("assault_damage") then
+            if snd.checkAff("assault_damage_torso") then
               snd.last_limb_dmg = 17
-              snd.target_cured("assault_damage") 
+              snd.target_cured("assault_damage_torso") 
             end
             snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
             snd.onHit2({"Parry", "Rebounding", "Dodge"})
@@ -76741,9 +76849,7 @@ end</script>
           end,
     Assault = function(target)
             enableTrigger("Tenacity Assault")
-            snd.target_got("assault_damage")
             snd.last_limb_dmg = 4
-            tempTimer(2, [[snd.target_cured("assault_damage")]])
             snd.onHit2({"Parry", "Dodge"})
           end,
     Punish = function(target)
@@ -77460,10 +77566,12 @@ end</script>
                   snd.target_got("stormbolt_cloud")
                 end
               end,
-    Neurotic = function(target) --0 expert
-    --This never shows boosted message.
+    Neurotic = function(target, boosted)
                 snd.target_got("impatience")
                 snd.target_got("confusion")
+                  if boosted then
+                    snd.target_got("hallucinations")
+                  end
               end,
     Rousing = function(target) --33 fabled
                 snd.target_got("sight")
