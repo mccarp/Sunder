@@ -2564,7 +2564,7 @@ if snd.class == "Zealot" and not snd.swaggered then
 						</regexCodePropertyList>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>empty pipe</name>
-							<script>snd.emptypipe = snd.smokedpipe</script>
+							<script>snd.emptypipes[snd.smokedpipe] = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -2605,8 +2605,8 @@ snd.smokedpipe = "none"</script>
 						</Trigger>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>filled pipe</name>
-						<script>snd.emptypipe = "none"</script>
+						<name>Pipes emptied by lumi/ec</name>
+						<script> snd.emptypipes = {reishi = true, willow = true, yarrow = true}</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -2618,7 +2618,35 @@ snd.smokedpipe = "none"</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^You fill your pipe with .+\.$</string>
+							<string>^\w+ uses Tectonics Fossilise on you\.$</string>
+							<string>^\w+ uses Illumination Flare on you\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>filled pipe</name>
+						<script>local herbMap = {
+  ["a reishi mushroom"] = "reishi",
+  ["some willow bark"] = "willow",
+  ["a yarrow root"] = "yarrow",
+}
+local herb = herbMap[matches[2]]
+snd.emptypipes[herb] = false</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^You fill your pipe with (.+)\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -2626,8 +2654,8 @@ snd.smokedpipe = "none"</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>no pipe</name>
-						<script>if matches[2] == snd.emptypipe then
- snd.emptypipe = "none"
+						<script>if snd.emptypipes[matches[2]] then
+ snd.emptypipes[matches[2]] = false
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -20632,7 +20660,7 @@ send("wt " ..matches[2].. " STUNNED with ANGUISH!")
 							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Teradrim</name>
+							<name>Teradrim/Tidesage</name>
 							<script></script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -52575,7 +52603,12 @@ torso = 0,
 
 snd.parrying = snd.parrying or "none"
 snd.pipes_lit = snd.pipes_lit or false
-snd.emptypipe = snd.emptypipe or "none"
+snd.emptypipes = snd.emptypipes or
+{
+  willow = false,
+  yarrow = false,
+  reishi = false,
+}
 snd.smokedpipe = snd.smokedpipe or "none"
 
 snd.sent = {
@@ -54212,10 +54245,18 @@ end</script>
 						<packageName></packageName>
 						<script>function snd.core()
 
-  if snd.toggles.active and snd.emptypipe ~= "none" and not snd.waiting.lighting and snd.can_cast() then
-    snd.send("outc " .. snd.emptypipe .. snd.sep .. "put " .. snd.emptypipe .. " in emptypipe")
-    snd.waiting.lighting = true
-    tempTimer(snd.delay(), [[snd.waiting.lighting = false]])
+  if snd.toggles.active and not snd.waiting.lighting and snd.can_cast() and snd.not_aff("perplexed") and snd.not_aff("paresis") then
+    local commandSent = false
+    for pipe, isEmpty in pairs(snd.emptypipes) do
+      if isEmpty then
+        snd.send("outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe")
+        commandSent = true
+      end
+    end
+    if commandSent then
+      snd.waiting.lighting = true
+      tempTimer(snd.delay(), [[snd.waiting.lighting = false]])
+    end
   end
   
   snd.def_check()
@@ -73907,9 +73948,12 @@ function snd.attack(attack)
   if snd.toggles.parrying and snd.toparry ~= "none" and snd.toparry ~= snd.parrying then
     string = "parry " .. snd.toparry .. snd.sep .. string
   end
-  if snd.emptypipe ~= "none" then
-    string ="outc " ..snd.emptypipe ..snd.sep .."put " ..snd.emptypipe .." in emptypipe"..snd.sep ..string
+  for pipe, isEmpty in pairs(snd.emptypipes) do
+    if isEmpty then
+        string ="outc " .. pipe ..snd.sep .."put " .. pipe .." in emptypipe"..snd.sep ..string
+    end
   end
+
   if not snd.pipes_lit and snd.toggles.lighting then
     string = "light pipes" .. snd.sep .. string
   end
