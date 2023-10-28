@@ -42,6 +42,10 @@ if snd.offense_loaded then
   snd.chasten_aff = "none"
   snd.last_cured = ""
   snd.rebounded = false
+  
+  if snd.last_hit_limb and snd.last_hit_limb~="none" then
+    snd.last_struck_limb = snd.last_hit_limb
+  end
   if snd.toggles.alerts then
     snd.run_alerts()
   end
@@ -6988,7 +6992,10 @@ disableTrigger("Sunder Rebounding")
 disableTrigger("Monk Hit Tracking")
 snd.last_affs = {}
 snd.last_limb_dmg = 0
-snd.last_hit_limb = "none"
+if snd.last_hit_limb and snd.last_hit_limb~="none" then
+  snd.last_struck_limb = snd.last_hit_limb
+  snd.last_hit_limb = "none"
+end
 snd.using_both_hands = 0
 snd.skill_being_used = ""
 </script>
@@ -7237,7 +7244,10 @@ disableTrigger("Sunder Rebounding")
 disableTrigger("Monk Hit Tracking")
 snd.last_affs = {}
 snd.last_limb_dmg = 0
-snd.last_hit_limb = "none"
+if snd.last_hit_limb and snd.last_hit_limb~="none" then
+  snd.last_struck_limb = snd.last_hit_limb
+  snd.last_hit_limb = "none"
+end
 snd.using_both_hands = 0
 snd.skill_being_used = ""
 
@@ -72873,7 +72883,8 @@ snd.disperse = "none" -- Can be set to none, callers or all.
 
 snd.limbs = {}
 snd.parried_limb = "none"
-snd.last_hit_limb = "none"
+snd.last_hit_limb = "none" --not safe for use in routes.
+snd.last_struck_limb = "none" --this can be used in routes
 snd.last_limb_dmg = 0
 snd.resto_limb = "none"
 snd.current_restoration_aff = ""
@@ -76022,10 +76033,12 @@ end</script>
                  snd.onHit2({"Dodge"})
                end,
     Batter = function(target, where)
-               snd.last_hit_limb = where
-               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("batter")
-               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-               snd.onHit2({"Dodge", "Parry", "Rebounding"})
+               if where then 
+                 snd.last_hit_limb = where
+                 snd.last_limb_dmg = snd.calcTeradrimLimbDamage("batter")
+                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
+               end
               end,
     Shockwave = function(target)
                   snd.target_got("fallen")
@@ -76183,10 +76196,12 @@ end</script>
                  snd.onHit2({"Dodge"})
                end,
     Clobber = function(target, where)
-               snd.last_hit_limb = where
-               snd.last_limb_dmg = snd.calcTeradrimLimbDamage("clobber")
-               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-               snd.onHit2({"Dodge", "Parry", "Rebounding"})
+                if where then
+                 snd.last_hit_limb = where
+                 snd.last_limb_dmg = snd.calcTeradrimLimbDamage("clobber")
+                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
+                end
               end,
     Crack = function(target, where)
                snd.last_hit_limb = where
