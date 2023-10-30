@@ -55632,6 +55632,8 @@ aff_mystified = {state = "healed", effect = "stuck prone for a bit via voidgaze"
 --barbed arrow, ouch!
 aff_barbed_arrow = {state = "healed", effect = "10 stacks kills", cures = {balanceequilibriumtake = "pull arrow from body"}, assess = false, timer = createStopWatch()},
 
+--Soulbound from elite mobs
+aff_soulbound = {state = "healed", effect = "You gotta run away a bit to cure it", cures = {}, assess = false, timer = createStopWatch()},
 }
 </script>
 							<eventHandlerList />
