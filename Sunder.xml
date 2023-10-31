@@ -950,14 +950,34 @@ enableTrigger("What tattoos you rockin'?")</script>
 									<script>
 
 local possible_skills = {
-  "Cloak",
-  "Chameleon",
-  "Mindseye",
   "Firefly",
-  "Flame",
+  "Moss",
+  "Feather",
   "Shield",
-  "Hourglass",
+  "Mindseye",
+  "Hammer",
+  "Cloak",
+  "Bell",
+  "Crystal",
+  "Wand",
+  "Moon",
+  "Cloud",
+  "Starburst",
+  "Armour",
+  "Boar",
+  "Flower",
   "Web",
+  "Tentacle",
+  "Flame",
+  "Hourglass",
+  "Owl",
+  "Brazier",
+  "Prism",
+  "Anchor",
+  "Book",
+  "Tree",
+  "Mountain",
+  "Chameleon",
 }
 
 for _, v in pairs(possible_skills) do
@@ -1000,6 +1020,30 @@ end</script>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>7</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Tattoo used up</name>
+									<script>local index = table.index_of(snd.skills.tattoos_on_me, matches[2]:title().."Tattoo")
+if index then
+  table.remove(snd.skills.tattoos_on_me, index)
+end
+--Leaving this turned off - I don't have a good way to repopulate a tattoo when it's inked on you. :(</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A (\w+) tattoo fades from view and disappears\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -22546,8 +22590,10 @@ end</script>
 							<string>^(\w+) appears dizzy and falls to the ground\.$</string>
 							<string>^(\w+) is already fallen upon the ground\.$</string>
 							<string>^With a struggle, (\w+) attempts to call upon \w+ willpower reserves, however the effort leaves \w+ looking dizzy and weak. \w+ eyes quickly grow unfocused and .+ sways? slightly before crashing heavily to the ground, and \w+ quickly slips into unconsciousness.$</string>
+							<string>^A blow knocks (\w+)'s? balance too far from the balls of \w+ feet, bringing \w+ crashing to the ground\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
