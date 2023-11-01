@@ -55680,6 +55680,8 @@ aff_barbed_arrow = {state = "healed", effect = "10 stacks kills", cures = {balan
 
 --Soulbound from elite mobs
 aff_soulbound = {state = "healed", effect = "You gotta run away a bit to cure it", cures = {}, assess = false, timer = createStopWatch()},
+aff_infernal_explosion = {state = "healed", effect = "You're going to EXPLODE", cures = {}, assess = false, timer = createStopWatch()},
+
 }
 </script>
 							<eventHandlerList />
