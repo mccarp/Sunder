@@ -15245,7 +15245,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 1</name>
 									<script>if matches[2] == snd.target then
-  snd.last_limb_dmg = 2.5
+  snd.last_limb_dmg = 2.49
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.onHit2({"Dodge", "Parry"})
   snd.luminary_crush_first_choice = snd.last_hit_limb
@@ -15270,7 +15270,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 2</name>
 									<script>if snd.getting_hit == snd.target then
-  local amount = 2.5 --buckler/cavalry is 2.5
+  local amount = 2.49 --buckler/cavalry is 2.49
   if matches[1]:find("tower") or matches[1]:find("kite") then
     amount = 12.5
   elseif matches[1]:find("banded") then
@@ -15282,7 +15282,7 @@ end</script>
   
   --We also need to add the difference to the first attack. Since you don't know what shield they're using until part 2, it's a little wonky.
   if amount &gt; 2.5 and snd.luminary_crush_first_choice then -- already good if it's buckler
-    snd.took_limb_dmg(snd.luminary_crush_first_choice, amount-2.5) -- add the amount minus what we've already given
+    snd.took_limb_dmg(snd.luminary_crush_first_choice, amount-2.49) -- add the amount minus what we've already given
     snd.luminary_crush_first_choice = nil
   end
 end
@@ -79424,13 +79424,13 @@ end</script>
     crack = "slam",
   }
 local attackDamage = {
-  gutsmash = 11.99,
+  gutsmash = 12,
   facesmash = 12.99,
-  batter = 13.74,
-  furor = 7.79,
+  batter = 13.75,
+  furor = 7.8,
   fracture = 12,
   skullbash = 16,
-  pulp = 9.41,
+  pulp = 9.47,
   slam = 10,
   barrage1 = 4,
   barrage2 = 3.5,
