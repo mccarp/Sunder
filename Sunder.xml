@@ -48445,7 +48445,7 @@ function snd.attack_function()
 			if snd.used.shield and snd.used.rebounding then
 				string = "deceive "..snd.target.." wasi"
       elseif snd.used.shield or snd.used.rebounding then
-				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
 				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
@@ -48534,7 +48534,7 @@ end</script>
   			if snd.used.shield and snd.used.rebounding then
   				string = "deceive "..snd.target.." wasi"
         elseif snd.used.shield or snd.used.rebounding then
-  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			elseif telvi then
   				string = "blade scribe right telvi "..snd.target..snd.sep.."blade scribe left telvi "..snd.target..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
@@ -48635,7 +48635,7 @@ if snd.class == "Revenant" then
   			if snd.used.shield and snd.used.rebounding then
   				string = "deceive "..snd.target.." wasi"
         elseif snd.used.shield or snd.used.rebounding then
-  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			elseif atdum then -- vorpal equiv
   				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
@@ -48725,7 +48725,7 @@ end
   			if snd.used.shield and snd.used.rebounding then
   				string = "deceive "..snd.target.." wasi"
         elseif snd.used.shield or snd.used.rebounding then
-  				string = "deceive "..snd.target..snd.rev_empower(tohit[1])
+  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
   				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
   			else
   				string = "dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
