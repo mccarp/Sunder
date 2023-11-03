@@ -76233,6 +76233,18 @@ end</script>
                           snd.their_mutagen = true
                         end
              end,
+          Nexus = function(target, advance)
+              if advance then
+                snd.target_got("mutagen")
+                if snd.hitting == "You" then
+                  snd.my_mutagen = true
+                  snd.their_mutagen = false
+                else
+                  snd.my_mutagen = false
+                  snd.their_mutagen = true
+                end
+              end
+            end,
           Advance = function(target)
                         snd.target_got("mutagen")
                         if snd.hitting == "You" then
