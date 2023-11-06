@@ -29573,7 +29573,7 @@ snd.infiltrate = false
 						<script>if sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city then
 else
   snd.send("wt "..matches[2].." is singing Oblivion next to v"..gmcp.Room.Info.num)
-  if snd.class == "Syssin" then
+  if snd.class == "Infiltrator" then
     expandAlias("gs "..matches[2])
   elseif snd.class == "Shaman" or snd.class == "Alchemist" then
     expandAlias("np "..matches[2])
@@ -34179,7 +34179,7 @@ cecho("\n&lt;goldenrod&gt;Limb:")
 cecho("\n &lt;green&gt;ms &lt;white&gt;                - Straight limb breaks into jawlocks.")
 cecho("\n &lt;green&gt;insta&lt;white&gt;              - Goes for quarter kills. Check AB QUARTER for more information.")
 cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Utilizes slash to delay limb breaks, good for pushing level 2 breaks.")
-elseif snd.class == "Syssin" then
+elseif snd.class == "Infiltrator" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;ms &lt;white&gt;                - Basic dstab w/venoms. No hypnosis.")
 cecho("\n &lt;green&gt;magic&lt;white&gt;              - More advanced, geared towards magic, uses hypnosis.")
@@ -36169,7 +36169,7 @@ end -- end the class if
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>wield bashing</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.send("quickwield left whip"..snd.sep.."quickwield right shield")
 end</script>
 								<command></command>
@@ -36178,7 +36178,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>wield pvp</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.send("quickwield left dirk"..snd.sep.."quickwield right shield")
 end</script>
 								<command></command>
@@ -36201,7 +36201,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>yank</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 if matches[2] == "" then
  snd.send("qeb quickwield left whip"..snd.sep.."yank "..snd.target)
 else
@@ -36214,7 +36214,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>backstab</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 if matches[2] == "" then
  snd.send("qeb quickwield left dirk"..snd.sep.."backstab "..snd.target.." curare")
 else
@@ -36234,7 +36234,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>darkflood</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.send("qeb conjure darkflood")
 end</script>
 								<command></command>
@@ -36243,7 +36243,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>abduct</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 if matches[2] == nil then
  snd.send("qeb abduct "..snd.target)
 else
@@ -36256,7 +36256,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Vortex</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
   if matches[2] == nil then
     snd.send("qeb worm vortex "..snd.target)
   else
@@ -36276,7 +36276,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>hypnotise</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.send("qeb hypnotise "..snd.target)
 end</script>
 								<command></command>
@@ -36285,7 +36285,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>shadow mark</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.send("qeb shadow mark numbness "..snd.target)
 end</script>
 								<command></command>
@@ -36294,7 +36294,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>hypnotise stack</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.hypno_stack = {
  "hypochondria",
  "clumsiness",
@@ -36346,7 +36346,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>hypnotise magic stack</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.hypno_stack = {
  "hypochondria",
  "clumsiness",
@@ -36398,7 +36398,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>suggest</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 local shorthand = {
 ["clu"] = "clumsiness",
 ["imp"] = "impatience"
@@ -36422,7 +36422,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>mouse mode</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.starting_attack()
 function snd.attack_function()
 	local string = "" -- this will populate with our attack
@@ -36544,7 +36544,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>legs</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.starting_attack()
 function snd.attack_function()
 	local string = "" -- this will populate with our attack
@@ -36657,7 +36657,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>magic</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.hypno_stack = { -- hypnosis affs, in priority order
  "hypochondria",
  "impatience",
@@ -36834,7 +36834,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>kill</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.hypno_stack = { -- hypnosis affs, in priority order
  "hypochondria",
  "impatience",
@@ -37010,7 +37010,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>1v1</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.hypno_stack = { -- hypnosis affs, in priority order
  "hypochondria",
  "impatience",
@@ -37184,7 +37184,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>damage</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
 snd.starting_attack()
 function snd.attack_function()
  local string = ""
@@ -37227,7 +37227,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>snipe</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
   snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch normal"..snd.sep.."snipe "..snd.target.." "..matches[2])
 end</script>
 								<command></command>
@@ -37236,7 +37236,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>meteor</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
   if matches[2] == nil then
     snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch meteor"..snd.sep.."shoot "..snd.target.." meteor")
   else
@@ -37249,7 +37249,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>ghost</name>
-								<script>if snd.class == "Syssin" then
+								<script>if snd.class == "Infiltrator" then
   if matches[2] == nil then
     snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch ghost"..snd.sep.."shoot "..snd.target)
   else
@@ -53184,8 +53184,8 @@ end</script>
     snd.defenses.def_constitution = snd.alternative_class_defenses.Earthcaller_constitution
   end
   
-  if snd.class == "Syssin" then
-    snd.defenses.def_shroud = snd.alternative_class_defenses.Syssin_shroud
+  if snd.class == "Infiltrator" then
+    snd.defenses.def_shroud = snd.alternative_class_defenses.Infiltrator_shroud
   end
   
   if snd.class == "Carnifex" then
@@ -53939,7 +53939,7 @@ function snd.can_fitness()
 end
 
 function snd.can_shrug()
-  if snd.class == "Syssin" and hasSkill("Shrugging") and snd.balance.shrug then
+  if snd.class == "Infiltrator" and hasSkill("Shrugging") and snd.balance.shrug then
     return true
   else
     return false
@@ -56576,7 +56576,7 @@ Indorani_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  
 Oneiromancer_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
 Carnifex_shroud = {defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "soul shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
 Warden_shroud = {defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "ancest distort"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
-Syssin_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "conjure cloak"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cloak" },
+Infiltrator_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "conjure cloak"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cloak" },
 Revenant_maingauche = {defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = {needyequilibriumtake = "maingauche"}, state = "down", needit = false, timer = createStopWatch(), skill = "MainGauche"},
 Templar_maingauche = {defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = {needyequilibriumtake = "maingauche"}, state = "down", needit = false, timer = createStopWatch(), skill = "MainGauche"},
 Warden_fearless = {defense = "fearless", type = "normal", effect = "Protects against fear affliction.", balance = {special = "warden fortitude"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fortitude"},
@@ -57667,7 +57667,7 @@ registerAnonymousEventHandler("sndNDB Check Highlight", "sndNDB_addHighlight")</
 	}
 	local classes = {
 		Ascendril = {}, Luminary = {}, Sentinel = {}, Shaman = {}, Zealot = {}, Templar = {}, Warden = {}, Oneiromancer = {}, Tidesage = {},
-		Monk = {}, Shapeshifter = {}, Syssin = {}, Wayfarer = {}, 
+		Monk = {}, Shapeshifter = {}, Infiltrator = {}, Wayfarer = {}, 
 		Archivist = {}, Carnifex = {}, Indorani = {}, Praenomen = {}, Sciomancer = {}, Teradrim = {}, Revenant = {}, Earthcaller = {}, Alchemist = {},
     Akkari = {}, Bloodborn = {}, Runecarver = {}
 	}
@@ -70191,7 +70191,7 @@ end</script>
 {class = "Sentinel", func = function(current) snd.sentinel_bash() end}, 
 {class = "Shaman", func = function(current) snd.shaman_bash() end}, 
 {class = "Shapeshifter", func = function(current) snd.shapeshifter_bash() end}, 
-{class = "Syssin", func = function(current) snd.syssin_bash() end}, 
+{class = "Infiltrator", func = function(current) snd.infiltrator_bash() end}, 
 {class = "Templar", func = function(current) snd.templar_bash() end},
 {class = "Teradrim", func = function(current) snd.teradrim_bash() end},
 {class = "Tidesage", func = function(current) snd.tidesage_bash() end}, 
@@ -70777,7 +70777,7 @@ function snd.shapeshifter_bash()
 	end
 end
 
-function snd.syssin_bash()
+function snd.infiltrator_bash()
   local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
   local endur = 100*(gmcp.Char.Vitals.ep/gmcp.Char.Vitals.maxep)
   if hp &lt;=40 and snd.shield_check() then
@@ -72821,7 +72821,7 @@ def_corner = "once",
 --def_harden = "once",
 },
 
-syssin = {
+infiltrator = {
 def_warding = "once",
 def_finesse = "once",
 def_shadowsight = "once",
@@ -73669,7 +73669,7 @@ sentinel = {"Dhuriv", "Woodlore", "Tracking"},
 shaman = {"Primality", "Shamanism", "Naturalism", "Experimentation", "Alchemy", "Botany"},
 monk = {"Tekura", "Kaido", "Telepathy"},
 zealot = {"Zeal", "Purification", "Psionics", "Brutality", "Ravaging", "Egotism"},
-syssin = {"Assassination", "Subterfuge", "Hypnosis"},
+infiltrator = {"Assassination", "Subterfuge", "Hypnosis"},
 shifter = {"Ferality", "Shapeshifting", "Vocalizing"},
 wayfarer = {"Tenacity", "Wayfaring", "Fury"},
 templar = {"Battlefury", "Righteousness", "Bladefire", "Chirography", "Riving", "Manifestation"},
@@ -79292,7 +79292,7 @@ function snd.akkari_lovers(tab)
 end
 
 function snd.akkari_peace()
-  if snd.cureset == "carnifex" or snd.cureset == "zealot" or snd.cureset == "monk" or snd.cureset == "syssin" or snd.cureset == "wayfarer" then
+  if snd.cureset == "carnifex" or snd.cureset == "zealot" or snd.cureset == "monk" or snd.cureset == "infiltrator" or snd.cureset == "wayfarer" then
     if table.contains(snd.secondary_aff, "peace") then
       table.remove(snd.secondary_aff, table.index_of(snd.secondary_aff, "peace"))
     end
@@ -79301,7 +79301,7 @@ end
 
 function snd.akkari_disfigure()
   if table.contains(snd.primary_aff, "disfigurement") then
-    if snd.cureset == "luminary" or snd.cureset == "templar" or snd.cureset == "syssin" 
+    if snd.cureset == "luminary" or snd.cureset == "templar" or snd.cureset == "infiltrator" 
     or snd.cureset == "bard" or snd.cureset == "shifter" or snd.cureset == "wayfarer" 
     or snd.cureset == "monk" then
       table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "disfigurement"))
