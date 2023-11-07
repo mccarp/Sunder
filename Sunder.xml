@@ -55683,6 +55683,14 @@ aff_awakened = {state = "healed", effect = "Some bard nonsense", cures = {}, ass
 --ravager thing
 aff_kneel = {state = "healed", effect = "hurts you if you walk too far from ravager", cures = {}, assess = false, timer = createStopWatch()},
 
+--predator
+aff_bloodscourge = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
+aff_embedded_dagger = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
+aff_fleshbane = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
+aff_goaded = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
+aff_intoxicated = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
+aff_writhe_dartpinned = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
+
 ---- Mirror affs here
 
 --Revenant
