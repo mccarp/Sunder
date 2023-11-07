@@ -70664,11 +70664,11 @@ function snd.predator_bash()
   battack = ""
   local stance = gmcp.Char.Vitals.knife_stance or "None"
   local attacks = {
-    ["Gyanis"] = "series lateral lateral lateral crescentcut",
-    ["Vae-Sant"] = "series vertical lateral lateral crescentcut",
-    ["Ein-Fasit"] = "series vertical lateral lateral crescentcut",
-    ["Rizet"] = "series swiftkick lateral lateral crescentcut",
-    ["Laesan"] = "series crescentcut lateral lateral crescentcut",
+    ["Gyanis"] = "series lateral lateral lateral swiftkick",
+    ["Vae-Sant"] = "series vertical lateral lateral swiftkick",
+    ["Ein-Fasit"] = "series vertical lateral lateral swiftkick",
+    ["Rizet"] = "series crescentcut swiftkick crescentcut crescentcut",
+    ["Laesan"] = "series swiftkick lateral lateral swiftkick",
     ["None"] = "series crescentcut lateral lateral crescentcut",
   }
   if hp &lt;= 40 and snd.shield_check() then
