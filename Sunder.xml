@@ -55046,6 +55046,20 @@ snd.priorities =
     "def_anthem",
     "def_rallied",
     "def_bolstered_morale",
+    
+    --predator
+    "def_spacing",
+    "def_masked",
+    "def_trueparry",
+    "def_bladesurge",
+    "def_absorption",
+    "def_regeneration",
+    "def_secondwind",
+    "def_windwalking",
+    "def_preserval",
+    "def_whitesight",
+    "def_aversion",
+    "def_defang",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -56454,6 +56468,21 @@ def_zenith = {defense = "zenith", type = "normal", effect = "cure a random AFF, 
 def_mindspark = {defense = "mindspark", type = "normal", effect = "raises your intelligence", balance = {balanceequilibrium = "psi mindspark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mindspark" },
 def_bending = {defense = "bending", type = "normal", effect = "magical damage reduction or something", balance = {balanceequilibrium = "psi bending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bending"},
 
+--predator
+def_spacing = {defense = "spacing", type = "normal", effect = "Physical audit", balance = {balanceequilibrium = "spacing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spacing"},
+def_masked = {defense = "masked", type = "normal", effect = "Veil-like effect", balance = {balanceequilibrium = "wear mask"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mask"},
+def_trueparry = {defense = "trueparry", type = "normal", effect = "Parry all limbs, channel", balance = {balanceequilibrium = "trueparry"}, state = "down", needit = false, timer = createStopWatch(), skill = "Trueparry"},
+def_bladesurge = {defense = "bladesurge", type = "normal", effect = "Burstheal like vitality, plus extra hit when activated", balance = {balanceequilibrium = "bladesurge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
+def_absorption = {defense = "absorption", type = "normal", effect = "Burst damage after receiving enough magic based damage", balance = {balanceequilibrium = "absorption"}, state = "down", needit = false, timer = createStopWatch(), skill = "Tidalslash"},
+def_regeneration = {defense = "regeneration", type = "normal", effect = "Regen health", balance = {balanceequilibrium = "regeneration on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Regeneration"},
+def_secondwind = {defense = "secondwind", type = "normal", effect = "Faster wake from sleep", balance = {balanceequilibrium = "secondwind"}, state = "down", needit = false, timer = createStopWatch(), skill = "Secondwind"},
+def_windwalking = {defense = "windwalking", type = "normal", effect = "Avoid area alerts", balance = {balanceequilibrium = "windwalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Windwalk"},
+def_preserval = {defense = "preserval", type = "normal", effect = "Protect against fire/cold", balance = {balanceequilibrium = "preservation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Preserval"},
+def_whitesight = {defense = "whitesight", type = "normal", effect = "See through blizzards", balance = {balanceequilibrium = "whitesight"}, state = "down", needit = false, timer = createStopWatch(), skill = "Whitesight"},
+def_aversion = {defense = "aversion", type = "normal", effect = "Avoid aegis and runes, but blocks ql and gmcp map", balance = {balanceequilibrium = "avert eyes"}, state = "down", needit = false, timer = createStopWatch(), skill = "Aversion"},
+def_defang = {defense = "defang", type = "normal", effect = "Knocks offbal if successful parry", balance = {balanceequilibrium = "defang"}, state = "down", needit = false, timer = createStopWatch(), skill = "Defang"},
+
+
 --adherent
 def_adherent_form = {defense = "adherent_form", type = "normal", effect = "You are pissed", balance = {balanceequilibriumtake = "ascend soul brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_adherent_barrier = {defense = "adherent_barrier", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "adherent barrier"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -57121,6 +57150,22 @@ end</script>
   ["You are extending your Chaotic aura to others."] = "chaos_presence",
   ["You are surrounded by a shroud of Chaos."] = "chaos_shroud",
   ["You have stored away a part of your soul in the safety of Chaos."] = "chaos_store",
+  
+  --Predator
+  
+  
+  ["You are using careful footwork to keep space from foes."] = "spacing",
+  ["You are hiding your identity with a mask."] = "masked",
+  ["You are parrying all attacks that are targeted at your limbs."] = "trueparry",
+  ["You are concentrating on conserving your adrenaline."] = "bladesurge",
+  ["You are attempting to absorb magical attacks directed at you with your sitara."] = "absorption",
+  ["You are regenerating lost health through will."] = "regeneration",
+  ["You are staving off sleep through the use of a second wind."] = "secondwind",
+  ["You are windwalking."] = "windwalking",
+  ["You have tempered your body against the forces of nature."] = "preserval",
+  ["You are capable of seeing through snow fall."] = "whitesight",
+  ["You are averting your gaze below the top of your mask."] = "aversion",
+  ["You are using your battle prowess to defang attacks."] = "defang",
 }
  </script>
 							<eventHandlerList />
@@ -72909,7 +72954,17 @@ def_resurgence = "on",
 def_discharge = "on",
 def_deflection = "on",
 def_mindspark = "on",
-
+},
+predator = {
+  def_spacing = "on",
+  def_bladesurge = "once",
+  def_absorption = "on",
+  def_regeneration = "on",
+  def_secondwind = "on",
+  def_windwalking = "on",
+  def_preserval = "on",
+  def_whitesight = "on",
+  def_defang = "on",
 },
 --200s
 malevolent = {
@@ -73675,6 +73730,7 @@ wayfarer = {"Tenacity", "Wayfaring", "Fury"},
 templar = {"Battlefury", "Righteousness", "Bladefire", "Chirography", "Riving", "Manifestation"},
 carnifex = {"Savagery", "Deathlore", "Warhounds", "Warding", "Ancestry", "Communion"},
 bard = {"Songcalling", "Performance", "Weaving"},
+predator = {"Knifeplay", "Predation", "Beastmastery"},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -78689,6 +78745,141 @@ end</script>
     Attack = function(target)
       enableTrigger("Weapon Hit Confirmation")
     end,
+  },
+  
+  ["Knifeplay"] = {
+    Fleshbane = 
+      function(target)
+        if snd.checkAff("haemophilia") then
+          snd.target_got("fleshbane")
+        end
+      end,
+    Lateral =
+      function(target)
+        snd.last_hit_limb = "torso"
+        snd.last_limb_dmg = 6
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        snd.onHit2({"Parry", "Dodge", "Rebounding"})
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Vertical =
+      function(target)
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Pinprick =
+      function(target)
+        snd.target_got("epilepsy")
+        snd.onHit2({"Dodge", "Rebounding"})
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Trip =
+      function(target)
+        snd.target_got("fallen")
+      end,
+    Jab =
+      function(target, bodypart)
+        snd.last_hit_limb = bodypart
+        snd.last_limb_dmg = 5.5
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        snd.onHit2({"Parry", "Dodge", "Rebounding"})
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Spinslash =
+      function(target, bodypart)
+        snd.last_hit_limb = bodypart
+        snd.last_limb_dmg = 7
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        snd.onHit2({"Parry", "Dodge", "Rebounding"})
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Lowhook =
+      function(target, bodypart)
+        snd.last_hit_limb = bodypart
+        snd.last_limb_dmg = 5.5
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        snd.onHit2({"Parry", "Dodge", "Rebounding"})
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Feint = function(target, limb)
+             snd.parried_limb = limb
+            end,
+   Raze = function(target, defense)
+                if defense == "shield" then snd.used.shield = false end
+                if defense == "rebounding" then snd.used.rebounding = false end
+                if defense == "speed" then snd.target_got("no_speed") end
+                if defense == "failure" then snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false end
+              end,
+    Flashkick =
+      function(target)
+        snd.last_hit_limb = "head"
+        snd.last_limb_dmg = 5
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        snd.onHit2({"Parry", "Dodge"})
+      end,
+    Crescentcut =
+      function(target)
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Freefall =
+      function(target)
+        enableTrigger("Weapon Hit Confirmation")
+        snd.target_got("fallen")
+      end,
+    Gouge =
+      function(target)
+        snd.last_hit_limb = "head"
+        snd.last_limb_dmg = 6.5
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        table.insert(snd.maybe_affs, 1, "disfigurement")
+        snd.onHit2({"Parry", "Dodge"})
+      end,
+    Takedown =
+      function(target)
+        snd.target_got("fallen")
+      end,
+    Butterfly =
+      function(target)
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Pommelwhip =
+      function(target)
+        snd.target_got("blackout")
+      end,
+  },
+  ["Predation"] = {
+    Pheromones =
+      function(target)
+        snd.target_got("pacifism")
+      end,
+    Pindown =
+      function(target)
+        snd.target_got("writhe_dartpinned")
+      end,
+    Dartshot =
+      function(target)
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+    Twinshot =
+      function(target)
+        enableTrigger("Weapon Hit Confirmation")
+      end,
+  },
+  ["Beastmastery"] = {
+    Disrupt =
+      function(target)
+        snd.target_got("disrupt")
+      end,
+    Pummel =
+      function(target, limb)
+        snd.last_hit_limb = limb
+        snd.last_limb_dmg = 20
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        snd.onHit2({"Parry", "Dodge"})
+      end,
+    Web =
+      function(target)
+        snd.target_got("writhe_web")
+      end,
   },
 
 }</script>
