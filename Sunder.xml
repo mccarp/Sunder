@@ -56489,20 +56489,20 @@ def_mindspark = {defense = "mindspark", type = "normal", effect = "raises your i
 def_bending = {defense = "bending", type = "normal", effect = "magical damage reduction or something", balance = {balanceequilibrium = "psi bending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bending"},
 
 --predator
-def_spacing = {defense = "spacing", type = "normal", effect = "Physical audit", balance = {balanceequilibrium = "spacing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spacing"},
+def_spacing = {defense = "spacing", type = "normal", effect = "Physical audit", balance = {balanceequilibriumtake = "spacing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spacing"},
 def_masked = {defense = "masked", type = "normal", effect = "Veil-like effect", balance = {balanceequilibrium = "wear mask"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mask"},
 def_trueparry = {defense = "trueparry", type = "normal", effect = "Parry all limbs, channel", balance = {balanceequilibrium = "trueparry"}, state = "down", needit = false, timer = createStopWatch(), skill = "Trueparry"},
-def_bladesurge = {defense = "bladesurge", type = "normal", effect = "Burstheal like vitality, plus extra hit when activated", balance = {balanceequilibrium = "bladesurge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
+def_bladesurge = {defense = "bladesurge", type = "normal", effect = "Burstheal like vitality, plus extra hit when activated", balance = {balanceequilibriumtake = "bladesurge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
 def_bladesurge_energy = {defense = "bladesurge_regeneration", type = "goldenrod", effect = "All knifeplay stances", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
-def_absorption = {defense = "absorption", type = "normal", effect = "Burst damage after receiving enough magic based damage", balance = {balanceequilibrium = "absorption"}, state = "down", needit = false, timer = createStopWatch(), skill = "Tidalslash"},
+def_absorption = {defense = "absorption", type = "normal", effect = "Burst damage after receiving enough magic based damage", balance = {balanceequilibriumtake = "absorption"}, state = "down", needit = false, timer = createStopWatch(), skill = "Tidalslash"},
 --def_regeneration = {defense = "regeneration", type = "normal", effect = "Regen health", balance = {balanceequilibrium = "regeneration on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Regeneration"},
 --This shares monks' regeneration defense - it's handled in that part of the dictionary.
 def_secondwind = {defense = "secondwind", type = "normal", effect = "Faster wake from sleep", balance = {balanceequilibrium = "secondwind"}, state = "down", needit = false, timer = createStopWatch(), skill = "Secondwind"},
-def_windwalking = {defense = "windwalking", type = "normal", effect = "Avoid area alerts", balance = {balanceequilibrium = "windwalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Windwalk"},
-def_preserval = {defense = "preserval", type = "normal", effect = "Protect against fire/cold", balance = {balanceequilibrium = "preservation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Preserval"},
+def_windwalking = {defense = "windwalking", type = "normal", effect = "Avoid area alerts", balance = {balanceequilibriumtake = "windwalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Windwalk"},
+def_preserval = {defense = "preserval", type = "normal", effect = "Protect against fire/cold", balance = {balanceequilibriumtake = "preservation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Preserval"},
 def_whitesight = {defense = "whitesight", type = "normal", effect = "See through blizzards", balance = {balanceequilibrium = "whitesight"}, state = "down", needit = false, timer = createStopWatch(), skill = "Whitesight"},
 def_aversion = {defense = "aversion", type = "normal", effect = "Avoid aegis and runes, but blocks ql and gmcp map", balance = {balanceequilibrium = "avert eyes"}, state = "down", needit = false, timer = createStopWatch(), skill = "Aversion"},
-def_defang = {defense = "defang", type = "normal", effect = "Knocks offbal if successful parry", balance = {balanceequilibrium = "defang"}, state = "down", needit = false, timer = createStopWatch(), skill = "Defang"},
+def_defang = {defense = "defang", type = "normal", effect = "Knocks offbal if successful parry", balance = {balanceequilibriumtake = "defang"}, state = "down", needit = false, timer = createStopWatch(), skill = "Defang"},
 
 
 --adherent
