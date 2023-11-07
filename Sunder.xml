@@ -49967,14 +49967,14 @@ end</script>
 								<script>send("order cholerisk kill "..snd.target)</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^ock</regex>
+								<regex>^ock$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>order loyals passive</name>
 								<script>send("order loyals passive")</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^ocp</regex>
+								<regex>^ocp$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Freeze</name>
@@ -50094,7 +50094,7 @@ end</script>
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^freeze</regex>
+								<regex>^freeze$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Damage</name>
@@ -50148,7 +50148,7 @@ snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^dmg</regex>
+								<regex>^dmg$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Single Shatter</name>
@@ -50265,7 +50265,7 @@ end</script>
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^sshatter</regex>
+								<regex>^sshatter$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Affs</name>
@@ -50382,7 +50382,7 @@ snd.attack_function()
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^affs</regex>
+								<regex>^affs$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Fire</name>
@@ -50452,7 +50452,7 @@ end</script>
 								<script>send("qeb humour retch "..snd.target..""..snd.sep.."humour retch "..snd.target)</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^retch</regex>
+								<regex>^retch$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -50463,7 +50463,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Group</name>
-								<script>if snd.class == "Ascendril" then
+								<script>if snd.class == "Bloodborn" then
   snd.starting_attack()
   function snd.attack_function()
     if not snd.waiting.queue then
@@ -50593,7 +50593,7 @@ end</script>
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex></regex>
+								<regex>^gaff$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
