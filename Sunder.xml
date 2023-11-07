@@ -70228,7 +70228,8 @@ end</script>
 {class = "Luminary", func = function(current) snd.luminary_bash() end}, 
 {class = "Monk", func = function(current) snd.monk_bash() end}, 
 {class = "Oneiromancer", func = function(current) snd.oneiromancer_bash() end},
-{class = "Praenomen", func = function(current) snd.praenomen_bash() end}, 
+{class = "Praenomen", func = function(current) snd.praenomen_bash() end},
+{class = "Predator", func = function(current) snd.predator_bash() end},
 {class = "Ravager", func = function(current) snd.ravager_bash() end},
 {class = "Revenant", func = function(current) snd.revenant_bash() end},
 {class = "Runecarver", func = function(current) snd.runecarver_bash() end},
@@ -70654,6 +70655,28 @@ function snd.praenomen_bash()
     battack = "feed corpse"
   else
     battack = "frenzy "..snd.bashing.target
+  end
+end
+
+function snd.predator_bash()
+  hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
+  mp = 100 * (gmcp.Char.Vitals.mp / gmcp.Char.Vitals.maxmp)
+  battack = ""
+  local stance = gmcp.Char.Vitals.knife_stance or "None"
+  local attacks = {
+    ["Gyanis"] = "series lateral lateral lateral crescentcut",
+    ["Vae-Sant"] = "series vertical lateral lateral crescentcut",
+    ["Ein-Fasit"] = "series vertical lateral lateral crescentcut",
+    ["Rizet"] = "series swiftkick lateral lateral crescentcut",
+    ["Laesan"] = "series crescentcut lateral lateral crescentcut",
+    ["None"] = "series crescentcut lateral lateral crescentcut",
+  }
+  if hp &lt;= 40 and snd.shield_check() then
+    battack = "touch shield"
+  elseif snd.toggles.newbie then
+    battack = "sitara lateral "..snd.bashing.target
+  else
+    battack = attacks[stance].." "..snd.bashing.target
   end
 end
 
