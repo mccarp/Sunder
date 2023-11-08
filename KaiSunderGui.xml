@@ -105,7 +105,9 @@ GUIframe.enable("left")</script>
 kaiUI.hits = kaiUI.hits or 0
 kaiUI.crits = kaiUI.crits or 0
 kaiUI.targetName = kaiUI.targetName or "Nothing"
-kaiUI.gmcp = {}</script>
+kaiUI.gmcp = {}
+
+registerAnonymousEventHandler("sysConnectionEvent", "kaiUI.buildUI")</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
