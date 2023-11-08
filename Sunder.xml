@@ -79089,7 +79089,12 @@ end</script>
   ["Knifeplay"] = {
     Fleshbane = 
       function(target)
-        snd.target_got("fleshbane")
+        if not snd.checkAff("fleshbane") then
+          snd.target_got("fleshbane")
+          local fleshbaned = target
+          if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
+          snd.fleshbaneTimer = tempTimer(60, function() if fleshbaned == snd.target then snd.target_cured("fleshbane")  end end)
+        end
       end,
     Bloodscourge = function(target)
       snd.maybe_affs = {"bloodscourge"},
