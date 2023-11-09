@@ -72743,7 +72743,7 @@ function snd.do_clot(current)
    echo("(clot*"..x..")")
    snd.last_type = "clot"
    snd.last_item = "send"
-   snd.waiting.focus = true
+   snd.waiting.clot = true
    tempTimer(snd.delay(), [[snd.waiting.clot = false]])
    snd.afflictions[current].state = "waiting"
    startStopWatch(snd.afflictions[current].timer)
