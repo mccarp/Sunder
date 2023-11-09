@@ -75250,6 +75250,7 @@ function snd.no_parry()
   "writhe_ropes",
   "writhe_vines",
   "writhe_grappled",
+  "writhe_dartpinned",
  }
  if snd.class == "sentinel" then
   table.insert(noparryaffs, "paresis")
@@ -79300,6 +79301,7 @@ end</script>
     Lateral =
       function(target)
         snd.setPredatorVenom()
+        snd.maybe_affs = {}
         snd.last_hit_limb = "torso"
         snd.last_limb_dmg = 6
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -79325,6 +79327,7 @@ end</script>
     Jab =
       function(target, bodypart)
         snd.setPredatorVenom()
+        snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 5.5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -79333,6 +79336,7 @@ end</script>
     Spinslash =
       function(target, bodypart)
         snd.setPredatorVenom()
+        snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 7
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -79341,6 +79345,7 @@ end</script>
     Lowhook =
       function(target, bodypart)
         snd.setPredatorVenom()
+        snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 5.5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -79360,6 +79365,7 @@ end</script>
     Flashkick =
       function(target)
         snd.setPredatorVenom()
+        snd.maybe_affs = {}
         snd.last_hit_limb = "head"
         snd.last_limb_dmg = 5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
