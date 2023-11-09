@@ -79501,7 +79501,7 @@ function snd.calc.crescentcutMultiplier()
   --broken/mangled head or torso
   for _, limb in pairs({"head", "torso"}) do
     if snd.limb_status[limb] == "mangled" then
-      multi = multi + .5
+      multi = multi + .8
     elseif snd.limb_status[limb] == "broken" then
       multi = multi + .3
     end
