@@ -42,6 +42,7 @@ if snd.offense_loaded then
   snd.chasten_aff = "none"
   snd.last_cured = ""
   snd.rebounded = false
+  snd.predatorVenom = nil
   
   if snd.last_hit_limb and snd.last_hit_limb~="none" then
     snd.last_struck_limb = snd.last_hit_limb
@@ -8719,6 +8720,7 @@ end</script>
       table.insert(snd.maybe_affs, aff)
     end
   end
+  snd.predatorVenom = nil
   snd.hitting = matches[2]
   snd.who_called_affs = matches[2]
 end</script>
@@ -20901,6 +20903,26 @@ disableTrigger("Weapon Hit Confirmation")</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Darts</name>
+									<script>snd.onHit2({}, "Templar")</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) flinches as the small dart pierces \w+ skin\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Anguish used</name>
@@ -21895,6 +21917,28 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Darts</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got(snd.venomEffect(matches[3]))
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Your dart strikes (\w+), digging (\w+) into \w+ flesh\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -22729,6 +22773,12 @@ disableTrigger("Sunder Parry")</script>
 						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Sunder Dodge</name>
 							<script>if matches[2] == snd.target then
+  
+  if snd.skill_being_used == "Twinshot" then
+    table.remove(snd.maybe_affs, 1)
+    return
+  end
+  
   if #snd.last_affs &gt;= 1 then
     if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
       snd.used.rebounding = true
@@ -74572,6 +74622,20 @@ function snd.onHit2(checks, conditional)
         table.insert(snd.last_affs, "epilepsy")
         table.remove(snd.maybe_affs, 2) 
       end
+      
+      if conditional == "Double Aff" then
+        if snd.maybe_affs[2] and not(snd.checkAff(snd.venomEffect(snd.maybe_affs[2])) or snd.checkAff(snd.maybe_affs[2])) then -- if its an aff and
+          if snd.venomEffect(snd.maybe_affs[2]) == "" then                                                                        -- not an aff/venom already
+            aff = snd.maybe_affs[2]                                                                                               -- on them, populate aff
+          else
+            aff = snd.venomEffect(snd.maybe_affs[2])
+          end
+          snd.target_got(aff)
+          table.insert(snd.last_affs, aff)
+        end
+        if snd.maybe_affs[1] then table.remove(snd.maybe_affs, 1) end
+        if snd.maybe_affs[1] then table.remove(snd.maybe_affs, 1) end
+      end
 
       if aff == "stupidity" and conditional == "Zealot Sunkick" and snd.maybe_affs[2] == "dizziness" then
         snd.target_got("dizziness")
@@ -79222,67 +79286,72 @@ end</script>
   ["Knifeplay"] = {
     Fleshbane = 
       function(target)
-        if not snd.checkAff("fleshbane") then
-          snd.target_got("fleshbane")
-          local fleshbaned = target
-          if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
-          snd.fleshbaneTimer = tempTimer(60, function() if fleshbaned == snd.target then snd.target_cured("fleshbane")  end end)
-        end
+        snd.target_got("fleshbane")
+        local fleshbaned = target
+        if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
+        snd.fleshbaneTimer = tempTimer(60, function() if fleshbaned == snd.target then snd.target_cured("fleshbane")  end end)
+        table.insert(snd.maybe_affs, 1, "fleshbane")
+        snd.onHit2({"Dodge"}, "Double Aff")
       end,
     Bloodscourge = function(target)
-      snd.maybe_affs = {"bloodscourge"},
-      snd.onHit2({"Parry", "Dodge"})
+      table.insert(snd.maybe_affs, 1, "bloodscourge")
+      snd.onHit2({"Dodge"}, "Double Aff")
     end,
     Lateral =
       function(target)
+        snd.setPredatorVenom()
         snd.last_hit_limb = "torso"
         snd.last_limb_dmg = 6
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
-        enableTrigger("Weapon Hit Confirmation")
       end,
     Vertical =
       function(target)
-        enableTrigger("Weapon Hit Confirmation")
+        snd.setPredatorVenom()
+        snd.maybe_affs = {snd.predatorVenom ~= "none" and snd.predatorVenom}
+        snd.onHit2({"Dodge", "Rebounding"})
       end,
     Pinprick =
       function(target)
-        snd.target_got("epilepsy")
+        snd.setPredatorVenom()
+        snd.maybe_affs = {"epilepsy"}
         snd.onHit2({"Dodge", "Rebounding"})
-        enableTrigger("Weapon Hit Confirmation")
       end,
     Trip =
       function(target)
+        snd.setPredatorVenom()
         snd.target_got("fallen")
       end,
     Jab =
       function(target, bodypart)
+        snd.setPredatorVenom()
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 5.5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
-        enableTrigger("Weapon Hit Confirmation")
       end,
     Spinslash =
       function(target, bodypart)
+        snd.setPredatorVenom()
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 7
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
-        enableTrigger("Weapon Hit Confirmation")
       end,
     Lowhook =
       function(target, bodypart)
+        snd.setPredatorVenom()
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 5.5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
-        enableTrigger("Weapon Hit Confirmation")
       end,
     Feint = function(target, limb)
-             snd.parried_limb = limb
-            end,
+            snd.setPredatorVenom()
+            snd.parried_limb = limb
+          end,
     Raze = function(target, defense)
+                snd.setPredatorVenom()
                 if defense == "shield" then snd.used.shield = false end
                 if defense == "rebounding" then snd.used.rebounding = false; snd.used.shield = false end
                 if defense == "speed" then snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false end
@@ -79290,6 +79359,7 @@ end</script>
               end,
     Flashkick =
       function(target)
+        snd.setPredatorVenom()
         snd.last_hit_limb = "head"
         snd.last_limb_dmg = 5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -79297,28 +79367,33 @@ end</script>
       end,
     Crescentcut =
       function(target)
-        enableTrigger("Weapon Hit Confirmation")
+        snd.setPredatorVenom()
       end,
     Freefall =
       function(target)
-        enableTrigger("Weapon Hit Confirmation")
-        snd.target_got("fallen")
+        snd.setPredatorVenom()
+        snd.maybe_affs = {"fallen", snd.predatorVenom ~= "none" and snd.predatorVenom}
+        snd.onHit2({"Dodge"},"Double Aff")
       end,
     Gouge =
       function(target)
+        snd.setPredatorVenom()
         snd.last_hit_limb = "head"
         snd.last_limb_dmg = 6.5
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-        table.insert(snd.maybe_affs, 1, "disfigurement")
+        snd.maybe_affs = {"disfigurement"}
         snd.onHit2({"Parry", "Dodge"})
       end,
     Takedown =
       function(target)
+        snd.setPredatorVenom()
         snd.target_got("fallen")
       end,
     Butterfly =
       function(target)
-        enableTrigger("Weapon Hit Confirmation")
+        snd.setPredatorVenom()
+        snd.maybe_affs = {snd.predatorVenom ~= "none" and snd.predatorVenom}
+        snd.onHit2({"Dodge"})
       end,
     Pommelwhip =
       function(target)
@@ -79328,6 +79403,7 @@ end</script>
   ["Predation"] = {
     Pheromones =
       function(target)
+        snd.setPredatorVenom()
         snd.target_got("pacifism")
       end,
     Pindown =
@@ -79340,6 +79416,7 @@ end</script>
       end,
     Twinshot =
       function(target)
+        enableTrigger("Sunder Dodge")
         enableTrigger("Weapon Hit Confirmation")
       end,
     Goad = function(target)
@@ -79350,12 +79427,16 @@ end</script>
       snd.target_got("goaded")
       tempTimer(time, function() snd.target_cured("goaded") end)
     end,
+    Mindnumb = function(target)
+      snd.setPredatorVenom()
+      snd.target_got("impairment")
+    end,
   },
   ["Beastmastery"] = {
-    Disrupt =
-      function(target)
-        snd.target_got("disrupt")
-      end,
+    -- Disrupt =
+      -- function(target)
+        -- snd.target_got("disrupted")
+      -- end, ????
     Pummel =
       function(target, limb)
         snd.last_hit_limb = limb
@@ -80204,6 +80285,21 @@ function snd.calcTeradrimLimbDamage(skill)
     end
   end
   return round(damage,2)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Predator</name>
+						<packageName></packageName>
+						<script>function snd.setPredatorVenom()
+	if not snd.predatorVenom then
+    if snd.maybe_affs[1] then
+    snd.predatorVenom = snd.maybe_affs[1]
+    snd.maybe_affs = {}
+    else
+      snd.predatorVenom = "none"
+    end
+  end
 end</script>
 						<eventHandlerList />
 					</Script>
