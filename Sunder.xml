@@ -79282,10 +79282,10 @@ end</script>
     Feint = function(target, limb)
              snd.parried_limb = limb
             end,
-   Raze = function(target, defense)
+    Raze = function(target, defense)
                 if defense == "shield" then snd.used.shield = false end
-                if defense == "rebounding" then snd.used.rebounding = false end
-                if defense == "speed" then snd.target_got("no_speed") end
+                if defense == "rebounding" then snd.used.rebounding = false; snd.used.shield = false end
+                if defense == "speed" then snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false end
                 if defense == "failure" then snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false end
               end,
     Flashkick =
