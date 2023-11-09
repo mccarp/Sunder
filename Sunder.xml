@@ -79374,6 +79374,8 @@ end</script>
     Crescentcut =
       function(target)
         snd.setPredatorVenom()
+        snd.maybe_affs = {snd.predatorVenom ~= "none" and snd.predatorVenom}
+        snd.onHit2({"Dodge", "Rebounding"})
       end,
     Freefall =
       function(target)
