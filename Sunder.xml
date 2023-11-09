@@ -79342,6 +79342,14 @@ end</script>
       function(target)
         enableTrigger("Weapon Hit Confirmation")
       end,
+    Goad = function(target)
+      local time = 5.5
+      if snd.hitting == "You" then
+        time = time + 2 * tonumber(gmcp.Char.Vitals.apex)
+      end
+      snd.target_got("goaded")
+      tempTimer(time, function() snd.target_cured("goaded") end)
+    end,
   },
   ["Beastmastery"] = {
     Disrupt =
