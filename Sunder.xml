@@ -25972,6 +25972,54 @@ end
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Fleshbane proc</name>
+							<script>local numbermap =
+  {
+    one = 1,
+    two = 2,
+    three = 3,
+    four = 4,
+    five = 5,
+    six = 6,
+    seven = 7,
+    eight = 8,
+    nine = 9,
+    ten = 10,
+    eleven = 11,
+    twelve = 12,
+    thirteen = 13,
+    fourteen = 14,
+    fifteen = 15,
+    sixteen = 16,
+    seventeen = 17,
+    eighteen = 18,
+    nineteen = 19,
+    twenty = 20,
+  }
+if matches[3] == snd.target then
+  snd.fleshbaneStacks = numbermap[matches[2]]
+  --failsafe to make sure this goes back to zero.
+  if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
+  snd.fleshbaneTimer = tempTimer(3, function() snd.fleshbaneStacks = 0 end)
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The (\w+) slices on (\w+) fester, interfering with the restoration of \w+ limbs\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Parrying</name>
@@ -73904,6 +73952,7 @@ snd.target_has = {}
 snd.rebounded = false
 snd.target_impaled = false -- do we specifically have our target imapled
 
+snd.fleshbaneStacks = 0
 
 snd.effects = {
 --venoms
@@ -74348,8 +74397,12 @@ function snd.took_limb_dmg(limb, amount)
       amount = amount/2
       snd.last_limb_dmg = amount
     end
-   
-    snd.limb_dmg[limb] = snd.limb_dmg[limb] + amount
+    if amount == -30 or amount == -40 then --resto apply
+      snd.limb_dmg[limb] = snd.limb_dmg[limb] + math.min(0, amount+2*snd.fleshbaneStacks)
+      snd.fleshbaneStacks = 0
+    else
+      snd.limb_dmg[limb] = snd.limb_dmg[limb] + amount
+    end
     if snd.limb_dmg[limb] &lt; 0 then
       snd.limb_dmg[limb] = 0
     end
@@ -79330,6 +79383,13 @@ end</script>
     Attack = function(target)
       enableTrigger("Weapon Hit Confirmation")
     end,
+    Shatter = function(target, limb)
+      if limb == "start" then return end
+      snd.last_hit_limb = limb
+      snd.last_limb_dmg = 33.34
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      snd.onHit2({"Parry"})
+    end,
   },
   
   ["Knifeplay"] = {
@@ -79358,7 +79418,11 @@ end</script>
     Vertical =
       function(target)
         snd.setPredatorVenom()
-        snd.maybe_affs = {snd.predatorVenom ~= "none" and snd.predatorVenom}
+        if snd.predatorVenom ~="none" then
+          snd.maybe_affs = {snd.predatorVenom}
+        else
+          snd.maybe_affs = {}
+        end
         snd.onHit2({"Dodge", "Rebounding"})
       end,
     Pinprick =
@@ -79422,13 +79486,21 @@ end</script>
     Crescentcut =
       function(target)
         snd.setPredatorVenom()
-        snd.maybe_affs = {snd.predatorVenom ~= "none" and snd.predatorVenom}
+        if snd.predatorVenom ~="none" then
+          snd.maybe_affs = {snd.predatorVenom}
+        else
+          snd.maybe_affs = {}
+        end
         snd.onHit2({"Dodge", "Rebounding"})
       end,
     Freefall =
       function(target)
         snd.setPredatorVenom()
-        snd.maybe_affs = {"fallen", snd.predatorVenom ~= "none" and snd.predatorVenom}
+        if snd.predatorVenom ~="none" then
+          snd.maybe_affs = {"fallen", snd.predatorVenom}
+        else
+          snd.maybe_affs = {"fallen"}
+        end
         snd.onHit2({"Dodge"},"Double Aff")
       end,
     Gouge =
@@ -79448,7 +79520,11 @@ end</script>
     Butterfly =
       function(target)
         snd.setPredatorVenom()
-        snd.maybe_affs = {snd.predatorVenom ~= "none" and snd.predatorVenom}
+        if snd.predatorVenom ~="none" then
+          snd.maybe_affs = {snd.predatorVenom}
+        else
+          snd.maybe_affs = {}
+        end
         snd.onHit2({"Dodge"})
       end,
     Pommelwhip =
