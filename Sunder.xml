@@ -7338,16 +7338,18 @@ snd.skill_being_used = ""
 						</regexCodePropertyList>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Basic attack</name>
-							<script>
-if snd.target == matches[5] and snd.all_class_attacks[matches[3]] ~= nil then
+							<script>local selves = {herself = true, himself = true, itself = true, themself = true}
+local target = selves[matches[5]] and matches[2] or matches[5]
+
+if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = matches[5]
+    snd.getting_hit = target
     snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](matches[5])
+    snd.all_class_attacks[matches[3]][matches[4]](target)
   end
 end
 
-if matches[2] == snd.target and matches[5] == "You" then
+if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
 end</script>
 							<triggerType>0</triggerType>
@@ -7369,25 +7371,29 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Attack w/conditional</name>
-							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
+							<script>local selves = {herself = true, himself = true, itself = true, themself = true}
+local target = selves[matches[6]] and matches[2] or matches[6]
+
+
+if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
+  snd.getting_hit = target
   if matches[4] == "Shadowprice" then
     if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
       snd.skill_being_used = matches[5]
-      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
+      snd.all_class_attacks[matches[3]][matches[5]](target, matches[4])
     end
    elseif matches[4] == "Spiritpact" then
     if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
       snd.skill_being_used = matches[5]
-      snd.all_class_attacks[matches[3]][matches[5]](matches[6], matches[4])
+      snd.all_class_attacks[matches[3]][matches[5]](target, matches[4])
     end  
   elseif snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
       snd.skill_being_used = matches[4]
-      snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
+      snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
   end
-  snd.getting_hit = matches[6]
 end
 
-if matches[2] == snd.target and matches[6] == "You" then
+if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
 end</script>
 							<triggerType>0</triggerType>
@@ -7409,15 +7415,18 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Some attacks contain conditional in ()</name>
-							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
+							<script>local selves = {herself = true, himself = true, itself = true, themself = true}
+local target = selves[matches[6]] and matches[2] or matches[6]
+
+if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
-    snd.getting_hit = matches[6]
+    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
+    snd.getting_hit = target
     snd.skill_being_used = matches[4]
   end
 end
 
-if matches[2] == snd.target and matches[6] == "You" then
+if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
 end</script>
 							<triggerType>0</triggerType>
@@ -7439,16 +7448,19 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Conditional w/shadowprice</name>
-							<script>if snd.target == matches[6] and snd.all_class_attacks[matches[3]] ~= nil then
+							<script>local selves = {herself = true, himself = true, itself = true, themself = true}
+local target = selves[matches[6]] and matches[2] or matches[6]
+
+if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = matches[6]
+    snd.getting_hit = target
     snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](matches[6], matches[5])
+    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
   end
 end
 -- This might be only Hew and if so it's a pain in the ass.
 
-if matches[2] == snd.target and matches[6] == "You" then
+if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
 end</script>
 							<triggerType>0</triggerType>
@@ -7524,15 +7536,18 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Attack w/double conditional</name>
-							<script>if snd.target == matches[7] and snd.all_class_attacks[matches[3]] ~= nil then
+							<script>local selves = {herself = true, himself = true, itself = true, themself = true}
+local target = selves[matches[7]] and matches[2] or matches[7]
+
+if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = matches[7]
+    snd.getting_hit = target
     snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](matches[7], matches[5], matches[6])
+    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5], matches[6])
   end
 end
 
-if matches[2] == snd.target and matches[7] == "You" then
+if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
 end</script>
 							<triggerType>0</triggerType>
