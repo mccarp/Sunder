@@ -55548,6 +55548,7 @@ snd.priorities =
     "def_whitesight",
     "def_aversion",
     "def_defang",
+    "def_culmination",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -56980,7 +56981,7 @@ def_preserval = {defense = "preserval", type = "normal", effect = "Protect again
 def_whitesight = {defense = "whitesight", type = "normal", effect = "See through blizzards", balance = {balanceequilibrium = "whitesight"}, state = "down", needit = false, timer = createStopWatch(), skill = "Whitesight"},
 def_aversion = {defense = "aversion", type = "normal", effect = "Avoid aegis and runes, but blocks ql and gmcp map", balance = {balanceequilibrium = "avert eyes"}, state = "down", needit = false, timer = createStopWatch(), skill = "Aversion"},
 def_defang = {defense = "defang", type = "normal", effect = "Knocks offbal if successful parry", balance = {balanceequilibriumtake = "defang"}, state = "down", needit = false, timer = createStopWatch(), skill = "Defang"},
-
+def_culmination = {defense = "culmination", type = "normal", effect = "Improves dodge all", balance = {balanceequilibrium = "culmination"}, state = "down", needit = false, timer = createStopWatch(), skill = "Culmination"},
 
 --adherent
 def_adherent_form = {defense = "adherent_form", type = "normal", effect = "You are pissed", balance = {balanceequilibriumtake = "ascend soul brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -57665,6 +57666,8 @@ end</script>
   ["You are capable of seeing through snow fall."] = "whitesight",
   ["You are averting your gaze below the top of your mask."] = "aversion",
   ["You are using your battle prowess to defang attacks."] = "defang",
+  ["You have heightened your awareness of those targeting you."] = "culmination",
+
 }
  </script>
 							<eventHandlerList />
@@ -73521,13 +73524,14 @@ def_mindspark = "on",
 predator = {
   def_spacing = "on",
   def_bladesurge = "once",
-  def_absorption = "on",
+  --def_absorption = "on",
   def_regeneration = "on",
   def_secondwind = "on",
   def_windwalking = "on",
   def_preserval = "on",
   def_whitesight = "on",
-  def_defang = "on",
+  --def_defang = "on",
+  def_culmination = "on",
 },
 --200s
 malevolent = {
