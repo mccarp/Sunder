@@ -6128,6 +6128,48 @@ snd.send("eval")</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Bladesurge used</name>
+							<script>snd.balance.bladesurge = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You cannot summon up your offensive battle prowess again so soon.</string>
+								<string>Your concentration enhances ten-fold, a surge of pure adrenaline causing your entire body to quiver like a taut bowstring.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Bladesurge back</name>
+							<script>snd.balance.bladesurge = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You are once again able to summon up your offensive battle prowess.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -53153,6 +53195,7 @@ end
   orel = true, --predator orel fly/land
   spider = true, --predator spider web
   feint = true, --predator's feint
+  bladesurge = true,
 }
 
 snd.waiting = snd.waiting or {
@@ -55683,7 +55726,8 @@ function snd.do_stuff()
        z.func(i)
       end
      elseif snd.defenses[i] ~= nil then
-      if snd.defenses[i].balance[z.balance] ~= nil then
+      if snd.defenses[i].balance[z.balance] ~= nil and 
+      (not snd.defenses[i].requiredBalance or snd.balance[snd.defenses[i].requiredBalance]) then --support for cooldowns
        z.func(i)
       end
      end
@@ -56925,7 +56969,7 @@ def_bending = {defense = "bending", type = "normal", effect = "magical damage re
 def_spacing = {defense = "spacing", type = "normal", effect = "Physical audit", balance = {balanceequilibriumtake = "spacing"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spacing"},
 def_masked = {defense = "masked", type = "normal", effect = "Veil-like effect", balance = {balanceequilibrium = "wear mask"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mask"},
 def_trueparry = {defense = "trueparry", type = "normal", effect = "Parry all limbs, channel", balance = {balanceequilibrium = "trueparry"}, state = "down", needit = false, timer = createStopWatch(), skill = "Trueparry"},
-def_bladesurge = {defense = "bladesurge", type = "normal", effect = "Burstheal like vitality, plus extra hit when activated", balance = {balanceequilibriumtake = "bladesurge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
+def_bladesurge = {defense = "bladesurge", type = "normal", effect = "Burstheal like vitality, plus extra hit when activated", balance = {balanceequilibriumtake = "bladesurge"}, requiredBalance = "bladesurge", state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
 def_bladesurge_energy = {defense = "bladesurge_regeneration", type = "goldenrod", effect = "All knifeplay stances", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Bladesurge"},
 def_absorption = {defense = "absorption", type = "normal", effect = "Burst damage after receiving enough magic based damage", balance = {balanceequilibriumtake = "absorption"}, state = "down", needit = false, timer = createStopWatch(), skill = "Tidalslash"},
 --def_regeneration = {defense = "regeneration", type = "normal", effect = "Regen health", balance = {balanceequilibrium = "regeneration on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Regeneration"},
