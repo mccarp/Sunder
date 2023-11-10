@@ -74399,6 +74399,7 @@ function snd.took_limb_dmg(limb, amount)
     end
     if amount == -30 or amount == -40 then --resto apply
       snd.limb_dmg[limb] = snd.limb_dmg[limb] + math.min(0, amount+2*snd.fleshbaneStacks)
+      if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
       snd.fleshbaneStacks = 0
     else
       snd.limb_dmg[limb] = snd.limb_dmg[limb] + amount
