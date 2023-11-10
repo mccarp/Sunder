@@ -77095,6 +77095,7 @@ end</script>
     
     Trap = function(target)
                 snd.target_got("sand_trapped")
+                tempTimer(30, function() snd.target_cured("sand_trapped") end)
               end,
               
     Quicksand = function(target)
@@ -77244,7 +77245,7 @@ end</script>
   ["Inundation"] = {
     Feelers = function(target, where)
                 snd.last_hit_limb = where:gsub(" apparition", "")
-                snd.last_limb_dmg = 6.99
+                snd.last_limb_dmg = 7
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
@@ -77265,13 +77266,10 @@ end</script>
                 snd.target_got("quicksand")
                 snd.lev_gone = true
               end,
-    Shred = function(target, where)
-                snd.last_hit_limb = where
-                snd.last_limb_dmg = 10
-                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-                snd.onHit2({"Dodge", "Parry", "Rebounding"})
-               end,
-
+    Snare = function(target)
+                snd.target_got("fog_snared")
+                tempTimer(30, function() snd.target_cured("fog_snared") end)
+              end,
   },
   
   ["Synthesis"] = {
