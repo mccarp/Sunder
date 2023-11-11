@@ -26016,7 +26016,7 @@ if matches[3] == snd.target then
   snd.fleshbaneStacks = numbermap[matches[2]]
   --failsafe to make sure this goes back to zero.
   if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
-  snd.fleshbaneTimer = tempTimer(3, function() snd.fleshbaneStacks = 0 end)
+  snd.fleshbaneTimer = tempTimer(5, function() snd.fleshbaneStacks = 0 end)
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -79411,7 +79411,6 @@ end</script>
   ["Knifeplay"] = {
     Fleshbane = 
       function(target)
-        snd.target_got("fleshbane")
         local fleshbaned = target
         if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
         snd.fleshbaneTimer = tempTimer(60, function() if fleshbaned == snd.target then snd.target_cured("fleshbane")  end end)
