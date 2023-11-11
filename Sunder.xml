@@ -20964,7 +20964,11 @@ disableTrigger("Weapon Hit Confirmation")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Darts</name>
-									<script>snd.onHit2({}, "Templar")</script>
+									<script>if snd.maybe_affs[1]:lower() == "cirisosis" then
+  table.remove(snd.maybe_affs, 1)
+else
+  snd.onHit2({}, "Templar")
+end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -22022,6 +22026,30 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Cirisosis applied 3p</name>
+								<script>if multimatches[1][2] == snd.target and multimatches[2][2] == snd.target then
+  snd.target_got("cirisosis")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>1</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) flinches as the small dart pierces \w+ skin\.$</string>
+									<string>^You discern that (\w+) has cured the effects of</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Cirisosis symptom</name>
 								<script>if matches[2] == snd.target then
@@ -22038,7 +22066,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)'s eyes glaze over, and \w+ shivers uncontrollably, looking increasingly unsteady and ill\. Beads of sweat and palpable fatigue herald the onset of toxic shock\.$</string>
+									<string>^(\w+)'s? eyes glaze over, and \w+ shivers uncontrollably, looking increasingly unsteady and ill\. Beads of sweat and palpable fatigue herald the onset of toxic shock\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -22662,10 +22690,12 @@ end</script>
 							<regexCodeList>
 								<string>^(\w+) is no longer affected by your morphing venom\.$</string>
 								<string>^(\w+) has escaped the effects of your morphing poison\.$</string>
+								<string>^Relief floods (\w+) as the deadly morphing poison is purged from \w+ system\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
 								<integer>1</integer>
+								<integer>0</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
