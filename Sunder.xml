@@ -6398,10 +6398,10 @@ disableTrigger("Separator Check/Update")
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>People updating via following</name>
-						<script>
+						<script>local blacklist = {a = true, masked = true, man = true, ["and"] = true}
 local do_we_update = false
 for name in string.gmatch(matches[2], '[^,%s]+') do
-  if name ~= "and" then
+  if not blacklist[name] then
 		if not table.isMember(snd.players_here, name) then
 	    table.insert(snd.players_here, name)
 			do_we_update = true
@@ -7420,9 +7420,9 @@ local target = selves[matches[6]] and matches[2] or matches[6]
 
 if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
     snd.getting_hit = target
     snd.skill_being_used = matches[4]
+    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
   end
 end
 
