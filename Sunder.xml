@@ -79465,7 +79465,7 @@ end</script>
         snd.setPredatorVenom()
         snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
-        snd.last_limb_dmg = 7
+        snd.last_limb_dmg = 4
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
       end,
