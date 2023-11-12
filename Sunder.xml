@@ -22111,7 +22111,7 @@ snd.swoopVenoms = {}</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Your orel has successfully swooped down at Rasani\.$</string>
+									<string>^Your orel has successfully swooped down at (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -55147,6 +55147,7 @@ snd.priorities =
     "barbed_arrow",
 
     "attack",
+    "embedded_dagger",
     
     -- "aff_bleeding",
     -- "aff_voyria",
@@ -55884,7 +55885,9 @@ snd.method_priority = {
       if snd.have_aff("barbed_arrow") then
         table.insert(snd.queue, "barbed_arrow")
       end
-
+      if snd.have_aff("embedded_dagger") then
+        table.insert(snd.queue, "embedded_dagger")
+      end
 
     end
     if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
@@ -55905,6 +55908,8 @@ function snd.do_stuff()
     snd.send_attack(snd.queued)
    elseif i == "barbed_arrow" then
     snd.pull_arrow()
+   elseif i == "embedded_dagger" then
+    snd.pull_dagger()
    elseif i == "bashing" then
     snd.bashing_function()
    elseif i == "lighting" then
@@ -73329,6 +73334,14 @@ end</script>
 						<script>function snd.pull_arrow()
   if not snd.waiting.queue then
     snd.send("qeb pull arrow from body")
+    snd.waiting.queue = true
+    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+end
+
+function snd.pull_dagger()
+  if not snd.waiting.queue then
+    snd.send("qeb pull dagger from body")
     snd.waiting.queue = true
     tempTimer(snd.delay(), [[snd.waiting.queue = false]])
   end
