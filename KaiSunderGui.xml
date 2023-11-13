@@ -2839,7 +2839,7 @@ end
 
 if snd.limb_status["left arm"] == "mangled" then 
 	snd.display.enemy_leftarm_color = "red" 
-elseif snd.limb_status["left arm"] == "damaged" then 
+elseif snd.limb_status["left arm"] == "broken" then 
 	snd.display.enemy_leftarm_color = "gold" 
 elseif snd.checkAff("left_arm_crippled") then
 	snd.display.enemy_leftarm_color = "green" 
