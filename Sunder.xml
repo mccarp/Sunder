@@ -79593,6 +79593,9 @@ end</script>
         snd.maybe_affs = {}
         snd.last_hit_limb = "torso"
         snd.last_limb_dmg = 6
+        if snd.hitting == "You" and snd.toggles.targetrune then
+          snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+        end 
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
       end,
@@ -79623,6 +79626,9 @@ end</script>
         snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 5.5
+        if snd.hitting == "You" and snd.toggles.targetrune then
+          snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+        end 
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
       end,
@@ -79632,6 +79638,9 @@ end</script>
         snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 4
+        if snd.hitting == "You" and snd.toggles.targetrune then
+          snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+        end 
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
       end,
@@ -79641,6 +79650,9 @@ end</script>
         snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 5.5
+        if snd.hitting == "You" and snd.toggles.targetrune then
+          snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+        end 
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge", "Rebounding"})
       end,
@@ -79689,6 +79701,9 @@ end</script>
         snd.setPredatorVenom()
         snd.last_hit_limb = "head"
         snd.last_limb_dmg = 6.5
+        if snd.hitting == "You" and snd.toggles.targetrune then
+          snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+        end 
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.maybe_affs = {"disfigurement"}
         snd.onHit2({"Parry", "Dodge"})
