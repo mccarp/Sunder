@@ -2811,7 +2811,7 @@ function color_enemy_limbs()
 --consider using different symbols for the bruising levels
 if snd.limb_status["head"] == "mangled" then 
 	snd.display.enemy_head_color = "red" 
-elseif snd.limb_status["head"] == "damaged" then 
+elseif snd.limb_status["head"] == "broken" then 
 	snd.display.enemy_head_color = "gold" 
 else
 	snd.display.enemy_head_color = "white"
@@ -2819,9 +2819,9 @@ end
 
 if snd.limb_status["left leg"] == "mangled" then 
 	snd.display.enemy_leftleg_color = "red" 
-elseif snd.limb_status["left leg"] == "damaged" then 
+elseif snd.limb_status["left leg"] == "broken" then 
 	snd.display.enemy_leftleg_color = "gold" 
-elseif snd.checkAff("left_leg_broken") then
+elseif snd.checkAff("left_leg_crippled") then
 	snd.display.enemy_leftleg_color = "green" 
 else
 	snd.display.enemy_leftleg_color = "white"
@@ -2829,9 +2829,9 @@ end
 
 if snd.limb_status["right leg"] == "mangled" then 
 	snd.display.enemy_rightleg_color = "red" 
-elseif snd.limb_status["right leg"] == "damaged" then 
+elseif snd.limb_status["right leg"] == "broken" then 
 	snd.display.enemy_rightleg_color = "gold" 
-elseif snd.checkAff("right_leg_broken") then
+elseif snd.checkAff("right_leg_crippled") then
 	snd.display.enemy_rightleg_color = "green" 
 else
 	snd.display.enemy_rightleg_color = "white"
@@ -2841,7 +2841,7 @@ if snd.limb_status["left arm"] == "mangled" then
 	snd.display.enemy_leftarm_color = "red" 
 elseif snd.limb_status["left arm"] == "damaged" then 
 	snd.display.enemy_leftarm_color = "gold" 
-elseif snd.checkAff("left_arm_broken") then
+elseif snd.checkAff("left_arm_crippled") then
 	snd.display.enemy_leftarm_color = "green" 
 else
 	snd.display.enemy_leftarm_color = "white"
@@ -2849,9 +2849,9 @@ end
 
 if snd.limb_status["right arm"] == "mangled" then 
 	snd.display.enemy_rightarm_color = "red" 
-elseif snd.limb_status["right arm"] == "damaged" then 
+elseif snd.limb_status["right arm"] == "broken" then 
 	snd.display.enemy_rightarm_color = "gold" 
-elseif snd.checkAff("right_arm_broken") then
+elseif snd.checkAff("right_arm_crippled") then
 	snd.display.enemy_rightarm_color = "green" 
 else
 	snd.display.enemy_rightarm_color = "white"
@@ -2859,7 +2859,7 @@ end
 
 if snd.limb_status["torso"] == "mangled" then 
 	snd.display.enemy_torso_color = "red" 
-elseif snd.limb_status["torso"] == "damaged" then 
+elseif snd.limb_status["torso"] == "broken" then 
 	snd.display.enemy_torso_color = "gold" 
 else
 	snd.display.enemy_torso_color = "white"
