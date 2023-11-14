@@ -25002,8 +25002,8 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>broke</name>
 								<script>if matches[2] == snd.target then
+  snd.target_got(matches[3].." broken")
   if matches[2] == snd.target and matches[3]~= "head" and matches[3] ~= "torso" then
-    snd.target_got(matches[3].." broken")
     snd.target_got(matches[3].." crippled")
   end
   snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was broken!")
@@ -25048,6 +25048,7 @@ if matches[2] == snd.target then
    end
    snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
    snd.limb_status[matches[3]] = "mangled"
+   snd.target_got(matches[3].." mangled")
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
