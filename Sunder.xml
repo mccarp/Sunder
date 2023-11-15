@@ -21189,6 +21189,28 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Earthenmaw impale</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("writhe_impaled")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^A mighty stalagmite erupts from below and tears through (\w+)'s? gut, impaling \w+ on its end\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Wayfarer</name>
@@ -23229,7 +23251,7 @@ end</script>
 							<string>^You let forth a forceful howl toward (\w+)\.$</string>
 							<string>lowers its head and rams it into (\w+) painfully, antlers goring (the )?\w+ flesh before the beast gives a toss of its great head and sends (the )?\w+ sprawling unceremoniously to the ground\.$</string>
 							<string>^Crumpling over in mental agony, (\w+) collapses to the floor and clutches (the )?\w+ head\.$</string>
-							<string>^The frenzied air reaches its peak of intensity and slams into (\w+) with aferocity that knocks (the )?\w+ to the ground\.$</string>
+							<string>^The frenzied air reaches its peak of intensity and slams into (\w+) with a ferocity that knocks (the )?\w+ to the ground\.$</string>
 							<string>^(\w+) is blasted backward as you will an expulsion of energy from your staff,the forked blow knocking (the )?\w+ to the ground\.$</string>
 							<string>^(\w+)'s? eyes close suddenly as (the )?\w+ falls asleep\.$</string>
 							<string>^The tentacle drags (\w+) from the skies and hurls (the )?\w+ to the ground.$</string>
