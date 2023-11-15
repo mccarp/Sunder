@@ -55355,7 +55355,7 @@ snd.priorities =
     -- "aff_writhe_web",
     -- "aff_dazed",
     -- "aff_embedded_axe",
-    
+    "def_lifesense",
     "def_gripping",
     "def_vigor",
     "def_divert_melee",
@@ -57304,6 +57304,9 @@ def_chaos_figment = {defense = "chaos_figment", type = "normal", effect = "Block
 def_chaos_figment_stored = {defense = "chaos_figment_stored", type = "normal", effect = "Will raise figment if &lt;40% health", balance = {balanceequilibriumtake = "chaos figment store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_chaos_store = {defense = "chaos_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
+--lifesense relic
+def_lifesense = {defense = "lifesense", type = "normal", effect = "Report people reviving.", balance = {special = "lifesense"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+
 --making sure empowered moon is in here to avoid errors, regardless of class
 def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 }
@@ -57884,6 +57887,7 @@ end</script>
   ["You are using your battle prowess to defang attacks."] = "defang",
   ["You have heightened your awareness of those targeting you."] = "culmination",
 
+  ["You are attuned to revivals."] = "lifesense",
 }
  </script>
 							<eventHandlerList />
