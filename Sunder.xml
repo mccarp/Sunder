@@ -56638,6 +56638,18 @@ function snd.aff_count_physical()
   return aff_count
 end
 
+function snd.aff_count_venom() 
+--this gives a count of afflictions which -could- have come from venoms.
+--they may have been sourced from other things instead, so ymmv
+  local aff_count = 0
+  for _, aff in pairs(snd.venom_affs) do
+    if table.contains(snd.target_has, aff) then
+      aff_count = aff_count + 1
+    end
+  end
+  return aff_count
+end
+
 function snd.aff_count_all()
   local aff_count = 0
   for aff in pairs(snd.all_affs) do
@@ -80153,15 +80165,12 @@ disgust = 0,
 snd.venom_affs =
 
 {
-"sight",
-"hearing",
 "asthma",
 "paresis",
 "clumsiness",
 "sensitivity",
 "vomiting",
 "allergies", 
-"colocasia",
 "haemophilia",
 "peace",
 "stupidity",
