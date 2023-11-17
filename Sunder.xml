@@ -56104,7 +56104,7 @@ aff_collapsed_lung = {state = "healed", effect = "", cures = {salve = "restorati
 aff_commitment_fear = {state = "healed", effect = "", cures = {herb = "lobelia", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_confusion = {state = "healed", effect = "", cures = {herb = "ash", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_conviction = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
-aff_corsin_weight = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_corsin_weight = {state = "healed", effect = "One celery", cures = {}, assess = false, timer = createStopWatch()},
 aff_cracked_ribs = {state = "healed", effect = "", cures = {salve = "mending to torso", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_crippled = {state = "healed", effect = "", cures = {herb = "bloodroot", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_crippled_body = {state = "healed", effect = "", cures = {herb = "bloodroot", tree = "send"}, assess = false, timer = createStopWatch()},
@@ -56408,6 +56408,15 @@ aff_intoxicated = {state = "healed", effect = "", cures = {smoke = "todisplay"},
 aff_writhe_dartpinned = {state = "healed", effect = "", cures = {smoke = "todisplay"}, assess = false, timer = createStopWatch()},
 
 ---- Mirror affs here
+--Voidseer
+aff_etched_disgust = {state = "healed", effect = "circle affs cant be cured by pill", cures = {}, assess = false, timer = createStopWatch()},
+aff_etched_fear = {state = "healed", effect = "square affs cant be cured by pill", cures = {}, assess = false, timer = createStopWatch()},
+aff_etched_joy = {state = "healed", effect = "triangle affs cant be cured by pill", cures = {}, assess = false, timer = createStopWatch()},
+aff_sonder = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+
+--Executor
+aff_coagulated_toxins = {state = "healed", effect = "One celery", cures = {}, assess = false, timer = createStopWatch()},
+
 
 --Revenant
 aff_lurk = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -56486,6 +56495,7 @@ aff_fog_snared = {state = "healed", effect = "", cures = {}, assess = false, tim
 aff_remorse = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_contrition = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_fragments = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_immobility = {state = "healed", effect = "Can't move", cures = {}, assess = false, timer = createStopWatch()},
 
 }
 </script>
@@ -74557,10 +74567,10 @@ ascendril = {"Elemancy", "Arcanism", "Thaumaturgy", "Humourism", "Hematurgy", "E
 sciomancer = {"Sciomancy", "Sorcery", "Gravitation", "Malediction", "Runecarving", "Sporulation"},
 indorani = {"Necromancy", "Tarot", "Domination","Hyalincuru", "Contracts", "Oneiromancy"},
 praenomen = {"Corpus", "Mentis", "Sanguis", "Ascendance", "Dictum", "Discipline"},
-archivist = {"Geometrics", "Numerology", "Bioessence"},
+archivist = {"Geometrics", "Numerology", "Bioessence", "Cultivation", "Enlightenment", "Voidgazing"},
 teradrim = {"Terramancy", "Animation", "Desiccation", "Wavebreaking", "Inundation", "Synthesis"},
 luminary = {"Spirituality", "Devotion", "Illumination","Tectonics", "Apocalyptia", "Subjugation"},
-sentinel = {"Dhuriv", "Woodlore", "Tracking"},
+sentinel = {"Dhuriv", "Woodlore", "Tracking", "Shadowdancing", "Artifice", "Subversion"},
 shaman = {"Primality", "Shamanism", "Naturalism", "Experimentation", "Alchemy", "Botany"},
 monk = {"Tekura", "Kaido", "Telepathy"},
 zealot = {"Zeal", "Purification", "Psionics", "Brutality", "Ravaging", "Egotism"},
