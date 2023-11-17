@@ -74294,6 +74294,7 @@ snd.hound_attacks = {
     no_caloric = "tundralhowl",
     blurry_vision = "ululate",
     mark = "mark",
+    loki = "contagion",
               },
   ["Warden"] = {
     recklessness = "chant",
@@ -74311,6 +74312,7 @@ snd.hound_attacks = {
     no_caloric = "freeze",
     blurry_vision = "dirge",
     mark = "mark",
+    loki = "sabotage",
   }
 }
 
@@ -79788,10 +79790,6 @@ end</script>
     end,
   },
   ["Beastmastery"] = {
-    -- Disrupt =
-      -- function(target)
-        -- snd.target_got("disrupted")
-      -- end, ????
     Pummel =
       function(target, limb)
         snd.last_hit_limb = limb
