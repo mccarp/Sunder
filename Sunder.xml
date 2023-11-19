@@ -3088,8 +3088,7 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Ethereal</name>
-							<script>snd.def_def("ethereal")
-snd.balance.ethereal = true</script>
+							<script>snd.balance.ethereal = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -3109,8 +3108,7 @@ snd.balance.ethereal = true</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Ethereal Done</name>
-							<script>snd.def_remove("ethereal")
-snd.balance.ethereal = false</script>
+							<script>snd.balance.ethereal = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -3145,8 +3143,10 @@ snd.balance.ethereal = false</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You use Bioessence Knitting.</string>
+								<string>You use Voidgazing Alleviate.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -55833,6 +55833,17 @@ snd.priorities =
     "def_deception",
     "def_bounding",
     "def_efficiency",
+    "def_coagulation",
+    "def_lithe",
+    
+    --Voidseer
+    "def_synergism",
+    "def_kismet",
+    "def_introspection",
+    "def_withstand",
+    "def_vitalise",
+    "def_occultism",
+    "def_erudition",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -56945,6 +56956,8 @@ def_geo_invert = {defense = "Token Inverted", type = "normal", effect = "You Hav
 def_geo_trace = {defense = "Token Tracing You", type = "normal", effect = "You Have Traced Your Token", balance = {balanceequilibriumtake = "geo trace me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Trace" },
 def_empower_jhako = {defense = "Empowering Jhako", type = "normal", effect = "You Have Empowered Jhako", balance = {balanceequilibriumtake = "empower jhako"}, state = "down", needit = false, timer = createStopWatch(), skill = "Empower" },
 def_nexus = {defense = "nexus", type = "normal", effect = "Setup your nexus", balance = {balanceequilibriumtake = "bio nexus one"}, state = "down", needit = false, timer = createStopWatch(), skill = "Nexus" },
+def_ethereal = {defense = "ethereal", type = "normal", effect = "Hard to hit", balance = {balanceequilibriumtake = "bio ethereal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ethereal" },
+
 
 --Ascendril
 def_missiles = {defense = "missiles", type = "normal", effect = "PvE damage", balance = {balanceequilibriumtake = "cast missiles on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Missiles" },
@@ -57005,6 +57018,10 @@ def_limberness = {defense = "limberness", type = "normal", effect = "Increased w
 def_deception = {defense = "deception", type = "normal", effect = "Not listed on scent", balance = {balanceequilibriumtake = "deceive senses"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deception" },
 def_bounding = {defense = "bounding", type = "normal", effect = "You move faster outdoors &amp; in forests", balance = {balanceequilibriumtake = "bounding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bounding" },
 def_efficiency = {defense = "efficiency", type = "normal", effect = "You shoot and trap faster", balance = {balanceequilibriumtake = "efficiency"}, state = "down", needit = false, timer = createStopWatch(), skill = "Efficiency" },
+def_somersault = {defense = "somersault", type = "normal", effect = "Prepared to yeet out", balance = {balanceequilibriumtake = "somersault"}, state = "down", needit = false, timer = createStopWatch(), skill = "Somersault" },
+def_inspirited = {defense = "inspirited", type = "normal", effect = "You shoot and trap faster", balance = {balanceequilibriumtake = "inspirit"}, state = "down", needit = false, timer = createStopWatch(), skill = "Inspirit" },
+def_coagulation = {defense = "coagulation", type = "normal", effect = "Passively clot", balance = {balanceequilibriumtake = "coagulation on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Coagulation" },
+def_lithe = {defense = "lithe", type = "normal", effect = "50% chance to avoid being knocked over", balance = {balanceequilibriumtake = "lithe on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lithe" },
 
 
 --Indorani
@@ -57268,6 +57285,15 @@ def_anthem = {defense = "anthem", type = "normal", effect = "Give group extra da
 def_rallied = {defense = "rallied", type = "normal", effect = "Reduce groups willpower and endurance costs", balance = {balanceequilibriumtake = "fury battlechant rally"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
 def_bolstered_morale = {defense = "bolstered_morale", type = "normal", effect = "Give group extra damage", balance = {balanceequilibriumtake = "fury battlechant bolster"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
 def_battlechant = {defense = "battlechant", type = "normal", effect = "Maintaining a supporting shout", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+
+--Voidseer
+def_erudition = {defense = "erudition", type = "normal", effect = "Erudition defense for Voidseer", balance = {needyequilibriumtake = "pursue erudition"}, state = "down", needit = false, timer = createStopWatch(), skill = "Erudition" },
+def_synergism = {defense = "synergism", type = "normal", effect = "Yay link", balance = {balanceequilibriumtake = "chakra synergism 50"}, state = "down", needit = false, timer = createStopWatch(), skill = "Synergism" },
+def_introspection = {defense = "introspection", type = "normal", effect = "introspection", balance = {balanceequilibriumtake = "chakra introspection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Introspection" },
+def_withstand = {defense = "withstand", type = "normal", effect = "Reduced psychic damage", balance = {balanceequilibrium = "chakra withstand me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Withstand" },
+def_vitalise = {defense = "vitalise", type = "normal", effect = "Cure random affs", balance = {balanceequilibriumtake = "void vitalise"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vitalise" },
+def_occultism = {defense = "occultism", type = "normal", effect = "catabolism", balance = {balanceequilibriumtake = "void occultism"}, state = "down", needit = false, timer = createStopWatch(), skill = "Occultism" },
+def_kismet = {defense = "kismet", type = "normal", effect = "Setup your nexus", balance = {balanceequilibriumtake = "void kismet one"}, state = "down", needit = false, timer = createStopWatch(), skill = "Kismet" },
 
 
 --Zealot
@@ -57999,7 +58025,21 @@ end</script>
   ["Your limberness allows you to elude bindings."] = "limberness",
   ["You are deceiving keen noses."] = "deception",
   ["You are flit through the forests like a shadow."] = "bounding",
-
+  ["You have willed your blood to coagulate."] = "coagulation",
+  ["Grit and bravery inspirit your confidence."] = "inspirited",
+  ["You are prepared to somersault away from danger."] = "somersault",
+  ["Your litheness keeps you on your feet."] = "lithe",
+  
+  --Voidseer
+  ["You are practicing sagacious erudition."] = "erudition",
+  ["Synergy unifies your body and mind."] = "synergism",
+  ["Madness emanates from you in waves."] = "kismet",
+  ["You are practicing introspection."] = "introspection",
+  ["Chakral energy girds your mind."] = "withstand",
+  ["You are surpassing your mortal limits."] = "vitalise",
+  ["Forbidden occultism informs your every move."] = "occultism",
+  
+  ["Your physical form is partly ethereal."] = "ethereal",
 }
  </script>
 							<eventHandlerList />
@@ -71080,6 +71120,7 @@ end</script>
 {class = "Tidesage", func = function(current) snd.tidesage_bash() end}, 
 {class = "Warden", func = function(current) snd.warden_bash() end},
 {class = "Wayfarer", func = function(current) snd.wayfarer_bash() end},
+{class = "Voidseer", func = function(current) snd.voidseer_bash() end},
 {class = "Zealot", func = function(current) snd.zealot_bash() end},
 {class = "None", func = function(current) snd.none_bash() end}, --200
 }
@@ -71815,6 +71856,29 @@ function snd.wayfarer_bash()
   else
     battack = "axe chop "..snd.bashing.target
   end
+end
+
+function snd.voidseer_bash()
+  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+  insight = tonumber(gmcp.Char.Vitals.insight) or 0
+  mp = 100*(gmcp.Char.Vitals.mp/gmcp.Char.Vitals.maxmp)
+  
+    if hp &lt;= 70 and not snd.knit and insight &gt; 0 and hasSkill("Alleviate") then
+        battack = "void alleviate"
+    elseif hp &lt;= 60 and insight &gt; 1 and not snd.balance.ethereal and hasSkill("Disjoint") then
+        battack = "void disjoint"
+    elseif hp &lt;=40 and snd.shield_check() then
+      if snd.punisher then
+      else
+        battack = "touch shield"
+      end
+    else
+      if insight &gt; 1 and hasSkill("Aplomb") then
+        battack = "foment sadness "..snd.bashing.target..snd.sep.."void aplomb"
+      else
+        battack = "foment sadness " ..snd.bashing.target
+      end
+    end
 end
 
 function snd.zealot_bash()
@@ -73879,6 +73943,7 @@ def_discharge = "on",
 def_deflection = "on",
 def_mindspark = "on",
 },
+
 predator = {
   def_spacing = "on",
   def_bladesurge = "on",
@@ -73891,6 +73956,7 @@ predator = {
   --def_defang = "on",
   def_culmination = "on",
 },
+
 executor = {
   def_gripping = "on",
   def_bloodlust = "on",
@@ -73901,6 +73967,16 @@ executor = {
   def_vitality = "on",
   def_limberness = "once",
   def_bounding = "once",
+},
+
+voidseer = {
+	def_gripping = "on",
+	def_erudition =  "once",
+	def_synergism = "once",
+	def_introspection = "once",
+	def_withstand = "once",
+	def_vitalise = "once",
+	def_occultism = "once",
 },
 
 --200s
@@ -80413,6 +80489,159 @@ function Sentinel_Attack_Choice(giving, left, right)
   return left, right
   ---- Return our attack choices back to the main alias.
 end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Executor Scripts and Tables</name>
+						<packageName></packageName>
+						<script>snd.ringblade_affs =
+  {
+    "impatience",
+    "destroyed_throat",
+    "heartflutter",
+    "confusion",
+    "lethargy",
+    "fallen",
+    "impairment",
+    "reave",
+    "claustrophobia",
+    "agoraphobia",
+    "loneliness",
+    "berserking",
+    "frozen",
+    "shivering",
+    "ambush",
+    "epilepsy",
+    "laxity",
+  }
+snd.ringblade_first =
+  {
+    "shave",
+    "contrive",
+    "ruse",
+    "impair",
+    "gambol",
+    "perplex",
+    "phlebotomoise",
+    "stifle",
+    "accost",
+    "rimestalker",
+    "waylay",
+  }
+snd.ringblade_second = {"beguile", "desolate", "muddle", "inveigle", "brandish"}
+snd.ringblade_attacks =
+  {
+    shave = "shave",
+    reave = "shave",
+    impatience = "muddle",
+    destroyed_throat = "stifle",
+    heartflutter = "desolate",
+    confusion = "ruse",
+    lethargy = "impair left leg",
+    fallen = "gambol",
+    epilepsy = "perplex",
+    laxity = "perplex",
+    impairment = "phlebotomise",
+    claustrophobia = "accost",
+    agoraphobia = "accost",
+    loneliness = "accost",
+    berserking = "accost",
+    frozen = "rimestalker",
+    shivering = "rimestalker",
+    ambush = "waylay",
+    waylay = "waylay",
+  }
+snd.accost_accomplices =
+  {
+    ["claustrophobia"] = "order darkhound accost ",
+    ["agoraphobia"] = "order brutaliser accost ",
+    ["loneliness"] = "order eviscerator accost ",
+    ["berserking"] = "order terroriser accost ",
+    ["frozen"] = "order rimestalker icebreath ",
+    ["shivering"] = "order rimestalker icebreath ",
+  }
+
+  function Executor_Attack_Choice(giving, left, right)
+    -- requires to be sent a list of affs and 2 variables for
+    -- it to fill and send back with choices.
+    if snd.parried_limb == "left leg" then
+      snd.ringblade_attacks["lethargy"] = "impair right leg"
+    end
+  
+    local right_venom_only = false
+    -- used for when we choose a daunt aff
+    ----------An example of how you might change your aff list. If current offense mode is mental affs, we want to make sure
+    ----------they have impatience, so check if they have impatience and paresis. If no to both, add paresis to top of stack.
+    if not snd.checksomeAffs({"paresis", "impatience"}, 1) and snd.current_offense == "SentMental" then
+      table.insert(giving, 1, "paresis")
+    end
+    if snd.current_offense == "SentVLock" then
+      local missing = snd.missingAff("asthma/slickness", "/")
+      if #missing == 0 and snd.no_parry() and snd.checksomeAffs({"weariness", "clumsiness", "hypochondria"}, 1) then
+        table.insert(giving, 1, "destroyed_throat")
+      end
+      if not snd.checkAff("destroyed_throat") and snd.checkAff("anorexia") then
+        table.insert(giving, 1, "impatience")
+        table.insert(giving, 1, "stupidity")
+      end
+    end
+    if snd.current_offense == "SentImpale" or snd.current_offense == "SentSalve" then
+      if snd.timer_check("restoration", .5) and snd.no_parry() then
+        table.insert(giving, 1, "destroyed_throat")
+      end
+    end
+    if snd.current_offense == "SentLumiSupport" then
+      if not snd.checkAff("destroyed_throat") and snd.checkAff("anorexia") then
+        table.insert(giving, 1, "impatience")
+        table.insert(giving, 1, "stupidity")
+      end
+    end
+    ----------Below here the function picks affs for you based on your aff list sent over and any changes made by checks above.
+    for i, v in pairs(giving) do
+      if not table.contains(snd.target_has, giving[i]) then
+        if left == "none" then
+          if snd.used.shield or snd.used.rebounding then
+            left = "reave"
+          elseif table.contains(snd.ringblade_first, snd.ringblade_attacks[v]) then
+            left = v
+            if left == "destroyed_throat" then
+              right = nil
+            end
+            if (snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker") then
+              right_venom_only = true
+            end
+          elseif table.contains(snd.ringblade_second, snd.ringblade_attacks[v]) and right == "none" then
+            right = v
+          elseif table.contains(snd.effects, i) and not snd.checkAff(giving[i]) then
+            if left == "none" and right ~= giving[i] then
+              left = giving[i]
+            end
+          elseif
+            not snd.checkAff(giving[i]) and
+            not table.contains(snd.ringblade_second, snd.ringblade_attacks[v])
+          then
+            left = v
+          end
+        end
+        
+        if right == "none" then
+          if not right_venom_only and table.contains(snd.ringblade_first, snd.ringblade_attacks[v]) 
+          and table.contains(snd.effects, left) and left ~= "paresis" and v ~= "destroyed_throat" then
+            right = left
+            left = v
+          elseif not right_venom_only and table.contains(snd.ringblade_second, snd.ringblade_attacks[v]) then
+            right = v
+          elseif table.contains(snd.effects, v) and not snd.checkAff(giving[i]) then
+            if left ~= giving[i] then
+              right = giving[i]
+            end
+          end
+        end
+      end
+    end
+    return left, right
+    ---- Return our attack choices back to the main alias.
+  end</script>
 						<eventHandlerList />
 					</Script>
 					<Script isActive="yes" isFolder="no">
