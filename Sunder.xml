@@ -5699,8 +5699,12 @@ snd.firefist_cooldown = false</script>
 							<regexCodeList>
 								<string>Your blood boils and you let out a mighty roar of defiance.</string>
 								<string>You're not ready to call upon your might.</string>
+								<string>You cannot call upon your enduring grit again so soon.</string>
+								<string>You use Artifice Grit.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -5720,8 +5724,10 @@ snd.firefist_cooldown = false</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You can call upon your might once more.</string>
+								<string>You may once more display your enduring grit.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
