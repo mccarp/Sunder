@@ -18901,7 +18901,7 @@ end</script>
 							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Sentinel</name>
+							<name>Sentinel/Executor</name>
 							<script></script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -18953,8 +18953,10 @@ enableTrigger("Raloth_Capture")</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>A baleful spiked raloth's immense form bounds towards you in a ground-shaking stride.</string>
+									<string>Braids of rippling darkness bind together at your side, defining a hulking brutaliser's grim silhouette.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -18974,8 +18976,10 @@ disableTrigger("Raloth_Capture")</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>raloth\#(\d+)</string>
+									<string>hulking brutaliser\#(\d+)</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19000,8 +19004,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The superheated resin fumes swarm (\w+)'s senses and (the )?\w+ looks around dazed.$</string>
+									<string>^In a final flash, the toxin on (\w+)'s flesh ignites and .+ sways on .+ feet.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19022,8 +19028,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The intense flame of the resin leaves (\w+) cringing as (the )?\w+ skin turns black.$</string>
+									<string>^Heat and chemical conspire into a blinding conflagration that leaves (\w+)'s skin charred to a crisp.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19046,8 +19054,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The resin upon (\w+) emits visible fumes that make (the )?\w+ recoil and cough.$</string>
+									<string>^Noxious alchemical fumes arise from the burning toxin on (\w+)'s flesh, who sways uneasily.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19078,8 +19088,10 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^(\w+)'s (.+) (is|are) crushed beneath the raloth's weight.$</string>
+									<string>^(\w+)'s (.+) (is|are) crushed beneath the brutaliser's bulk.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19100,8 +19112,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^A .+ lumbers towards (\w+) to sink its deadly horns into .+ flesh\.$</string>
+									<string>^.+ issues a cantankerous snort and barrels into (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19123,8 +19137,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^(\w+) clenches (the )?\w+ eyes shut as blood covers (the )?\w+ vision.$</string>
+									<string>^(\w+) winces as sanguine rivulets blur .+ vision.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -19148,12 +19164,14 @@ disableTrigger("Weaken arms or legs")</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^\w+ strikes at (\w+)'s (left|right) (leg|arm) with .+, viciously rending \w+ muscles\.$</string>
+									<string>^\w+ rips through (\w+)'s (left|right) (leg|arm) with the lethal contour of .+, shredding .+ muscles.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Dhuriv Pierce/Sever</name>
 								<script>if matches[2] == snd.target then
  snd.target_got(matches[3]:gsub(" ", "_").."_crippled")
@@ -19170,7 +19188,7 @@ disableTrigger("Dhuriv Pierce/Sever")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+)'s (left leg|right leg|left arm|right arm) is badly crippled under the dhurive\.$</string>
+									<string>^(\w+)'s (left leg|right leg|left arm|right arm) is badly crippled under the (dhurive|ringblade)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -19216,8 +19234,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Your weasel has stripped (\w+)'s rebounding defence.$</string>
+									<string>^Your wardpeeler has stripped (\w+)'s rebounding defence.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -80012,6 +80032,137 @@ end</script>
                        end
                        snd.target_got("cold")
                       end,
+  },
+--Executor
+  ["Shadowdancing"] = {
+    
+  Brutalise = function(target, failed)
+             if failed then
+               snd.removeProneStates(true)
+             else
+               snd.target_got("writhe_impaled")
+               if snd.hitting == "You" then
+                snd.target_impaled = true
+               end
+            end
+          end,
+   Stifle = function(target)
+                    table.insert(snd.maybe_affs, "destroyed_throat")
+                    snd.onHit2({"Dodge", "Parry", "Rebounding"}, "Sentinel")
+                  end,
+   Muddle = function(target)
+              table.insert(snd.maybe_affs, 1, "impatience")
+              snd.onHit2({"Dodge", "Parry", "Rebounding"}, "Sentinel")
+            end,
+   Desolate = function(target)
+                    table.insert(snd.maybe_affs, "heartflutter")
+                    snd.onHit2({"Dodge", "Parry", "Rebounding"}, "Sentinel")
+                  end,
+   Ruse = function(target)
+              table.insert(snd.maybe_affs, 1, "confusion")
+              snd.onHit2({"Dodge",}, "Sentinel")
+            end,
+   Gambol = function(target)
+            table.insert(snd.maybe_affs, 1, "fallen")
+            snd.onHit2({"Dodge"}, "Sentinel")
+          end,
+   Flourish = function(target)
+                  snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+                end,
+   Contrive = function(target)
+              snd.onHit2({"Dodge", "Rebounding"}, "Sentinel Slash")
+            end,
+   Beguile = function(target)
+            snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+          end,
+   Impair = function(target)
+              enableTrigger("Weaken arms or legs")
+              snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
+            end,
+   Phlebotomise = function(target)
+                if snd.checkAff("impairment") then
+                  table.insert(snd.maybe_affs, 1, "addiction")
+                else
+                 table.insert(snd.maybe_affs, 1, "impairment")
+                end
+                  snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
+                end,
+   Shave = function(target, conditional)
+              if conditional == "shield" then
+                  snd.used.shield = false
+              else
+                  snd.used.shield = false
+                  snd.used.rebounding = false
+              end
+          end,           
+   Perplex = function(target)
+            if not snd.checksomeAffs({"laxity", "epilepsy"}, 1) then
+              table.insert(snd.maybe_affs, 1, "laxity")
+              table.insert(snd.maybe_affs, 2, "epilepsy")
+            elseif snd.checkAff("laxity") then
+              table.insert(snd.maybe_affs, 1, "epilepsy")
+            else
+              table.insert(snd.maybe_affs, 1, "laxity")
+            end
+            snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel Slam")
+          end,      
+   Ploy = function(target)
+                if snd.checkAff("sight") then
+                  table.insert(snd.maybe_affs, 1, "blurry_vision")
+                else
+                 table.insert(snd.maybe_affs, 1, "sight")
+                end
+                  snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+                end,            
+   Wile = function(target)
+            snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
+          end,
+   Inveigle = function(target)
+            snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
+          end,  
+   Razor = function(target)
+            table.insert(snd.maybe_affs, "crippled_throat")
+            snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
+          end,
+   Twinraze = function(target, defense)
+                if defense == "shield" then snd.used.shield = false end
+                if defense == "rebounding" then snd.used.rebounding = false end
+                if defense == "speed" then snd.target_got("no_speed") end
+                if defense == "failure" then snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false end
+              end,
+  Incise = function(target)
+            enableTrigger("Dhuriv Pierce/Sever")
+           end,
+  Dissever = function(target)
+            enableTrigger("Dhuriv Pierce/Sever")
+           end,
+  },
+  
+  ["Artifice"] = {
+    Accost = function(target, animal)
+              local accost_list= {
+                  ["darkhound"] = "claustrophobia",
+                  ["brutaliser"] = "agoraphobia",
+                  ["eviscerator"] = "loneliness",
+                ["terroriser"] = "berserking",
+              }
+               snd.target_got(accost_list[animal])
+    end,
+    
+    Verglas = function(target)
+                  snd.target_got("cold")
+                end,
+  },
+  
+  ["Subversion"] = {
+        
+
+  },
+
+    ["Brutaliser"] = {
+      Rampage = function(target)
+                enableTrigger("Raloth Trample")
+              end,
   },
 }</script>
 					<eventHandlerList />
