@@ -36519,7 +36519,7 @@ if snd.class == "Runecarver" then snd.send("straddle line") end
 if snd.class == "Teradrim" then snd.send("golem call") end
 if snd.class == "Tidesage" then snd.send("synth call") end
 if snd.class == "Voidseer" then snd.send("foment longing") end
- if snd.toggles.active == false then
+if snd.toggles.active == false then
   display("Sunder is currently off. Please SNDON to turn it back on! If you wish to remove this behavior, alter it in the 'general deaths' trigger.")
 else
   send("def", false)
@@ -49047,6 +49047,810 @@ end
 						</AliasGroup>
 					</AliasGroup>
 					<AliasGroup isActive="yes" isFolder="yes">
+						<name>Executor</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Affliction Offenses</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>mouse mode</name>
+								<script>if snd.class == "Executor" then
+snd.giving = {
+"sight",
+"paresis",
+"clumsiness",
+"asthma",
+"sensitivity",
+"vomiting",
+"allergies",
+"haemophilia",
+"slickness",
+--"anorexia",
+--"stupidity",
+--"recklessness",
+--"weariness",
+--"dizziness",
+--"voyria",
+}
+snd.starting_attack()
+function snd.attack_function()
+ if not snd.waiting.queue then
+  call = ""
+  left = "none"
+  right = "none"
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+	 if snd.giving[i] ~= "paresis" or not table.contains(snd.target_has, "paralysis") then
+     if right == "none" then
+      right = snd.effects[snd.giving[i]]
+     elseif left == "none" then
+      left = snd.effects[snd.giving[i]]
+		end
+    end
+   end
+  end
+  if left == "none" then
+   left = "epseth"
+  end
+  if right == "none" then
+   right = "epseth"
+  end
+  if snd.used.rebounding and snd.used.shield then
+   string = "ringblade twinraze "..snd.target
+  elseif snd.used.shield or snd.used.rebounding then
+	 string = "ringblade dance "..snd.target.." shave beguile "..right
+	if snd.toggles.affcalling and not snd.target_gone then
+	 call = "wt Afflicting "..snd.target..": "..right..snd.sep
+	end
+  else
+   string = "ringblade dance "..snd.target.." contrive beguile "..left.." "..right
+	if snd.toggles.affcalling and not snd.target_gone then
+	 call = "wt Afflicting "..snd.target..": "..left..", "..right..snd.sep
+	end
+  end
+	string = call..string
+  if string ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = string
+   snd.attack(snd.last_attack)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+ end
+end
+snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^ms$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Venom Lock</name>
+								<script>if snd.class == "Executor" then
+snd.current_offense = "SentVLock"
+
+
+snd.starting_attack()
+function snd.attack_function()
+  local second_attack = ""
+
+		if not snd.waiting.queue then
+    snd.giving = {
+		  "clumsiness",
+			"asthma",
+			"slickness",
+			"confusion",
+      "slickness",
+      "anorexia",
+			"left_leg_crippled",
+			"right_leg_crippled",
+      "heartflutter",
+			"vomiting",
+			"dizziness",
+			"sight",
+			"hearing",
+			"sensitivity",}
+
+	call = ""
+	left = "none"
+	right = "none"
+
+	 left, right = Executor_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "inveigle"
+		else
+			second_attack = "beguile"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "ringblade twinraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "ringblade stifle "..snd.target
+			
+		elseif snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker" then
+			left = snd.accost_accomplices[left]
+			string = left..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..snd.effects[right]
+			
+		else
+			if table.contains(snd.ringblade_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.ringblade_attacks[left].." "..snd.ringblade_attacks[right]
+				else
+					string = snd.ringblade_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.ringblade_affs, right) then
+				string = "contrive "..snd.ringblade_attacks[right].." "..snd.effects[left]
+			else
+				string = "contrive "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "ringblade dance "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
+			string = "ringblade terminate "..snd.target
+		end
+		
+		if string:find("brutalise") or string:find("saw") or string:find("stifle") or string:find("twinraze") or string:find("terminate") then
+			call = ""
+		end
+
+		string = "wipe ringblade"..snd.sep..call..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+
+	--snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^aff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Transfix + Sensitivity</name>
+								<script>if snd.class == "Executor" then
+snd.current_offense = "SentLumiSupport"
+
+
+snd.starting_attack()
+function snd.attack_function()
+  local second_attack = ""
+  if snd.target_locked() then
+			snd.giving = {
+			"left_leg_crippled",
+			"right_leg_crippled",
+      "confusion",
+      "impairment",
+			"weariness",
+			"dizziness",
+			"hearing",
+			"sensitivity",}
+		else
+      snd.giving = {
+      "clumsiness",
+      "hearing",
+      "sight",
+      "asthma",
+      "slickness",
+      "anorexia",
+			"left_leg_crippled",
+			"right_leg_crippled",
+      "confusion",
+      "weariness",
+      "vomiting",
+      "shyness",
+      "dizziness",
+      }
+		end
+		if not snd.waiting.queue then
+
+	call = ""
+	left = "none"
+	right = "none"
+
+	 left, right = Executor_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "inveigle"
+		else
+			second_attack = "beguile"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "ringblade twinraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "ringblade stifle "..snd.target
+			
+		elseif snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker" then
+			left = snd.accost_accomplices[left]
+			string = left..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..snd.effects[right]
+			
+		else
+			if table.contains(snd.ringblade_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.ringblade_attacks[left].." "..snd.ringblade_attacks[right]
+				else
+					string = snd.ringblade_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.ringblade_affs, right) then
+				string = "contrive "..snd.ringblade_attacks[right].." "..snd.effects[left]
+			else
+				string = "contrive "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "ringblade dance "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
+			string = "ringblade terminate "..snd.target
+		end
+		
+		if string:find("brutalise") or string:find("saw") or string:find("stifle") or string:find("twinraze") or string:find("terminate") then
+			call = ""
+		end
+
+		string = "wipe ringblade"..snd.sep..call..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^lumi$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Mentals</name>
+								<script>if snd.class == "Executor" then
+snd.current_offense = "SentMental"
+
+snd.starting_attack()
+function snd.attack_function()
+
+	if not snd.waiting.queue then
+  local second_attack = ""
+  
+  snd.giving = {
+  
+  "impatience",
+  "stupidity",
+  "agoraphobia",
+  "claustrophobia",
+  "weariness",
+  "clumsiness",
+  "asthma",
+  "slickness",
+  "confusion",
+  "left_leg_crippled",
+  "right_leg_crippled",
+  "anorexia",
+  "heartflutter",
+  "sight",
+  "hearing",
+  "sensitivity",
+  }
+  
+  call = ""
+	left = "none"
+	right = "none"
+
+	 left, right = Executor_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "inveigle"
+		else
+			second_attack = "beguile"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "ringblade twinraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "ringblade stifle "..snd.target
+			
+		elseif snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker" then
+			left = snd.accost_accomplices[left]
+			string = left..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..snd.effects[right]
+			
+		else
+			if table.contains(snd.ringblade_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.ringblade_attacks[left].." "..snd.ringblade_attacks[right]
+				else
+					string = snd.ringblade_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.ringblade_affs, right) then
+				string = "contrive "..snd.ringblade_attacks[right].." "..snd.effects[left]
+			else
+				string = "contrive "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "ringblade dance "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
+			string = "ringblade terminate "..snd.target
+		end
+		
+		if string:find("brutalise") or string:find("saw") or string:find("stifle") or string:find("twinraze") or string:find("terminate") then
+			call = ""
+		end
+
+		string = "wipe ringblade"..snd.sep..call..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^ment$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Bleeding</name>
+								<script>if snd.class == "Executor" then
+snd.current_offense = "bleed"
+
+snd.starting_attack()
+function snd.attack_function()
+
+		if not snd.waiting.queue then
+		if snd.target_locked() then
+			snd.giving = {
+			"impairment",
+			"confusion",
+			"left_leg_crippled",
+			"right_leg_crippled",
+			"weariness",
+			"dizziness",
+      }
+		else
+			snd.giving = {
+			"paresis",
+		  "clumsiness",
+			"haemophilia",
+			"hearing",
+			"sensitivity",
+      "asthma",
+      "weariness",
+      "slickness",
+
+      }
+		end
+    local second_attack = "wile"
+
+  call = ""
+	left = "none"
+	right = "none"
+
+	 left, right = Executor_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "inveigle"
+		else
+			second_attack = "beguile"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "ringblade twinraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "ringblade stifle "..snd.target
+			
+		elseif snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker" then
+			left = snd.accost_accomplices[left]
+			string = left..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..snd.effects[right]
+			
+		else
+			if table.contains(snd.ringblade_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.ringblade_attacks[left].." "..snd.ringblade_attacks[right]
+				else
+					string = snd.ringblade_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.ringblade_affs, right) then
+				string = "contrive "..snd.ringblade_attacks[right].." "..snd.effects[left]
+			else
+				string = "contrive "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "ringblade dance "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
+			string = "ringblade terminate "..snd.target
+		end
+		
+		if string:find("brutalise") or string:find("saw") or string:find("stifle") or string:find("twinraze") or string:find("terminate") then
+			call = ""
+		end
+
+		string = "wipe ringblade"..snd.sep..call..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^bleed$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Limbs / Salves</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Impale/Frozen</name>
+								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
+snd.current_offense = "SentImpale"
+
+
+snd.starting_attack()
+function snd.attack_function()
+  local second_attack = ""
+  snd.giving = {
+    "frozen",
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "left_arm_crippled",
+    "right_arm_crippled",
+    "asthma",
+    "slickness",
+    "paresis",
+    "confusion",
+    "vomiting",
+    "dizziness",
+    "sight",
+    "hearing",
+    "sensitivity",
+  }
+	if not snd.waiting.queue then
+
+	string = ""
+	call = ""
+	left = "none"
+	right = "none"
+
+	left, right = Executor_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "inveigle"
+		else
+			second_attack = "beguile"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "ringblade twinraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "ringblade stifle "..snd.target
+			
+		elseif snd.target_impaled then
+			string = "ringblade saw "..snd.target
+			
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_crippled") and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) then
+			string = "ringblade incise "..snd.target.." left"
+		
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_crippled") and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) then
+			string = "ringblade incise "..snd.target.." right"
+
+  	elseif snd.proned() then         
+      if not snd.checkAff("writhe_impaled") then
+      	string = "ringblade brutalise "..snd.target
+       else
+        string = "qdmount"..snd.sep.."qmount "..snd.my_raloth..snd.sep.."order "..snd.my_raloth.." rampage "..snd.target
+      end	
+			
+		elseif snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker" then
+			left = snd.accost_accomplices[left]
+			string = left..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..snd.effects[right]
+			
+		else
+			if table.contains(snd.ringblade_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.ringblade_attacks[left].." "..snd.ringblade_attacks[right]
+				else
+					string = snd.ringblade_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.ringblade_affs, right) then
+				string = "contrive "..snd.ringblade_attacks[right].." "..snd.effects[left]
+			else
+				string = "contrive "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "ringblade dance "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
+			string = "ringblade terminate "..snd.target
+		end
+		
+		if string:find("brutalise") or string:find("saw") or string:find("stifle") or string:find("twinraze") or string:find("terminate") then
+			call = ""
+		end
+
+		string = "wipe ringblade"..snd.sep..call..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gimp$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Salves</name>
+								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
+snd.current_offense = "SentSalve"
+
+local second_attack = ""
+
+snd.starting_attack()
+function snd.attack_function()
+
+	if not snd.waiting.queue then
+
+    if snd.checkAff("destroyed_throat") then
+    snd.giving = {
+    "slickness",
+    "asthma",
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "paresis",
+    "confusion",
+    "vomiting",
+    "dizziness",
+    "sight",
+    "hearing",
+    "sensitivity",
+    }
+    else
+    snd.giving = {
+    
+    "frozen",
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "left_arm_crippled",
+    "right_arm_crippled",
+    "anorexia",
+    "stupidity",
+    "asthma",
+    "slickness",
+    "paresis",
+    "confusion",
+    "vomiting",
+    "dizziness",
+    "sight",
+    "hearing",
+    "sensitivity",
+    }
+    end	
+
+	string = ""
+	call = ""
+	left = "none"
+	right = "none"
+
+	 left, right = Executor_Attack_Choice(snd.giving, left, right) -- we send our aff list to a function to get our attacks.
+
+		if left  == "none" then left  = "epseth" end
+		if right == "none" then right = "epseth" end
+	
+		if snd.no_parry() then 
+			second_attack = "inveigle"
+		else
+			second_attack = "beguile"
+		end
+
+		if snd.used.rebounding and snd.used.shield then
+			string = "ringblade twinraze "..snd.target
+			
+		elseif left == "destroyed_throat" then
+			string = "ringblade stifle "..snd.target
+			
+		elseif snd.target_impaled then
+			string = "ringblade saw "..snd.target
+			
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("left_leg_crippled") and snd.limb_status["left leg"] == "healed" and (snd.parried_limb ~= "left leg" or snd.no_parry()) then
+			string = "ringblade incise "..snd.target.." left"
+		
+		elseif not snd.used.rebounding and not snd.used.shield and snd.checkAff("right_leg_crippled") and snd.limb_status["right leg"] == "healed" and (snd.parried_limb ~= "right leg" or snd.no_parry()) then
+			string = "ringblade incise "..snd.target.." right"
+
+  	elseif snd.proned() then         
+      if not snd.checkAff("writhe_impaled") then
+      	string = "ringblade brutalise "..snd.target
+       else
+        string = "qdmount"..snd.sep.."qmount "..snd.my_raloth..snd.sep.."order "..snd.my_raloth.." rampage "..snd.target
+      end	
+			
+		elseif snd.ringblade_attacks[left] == "accost" or snd.ringblade_attacks[left] == "rimestalker" then
+			left = snd.accost_accomplices[left]
+			string = left..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..snd.effects[right]
+			
+		else
+			if table.contains(snd.ringblade_affs, left) then
+				if not table.contains(snd.effects, right) then
+					string = snd.ringblade_attacks[left].." "..snd.ringblade_attacks[right]
+				else
+					string = snd.ringblade_attacks[left].." "..second_attack.." "..snd.effects[right]
+				end
+			elseif table.contains(snd.ringblade_affs, right) then
+				string = "contrive "..snd.ringblade_attacks[right].." "..snd.effects[left]
+			else
+				string = "contrive "..second_attack.." "..snd.effects[left].." "..snd.effects[right]
+			end
+			
+			string = "ringblade dance "..snd.target.." "..string
+		end
+		
+		if snd.toggles.affcalling and not snd.target_gone then
+			if table.contains(snd.effects, left) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[left]
+				if table.contains(snd.effects, right) then 
+					call = call..", "..snd.effects[right]
+				end
+				call = call..snd.sep
+			elseif table.contains(snd.effects, right) then 
+				call = "wt Afflicting "..snd.target..": "..snd.effects[right]..snd.sep
+			end
+		end
+
+		if snd.checksomeAffs({"confusion", "left_leg_crippled", "right_leg_crippled", "fallen", "heartflutter"}, 5) then
+			string = "ringblade terminate "..snd.target
+		end
+		
+		if string:find("brutalise") or string:find("saw") or string:find("stifle") or string:find("twinraze") or string:find("terminate") then
+			call = ""
+		end
+
+		string = "wipe ringblade"..snd.sep..call..string
+    
+		if string ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = string
+			snd.attack(snd.last_attack)
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		end
+	end
+end
+
+	snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^salve$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group spinecut</name>
+								<script></script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gsc$</regex>
+							</Alias>
+						</AliasGroup>
+					</AliasGroup>
+					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Indorani</name>
 						<script></script>
 						<command></command>
@@ -55422,7 +56226,6 @@ end</script>
 							<name>has_skill</name>
 							<packageName></packageName>
 							<script>function hasSkill(skill, tree)
-
 	if not snd.skills then return false end
 
   if skill == "Generic" or skill == "Goggle" then return true end
@@ -56814,13 +57617,13 @@ snd.priorities =
     "def_lithe",
     
     --Voidseer
+    "def_erudition",
     "def_synergism",
     "def_kismet",
     "def_introspection",
     "def_withstand",
     "def_vitalise",
     "def_occultism",
-    "def_erudition",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -74948,12 +75751,12 @@ executor = {
 
 voidseer = {
 	def_gripping = "on",
-	def_erudition =  "once",
-	def_synergism = "once",
-	def_introspection = "once",
-	def_withstand = "once",
-	def_vitalise = "once",
-	def_occultism = "once",
+	def_erudition = "on",
+	def_synergism = "on",
+	def_introspection = "on",
+	def_withstand = "on",
+	def_vitalise = "on",
+	def_occultism = "on",
 },
 
 --200s
