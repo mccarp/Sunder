@@ -307,6 +307,27 @@ snd.def_def("alacrity")</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>efficiency (Alacrity mirror</name>
+								<script>alacritycount = tonumber(matches[2])
+snd.def_def("efficiency")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You are prepared for utmost efficiency (3|2|1) more times\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>catchall</name>
 								<script>if snd.defenses_list[matches[2]] then
   snd.def_def(snd.defenses_list[matches[2]])
@@ -55783,6 +55804,15 @@ snd.priorities =
     "def_aversion",
     "def_defang",
     "def_culmination",
+    
+    --Executor
+    "def_girded",
+    "def_bloodlust",
+    "def_stoicism",
+    "def_limberness",
+    "def_deception",
+    "def_bounding",
+    "def_efficiency",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -56947,6 +56977,16 @@ def_battlehymn_constitution = {defense = "battlehymn_constitution", type = "norm
 def_battlehymn_intelligence = {defense = "battlehymn_intelligence", type = "normal", effect = "Increases intelligence", balance = {needyequilibriumtake = "dirge battlehymn intelligence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
 def_battlehymn_dexterity = {defense = "battlehymn_dexterity", type = "normal", effect = "Increases dexterity", balance = {needyequilibriumtake = "dirge battlehymn dexterity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
 
+--Executor
+def_girded = {defense = "girded", type = "normal", effect = "10% Resist to Cutting/Blunt", balance = {needyequilibriumtake = "gird"}, state = "down", needit = false, timer = createStopWatch(), skill = "Gird"},
+def_bloodlust = {defense = "bloodlust", type = "normal", effect = "Gain health on melee attack", balance = {needyequilibriumtake = "bloodlust"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodlust" },
+def_stoicism = {defense = "stoicism", type = "normal", effect = "15% Resist to Cold/Venom", balance = {needyequilibriumtake = "stoicism"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stoicism" },
+def_limberness = {defense = "limberness", type = "normal", effect = "Increased writhe", balance = {balanceequilibriumtake = "limberness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Limberness" },
+def_deception = {defense = "deception", type = "normal", effect = "Not listed on scent", balance = {balanceequilibriumtake = "deceive senses"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deception" },
+def_bounding = {defense = "bounding", type = "normal", effect = "You move faster outdoors &amp; in forests", balance = {balanceequilibriumtake = "bounding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bounding" },
+def_efficiency = {defense = "efficiency", type = "normal", effect = "You shoot and trap faster", balance = {balanceequilibriumtake = "efficiency"}, state = "down", needit = false, timer = createStopWatch(), skill = "Efficiency" },
+
+
 --Indorani
 def_soulmask = {defense = "soulmask", type = "normal", effect = "Your soul is harder to sense.", balance = {special = "soulmask"}, state = "down", needit = false, timer = createStopWatch(), skill = "Soulmask" },
 def_vengeance = {defense = "vengeance", type = "normal", effect = "You will deal AoE damage to enemies upon death.", balance = {balanceequilibriumtake = "vengeance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vengeance" },
@@ -57915,7 +57955,6 @@ end</script>
   
   --Predator
   
-  
   ["You are using careful footwork to keep space from foes."] = "spacing",
   ["You are hiding your identity with a mask."] = "masked",
   ["You are parrying all attacks that are targeted at your limbs."] = "trueparry",
@@ -57932,6 +57971,15 @@ end</script>
   ["You have heightened your awareness of those targeting you."] = "culmination",
 
   ["You are attuned to revivals."] = "lifesense",
+  
+  --Executor
+  ["Atramentous shadow girds your physical form."] = "girded",
+  ["Your bloodlust keeps you afloat in the heat of battle."] = "bloodlust",
+  ["You are stoic in the face of the elements."] = "stoicism",
+  ["Your limberness allows you to elude bindings."] = "limberness",
+  ["You are deceiving keen noses."] = "deception",
+  ["You are flit through the forests like a shadow."] = "bounding",
+
 }
  </script>
 							<eventHandlerList />
@@ -70992,6 +71040,7 @@ end</script>
 {class = "Bloodborn", func = function(current) snd.bloodborn_bash() end}, 
 {class = "Carnifex", func = function(current) snd.carnifex_bash() end},
 {class = "Earthcaller", func = function(current) snd.earthcaller_bash() end},
+{class = "Executor", func = function(current) snd.executor_bash() end},
 {class = "Indorani", func = function(current) snd.indorani_bash() end}, 
 {class = "Luminary", func = function(current) snd.luminary_bash() end}, 
 {class = "Monk", func = function(current) snd.monk_bash() end}, 
@@ -71311,6 +71360,21 @@ function snd.earthcaller_bash()
   	battack = "tectonic ashfall "..snd.bashing.target
  	else
   	battack = "quash "..snd.bashing.target.." secret"
+ 	end
+end
+
+function snd.executor_bash()
+  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+	
+  if hp &lt;=40 and snd.shield_check() then
+    if snd.punisher then
+    else
+      battack = "touch shield"
+    end
+  elseif snd.toggles.newbie then
+  	battack = "ringblade dance "..snd.bashing.target.." contrive beguile"
+ 	else
+  	battack = "ringblade dance "..snd.bashing.target.." phlebotomise inveigle"
  	end
 end
 
@@ -73807,6 +73871,18 @@ predator = {
   --def_defang = "on",
   def_culmination = "on",
 },
+executor = {
+  def_gripping = "on",
+  def_bloodlust = "on",
+  def_girded = "on",
+  def_stoicism = "on",
+  def_conceal = "once",
+  def_deception = "once",
+  def_vitality = "on",
+  def_limberness = "once",
+  def_bounding = "once",
+},
+
 --200s
 malevolent = {
   def_adherent_barrier = "on",
@@ -79817,7 +79893,126 @@ end</script>
         snd.target_got("writhe_web")
       end,
   },
+--Voidseer
+  ["Cultivation"] = {
+    Recrudescence = function(target)
+                snd.target_got("patterns")
+              end,
+              
+    Sonder = function(target)
+                   snd.target_got("sonder")
+                 end,
+    Histrionics = function(target)
+               snd.target_got("matrix")
+               matrix_timer = tempTimer(20.0,[[snd.target_cured("matrix")]])
+             end,
 
+    Disgust = function(target) --circle
+              local t = {"merciful", "masochism", "berserking", "recklessness"} -- initialize table with circle affs
+              for _, v in pairs(t) do -- iterate circle affs
+                if not snd.checkAff(v) then -- check if they have it
+                  snd.target_got(v) -- if they don't have it, add it
+                  break -- if we added an aff, break out of the loop
+                end -- end if
+              end -- end for
+             end,
+                      
+    Joy = function(target) --triangle
+              local t = {"laxity", "lovers_effect", "peace", "magnanimity"} 
+              for _, v in pairs(t) do
+                if not snd.checkAff(v) then
+                  snd.target_got(v)
+                  break 
+                end 
+              end
+             end,
+                
+    Fear = function(target) --square
+              local t = {"dizziness", "faintness", "epilepsy", "shyness"} 
+              for _, v in pairs(t) do
+                if not snd.checkAff(v) then
+                  snd.target_got(v)
+                  break 
+                end 
+              end
+             end,
+    Etch = function(target, shape)
+                snd.target_got(shape.."_etched")
+                if shape == "fear" then
+                  tempTimer(6, [[snd.target_cured("fear_etched")]])
+                elseif shape == "disgust" then
+                  tempTimer(6, [[snd.target_cured("disgust_etched")]])
+                elseif shape == "joy" then
+                  tempTimer(6, [[snd.target_cured("joy_etched")]])
+                end
+              end,
+    Anger = function(target)
+             snd.used.shield = false
+           end,
+  },
+  
+  ["Enlightenment"] = {
+    
+    Impel = function(target)
+               end,
+    Turmoil = function(target)
+               snd.target_got("dementia")
+               snd.target_got("paranoia")
+               snd.target_got("hallucinations")
+               if snd.hitting == "You" then snd.balance.madness = false end
+              end,
+    Disorder = function(target)
+                   enableTrigger("Elicit Affliction")
+                 end,
+
+  },
+  
+  ["Voidgazing"] = {
+          Bestow = function(target)
+                        snd.target_got("mutagen")
+                        if snd.hitting == "You" then
+                          snd.my_mutagen = true
+                          snd.their_mutagen = false
+                        else
+                          snd.my_mutagen = false
+                          snd.their_mutagen = true
+                        end
+             end,
+          Kismet = function(target, advance)
+              if advance then
+                snd.target_got("mutagen")
+                if snd.hitting == "You" then
+                  snd.my_mutagen = true
+                  snd.their_mutagen = false
+                else
+                  snd.my_mutagen = false
+                  snd.their_mutagen = true
+                end
+              end
+            end,
+          Advance = function(target)
+                        snd.target_got("mutagen")
+                        if snd.hitting == "You" then
+                          snd.my_mutagen = true
+                          snd.their_mutagen = false
+                        else
+                          snd.my_mutagen = false
+                          snd.their_mutagen = true
+                        end
+             end,
+          Judder = function(target)
+                   snd.target_cured("no_speed")
+                 end,
+          Hoarfrost = function(target, level)
+                       if level == "severe" then
+                        snd.target_got("cold")
+                        snd.target_got("cold")
+                       elseif level == "moderate" then
+                        snd.target_got("cold")
+                       end
+                       snd.target_got("cold")
+                      end,
+  },
 }</script>
 					<eventHandlerList />
 				</Script>
