@@ -54793,6 +54793,12 @@ function snd.self_prone()
   else
     return true
   end
+end
+
+function snd.full_vitals()
+  if tonumber(gmcp.Char.Vitals.hp)&lt;tonumber(gmcp.Char.Vitals.maxhp) then return false end
+  if tonumber(gmcp.Char.Vitals.mp)&lt;tonumber(gmcp.Char.Vitals.maxmp) then return false end
+  return true
 end</script>
 						<eventHandlerList />
 					</Script>
@@ -55895,7 +55901,7 @@ snd.method_priority = {
       for k in pairs(snd.defenses) do
         if snd.defenses[k].state == "down" and snd.defenses[k].needit then
           if k == "def_vitality" then
-            if snd.balance.vitality then
+            if snd.balance.vitality and snd.full_vitals() then
               table.insert(snd.queue, k)
             end
           elseif (k == "def_shroud" or k == "def_ghost" or k == "def_hiding") then
@@ -80338,6 +80344,40 @@ snd.shape_attacks = {
 		shyness = "square",
 }
 </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Voidseer aff picking</name>
+						<packageName></packageName>
+						<script>snd.forment_affs = {
+        "merciful",
+        "masochism",
+        "berserking",
+        "recklessness",
+        "laxity",
+        "lovers_effect",
+        "peace",
+        "magnanimity",
+        "dizziness",
+        "faintness",
+        "epilepsy",
+        "shyness",
+}
+
+ snd.forment_attacks = {
+        merciful = "disgust",
+        masochism = "disgust",
+        berserking = "disgust",
+        recklessness = "disgust",
+        laxity = "joy",
+        lovers_effect = "joy",
+        peace = "joy",
+        magnanimity = "joy",
+        dizziness = "fear",
+        faintness = "fear",
+        epilepsy = "fear",
+        shyness = "fear",
+}</script>
 						<eventHandlerList />
 					</Script>
 					<Script isActive="yes" isFolder="no">
