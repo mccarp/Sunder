@@ -49579,7 +49579,7 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Group Impale/Frozen</name>
-								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
+								<script>if snd.class == "Executor" then -- Requires Raloth and Icewyrm
 snd.current_offense = "SentImpale"
 
 
@@ -49700,7 +49700,7 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Salves</name>
-								<script>if snd.class == "Sentinel" then -- Requires Raloth and Icewyrm
+								<script>if snd.class == "Executor" then -- Requires Raloth and Icewyrm
 snd.current_offense = "SentSalve"
 
 local second_attack = ""
@@ -82002,7 +82002,7 @@ end</script>
                   ["darkhound"] = "claustrophobia",
                   ["brutaliser"] = "agoraphobia",
                   ["eviscerator"] = "loneliness",
-                ["terroriser"] = "berserking",
+                ["terrifier"] = "berserking",
               }
                snd.target_got(accost_list[animal])
     end,
@@ -82372,7 +82372,7 @@ snd.accost_accomplices =
     ["claustrophobia"] = "order darkhound accost ",
     ["agoraphobia"] = "order brutaliser accost ",
     ["loneliness"] = "order eviscerator accost ",
-    ["berserking"] = "order terroriser accost ",
+    ["berserking"] = "order terrifier accost ",
     ["frozen"] = "order rimestalker icebreath ",
     ["shivering"] = "order rimestalker icebreath ",
   }
