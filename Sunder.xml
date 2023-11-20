@@ -6012,7 +6012,7 @@ snd.firefist_cooldown = false</script>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Sentinel</name>
+						<name>Sentinel / Executor</name>
 						<script></script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -6071,6 +6071,48 @@ snd.firefist_cooldown = false</script>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Exploit used</name>
+							<script>snd.balance.exploit = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Spotting an opening for a brutal assault, you send your accomplices into a manic rage with a sharp command.</string>
+								<string>You cannot do that again so soon.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Exploit back</name>
+							<script>snd.balance.exploit = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may once more exploit an opponent's opening.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -10020,28 +10062,6 @@ end</script>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>Insight Status</name>
-										<script>local bio = tonumber(matches[2])
-
-snd.bioessence = bio</script>
-										<triggerType>0</triggerType>
-										<conditonLineDelta>0</conditonLineDelta>
-										<mStayOpen>0</mStayOpen>
-										<mCommand></mCommand>
-										<packageName></packageName>
-										<mFgColor>#ff0000</mFgColor>
-										<mBgColor>#ffff00</mBgColor>
-										<mSoundFile></mSoundFile>
-										<colorTriggerFgColor>#000000</colorTriggerFgColor>
-										<colorTriggerBgColor>#000000</colorTriggerBgColor>
-										<regexCodeList>
-											<string>^You possess enough coherent insight to enact (\d+) feats</string>
-										</regexCodeList>
-										<regexCodePropertyList>
-											<integer>1</integer>
-										</regexCodePropertyList>
-									</Trigger>
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Joy Intrusion</name>
 										<script>if matches[2] == snd.target then
 	if not snd.checkAff("laxity") then 
@@ -10132,46 +10152,6 @@ end</script>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
-										</regexCodePropertyList>
-									</Trigger>
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>Increase Insight</name>
-										<script>snd.bioessence = snd.bioessence + 1</script>
-										<triggerType>0</triggerType>
-										<conditonLineDelta>0</conditonLineDelta>
-										<mStayOpen>0</mStayOpen>
-										<mCommand></mCommand>
-										<packageName></packageName>
-										<mFgColor>#ff0000</mFgColor>
-										<mBgColor>#ffff00</mBgColor>
-										<mSoundFile></mSoundFile>
-										<colorTriggerFgColor>#000000</colorTriggerFgColor>
-										<colorTriggerBgColor>#000000</colorTriggerBgColor>
-										<regexCodeList>
-											<string>Clarity trickles through your mind like a refreshing stream.</string>
-										</regexCodeList>
-										<regexCodePropertyList>
-											<integer>3</integer>
-										</regexCodePropertyList>
-									</Trigger>
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>All Insight Back</name>
-										<script>snd.bioessence = 3</script>
-										<triggerType>0</triggerType>
-										<conditonLineDelta>0</conditonLineDelta>
-										<mStayOpen>0</mStayOpen>
-										<mCommand></mCommand>
-										<packageName></packageName>
-										<mFgColor>#ff0000</mFgColor>
-										<mBgColor>#ffff00</mBgColor>
-										<mSoundFile></mSoundFile>
-										<colorTriggerFgColor>#000000</colorTriggerFgColor>
-										<colorTriggerBgColor>#000000</colorTriggerBgColor>
-										<regexCodeList>
-											<string>Crystalline clarity reigns, your mind once more a bastion of eldritch truth.</string>
-										</regexCodeList>
-										<regexCodePropertyList>
-											<integer>3</integer>
 										</regexCodePropertyList>
 									</Trigger>
 								</TriggerGroup>
@@ -40832,7 +40812,11 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Lure</name>
-								<script>snd.send("qeb DEJEMASHAI "..matches[2])</script>
+								<script>if snd.class == "Akkari" then
+  snd.send("qeb DEJEMASHAI "..matches[2])
+elseif snd.class == "Praenomen" then
+  snd.send("qeb lure "..matches[2])
+end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^lure (\w+)$</regex>
@@ -46756,12 +46740,12 @@ end</script>
 								<script>if snd.class == "Voidseer" then
 snd.starting_attack()
 function snd.attack_function()
- local string = "void insight"..snd.sep
- local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
+ local string = ""
+ local bioessence = tonumber(gmcp.Char.Vitals.insight) or 0
  local biostring = "" 
   
 
-  if snd.bioessence &gt; 1 then
+  if bioessence &gt; 1 then
     biostring = "void aplomb"..snd.sep
   end
 
@@ -46793,8 +46777,8 @@ end</script>
 								<script>if snd.class == "Voidseer" then
 snd.starting_attack()
 function snd.attack_function()
- local string = "void insight"..snd.sep
- local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
+ local string = ""
+ local bioessence = tonumber(gmcp.Char.Vitals.insight) or 0
       local physcount = 0
       for aff in pairs(snd.physical_affs) do
           if table.contains(snd.target_has, snd.physical_affs[aff]) then
@@ -46810,7 +46794,7 @@ function snd.attack_function()
  
       local biostring = "" 
 
-      if snd.bioessence &gt; 1 then
+      if bioessence &gt; 1 then
         biostring = "void aplomb"..snd.sep
       end
 
@@ -46874,10 +46858,10 @@ snd.starting_attack()
 function snd.attack_function()
     if not snd.waiting.queue then
 			local touse = {}
-      local string = "void insight"..snd.sep
+      local string = ""
       local biostring = "" 
       local call = "" 
-      local bioessence = tonumber(gmcp.Char.Vitals.bio)
+      local bioessence = tonumber(gmcp.Char.Vitals.insight) or 0
       local hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
       local physcount = 0
       for aff in pairs(snd.physical_affs) do
@@ -46891,7 +46875,7 @@ function snd.attack_function()
               mentcount = mentcount + 1
           end
       end
-      if snd.bioessence &gt; 1 then
+      if bioessence &gt; 1 then
       	biostring = "void aplomb"..snd.sep
       end
 				
@@ -46929,7 +46913,7 @@ function snd.attack_function()
         string = "drop " ..snd.my_token.. "" ..snd.sep.. "muse cordon" ..snd.sep    
       elseif not snd.geotrace then
         string = "muse vine"
-			elseif hp &lt;= 70 and snd.bioessence &gt; 1 then
+			elseif hp &lt;= 70 and bioessence &gt; 1 then
 				if snd.defenses.def_ethereal.state ~= "deffed" then
 					string = string.."void disjoint"..biostring..snd.sep
 				end
@@ -46939,7 +46923,7 @@ function snd.attack_function()
         else
        	  string = string.."chakra transcend "..snd.target..snd.sep..biostring
 				end
-      elseif not snd.checkAff("mutagen") and snd.bioessence &gt; 1 then
+      elseif not snd.checkAff("mutagen") and bioessence &gt; 1 then
 				if not snd.their_mutagen then
         	string = string.."void bestow "..snd.target.." with one"..snd.sep..biostring..snd.sep
 				end
@@ -46989,12 +46973,12 @@ function snd.attack_function()
     if not snd.waiting.queue then
 			local touse = {}
       local string = "" 
-      local string = "void insight"..snd.sep
+      local string = ""
       local call = "" 
       local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
       local biostring = ""
 
-      if snd.bioessence &gt; 1 then
+      if bioessence &gt; 1 then
         biostring = "void aplomb"..snd.sep
       end
 				
@@ -49840,13 +49824,6 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^salve$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group spinecut</name>
-								<script></script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gsc$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -55245,6 +55222,7 @@ end
   spider = true, --predator spider web
   feint = true, --predator's feint
   bladesurge = true,
+  exploit = true, --executor exploit
 }
 
 snd.waiting = snd.waiting or {
@@ -75978,7 +75956,6 @@ snd.my_incite = "nil"
 snd.my_impress = ""
 snd.conjoin = false
 snd.knit = false
-snd.bioessence = 0
 
 --Shaman / Alchemist
 snd.shamanpet = ""
