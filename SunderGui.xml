@@ -351,7 +351,7 @@ demonnic.chat:create()</script>
 				<packageName></packageName>
 				<script>local windowwidth, windowheight = getMainWindowSize()
 alteredwindowwidth = math.ceil(windowwidth*.08)
-
+snd = snd or {}
 snd.gui = {
   enabled = true,
   height = windowheight,
