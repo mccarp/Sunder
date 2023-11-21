@@ -58761,7 +58761,7 @@ def_cruelty = {defense = "cruelty", type = "normal", effect = "Increased strengt
 
 --Earthcaller
 def_heatshield = {defense = "heatshield", type = "normal", effect = "Light-based damage resistance", balance = {needyequilibriumtake = "tectonic heatshield"}, state = "down", needit = false, timer = createStopWatch(), skill = "Heatshield" },
-def_smothering = {defense = "smothering", type = "normal", effect = "Resists fire attacks", balance = {needybalancetake = "tectonic smothering"}, state = "down", needit = false, timer = createStopWatch(), skill = "Smnothering"},
+def_smothering = {defense = "smothering", type = "normal", effect = "Resists fire attacks", balance = {needybalancetake = "tectonic smothering"}, state = "down", needit = false, timer = createStopWatch(), skill = "Smothering"},
 def_seismicity = {defense = "seismicity", type = "normal", effect = "Dealing AoE room damage to enemies", balance = {needybalancetake = "tectonic seismicity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shine"},
 def_battlehymn_strength = {defense = "battlehymn_strength", type = "normal", effect = "Increases strength", balance = {needyequilibriumtake = "dirge battlehymn strength"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
 def_battlehymn_constitution = {defense = "battlehymn_constitution", type = "normal", effect = "Increases constitution", balance = {needyequilibriumtake = "dirge battlehymn constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
