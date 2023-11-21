@@ -23392,7 +23392,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) is no longer affected by your morphing venom\.$</string>
+								<string>^(\w+) is no longer affected by your morphing poison\.$</string>
 								<string>^(\w+) has escaped the effects of your morphing poison\.$</string>
 								<string>^Relief floods (\w+) as the deadly morphing poison is purged from \w+ system\.$</string>
 							</regexCodeList>
@@ -82557,6 +82557,7 @@ snd.venom_affs =
 "stuttering",
 "deadening",
 "thin_blood",
+"blurry_vision",
 "left_leg_crippled",
 "right_leg_crippled",
 "left_arm_crippled",
