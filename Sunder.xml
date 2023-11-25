@@ -81731,7 +81731,7 @@ end</script>
     Pheromones =
       function(target)
         snd.setPredatorVenom()
-        snd.target_got("pacifism")
+        snd.target_got("lovers_effect")
       end,
     Pindown =
       function(target)
