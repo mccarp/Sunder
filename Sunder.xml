@@ -35816,6 +35816,7 @@ snd.toggle("calling")
 						<script>if matches[2] == "off" then
   if snd.toggles.listening then
     snd.toggle("listening")
+    snd.callers = {}
   end
 else
   if not snd.toggles.listening then
