@@ -58887,6 +58887,8 @@ def_delirium = {defense = "delirium", type = "normal", effect = "cure a random A
 def_ravage = {defense = "ravage", type = "normal", effect = "makes your fists attack cause ablaze", balance = {balanceequilibriumtake = "invoke ravage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Ravage" },
 
 --Revenant
+def_iyedlo = {defense = "iyedlo", type = "normal", effect = "Hit faster", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Iyedlo"},
+
 def_influence_phantasm = {defense = "influence_phantasm", type = "normal", effect = "Increase chance of hitting", balance = {balanceequilibriumtake = "phantasm influence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Influence"},
 def_congeal_phantasm = {defense = "congeal_phantasm", type = "normal", effect = "15% cutting/blunt/magic resist", balance = {balanceequilibriumtake = "phantasm congeal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Congeal"},
 def_leech_phantasm = {defense = "leech_phantasm", type = "normal", effect = "Increased constitution, regenerate health", balance = {balanceequilibriumtake = "phantasm leech"}, state = "down", needit = false, timer = createStopWatch(), skill = "Leech"},
@@ -58975,6 +58977,7 @@ def_lipreading = {defense = "lipreading", type = "normal", effect = "Hear throug
 
 --Templar
 def_maingauche = {defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = {needyequilibriumtake = "maingauche"}, state = "down", needit = false, timer = createStopWatch(), skill = "MainGauche"},
+def_waterflow = {defense = "waterflow", type = "normal", effect = "Hit faster", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Waterflow"},
 
 def_accuracy_aura = {defense = "accuracy_aura", type = "normal", effect = "Increase chance of hitting", balance = {balanceequilibriumtake = "aura accuracy"}, state = "down", needit = false, timer = createStopWatch(), skill = "Accuracy"},
 def_protection_aura = {defense = "protection_aura", type = "normal", effect = "15% cutting/blunt/magic resist", balance = {balanceequilibriumtake = "aura protection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Protection"},
@@ -59823,6 +59826,9 @@ end</script>
   ["Forbidden occultism informs your every move."] = "occultism",
   
   ["Your physical form is partly ethereal."] = "ethereal",
+  
+  ["Your weapons flow through the air."] = "iyedlo",
+  ["Your weapons will flow like water."] = "waterflow",
 }
  </script>
 							<eventHandlerList />
