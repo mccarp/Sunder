@@ -2015,7 +2015,7 @@ local talkerWhitelist = {
   ["a cloaked figure"] = true,
 }
 
-function kaiUI.chat.capture()
+function gmcp_communication()
 
 --if the text contains this text, don't echo to tabbed chat
   snd.we_saw_a_thot = false
