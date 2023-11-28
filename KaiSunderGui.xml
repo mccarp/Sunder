@@ -2114,6 +2114,14 @@ local mobs_to_ignore =
     "Klaana",
     "Valgar",
   }
+local talkerWhitelist = {
+  ["a masked man"] = true,
+  ["a masked woman"] = true,
+  ["a masked person"] = true,
+  ["a ghostly figure"] = true,
+  ["a pumpkin figure"] = true,
+  ["a cloaked figure"] = true,
+}
 
 function kaiUI.chat.capture()
 
@@ -2121,11 +2129,11 @@ function kaiUI.chat.capture()
   snd.we_saw_a_thot = false
   local talker = gmcp.Comm.Channel.Text.talker
   
-  if gmcp.Comm.Channel.Text.channel~="ct" then
+  if gmcp.Comm.Channel.Text.channel == "says" or gmcp.Comm.Channel.Text.channel == "emotes" then
     if table.isMember(mobs_to_ignore, talker) then return end
     --You can choose whether you want it to match only names that are in the database (excluding divine)
     --Or if you want it to just match any one word name. Some NPCs might slip through.
-    if string.match(talker, "%W") and not talker:find("the gloriously%-bearded") then return end
+    if string.match(talker, "%W") and not talkerWhitelist[talker] and not talker:find("the gloriously%-bearded") then return end
     --[[ if sndNDB.players[talker] == nil then
       if not table.isMember(sndNDB.divine, talker) then 
         return 
