@@ -23663,7 +23663,9 @@ disableTrigger("Sunder Parry")</script>
     table.remove(snd.maybe_affs, 1)
     return
   end
-  
+  if snd.skill_being_used == "Overhand" or snd.skill_being_used == "Breach" then
+    snd.lev_gone = false
+  end
   if #snd.last_affs &gt;= 1 then
     if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
       snd.used.rebounding = true
@@ -35228,7 +35230,7 @@ cecho("\n                     &lt;ForestGreen&gt; It automatically turns on hitt
 cecho("\n&lt;DeepSkyBlue&gt;grp &lt;person&gt;          &lt;ForestGreen&gt;Inform &lt;green&gt;Sunder&lt;ForestGreen&gt; of your bashing party.")
 cecho("\n&lt;DeepSkyBlue&gt;grp queen rook pawn   &lt;ForestGreen&gt;Example of adding more than one person.")
 cecho("\n&lt;DeepSkyBlue&gt;orbs                  &lt;ForestGreen&gt;Activate your ylem orbs with one alias!")
-cecho("\n&lt;DeepSkyBlue&gt;sunder toggle generic &lt;ForestGreen&gt;Use generic mob type instead of number to bash.")
+cecho("\n&lt;DeepSkyBlue&gt;toggle generic &lt;ForestGreen&gt;Use generic mob type instead of number to bash.")
 cecho("\n")
 cecho("\n")
 cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; has some more advanced features listed in &lt;DeepSkyBlue&gt;sunder help autobashing&lt;ForestGreen&gt;.")
