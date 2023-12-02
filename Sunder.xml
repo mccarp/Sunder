@@ -20886,7 +20886,7 @@ end</script>
 									</Trigger>
 								</TriggerGroup>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Weapon Hit Confirmation</name>
 								<script>-- generic weapon lines that both classes use</script>
 								<triggerType>0</triggerType>
@@ -25692,8 +25692,11 @@ end</script>
     snd.target_got(matches[3].." crippled")
   end
   snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was broken!")
-  
   snd.limb_status[matches[3]] = "broken"
+  local dmg = 33.34-snd.limb_dmg[matches[3]]
+  if dmg &gt; 0 then
+    snd.took_limb_dmg(matches[3], dmg)
+  end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end</script>
