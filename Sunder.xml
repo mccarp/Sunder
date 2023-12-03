@@ -30591,7 +30591,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>got hit</name>
-						<script>local exclusions = {"Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
+						<script>local exclusions = {"Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = multimatches[2][3]
 
   if not table.contains(exclusions, skill) then
