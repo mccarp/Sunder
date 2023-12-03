@@ -58390,10 +58390,11 @@ function snd.aff_have(affliction)
 	 hit_aff = false
 	 for aff in pairs(snd.circle_affs) do
 	  if not hit_aff then
-		 snd.send("firstaid predict "..snd.circle_affs[aff])
 		 if snd.circle_affs[aff] == affliction then
 		  hit_aff = true
-		 end
+		 else
+     	snd.send("firstaid predict "..snd.circle_affs[aff])
+     end
 		end
 	 end
 	end
@@ -58401,10 +58402,11 @@ function snd.aff_have(affliction)
 	 hit_aff = false
 	 for aff in pairs(snd.square_affs) do
 	  if not hit_aff then
-		 snd.send("firstaid predict "..snd.square_affs[aff])
 		 if snd.square_affs[aff] == affliction then
 		  hit_aff = true
-		 end
+		 else
+     	snd.send("firstaid predict "..snd.square_affs[aff])
+     end
 		end
 	 end
 	end
@@ -58412,10 +58414,11 @@ function snd.aff_have(affliction)
 	 hit_aff = false
 	 for aff in pairs(snd.triangle_affs) do
 	  if not hit_aff then
-		 snd.send("firstaid predict "..snd.triangle_affs[aff])
 		 if snd.triangle_affs[aff] == affliction then
 		  hit_aff = true
-		 end
+		 else
+     	snd.send("firstaid predict "..snd.triangle_affs[aff])
+     end
 		end
 	 end
 	end
