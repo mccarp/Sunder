@@ -79107,6 +79107,18 @@ end</script>
                 end 
               end
              end,
+    Shape = function(target, hidden)
+              if not hidden then return end
+              if not snd.maybe_affs[1] then return end
+              local shape = snd.maybe_affs[1]:lower()
+              if shape == "square" then
+                snd.all_class_attacks.Geometrics.Square(target)
+              elseif shape == "triangle" then
+                snd.all_class_attacks.Geometrics.Triangle(target)
+              elseif shape == "circle" then
+                snd.all_class_attacks.Geometrics.Circle(target)
+              end
+            end,
     Sealing = function(target, shape)
                 snd.target_got(shape.."_sealed")
                 if shape == "square" then
@@ -81815,7 +81827,18 @@ end</script>
                snd.target_got("matrix")
                matrix_timer = tempTimer(20.0,[[snd.target_cured("matrix")]])
              end,
-
+    Emanation = function(target, hidden)
+              if not hidden then return end
+              if not snd.maybe_affs[1] then return end
+              local shape = snd.maybe_affs[1]:lower()
+              if shape == "disgust" then
+                snd.all_class_attacks.Cultivation.Disgust(target)
+              elseif shape == "joy" then
+                snd.all_class_attacks.Cultivation.Joy(target)
+              elseif shape == "fear" then
+                snd.all_class_attacks.Cultivation.Fear(target)
+              end
+            end,
     Disgust = function(target) --circle
               local t = {"merciful", "masochism", "berserking", "recklessness"} -- initialize table with circle affs
               for _, v in pairs(t) do -- iterate circle affs
