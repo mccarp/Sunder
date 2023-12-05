@@ -6812,18 +6812,31 @@ disableTrigger("Separator Check/Update")
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>People updating via following</name>
-						<script>local blacklist = {A = true, a = true, masked = true, man = true, ["and"] = true, woman = true, person = true, shadowy = true, figure = true}
+						<script>local blacklist =
+  {
+    A = true,
+    a = true,
+    masked = true,
+    man = true,
+    ["and"] = true,
+    woman = true,
+    person = true,
+    shadowy = true,
+    concealed = true,
+    figure = true,
+  }
 local do_we_update = false
 for name in string.gmatch(matches[2], '[^,%s]+') do
   if not blacklist[name] then
-		if not table.isMember(snd.players_here, name) then
-	    table.insert(snd.players_here, name)
-			do_we_update = true
-		end
+    if not table.isMember(snd.players_here, name) then
+      table.insert(snd.players_here, name)
+      do_we_update = true
+    end
   end
 end
-if do_we_update then raiseEvent("sunder_people_update") end
-</script>
+if do_we_update then
+  raiseEvent("sunder_people_update")
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
