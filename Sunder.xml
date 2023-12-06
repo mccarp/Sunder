@@ -77570,7 +77570,7 @@ function snd.no_parry()
   "writhe_grappled",
   "writhe_dartpinned",
  }
- if snd.class == "sentinel" then
+ if snd.class == "Sentinel" or snd.class == "Executor" then
   table.insert(noparryaffs, "paresis")
  end 
  if snd.checksomeAffs(noparryaffs, 1) then no_parry = true end
