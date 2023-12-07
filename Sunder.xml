@@ -5088,8 +5088,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<string>As you lift your arms overhead, the dust and earth around you rise up, collecting in a cloud about your person. The cloud thickens and cakes over your flesh, and when it falls away, you feel healthier.</string>
 								<string>You use Wavebreaking Yearn.</string>
 								<string>You use Terramancy Absorb.</string>
+								<string>The sea will not respond to your yearning again so soon.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
@@ -5163,9 +5165,17 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<string>^(.*) roars as the attack launches it into a temporary frenzy.$</string>
 								<string>You lock eyes with your golem, binding your wills together in preparation for a brutal strike.</string>
 								<string>You convey an instruction to your elemental, ensuring its focus on act.</string>
+								<string>You have gained the imbue_will defence.</string>
+								<string>You have gained the elemental_engulf defence.</string>
+								<string>Your imbue_will defence has been stripped.</string>
+								<string>Your elemental_engulf defence has been stripped.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -5188,6 +5198,33 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Stoneblast/riptide</name>
+							<script>if matches[2] == snd.target then
+  snd.used.rebounding = false
+  if matches[3] ~= "rebounding" then
+    snd.used.shield = false
+  end
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The stones rip apart (\w+)'s (\w+) defence\.$</string>
+								<string>^The riptide washes away (\w+)'s (\w+) defence\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
 					</TriggerGroup>
@@ -9081,10 +9118,12 @@ snd.theytumbling = false</script>
 						<regexCodeList>
 							<string>You can't do that if your target isn't prone!</string>
 							<string>^(\w+) nimbly stays on [a-zA-Z ]+ feet\.$</string>
+							<string>Your target isn't prone.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>3</integer>
 							<integer>1</integer>
+							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -79342,11 +79381,12 @@ end</script>
               snd.onHit2({"Dodge", "Parry", "Rebounding"})
             end,
     Stoneblast = function(target)
-                  if snd.used.rebounding then
-                    snd.used.rebounding = false
-                  else
-                    snd.used.shield = false
-                  end
+                  --removed this in favor of a trigger
+                  -- if snd.used.rebounding then
+                    -- snd.used.rebounding = false
+                  -- else
+                    -- snd.used.shield = false
+                  -- end
                 end,
     Fracture = function(target, where)
                  table.insert(snd.maybe_affs, where.."_crippled")
@@ -79512,11 +79552,12 @@ end</script>
               snd.onHit2({"Dodge", "Parry", "Rebounding"})
             end,
     Riptide = function(target)
-                  if snd.used.rebounding then
-                    snd.used.rebounding = false
-                  else
-                    snd.used.shield = false
-                  end
+                  --removed this in favor of a trigger
+                  -- if snd.used.rebounding then
+                    -- snd.used.rebounding = false
+                  -- else
+                    -- snd.used.shield = false
+                  -- end
                 end,
     Buckle = function(target, where)                 
                  table.insert(snd.maybe_affs, where.."_crippled")
