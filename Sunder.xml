@@ -9234,8 +9234,10 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^(\w+) takes a drink from (.+)\.$</string>
+							<string>^(\w+) empties out .+ into \w+ mouth\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
