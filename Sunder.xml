@@ -55836,10 +55836,15 @@ end</script>
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
     snd.defenses.def_hiding = snd.alternative_class_defenses.Praenomen_hiding
   end
-  
+  if snd.class == "Shapeshifter" then
+    snd.defenses.def_celerity = snd.alternative_class_defenses.Shapeshifter_celerity
+  else
+    snd.defenses.def_celerity = snd.alternative_class_defenses.Vampire_celerity
+  end
   if hasSkill("Insomnia") then
     snd.defenses.def_insomnia = snd.alternative_class_defenses.Skill_insomnia
   end
+
   
   if snd.assumed_class ~= nil then return end
 	local stats = gmcp.Char.Vitals.charstats
@@ -59020,7 +59025,6 @@ def_oath_rhythm = {defense = "oath_rhythm", type = "normal", effect = "prevents 
 def_weathering = {defense = "weathering", type = "normal", effect = "Cold resistance", balance = {special = "weathering"}, state = "down", needit = false, timer = createStopWatch(), skill = "Weathering"},
 def_bodyheat = {defense = "bodyheat", type = "normal", effect = "Protects against chill", balance = {needyequilibriumtake = "bodyheat"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bodyheat"},
 def_metabolize = {defense = "metabolism", type = "normal", effect = "Increase strength", balance = {balancetake = "metabolize on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Metabolize"},
-def_endurance = {defense = "celerity", type = "normal", effect = "Faster movement", balance = {needybalancetake = "endurance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Endurance"},
 def_thickhide = {defense = "thickhide", type = "normal", effect = "Physical protection", balance = {balancetake = "thickhide"}, state = "down", needit = false, timer = createStopWatch(), skill = "Thickhide"},
 def_corner = {defense = "cornering", type = "normal", effect = "Increase dodge chance", balance = {needybalancetake = "corner on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cornering"},
 def_salivate = {defense = "salivating", type = "normal", effect = "Bites give haemophilia", balance = {equilibriumneed = "salivate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Salivate"},
@@ -59295,7 +59299,8 @@ snd.alternative_class_defenses = {
 --Class catch
 Praenomen_hiding = {defense = "hiding", type = "normal", effect = "Hide deeper in the shadows", balance = {balanceequilibriumtake = "veil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Veil"},
 Akkari_hiding = {defense = "hiding", type = "ivory", effect = "Conceal your fervor", balance = {balanceequilibriumtake = "dim"}, state = "down", needit = false, timer = createStopWatch(), skill = "Dim"},
-
+Shapeshifter_celerity = {defense = "celerity", type = "normal", effect = "Faster movement", balance = {needybalancetake = "endurance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Endurance"},
+Vampire_celerity = {defense = "celerity", type = "normal", effect = "Faster movement", balance = {needybalancetake = "endurance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity"},
 Praenomen_stalking = {defense = "stalking", type = "normal", effect = "Nighttime hiding in the shadows", balance = {balanceequilibriumtake = "stalk"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
 Akkari_stalking = {defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = {balanceequilibriumtake = "muffle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Muffle" },
 Luminary_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "perform constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
@@ -59470,7 +59475,7 @@ end</script>
   ["You have the bodyheat defence."] = "bodyheat",
   ["Your body is well heated internally."] = "bodyheat",
   ["You have the metabolism defence."] = "metabolism",
-  ["Your metabolism is at peak performance."] = "metabolism",
+  ["Your metabolism is at peak performance."] = "metabolize",
   ["Your hide is thickened."] = "thickhide",
   ["Your movements are supernaturally fast."] = "endurance",
   ["Your bones have been hardened greatly."] = "harden",
@@ -75538,7 +75543,7 @@ bear = {
 def_weathering = "on",
 def_bodyheat = "once",
 def_metabolism = "once",
-def_endurance = "once",
+def_celerity = "once",
 def_thickhide = "once",
 def_bracing = "once",
 def_harden = "once",
@@ -75700,10 +75705,10 @@ shapeshifter = {
 def_weathering = "on",
 def_bodyheat = "once",
 def_metabolize = "once",
-def_endurance = "once",
+def_celerity = "once",
 def_thickhide = "once",
 def_corner = "once",
---def_harden = "once",
+def_harden = "once",
 },
 
 infiltrator = {
@@ -75773,7 +75778,7 @@ wolf = {
 def_weathering = "on",
 def_bodyheat = "once",
 def_metabolism = "once",
-def_endurance = "once",
+def_celerity = "once",
 def_thickhide = "once",
 def_corner = "once",
 def_harden = "once",
