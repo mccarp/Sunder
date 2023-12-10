@@ -17466,28 +17466,6 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Blackout cured</name>
-									<script>if snd.target == matches[2] then
-	snd.target_cured("blackout")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>(\w+) blinks rapidly, rubbing (the )?\w+ eyes.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>mind blank</name>
 									<script>if snd.target == matches[2] then
 	snd.target_got("turmoil")
@@ -73837,7 +73815,7 @@ function snd.none_bash() --super basic bashing function for 200's.
       battack = "touch shield"
     end
 	else
-    battack = ascendedAttacks[snd.toggles.ascendedtype].." "..snd.target
+    battack = ascendedAttacks[snd.toggles.ascendedtype].." "..snd.bashing.target
 	end
 end
 </script>
@@ -79033,7 +79011,7 @@ end</script>
                end
             end,
     Reconstruct = function(target, limb)
-                    snd.took_limb_dmg(limb, 15)
+                    snd.took_limb_dmg(limb, -15)
                   end,
     Gash = function(target, lightly)
             enableTrigger("Weapon Hit Confirmation")
