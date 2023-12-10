@@ -57598,6 +57598,8 @@ snd.priorities =
     "def_surefooted",
     "def_disturbances",
     
+    "def_returning",
+    
     --200 stuffs
     
     "def_adherent_barrier",
@@ -58759,6 +58761,7 @@ def_divine_speed = {defense = "divine_speed", type = "normal", effect = "Faster 
 def_hypersight = {defense = "hypersight", type = "normal", effect = "see through shenanigans", balance = {needyequilibriumtake = "hypersight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_lifevision = {defense = "lifevision", type = "normal", effect = "See all things living, sometimes identify illusions.", balance = {balanceequilibriumtake = "lifevision"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifevision" },
 def_selfishness = {defense = "selfishness", type = "MediumSpringGreen", effect = "Too selfish to put valuables at risk.", balance ={balanceequilibriumtake = "selfishness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_returning = {defense = "returning", type = "normal", effect = "Return thrown weapons to your hands", balance = {balanceequilibriumtake = "returning on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Returning"},
 
 --Ylem
 def_amber_orb = {defense= "amber_orb", type = "ansi_light_yellow", effect = "5% increase in experience", balance = {special = "activate amber orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -59771,6 +59774,7 @@ end</script>
   ["Sand is softening your footsteps."] = "sand_conceal",
   ["You are moving with increased momentum."] = "momentum",
   
+  ["You are returning thrown weapons to your hand."] = "returning",
   --Adherent
   ["You are protected by an Adherent's barrier."] = "adherent_barrier",
   ["You walk as an Adherent of the Virtues."] = "adherent_form",
