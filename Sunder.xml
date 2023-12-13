@@ -114,7 +114,7 @@ if snd.bashing_loaded or snd.toggles.fastwalk then
       snd.runBasher()
       snd.core()
     elseif bot.going then
-      expandAlias("move")
+      snd.move()
     end
   end
 end
@@ -1328,7 +1328,7 @@ end
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>turn off stalk</name>
-								<script>expandAlias("kd stalking")</script>
+								<script>snd.defenses.def_stalking.needit = false</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -2676,7 +2676,8 @@ snd.waiting.queue = false</script>
 							<regexCodePropertyList />
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>general deaths</name>
-								<script>local reset_check = false
+								<script>--deprecated
+local reset_check = false
 local triggertext = matches[1]
 
 if triggertext:find("Underking") then
@@ -4902,8 +4903,10 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>As you touch the crystal tattoo, you feel your wounds melt away.</string>
+									<string>You touch the crystal tattoo, but nothing happens.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -7057,8 +7060,8 @@ snd.untarget()</script>
 					<script>if not snd.bashing.targeted then
  snd.toggles.bashing = false
  if bot.going then
-  expandAlias("move", false)
---  tempTimer(1.5, [[expandAlias("move")]])
+    snd.move()
+--  tempTimer(1.5, snd.move)
  end
 end
 </script>
@@ -7131,7 +7134,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>reanimated dwarfs</name>
-					<script>expandAlias("aa")</script>
+					<script>snd.aa()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -22626,7 +22629,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>manifest</name>
-								<script>expandAlias("sndon")
+								<script>snd.on()
 snd.aff_cure("asleep")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -29887,7 +29890,7 @@ end
 if multimatches[2][2] == snd.target then
  string = string.."wt STOP HITTING STOP HITTING STOP!"
  snd.target = "nil"
- expandAlias("stap", false)
+ snd.stap()
 end
 snd.send(string)</script>
 							<triggerType>0</triggerType>
@@ -29917,7 +29920,7 @@ if snd.toggles.affcalling then
 end
 if multimatches[2][2] == snd.target then
  string = string.."wt STOP HITTING STOP HITTING STOP!"
- expandAlias("stap", false)
+ snd.stap()
 end
 snd.send(string)</script>
 							<triggerType>0</triggerType>
@@ -29985,7 +29988,7 @@ snd.send(string)</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>need dismount</name>
-							<script>expandAlias("dm", false)</script>
+							<script>snd.dismount()</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -30684,7 +30687,7 @@ end
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>starburst</name>
 						<script>if matches[2] == snd.target then
- expandAlias("t "..snd.target)
+ snd.setTarget(snd.target)
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -31583,6 +31586,100 @@ end</script>
 						</regexCodePropertyList>
 					</Trigger>
 				</Trigger>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Walking around</name>
+					<script></script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList />
+					<regexCodePropertyList />
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Orrery globe</name>
+						<script></script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Found Orrery Globe</name>
+							<script>snd.stap()
+snd.send("get globe")
+snd.found_globe = gmcp.Room.Info.num</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^A small globe rests upon the ground here, elements within churning in constant war with one another\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Wrong room, go back</name>
+							<script>send("goto "..snd.found_globe)</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You see no 'globe' to take\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Got globe</name>
+							<script>snd.found_globe = 0</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You pick up a churning globe of warring elements.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
+				</TriggerGroup>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Room Vnums</name>
 					<script>mmp.locateAndEcho(matches[2], "", matches[3]:gsub("an unstable section of ", ""))</script>
@@ -31861,7 +31958,7 @@ snd.vermin = snd.vermin + 1
 if snd.vermin &gt;= 3 then
  if snd.toggles.vermin == true then
  		if bot.going then
-      tempTimer(1.5, [[expandAlias("move")]])
+      tempTimer(1.5, snd.move)
     end
 		disableTimer("moveroom")
  end
@@ -32008,100 +32105,6 @@ disableTrigger("QWP for level 20 goggles")
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
-				</TriggerGroup>
-				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Walking around</name>
-					<script></script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList />
-					<regexCodePropertyList />
-					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Orrery globe</name>
-						<script></script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList />
-						<regexCodePropertyList />
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Found Orrery Globe</name>
-							<script>expandAlias("stap")
-snd.send("get globe")
-snd.found_globe = gmcp.Room.Info.num</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>^A small globe rests upon the ground here, elements within churning in constant war with one another\.$</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>1</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Wrong room, go back</name>
-							<script>send("goto "..snd.found_globe)</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>^You see no 'globe' to take\.$</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>1</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Got globe</name>
-							<script>snd.found_globe = 0</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>You pick up a churning globe of warring elements.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Custom Mudlet Mapper items</name>
@@ -33815,7 +33818,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>rubble gone</name>
-						<script>expandAlias("mpp")</script>
+						<script>mmp.pause("off")</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -33835,7 +33838,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>rubble</name>
-						<script>expandAlias("mpp") 
+						<script>mmp.pause("on")
 send("dig")</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -34537,7 +34540,7 @@ end</script>
           table.contains(snd.players_here, v) and
           k &gt; table.index_of(snd.targeting.list, who)
         then
-          expandAlias("t " .. v)
+          snd.setTarget(v)
           break
         end
       end
@@ -35200,7 +35203,7 @@ end
 				<time>00:00:00.000</time>
 				<Timer isActive="no" isFolder="no" isTempTimer="no" isOffsetTimer="no">
 					<name>moveroom</name>
-					<script>expandAlias("move")
+					<script>snd.move()
 disableTimer("moveroom")</script>
 					<command></command>
 					<packageName></packageName>
@@ -36204,15 +36207,14 @@ cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or 
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>mount</name>
-						<script>snd.send("qeb recall "..snd.toggles.mount..snd.sep.."recall mount"..snd.sep.."quickmount "..snd.toggles.mount)
-</script>
+						<script>snd.mount()</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^mnt$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>dismount</name>
-						<script>snd.send("qeb qdmount"..snd.sep.."order "..snd.toggles.mount.." follow me")</script>
+						<script>snd.dismount()</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^dm$</regex>
@@ -36325,7 +36327,8 @@ snd.core()</script>
 						<script>-- Used to quickly walk through an area without touching the mobs, use triggers to define ways to stop as in the Orrery Globe method
 snd.toggles.fastwalk = true
 snd_walkArea()
-expandAlias("move")</script>
+snd.move()
+</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^walkarea$</regex>
@@ -36333,54 +36336,14 @@ expandAlias("move")</script>
 				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
 					<name>target</name>
-					<script>snd.target = string.title(matches[2])
-if snd.toggles.calling then
- snd.send("wt Target: "..snd.target)
-end
-echo("Target: "..snd.target)
-send(" ")
-if snd.target_trigger_id then killTrigger(snd.target_trigger_id) end
-snd.target_trigger_id = tempTrigger(snd.target, [[selectString("]] .. snd.target .. [[", 1) fg("DarkOrchid") resetFormat()]])
-if snd.target_trigger_idlow then killTrigger(snd.target_trigger_idlow) end
-snd.target_trigger_idlow = tempTrigger(string.lower(snd.target), [[selectString("]] .. string.lower(snd.target) .. [[", 1) fg("DarkOrchid") resetFormat()]])
-if snd.offense_loaded then
- snd.reset_target()
- snd.target_gone = false
-end
-raiseEvent("sunder_enemy_affs_updated")
-raiseEvent("sunder_enemy_limbs_updated")</script>
+					<script>snd.setTarget(matches[2])</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^t (.*)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>stop attacking</name>
-					<script>if mmp ~= nil then
-  expandAlias("mstop", false)
-end
-if snd.toggles.attacking == true then snd.toggle("attacking") end
-snd.send("queue clear")
-snd.send("path stop")
-if snd.bashing_loaded then
-  if snd.toggles.fasthunt then
-    expandAlias("ff", false)
-  end
-  bot.going = false
-  snd.toggles.bashing = false
-  snd.defenses.def_vigor.needit = false
-  snd.which_path = ""
-end
-if snd.offense_loaded then
-  snd.send("target nothing" .. snd.sep .. "target nothing with right")
-  snd.hound_queue = {}
-end
-if snd.ylem_loaded then
-  ylm.active = false
-end
-snd.pathing = false
-snd.toggles.fastwalk = false
-raiseEvent("sunder_update_toggles")
-</script>
+					<script>snd.stap()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^stap$</regex>
@@ -36432,24 +36395,7 @@ snd.infiltrate = false
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>move</name>
-						<script>x = bot.info.room
-x = "v"..x
-if bot.going then
- if bot.path[x] ~= nil then
-  if string.find(bot.path[x], "pt") then
-	 y = string.sub(bot.path[x], 3)
-	 snd.moving_to = y
-	 send(" ")
-	elseif mmp ~= nil then
-   expandAlias("goto "..bot.path[x], false)
-  else
-   snd.moving_to = bot.path[x]
-	 send(" ")
-  end
- else
-  echo("where r we")
- end
-end</script>
+						<script>snd.move()</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^move$</regex>
@@ -36576,7 +36522,7 @@ end</script>
     end
   end
 
-  expandAlias("goto "..bot.path[last_room_of_this_area])
+  mmp.gotoRoom(bot.path[last_room_of_this_area])
 
 end</script>
 					<command></command>
@@ -55207,6 +55153,84 @@ registerAnonymousEventHandler("gmcp.Char.Afflictions.Add", "snd.deathCheck")
 registerAnonymousEventHandler("gmcp.Char.Afflictions.Remove", "snd.deathClear")</script>
 					<eventHandlerList />
 				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>get rid of expandalias</name>
+					<packageName></packageName>
+					<script>function snd.stap()
+  if mmp ~= nil then
+    mmp.stop()
+  end
+  if snd.toggles.attacking == true then snd.toggle("attacking") end
+  snd.send("queue clear")
+  snd.send("path stop")
+  if snd.bashing_loaded then
+    if snd.toggles.fasthunt then
+      snd.toggle("fasthunt")
+    end
+    bot.going = false
+    snd.toggles.bashing = false
+    snd.defenses.def_vigor.needit = false
+    snd.which_path = ""
+  end
+  if snd.offense_loaded then
+    snd.send("target nothing" .. snd.sep .. "target nothing with right")
+    snd.hound_queue = {}
+  end
+  if snd.ylem_loaded then
+    ylm.active = false
+  end
+  snd.pathing = false
+  snd.toggles.fastwalk = false
+  raiseEvent("sunder_update_toggles")
+end
+
+function snd.on()
+  snd.toggles.active = true
+  cecho("&lt;green&gt;Sunder is ON!")
+  send(" ")
+end
+
+function snd.off()
+  snd.toggles.active = false
+  cecho("&lt;red&gt;Sunder is OFF!")
+  send(" ")
+end
+
+function snd.aa()
+  if not snd.toggles.bashing then snd.toggle("bashing") end
+  snd.room_clear = true
+  snd.defenses.def_vigor.needit = true
+  snd.send("leading on")
+end
+
+function snd.setTarget(target)
+  snd.target = string.title(target:lower())
+  if snd.toggles.calling then
+   snd.send("wt Target: "..snd.target)
+  end
+  echo("Target: "..snd.target)
+  send(" ")
+  if snd.target_trigger_id then killTrigger(snd.target_trigger_id) end
+  snd.target_trigger_id = tempTrigger(snd.target, [[selectString("]] .. snd.target .. [[", 1) fg("DarkOrchid") resetFormat()]])
+  if snd.target_trigger_idlow then killTrigger(snd.target_trigger_idlow) end
+  snd.target_trigger_idlow = tempTrigger(string.lower(snd.target), [[selectString("]] .. string.lower(snd.target) .. [[", 1) fg("DarkOrchid") resetFormat()]])
+  if snd.offense_loaded then
+   snd.reset_target()
+   snd.target_gone = false
+  end
+  raiseEvent("sunder_enemy_affs_updated")
+  raiseEvent("sunder_enemy_limbs_updated")
+end
+
+function snd.mount()
+  snd.send("qeb recall "..snd.toggles.mount..snd.sep.."recall mount"..snd.sep.."quickmount "..snd.toggles.mount)
+end
+
+function snd.dismount()
+  snd.send("qeb qdmount"..snd.sep.."order "..snd.toggles.mount.." follow me")
+end</script>
+					<eventHandlerList />
+				</Script>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Variables</name>
 					<packageName></packageName>
@@ -56761,7 +56785,7 @@ end
   if snd.can_path and snd.can_cast() and hp &gt;= 85 and snd.moving_to ~= "none" then
     if snd.toggles.gallop then
       if gmcp.Char.Vitals.mounted == "0" then
-        expandAlias("mnt", false)
+        snd.mount()
       end
       snd.send("path find " .. snd.moving_to .. snd.sep .. "path go gallop")
     elseif snd.toggles.dash then
@@ -61180,6 +61204,31 @@ function snd.runPath(pathname)
 end</script>
 						<eventHandlerList />
 					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>move</name>
+						<packageName></packageName>
+						<script>function snd.move()
+  x = bot.info.room
+  x = "v" .. x
+  if bot.going then
+    if bot.path[x] ~= nil then
+      if string.find(bot.path[x], "pt") then
+        y = string.sub(bot.path[x], 3)
+        snd.moving_to = y
+        send(" ")
+      elseif mmp ~= nil then
+        mmp.gotoRoom(bot.path[x])
+      else
+        snd.moving_to = bot.path[x]
+        send(" ")
+      end
+    else
+      echo("where r we")
+    end
+  end
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Adv bashing route making + using</name>
@@ -61246,9 +61295,9 @@ function snd_bashArea()
     bot.going = true
     bot.path = sunder_areaPaths[area]
     if not snd.toggles.fasthunt then
-      expandAlias("ff")
+      snd.toggle("fasthunt")
     end    
-    expandAlias("aa") 
+    snd.aa()
   end
 end
 
@@ -61348,9 +61397,9 @@ function snd_bashAreas(areas_chosen)
     bot.going = true
     bot.path = final_path
     if not snd.toggles.fasthunt then
-      expandAlias("ff")
+      snd.toggle("fasthunt")
     end    
-    expandAlias("aa") 
+    snd.aa()
   end
 
 end
@@ -72977,8 +73026,8 @@ function snd.runBasher()
     --if snd.toggles.bashing then snd.toggle("bashing") end
     snd.toggles.bashing = false
     if bot.going then
-      expandAlias("move", false)
-      --  tempTimer(1.5, [[expandAlias("move")]])
+      snd.move()
+      --  tempTimer(1.5, snd.move)
     end
     snd.core()
     return
@@ -76698,7 +76747,7 @@ function snd.get_new_target()
     		if table.contains(snd.players_here, tar) and snd.target:title() ~= tar then
           new_target = tar
           snd.target_gone = false
-    			expandAlias("t " .. tar)
+    			snd.setTarget(tar)
     			break
         end
     	end
@@ -76708,7 +76757,7 @@ function snd.get_new_target()
       		    if table.contains(snd.players_here, tar) then
                 new_target = tar
                 snd.target_gone = false
-          			expandAlias("t " .. tar)
+          			snd.setTarget(tar)
           			break
               end
             end
