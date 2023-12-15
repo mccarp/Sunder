@@ -18205,6 +18205,7 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Falter - Exhaustion just in case</name>
 										<script>if matches[2] == snd.target then
+ snd.target_got("weariness")
  snd.target_got("exhausted")
 end</script>
 										<triggerType>0</triggerType>
@@ -21986,6 +21987,30 @@ end</script>
 									<string>^A mighty stalagmite erupts from below and tears through (\w+)'s? gut, impaling \w+ on its end\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Ricochet/Flux</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got(matches[3]:gsub(" ","_").."_crippled")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^\w+ quickly adjusts? the momentum of .+, smashing it into (\w+)'s (.+)\.$</string>
+									<string>^Redirecting the flow of .+ tidal flux sends it careening into (\w+)'s (.+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -30712,7 +30737,28 @@ end</script>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Replicate fixer</name>
+						<script>disableTrigger("got hit")
+tempTimer(0, function() enableTrigger("got hit") end)</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\w+ uses (Sorcery|Arcanism|Runecarving|Esoterica) Replicate\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="yes" isColorTriggerBg="yes">
 						<name>got hit</name>
 						<script>local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = multimatches[2][3]
