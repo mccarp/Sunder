@@ -21969,7 +21969,7 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Earthenmaw impale</name>
+								<name>Earthenmaw/Spearfall impale</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("writhe_impaled")
 end</script>
@@ -21985,8 +21985,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^A mighty stalagmite erupts from below and tears through (\w+)'s? gut, impaling \w+ on its end\.$</string>
+									<string>^Without warning, a lethal icicle plunges, spearing (\w+) through the back and to the ground\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
