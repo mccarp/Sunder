@@ -43,6 +43,7 @@ if snd.offense_loaded then
   snd.last_cured = ""
   snd.rebounded = false
   snd.predatorVenom = nil
+  snd.recent_affs = {}
   
   if snd.last_hit_limb and snd.last_hit_limb~="none" then
     snd.last_struck_limb = snd.last_hit_limb
@@ -7839,11 +7840,13 @@ disableTrigger("Sunder Parry")
 disableTrigger("Sunder Rebounding")
 disableTrigger("Monk Hit Tracking")
 snd.last_affs = {}
+snd.recent_affs = {} --kinda similar to last_affs but for generic miss
 snd.last_limb_dmg = 0
 if snd.last_hit_limb and snd.last_hit_limb~="none" then
   snd.last_struck_limb = snd.last_hit_limb
   snd.last_hit_limb = "none"
 end
+snd.getting_hit = ""
 snd.using_both_hands = 0
 snd.skill_being_used = ""
 </script>
@@ -23856,8 +23859,12 @@ disableTrigger("Sunder Dodge")</script>
 								<string>^\w+ strikes clumsily at (\w+) with .+, completely missing \w+\.$</string>
 								<string>^Your vision blurs as you strike at (\w+) and miss with .+\.$</string>
 								<string>^\w+ blinks and rubs \w+ eye as (?:the )?\w+ misses (\w+) with .+\.$</string>
+								<string>^\w+ misses (\w+) with .+ amid the frantic fray.</string>
+								<string>^The dart misses (\w+)!$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -23980,6 +23987,61 @@ end</script>
 								<string>^(\w+) stops short as (the )?\w+ comes upon (\w+)'s rebounding aura and deftly pulls away.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Generic Miss</name>
+							<script>if matches[2] == snd.hitting and snd.getting_hit == snd.target then
+  
+  if #snd.last_affs &gt;= 1 then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
+      snd.used.rebounding = true
+    else
+      for i in pairs(snd.last_affs) do
+       snd.target_cured(snd.last_affs[i])
+      end
+    end
+  else
+    for _, aff in pairs(snd.recent_affs) do
+      snd.target_cured(aff)
+    end
+    snd.recent_affs = {}
+  end
+  
+  if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
+    snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
+    snd.last_hit_limb = "none"
+    snd.last_limb_dmg = 0
+  end
+  
+  if snd.skill_being_used == "Overhand" or snd.skill_being_used == "Breach" then
+    snd.lev_gone = false
+  end
+  
+  if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end  
+
+end
+
+
+
+</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+)'s strike is wide and misses completely\.$</string>
+								<string>^(You)r strike is wide and misses completely\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -76943,6 +77005,7 @@ function snd.target_got(affliction)
   end
   
   table.insert(snd.target_has, affliction)
+  table.insert(snd.recent_affs, affliction)
   -- add affliction before displaying in pane, used to be below the gui update
   raiseEvent("sunder_enemy_affs_updated")
   raiseEvent("sunder_enemy_limbs_updated")
