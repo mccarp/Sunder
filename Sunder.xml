@@ -76183,31 +76183,35 @@ chaos = {
 function snd.parry()
 	local highest = 0
 	snd.toparry = "none"
-	if snd.cureset == "knight" then
-		snd.toparry = "left leg"
-	elseif snd.cureset == "ascendril" then
-		snd.toparry = "torso"
-	elseif snd.cureset == "shifter" and snd.my_limb_damage["head"] &gt;= 33.33 then
-		snd.toparry = "head"
-	else
-		for limb in pairs(snd.my_limb_damage) do
-			if string.find(limb, " ") then
-				x = string.gsub(limb, " ", "_")
-				aff = "pre_restore_"..x
-			else
-				aff = "pre_restore_"..limb
-			end
-			if snd.my_limb_damage[limb] &gt; highest and snd.my_limb_damage[limb] &lt; 33.33 then
-				highest = snd.my_limb_damage[limb]
-				snd.toparry = limb
-			end
-			if snd.my_limb_damage[limb] &gt; 25 then
-				snd.aff_have(aff)
-			else
-				snd.aff_remove(aff)
-			end
-		end
-	end
+  if snd.parry_override then
+    snd.toparry = snd.parry_override()
+  else
+  	if snd.cureset == "knight" then
+  		snd.toparry = "left leg"
+  	elseif snd.cureset == "ascendril" then
+  		snd.toparry = "torso"
+  	elseif snd.cureset == "shifter" and snd.my_limb_damage["head"] &gt;= 33.33 then
+  		snd.toparry = "head"
+  	else
+  		for limb in pairs(snd.my_limb_damage) do
+  			if string.find(limb, " ") then
+  				x = string.gsub(limb, " ", "_")
+  				aff = "pre_restore_"..x
+  			else
+  				aff = "pre_restore_"..limb
+  			end
+  			if snd.my_limb_damage[limb] &gt; highest and snd.my_limb_damage[limb] &lt; 33.33 then
+  				highest = snd.my_limb_damage[limb]
+  				snd.toparry = limb
+  			end
+  			if snd.my_limb_damage[limb] &gt; 25 then
+  				snd.aff_have(aff)
+  			else
+  				snd.aff_remove(aff)
+  			end
+  		end
+  	end
+  end
 	if snd.toparry ~= "none" and snd.toparry ~= snd.parrying and snd.full_balance() and not snd.waiting.parry then
 		if snd.class == "Zealot" and hasSkill("Fending") then
 			snd.send("fend "..snd.toparry)
