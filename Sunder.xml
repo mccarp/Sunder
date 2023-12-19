@@ -53421,6 +53421,7 @@ send(" ")</script>
 "larkspur",
 "oleander",
 "voyria",
+"vardrax",
 }
 for venom in pairs(venoms) do
  snd.send("fc consume "..venoms[venom])
