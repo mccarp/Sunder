@@ -53455,6 +53455,7 @@ end</script>
 "larkspur",
 "oleander",
 "voyria",
+"vardrax",
 }
 for venom in pairs(venoms) do
  snd.send("fc fill "..venoms[venom])
