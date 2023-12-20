@@ -21746,10 +21746,12 @@ disableTrigger("Weapon Hit Confirmation")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Darts</name>
-									<script>if snd.maybe_affs[1]:lower() == "cirisosis" then
-  table.remove(snd.maybe_affs, 1)
-else
-  snd.onHit2({}, "Templar")
+									<script>if matches[2] == snd.target then
+  if snd.maybe_affs[1]:lower() == "cirisosis" then
+    table.remove(snd.maybe_affs, 1)
+  else
+    snd.onHit2({}, "Templar")
+  end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -80317,7 +80319,7 @@ end</script>
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,      
-    Slash = function(target, limb)
+    Slashing = function(target, limb)
                 snd.last_hit_limb = limb
                 snd.last_limb_dmg = 7.5
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
