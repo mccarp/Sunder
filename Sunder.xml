@@ -80410,7 +80410,8 @@ end</script>
                 snd.onHit2({"Dodge", "Parry"})
                end, 
    Leapslash = function(target, limb)
-                snd.target_got("fallen")
+                snd.maybe_affs = {"fallen"}
+                snd.onHit2({"Dodge"})
                end,
    Deathroll = function(target)
                 snd.target_cured("writhe_armpitlock")
