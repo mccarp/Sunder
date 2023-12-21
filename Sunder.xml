@@ -7832,6 +7832,7 @@ raiseEvent("sunder_item_update")</script>
     snd.maybe_affs = {}
   end
 else
+  snd.maybe_affs = {}
   snd.hitting = "You"
 end
 
