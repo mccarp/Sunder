@@ -3611,9 +3611,15 @@ snd.fulcrum_exists = true</script>
 							<regexCodeList>
 								<string>^Shifting your weight to the balls of your feet, you begin to feel capable of quicker movements.$</string>
 								<string>You use Avoidance Nimbleness.</string>
+								<string>Your body is too tired to strengthen itself again so soon.</string>
+								<string>Your muscles are too tired to become nimble again so soon.</string>
+								<string>You use Avoidance Bolstering.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -3632,9 +3638,11 @@ snd.fulcrum_exists = true</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^The constant exertion has worn you down, and you cease your nimble manuveurs, panting.$</string>
+								<string>You allow your muscles to relax once more as you cease to bolster them.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -3652,10 +3660,12 @@ snd.fulcrum_exists = true</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^Your muscles have recovered enough for you to be nimble once more.$</string>
+								<string>Your muscles have recovered enough for you to be nimble once more.</string>
+								<string>Your muscles have recovered enough for you to bolster them once more.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
+								<integer>3</integer>
+								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
 					</TriggerGroup>
