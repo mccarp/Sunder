@@ -32253,10 +32253,12 @@ disableTrigger("QWP for level 20 goggles")
 						<regexCodeList>
 							<string>^Your progress is hindered by .+ as you slowly make your way \w+\.$</string>
 							<string>^You slowly head to the \w+, burdened by .+\.$</string>
+							<string>You fight your way through the raging fires as you head</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
 							<integer>1</integer>
+							<integer>2</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
