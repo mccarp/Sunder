@@ -76238,6 +76238,8 @@ function snd.parry()
 			snd.send("fend "..snd.toparry)
 		elseif snd.class == "Monk" and hasSkill("Guarding") then
 			snd.send("guard "..snd.toparry)
+    elseif snd.class == "Ravager" and hasSkill("Oppose") then
+      snd.send("oppose "..snd.toparry)
 		elseif hasSkill("Parrying") then
 			snd.send("parry "..snd.toparry)
 		end
