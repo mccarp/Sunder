@@ -39120,14 +39120,14 @@ function snd.attack_function()
     local execute_check = false
     local fury = tonumber(gmcp.Char.Vitals.fury)
     local distract = false
-      if snd.balance.fury and fury &gt;=30 then
-        distract = true
-      end
+    if gmcp.Char.Vitals.ability_bal == "1" and fury &gt;=30 then
+      distract = true
+    end
  
     
 	  snd.giving_limbs = {"head", "right leg", "left leg", "left arm", "right arm",}  
     for k, v in pairs(snd.giving_limbs) do
-      if snd.limb_status[v] == "healed" and ((snd.parried_limb ~= v and snd.last_hit_limb ~= v) or snd.no_parry() or distract) then
+      if snd.limb_status[v] == "healed" and ((snd.parried_limb ~= v and snd.last_struck_limb ~= v) or snd.no_parry() or distract) then
         limb_tohit = v
         break
       end
