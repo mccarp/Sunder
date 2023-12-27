@@ -57850,7 +57850,7 @@ snd.priorities =
 
     "def_astral_chaosspores",
     "def_astral_dreamtide",
-    "def_astral_dreamtide_store",
+    "def_astral_dreamtide_stored",
     "def_astral_presence",
     "def_astral_recursion",
     "def_astral_refulgence",
@@ -59478,7 +59478,7 @@ def_astral_presence = {defense = "astral_presence", type = "normal", effect = "G
 def_astral_chaosspores = {defense = "astral_chaosspores", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "astral spores on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_astral_recursion = {defense = "astral_recursion", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "astral recursion on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_astral_dreamtide = {defense = "astral_dreamtide", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "astral dreamtide"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_astral_dreamtide_store = {defense = "astral_dreamtide_store", type = "normal", effect = "Will raise dreamtide if &lt;40% health", balance = {balanceequilibriumtake = "astral dreamtide store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_astral_dreamtide_stored = {defense = "astral_dreamtide_stored", type = "normal", effect = "Will raise dreamtide if &lt;40% health", balance = {balanceequilibriumtake = "astral dreamtide store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_astral_store = {defense = "astral_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 --nocturn
@@ -60041,7 +60041,7 @@ end</script>
   --Astral
   ["The sickly virulence of chaos spills from you."] = "astral_chaosspores",
   ["You are protected by the waves of the dreamtide."] = "astral_dreamtide",
-  ["Dormant dreamtides will come to your aid."] = "astral_dreamtide_store",
+  ["Dormant dreamtides will come to your aid."] = "astral_dreamtide_stored",
   ["You stand amongst the nobility of Astral Chaos."] = "astral_form",
   ["Chaotic fortune blesses your frame."] = "astral_presence",
   ["The duality of indigo is mirroring your actions."] = "astral_recursion",
@@ -76167,7 +76167,7 @@ titan = {
 },
 astral = {
   def_astral_chaosspores = "on",
-  def_astral_dreamtide_store = "once",
+  def_astral_dreamtide_stored = "once",
   def_astral_presence = "on",
   def_astral_recursion = "on",
   def_astral_refulgence = "on"
