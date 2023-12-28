@@ -26022,7 +26022,7 @@ end</script>
   snd.track_restoration(matches[2])
   snd.current_restoration_aff = ""
   local aff_restoration_timer = true
-  local restoTime = 4.05
+  local restoTime = 4.2
   if snd.checkAff("rot_body") then
     restoTime = restoTime + 4.3
   end
