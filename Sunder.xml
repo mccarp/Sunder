@@ -73413,9 +73413,9 @@ function snd.ascendril_bash()
       end
       if snd.toggles.prism then
         if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air" then
-          battack = battack.."cast prism firelash "..snd.bashing.target
-        elseif gmcp.Char.Vitals.resonance == "air" then
-          battack = "cast prism frostblade "..snd.bashing.target
+          battack = battack.."cast prism frostblade "..snd.bashing.target
+        elseif gmcp.Char.Vitals.resonance == "water" then
+          battack = "cast prism firelash "..snd.bashing.target
         elseif gmcp.Char.Vitals.resonance == "fire" then
           battack = "cast prism windlance "..snd.bashing.target
         end
@@ -73479,9 +73479,9 @@ function snd.bloodborn_bash()
       end
       if snd.toggles.prism then
         if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black" then
-          battack = battack.."unleash triplicate disgorge "..snd.bashing.target
-        elseif gmcp.Char.Vitals.aspect == "black" then
-          battack = "unleash triplicate flense "..snd.bashing.target
+          battack = battack.."unleash triplicate flense "..snd.bashing.target
+        elseif gmcp.Char.Vitals.aspect == "phlegm" then
+          battack = "unleash triplicate disgorge "..snd.bashing.target
         elseif gmcp.Char.Vitals.aspect == "yellow" then
           battack = "unleash triplicate befoul "..snd.bashing.target
         end
