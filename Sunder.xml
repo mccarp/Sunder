@@ -61196,6 +61196,17 @@ local specialExits = {
   {from = 36079, to = 56731, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
   {from = 56731, to = 36079, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
   
+  --Liruma Crater
+  {from = 11765, to = 74248, command = [=[script: send("touch pedestal") mmp.customwalkdelay(20)]=], locked = false, weight = 200},
+  {from = 74248, to = 11765, command = [=[script: send("touch pedestal") mmp.customwalkdelay(20)]=], locked = false, weight = 200},
+  
+  --Iernian fracture
+  {from = 35160, to = 45668, command = [=[touch 184590]=], locked = false, weight = 200},
+  {from = 45668, to = 35160, command = [=[touch 172212]=], locked = false, weight = 200},
+  
+  --Endless Battlefield
+  {from = 49878, to = 35595, command = [=[enter pit]=], locked = false, weight = 0},
+  
   --Underbelly
   {from = 29552, to = 52595, command = [=[enter grate]=], locked = false, weight = 0},
 	{from = 51329, to = 51336, command = [=[climb ladder]=], locked = false, weight = 100},
