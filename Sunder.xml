@@ -61141,7 +61141,8 @@ diagaffs = {info = "How many hidden affs before you diagnose?", command = "diaga
 				<Script isActive="yes" isFolder="no">
 					<name>Sunder Map tweaks</name>
 					<packageName></packageName>
-					<script>local specialExits = {
+					<script>snd = snd or {}
+local specialExits = {
 --fengard exits
 	{from = 19719, to = 19089, command = [=[script: send("touch carving") mmp.customwalkdelay(2)]=], locked = false, weight = 0},
 	{from = 19089, to = 19719, command = [=[script: send("touch carving") mmp.customwalkdelay(2)]=], locked = false, weight = 0},
@@ -61194,6 +61195,37 @@ diagaffs = {info = "How many hidden affs before you diagnose?", command = "diaga
 
   {from = 36079, to = 56731, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
   {from = 56731, to = 36079, command = [=[script: send("touch portal") mmp.customwalkdelay(35)]=], locked = false, weight = 200},
+  
+  --Underbelly
+  {from = 29552, to = 52595, command = [=[enter grate]=], locked = false, weight = 0},
+	{from = 51329, to = 51336, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 51336, to = 51329, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 49440, to = 33905, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 49465, to = 38271, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 49471, to = 34053, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 49478, to = 51287, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 33905, to = 49440, command = [=[enter grate]=], locked = false, weight = 0},
+	{from = 34053, to = 49471, command = [=[enter grate]=], locked = false, weight = 0},
+	{from = 51287, to = 49478, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 52595, to = 29552, command = [=[climb ladder]=], locked = false, weight = 100},
+	{from = 38271, to = 49465, command = [=[climb ladder]=], locked = false, weight = 100},
+  
+  --ferries
+  {from = 63572, to = 64978, command = [=[buy passage to jaru]=], locked = false, weight = 200},
+	{from = 54459, to = 36824, command = [=[buy passage to scidve]=], locked = false, weight = 200},
+	{from = 72093, to = 18231, command = [=[buy passage to mainland]=], locked = false, weight = 200},
+	{from = 19621, to = 13296, command = [=[buy passage to asper]=], locked = false, weight = 200},
+	{from = 3413, to = 5966, command = [=[buy passage to ulangi]=], locked = false, weight = 200},
+	{from = 64978, to = 63572, command = [=[buy passage to eftehl]=], locked = false, weight = 200},
+	{from = 72615, to = 71389, command = [=[buy passage to memoryscape]=], locked = false, weight = 200},
+	{from = 5966, to = 3413, command = [=[buy passage to mainland]=], locked = false, weight = 200},
+	{from = 71389, to = 72615, command = [=[buy passage to portent]=], locked = false, weight = 200},
+  {from = 71389, to = 49875, command = [=[buy passage to beneath]=], locked = false, weight = 200},
+  {from = 49875, to = 71389, command = [=[buy passage to memoryscape]=], locked = false, weight = 200},
+	{from = 13296, to = 19621, command = [=[buy passage to tundra]=], locked = false, weight = 200},
+	{from = 18231, to = 72093, command = [=[buy passage to memoryscape]=], locked = false, weight = 200},
+	{from = 36824, to = 54459, command = [=[buy passage to tcanna]=], locked = false, weight = 200},
+  
 }
 
 local lockExits = {
@@ -61213,7 +61245,7 @@ local lockExits = {
   {55187, "west"},
 }
 
-local ferries = { 6550, 6551, 6558, 6559, 18199, 19622, 19623, 20067, 35629, 39839, 54221, 69250, 69534, 71720, 71884, 73215}
+local ferries = { 6550, 6551, 6558, 6559, 18199, 19622, 19623, 20067, 35629, 39839, 54221, 69250, 69534, 71720, 71884, 73215, 77551}
 local function addFerries()
   local ferryRooms = getRoomUserData(1, "ferry rooms")
   ferryRooms = ferryRooms~="" and yajl.to_value(ferryRooms) or {}
@@ -61222,6 +61254,7 @@ local function addFerries()
       table.insert(ferryRooms, room)
     end
   end
+  addRoom(1)
   setRoomUserData(1, "ferry rooms", yajl.to_string(ferryRooms))
   mmp.ferry_rooms = {}
   mmp.ferriesfix()
