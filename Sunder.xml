@@ -61332,8 +61332,8 @@ local specialExits = {
 --Taerilan/tundra stuffs
 	{from = 51100, to = 49365, command = [=[say Take me to the Cradle of Fire]=], locked = false, weight = 10},
 	{from = 51494, to = 49365, command = [=[say Take me to the Cradle of Fire]=], locked = false, weight = 10},
-	{from = 49365, to = 51494, command = [=[say take me to Ebon Basin"]=], locked = false, weight = 10},
-	{from = 51100, to = 51494, command = [=[say take me to Ebon Basin"]=], locked = false, weight = 10},
+	{from = 49365, to = 51494, command = [=[say take me to Ebon Basin]=], locked = false, weight = 10},
+	{from = 51100, to = 51494, command = [=[say take me to Ebon Basin]=], locked = false, weight = 10},
 	{from = 51494, to = 51100, command = [=[say take me to the tundra]=], locked = false, weight = 10},
 	{from = 49365, to = 51100, command = [=[say take me to the tundra]=], locked = false, weight = 10},
 
