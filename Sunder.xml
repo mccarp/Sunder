@@ -61725,21 +61725,24 @@ function snd_bashAreas(areas_chosen)
       for x, y in pairs(full_list_of_areas) do
         area_being_checked = x:lower()
         if area_being_checked:find(v) then
-        cecho("\n&lt;MediumSeaGreen&gt;Found: "..x)
-          local area_to_be_added = full_list_of_areas[x]
-          if #path_being_constructed ~= 0 then
-            for l, m in pairs(path_being_constructed) do
-              local areas_added = 0
-              for a, b in pairs(m) do
-                if b == "ptcity" and areas_added &lt; num_areas then 
-                  path_being_constructed[l][a] = snd.bashing_area_beginning_rooms[x]
-                  areas_added = areas_added + 1
-                end --21
-              end--20
-            end--18
-          end--17
-          table.insert(path_being_constructed, area_to_be_added)
-          break
+        --some headache stuff
+          if not (area_being_checked=="a bandit encampment in the bonro sands" and v:find("bonro") and #v&lt;16) then
+          cecho("\n&lt;MediumSeaGreen&gt;Found: "..x)
+            local area_to_be_added = full_list_of_areas[x]
+            if #path_being_constructed ~= 0 then
+              for l, m in pairs(path_being_constructed) do
+                local areas_added = 0
+                for a, b in pairs(m) do
+                  if b == "ptcity" and areas_added &lt; num_areas then 
+                    path_being_constructed[l][a] = snd.bashing_area_beginning_rooms[x]
+                    areas_added = areas_added + 1
+                  end --21
+                end--20
+              end--18
+            end--17
+            table.insert(path_being_constructed, area_to_be_added)
+            break
+          end
         end
       end
     end
