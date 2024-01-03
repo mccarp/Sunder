@@ -22437,8 +22437,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Terror consumes (\w+) as the pitiless light inspires (self-pity|sadness|hubris|commitment fear) in .* heart.$</string>
+									<string>^(\w+) glances around nervously as .* (self-pity|sadness|hubris|commitment fear) anxiety settles in\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
