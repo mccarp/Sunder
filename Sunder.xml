@@ -7585,7 +7585,8 @@ snd.send("ql")</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Followbashing</name>
 					<script>if snd.toggles.followbash and matches[2]:lower() == snd.followbashing then
-  if not snd.toggles.bashing then
+  if (not snd.toggles.bashing) or gmcp.Room.Info.num~=snd.followLastRoom then
+      snd.followLastRoom = gmcp.Room.Info.num
       snd.toggles.bashing = true
       snd.waiting.balance = false
       snd.room_clear = true
