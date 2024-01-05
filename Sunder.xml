@@ -7582,6 +7582,33 @@ snd.send("ql")</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Followbashing</name>
+					<script>if snd.toggles.followbash and matches[2]:lower() == snd.followbashing then
+  if not snd.toggles.bashing then
+      snd.toggles.bashing = true
+      snd.waiting.balance = false
+      snd.room_clear = true
+      snd.runBasher()
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(\w+) uses .+? on .+\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>GUI</name>
@@ -36578,6 +36605,25 @@ send(" ")</script>
 					<regex>^ff$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
+					<name>Followbash</name>
+					<script>if matches[2] then
+  snd.followbashing = matches[2]:lower()
+  snd.message("Will attack when "..snd.followbashing:title().." attacks\n")
+  if not snd.toggles.followbash then
+    snd.toggle("followbash")
+  end
+else
+  if snd.toggles.followbash or snd.followbashing then
+    snd.toggle("followbash")
+  else
+    snd.message("fb &lt;person&gt; to set the person to followbash")
+  end
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^fba(?: (\w+))?$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
 					<name>generics</name>
 					<script>snd.toggle("generics")
 
@@ -55292,6 +55338,9 @@ registerAnonymousEventHandler("gmcp.Char.Afflictions.Remove", "snd.deathClear")<
     if snd.toggles.fasthunt then
       snd.toggle("fasthunt")
     end
+    if snd.toggles.followbash then
+      snd.toggle("followbash")
+    end
     bot.going = false
     snd.toggles.bashing = false
     snd.defenses.def_vigor.needit = false
@@ -55430,6 +55479,7 @@ enrich = false,
 gags = true,
 targetrune = false,
 alerts = false,
+followbash = false,
 laesan = true, --try to use laesan while predator bashing. If false, will go for Ein-fasit instead.
 ascendedtype = "none",
 mount = "123456",
