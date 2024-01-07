@@ -79972,7 +79972,7 @@ end</script>
                     if where == "arms" then snd.target_got("a_crippled_arm")
                     elseif where == "legs" then snd.target_got("a_crippled_leg")
                     elseif where == "throat" then snd.target_got("crippled_throat")
-                    else snd.target_got(where.." broken")
+                    else snd.target_got(where.." crippled")
                     end
                   end, 
         Deform = function(target)
@@ -81833,7 +81833,7 @@ end</script>
                     if where == "arms" then snd.target_got("a_crippled_arm")
                     elseif where == "legs" then snd.target_got("a_crippled_leg")
                     elseif where == "throat" then snd.target_got("crippled_throat")
-                    else snd.target_got(where.." broken")
+                    else snd.target_got(where.." crippled")
                     end
                   end, 
         Disjunct = function(target)
