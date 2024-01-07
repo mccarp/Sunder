@@ -32342,6 +32342,32 @@ mmp.locateAndEcho(room)</script>
 						</regexCodePropertyList>
 					</Trigger>
 				</TriggerGroup>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>speedwalk automount</name>
+					<script>if tonumber(multimatches[1][2])&gt;10 then
+  if not snd.toggles.automount then return end
+  if gmcp.Char.Vitals.mounted~="0" then return end
+  send("qeb recall " .. snd.toggles.mount .. snd.sep .. "recall mount" .. snd.sep .. "quickmount " .. snd.toggles.mount)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>2</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^Distance to .+: (\d+)\.$</string>
+						<string>You start speedwalking.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Questing</name>
@@ -36347,6 +36373,13 @@ cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or 
 						<command></command>
 						<packageName></packageName>
 						<regex>^toggle laesan(?: (on|off))?$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Automount</name>
+						<script>snd.toggle("automount")</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle automount$</regex>
 					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
@@ -55484,6 +55517,7 @@ followbash = false,
 laesan = true, --try to use laesan while predator bashing. If false, will go for Ein-fasit instead.
 ascendedtype = "none",
 mount = "123456",
+automount = false,
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -85020,6 +85054,35 @@ load_fishinginfo_db()</script>
 					<script>function snd.fishmsg(string)
   cecho("\n&lt;white&gt;[&lt;LightSeaGreen&gt;FISHING&lt;white&gt;] "..string)
 end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Utilities</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Mapper automount</name>
+					<packageName></packageName>
+					<script>local mountTimer
+
+function snd.mapperAutoMount()
+  if not snd.toggles.automount then return end
+  if gmcp.Char.Vitals.mounted~="0" then return end
+  if mountTimer then killTimer(mountTimer) end
+  mountTimer =
+  tempTimer(
+    0,
+    function()
+      if #mmp.speedWalkPath &gt; 10 then
+        send("qeb recall " .. snd.toggles.mount .. snd.sep .. "recall mount" .. snd.sep .. "quickmount " .. snd.toggles.mount)
+      end
+    end
+  )
+end
+
+registerAnonymousEventHandler("mmp link externals", "snd.mapperAutoMount")</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
