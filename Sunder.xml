@@ -32342,7 +32342,7 @@ mmp.locateAndEcho(room)</script>
 						</regexCodePropertyList>
 					</Trigger>
 				</TriggerGroup>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>speedwalk automount</name>
 					<script>if tonumber(multimatches[1][2])&gt;10 then
   if not snd.toggles.automount then return end
