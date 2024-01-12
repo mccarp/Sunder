@@ -9613,12 +9613,10 @@ end
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You discern that a layer of (\w+) has rubbed off your weapon\.$</string>
+								<string>^You discern that a layer of (\w+) has rubbed off your \w+\.$</string>
 								<string>^Your quarterstaff leaches (\w+) into (the )?\w+'s blood.$</string>
-								<string>^You discern that a layer of (\w+) has rubbed off your thread.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
