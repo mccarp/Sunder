@@ -23694,7 +23694,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You discern that a layer of (\w+) has rubbed off your weapon\.$</string>
+								<string>^You discern that a layer of (\w+) has rubbed off your \w+\.$</string>
 								<string>1</string>
 								<string>^You discern that (\w+) has resisted the (\w+) affliction\.$</string>
 							</regexCodeList>
@@ -36751,11 +36751,24 @@ cecho("&lt;green&gt;Apothecary mode: &lt;orange&gt;"..(snd.apothecaryEnabled and
 				<regex></regex>
 				<Alias isActive="yes" isFolder="no">
 					<name>defense toggle</name>
-					<script>if not string.find(matches[2], "def_") then
- matches[2] = "def_"..matches[2]
+					<script>local defense = matches[2]:lower()
+if not string.find(defense, "def_") then
+ defense = "def_"..defense
 end
-for i in pairs(snd.defenses) do
- if string.find(i, matches[2]) then
+if snd.defenses[defense] then --check for exact match
+  if snd.defenses[defense].needit then
+   snd.defenses[defense].needit = false
+   snd.message("No longer keeping &lt;red&gt;"..defense.."&lt;white&gt;.", "echo")
+   send(" ")
+  else
+   snd.defenses[defense].needit = true
+   snd.message("Now keeping &lt;green&gt;"..defense.."&lt;white&gt;.", "echo")
+   send(" ")
+  end
+  return
+end
+for i in pairs(snd.defenses) do --if no exact match found, search for approx matches
+ if string.find(i, defense) then
   if snd.defenses[i].needit then
    snd.defenses[i].needit = false
    snd.message("No longer keeping &lt;red&gt;"..i.."&lt;white&gt;.", "echo")
@@ -80507,7 +80520,9 @@ end</script>
                   -- end
                 end,
     Fracture = function(target, where)
-                 table.insert(snd.maybe_affs, where.."_crippled")
+                  if snd.limb_bruising[where]&gt;0 then            
+                    table.insert(snd.maybe_affs, where.."_crippled")
+                  end
                  	snd.last_hit_limb = where
                 	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("fracture")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -80677,8 +80692,10 @@ end</script>
                     -- snd.used.shield = false
                   -- end
                 end,
-    Buckle = function(target, where)                 
-                 table.insert(snd.maybe_affs, where.."_crippled")
+    Buckle = function(target, where)
+                  if snd.limb_bruising[where]&gt;0 then            
+                    table.insert(snd.maybe_affs, where.."_crippled")
+                  end
                  	snd.last_hit_limb = where
                   snd.last_limb_dmg = snd.calcTeradrimLimbDamage("buckle")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
