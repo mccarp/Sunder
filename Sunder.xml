@@ -1404,15 +1404,15 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Metabolize</name>
-									<script>local defName = "def_"..multimatches[2][2]:lower().."_chimera"
+									<script>local defName = "def_"..matches[2]:lower().."_chimera"
 if snd.toggles.gags then
   deleteLine()
 end
 snd.def_take(defName)</script>
 									<triggerType>0</triggerType>
-									<conditonLineDelta>2</conditonLineDelta>
+									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
 									<mCommand></mCommand>
 									<packageName></packageName>
@@ -1422,11 +1422,9 @@ snd.def_take(defName)</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You use Manifestation Metabolize.</string>
 										<string>^Your (\w+) chimerized phantasm has been metabolized\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>3</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
