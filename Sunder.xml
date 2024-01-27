@@ -7879,6 +7879,7 @@ disableTrigger("Monk Hit Tracking")
 snd.last_affs = {}
 snd.recent_affs = {} --kinda similar to last_affs but for generic miss
 snd.last_limb_dmg = 0
+snd.bruisingHit = false
 if snd.last_hit_limb and snd.last_hit_limb~="none" then
   snd.last_struck_limb = snd.last_hit_limb
   snd.last_hit_limb = "none"
@@ -23805,7 +23806,9 @@ end</script>
   end
   
   snd.templar_last_limb = snd.last_hit_limb
-  
+  if snd.last_hit_limb ~= "none" and snd.bruisingHit then
+    snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
+  end
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
     snd.last_hit_limb = "none"
@@ -23865,7 +23868,9 @@ disableTrigger("Sunder Parry")</script>
       end
     end
   end
-
+  if snd.last_hit_limb ~= "none" and snd.bruisingHit then
+    snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
+  end
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
     snd.last_hit_limb = "none"
@@ -23921,12 +23926,17 @@ disableTrigger("Sunder Dodge")</script>
   end
 end
 
+  if snd.last_hit_limb ~= "none" and snd.bruisingHit then
+    snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
+  end
+
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
     snd.last_hit_limb = "none"
     snd.last_limb_dmg = 0
   end
 
+  
 if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end
 
 snd.last_affs = {}
@@ -78347,6 +78357,13 @@ function snd.pendulum(direction)
         snd.limb_status[pendulum_table[part][direction]] = status
       end
     end
+end
+
+function snd.took_bruise(limb)
+  if snd.limb_bruising[limb] &lt; 3 then
+    snd.limb_bruising[limb] = snd.limb_bruising[limb]+1
+    snd.bruisingHit = true
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -80504,12 +80521,14 @@ end</script>
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = snd.calcTeradrimLimbDamage("gutsmash")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                snd.took_bruise("torso")
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Facesmash = function(target)
                 snd.last_hit_limb = "head"
                 snd.last_limb_dmg = snd.calcTeradrimLimbDamage("facesmash")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                snd.took_bruise("head")
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Overhand = function(target)
@@ -80598,6 +80617,7 @@ end</script>
                   snd.last_hit_limb = where
                 	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("slam")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                  snd.took_bruise(where)
                   snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
   },
@@ -80673,12 +80693,14 @@ end</script>
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = snd.calcTeradrimLimbDamage("ram")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                snd.took_bruise("torso")
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Crest = function(target)
                 snd.last_hit_limb = "head"
                 snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crest")
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                snd.took_bruise("head")
                 snd.onHit2({"Dodge", "Parry", "Rebounding"})
                end,
     Breach = function(target)
@@ -80698,6 +80720,7 @@ end</script>
                snd.last_hit_limb = where
                snd.last_limb_dmg = snd.calcTeradrimLimbDamage("crack")
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+               snd.took_bruise(where)
                snd.onHit2({"Dodge", "Parry", "Rebounding"})
               end,
     Capsize = function(target)
