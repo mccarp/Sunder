@@ -25981,11 +25981,13 @@ if matches[2] == snd.target then
   snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was mangled!")
   if matches[2] == snd.target then
    snd.last_hit_limb = matches[3]
-   snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
-   if snd.checkAff("armor_tattoo") then 
-    snd.last_limb_dmg = snd.last_limb_dmg*2 --make sure this doesn't do wonky
+   if snd.limb_dmg[matches[3]]&lt;66.66 then
+     snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
+     if snd.checkAff("armor_tattoo") then 
+      snd.last_limb_dmg = snd.last_limb_dmg*2 --make sure this doesn't do wonky
+     end
+     snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
    end
-   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
    snd.limb_status[matches[3]] = "mangled"
    snd.target_got(matches[3].." mangled")
   end
@@ -80639,7 +80641,9 @@ end</script>
                 snd.target_got("heartflutter")
               end,
       Rip = function(target, limb)
-                if limb ~= "torso" then
+                if limb == "torso" then
+                  snd.took_limb_dmg("torso", 33.5)
+                else
                   local limb = string.gsub(limb, " ", "_")
                   snd.target_got(limb.."_crippled")
                 end
@@ -80802,7 +80806,9 @@ end</script>
                 snd.target_got("heartflutter")
               end,
       Squeeze = function(target, limb)
-                if limb ~= "torso" then
+                if limb == "torso" then
+                  snd.took_limb_dmg("torso", 33.5)
+                else
                   local limb = string.gsub(limb, " ", "_")
                   snd.target_got(limb.."_crippled")
                 end
