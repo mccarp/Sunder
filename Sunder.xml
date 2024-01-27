@@ -1404,15 +1404,15 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Metabolize</name>
-									<script>local defName = "def_"..multimatches[2][2]:lower().."_chimera"
+									<script>local defName = "def_"..matches[2]:lower().."_chimera"
 if snd.toggles.gags then
   deleteLine()
 end
 snd.def_take(defName)</script>
 									<triggerType>0</triggerType>
-									<conditonLineDelta>2</conditonLineDelta>
+									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
 									<mCommand></mCommand>
 									<packageName></packageName>
@@ -1422,11 +1422,9 @@ snd.def_take(defName)</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You use Manifestation Metabolize.</string>
 										<string>^Your (\w+) chimerized phantasm has been metabolized\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>3</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -9613,12 +9611,10 @@ end
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You discern that a layer of (\w+) has rubbed off your weapon\.$</string>
+								<string>^You discern that a layer of (\w+) has rubbed off your \w+\.$</string>
 								<string>^Your quarterstaff leaches (\w+) into (the )?\w+'s blood.$</string>
-								<string>^You discern that a layer of (\w+) has rubbed off your thread.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -23696,7 +23692,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^You discern that a layer of (\w+) has rubbed off your weapon\.$</string>
+								<string>^You discern that a layer of (\w+) has rubbed off your \w+\.$</string>
 								<string>1</string>
 								<string>^You discern that (\w+) has resisted the (\w+) affliction\.$</string>
 							</regexCodeList>
@@ -25985,11 +25981,13 @@ if matches[2] == snd.target then
   snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was mangled!")
   if matches[2] == snd.target then
    snd.last_hit_limb = matches[3]
-   snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
-   if snd.checkAff("armor_tattoo") then 
-    snd.last_limb_dmg = snd.last_limb_dmg*2 --make sure this doesn't do wonky
+   if snd.limb_dmg[matches[3]]&lt;66.66 then
+     snd.last_limb_dmg = 66.66-snd.limb_dmg[matches[3]]
+     if snd.checkAff("armor_tattoo") then 
+      snd.last_limb_dmg = snd.last_limb_dmg*2 --make sure this doesn't do wonky
+     end
+     snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
    end
-   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
    snd.limb_status[matches[3]] = "mangled"
    snd.target_got(matches[3].." mangled")
   end
@@ -26626,6 +26624,29 @@ snd.runemarkMajor = daubMap[matches.major]</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Kneeshatter</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got(matches[3]:gsub(" ","_").."_crippled")
+  snd.target_got("fallen")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^.+ suddenly knocks (\w+) to the ground, \w+ (left leg|right leg) snapping from the impact\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -36753,11 +36774,24 @@ cecho("&lt;green&gt;Apothecary mode: &lt;orange&gt;"..(snd.apothecaryEnabled and
 				<regex></regex>
 				<Alias isActive="yes" isFolder="no">
 					<name>defense toggle</name>
-					<script>if not string.find(matches[2], "def_") then
- matches[2] = "def_"..matches[2]
+					<script>local defense = matches[2]:lower()
+if not string.find(defense, "def_") then
+ defense = "def_"..defense
 end
-for i in pairs(snd.defenses) do
- if string.find(i, matches[2]) then
+if snd.defenses[defense] then --check for exact match
+  if snd.defenses[defense].needit then
+   snd.defenses[defense].needit = false
+   snd.message("No longer keeping &lt;red&gt;"..defense.."&lt;white&gt;.", "echo")
+   send(" ")
+  else
+   snd.defenses[defense].needit = true
+   snd.message("Now keeping &lt;green&gt;"..defense.."&lt;white&gt;.", "echo")
+   send(" ")
+  end
+  return
+end
+for i in pairs(snd.defenses) do --if no exact match found, search for approx matches
+ if string.find(i, defense) then
   if snd.defenses[i].needit then
    snd.defenses[i].needit = false
    snd.message("No longer keeping &lt;red&gt;"..i.."&lt;white&gt;.", "echo")
@@ -55366,6 +55400,7 @@ registerAnonymousEventHandler("gmcp.Char.Afflictions.Remove", "snd.deathClear")<
     mmp.stop()
   end
   if snd.toggles.attacking == true then snd.toggle("attacking") end
+  snd.send("order entourage passive")
   snd.send("queue clear")
   snd.send("path stop")
   if snd.bashing_loaded then
@@ -80509,7 +80544,9 @@ end</script>
                   -- end
                 end,
     Fracture = function(target, where)
-                 table.insert(snd.maybe_affs, where.."_crippled")
+                  if snd.limb_bruising[where]&gt;0 then            
+                    table.insert(snd.maybe_affs, where.."_crippled")
+                  end
                  	snd.last_hit_limb = where
                 	snd.last_limb_dmg = snd.calcTeradrimLimbDamage("fracture")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -80604,7 +80641,9 @@ end</script>
                 snd.target_got("heartflutter")
               end,
       Rip = function(target, limb)
-                if limb ~= "torso" then
+                if limb == "torso" then
+                  snd.took_limb_dmg("torso", 33.5)
+                else
                   local limb = string.gsub(limb, " ", "_")
                   snd.target_got(limb.."_crippled")
                 end
@@ -80679,8 +80718,10 @@ end</script>
                     -- snd.used.shield = false
                   -- end
                 end,
-    Buckle = function(target, where)                 
-                 table.insert(snd.maybe_affs, where.."_crippled")
+    Buckle = function(target, where)
+                  if snd.limb_bruising[where]&gt;0 then            
+                    table.insert(snd.maybe_affs, where.."_crippled")
+                  end
                  	snd.last_hit_limb = where
                   snd.last_limb_dmg = snd.calcTeradrimLimbDamage("buckle")
                 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -80765,7 +80806,9 @@ end</script>
                 snd.target_got("heartflutter")
               end,
       Squeeze = function(target, limb)
-                if limb ~= "torso" then
+                if limb == "torso" then
+                  snd.took_limb_dmg("torso", 33.5)
+                else
                   local limb = string.gsub(limb, " ", "_")
                   snd.target_got(limb.."_crippled")
                 end
