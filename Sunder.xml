@@ -26075,11 +26075,12 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>restoration</name>
-								<script>if matches[2] == snd.target then
+								<script>if matches[2] == snd.target and not snd.illusion_found then
   snd.target_last_used_salve = "restoration"
   snd.resto_limb = matches[4]
   snd.enemy_used_regenerate = false
-  if restoration_timer then killTimer(restoration_timer) end
+  --commented out to make sure this resolves
+--  if restoration_timer then killTimer(restoration_timer) end
   snd.track_restoration(matches[2])
   snd.current_restoration_aff = ""
   local aff_restoration_timer = true
@@ -78474,7 +78475,8 @@ local function mending(limb)
       snd.limb_bruising[limb] = math.min(3, snd.limb_bruising[limb]) - 1
       table.insert(snd.last_affs, "bruising " .. limb)
       return true
-    elseif snd.checkAff(aff) then
+    elseif snd.checkAff(aff) and (not aff:find("_crippled") or snd.limb_status[limb]=="healed" or 
+    (snd.limb_status[limb]=="broken" and snd.resto_limb == limb and remainingTime(restoration_timer&lt;1))) then
       if aff == "ablaze" then
         if not snd.checkAff("heatspear") then
           snd.target_cured("ablaze")
