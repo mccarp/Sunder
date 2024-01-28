@@ -58071,6 +58071,8 @@ snd.priorities =
     "def_withstand",
     "def_vitalise",
     "def_occultism",
+    
+    "def_diminution",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -59298,6 +59300,7 @@ def_faerie = {defense = "faerie", type = "normal", effect = "Throw 2 cards at on
 def_cloud = {defense = "cloud", type = "normal", effect = "Every 3rd card is hidden, sun/moon only.", balance = {balanceequilibriumtake = "unfurl cloud at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cloud" },
 def_crane = {defense = "crane", type = "normal", effect = "+Celerity, +bal for cards", balance = {balanceequilibriumtake = "unfurl crane at ground"}, state = "down", needit = false, timer = createStopWatch(), skill = "Crane" },
 def_fan = {defense = "fan", type = "normal", effect = "Protect against disloyalty.", balance = {balanceequilibriumtake = "unfurl fan at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fan"},
+def_diminution = {defense = "diminution", type = "normal", effect = "Cutting/blunt resist.", balance = {balanceequilibriumtake = "diminution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Diminution"},
 
 --Praenomen
 def_potence_strength = {defense = "potence_strength", type = "normal", effect = "+1 STR", balance = {balanceequilibriumtake = "potence strength"}, state = "down", needit = false, timer = createStopWatch(), skill = "Potence"},
@@ -60278,6 +60281,7 @@ end</script>
   
   ["Your weapons flow through the air."] = "iyedlo",
   ["Your weapons will flow like water."] = "waterflow",
+  ["Your form is softened by ghostly ephemerality."] = "diminution",
 }
  </script>
 							<eventHandlerList />
