@@ -58073,6 +58073,7 @@ snd.priorities =
     "def_occultism",
     
     "def_diminution",
+    "def_putrefaction",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -59269,6 +59270,8 @@ def_eclipse = {defense = "eclipse", type = "normal", effect = "Every 3rd card is
 def_chariot = {defense = "chariot", type = "normal", effect = "+Celerity, +bal for cards", balance = {balanceequilibriumtake = "fling chariot at ground"}, state = "down", needit = false, timer = createStopWatch(), skill = "Chariot" },
 def_hierophant = {defense = "hierophant", type = "normal", effect = "Protect against disloyalty.", balance = {balanceequilibriumtake = "fling hierophant at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Hierophant"},
 def_soulcage = {defense = "soulcage", type = "normal", effect = "You come back to life upon death instantly.", balance = {balanceequilibriumtake = "soulcage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Soulcage" },
+def_putrefaction = {defense = "putrefaction", type = "normal", effect = "Cutting/blunt resist.", balance = {balanceequilibriumtake = "putrefaction"}, state = "down", needit = false, timer = createStopWatch(), skill = "Putrefaction"},
+
 
 --Luminary
 def_lightshield = {defense = "lightshield", type = "normal", effect = "Light-based damage resistance", balance = {needyequilibriumtake = "evoke lightshield"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lightshield" },
