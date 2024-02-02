@@ -6241,8 +6241,10 @@ snd.firefist_cooldown = false</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You drop to one knee and brace an open palm against the ground, drawing in the natural energies to ease your maladies.</string>
+								<string>You use Botany Subversion.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -6352,10 +6354,12 @@ snd.loyalsattacking = false</script>
 							<regexCodeList>
 								<string>You must be with your familiar to do that.</string>
 								<string>^.* experiment, your loyal companion, has been slain by misadventure\.$</string>
+								<string>You must be with your experiment to do that.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>1</integer>
+								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -6377,8 +6381,10 @@ snd.send("eval")</script>
 								<string>You use Shamanism Recall.</string>
 								<string>You tug upon the spiritual bond with your familiar.</string>
 								<string>You use Experimentation Recall.</string>
+								<string>Your experiment is already at your side.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
