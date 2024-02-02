@@ -8230,6 +8230,7 @@ end</script>
 								<script>if matches[2] == snd.target then
   snd.used.rebounding = true
   snd.waiting.queue = false
+  if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
   if matches[2]:find("suddenly per") then snd.track_rebounding_up(snd.target) end
 end
 
@@ -8246,16 +8247,15 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^You suddenly perceive the vague outline of an aura of rebounding around (\w+)\.$</string>
-									<string>^(\w+) uses Purification Rejection\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>hit rebounding</name>
-								<script>snd.used.rebounding = true
+								<script>if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
+snd.used.rebounding = true
 snd.waiting.queue = false
 snd.getting_hit = "You"
 
@@ -8284,6 +8284,7 @@ snd.getting_hit = "You"
     snd.target_cured("besilence")
   else 
   snd.track_rebounding(snd.target)
+  if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
   snd.reboundingTimer = tempTimer(6, [[
                 snd.used.rebounding = true;
                 snd.waiting_queue = false;
