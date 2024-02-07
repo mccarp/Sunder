@@ -56162,6 +56162,10 @@ end</script>
     snd.defenses.def_constitution = snd.alternative_class_defenses.Earthcaller_constitution
   end
   
+  if snd.class == "Monk" then
+    snd.defenses.def_constitution = snd.alternative_class_defenses.Monk_constitution
+  end
+  
   if snd.class == "Infiltrator" then
     snd.defenses.def_shroud = snd.alternative_class_defenses.Infiltrator_shroud
   end
@@ -59698,6 +59702,7 @@ Praenomen_stalking = {defense = "stalking", type = "normal", effect = "Nighttime
 Akkari_stalking = {defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = {balanceequilibriumtake = "muffle"}, state = "down", needit = false, timer = createStopWatch(), skill = "Muffle" },
 Luminary_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "perform constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
 Earthcaller_constitution = {defense = "constitution", type = "normal", effect = "Protection against vomiting", balance = {needyequilibriumtake = "dirge constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
+Monk_constitution = {defense = "constitution", type = "normal", effect = "Protection from nausea", balance = {needyequilibriumtake = "constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Constitution"},
 Indorani_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
 Oneiromancer_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
 Carnifex_shroud = {defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "soul shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Shroud" },
