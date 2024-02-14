@@ -20058,8 +20058,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The frenzied air reaches its peak of intensity and slams into (\w+) with a ferocity that knocks (the )?\w+ to the ground\.$</string>
+									<string>^The ripple of disturbed earth reaches (\w+) and explodes beneath .+ feet, sending .+ sprawling amidst howling power and spraying soil\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20080,8 +20082,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^(\w+)'s skin twitches and shifts, then suddenly erupts into a horrifying mass of squirming larvae.$</string>
+									<string>^The veins upon (\w+)'s skin bulge grotesquely as .+ convulses in sudden, inexplicable pain\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20102,8 +20106,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The seething mass of vines encircling (\w+) constricts, their barbs sinking deep into (the )?\w+ skin\.$</string>
+									<string>^(\w+) convulses in agony as pus\-filled wounds open in .+ skin, the deadly pathogen claiming its due\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
