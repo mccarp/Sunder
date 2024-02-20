@@ -19571,7 +19571,7 @@ end</script>
 									<script>snd.repay = snd.repay + 1
 snd.repay_timers = snd.repay_timers or {}
 local index = #snd.repay_timers + 1
-local time = 10
+local time = 12
 if snd.have_aff("laxity") then
   time = time + 2
 end
@@ -55950,6 +55950,7 @@ snd.mental_affs = {
 "impatience",
 "confusion",
 "dementia",
+"patterns",
 "dread"
 }
 
