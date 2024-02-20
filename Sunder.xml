@@ -14864,8 +14864,8 @@ end
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^The [a-z]+ tarot is eclipsed and passes on ([a-z]+) to (\w+)\.$</string>
-											<string>^The [a-z]+ tarot has passed on ([a-z]+) to (\w+)\.$</string>
+											<string>^The \w+ tarot is eclipsed and passes on (\w+) to (\w+)\.$</string>
+											<string>^The \w+ tarot has passed on (\w+) to (\w+)\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
