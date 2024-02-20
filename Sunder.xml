@@ -14846,8 +14846,8 @@ end</script>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>1p tarot affs</name>
-										<script>local aff = matches[3]:lower()
-if matches[4] == snd.target then
+										<script>local aff = matches[2]:lower()
+if matches[3] == snd.target then
   if not snd.checkAff(aff) then
     snd.target_got(aff)
   end
