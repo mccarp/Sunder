@@ -20014,8 +20014,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Nauseating fumes arise from the burning toxin upon (\w+)'s skin, who winces in irritation\.$</string>
+									<string>^Thick, tarry smoke rises up from the resin upon (\w+), who cannot help but inhale it\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20036,8 +20038,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Vaporising amidst roaring flames, the choking toxin's final fumes cause (\w+) to stagger\.$</string>
+									<string>^As the resin is heated to its vapor point, (\w+) staggers as he loses his focus completely\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20086,11 +20090,14 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Sepsis hotburn</name>
+								<name>Septic hotburn</name>
 								<script>if matches[2]==snd.target then
-  snd.target_got(snd.venomEffect(matches[3]))
-  snd.target_got(snd.venomEffect(matches[4]))
-  snd.target_got(snd.venomEffect(matches[5]))
+  local str = matches[3]
+  str = str:gsub(" and ",", "):gsub(",,",",")
+  local venoms = str:split(", ")
+  for _, venom in pairs(venoms) do
+    snd.target_got(snd.venomEffect(venom))
+  end
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -20103,7 +20110,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+) is inflicted with (\w+), (\w+), and (\w+)\.$</string>
+									<string>^(\w+) is inflicted with (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
