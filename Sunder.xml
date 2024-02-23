@@ -6313,8 +6313,8 @@ snd.loyalsattacking = false</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^Your spirit familiar morphs into the form of a (\w+) spirit\.$</string>
-								<string>^You use Experimentation Reconfiguration on a (.*) experiment\.$</string>
+								<string>^Your spirit familiar morphs into the form of an? (\w+) spirit\.$</string>
+								<string>^You use Experimentation Reconfiguration on an? (.*) experiment\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
