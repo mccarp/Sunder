@@ -1117,16 +1117,22 @@ enableTrigger("Which endgame skills you got?")</script>
 local possible_skills = {
   "Selfishness",
   "Chameleon",
-  "Gripping",
+  "Irongrip",
   "Nightsight",
   "Stalking",
   "Heatsight",
   "Pacing",
+  "Gripping"
 }
-
 for _, v in pairs(possible_skills) do
   if string.find(matches[2], v) and not table.isMember(snd.skills.raceskills, v) then
+  if v == "Gripping" then
+   if not table.isMember(snd.skills.raceskills, "Irongrip") then
+    table.insert(snd.skills.raceskills,"Irongrip")
+   end
+  else
    table.insert(snd.skills.raceskills, v)
+   end
   end
 end</script>
 									<triggerType>0</triggerType>
@@ -19726,11 +19732,21 @@ disableTrigger("Raloth_Capture")</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Lysirine</name>
 								<script>if matches[2] == snd.target then
-	snd.last_affs = {}
-	snd.target_got("paresis")
-	snd.target_got("confusion")
-	snd.target_got("hallucinations")
-	table.insert(snd.last_affs, "hallucinations")
+  if snd.target_has("paresis") then
+    snd.target_got("heartflutters")
+  else
+    snd.target_got("paresis")
+  end
+  if snd.target_has("impatience") then
+    snd.target_got("hallucinations")
+  else
+    snd.target_got("impatience")
+  end
+  if snd.target_has("confusion") then
+    snd.target_got("stupidity")
+  else
+    snd.target_got("confusion")
+  end
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -19982,6 +19998,30 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Choking/Glauxe coldburn</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("allergies")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Nauseating fumes arise from the burning toxin upon (\w+)'s skin, who winces in irritation\.$</string>
+									<string>^Thick, tarry smoke rises up from the resin upon (\w+), who cannot help but inhale it\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Choking hotburn</name>
 								<script>if snd.target == matches[2] then
   snd.target_got("blackout")
@@ -19998,8 +20038,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Vaporising amidst roaring flames, the choking toxin's final fumes cause (\w+) to stagger\.$</string>
+									<string>^As the resin is heated to its vapor point, (\w+) staggers as he loses his focus completely\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20020,6 +20062,55 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^(\w+) lets loose howls of suffering as the toxic flames chew through .+ flesh\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Impair lethargy</name>
+								<script>if matches[2]==snd.target then
+  snd.target_got("lethargy")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^The grisly wound hampers (\w+)'s mobility, causing \w+ to grimace in painful discomfort\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Septic hotburn</name>
+								<script>if matches[2]==snd.target then
+  local str = matches[3]
+  str = str:gsub(" and ",", "):gsub(",,",",")
+  local venoms = str:split(", ")
+  for _, venom in pairs(venoms) do
+    snd.target_got(snd.venomEffect(venom))
+  end
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) is inflicted with (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -20270,8 +20361,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^You discern that (\w+) has been afflicted by the (\w+) venom.$</string>
+									<string>^Your acute knowledge of physiology quickly diagnoses that (\w+) has been afflicted by the (\w+) venom\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -27271,8 +27364,10 @@ end</script>
 								<string>^With a free hand, (\w+) fends off the attack on (?:the \w+'s|\w+) (.+)\.$</string>
 								<string>^With a predatory growl, (\w+) opposes the attack on \w+ (.+), denying it purchase\.$</string>
 								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm, and shakes you violently\.$</string>
+								<string>^The smoky fumes reveal (\w+) guarding \w+ (.+)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -74623,7 +74718,7 @@ function snd.predator_bash()
   if hp &lt;= 40 and snd.shield_check() then
     battack = "touch shield"
   else
-    battack = attacks[stance].." "..snd.bashing.target
+    battack = "wolf flank "..snd.bashing.target..snd.sep..attacks[stance].." "..snd.bashing.target
   end
 end
 
@@ -76864,7 +76959,7 @@ def_inflated = "on",
 },
 
 revenant = {
-def_gripping = "on",
+def_gripping = "once",
 def_maingauche = "once",
 },
 
@@ -76927,7 +77022,7 @@ def_lipreading = "on",
 },
 
 templar = {
-def_gripping = "on",
+def_gripping = "once",
 def_maingauche = "once",
 },
 
