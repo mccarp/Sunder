@@ -82575,7 +82575,8 @@ end</script>
                 snd.reset_target()
             end,
     Feather = function(target)
-               snd.target_cured("fallen")   
+               snd.target_cured("fallen")
+               snd.lev_gone = true   
              end,
     Armour = function(target)
                snd.target_got("armor_tattoo")
