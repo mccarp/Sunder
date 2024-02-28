@@ -19732,17 +19732,17 @@ disableTrigger("Raloth_Capture")</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Lysirine</name>
 								<script>if matches[2] == snd.target then
-  if snd.target_has("paresis") then
+  if snd.checkAff("paresis") then
     snd.target_got("heartflutters")
   else
-    snd.target_got("paresis")
+      snd.target_got("paresis")
   end
-  if snd.target_has("impatience") then
+    if snd.checkAff("impatience") then
     snd.target_got("hallucinations")
   else
     snd.target_got("impatience")
   end
-  if snd.target_has("confusion") then
+  if snd.checkAff("confusion") then
     snd.target_got("stupidity")
   else
     snd.target_got("confusion")
