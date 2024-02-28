@@ -58243,6 +58243,10 @@ snd.method_priority = {
             if snd.balance.vitality and snd.full_vitals() then
               table.insert(snd.queue, k)
             end
+          elseif k == "def_clarity" then
+            if not snd.checksomeSelfAffs(snd.cures.antipsychotic,1) then
+              table.insert(snd.queue, k)
+            end
           elseif (k == "def_shroud" or k == "def_ghost" or k == "def_hiding") then
             if snd.defenses.def_phase.state ~= "deffed" then
               table.insert(snd.queue, k)
@@ -58902,7 +58906,7 @@ aff_remorse = {state = "healed", effect = "", cures = {}, assess = false, timer 
 aff_contrition = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_fragments = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_immobility = {state = "healed", effect = "Can't move", cures = {}, assess = false, timer = createStopWatch()},
-
+aff_timewarped = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 }
 </script>
 							<eventHandlerList />
@@ -59209,7 +59213,7 @@ def_thirdeye = {defense = "thirdeye", type = "normal", effect = "Adds locations 
 def_venom = {defense = "antivenin", type = "normal", effect = "Protects against poison damage", balance = {vial = "antivenin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_levitation = {defense = "levitation", type = "normal", effect = "Protects against falling effects", balance = {vial = "levitation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_frost = {defense = "temperance", type = "normal", effect = "Protects against fire damage", balance = {vial = "frost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_speed = {defense = "speed", type = "green", effect = "Protects against aeon affliction", balance = {drink = "speed"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_speed = {defense = "speed", type = "green", effect = "Protects against aeon affliction", balance = {vial = "speed"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_caloric = {defense = "insulation", type = "normal", effect = "Protects against cold damage", balance = {salve = "caloric"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_vigor = {defense = "vigor", type = "normal", effect = "Critical hits heal you", balance = {vial = "vigor"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_fangbarrier = {defense = "fangbarrier", type = "normal", effect = "Protects against syssin bites", balance = {special = "apply paste"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -76890,7 +76894,7 @@ def_shroud = "on",
 def_hierophant = "once",
 def_chariot = "on",
 def_eclipse = "on",
-def_devilpact = "on",
+-- def_devilpact = "on",
 def_soulcage = "on",
 },
 
@@ -76925,7 +76929,7 @@ def_shroud = "on",
 def_fan = "once",
 def_crane = "on",
 def_cloud = "on",
-def_faerie = "on",
+--def_faerie = "on",
 },
 
 praenomen = {
@@ -84682,6 +84686,7 @@ end</script>
 						<packageName></packageName>
 						<script>function snd.handleFitness()
  snd.target_cured("asthma")
+ snd.target_got("exhausted")
 end</script>
 						<eventHandlerList />
 					</Script>
