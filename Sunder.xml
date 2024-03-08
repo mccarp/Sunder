@@ -24053,8 +24053,10 @@ disableTrigger("Sunder Dodge")</script>
 								<string>^\w+ blinks and rubs \w+ eye as (?:the )?\w+ misses (\w+) with .+\.$</string>
 								<string>^\w+ misses (\w+) with .+ amid the frantic fray.</string>
 								<string>^The dart misses (\w+)!$</string>
+								<string>^(\w+) slips out of reach before you can touch \w+\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -26892,8 +26894,10 @@ end</script>
 											<string>^A reflection of (\w+) blinks out of existence\.$</string>
 											<string>^With a free hand, (\w+) fends off the attack on (the )?\w+ (.+)\.$</string>
 											<string>^(\w+) steps into the attack on (.*), grabs .+ arm and twists it\.$</string>
+											<string>^(\w+) slips out of reach before you can touch \w+\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
