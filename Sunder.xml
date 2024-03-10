@@ -6959,7 +6959,10 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>No waterbreathing</name>
-						<script>snd.defenses.def_waterbreathing.needit = true</script>
+						<script>snd.defenses.def_waterbreathing.needit = true
+if not table.contains(snd.less_defs, "def_waterbreathing") then
+  table.insert(snd.less_defs, "def_waterbreathing")
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -8144,6 +8147,55 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^(\w+) uses? (\w+) (\w+)[- ](\w+) \(?([A-Za-z ]+)\)? on (\w+)\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>got hit</name>
+							<script>local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
+local skill = matches[3]
+
+  if not table.contains(exclusions, skill) then
+    found_set = "none"
+    for set in pairs(snd.cureset_skills) do
+      if table.contains(snd.cureset_skills[set], skill) then
+        found_set = set   
+      end
+    end
+    
+    if snd.class_hitting == "none" then --haven't seen anyone hit yet
+      if found_set == "none" then --skill isn't in class list
+        send("cureset switch general", false) --non-specific cureset
+      elseif snd.cureset ~= found_set then
+        snd.cureset = found_set -- because you may not have the cureset, go ahead and set it for usage
+        send("cureset switch " .. found_set, false) --swap to class cureset
+        snd.class_hitting = found_set --note what class is hitting
+      end      
+    elseif snd.class_hitting ~= found_set then --this is a second class hitting
+      snd.class_hitting = found_set
+      send("cureset switch group", false)
+    end
+    snd.person_hitting = matches[2]
+
+  if not table.contains(snd.people_hitting_me, matches[2]) then
+    table.insert(snd.people_hitting_me, matches[2])
+    tempTimer(4, [[table.remove(snd.people_hitting_me, 1)]])
+  end
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#ff0000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) uses (\w+) .+ on you\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -23112,7 +23164,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Orel swooped</name>
-								<script>if matches[2] == snd.target then
+								<script>if matches[2] == snd.target and #snd.swoopVenoms&gt;0 then
   snd.target_got(snd.venomEffect(snd.swoopVenoms[1]))
   snd.target_got(snd.venomEffect(snd.swoopVenoms[2]))
 end
@@ -31048,57 +31100,6 @@ tempTimer(0, function() enableTrigger("got hit") end)</script>
 							<string>^\w+ uses (Sorcery|Arcanism|Runecarving|Esoterica) Replicate\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>got hit</name>
-						<script>local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
-local skill = multimatches[2][3]
-
-  if not table.contains(exclusions, skill) then
-    found_set = "none"
-    for set in pairs(snd.cureset_skills) do
-      if table.contains(snd.cureset_skills[set], skill) then
-        found_set = set   
-      end
-    end
-    
-    if snd.class_hitting == "none" then --haven't seen anyone hit yet
-      if found_set == "none" then --skill isn't in class list
-        send("cureset switch general", false) --non-specific cureset
-      elseif snd.cureset ~= found_set then
-        snd.cureset = found_set -- because you may not have the cureset, go ahead and set it for usage
-        send("cureset switch " .. found_set, false) --swap to class cureset
-        snd.class_hitting = found_set --note what class is hitting
-      end      
-    elseif snd.class_hitting ~= found_set then --this is a second class hitting
-      snd.class_hitting = found_set
-      send("cureset switch group", false)
-    end
-    snd.person_hitting = multimatches[2][2]
-
-  if not table.contains(snd.people_hitting_me, multimatches[2][2]) then
-    table.insert(snd.people_hitting_me, multimatches[2][2])
-    tempTimer(4, [[table.remove(snd.people_hitting_me, 1)]])
-  end
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#ff0000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>FG3BG2</string>
-							<string>^(.+) uses (\w+) .+ on you\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>6</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
