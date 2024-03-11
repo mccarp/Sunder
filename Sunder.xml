@@ -8154,10 +8154,9 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>got hit</name>
-							<script>local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
+							<script>--local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = matches[3]
-
-  if not table.contains(exclusions, skill) then
+  if table.contains(snd.cureset_skills, skill) then
     found_set = "none"
     for set in pairs(snd.cureset_skills) do
       if table.contains(snd.cureset_skills[set], skill) then
@@ -56281,12 +56280,12 @@ end</script>
 
   if snd.class == "Luminary" then
     snd.defenses.def_constitution = snd.alternative_class_defenses.Luminary_constitution
-    snd.defense.def_insulation = snd.alternative_class_defenses.Luminary_insulation
+    snd.defenses.def_insulation = snd.alternative_class_defenses.Luminary_insulation
   end
   
   if snd.class == "Earthcaller" then
     snd.defenses.def_constitution = snd.alternative_class_defenses.Earthcaller_constitution
-    snd.defense.def_insulation = snd.alternative_class_defenses.Earthcaller_insulation
+    snd.defenses.def_insulation = snd.alternative_class_defenses.Earthcaller_insulation
   end
   
   if snd.class == "Monk" then
@@ -62093,7 +62092,7 @@ snd.bashing_area_beginning_rooms ={
   ["Forsaken Evlasu"] = "53280",
   ["the Maghuir Fissure"] = "ptmaghuir",
   ["the village of Torston"] = "17612",
-  ["the Kalydian Forest"] = "19810",
+  ["the Kalydian Forest"] = "19887",
   ["the Torturers' Caverns"] = "23202",
   ["the Forgotten Dome"] = "54770",
   ["the Tarean Ice Caverns"] = "22226",
