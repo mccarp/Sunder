@@ -24104,9 +24104,13 @@ disableTrigger("Sunder Dodge")</script>
 								<string>^\w+ blinks and rubs \w+ eye as (?:the )?\w+ misses (\w+) with .+\.$</string>
 								<string>^\w+ misses (\w+) with .+ amid the frantic fray.</string>
 								<string>^The dart misses (\w+)!$</string>
-								<string>^(\w+) slips out of reach before you can touch \w+\.$</string>
+								<string>^(\w+) slips out of reach before \w+ can touch \w+\.$</string>
+								<string>^You miss (\w+) with .+ as \w+ slips effortlessly out of reach\.$</string>
+								<string>^\w+ misses with .+ as (\w+) slips effortlessly out of reach\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
