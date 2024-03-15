@@ -4240,8 +4240,10 @@ snd.balance.wand = true</script>
 							<regexCodeList>
 								<string>You raise your hands to the sky, and call a tongue of fire down upon yourself.</string>
 								<string>You use Tectonics Thermics.</string>
+								<string>You use Illumination Cleansing.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -14639,7 +14641,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(\w+) seems to droop as the colour drains from (the )?\w+ face.$</string>
+											<string>^(\w+) pallidly struggles, \w+ movements slowed as if burdened by some invisible weight and exertion\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -14665,8 +14667,10 @@ end</script>
 										<regexCodeList>
 											<string>^(\w+) appears to regain a little colour.$</string>
 											<string>^The life aura surrounding (\w+) protects (the )?\w+ from harm.$</string>
+											<string>^As effortlessly as you had taken it, you callously release the coveted life aura of (\w+) to fade intothe air around you\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
@@ -21978,7 +21982,7 @@ disableTrigger("Weapon Hit Confirmation")</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Darts</name>
 									<script>if matches[2] == snd.target then
-  if snd.maybe_affs[1]:lower() == "cirisosis" then
+  if snd.maybe_affs[1] and snd.maybe_affs[1]:lower() == "cirisosis" then
     table.remove(snd.maybe_affs, 1)
   else
     snd.onHit2({}, "Templar")
@@ -31462,7 +31466,11 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Warning - Collapse / Omophagia</name>
-						<script>snd.send("wt Collapse/Omophagia damage incoming from "..matches[2].." at v"..gmcp.Room.Info.num)</script>
+						<script>if matches[2] then
+  snd.send("wt Collapse/Omophagia damage incoming from "..matches[2].." at v"..gmcp.Room.Info.num)
+else
+  snd.send("wt Collapse/Omophagia damage incoming at v"..gmcp.Room.Info.num)
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -78676,7 +78684,7 @@ local function mending(limb)
       table.insert(snd.last_affs, "bruising " .. limb)
       return true
     elseif snd.checkAff(aff) and (not aff:find("_crippled") or snd.limb_status[limb]=="healed" or 
-    (snd.limb_status[limb]=="broken" and snd.resto_limb == limb and remainingTime(restoration_timer&lt;1))) then
+    (snd.limb_status[limb]=="broken" and snd.resto_limb == limb and (not restoration_timer or not remainingTime(restoration_timer) or remainingTime(restoration_timer)&lt;1 ))) then
       if aff == "ablaze" then
         if not snd.checkAff("heatspear") then
           snd.target_cured("ablaze")
@@ -79237,7 +79245,9 @@ end</script>
             	table.insert(snd.last_affs, snd.chasten_aff)
              end
             end,
-  
+  Overwhelm = function(target)
+              snd.target_got("fallen")
+            end,
   Strike = function(target)
             table.insert(snd.maybe_affs, "paresis")
             snd.onHit2({"Dodge", "Rebounding"})
@@ -82040,6 +82050,9 @@ end</script>
             if not failure then
               snd.target_got("disrupted")
             end
+          end,
+  Deface = function(target)
+            snd.target_got("fallen")
           end,
   Obliterate = function(target, limb)
            	snd.last_hit_limb = limb
