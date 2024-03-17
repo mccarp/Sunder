@@ -78145,7 +78145,7 @@ function snd.target_got(affliction)
   end
   
  if affliction == "cold" then
-    if not snd.checkAff("no_insulation") then affliction = "no_insulation"
+    if not snd.checkAff("no_insulation") and snd.cureset == "luminary" then affliction = "no_insulation"
     elseif not snd.checkAff("shivering") then affliction = "shivering"
     elseif not snd.checkAff("frigid") then affliction = "frigid"
     elseif not snd.checkAff("frozen") then affliction = "frozen"
@@ -78275,6 +78275,8 @@ function snd.target_used(curative)
             end
             aff_found = true
           elseif snd.cures[curative][affliction] == "no_caloric" and snd.checkAff("rot_heat") then
+            --nothing happens
+          elseif snd.cures[curative][affliction] == "hellsight" and snd.checkAff("accursed") then
             --nothing happens
           else
             snd.target_cured(snd.cures[curative][affliction])
@@ -79322,6 +79324,11 @@ end</script>
   },
   
   ["Illumination"] = {
+    Warmth = function(target)
+      if not snd.checkAff("shivering") then
+        snd.target_cured("no_insulation")
+      end
+    end,
     Lightning = function(target)
                  snd.target_got("allergies")
                 end,
@@ -82172,6 +82179,11 @@ end</script>
   },
   
   ["Tectonics"] = {
+    Insulation = function(target)
+      if not snd.checkAff("shivering") then
+        snd.target_cured("no_insulation")
+      end
+    end,
     Ashfall = function(target)
                  snd.target_got("allergies")
                 end,
