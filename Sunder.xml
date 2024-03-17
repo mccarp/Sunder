@@ -14667,7 +14667,7 @@ end</script>
 										<regexCodeList>
 											<string>^(\w+) appears to regain a little colour.$</string>
 											<string>^The life aura surrounding (\w+) protects (the )?\w+ from harm.$</string>
-											<string>^As effortlessly as you had taken it, you callously release the coveted life aura of (\w+) to fade intothe air around you\.$</string>
+											<string>^As effortlessly as you had taken it, you callously release the coveted life aura of (\w+) to fade into the air around you\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -14696,8 +14696,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^The life aura of (\w+) has already been leeched away.$</string>
+											<string>^You already manipulate the life force of (\w+), necromancer\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -31128,6 +31130,26 @@ tempTimer(0, function() enableTrigger("got hit") end)</script>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Default cureset</name>
+						<script>snd.cureset = "none"</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You are no longer using a firstaid priority set.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -53844,8 +53866,8 @@ end
   "mana",
   "immunity",
   "levitation",
-  "antivenin",
-  "frost",
+  "harmony",
+  "arcane",
   "speed",
   "vigor",
   },
