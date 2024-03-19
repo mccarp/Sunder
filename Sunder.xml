@@ -8316,7 +8316,7 @@ end</script>
   snd.used.rebounding = true
   snd.waiting.queue = false
   if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
-  if matches[2]:find("suddenly per") then snd.track_rebounding_up(snd.target) end
+  if matches[1]:find("suddenly per") then snd.track_rebounding_up(snd.target) end
 end
 
 </script>
@@ -9138,7 +9138,9 @@ disableTrigger("Fervour Spew")</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>lyre down</name>
-								<script>snd.target_cured("barrier")</script>
+								<script>if matches[2] == snd.target then
+  snd.target_cured("barrier")
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -9158,7 +9160,9 @@ disableTrigger("Fervour Spew")</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>dome</name>
-								<script>snd.target_cured("dome")</script>
+								<script>if matches[2] == snd.target then
+  snd.target_cured("dome")
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -12365,6 +12369,7 @@ end</script>
 									<name>Globes - Runner Bonus</name>
 									<script>if matches[2] == snd.target then
   snd.globecount = snd.globecount-1
+  if snd.globecount == 0 then snd.target_cured("globes") end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -15919,7 +15924,7 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Deafness strips</name>
 										<script>local aff = "hearing"
-if matches[4] == snd.target then
+if matches[2] == snd.target then
 	snd.target_got(aff)
 end</script>
 										<triggerType>0</triggerType>
@@ -17534,7 +17539,7 @@ end</script>
 									<regexCodeList>
 										<string>^Your telepathic efforts are successful, and the mind of (\w+) is locked with your own.$</string>
 										<string>You smile in satisfaction as you continue to manipulate the will of (\w+).</string>
-										<string>^Your control is starting to slip, and you are quite certain that (\w+) is aware of anintrusive presence in \w+ mind.$</string>
+										<string>^Your control is starting to slip, and you are quite certain that (\w+) is aware of an intrusive presence in \w+ mind.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -18328,7 +18333,7 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+) airs a shuddering whimper as the pressing darkness afflicts .+ with nyctophobia.</string>
-											<string>^An inky shadeling stuns (\w+) and afflcits nyctophobia.$</string>
+											<string>^An inky shadeling stuns (\w+) and afflicts nyctophobia.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -18489,30 +18494,6 @@ end</script>
 										<string>^The despairing gloom has lifted from (\w+).$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Shadeling Stun/Nycto</name>
-									<script>if matches[2] == snd.target then
-	snd.target_got("nyctophobia")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^An inky shadeling stuns (\w+) and afflcits nyctophobia.$</string>
-										<string>^(\w+) airs a shuddering whimper as the pressing darkness afflicts (the )?\w+ with nyctophobia.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -19806,7 +19787,7 @@ disableTrigger("Raloth_Capture")</script>
 								<name>Lysirine</name>
 								<script>if matches[2] == snd.target then
   if snd.checkAff("paresis") then
-    snd.target_got("heartflutters")
+    snd.target_got("heartflutter")
   else
       snd.target_got("paresis")
   end
@@ -21088,7 +21069,7 @@ end</script>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
-											<integer>0</integer>
+											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -23642,7 +23623,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) uses? Dhuriv Spinecut Fail on (\w+)\.$</string>
+								<string>^(\w+) uses? Dhuriv Spinecut \(failure\) on (\w+)\.$</string>
 								<string>^(\w+) uses? Shadowdancing Terminate \(failure\) on (\w+)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -23837,7 +23818,7 @@ end</script>
 							<regexCodePropertyList>
 								<integer>1</integer>
 								<integer>1</integer>
-								<integer>0</integer>
+								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -24064,8 +24045,10 @@ disableTrigger("Sunder Parry")</script>
 								<string>^(\w+) steps into the attack on .*, grabs .+ arm and twists it\.$</string>
 								<string>^With a free hand, (\w+) fends off the attack on \w+ .+\.$</string>
 								<string>^With a predatory growl, (\w+) opposes the attack on [a-z ]+, denying it purchase\.$</string>
+								<string>^Foreseeing the baited attack on .+, (\w+)'s hook streaks out, denying the strike.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -24319,8 +24302,10 @@ end
 							<regexCodeList>
 								<string>^(\w+)'s strike is wide and misses completely\.$</string>
 								<string>^(You)r strike is wide and misses completely\.$</string>
+								<string>^(You)r damaged torso twinges as you heave</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -30027,7 +30012,7 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Ran Away</name>
 							<script>if matches[2] == snd.target then
-  snd.theyran = false
+  snd.theyran = true
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -30891,7 +30876,7 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>ylem chunks</name>
-							<script>snd.send("get chunk"..snd.sep.."get chunk")</script>
+							<script>snd.send("qeb get chunk"..snd.sep.."get chunk"..snd.sep.."get chunk")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -30903,7 +30888,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^A final swift strike from your pick shatters an unstable ylem deposit, breaking it into severalsoftly glowing chunks.$</string>
+								<string>^A final swift strike from your pick shatters an unstable ylem deposit, breaking it into several softly glowing chunks.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -83074,7 +83059,7 @@ end</script>
                   if snd.checkAff("weariness") then snd.target_got("exhausted") end
                 end,
       Preymark = function(target, conditional)
-                  if conditional == "Spiritpack" or conditional == "end" then
+                  if conditional == "Spiritpact" or conditional == "end" then
                     snd.target_got("preymark")
                   end
                 end,
