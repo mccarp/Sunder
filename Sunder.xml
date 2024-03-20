@@ -48144,7 +48144,7 @@ function snd.attack_function()
 					string = "geo impress hex"..snd.sep	
         end
         
-				string = string.."incite "..snd.foment_attacks[touse[1]].." "..snd.target..snd.sep..biostring -- our shape from our priority list will be used
+				string = string.."incite "..snd.shape_attacks[touse[1]].." "..snd.target..snd.sep..biostring -- our shape from our priority list will be used
         call = "wt Afflicting "..snd.target..": "..touse[1]
       end
 
