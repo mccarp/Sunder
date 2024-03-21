@@ -2408,12 +2408,14 @@ snd.clear_afflictions("smoke")</script>
 									<string>^You cease opposing attacks against a specific body part\.$</string>
 									<string>^(\w+) uses Fury Distract on you\.$</string>
 									<string>Agony lances through your arm and you can no longer maintain your guard.</string>
+									<string>You shift your guard to protect yourself.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>3</integer>
 									<integer>1</integer>
 									<integer>1</integer>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -78950,7 +78952,7 @@ function snd.attack(attack)
   else
     string = attack
   end
-  string = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .. string
+  string = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .."g remains".. string
   if snd.toggles.parrying and snd.toparry ~= "none" and snd.toparry ~= snd.parrying then
     string = "parry " .. snd.toparry .. snd.sep .. string
   end
