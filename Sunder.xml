@@ -78952,7 +78952,7 @@ function snd.attack(attack)
   else
     string = attack
   end
-  string = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .."g remains".. string
+  string = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .."g remains"..snd.sep.. string
   if snd.toggles.parrying and snd.toparry ~= "none" and snd.toparry ~= snd.parrying then
     string = "parry " .. snd.toparry .. snd.sep .. string
   end
