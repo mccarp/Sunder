@@ -37703,7 +37703,14 @@ end</script>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>limbs</name>
-								<script>if snd.class == "Shapeshifter" then
+								<script>local rips = {
+  Werecroc = "deathroll",
+  Werewolf = "rupture",
+  Werebear = "buffet",
+  Wereboar = "gore",
+  Wereraven = "headdrop"
+}
+if snd.class == "Shapeshifter" then
 snd.starting_attack()
 function snd.attack_function()
  if not snd.waiting.queue then
@@ -37736,7 +37743,7 @@ function snd.attack_function()
 	elseif snd.theyran then
 	  string = "neckdrag "..snd.target..snd.neckdragdir
 	elseif snd.jawlocked then
-	 string = "rupture "..snd.target
+	 string = rips[gmcp.Char.Status.spec].." "..snd.target
 	-- check if we can jawlock now!
   elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then
 	 if string.find(mangled, "leg") then
