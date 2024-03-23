@@ -59511,7 +59511,7 @@ def_fitness = {defense = "fitness", type = "normal", effect = "Protects from ast
 def_divert_melee = {defense = "divert_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "divert melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Jerk"},
 def_dodge_melee = {defense = "dodge_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "dodge melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sidestep"},
 def_clarity = {defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = {needyequilibriumtake = "clarity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Clarity", tree = "Survival"},
-def_shroud = { }, -- handled and set per class elsewhere
+def_shroud = { defense = "shroud", type = "normal", effect = "Shrouded.",  balance = {needybalancetake = "shroud"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
 def_manipulation_dome = {defense = "manipulation_dome", type = "normal", effect = "cheap prism", balance = {needyequilibriumtake = "manipulate pylon for dome"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_gripping = {defense = "gripping", type = "normal", effect = "Prevents disarming", balance = {balanceequilibriumtake = "grip"}, state = "down", needit = false, timer = createStopWatch(), skill = "Gripping"},
 def_starburst = {defense = "starburst", type = "blue", effect = "Instant revival on death", balance = {tattoo = "starburst"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
