@@ -37854,14 +37854,7 @@ if snd.class == "Shapeshifter" then
 			elseif snd.checksomeAffs({"writhe_thighlock", "writhe_necklock", "writhe_armpitlock"},1) and not snd.jawlocked and hasSkill("Quarter") then -- check if we can jawlock now!
 	 			string = "quarter "..snd.target
   		elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then -- Checking for Jawlock opertunities
-				if string.find(mangled, "leg") and not snd.checkAff("groinrip")then
-	  			string = "jawlock thigh of "..snd.target
-	 			elseif mangled == "head" and not snd.checkAff("throatrip") then
-	  			string = "jawlock neck of "..snd.target
-	 			elseif (mangled == "torso" or string.find(mangled, "arm")) and not snd.checkAff("spleenrip") then
-	  			string = "jawlock armpit of "..snd.target
-				end --end of attempts to get a lock in
-	 
+				string = "jawlock "..lockMap[mangled].." of "..snd.target
       elseif crippled == "left leg" or crippled =="right leg" and not snd.proned() then
       	string = "destroy "..crippled.." of "..snd.target
 			elseif broken ~= "nothing" and not snd.jawlocked then
