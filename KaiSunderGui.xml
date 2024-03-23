@@ -2486,7 +2486,7 @@ local function sortItems()
       attrib = "aggro"
     end
     if not table.contains(sortOrder, attrib) then
-      display(attrib)
+      -- display(attrib)
     else
       kaiUI.itemsSorted[attrib][item.name] = (kaiUI.itemsSorted[attrib][item.name] or 0) + 1
     end
