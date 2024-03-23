@@ -37797,82 +37797,82 @@ end</script>
 								<name>More In-Depth Quartering</name>
 								<script>--Note, this one is using more than just slashing to do limb damage. So, it's a bit more effective at getting quarters.
 
+local lockMap = {
+  ["left arm"] ="armpit",
+  ["right arm"] = "armpit",
+  ["left leg"] = "thigh",
+  ["right leg"] = "thigh",
+  ["torso"] = "armpit",
+  ["head"] = "neck"
+}
+local strikeMap = {
+  ["left arm"] = "rend left",
+  ["right arm"] = "rend right",
+  ["left leg"] = "hamstring left",
+  ["right leg"] = "hamstring right",
+  ["torso"] = "bodypunch",
+  ["head"] = "skullwhack"
+}
+
 if snd.class == "Shapeshifter" then
 	snd.starting_attack()
 	function snd.attack_function()
  		if not snd.waiting.queue then
   		local function feralityConvert(limb)
-    		if string.find(limb, "leg") then
-      		return "hamstring "..limb:gsub(" leg", "")
-    		elseif string.find(limb, "arm") then
-      		return "rend "..limb:gsub(" arm", "")
-    		elseif limb == "torso" then
-      		return "bodypunch"
-    		elseif limb == "head" then
-      		return "skullwhack"
-    		else
-      		return "slash "..limb
-    		end
+    		return strikeMap[limb]
   		end
   -- list what limbs to hit
   		limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
 			mangled = "nothing"
-      damaged = "nothing"
+      crippled = "nothing"
 			broken = "nothing"
-  		for limb in pairs(limbs) do
-	 			if snd.limb_status[limbs[limb]] == "mangled" and mangled == "nothing" then
-	  			if string.find(limbs[limb], "leg") and not table.contains(snd.target_has, "writhe_thighlock") then
-	   				mangled = limbs[limb]
-					elseif limbs[limb] == "head" and not table.contains(snd.target_has, "writhe_necklock") then
-		 				mangled = limbs[limb]
-					elseif not table.contains(snd.target_has, "writhe_armpitlock") and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
-		 				mangled = limbs[limb]
-					end
-	 			elseif snd.limb_status[limbs[limb]] == "broken" and snd.limb_dmg[limbs[limb]] &lt; 66.66 and broken == "nothing" then
-	  			if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") and snd.parried_limb ~= limbs[limb] then
-	   				broken = limbs[limb]
+  		for _, limb in pairs(limbs) do
+	 			if snd.limb_status[limb] == "mangled" and mangled == "nothing" and (snd.parried_limb~= limb or snd.no_parry()) then
+	         if not snd.checkAff("writhe_"..lockMap[limb].."lock") then
+            mangled = limb
+           end
+	 			elseif snd.limb_status[limb] == "broken" and snd.limb_dmg[limb] &lt; 66.66 and broken == "nothing" and (snd.parried_limb~= limb or snd.no_parry()) then
+	  			if string.find(limb, "leg") or string.find(limb, "arm") and snd.parried_limb ~= limb then
+	   				broken = limb
 					end
 	 			end
-  		end  --end of for loop  
+  		end  --end of for loop
+      
   		for _, aff in pairs(snd.target_has) do
-      	if string.find(aff, "_crippled") and snd.limb_status[aff:gsub("_crippled ", "")] ~= "crippled" and snd.limb_status[aff:gsub("_crippled", "")] ~= "mangled" and snd.parried_limb ~= aff:gsub("_crippled", "") then
-        	damaged = aff:gsub("_crippled", "")
-          if damaged == "left_leg" then
-            damaged = "left leg"
-          elseif damaged == "right_leg" then
-            damaged = "right leg"
-          elseif damaged == "left_arm" then
-            damaged = "left arm"
-          elseif damaged == "right_arm" then
-            damaged = "right arm"
-          end
+        if string.find(aff, "_crippled") then
+        local limb = aff:gsub("_crippled",""):gsub("_"," ")
+      	if snd.limb_status[limb] == "healed" and snd.parried_limb ~= limb then
+        	crippled = limb
           break
+        end
         end
       end  --end of for loop  
 			
 			if snd.used.shield then
 	 			string = "pounce "..snd.target
 				
-			elseif snd.checksomeAffs({"writhe_thighlock", "writhe_necklock", "writhe_armpitlock"},1) and not snd.jawlocked then -- check if we can jawlock now!
+			elseif snd.checksomeAffs({"writhe_thighlock", "writhe_necklock", "writhe_armpitlock"},1) and not snd.jawlocked and hasSkill("Quarter") then -- check if we can jawlock now!
 	 			string = "quarter "..snd.target
   		elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then -- Checking for Jawlock opertunities
 				if string.find(mangled, "leg") and not snd.checkAff("groinrip")then
 	  			string = "jawlock thigh of "..snd.target
 	 			elseif mangled == "head" and not snd.checkAff("throatrip") then
 	  			string = "jawlock neck of "..snd.target
-	 			elseif mangled == "torso" or string.find(mangled, "arm") and not snd.checkAff("spleenrip") then
+	 			elseif (mangled == "torso" or string.find(mangled, "arm")) and not snd.checkAff("spleenrip") then
 	  			string = "jawlock armpit of "..snd.target
 				end --end of attempts to get a lock in
 	 
+      elseif crippled == "left leg" or crippled =="right leg" and not snd.proned() then
+      	string = "destroy "..crippled.." of "..snd.target
 			elseif broken ~= "nothing" and not snd.jawlocked then
-	 			string = "destroy "..broken.." of "..snd.target
-			elseif damaged ~= "nothing" and not snd.jawlocked then
-        string = "mangle "..damaged.." of "..snd.target
+        string = "mangle "..broken.." of "..snd.target
+      elseif crippled ~= "nothing" and not snd.jawlocked then
+	 			string = "destroy "..crippled.." of "..snd.target
       else
 	 			left = "nothing"
 	 			right = "nothing"
 	 			for limb in pairs(limbs) do
-	  			if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and (limbs[limb] ~= snd.resto_limb or snd.limb_dmg[limbs[limb]] &gt;= 33.33) then
+	  			if (limbs[limb] ~= snd.parried_limb or snd.no_parry()) and limbs[limb] ~= snd.last_struck_limb then
 		 				if right == "nothing" then
 		  				right = feralityConvert(limbs[limb])
 		 				elseif left == "nothing" then
