@@ -30884,7 +30884,7 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>ylem chunks</name>
-							<script>snd.send("qeb get chunk"..snd.sep.."get chunk"..snd.sep.."get chunk")</script>
+							<script>snd.send("qeb get chunk"..snd.sep.."get chunk")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -62481,6 +62481,7 @@ snd.bashing_area_beginning_rooms ={
   ["Clawhook Range"] = "49546",
   ["the Underbelly"] = "49440",
   ["the Bonro Sands"] = "27225",
+  ["Huanazedha"] = "47147",
 }
 </script>
 						<eventHandlerList />
@@ -62672,6 +62673,7 @@ snd.areas = {
 {area = "the Vault of Domor", level = "99", targets = {"an imposing high cultist", "an emaciated cultist", "a flayed cultist", "a darkly clad cultist", "a splintered skeleton", "a revolting skeleton", "a yellowed skeleton", "a segmented corpse worm", "a large-headed grave worm", "a spiked corpse worm", "a beaked corpse worm",}},
 {area = "the sands of the Grazzin Arena", level = "endurance", targets = {"a hunched Aslinn scout", "an asperous Aslinn woman", "an ivory-masked Aslinn nomad",}},
 {area = "the Bonro Sands", level = "99+", targets = {"Match:a sun%-scorched %a+ haatun", "a Bonro spitting cobra", "a black-tailed viper","a Bonro spitting cobra","a scarlet kestrel", "a red-brown burrowing owl","a lappet-faced vulture", "a horned viper", "an ostrich with wispy two-tone feathers", "a sun-spotted harrier", "an immense desert condor", "a crested haoroo", "a sun-scorched burnt umber haatun", "a crowned grouse"}},
+{area = "Huanazedha", level = "LANU DU", targets = {"a Nazetu eusuchian", "a Nazetu sage of tribe Urrop", "a lean Nazetu Child", "Rax, the Ophidian drug dealer", "Lugra Roosi, sage of Huanazedha", "a Goblin mercenary", "a sickly Nazetu addict", "a shady lurker", "Dudly, a Goblin mercenary", "Jacek, the proprietor", "a Mhun liquor merchant", "a drunk man of indeterminate race", "a Nazetu knife merchant", "a dazed Orc addict", "a bruised Goblin addict", "a sickly Orc addict", "a drunken human man",}},
 }
 
 sunder_areaPaths = {
@@ -74255,6 +74257,45 @@ sunder_areaPaths = {
   v74070 = "51336",
   v74076 = "49460"
 },
+["Huanazedha"] = {
+  v47147 = "47148",
+  v47148 = "47149",
+  v47149 = "47150",
+  v47150 = "47156",
+  v47152 = "47153",
+  v47153 = "47155",
+  v47155 = "47177",
+  v47156 = "49810",
+  v47157 = "47158",
+  v47158 = "50284",
+  v47159 = "47176",
+  v47160 = "47162",
+  v47161 = "47163",
+  v47162 = "50592",
+  v47163 = "47164",
+  v47164 = "47170",
+  v47165 = "47166",
+  v47166 = "47167",
+  v47167 = "47168",
+  v47168 = "47169",
+  v47169 = "47175",
+  v47170 = "47171",
+  v47171 = "47173",
+  v47173 = "47174",
+  v47174 = "47165",
+  v47175 = "ptcity",
+  v47176 = "50358",
+  v47177 = "50608",
+  v49810 = "49813",
+  v49813 = "47157",
+  v50284 = "50285",
+  v50285 = "47152",
+  v50358 = "47160",
+  v50592 = "47161",
+  v50608 = "50609",
+  v50609 = "50610",
+  v50610 = "47159"
+},
 }
 
 </script>
@@ -78351,8 +78392,7 @@ function snd.target_got(affliction)
   end
   
  if affliction == "cold" then
-    if not snd.checkAff("no_insulation") and snd.cureset == "luminary" then affliction = "no_insulation"
-    elseif not snd.checkAff("shivering") then affliction = "shivering"
+    if not snd.checkAff("shivering") then affliction = "shivering"
     elseif not snd.checkAff("frigid") then affliction = "frigid"
     elseif not snd.checkAff("frozen") then affliction = "frozen"
     elseif not snd.checkAff("ice_encased") and snd.checkAff("frostbrand") then affliction = "ice_encased"
