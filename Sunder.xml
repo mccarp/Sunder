@@ -37823,9 +37823,9 @@ if snd.class == "Shapeshifter" then
   		end
   -- list what limbs to hit
   		limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
-			mangled = "nothing"
-      crippled = "nothing"
-			broken = "nothing"
+			local mangled = "nothing"
+      local crippled = "nothing"
+			local broken = "nothing"
   		for _, limb in pairs(limbs) do
 	 			if snd.limb_status[limb] == "mangled" and mangled == "nothing" and (snd.parried_limb~= limb or snd.no_parry()) then
 	         if not snd.checkAff("writhe_"..lockMap[limb].."lock") then
@@ -37982,7 +37982,7 @@ end</script>
 			  	if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") then
 	   				broken = limbs[limb]
 					end
-	 			elseif snd.limb_status[limbs[limb]] == "broken" and snd.limb_dmg[limbs[limb]] &lt; 33.33 and crippled == "nothing" then -- Updating the table with current cripples
+	 			elseif snd.checkAff(limbs[limb]:gsub(" ","_").."_crippled") and snd.limb_dmg[limbs[limb]] &lt; 33.33 and crippled == "nothing" then -- Updating the table with current cripples
 	  			if string.find(limbs[limb], "leg") or string.find(limbs[limb], "arm") then
 				 		crippled = limbs[limb]
 					end
@@ -38009,10 +38009,10 @@ end</script>
 	 			elseif mangled == "torso" or string.find(mangled, "arm") and not snd.checkAff("writhe_armpitlock") then
 	  			string = "jawlock armpit of "..snd.target
 				end
-			elseif broken ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then  -- Limb escalation
-		 		string = "destroy "..broken.." of "..snd.target   
-			elseif crippled ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then -- Limb escalation
-	 			string = "mangle "..crippled.." of "..snd.target
+			elseif crippled ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then  -- Limb escalation
+		 		string = "destroy "..crippled.." of "..snd.target   
+			elseif broken ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then -- Limb escalation
+	 			string = "mangle "..broken.." of "..snd.target
 
 			else -- build the limb breaks if nothing else major going on
 	 			left = "nothing"       
