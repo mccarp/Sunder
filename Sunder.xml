@@ -24365,8 +24365,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^Effortlessly dismissing the assault, (\w+)'s helix of air whirls in a final defiant typhoon\.$</string>
+								<string>^The corona's searing light devours the attack on (\w+) before consuming itself in the process, dissipating amidst a plume of black smoke\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -24758,7 +24760,7 @@ disableTrigger("Astral Contaminate")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>Palm splayed and with (\w+)'s (.+) the subject of your ire, you send forth ropelike threads of yellow-green to infect him with poisonous, chaotic contamination.</string>
+									<string>^Palm splayed and with (\w+)'s (.+) the subject of your ire, you send forth ropelike threads of yellow-green to infect him with poisonous, chaotic contamination\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -24818,7 +24820,7 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Hemartia aff</name>
+								<name>Hamartia/plasma/etc</name>
 								<script>if matches[2] == snd.target then
  snd.target_got(matches[3])
 end</script>
@@ -24834,8 +24836,37 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Eldritch coils of oceanic light arise about your outstretched fingers, blooming toward (\w+) and exposing the flaw of (\w+) amidst disembodied laughter.$</string>
+									<string>^A beat of .+ mighty wings brings forth a cirrus of superheated light, plasmatic winds inspired by the sun itself gusting across and over (\w+) and searing \w+ with (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Seraph Flagellate</name>
+								<script>if matches[2] == snd.target then
+  snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = 11
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+end
+disableTrigger("Seraph Flagellate")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^\w+ extends a hand in judgement, tendrils of golden fire streaming forth to assail (\w+)'s (.+) with their burning, searing, agonising condemnation\.$</string>
+									<string>^Extending a hand in judgement, tendrils of golden fire stream forth to assail (\w+)'s (.+) with their burning, searing, agonising condemnation\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -83085,9 +83116,6 @@ end</script>
       if shield then
         snd.used.shield = false
       end
-      if #snd.maybe_affs &gt;= 1 then
-        snd.onHit2({})
-      end
     end,    
     Unmask = function(target)
       if snd.checkAff("magic_weakness") and snd.checkAff("fire_weakness") then
@@ -83137,9 +83165,6 @@ end</script>
               if shield then
                 snd.used.shield = false
               end
-              if #snd.maybe_affs &gt;= 1 then
-                snd.onHit2({})
-              end
             end,
    },
    
@@ -83167,9 +83192,6 @@ end</script>
         if shield then
           snd.used.shield = false
         end
-        if #snd.maybe_affs &gt;= 1 then
-          snd.onHit2({})
-        end
        end,
    },
 ["Titan"] = {
@@ -83195,12 +83217,33 @@ end</script>
               if shield then
                 snd.used.shield = false
               end
-              if #snd.maybe_affs &gt;= 1 then
-                snd.onHit2({})
+            end,
+   },
+["Seraph"] = {
+ Ray = function(target)
+          if snd.checkAff("magic_weakness") and snd.checkAff("fire_weakness") then
+            snd.target_got("slickness")
+            snd.target_got("disfigurement")
+          else
+            snd.target_got("magic_weakness")
+            snd.target_got("fire_weakness")
+            tempTimer(30, [[snd.target_cured("magic_weakness")]])
+            tempTimer(30, [[snd.target_cured("fire_weakness")]])
+         end
+       end,
+ Flagellate = function(target)
+          enableTrigger("Seraph Flagellate")
+          enableTrigger("Sunder Parry")
+          if #snd.maybe_affs &gt;= 1 then
+            snd.onHit2({"Parry", "Dodge"})
+          end
+         end,
+ Plasma = function(target, shield)
+              if shield then
+                snd.used.shield = false
               end
             end,
    },
-
 ["Adherent"] = {
  Wither = function(target)
           if snd.checkAff("magic_weakness") and snd.checkAff("fire_weakness") then
@@ -83223,9 +83266,6 @@ end</script>
  Tentacle = function(target, shield)
               if shield then
                 snd.used.shield = false
-              end
-              if #snd.maybe_affs &gt;= 1 then
-                snd.onHit2({})
               end
             end,
    },
@@ -83254,9 +83294,6 @@ end</script>
               if shield then
                 snd.used.shield = false
               end
-              if #snd.maybe_affs &gt;= 1 then
-                snd.onHit2({})
-              end
             end,
    },
 
@@ -83284,9 +83321,6 @@ end</script>
               if shield then
                 snd.used.shield = false
               end
-              if #snd.maybe_affs &gt;= 1 then
-                snd.onHit2({})
-              end
             end,
    },
 
@@ -83313,9 +83347,6 @@ end</script>
  Haemoplague = function(target, shield)
               if shield then
                 snd.used.shield = false
-              end
-              if #snd.maybe_affs &gt;= 1 then
-                snd.onHit2({})
               end
             end,
    },
