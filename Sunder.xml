@@ -24644,6 +24644,31 @@ end</script>
 							<regexCodeList />
 							<regexCodePropertyList />
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Titan Spear</name>
+								<script>if matches[2] == snd.target then
+  snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = 11
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+end
+disableTrigger("Titan Spear")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Crystalline fragments form jagged spears across .+ arm and \w+ drives? it cruelly through (\w+)'s (.+), poisoning \w+ as shards find purchase in \w+ flesh\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Tiarna Shear</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -24837,13 +24862,17 @@ end</script>
 								<regexCodeList>
 									<string>^Eldritch coils of oceanic light arise about your outstretched fingers, blooming toward (\w+) and exposing the flaw of (\w+) amidst disembodied laughter.$</string>
 									<string>^A beat of .+ mighty wings brings forth a cirrus of superheated light, plasmatic winds inspired by the sun itself gusting across and over (\w+) and searing \w+ with (\w+)\.$</string>
+									<string>^\w+ sweeps? a cowl of darkness across \w+ shoulders, gathering the force of night about \w+ before lashing outward toward (\w+) in a chiaroscuro coil of stygian shadow and starry scintillation, tainting \w+ with (\w+).$</string>
+									<string>^Volatile black energy wreathes .+ fingertips as \w+ thrusts? them into (\w+), imparting (\w+) within \w+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Seraph Flagellate</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
