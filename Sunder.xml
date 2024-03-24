@@ -24321,6 +24321,55 @@ end
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>200 undo</name>
+							<script>if matches[2] == snd.target and snd.getting_hit == snd.target then
+  
+  if #snd.last_affs &gt;= 1 then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
+      snd.used.rebounding = true
+    else
+      for i in pairs(snd.last_affs) do
+       snd.target_cured(snd.last_affs[i])
+      end
+    end
+  else
+    for _, aff in pairs(snd.recent_affs) do
+      snd.target_cured(aff)
+    end
+    snd.recent_affs = {}
+  end
+  
+  if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
+    snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
+    snd.last_hit_limb = "none"
+    snd.last_limb_dmg = 0
+  end
+  
+  if snd.skill_being_used == "Overhand" or snd.skill_being_used == "Breach" then
+    snd.lev_gone = false
+  end
+  
+  if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end  
+
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^Effortlessly dismissing the assault, (\w+)'s helix of air whirls in a final defiant typhoon\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds other</name>
@@ -36084,6 +36133,7 @@ cecho("\n&lt;goldenrod&gt;Limb:")
 cecho("\n &lt;green&gt;ms &lt;white&gt;                - Straight limb breaks into jawlocks.")
 cecho("\n &lt;green&gt;insta&lt;white&gt;              - Goes for quarter kills. Check AB QUARTER for more information.")
 cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Utilizes slash to delay limb breaks, good for pushing level 2 breaks.")
+cecho("\n &lt;green&gt;quart&lt;white&gt;              - Better version of insta, use this.")
 elseif snd.class == "Infiltrator" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;ms &lt;white&gt;                - Basic dstab w/venoms. No hypnosis.")
@@ -36114,7 +36164,7 @@ cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;ms &lt;white&gt;                - Straight vinelash w/venoms.")
 cecho("\n &lt;green&gt;storm&lt;white&gt;              - Works toward stormtouched, then goes for lightning damage.")
 cecho("\n &lt;green&gt;supp&lt;white&gt;               - Aff-lock support.")
-elseif snd.class == "Sentinel" then
+elseif snd.class == "Sentinel" or snd.class == "Executor" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;salve&lt;white&gt;              - Works towards frozen w/limb breaks. Need raloth/icewyrm.")
 cecho("\n &lt;green&gt;aff&lt;white&gt;                - Venom lock into spinecut death sequence.")
@@ -36126,6 +36176,7 @@ cecho("\n &lt;green&gt;git&lt;white&gt;                - Damage kill with aff st
 cecho("\n &lt;green&gt;mana&lt;white&gt;               - Straight mana sap.")
 cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Smite + chasten.")
 cecho("\n &lt;green&gt;ms&lt;white&gt;                 - Sight into tfix/overwhelm.")
+cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Limb support route")
 elseif snd.class == "Ascendril" or snd.class == "Bloodborn" then
 cecho("\n&lt;goldenrod&gt;Damage:")
 cecho("\n &lt;green&gt;damage&lt;white&gt;             - Damage kill.")
@@ -36138,7 +36189,7 @@ cecho("\n&lt;goldenrod&gt;Damage:")
 cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Damage kill.")
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;fire&lt;white&gt;               - Focus on ablaze for Zealot support I guess? idk")
-elseif snd.class == "Archivist" then
+elseif snd.class == "Archivist" or snd.class =="Voidseer" then
 cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
 cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build mental affs and go for unravel")
@@ -36167,10 +36218,10 @@ cecho("\n&lt;goldenrod&gt;Afflictions:")
 cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
 cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
 cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Overall limb route via grip and erupt, adds in transfix/chill")
-cecho("\n &lt;green&gt;gdmg &lt;white&gt;               - Damage kill with singularity/morass involved")
-cecho("\n &lt;green&gt;gaff&lt;white&gt;                - Build affs with singularity/morass involved!")
-cecho("\n &lt;green&gt;sing1&lt;white&gt;                - Make your singularity/morass")
-cecho("\n &lt;green&gt;gc&lt;white&gt;                   - Shoot your cannon/mortify at your target nearby")
+cecho("\n &lt;green&gt;gdmg &lt;white&gt;              - Damage kill with singularity/morass involved")
+cecho("\n &lt;green&gt;gaff&lt;white&gt;               - Build affs with singularity/morass involved!")
+cecho("\n &lt;green&gt;sing1&lt;white&gt;              - Make your singularity/morass")
+cecho("\n &lt;green&gt;gc&lt;white&gt;                 - Shoot your cannon/mortify at your target nearby")
 end
 
 cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
@@ -57190,6 +57241,17 @@ function snd.have_aff(affliction)
     return false
   end
 end
+
+function snd.have_def(defense)
+  if not string.find(defense, "def_") then
+    defense = "def_" .. defense
+  end
+  if not snd.defenses[defense] then
+    return false
+  end
+  return snd.defenses[defense].state == "deffed"
+end
+
 
 function snd.aff_tally()
   count = 0
