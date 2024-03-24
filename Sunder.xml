@@ -9399,6 +9399,9 @@ end</script>
 						<script>if matches[2]:lower() == snd.target:lower() and matches[3]:find("vial") then
   snd.vital_change("health", 25)
   snd.vital_change("mana", 25)
+  if snd.checkAff("whiplash") then
+    snd.took_limb_dmg("head", 6.49)
+  end
   snd.lev_gone = false
   if snd.checkAff("no_speed") then -- Assume they sip speed over sipping health, remove speed after the lowest delay (averages between: 4.5-5 seconds)
     tempTimer(4.5, [[snd.target_cured("no_speed")]])
@@ -62667,6 +62670,7 @@ snd.areas = {
 {area = "the sands of the Grazzin Arena", level = "endurance", targets = {"a hunched Aslinn scout", "an asperous Aslinn woman", "an ivory-masked Aslinn nomad",}},
 {area = "the Bonro Sands", level = "99+", targets = {"Match:a sun%-scorched %a+ haatun", "a Bonro spitting cobra", "a black-tailed viper","a Bonro spitting cobra","a scarlet kestrel", "a red-brown burrowing owl","a lappet-faced vulture", "a horned viper", "an ostrich with wispy two-tone feathers", "a sun-spotted harrier", "an immense desert condor", "a crested haoroo", "a sun-scorched burnt umber haatun", "a crowned grouse"}},
 {area = "Huanazedha", level = "LANU DU", targets = {"a Nazetu eusuchian", "a Nazetu sage of tribe Urrop", "a lean Nazetu Child", "Rax, the Ophidian drug dealer", "Lugra Roosi, sage of Huanazedha", "a Goblin mercenary", "a sickly Nazetu addict", "a shady lurker", "Dudly, a Goblin mercenary", "Jacek, the proprietor", "a Mhun liquor merchant", "a drunk man of indeterminate race", "a Nazetu knife merchant", "a dazed Orc addict", "a bruised Goblin addict", "a sickly Orc addict", "a drunken human man",}},
+{area = "the Aqueducts of Spinesreach", level = "idk", targets = {"a massive rockworm", "a ravenous, infected cricket", "an enormous, mutated cricket"}},
 }
 
 sunder_areaPaths = {
