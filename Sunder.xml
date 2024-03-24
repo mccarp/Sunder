@@ -24864,8 +24864,10 @@ end</script>
 									<string>^A beat of .+ mighty wings brings forth a cirrus of superheated light, plasmatic winds inspired by the sun itself gusting across and over (\w+) and searing \w+ with (\w+)\.$</string>
 									<string>^\w+ sweeps? a cowl of darkness across \w+ shoulders, gathering the force of night about \w+ before lashing outward toward (\w+) in a chiaroscuro coil of stygian shadow and starry scintillation, tainting \w+ with (\w+).$</string>
 									<string>^Volatile black energy wreathes .+ fingertips as \w+ thrusts? them into (\w+), imparting (\w+) within \w+\.$</string>
+									<string>^Drawing tendrils of raw power from \w+ very body, \w+ weaves? the four elements into an atrophic vortex and turns it loose upon (\w+), observing impassively as the forces assail \w+ with (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -24896,6 +24898,28 @@ disableTrigger("Seraph Flagellate")</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Generic afflict line</name>
+								<script>if matches[2]==snd.target then
+  snd.target_got(matches[3])
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You have afflicted (\w+) with (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -47389,70 +47413,128 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Basic Limbs</name>
-								<script>if snd.class == "Tidesage" then -- Note that this is intended for groups, not 1v1
+								<script>local attack_map = {
+  ["left arm"] = "crack",
+	["left leg"] = "crack",
+	head = "crest",
+	torso = "ram",
+	["right arm"] = "crack",
+	["right leg"] = "crack",
+}
+
+if snd.class == "Tidesage" then -- Note that this is intended for groups, not 1v1
   snd.starting_attack()
   
   function snd.attack_function()
-    local apparition = tonumber(gmcp.Char.Vitals.apparition)
+    local sandstorm = tonumber(gmcp.Char.Vitals.apparition)
     local string = ""
-    local hammer = "none"
-	  local how_many_moderate = 0
-    for k,v in pairs(snd.limb_bruising) do
-      if v &gt;= 2 then
-        how_many_moderate = how_many_moderate + 1
-      end
-    end
     
     if not snd.waiting.queue then
-    
+      local hammercount = 0
+      for limb, bruising in pairs(snd.limb_bruising) do
+        if bruising&gt;1 then 
+          hammercount = hammercount+1
+        end
+      end
       -- If target is impaled, let's do some damage.
- 		  if snd.target_impaled and hasSkill("Eviscerate") then
+ 		  if snd.target_impaled then
         string = "tide eviscerate"
       -- If there is no fog, let's get it going.
-      elseif not table.isMember(gmcp.Room.Info.details, "fogged") then
+      elseif not snd.used.shield and hammercount&gt;2 then
+        string = "tide keelhaul "..snd.target
+      elseif not table.contains(gmcp.Room.Info.details, "fogged") then
         string = "fog inundate"
-      -- If you don't have apparition up, let's do it.
-      elseif apparition == 0 and hasSkill("Apparition") then
+      -- If you don't have sandstorm up, let's do it.
+      elseif sandstorm == 0 then
         string = "fog apparition"
       -- Are they tumbling? Let's impale them if they haven't been yet.
       elseif not snd.target_impaled and snd.theytumbling then
          string = string.."tide harpoon "..snd.target
-      elseif how_many_moderate &gt;= 3 and not snd.used.shield then
-         string = string.."tide keelhaul "..snd.target
-      -- They shielded and rebounded? Try to remove both. But if they only have one, strip it and then strip levitation. 
-      elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Abyss") then
-        if apparition &gt;= 3 and hasSkill("Apparition") then
-          if snd.used.shield and snd.used.rebounding then
-            string = "fog abyss "..snd.target.." apparition"..snd.sep.."fog abyss "..snd.target
-          elseif snd.used.shield or snd.used.rebounding then
-            string = "fog abyss "..snd.target.." apparition"..snd.sep.."tide breach " .. snd.target            
-          end
+      else
+        local shield = snd.used.shield
+        local rebounding = snd.used.rebounding      
+        local sand = ""
+        local quicksand = snd.checkAff("quicksand")
+        local attack = ""
+      
+      --Sand decisions
+      if shield and rebounding then
+        if sandstorm&gt;4 then
+          shield = false
+          rebounding = false
+          sand = "fog abyss "..snd.target.." apparition"..snd.sep.."fog abyss "..snd.target.." apparition"..snd.sep
+        elseif sandstorm&gt;2 then
+          rebounding = false
+          sand = "fog abyss "..snd.target.." apparition"..snd.sep
+        end
+      elseif shield or rebounding then
+        if sandstorm&gt;2 then
+          shield = false
+          rebounding = false
+          sand = "fog abyss "..snd.target.." apparition"..snd.sep
+        end
+      elseif sandstorm&gt;4 then
+        if snd.proned() and not quicksand then
+          sand = "fog undertow "..snd.target.." apparition"..snd.sep
+          quicksand = true
+        elseif not snd.checksomeAffs({"left_leg_crippled","right_leg_crippled","left_arm_crippled","right_arm_crippled"},4) then
+          sand = "fog unseen "..snd.target.." apparition"..snd.sep
+        end
+      end
+      --end sand decisions
+      local shockwaveLimbs = 0
+      for _, limb in pairs({"left leg", "right leg", "left arm", "right arm"}) do
+        if (snd.limb_bruising[limb]&gt;0 or quicksand or snd.lev_gone) and not snd.checkAff(limb:gsub(" ","_").."_crippled") then
+          shockwaveLimbs = shockwaveLimbs+1
+        end
+      end
+      
+      local fractureBreakable = {}
+      local bruiseBreakable = {}
+      local furorBreakable = {}
+      local bruiseLimb = "none"
+      
+      local function canBreak(limb, ability)
+        local dmg = snd.calcTeradrimLimbDamage(ability, true, limb)
+        return snd.limb_dmg[limb]&lt;33.33 and snd.limb_dmg[limb] + dmg &gt;33.33
+      end
+      local limbLimbs = {["left leg"] = true, ["right leg"] = true, ["left arm"] = true, ["right arm"] = true}
+      for _, limb in ipairs({"left leg", "right leg", "left arm", "right arm", "torso", "head"}) do
+        if limb~= snd.resto_limb and (snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb)) then
+           if limbLimbs[limb] and canBreak(limb, "fracture") then
+              table.insert(fractureBreakable, limb)
+           end
+           if limbLimbs[limb] and canBreak(limb, "furor") then
+              table.insert(furorBreakable, limb)
+           end
+           if canBreak(limb, attack_map[limb]) then
+            table.insert(bruiseBreakable, limb)
+           end
+           if bruiseLimb == "none" and snd.limb_bruising[limb]&lt;2 then
+              bruiseLimb = limb
+           end
+        end
+      end
+        if shield then
+          attack = "tide riptide "..snd.target
+        elseif hammercount&gt;2 then
+          attack = "tide keelhaul "..snd.target
+        elseif (shockwaveLimbs&gt;1 and not snd.checkAff("fallen")) or shockwaveLimbs&gt;2 then --shockwave spam because it's gr8 don't @ me
+          attack = "tide capsize "..snd.target
+        elseif snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+          attack = "tide breach "..snd.target
+        elseif rebounding then
+          attack = "tide riptide "..snd.target
+        elseif #furorBreakable&gt;1 then
+          attack = "tide pitch "..snd.target.." "..furorBreakable[1].." "..furorBreakable[2]
+        elseif #bruiseBreakable&gt;0 then
+          attack = "tide "..attack_map[bruiseBreakable[1]].." "..snd.target.." "..bruiseBreakable[1]
+        elseif #fractureBreakable&gt;0 then
+          attack = "tide buckle "..snd.target.." "..fractureBreakable[1]
         else
-          string = "fog abyss " .. snd.target
+          attack = "tide "..attack_map[bruiseLimb].." "..snd.target.." "..bruiseLimb
         end
-      -- We want levitation gone for more damage. Let's try undertow to make it so they can't put it up fast if it's not gone yet.
-      -- If we can't undertow, roll with breach.
-      elseif not snd.lev_gone then
-        if hasSkill("Undertow") and snd.proned() then
-          string = string.."fog undertow "..snd.target
-        elseif hasSkill("Breach") then
-         string = string.."tide breach "..snd.target
-        end
-      -- If they are not prone and no levitation, capsize them. This'll break 3 limbs regardless of bruises.
-      elseif (not snd.proned() and snd.lev_gone) and hasSkill("Capsize") then
-         string = string.."tide capsize "..snd.target     
-      -- Let's try to give them slough, that way it's harder to heal limbs. Also, clobber if you can apparition it.
-    	elseif (not snd.checkAff("slough") and hasSkill("Terrors")) then
-        if apparition &gt;= 3 and hasSkill("Apparition") then
-          string = string.."fog terrors "..snd.target.." apparition"..snd.sep.."tide clobber "..snd.target
-        else
-          string = string.."fog terrors "..snd.target
-        end
-      -- Straight try to break all four limbs to help support limbs in the group.
-      elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Unseen") then
-        string = string.."fog unseen " .. snd.target
-      else 
-        string = "tide clobber "..snd.target
+        string = sand..attack
   	  end
   
       -- If your synth isn't attacking, get it attacking.
@@ -47460,13 +47542,11 @@ end</script>
         string = "order loyals kill "..snd.target..snd.sep..string
       end
     
-      -- If we can engulf, let's do it.
-      if snd.balance.earthenwill and hasSkill("Engulf") then
+      if snd.balance.earthenwill then
         string = "tide engulf"..snd.sep..string
       end
-      
-      -- If we can hightide, let's do that as well.
-      if snd.balance.momentum and hasSkill("Hightide") then
+  
+      if snd.balance.momentum then
         string = "tide hightide"..snd.sep..string
       end
 		
@@ -53236,7 +53316,16 @@ end</script>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
 								<name>Basic Group Limbs</name>
-								<script>if snd.class == "Teradrim" then -- Note that this is intended for groups, not 1v1
+								<script>local attack_map = {
+  ["left arm"] = "slam",
+	["left leg"] = "slam",
+	head = "facesmash",
+	torso = "gutsmash",
+	["right arm"] = "slam",
+	["right leg"] = "slam",
+}
+
+if snd.class == "Teradrim" then -- Note that this is intended for groups, not 1v1
   snd.starting_attack()
   
   function snd.attack_function()
@@ -53244,11 +53333,18 @@ end</script>
     local string = ""
     
     if not snd.waiting.queue then
-    
+      local hammercount = 0
+      for limb, bruising in pairs(snd.limb_bruising) do
+        if bruising&gt;1 then 
+          hammercount = hammercount+1
+        end
+      end
       -- If target is impaled, let's do some damage.
  		  if snd.target_impaled and hasSkill("Stonevice") then
         string = "earth stonevice"
       -- If there is no fog, let's get it going.
+      elseif not snd.used.shield and hammercount&gt;2 then
+        string = "earth hammer "..snd.target
       elseif not table.contains(gmcp.Room.Info.details, "sandy") then
         string = "sand flood"
       -- If you don't have sandstorm up, let's do it.
@@ -53258,39 +53354,91 @@ end</script>
       elseif not snd.target_impaled and snd.theytumbling then
          string = string.."earth impale "..snd.target
       -- They shielded and rebounded? Try to remove both. But if they only have one, strip it and then strip levitation. 
-      elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Slice") then
-        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
-          if snd.used.shield and snd.used.rebounding then
-            string = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target
-          elseif snd.used.shield or snd.used.rebounding then
-            string = "sand slice "..snd.target.." storm"..snd.sep.."earth overhand " .. snd.target            
-          end
+      else
+        local shield = snd.used.shield
+        local rebounding = snd.used.rebounding      
+        local sand = ""
+        local quicksand = snd.checkAff("quicksand")
+        local attack = ""
+      
+      --Sand decisions
+      if shield and rebounding then
+        if sandstorm&gt;4 then
+          shield = false
+          rebounding = false
+          sand = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target.." storm"..snd.sep
+        elseif sandstorm&gt;2 then
+          rebounding = false
+          sand = "sand slice "..snd.target.." storm"..snd.sep
+        end
+      elseif shield or rebounding then
+        if sandstorm&gt;2 then
+          shield = false
+          rebounding = false
+          sand = "sand slice "..snd.target.." storm"..snd.sep
+        end
+      elseif sandstorm&gt;4 then
+        if snd.proned() and not quicksand then
+          sand = "sand quicksand "..snd.target.." storm"..snd.sep
+          quicksand = true
+        elseif not snd.checksomeAffs({"left_leg_crippled","right_leg_crippled","left_arm_crippled","right_arm_crippled"},4) then
+          sand = "sand scourge "..snd.target.." storm"..snd.sep
+        end
+      end
+      --end sand decisions
+      local shockwaveLimbs = 0
+      for _, limb in pairs({"left leg", "right leg", "left arm", "right arm"}) do
+        if (snd.limb_bruising[limb]&gt;0 or quicksand or snd.lev_gone) and not snd.checkAff(limb:gsub(" ","_").."_crippled") then
+          shockwaveLimbs = shockwaveLimbs+1
+        end
+      end
+      
+      local fractureBreakable = {}
+      local bruiseBreakable = {}
+      local furorBreakable = {}
+      local bruiseLimb = "none"
+      
+      local function canBreak(limb, ability)
+        local dmg = snd.calcTeradrimLimbDamage(ability, true, limb)
+        return snd.limb_dmg[limb]&lt;33.33 and snd.limb_dmg[limb] + dmg &gt;33.33
+      end
+      local limbLimbs = {["left leg"] = true, ["right leg"] = true, ["left arm"] = true, ["right arm"] = true}
+      for _, limb in ipairs({"left leg", "right leg", "left arm", "right arm", "torso", "head"}) do
+        if limb~= snd.resto_limb and (snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb)) then
+           if limbLimbs[limb] and canBreak(limb, "fracture") then
+              table.insert(fractureBreakable, limb)
+           end
+           if limbLimbs[limb] and canBreak(limb, "furor") then
+              table.insert(furorBreakable, limb)
+           end
+           if canBreak(limb, attack_map[limb]) then
+            table.insert(bruiseBreakable, limb)
+           end
+           if bruiseLimb == "none" and snd.limb_bruising[limb]&lt;2 then
+              bruiseLimb = limb
+           end
+        end
+      end
+        if shield then
+          attack = "earth stoneblast "..snd.target
+        elseif hammercount&gt;2 then
+          attack = "earth hammer "..snd.target
+        elseif (shockwaveLimbs&gt;1 and not snd.checkAff("fallen")) or shockwaveLimbs&gt;2 then
+          attack = "earth shockwave "..snd.target
+        elseif snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+          attack = "earth overhand "..snd.target
+        elseif rebounding then
+          attack = "earth stoneblast "..snd.target
+        elseif #furorBreakable&gt;1 then
+          attack = "earth furor "..snd.target.." "..furorBreakable[1].." "..furorBreakable[2]
+        elseif #bruiseBreakable&gt;0 then
+          attack = "earth "..attack_map[bruiseBreakable[1]].." "..snd.target.." "..bruiseBreakable[1]
+        elseif #fractureBreakable&gt;0 then
+          attack = "earth fracture "..snd.target.." "..fractureBreakable[1]
         else
-          string = "sand slice " .. snd.target
+          attack = "earth "..attack_map[bruiseLimb].." "..snd.target.." "..bruiseLimb
         end
-      -- We want levitation gone for more damage. Let's try quicksand to make it so they can't put it up fast if it's not gone yet.
-      -- If we can't quicksand, roll with overhand.
-      elseif not snd.lev_gone then
-        if hasSkill("Quicksand") and snd.proned() then
-          string = string.."sand quicksand "..snd.target
-        elseif hasSkill("Overhand") then
-         string = string.."earth overhand "..snd.target
-        end
-      -- If they are not prone and no levitation, capsize them. This'll break 3 limbs regardless of bruises.
-      elseif (not snd.proned() and snd.lev_gone) and hasSkill("Shockwave") then
-         string = string.."earth shockwave "..snd.target      
-    	-- Let's try to give them slough, that way it's harder to heal limbs. Also, batter if you can storm it.
-    	elseif (not snd.checkAff("slough") and hasSkill("Curse")) then
-        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
-          string = string.."sand curse "..snd.target.." storm"..snd.sep.."earth batter "..snd.target
-        else
-          string = string.."sand curse "..snd.target
-        end
-      -- Straight try to break all four limbs to help support limbs in the group.
-      elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Scourge") then
-        string = string.."sand scourge " .. snd.target
-      else 
-        string = "earth batter "..snd.target
+        string = sand..attack
   	  end
   
       -- If your synth isn't attacking, get it attacking.
@@ -84965,14 +85113,15 @@ local attackDamage = {
   barrage2 = 3.5,
   barrage3 = 3.06
 }
-
-function snd.calcTeradrimLimbDamage(skill)
+--you and limb are used for crunching theoretical damage.
+--you should be true if you're the one hitting, limb should be the limb if you're calculating fracture
+function snd.calcTeradrimLimbDamage(skill, you, limb)  
   local attack = mirrors[skill] or skill
   local damage = attackDamage[attack]
   if attack == "fracture" then
-    damage = damage + 4 * math.min(3, snd.limb_bruising[snd.last_hit_limb])
+    damage = damage + 4 * math.min(3, snd.limb_bruising[(limb or snd.last_hit_limb)])
   end
-  if snd.hitting == "You" then
+  if snd.hitting == "You" or you then
     if snd.toggles.targetrune then
       damage = damage *1.05
     end
