@@ -5227,12 +5227,8 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<string>You may once again strengthen your will.</string>
 								<string>You have already solidified your will with that of your golem.</string>
 								<string>You may once again work in tandem with your elemental.</string>
-								<string>You may once again strengthen your will.</string>
-								<string>You have already solidified your will with that of your golem.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>3</integer>
-								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
@@ -5252,18 +5248,12 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(.*) roars as the attack launches it into a temporary frenzy.$</string>
-								<string>You lock eyes with your golem, binding your wills together in preparation for a brutal strike.</string>
-								<string>You convey an instruction to your elemental, ensuring its focus on act.</string>
-								<string>You have gained the imbue_will defence.</string>
-								<string>You have gained the elemental_engulf defence.</string>
 								<string>Your imbue_will defence has been stripped.</string>
 								<string>Your elemental_engulf defence has been stripped.</string>
+								<string>You are still recovering from the last time you solidified your will with that of your golem.</string>
+								<string>You cannot coordinate with your elemental again so soon.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
-								<integer>3</integer>
-								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
