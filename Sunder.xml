@@ -1089,7 +1089,7 @@ send("firstaid on")
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Endgame skills add for defup purposes</name>
 									<script>snd.skills.raceskills = {}
 enableTrigger("Which endgame skills you got?")</script>
@@ -1152,7 +1152,7 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Turn off Endgame skills check</name>
 									<script>disableTrigger("Which endgame skills you got?")</script>
 									<triggerType>0</triggerType>
@@ -1173,6 +1173,72 @@ end</script>
 										<integer>3</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Raceskill capture</name>
+									<script>snd.skills.raceskills = {}
+local heritageSkills = snd.defaultRaceskills[gmcp.Char.Status.heritage]
+if heritageSkills then
+  for _, skill in pairs(heritageSkills) do
+    table.insert(snd.skills.raceskills, skill)
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>20</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You have activated the following racial abilities:</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+									</regexCodePropertyList>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Grab a skill</name>
+										<script>table.insert(snd.skills.raceskills, matches[2])</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Racial Ability #\d+: (.+)$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Close capture</name>
+										<script>setTriggerStayOpen("Raceskill capture", 0)</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string></string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>7</integer>
+										</regexCodePropertyList>
+									</Trigger>
 								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -56022,7 +56088,7 @@ fish = fish or {}</script>
   local x, y = string.match(gmcp.Char.Status.level, "(.*) (.*)")
   local level = tonumber(x)
   if level &gt;= 99 then
-    tempTimer(5, [[send("raceskill list", false)]])
+    tempTimer(5, [[send("raceskill active", false)]])
   end
                 
   --tempTimer(10, [[if not sndNDB.highlightNames then expandAlias("sndb hl") end]])
@@ -58017,6 +58083,36 @@ function snd.illusionChecks.abilityGate()
   local color2 = table.concat({getFgColor()}, "")
   return color1 ~= color2
 end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Default raceskills</name>
+						<packageName></packageName>
+						<script>snd.defaultRaceskills = {
+  Arborean = {"Photosynth", "Hardy", "Enroot"},
+  Arqeshi = {"Trawling", "Willful", "Ice Breathing"},
+  Atavian = {"Deep Sleeper", "Hover", "Flight"},
+  Djeirani = {"Meditator", "Antivenin", "Subversion"},
+  Dwarf = {"Alcohol Consumer",  "Tremor Sense", "Goldluck"},
+  Grecht = {"Deep Sleeper", "Bodyheat", "Flight"},
+  Gnome = {"Small Size", "Willful", "Arcanist"},
+  Grook = {"Aquatic", "Scholar", "Arcanist"},
+  Harpy = {"Nesting", "Shrieking", "Flight"},
+  Human = {"Deep Sleeper", "Blood Reserves", "Moderate"},
+  Horkval = {"Clicking", "Hardy", "Leap"},
+  Imp = {"Hover", "Heatsight", "Mischief"},
+  Kelki = {"Aquatic", "Scavenge", "Waterborn"},
+  Kobold = {"Hoarder", "Scavenge", "Tinkering"},
+  Minotaur = {"Irongrip", "Intimidation", "Headbash"},
+  Mhun = {"Digging", "Tremor Sense", "Might"},
+  Nazetu = {"Trawling", "Enduring", "Slime Spit"},
+  Ogre = {"Brawler", "Sturdiness", "Overcome"},
+  Orc = {"Cunning", "Enduring", "Might"},
+  Rajamala = {"Fur Coat", "Grooming", "Scent"},
+  Troll = {"Large Size", "Intimidation", "Hemostatic"},
+  ["Tsol'aa"] = {"Meditator", "Foraging", "Lucidity"},
+  Xoran = {"Cold Blooded", "Scales", "Fire Breathing"},
+}</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
