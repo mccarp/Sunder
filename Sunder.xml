@@ -1214,8 +1214,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^Racial Ability #\d+: (.+)$</string>
+											<string>^Racial Regeneration: (.+)$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -5155,6 +5157,26 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You may rage once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>need grippygrip</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand>grip</mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your grip isn't sufficient enough to do that.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
@@ -23932,6 +23954,28 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Insomnia</name>
+							<script>if matches[2] == snd.target then
+  snd.target_cured("no_insomnia")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) clenches \w+ fists and grits \w+ teeth\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists/Undos</name>
@@ -24607,6 +24651,7 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>asleep</name>
 						<script>if matches[2] == snd.target then
+  snd.target_got("no insomnia")
   snd.target_got("asleep")
   snd.target_got("fallen")
 end</script>
@@ -78234,6 +78279,8 @@ haemophilia = "hepafarin",
 peace = "ouabain",
 deadening = "vardrax",
 
+sleep = "delphinium", --note this is not the asleep aff, is going to be a meta aff
+
 stupidity = "aconite", 
 weariness = "vernalius", 
 recklessness = "eurypteria", 
@@ -78385,6 +78432,14 @@ amaurosis = {
 
 ototoxin = {
 "hearing",
+},
+
+kawhe = {
+"no_insomnia",
+},
+
+stimulant = {
+"no_instawake",
 },
 
 panacea = {
@@ -78751,6 +78806,11 @@ function snd.target_got(affliction)
     elseif not snd.checkAff("ice_encased") and snd.checkAff("frostbrand") then affliction = "ice_encased"
     else return
     end
+  end
+  if affliction == "sleep" then
+    if snd.checkAff("asleep") and not snd.checkAff("no_instawake") then affliction = "no_instawake"
+    elseif not snd.checkAff("no_insomnia") then affliction = "no_insomnia"
+    else return end
   end
   
   if affliction == "a_crippled_leg" and snd.checkAff("a_crippled_leg") then
@@ -83324,7 +83384,9 @@ end</script>
                snd.target_got("armor_tattoo")
                tempTimer(10, function() snd.target_cured("armor_tattoo") end)
              end,
-  
+    Hourglass = function(target)
+               snd.target_got("sleep")
+             end,
   },
   
   ["Research"] = {
