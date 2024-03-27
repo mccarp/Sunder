@@ -58588,6 +58588,8 @@ snd.priorities =
     "def_stalking",
     "def_entwine",
     "def_devilpact",
+    "def_currents",
+    "def_footfeel",
     "def_ricochet",
     "def_twinsoul",
     "def_earth_resonance",
@@ -60284,7 +60286,7 @@ def_projection  = {defense = "projection", type = "normal", effect = "Remotely c
 def_sand_conceal  = {defense = "sand_conceal", type = "normal", effect = "Become concealed by your sand", balance = {balanceequilibriumtake = "sand conceal on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Concealment" },
 def_disturbances  = {defense = "disturbances", type = "normal", effect = "Your sand informs you of who moves in and out", balance = {balanceequilibriumtake = "sand disturbances on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Disturbances"},
 def_momentum = {defense = "momentum", type = "normal", effect = "Strike faster", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Momentum" },
-
+def_footfeel = {defense = "footfeel", type = "normal", effect = "Sense if someone enters into the ground", balance = {balanceequilibrium = "earth footfeel"}, state = "down", needit = false, timer = createStopWatch(), skill = "Footfeel" },
 
 --Tidesage
 def_permafrost = {defense = "permafrost", type = "SeaGreen", effect = "Embrace the gales of the distant oceans", balance = {balanceequilibriumtake = "tide permafrost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Permafrost" },
@@ -60301,6 +60303,8 @@ def_panoptic  = {defense = "panoptic", type = "SeaGreen", effect = "Remotely con
 def_fog_obscure  = {defense = "fog_obscure", type = "SeaGreen", effect = "Become obscured in a thick fog", balance = {balanceequilibriumtake = "fog obscureon"}, state = "down", needit = false, timer = createStopWatch(), skill = "Obscure" },
 def_fluctuations  = {defense = "fluctuations", type = "SeaGreen", effect = "Your fog informs you of who moves in and out", balance = {balanceequilibriumtake = "fog fluctuations on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fluctuations" },
 def_hightide = {defense = "hightide", type = "SeaGreen", effect = "Strike faster during high tide", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Hightide" },
+def_currents = {defense = "currents", type = "normal", effect = "Sense if someone enters into the ground", balance = {balanceequilibrium = "tide currents"}, state = "down", needit = false, timer = createStopWatch(), skill = "Currents" },
+
 
 -- Warden
 def_battleflow = {defense = "battleflow", type = "normal", effect = "Can attack with 1 broken arm.", balance = {needybalancetake = "warden battleflow on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battleflow"},
@@ -60760,6 +60764,9 @@ end</script>
   ["You have imbued the fury of the Earthen into your flail."] = "imbue_stonefury",
 --  ["You are channeling the will of the Earthen."] = "imbue_will",
   ["You are focusing your energy into sweltering your sands."] = "sand_swelter",
+  ["You can feel the earth parting through your feet."] = "footfeel",
+  ["You are in tune with the water currents below."] = "currents",
+  
   ["Gnashing your tongue, your mouth salivates with fluid."] = "salivate",
   ["Your coat of fur has been thickened."] = "thickfur",
   ["You are bracing from attacks."] = "bracing",
@@ -77779,6 +77786,7 @@ def_twinsoul = "on",
 def_earth_resonance = "on",
 def_stonebind = "on",
 def_imbue_stonefury = "once",
+def_footfeel = "on",
 --def_sand_swelter = "once",
 },
 
@@ -77790,6 +77798,7 @@ def_lifebond  = "on",
 def_shore_leave  = "on",
 def_encrusted  = "on",
 def_expose_rime  = "once",
+def_currents = "on",
 --def_sirensong  = "once",
 },
 
