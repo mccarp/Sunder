@@ -47570,11 +47570,11 @@ if snd.class == "Zealot" then
 
   function snd.attack_function()
     local giving_chain = {
-      "stuttering",
       "whiplash",
       "backstrain",
       "sore_wrist",
-      "sore_ankle", 
+      "sore_ankle",
+      "stuttering",
     }
     local chain = "whipburst"
     for _, aff in ipairs(giving_chain) do
@@ -52360,11 +52360,11 @@ if snd.class == "Ravager" then
 
   function snd.attack_function()
     local giving_chain = {
-      "stuttering",
       "whiplash",
       "backstrain",
       "sore_wrist",
       "sore_ankle", 
+      "stuttering",
     }
     local chain = "tenderise"
     
