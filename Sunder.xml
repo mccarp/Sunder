@@ -40554,6 +40554,187 @@ end</script>
 							<regex>^supp$</regex>
 						</Alias>
 					</AliasGroup>
+					<AliasGroup isActive="yes" isFolder="yes">
+						<name>Predator</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<Alias isActive="yes" isFolder="no">
+							<name>Limbs</name>
+							<script>if snd.class == "Predator" then
+  -- Note that this is intended for groups, not 1v1
+  snd.starting_attack()
+
+  function snd.attack_function()
+    snd.giving =
+      {
+        "left_leg_crippled",
+        "right_leg_crippled",
+        "left_arm_crippled",
+        "right_arm_crippled",
+        "anorexia",
+        "stupidity",
+        "asthma",
+        "slickness",
+        "paresis",
+        "sensitivity",
+        "voyria",
+      }
+    local aff = "paresis" --default aff in case none is found
+    
+    for _, affl in ipairs(snd.giving) do
+      if not snd.checkAff(affl) then
+        aff = affl
+        break
+      end
+    end
+    
+    aff = snd.effects[aff]
+    local hitLimb
+    local breakLimb
+    for _, limb in ipairs({"left leg", "right leg", "torso", "left arm", "right arm", "head"}) do
+        if limb~= snd.resto_limb and (snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb)) then
+          hitLimb = hitLimb or limb
+          if snd.limb_dmg[limb]&gt;13.33 and snd.limb_dmg[limb]&lt;33.33 then
+            breakLimb = breakLimb or limb
+          end
+        end
+    end
+  
+    local string = ""
+    local call
+    if gmcp.Char.Vitals.knife_stance and gmcp.Char.Vitals.knife_stance~="Vae-Sant" then
+      string = "changestance vae-sant"    
+    elseif snd.used.rebounding and snd.used.shield then
+      string = "series raze raze flashkick flashkick " .. snd.target
+    elseif snd.used.shield or snd.used.rebounding then
+      string = "series raze vertical spinslash bleed "..snd.target.." "..aff
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    elseif snd.calc.crescentcutMultiplier()&gt;2 then
+      string = "series crescentcut vertical crescentcut crescentcut "..snd.target.." "..aff
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    elseif snd.theytumbling then
+      string = "series pindown vertical crescentcut crescentcut "..snd.target.." "..aff
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    else
+      
+      local limbhit, followup
+      
+      if snd.checkAff("torso_broken") and (snd.no_parry() or snd.parried_limb~="torso") then
+        limbhit = "orgyuk mawcrush "..snd.target
+      elseif breakLimb then
+        limbhit = "orgyuk pummel "..snd.target.." "..breakLimb
+      else
+        limbhit = "orgyuk pummel "..snd.target.." "..hitLimb
+      end
+      
+      if not snd.checkAff("fleshbane") then
+        followup = "fleshbane "..snd.target.." "..aff
+      else
+        followup = "bloodscourge "..snd.target.." "..aff
+      end
+      
+      string = limbhit..snd.sep..followup
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    end
+    if snd.toggles.affcalling and not snd.target_gone and call then
+			string = call..snd.sep..string
+		end
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^limbs$</regex>
+						</Alias>
+						<Alias isActive="yes" isFolder="no">
+							<name>Gaff</name>
+							<script>if snd.class == "Predator" then
+  -- Note that this is intended for groups, not 1v1
+  snd.starting_attack()
+
+  function snd.attack_function()
+    snd.giving =
+      {
+      "paresis",
+      "clumsiness",
+      "asthma",
+      "slickness",
+      "anorexia",
+      "stupidity",
+      "left_leg_crippled",
+      "right_leg_crippled",
+      "left_arm_crippled",
+      "right_arm_crippled",
+      "sensitivity",
+      "vomiting",
+      "allergies",
+      "haemophilia",
+      }
+      
+    local touse = {}
+    for _, aff in ipairs(snd.giving) do
+      if not snd.checkAff(aff) then
+        table.insert(touse, snd.effects[aff])
+      end
+    end
+    
+    --make sure there's at least 2 affs in here
+    table.insert(touse, "voyria")
+    table.insert(touse, "curare")
+    
+    if snd.aff_count_venom()&gt;8 then
+      table.insert(touse, 2, "cirisosis")
+    end
+  
+    local string = ""
+    local call
+    
+    if gmcp.Char.Vitals.knife_stance and gmcp.Char.Vitals.knife_stance~="Vae-Sant" then
+      string = "changestance vae-sant"    
+    elseif snd.used.rebounding and snd.used.shield then
+      string = "series raze raze flashkick flashkick " .. snd.target
+    elseif snd.used.rebounding or snd.used.shield then
+      string = "series raze vertical pinprick "..snd.target.." "..touse[1]
+      call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+    elseif snd.calc.crescentcutMultiplier()&gt;2 then
+      string = "series crescentcut vertical crescentcut crescentcut "..snd.target.." "..touse[1]
+      call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+    elseif snd.theytumbling then
+      string = "series pindown vertical crescentcut crescentcut "..snd.target.." "..touse[1]
+      call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+    else
+      string = "twinshot "..snd.target.." "..touse[1].." "..touse[2]
+      call = "wt Afflicting "..snd.target..": "..touse[1]..", "..touse[2]
+    end
+    
+    if snd.toggles.affcalling and not snd.target_gone and call then
+			string = call..snd.sep..string
+		end
+    
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^gaff$</regex>
+						</Alias>
+					</AliasGroup>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Spirit</name>
@@ -54576,7 +54757,7 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>harvest rock</name>
-					<script>snd.send("qeb harvest rock")</script>
+					<script>snd.send("qeb rockharvest")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^hr$</regex>
@@ -57012,7 +57193,7 @@ end</script>
     end
     raiseEvent("sunder_room_updated")
     if snd.toggles.rockharvest then
-      snd.send("harvest rock")
+      snd.send("rockharvest")
     end
     if snd.toggles.plants then
       snd.send("plants")
