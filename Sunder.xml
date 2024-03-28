@@ -26544,9 +26544,9 @@ end</script>
     else
       aff_restoration_timer = false
       restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
-                                              snd.took_limb_dmg(snd.resto_limb, -40)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -40, true)
                                             else 
-                                              snd.took_limb_dmg(snd.resto_limb, -30)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -30, true)
                                             end
                                   ]])
     end
@@ -26560,9 +26560,9 @@ end</script>
     else
       aff_restoration_timer = false
       restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
-                                              snd.took_limb_dmg(snd.resto_limb, -40)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -40, true)
                                             else 
-                                              snd.took_limb_dmg(snd.resto_limb, -30)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -30, true)
                                             end
                                   ]])
     end
@@ -26570,14 +26570,14 @@ end</script>
   else
     aff_restoration_timer = false
       restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
-                                              snd.took_limb_dmg(snd.resto_limb, -40)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -40, true)
                                             else 
-                                              snd.took_limb_dmg(snd.resto_limb, -30)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -30, true)
                                             end
                                   ]])
   end
 
-  if aff_restoration_timer then restoration_timer = tempTimer(restoTime,[[snd.target_cured(snd.current_restoration_aff)]]) end
+  if aff_restoration_timer then restoration_timer = tempTimer(restoTime,[[snd.target_cured("]]..snd.current_restoration_aff..[[")]]) end
 
 end
 
@@ -79038,14 +79038,15 @@ function snd.get_new_target()
    if snd.targeting.skip then snd.targeting.skip = false end
 end
 
-function snd.took_limb_dmg(limb, amount)
+function snd.took_limb_dmg(limb, amount, restoration)
+
   if limb and amount then
   
     if snd.checkAff("armor_tattoo") and amount &gt; 0 then
       amount = amount/2
       snd.last_limb_dmg = amount
     end
-    if amount == -30 or amount == -40 then --resto apply
+    if restoration then --resto apply
       snd.limb_dmg[limb] = snd.limb_dmg[limb] + math.min(0, amount+2*snd.fleshbaneStacks)
       if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
       snd.fleshbaneStacks = 0
@@ -79066,7 +79067,7 @@ function snd.took_limb_dmg(limb, amount)
       cecho("&lt;red&gt; " .. limb .. ": " .. snd.limb_dmg[limb])
     end
 
-    if limb == snd.resto_limb and (amount == -30 or amount == -40) then
+    if restoration and (amount == -30 or amount == -40) then
       snd.resto_limb = "none"
       if snd.limb_dmg[limb] &lt; 33.33 then
         if snd.limb_status[limb] == "mangled" then
