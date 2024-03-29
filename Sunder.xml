@@ -1214,8 +1214,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^Racial Ability #\d+: (.+)$</string>
+											<string>^Racial Regeneration: (.+)$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -5155,6 +5157,26 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You may rage once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>need grippygrip</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand>grip</mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your grip isn't sufficient enough to do that.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
@@ -23932,6 +23954,28 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Insomnia</name>
+							<script>if matches[2] == snd.target then
+  snd.target_cured("no_insomnia")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) clenches \w+ fists and grits \w+ teeth\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists/Undos</name>
@@ -24422,8 +24466,10 @@ end</script>
 							<regexCodeList>
 								<string>^Effortlessly dismissing the assault, (\w+)'s helix of air whirls in a final defiant typhoon\.$</string>
 								<string>^The corona's searing light devours the attack on (\w+) before consuming itself in the process, dissipating amidst a plume of black smoke\.$</string>
+								<string>^The aegis of the cosmos upon (\w+) sears away the assault, deliquescing to naught\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -24607,6 +24653,7 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>asleep</name>
 						<script>if matches[2] == snd.target then
+  snd.target_got("no insomnia")
   snd.target_got("asleep")
   snd.target_got("fallen")
 end</script>
@@ -26497,9 +26544,9 @@ end</script>
     else
       aff_restoration_timer = false
       restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
-                                              snd.took_limb_dmg(snd.resto_limb, -40)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -40, true)
                                             else 
-                                              snd.took_limb_dmg(snd.resto_limb, -30)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -30, true)
                                             end
                                   ]])
     end
@@ -26513,9 +26560,9 @@ end</script>
     else
       aff_restoration_timer = false
       restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
-                                              snd.took_limb_dmg(snd.resto_limb, -40)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -40, true)
                                             else 
-                                              snd.took_limb_dmg(snd.resto_limb, -30)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -30, true)
                                             end
                                   ]])
     end
@@ -26523,14 +26570,14 @@ end</script>
   else
     aff_restoration_timer = false
       restoration_timer = tempTimer(restoTime, [[if snd.enemy_used_regenerate == true then
-                                              snd.took_limb_dmg(snd.resto_limb, -40)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -40, true)
                                             else 
-                                              snd.took_limb_dmg(snd.resto_limb, -30)
+                                              snd.took_limb_dmg("]]..snd.resto_limb..[[", -30, true)
                                             end
                                   ]])
   end
 
-  if aff_restoration_timer then restoration_timer = tempTimer(restoTime,[[snd.target_cured(snd.current_restoration_aff)]]) end
+  if aff_restoration_timer then restoration_timer = tempTimer(restoTime,[[snd.target_cured("]]..snd.current_restoration_aff..[[")]]) end
 
 end
 
@@ -40058,8 +40105,8 @@ function snd.attack_function() -- defining this function is how we tell sunder w
     -- K, Tempo if you got some big dmg for it.    
   elseif not snd.rhythm
     and snd.checksomeAffs({"paresis", "shyness"}, 2) then
-      string = "tempo "..snd.target..snd.effects[tempoaff]
-      call = "wt Afflicting "..snd.target..": "..snd.effects[nextaff]
+      string = "tempo "..snd.target.." "..snd.effects[tempoaff]
+      call = "wt Afflicting "..snd.target..": "..snd.effects[tempoaff]
     
     -- Addiction check.
   elseif canSing 
@@ -40507,6 +40554,277 @@ end</script>
 							<command></command>
 							<packageName></packageName>
 							<regex>^supp$</regex>
+						</Alias>
+						<Alias isActive="yes" isFolder="no">
+							<name>Salve support</name>
+							<script>if true or snd.class == "Bard" then
+  -- We're a super awesome badass bard, obv
+  snd.starting_attack()
+  -- always run this first, it does some important resets
+
+  function snd.attack_function()
+    -- defining this function is how we tell sunder what to do
+    if not snd.waiting.queue then
+
+      snd.giving =
+        {
+          "left_leg_crippled",
+          "right_leg_crippled",
+          "left_arm_crippled",
+          "right_arm_crippled",
+          "stupidity",
+          "anorexia",
+          "slickness",
+          "asthma",
+          "paresis",
+          "clumsiness",
+          "weariness",
+        }
+      local canPlay = false
+      local string = ""
+      local call = ""
+      local tempoaff = "none"
+      -- 1 affliction from snd.giving
+      
+      for i in pairs(snd.giving) do
+        if
+          not snd.checkAff(snd.giving[i]) and
+          tempoaff == "none" and
+          snd.giving[i] ~= snd.needle and
+          table.contains(snd.venom_affs, snd.giving[i])
+        then
+          tempoaff = snd.giving[i]
+        end
+      end
+      
+      -- Only cowards and losers spam shield or rebounding &gt;:(
+      if snd.used.shield or snd.used.rebounding then
+        string = "pierce " .. snd.target
+      else
+        string = "tempo " .. snd.target .." "..snd.effects[tempoaff]
+        call = "wt Afflicting " .. snd.target .. ": " .. snd.effects[tempoaff]
+      end
+      if snd.balance.inspire and hasSkill("Inspire", "Songcalling") then
+        string = "inspire" .. snd.sep .. string
+      end
+      -- check if we need to prepend an affliction call
+      if snd.toggles.affcalling and not snd.target_gone then
+        string = call .. snd.sep .. string
+      end
+      -- we don't want to resend our existing attack, so check against that
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        -- if we've got a new attack now,
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        -- manage the anti-spam check below
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+  -- make sure to actually send the attack once on use!
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^legs$</regex>
+						</Alias>
+					</AliasGroup>
+					<AliasGroup isActive="yes" isFolder="yes">
+						<name>Predator</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<Alias isActive="yes" isFolder="no">
+							<name>Limbs</name>
+							<script>if snd.class == "Predator" then
+  -- Note that this is intended for groups, not 1v1
+  snd.starting_attack()
+
+  function snd.attack_function()
+    snd.giving =
+      {
+        "left_leg_crippled",
+        "right_leg_crippled",
+        "left_arm_crippled",
+        "right_arm_crippled",
+        "anorexia",
+        "stupidity",
+        "asthma",
+        "slickness",
+        "paresis",
+        "sensitivity",
+        "voyria",
+      }
+    local aff = "paresis" --default aff in case none is found
+    
+    for _, affl in ipairs(snd.giving) do
+      if not snd.checkAff(affl) then
+        aff = affl
+        break
+      end
+    end
+    
+    aff = snd.effects[aff]
+    local hitLimb
+    local breakLimb
+    for _, limb in ipairs({"left leg", "right leg", "torso", "left arm", "right arm", "head"}) do
+        if limb~= snd.resto_limb and (snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb)) then
+          hitLimb = hitLimb or limb
+          if snd.limb_dmg[limb]&gt;13.33 and snd.limb_dmg[limb]&lt;33.33 then
+            breakLimb = breakLimb or limb
+          end
+        end
+    end
+  
+    local string = ""
+    local call
+    if gmcp.Char.Vitals.knife_stance and gmcp.Char.Vitals.knife_stance~="Vae-Sant" then
+      string = "changestance vae-sant"    
+    elseif snd.used.rebounding and snd.used.shield then
+      string = "series raze raze flashkick flashkick " .. snd.target
+    elseif snd.used.shield or snd.used.rebounding then
+      string = "series raze vertical spinslash bleed "..snd.target.." "..aff
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    elseif snd.calc.crescentcutMultiplier()&gt;2 then
+      string = "series crescentcut crescentcut flashkick crescentcut "..snd.target.." "..aff
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    elseif snd.theytumbling then
+      string = "series pindown vertical crescentcut crescentcut "..snd.target.." "..aff
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    else
+      
+      local limbhit, followup
+      
+      if snd.checkAff("torso_broken") and (snd.no_parry() or snd.parried_limb~="torso") then
+        limbhit = "orgyuk mawcrush "..snd.target
+      elseif breakLimb then
+        limbhit = "orgyuk pummel "..snd.target.." "..breakLimb
+      else
+        limbhit = "orgyuk pummel "..snd.target.." "..hitLimb
+      end
+      
+      if not snd.checkAff("fleshbane") then
+        followup = "fleshbane "..snd.target.." "..aff
+      else
+        followup = "bloodscourge "..snd.target.." "..aff
+      end
+      
+      string = limbhit..snd.sep..followup
+      call = "wt Afflicting " .. snd.target .. ": " .. aff
+    end
+    if snd.toggles.affcalling and not snd.target_gone and call then
+			string = call..snd.sep..string
+		end
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^limbs$</regex>
+						</Alias>
+						<Alias isActive="yes" isFolder="no">
+							<name>Gaff</name>
+							<script>if snd.class == "Predator" then
+  -- Note that this is intended for groups, not 1v1
+  snd.starting_attack()
+
+  function snd.attack_function()
+    snd.giving =
+      {
+      "paresis",
+      "clumsiness",
+      "asthma",
+      "allergies",
+      "vomiting",
+      "haemophilia",
+      "sensitivity",
+      "stupidity",
+      "recklessness",
+      "weariness",
+      "dizziness",
+      "slickness",
+      "anorexia",
+      "left_leg_crippled",
+      "right_leg_crippled",
+      "left_arm_crippled",
+      "right_arm_crippled",
+      "stuttering",
+      "voyria",
+      }
+    local touse = {}
+    
+    local missing = snd.missingAff("stupidity/paresis/asthma/slickness/anorexia", "/")
+    
+    if #missing&lt;3 then
+    for _, aff in ipairs(missing) do
+      table.insert(touse, snd.effects[aff]) end
+    end
+    
+    for _, aff in ipairs(snd.giving) do
+      if not snd.checkAff(aff) then
+        local effect = snd.effects[aff]
+        if not table.contains(touse, effect) then
+          table.insert(touse, effect)
+        end
+      end
+    end
+    
+    --make sure there's at least 2 affs in here
+    table.insert(touse, "voyria")
+    table.insert(touse, "curare")
+    
+    if snd.aff_count_venom()&gt;8 then
+      table.insert(touse, 2, "cirisosis")
+    end
+  
+    local string = ""
+    local call
+    
+    if gmcp.Char.Vitals.knife_stance and gmcp.Char.Vitals.knife_stance~="Vae-Sant" then
+      string = "changestance vae-sant"    
+    elseif snd.used.rebounding and snd.used.shield then
+      string = "series raze raze flashkick flashkick " .. snd.target
+    elseif snd.used.rebounding or snd.used.shield then
+      string = "series raze vertical pinprick "..snd.target.." "..touse[1]
+      call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+    elseif snd.calc.crescentcutMultiplier()&gt;2 then
+      string = "series crescentcut crescentcut flashkick crescentcut "..snd.target.." "..touse[1]
+      call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+    elseif snd.theytumbling then
+      string = "series pindown vertical crescentcut crescentcut "..snd.target.." "..touse[1]
+      call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+    else
+      string = "twinshot "..snd.target.." "..touse[1].." "..touse[2]
+      call = "wt Afflicting "..snd.target..": "..touse[1]..", "..touse[2]
+    end
+    
+    if snd.toggles.affcalling and not snd.target_gone and call then
+			string = call..snd.sep..string
+		end
+    
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^gaff$</regex>
 						</Alias>
 					</AliasGroup>
 				</AliasGroup>
@@ -42400,7 +42718,7 @@ end</script>
 							<packageName></packageName>
 							<regex></regex>
 							<Alias isActive="yes" isFolder="no">
-								<name>solo shatter</name>
+								<name>Limbs</name>
 								<script>if snd.class == "Ascendril" then
   snd.starting_attack()
 
@@ -42416,18 +42734,19 @@ end</script>
       if snd.defenses.def_stalled.state == "deffed" then
         stalled = true
       end
-      for limb in pairs(limbs) do
+      for _, limb in pairs(limbs) do
         -- ignore last parried, last hit, and any limbs being resto'd
         if
-          limbs[limb] ~= snd.parried_limb and
-          limbs[limb] ~= snd.last_hit_limb and
-          limbs[limb] ~= snd.resto_limb
+          ((limb ~= snd.parried_limb and
+          limb ~= snd.last_struck_limb) or snd.no_parry()) and
+          limb ~= snd.resto_limb
         then
           if targ == "nothing" then
-            targ = limbs[limb]
+            targ = limb
           end
         end
       end
+      
       if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbrand") then
         string = "fulcrum glimpse water"
       elseif snd.glimpse == "none" and snd.checkAff("frostbrand") then
@@ -42438,68 +42757,27 @@ end</script>
         if gmcp.Char.Vitals.ability_bal == "1" then
           string = "fulcrum flare " .. snd.target
         end
-        if gmcp.Char.Vitals.resonance == "water" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            if
-              snd.checkAff("shivering") and
-              not snd.checkAff("direfrost") and
-              not snd.checkAff("frostbrand")
-            then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
-            end
+        
+        if not stalled then
+          if snd.limb_dmg.torso == 0 and (snd.parried_limb ~= "torso" or snd.no_parry()) then
+            string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
+          else
+            string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
           end
-        elseif gmcp.Char.Vitals.resonance == "fire" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            if
-              snd.checkAff("shivering") and
-              not snd.checkAff("direfrost") and
-              not snd.checkAff("frostbrand")
-            then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
-            end
-          end
-        elseif gmcp.Char.Vitals.resonance == "air" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "fulcrum stall 3 firelash " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            --not snd.direfrost and not snd.checkAff("frostbrand") then
-            if
-              snd.checkAff("shivering") and
-              not snd.checkAff("direfrost") and
-              not snd.checkAff("frostbrand")
-            then
-              string = string .. snd.sep .. "cast direfrost " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "cast icicle " .. snd.target
-            else
-              string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
-            end
+        elseif stalled then
+          if
+            snd.checkAff("shivering") and
+            not snd.checkAff("direfrost") and
+            not snd.checkAff("frostbrand")
+          then
+            string = string .. snd.sep .. "cast direfrost " .. snd.target
+          elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+            string = string .. snd.sep .. "cast icicle " .. snd.target
+          else
+            string = string .. snd.sep .. "cast firelash " .. snd.target .. " " .. targ
           end
         end
+        
       end
       if string ~= snd.last_attack and not snd.waiting.queue then
         snd.last_attack = string
@@ -42514,7 +42792,7 @@ end</script>
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^solo$</regex>
+								<regex>^limbs$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>frozen</name>
@@ -47168,6 +47446,240 @@ end</script>
 								<packageName></packageName>
 								<regex>^fire$</regex>
 							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Limb support</name>
+								<script>--limbs support route
+
+local limb_attacks = {
+  ["left leg"] = "wanekick left",
+  ["right leg"] = "wanekick right",
+  ["left arm"] = "pummel left",
+  ["right arm"] = "pummel right",
+  ["torso"] = "clawtwist",
+  ["head"] = "sunkick",
+}
+local attack_dmg = {
+  ["left leg"] = 9,
+  ["right leg"] = 9,
+  ["left arm"] = 9.5,
+  ["right arm"] = 9.5,
+  ["torso"] = 8.5,
+  ["head"] = 6,
+}
+
+if snd.class == "Zealot" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local giving_chain = {
+      "stuttering",
+      "whiplash",
+      "backstrain",
+      "sore_wrist",
+      "sore_ankle", 
+    }
+    local chain = "whipburst"
+    for _, aff in ipairs(giving_chain) do
+      if not snd.checkAff(aff) then
+        chain = snd.zealotChainMap[aff]
+        break
+      end
+    end
+    
+    -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+    if not snd.waiting.queue then
+    
+    
+    local breakLimbs = {}
+    local doubleBreak
+    local hitLimbs = {}
+    for _, limb in ipairs({"left leg","right leg", "left arm", "right arm", "torso", "head"}) do
+      if snd.resto_limb~=limb and snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb) then
+        if snd.limb_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+attack_dmg[limb]&gt;33.33 then
+          table.insert(breakLimbs, limb)
+        end
+        if  snd.limb_dmg[limb]+attack_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+2*attack_dmg[limb]&gt;33.33 then
+          doubleBreak = doubleBreak or limb
+        end
+      end
+      if limb~="head" and limb~="torso" then --let's not prioritize those much
+      local inserted = false
+        for index, limb2 in pairs(hitLimbs) do
+          if snd.limb_dmg[limb]&lt;snd.limb_dmg[limb2] then
+            table.insert(hitLimbs, index, limb)
+            break
+          end
+        end
+        if not inserted then
+          table.insert(hitLimbs, limb)
+        end
+      end
+    end
+    local limb1, limb2
+    if #breakLimbs&gt;1 then
+      limb1 = breakLimbs[1]
+      limb2 = breakLimbs[2]
+    elseif #breakLimbs&gt;0 then
+      limb1 = breakLimbs[1]
+      limb2 = hitLimbs[1]
+    elseif doubleBreak then
+      limb1 = doubleBreak
+      limb2 = doubleBreak
+    else
+      limb1 = hitLimbs[1]
+      limb2 = hitLimbs[2]
+    end
+    local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+      if snd.used.shield then
+        string = "touch hammer " .. snd.target
+      else
+        if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+          string = "flow "..snd.target.." palmforce "..attack1
+        else
+          string = "flow "..snd.target.." "..attack1.." "..attack2
+        end
+      end
+      
+      if gmcp.Char.Vitals.ability_bal == "1" then
+        string = "hackles " .. snd.target .. " "..chain .. snd.sep .. string
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^limbs$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Aff support</name>
+								<script>--hybrid limbs route with more of a focus on applying affs when possible
+
+local limb_attacks = {
+  ["left leg"] = "wanekick left",
+  ["right leg"] = "wanekick right",
+  ["left arm"] = "pummel left",
+  ["right arm"] = "pummel right",
+  ["torso"] = "clawtwist",
+  ["head"] = "sunkick",
+}
+local attack_dmg = {
+  ["left leg"] = 9,
+  ["right leg"] = 9,
+  ["left arm"] = 9.5,
+  ["right arm"] = 9.5,
+  ["torso"] = 8.5,
+  ["head"] = 6,
+}
+
+if snd.class == "Zealot" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local giving_chain = {
+      "whiplash",
+      "backstrain",
+      "sore_wrist",
+      "sore_ankle",
+      "stuttering",
+    }
+    local chain = "whipburst"
+    for _, aff in ipairs(giving_chain) do
+      if not snd.checkAff(aff) then
+        chain = snd.zealotChainMap[aff]
+        break
+      end
+    end
+    
+    -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+    if not snd.waiting.queue then
+    
+    
+    local breakLimbs = {}
+    local doubleBreak
+    local hitLimbs = {}
+    for _, limb in ipairs({"left leg","right leg", "left arm", "right arm", "torso", "head"}) do
+      if snd.resto_limb~=limb and snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb) then
+        if snd.limb_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+attack_dmg[limb]&gt;33.33 then
+          table.insert(breakLimbs, limb)
+        end
+        if  snd.limb_dmg[limb]+attack_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+2*attack_dmg[limb]&gt;33.33 then
+          doubleBreak = doubleBreak or limb
+        end
+      end
+      if limb~="head" and limb~="torso" then --let's not prioritize those much
+      local inserted = false
+        for index, limb2 in pairs(hitLimbs) do
+          if snd.limb_dmg[limb]&lt;snd.limb_dmg[limb2] then
+            table.insert(hitLimbs, index, limb)
+            break
+          end
+        end
+        if not inserted then
+          table.insert(hitLimbs, limb)
+        end
+      end
+    end
+    local limb1, limb2
+    if #breakLimbs&gt;1 then
+      limb1 = breakLimbs[1]
+      limb2 = breakLimbs[2]
+    elseif #breakLimbs&gt;0 then
+      limb1 = breakLimbs[1]
+      limb2 = hitLimbs[1]
+    elseif doubleBreak then
+      limb1 = doubleBreak
+      limb2 = doubleBreak
+    else
+      limb1 = hitLimbs[1]
+      limb2 = hitLimbs[2]
+    end
+    local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+    
+    if not snd.checksomeAffs({"dizziness","stupidity"},2) and snd.parried_limb~="head" and attack~="sunkick" then
+      attack1, attack2 = "sunkick", attack1
+    end
+    if snd.used.shield then
+      string = "touch hammer " .. snd.target
+    elseif not snd.checkAff("indifference") then
+      string = "psi dull "..snd.target
+    elseif not snd.checksomeAffs({"dementia","paranoia","merciful"},1) then
+      string = "psi deprive "..snd.target
+    else
+      if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+        string = "flow "..snd.target.." palmforce "..attack1
+      else
+        string = "flow "..snd.target.." "..attack1.." "..attack2
+      end
+    end
+      
+      if gmcp.Char.Vitals.ability_bal == "1" then
+        string = "hackles " .. snd.target .. " "..chain .. snd.sep .. string
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gaff$</regex>
+							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Damage Offenses</name>
@@ -51448,10 +51960,9 @@ function snd.attack_function()
  local call = ""
  
  snd.giving_whisper = {
- 		"lovers",
 		"impatience",
+    "stupidity", 
  		"recklessness",
-		"stupidity", 
  		"masochism",
 		"agoraphobia",
  		"confusion",
@@ -51460,6 +51971,7 @@ function snd.attack_function()
 		"berserking",
  		"vertigo",
  		"dementia",
+    "lovers",
  		"peace",
 		"paranoia",
  		"indifference",
@@ -51467,10 +51979,14 @@ function snd.attack_function()
 		}
 		
 snd.scythe_gash = {
-		"paralysis",
+		"paresis",
 		"asthma",
 		"slickness",
 		"anorexia",
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "left_arm_crippled",
+    "right_arm_crippled",
 		"clumsiness",
 		"dizziness",
 		"stupidity",
@@ -51503,14 +52019,15 @@ snd.scythe_gash = {
               string = "frenzy "..snd.target..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target
               call = "Afflicting "..snd.target..": "..touse[1]..snd.sep..", "..touse[2]		   
            else
-			        string = "wipe weapon "..snd.sep.."gash "..snd.target.." "..gashaff[1].." lightly"..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target..snd.sep
-			        call = "Afflicting "..snd.target..": " ..gashaff[1]..". Whispering: "..touse[1]..", "..touse[2]
+			        string = "wipe weapon "..snd.sep.."gash "..snd.target.." "..snd.effects[gashaff[1]].." lightly"..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target..snd.sep
+			        call = "Afflicting "..snd.target..": " ..snd.effects[gashaff[1]]..". Whispering: "..touse[1]..", "..touse[2]
 			     end
         end
 
-	if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-		string = call..snd.sep.."contemplate "..snd.target..snd.sep.."order loyals attack "..snd.target..snd.sep..string
-	end
+    string = "contemplate "..snd.target..snd.sep.."order loyals attack "..snd.target..snd.sep..string
+  	if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+  		string = call..snd.sep..string
+  	end
 
     if string ~= snd.last_attack and not snd.waiting.queue then
         snd.last_attack = string
@@ -51524,6 +52041,98 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^gaff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Salve support</name>
+								<script>if snd.class == "Praenomen" then
+snd.starting_attack()
+
+function snd.attack_function()
+ local string = ""
+ local touse = {}
+ local gashaff = {}
+ local call = ""
+ 
+ snd.giving_whisper = {
+    "indifference",
+    "anorexia",
+    "impatience",
+    "stupidity",
+ 		"recklessness",
+ 		"masochism",
+		"agoraphobia",
+ 		"confusion",
+		"epilepsy",
+		"berserking",
+ 		"vertigo",
+ 		"dementia",
+ 		"peace",
+		"paranoia",
+		}
+		
+snd.scythe_gash = {
+    "left_leg_crippled",
+    "right_leg_crippled",
+    "left_arm_crippled",
+    "right_arm_crippled",
+		"asthma",
+		"slickness",
+		"anorexia",
+    "paresis",
+    "haemophilia",
+		"clumsiness",
+		"dizziness",
+		"stupidity",
+		"weariness",
+		
+	    }
+			snd.akkari_lovers(snd.giving_whisper)
+
+
+			for i in pairs(snd.giving_whisper) do
+				if not snd.checkAff(snd.giving_whisper[i]) then
+					if not table.contains(touse, snd.giving_whisper[i]) then
+						table.insert(touse, snd.giving_whisper[i])
+					end
+				end
+			end
+
+			for i in pairs(snd.scythe_gash) do
+				if not snd.checkAff(snd.scythe_gash[i]) then
+					if not table.contains(gashaff, snd.scythe_gash[i]) then
+						table.insert(gashaff, snd.scythe_gash[i])
+					end
+				end
+			end
+
+        if snd.mana_percent &lt; 35 and not snd.used.shield then 
+            string = "annihilate "..snd.target
+        else
+		       if snd.used.shield or snd.used.rebounding then
+              string = "frenzy "..snd.target..snd.sep.."whisper "..touse[1].." "..touse[2].." "..snd.target
+              call = "Afflicting "..snd.target..": "..touse[1]..snd.sep..", "..touse[2]		   
+           else
+			        string = "wipe weapon "..snd.sep.."gash "..snd.target.." "..snd.effects[gashaff[1]].." lightly"..snd.sep.."whisper "..touse[1].." "..snd.target..snd.sep
+			        call = "Afflicting "..snd.target..": " ..snd.effects[gashaff[1]]..". Whispering: "..touse[1]
+			     end
+        end
+  string = "contemplate "..snd.target..snd.sep.."order loyals attack "..snd.target..snd.sep..string
+	if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+		string = call..snd.sep..string
+	end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+    snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^legs$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
@@ -51625,6 +52234,241 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^fire$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>limb support</name>
+								<script>--limbs support route
+
+local limb_attacks = {
+  ["left leg"] = "kneecap left",
+  ["right leg"] = "kneecap right",
+  ["left arm"] = "bully left",
+  ["right arm"] = "bully right",
+  ["torso"] = "plexus",
+  ["head"] = "concussion",
+}
+local attack_dmg = {
+  ["left leg"] = 9,
+  ["right leg"] = 9,
+  ["left arm"] = 9.5,
+  ["right arm"] = 9.5,
+  ["torso"] = 8.5,
+  ["head"] = 6,
+}
+
+if snd.class == "Ravager" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local giving_chain = {
+      "stuttering",
+      "whiplash",
+      "backstrain",
+      "sore_wrist",
+      "sore_ankle", 
+    }
+    local chain = "tenderise"
+    
+    for _, aff in ipairs(giving_chain) do
+      if not snd.checkAff(aff) then
+        chain = snd.ravagerChainMap[aff]
+        break
+      end
+    end
+    
+    -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+    if not snd.waiting.queue then
+    
+    
+    local breakLimbs = {}
+    local doubleBreak
+    local hitLimbs = {}
+    for _, limb in ipairs({"left leg","right leg", "left arm", "right arm", "torso", "head"}) do
+      if snd.resto_limb~=limb and snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb) then
+        if snd.limb_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+attack_dmg[limb]&gt;33.33 then
+          table.insert(breakLimbs, limb)
+        end
+        if  snd.limb_dmg[limb]+attack_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+2*attack_dmg[limb]&gt;33.33 then
+          doubleBreak = doubleBreak or limb
+        end
+      end
+      if limb~="head" and limb~="torso" then --let's not prioritize those much
+      local inserted = false
+        for index, limb2 in pairs(hitLimbs) do
+          if snd.limb_dmg[limb]&lt;snd.limb_dmg[limb2] then
+            table.insert(hitLimbs, index, limb)
+            break
+          end
+        end
+        if not inserted then
+          table.insert(hitLimbs, limb)
+        end
+      end
+    end
+    local limb1, limb2
+    if #breakLimbs&gt;1 then
+      limb1 = breakLimbs[1]
+      limb2 = breakLimbs[2]
+    elseif #breakLimbs&gt;0 then
+      limb1 = breakLimbs[1]
+      limb2 = hitLimbs[1]
+    elseif doubleBreak then
+      limb1 = doubleBreak
+      limb2 = doubleBreak
+    else
+      limb1 = hitLimbs[1]
+      limb2 = hitLimbs[2]
+    end
+    local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+      if snd.used.shield then
+        string = "touch hammer " .. snd.target
+      else
+        if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+          string = "onslaught "..snd.target.." clobber "..attack1
+        else
+          string = "onslaught "..snd.target.." "..attack1.." "..attack2
+        end
+      end
+      
+      if gmcp.Char.Vitals.ability_bal == "1" then
+        string = "assail " .. snd.target .. " "..chain .. snd.sep .. string
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^limbs$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Affliction support</name>
+								<script>--limbs support route
+
+local limb_attacks = {
+  ["left leg"] = "kneecap left",
+  ["right leg"] = "kneecap right",
+  ["left arm"] = "bully left",
+  ["right arm"] = "bully right",
+  ["torso"] = "plexus",
+  ["head"] = "concussion",
+}
+local attack_dmg = {
+  ["left leg"] = 9,
+  ["right leg"] = 9,
+  ["left arm"] = 9.5,
+  ["right arm"] = 9.5,
+  ["torso"] = 8.5,
+  ["head"] = 6,
+}
+
+if snd.class == "Ravager" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local giving_chain = {
+      "whiplash",
+      "backstrain",
+      "sore_wrist",
+      "sore_ankle", 
+      "stuttering",
+    }
+    local chain = "tenderise"
+    
+    for _, aff in ipairs(giving_chain) do
+      if not snd.checkAff(aff) then
+        chain = snd.ravagerChainMap[aff]
+        break
+      end
+    end
+    
+    -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+    if not snd.waiting.queue then
+    
+    
+    local breakLimbs = {}
+    local doubleBreak
+    local hitLimbs = {}
+    for _, limb in ipairs({"left leg","right leg", "left arm", "right arm", "torso", "head"}) do
+      if snd.resto_limb~=limb and snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb) then
+        if snd.limb_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+attack_dmg[limb]&gt;33.33 then
+          table.insert(breakLimbs, limb)
+        end
+        if  snd.limb_dmg[limb]+attack_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+2*attack_dmg[limb]&gt;33.33 then
+          doubleBreak = doubleBreak or limb
+        end
+      end
+      if limb~="head" and limb~="torso" then --let's not prioritize those much
+      local inserted = false
+        for index, limb2 in pairs(hitLimbs) do
+          if snd.limb_dmg[limb]&lt;snd.limb_dmg[limb2] then
+            table.insert(hitLimbs, index, limb)
+            break
+          end
+        end
+        if not inserted then
+          table.insert(hitLimbs, limb)
+        end
+      end
+    end
+    local limb1, limb2
+    if #breakLimbs&gt;1 then
+      limb1 = breakLimbs[1]
+      limb2 = breakLimbs[2]
+    elseif #breakLimbs&gt;0 then
+      limb1 = breakLimbs[1]
+      limb2 = hitLimbs[1]
+    elseif doubleBreak then
+      limb1 = doubleBreak
+      limb2 = doubleBreak
+    else
+      limb1 = hitLimbs[1]
+      limb2 = hitLimbs[2]
+    end
+    local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+    if not snd.checksomeAffs({"dizziness","stupidity"},2) and snd.parried_limb~="head" and attack1~="concussion" then
+      attack1, attack2 = "concussion", attack1
+    end
+    if snd.used.shield then
+      string = "touch hammer " .. snd.target
+    elseif not snd.checkAff("indifference") then
+      string = "ego inadequacy "..snd.target
+    elseif not snd.checksomeAffs({"dementia","paranoia","merciful"},1) then
+      string = "ego boast "..snd.target
+    else
+        if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+          string = "onslaught "..snd.target.." clobber "..attack1
+        else
+          string = "onslaught "..snd.target.." "..attack1.." "..attack2
+        end
+      end
+      
+      if gmcp.Char.Vitals.ability_bal == "1" then
+        string = "assail " .. snd.target .. " "..chain .. snd.sep .. string
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gaff$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -54531,7 +55375,7 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>harvest rock</name>
-					<script>snd.send("qeb harvest rock")</script>
+					<script>snd.send("qeb rockharvest")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^hr$</regex>
@@ -56967,7 +57811,7 @@ end</script>
     end
     raiseEvent("sunder_room_updated")
     if snd.toggles.rockharvest then
-      snd.send("harvest rock")
+      snd.send("rockharvest")
     end
     if snd.toggles.plants then
       snd.send("plants")
@@ -58543,6 +59387,8 @@ snd.priorities =
     "def_stalking",
     "def_entwine",
     "def_devilpact",
+    "def_currents",
+    "def_footfeel",
     "def_ricochet",
     "def_twinsoul",
     "def_earth_resonance",
@@ -60239,7 +61085,7 @@ def_projection  = {defense = "projection", type = "normal", effect = "Remotely c
 def_sand_conceal  = {defense = "sand_conceal", type = "normal", effect = "Become concealed by your sand", balance = {balanceequilibriumtake = "sand conceal on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Concealment" },
 def_disturbances  = {defense = "disturbances", type = "normal", effect = "Your sand informs you of who moves in and out", balance = {balanceequilibriumtake = "sand disturbances on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Disturbances"},
 def_momentum = {defense = "momentum", type = "normal", effect = "Strike faster", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Momentum" },
-
+def_footfeel = {defense = "footfeel", type = "normal", effect = "Sense if someone enters into the ground", balance = {balanceequilibrium = "earth footfeel"}, state = "down", needit = false, timer = createStopWatch(), skill = "Footfeel" },
 
 --Tidesage
 def_permafrost = {defense = "permafrost", type = "SeaGreen", effect = "Embrace the gales of the distant oceans", balance = {balanceequilibriumtake = "tide permafrost"}, state = "down", needit = false, timer = createStopWatch(), skill = "Permafrost" },
@@ -60256,6 +61102,8 @@ def_panoptic  = {defense = "panoptic", type = "SeaGreen", effect = "Remotely con
 def_fog_obscure  = {defense = "fog_obscure", type = "SeaGreen", effect = "Become obscured in a thick fog", balance = {balanceequilibriumtake = "fog obscureon"}, state = "down", needit = false, timer = createStopWatch(), skill = "Obscure" },
 def_fluctuations  = {defense = "fluctuations", type = "SeaGreen", effect = "Your fog informs you of who moves in and out", balance = {balanceequilibriumtake = "fog fluctuations on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fluctuations" },
 def_hightide = {defense = "hightide", type = "SeaGreen", effect = "Strike faster during high tide", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Hightide" },
+def_currents = {defense = "currents", type = "normal", effect = "Sense if someone enters into the ground", balance = {balanceequilibrium = "tide currents"}, state = "down", needit = false, timer = createStopWatch(), skill = "Currents" },
+
 
 -- Warden
 def_battleflow = {defense = "battleflow", type = "normal", effect = "Can attack with 1 broken arm.", balance = {needybalancetake = "warden battleflow on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battleflow"},
@@ -60715,6 +61563,9 @@ end</script>
   ["You have imbued the fury of the Earthen into your flail."] = "imbue_stonefury",
 --  ["You are channeling the will of the Earthen."] = "imbue_will",
   ["You are focusing your energy into sweltering your sands."] = "sand_swelter",
+  ["You can feel the earth parting through your feet."] = "footfeel",
+  ["You are in tune with the water currents below."] = "currents",
+  
   ["Gnashing your tongue, your mouth salivates with fluid."] = "salivate",
   ["Your coat of fur has been thickened."] = "thickfur",
   ["You are bracing from attacks."] = "bracing",
@@ -63006,7 +63857,7 @@ snd.areas = {
 {area = "Oblivion's Portent", level = "99+", targets = {"a writhing mass of voidspawn", "a hungering voidwalker", "a singularly-focused defiler", "an otherworldly-shaped, gliding devourer", "a many-legged, skittering aberration",}},
 {area = "the Primal Eye of Czjetija", level = "we're all fucking dead", targets = {"a tendriled shadowisp","a massive tenebrous horror", "a monstrous shadow beast", "a spider-like shadowspinner", "a sinuous umbral creeper", "a many-winged shadowghast",}},
 {area = "the Welto Trench", level = "good luck", targets = {"a black hunter shark", "a spotted bull shark", "a scarred hunter shark", "a brown hunter shark", "a scarred welto shark", "a striped hunter shark", "a great white welto shark", "a brown bull shark", "a bronze tiger shark", "a black bull shark", "a spotted tiger shark", "a bronze tiger shark", "a grey hunter shark", "a bronze welto shark", "a brown tiger shark", "a storm-wing harpy", "a spotted welto shark", "a striped welto shark", "a striped tiger shark", "a striped bull shark", "a spotted hunter shark", "a black tiger shark", "a great white bull shark", "a menacing torvok", "a brown welto shark", "a great white tiger shark", "a menacing torvok", "a great white hunter shark", "a great white welto shark", "a bronze bull shark", "a grey tiger shark", "a bronze hunter shark", "a spotted hunter shark", "a scarred tiger shark", "a black welto shark", "a grey bull shark", "a striped welto shark", "a grey welto shark", "a black welto shark", "a scarred bull shark", "a blacktip shark", "a box jellyfish", "a giant manta ray", "a deep water serpent", "a stone crab"}},
-{area = "the Underbelly", level = "99+", targets ={"a desiccated Utari zombie", "a massive grey rat", "a dire, plagued rat", "a glazed-eye zombie Aslinn", "a snarling vakmut hound", "a slavering vakmut", "a grey-skinned skrell whelp", "a gigantic white rat", "a gigantic black rat", "a feral vakmut", "a malnourished vakmut", "a drooling zombie Tarpen", "a massive, tan-shelled whelk", "a jagged Golban ghast", "a hunched, bone-fisted Golban zombie", "a hulking Ursal ghast", "a crawling, ravenous Aslinn ghast"}},
+{area = "the Underbelly", level = "99+", targets ={"a desiccated Utari zombie", "a massive grey rat", "a dire, plagued rat", "a glazed-eye zombie Aslinn", "a snarling vakmut hound", "a slavering vakmut", "a grey-skinned skrell whelp", "a gigantic white rat", "a gigantic black rat", "a feral vakmut", "a malnourished vakmut", "a drooling zombie Tarpen", "a massive, tan-shelled whelk", "a jagged Golban ghast", "a hunched, bone-fisted Golban zombie", "a hulking Ursal ghast", "a crawling, ravenous Aslinn ghast", "an Utari cultist with grim facial markings", "a mangy Caentoi cultist", "an erratic Tarpen cultist", "a pale skrell whelp", "a venomous skrell whelp", "a ravenous skrell"}},
 {area = "the Mannaseh Swamp", level = "99+", targets = {"a savage mutant pumpkin", "a malformed stalker", "a miscreated avian", "an ichorous miscreation", "a hulking miscreation", "an amphibious malformation",}},
 {area = "the Village of Craneskull", level = "35-40", targets = {"a savage mutant pumpkin", "a muddy Trollish child", "a slender mud adder", "a rugged Trollish man", "a plump Trollish woman", "a lumbering Troll guard", "an elderly Troll priest", "a lean guard hound", "a traitorous Mitrine hunter","a black ram", "a militant Troll warrior", "a Troll ritualist", "an arachnid Chiav guard", "an arachnid Chiav enforcer", "an arachnid Chiav archer","an immense Trollish chieftain", "a lanky, Trollish witch doctor"}},
 {area = "the Maestral Shoals", level = "99+", targets = {"a mottled crab", "a glossy red crab", "a tattered skrell", "an emaciated skrell", "a large, ill-tempered crab", "a sinewy skrell lurker", "a small sovereign crab", "a leathery skrell", "a sharp-toothed skrell", "a drooling skrell"}},
@@ -77734,6 +78585,7 @@ def_twinsoul = "on",
 def_earth_resonance = "on",
 def_stonebind = "on",
 def_imbue_stonefury = "once",
+def_footfeel = "on",
 --def_sand_swelter = "once",
 },
 
@@ -77745,6 +78597,7 @@ def_lifebond  = "on",
 def_shore_leave  = "on",
 def_encrusted  = "on",
 def_expose_rime  = "once",
+def_currents = "on",
 --def_sirensong  = "once",
 },
 
@@ -78234,6 +79087,8 @@ haemophilia = "hepafarin",
 peace = "ouabain",
 deadening = "vardrax",
 
+sleep = "delphinium", --note this is not the asleep aff, is going to be a meta aff
+
 stupidity = "aconite", 
 weariness = "vernalius", 
 recklessness = "eurypteria", 
@@ -78385,6 +79240,14 @@ amaurosis = {
 
 ototoxin = {
 "hearing",
+},
+
+kawhe = {
+"no_insomnia",
+},
+
+stimulant = {
+"no_instawake",
 },
 
 panacea = {
@@ -78659,14 +79522,15 @@ function snd.get_new_target()
    if snd.targeting.skip then snd.targeting.skip = false end
 end
 
-function snd.took_limb_dmg(limb, amount)
+function snd.took_limb_dmg(limb, amount, restoration)
+
   if limb and amount then
   
     if snd.checkAff("armor_tattoo") and amount &gt; 0 then
       amount = amount/2
       snd.last_limb_dmg = amount
     end
-    if amount == -30 or amount == -40 then --resto apply
+    if restoration then --resto apply
       snd.limb_dmg[limb] = snd.limb_dmg[limb] + math.min(0, amount+2*snd.fleshbaneStacks)
       if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
       snd.fleshbaneStacks = 0
@@ -78687,7 +79551,7 @@ function snd.took_limb_dmg(limb, amount)
       cecho("&lt;red&gt; " .. limb .. ": " .. snd.limb_dmg[limb])
     end
 
-    if limb == snd.resto_limb and (amount == -30 or amount == -40) then
+    if restoration and (amount == -30 or amount == -40) then
       snd.resto_limb = "none"
       if snd.limb_dmg[limb] &lt; 33.33 then
         if snd.limb_status[limb] == "mangled" then
@@ -78751,6 +79615,11 @@ function snd.target_got(affliction)
     elseif not snd.checkAff("ice_encased") and snd.checkAff("frostbrand") then affliction = "ice_encased"
     else return
     end
+  end
+  if affliction == "sleep" then
+    if snd.checkAff("asleep") and not snd.checkAff("no_instawake") then affliction = "no_instawake"
+    elseif not snd.checkAff("no_insomnia") then affliction = "no_insomnia"
+    else return end
   end
   
   if affliction == "a_crippled_leg" and snd.checkAff("a_crippled_leg") then
@@ -83324,7 +84193,9 @@ end</script>
                snd.target_got("armor_tattoo")
                tempTimer(10, function() snd.target_cured("armor_tattoo") end)
              end,
-  
+    Hourglass = function(target)
+               snd.target_got("sleep")
+             end,
   },
   
   ["Research"] = {
@@ -85237,6 +86108,26 @@ end</script>
     end
   end
 end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Zealot/ravager</name>
+						<packageName></packageName>
+						<script>snd.zealotChainMap = {
+  sore_ankle = "anklepin",
+  stuttering = "jawcrack",
+  backstrain = "descent",
+  sore_wrist = "wristlash",
+  whiplash = "uprise",
+}
+
+snd.ravagerChainMap = {
+  sore_ankle = "hobble",
+  stuttering = "slug",
+  backstrain = "flog",
+  sore_wrist = "maim",
+  whiplash = "whiplash",
+}</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
