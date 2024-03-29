@@ -7731,6 +7731,51 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>No such target</name>
+					<script>if matches[2] == snd.bashing.target then
+  local tid = matches[2]
+  for item in pairs(snd.items) do
+    for id in pairs(snd.items[item]) do
+      if snd.items[item][id] == tid then
+        table.remove(snd.items[item], id)
+        if #snd.items[item] == 0 then
+          snd.items[item] = nil
+        end
+        break
+      end
+    end
+  end
+  for item in pairs(snd.agros) do
+    for id in pairs(snd.agros[item]) do
+      if snd.agros[item][id] == tid then
+        table.remove(snd.agros[item], id)
+        if #snd.agros[item] == 0 then
+          snd.agros[item] = nil
+        end
+        break
+      end
+    end
+  end
+  snd.untarget()
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^You can find no such target as '(\d+)'\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>GUI</name>
@@ -40783,7 +40828,7 @@ end</script>
     table.insert(touse, "voyria")
     table.insert(touse, "curare")
     
-    if snd.aff_count_venom()&gt;8 then
+    if snd.aff_count_venom()&gt;8 and not snd.checkAff("cirisosis") then
       table.insert(touse, 2, "cirisosis")
     end
   
