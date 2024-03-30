@@ -6887,7 +6887,7 @@ sndNDB_saveSettings(true)</script>
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>no target</name>
 						<script>if snd.toggles.bashing then snd.runBasher() end</script>
 						<triggerType>0</triggerType>
@@ -7757,7 +7757,10 @@ end</script>
       end
     end
   end
-  snd.untarget()
+  if snd.toggles.bashing then
+    snd.no_target()
+    snd.runBasher() 
+  end
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -79163,6 +79166,7 @@ physical_disruption = "disrupt",
 crippled = "cripple",
 crippled_body = "cripple",
 hemorrhage = "hemorrhage",
+flared = "flare",
 
 rend = "rend",
 
@@ -79208,6 +79212,7 @@ function snd.rev_empower(aff)
         ["disrupt"] = "dirne",
         ["cripple"] = "azu",
         ["hemorrhage"] = "wilave",
+        ["flare"] = "livfa",
                     }
     if revenant[aff] == nil then return aff
     else return revenant[aff]
