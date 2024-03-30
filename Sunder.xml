@@ -4832,6 +4832,28 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Morass/thing summoned</name>
+							<script>snd.morassID = gmcp.Char.Items.Add.item.id</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You use Sporulation (Germinate|Colonisation|Transplant)\.$</string>
+								<string>^You use Gravity (Singularity|Genesis|Recall)\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Syssin</name>
@@ -44344,12 +44366,14 @@ end</script>
 
 	if snd.used.shield then
    string = string.."hex imperil "..snd.target
-	elseif gmcp.Char.Vitals.morass == "" then
+	elseif gmcp.Char.Vitals.morass == "none" then
 		if hasSkill("Colonisation") then
 			string = string.."spore colonise clutchgill"
 		else
 			string = string.."spore germinate"
 		end
+  elseif not table.contains(snd.items, snd.morass) then
+    string = string.."spore transplant"
   elseif snd.gravity &lt; 5 then
 		string = string.."spore ensnare "..snd.target
   else
