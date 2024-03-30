@@ -44372,7 +44372,7 @@ end</script>
 		else
 			string = string.."spore germinate"
 		end
-  elseif not table.contains(snd.items, snd.morass) then
+  elseif not table.contains(snd.items, snd.morassID) then
     string = string.."spore transplant"
   elseif snd.gravity &lt; 5 then
 		string = string.."spore ensnare "..snd.target
