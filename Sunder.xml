@@ -81936,7 +81936,7 @@ end</script>
                      enableTrigger("Sunder Parry")
                    end,
         Sandman = function(target)
-                   --currently unused but if I want to add insomnia/sleep tracking it'll be here.
+                    snd.target_got("sleep")
                  end,
         Adder = function(target)
             		  snd.target_got("haemophilia")
@@ -81950,7 +81950,14 @@ end</script>
   ["Domination"] = {
     Slime = function(target)
               snd.balance.envelop = false
-            end,        
+            end,
+    Chimera = function(target, head)
+              if head == "Gas" then
+                snd.target_got("no_insomnia")
+              elseif head == "Roar" then
+                snd.target_got("hearing")
+              end
+            end,
 
   },
   
@@ -83840,7 +83847,7 @@ end</script>
                      enableTrigger("Sunder Parry")
                    end,
         Poppy = function(target)
-                   --currently unused but if I want to add insomnia/sleep tracking it'll be here.
+                    snd.target_got("sleep")
                  end,
         Diamond = function(target)
             		  snd.target_got("haemophilia")
@@ -83858,9 +83865,10 @@ end</script>
     Quetzal = function(target, attack)
               if attack == "Croon" then
                 snd.target_got("hearing")
+              elseif attack == "Shimmer" then
+                snd.target_got("no_insomnia")
               end
-            end,          
-
+            end,
   },
   
 -- Bard
