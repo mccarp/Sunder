@@ -63101,6 +63101,8 @@ local specialExits = {
 	{from = 13296, to = 19621, command = [=[buy passage to tundra]=], locked = false, weight = 200},
 	{from = 18231, to = 72093, command = [=[buy passage to memoryscape]=], locked = false, weight = 200},
 	{from = 36824, to = 54459, command = [=[buy passage to tcanna]=], locked = false, weight = 200},
+  {from = 57997, to = 77865, command = [=[buy passage to wreckage]=], locked = false, weight = 200},
+  {from = 77865, to = 57997, command = [=[buy passage to esterport]=], locked = false, weight = 200},
   
   
 --Enorian Sewers
@@ -63302,7 +63304,7 @@ local lockExits = {
   {55187, "west"},
 }
 
-local ferries = { 6550, 6551, 6558, 6559, 18199, 19622, 19623, 19695, 19696, 20067, 35629, 39839, 54221, 54640, 57636, 59839, 60409, 63212, 63220, 69250, 69534, 71720, 71884, 73215, 77551 }
+local ferries = { 6550, 6551, 6558, 6559, 18199, 19622, 19623, 19695, 19696, 20067, 35629, 37722, 37740, 39839, 54221, 54640, 57636, 59839, 60409, 63212, 63220, 69250, 69534, 71720, 71884, 73215, 77551 }
 local function addFerries()
   local ferryRooms = getRoomUserData(1, "ferry rooms")
   ferryRooms = ferryRooms~="" and yajl.to_value(ferryRooms) or {}
