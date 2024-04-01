@@ -24203,7 +24203,10 @@ end</script>
     snd.last_hit_limb = "none"
     snd.last_limb_dmg = 0
   end
-  
+  if snd.checkAff("sore_wrist") then
+    snd.took_limb_dmg("left arm", 4)
+    snd.took_limb_dmg("right arm", 4)
+  end
   if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end
   
   snd.last_affs = {}
@@ -24681,6 +24684,9 @@ end</script>
  snd.target_cured("left_leg_crippled")
  snd.target_cured("right_leg_crippled")
  snd.target_cured("asleep")
+ if snd.checkAff("backstrain") then
+    snd.took_limb_dmg("torso", 10)
+ end
 end
 </script>
 						<triggerType>0</triggerType>
