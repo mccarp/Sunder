@@ -8983,6 +8983,7 @@ end</script>
 									<string>^The protective shield around (\w+) dissipates.$</string>
 									<string>^With a blinding cut of light, the Cleaver splits (\w+)'s magical shield in two.$</string>
 									<string>^A thrust from the barbed tail of a vicious wyvern spirit pierces (\w+)'s magical shield.$</string>
+									<string>^The chaos hound rips (\w+)'s magical shield to shreds\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -8994,6 +8995,7 @@ end</script>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>3</integer>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -75750,7 +75752,7 @@ snd.global_targets = {
 "a mind flayer",
  "a foul-smelling orc",
  "a dwarf guard",
-"a horrendous abomination",
+--"a horrendous abomination",
 "an enormous black scorpion",
 "a Mhun warrior",
 "a black cobra",
