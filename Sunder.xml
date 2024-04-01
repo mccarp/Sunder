@@ -1423,7 +1423,7 @@ end
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Lifevision gain extra capture</name>
 								<script>snd.def_gain("lifevision")</script>
 								<triggerType>0</triggerType>
@@ -1443,7 +1443,7 @@ end
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Lifevision strip extra capture</name>
 								<script>snd.def_take("lifevision")</script>
 								<triggerType>0</triggerType>
@@ -80572,6 +80572,7 @@ function snd.no_parry()
   --"punished_arms",
   --"paresis",
   "paralysis",
+  "indifference",
   "asleep",
 	"writhe_transfix",
 	"writhe_web",
@@ -80610,6 +80611,7 @@ function snd.proned()
   "writhe_ropes",
   "writhe_vines",
   "writhe_grappled",
+  "writhe_dartpinned",
   "fallen",
   "asleep",
  }
