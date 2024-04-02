@@ -2121,6 +2121,14 @@ local talkerWhitelist = {
   ["a ghostly figure"] = true,
   ["a pumpkin figure"] = true,
   ["a cloaked figure"] = true,
+  ["a nightmarish figure"] = true,
+  ["a figure hidden by flames"] = true,
+  ["a figure of blinding light"] = true,
+  ["a vague silhouette"] = true,
+  ["a figure shrouded by steam"] = true,
+  ["a figure obscured by vines"] = true,
+  ["a figure wrapped in darkness"] = true,
+  ["a gravitationally distorted figure"] = true,
 }
 
 function kaiUI.chat.capture()
