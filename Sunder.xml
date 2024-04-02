@@ -26098,7 +26098,6 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Whipburst</name>
 									<script>if matches[3] == snd.target then
-  snd.target_got("ablaze")  
   if snd.flamestack ~= 12 and snd.checkAff("ablaze")  then
     snd.flamestack = snd.flamestack + 1
   end
