@@ -20490,7 +20490,7 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Static energy afflict</name>
+								<name>staticburst/currents</name>
 								<script>if matches[2] == snd.target then
   local aff = matches[3]
   if aff == "lovers effect" then
@@ -20510,9 +20510,13 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Your jolts of static energy have disrupted (\w+)'s mental state with ([a-z ]+)\.$</string>
+									<string>^Your jolts of static energy have disrupted (\w+)'s mental state with (.+)\.$</string>
+									<string>^The unstable electrical currents have disrupted (\w+)'s mind, causing (.+)\.$</string>
+									<string>^Unstable electrical currents have disrupted (\w+)'s mind, causing (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -60909,7 +60913,7 @@ def_deception = {defense = "deception", type = "normal", effect = "Not listed on
 def_bounding = {defense = "bounding", type = "normal", effect = "You move faster outdoors &amp; in forests", balance = {balanceequilibriumtake = "bounding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bounding" },
 def_efficiency = {defense = "efficiency", type = "normal", effect = "You shoot and trap faster", balance = {balanceequilibriumtake = "efficiency"}, state = "down", needit = false, timer = createStopWatch(), skill = "Efficiency" },
 def_somersault = {defense = "somersault", type = "normal", effect = "Prepared to yeet out", balance = {balanceequilibriumtake = "somersault"}, state = "down", needit = false, timer = createStopWatch(), skill = "Somersault" },
-def_inspirited = {defense = "inspirited", type = "normal", effect = "You shoot and trap faster", balance = {balanceequilibriumtake = "inspirit"}, state = "down", needit = false, timer = createStopWatch(), skill = "Inspirit" },
+def_inspirited = {defense = "inspirited", type = "normal", effect = "Harder, Better, Faster, Stronger", balance = {balanceequilibriumtake = "inspirit"}, state = "down", needit = false, timer = createStopWatch(), skill = "Inspirit" },
 def_coagulation = {defense = "coagulation", type = "normal", effect = "Passively clot", balance = {balanceequilibriumtake = "coagulation on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Coagulation" },
 def_lithe = {defense = "lithe", type = "normal", effect = "50% chance to avoid being knocked over", balance = {balanceequilibriumtake = "lithe on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lithe" },
 
