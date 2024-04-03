@@ -2406,8 +2406,10 @@ snd.clear_afflictions("smoke")</script>
 									<string>^You will now try and fend off attacks aimed at your ([a-z ]+)\.$</string>
 									<string>^You will ruthlessly oppose attacks on your ([a-z ]+)\.$</string>
 									<string>^With a predatory growl, you oppose the attack on your ([a-z ]+), denying it purchase\.$</string>
+									<string>^Moving in, \w+ feints a blow towards your (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -2437,6 +2439,7 @@ snd.clear_afflictions("smoke")</script>
 									<string>^(\w+) uses Fury Distract on you\.$</string>
 									<string>Agony lances through your arm and you can no longer maintain your guard.</string>
 									<string>You shift your guard to protect yourself.</string>
+									<string>^\w+ uses Fury Distract \(boosted\) on you\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -2445,6 +2448,7 @@ snd.clear_afflictions("smoke")</script>
 									<integer>1</integer>
 									<integer>3</integer>
 									<integer>3</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -21050,7 +21054,7 @@ disableTrigger("vorpal confirmation")</script>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>lightning hit</name>
+										<name>lightning/aneda epilepsy</name>
 										<script>if matches[2] == snd.target then
   snd.target_got("epilepsy")
 end</script>
@@ -21065,7 +21069,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(\w+) glows brightly before a bolt of lightning strikes from nowhere, blasting into \w+ as a deafening roar of thunder splits the air.$</string>
+											<string>^The shock leaves (\w+) twitching sporadically\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -21131,7 +21135,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^The glow surrounding (\w+) vanishes suddenly.$</string>
+											<string>^The glow surrounding (\w+) vanishes suddenly\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -21327,9 +21331,9 @@ disableTrigger("atdum confirmation")</script>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>aneda hit</name>
-										<script>if matches[2] == snd.target then
-  snd.target_got("epilepsy")
+										<name>Flared got</name>
+										<script>if snd.target == matches[3] then
+  snd.target_got("flared")
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -21342,7 +21346,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(\w+) is consumed in a colorless conflagration of pale lightning which streaks from the sky, shadowy dim following in place of an eerily absent thunderclap\.$</string>
+											<string>^In the wake of .+'s strike, the shadows recoil from (\w+) as though in disgust\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
