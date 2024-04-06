@@ -26254,7 +26254,7 @@ end</script>
 									<regexCodePropertyList />
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>1st hit</name>
-										<script>if multimatches[1][3] == snd.target then
+										<script>if multimatches[1][2] == snd.target then
 	snd.last_hit_limb = multimatches[1][4]
 	snd.last_limb_dmg = 5.49
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
@@ -26280,8 +26280,8 @@ end</script>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>2nd hit</name>
-										<script>if multimatches[1][4] == snd.target then
-	snd.last_hit_limb = multimatches[1][5]
+										<script>if multimatches[1][3] == snd.target then
+	snd.last_hit_limb = multimatches[1][4]
 	snd.last_limb_dmg = 8
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end</script>
@@ -26306,8 +26306,8 @@ end</script>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>3rd hit</name>
-										<script>if multimatches[1][4] == snd.target then
-	snd.last_hit_limb = multimatches[1][5]
+										<script>if multimatches[1][3] == snd.target then
+	snd.last_hit_limb = multimatches[1][4]
 	snd.last_limb_dmg = 10
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
