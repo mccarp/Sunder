@@ -54582,7 +54582,7 @@ function snd.attack_function()
 	end
 
 	if snd.checkAff("stormtouched") and not snd.used.shield then
-		string = string..snd.sep.."humour synape "..snd.target
+		string = string..snd.sep.."humour synapse "..snd.target
   elseif snd.used.shield or snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"}, 1) or (snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
 				string = "humour perforate " .. snd.target
 	else
@@ -54619,123 +54619,6 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^dmg$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Single Shatter</name>
-								<script>if snd.class == "Bloodborn" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      local string = ""
-      -- we'll load this with our attack string
-      local call = ""
-      -- and this with our affliction call
-      local limbs = {"left leg", "right leg", "left arm", "right arm"}
-      local targ = "nothing"
-      local stalled = false
-      if snd.defenses.def_arrhythmia.state == "deffed" then
-        arrhythmia = true
-      end
-      for limb in pairs(limbs) do
-        -- ignore last parried, last hit, and any limbs being resto'd
-        if
-          limbs[limb] ~= snd.parried_limb and
-          limbs[limb] ~= snd.last_hit_limb and
-          limbs[limb] ~= snd.resto_limb
-        then
-          if targ == "nothing" then
-            targ = limbs[limb]
-          end
-        end
-      end
-      if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbite") then
-        string = "well imbrue"
-      elseif snd.glimpse == "none" and snd.checkAff("frostbite") then
-        string = "well actualize " .. snd.target .. " phlegm"
-      elseif snd.used.shield == true then
-        string = "humour perforate " .. snd.target
-      elseif snd.glimpse == "phlegm" or snd.glimpse == "yellow" or snd.glimpse == "black" then
-        if gmcp.Char.Vitals.ability_bal == "1" then
-          string = "well palpitate " .. snd.target
-        end
-        if gmcp.Char.Vitals.aspect == "phlegm" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            if
-              snd.checkAff("shivering") and
-              not snd.checkAff("frostbite") and
-              not snd.checkAff("excess_phlegm")
-            then
-              string = string .. snd.sep .. "humour frostbite " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "humour perforate " .. snd.target
-            else
-              string = string .. snd.sep .. "humour disgorge " .. snd.target .. " " .. targ
-            end
-          end
-        elseif gmcp.Char.Vitals.aspect == "yellow" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            if
-              snd.checkAff("shivering") and
-              not snd.checkAff("frostbite") and
-              not snd.checkAff("excess_phlegm")
-            then
-              string = string .. snd.sep .. "humour frostbite " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "humour perforate " .. snd.target
-            else
-              string = string .. snd.sep .. "humour disgorge " .. snd.target .. " " .. targ
-            end
-          end
-        elseif gmcp.Char.Vitals.aspect == "black" then
-          if not stalled then
-            if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
-              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " torso"
-            else
-              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " " .. targ
-            end
-          elseif stalled then
-            --not snd.direfrost and not snd.checkAff("frostbrand") then
-            if
-              snd.checkAff("shivering") and
-              not snd.checkAff("frostbite") and
-              not snd.checkAff("excess_phlegm")
-            then
-              string = string .. snd.sep .. "humour frostbite " .. snd.target
-            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
-              string = string .. snd.sep .. "humour perforate " .. snd.target
-            else
-              string = string .. snd.sep .. "humour disgorge " .. snd.target .. " " .. targ
-            end
-          end
-        end
-      end
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function()
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^sshatter$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Affs</name>
@@ -54786,7 +54669,7 @@ function snd.attack_function()
 	end
 
 	if snd.checkAff("stormtouched") then
-		string = string..snd.sep.."humour synape "..snd.target
+		string = string..snd.sep.."humour synapse "..snd.target
 	elseif snd.glimpse == "phlegm" or snd.glimpse == "yellow" or snd.glimpse == "black" then
 	
 		if snd.checkAff("vertigo") then
@@ -54807,7 +54690,7 @@ function snd.attack_function()
 					if snd.checksomeAffs({"dizziness", "stupidity"},2) then
 						string = string..snd.sep.."humour flense "..snd.target.." "..tohit[1]
 					else
-						string = string..snd.sep.."humour synape "..snd.target
+						string = string..snd.sep.."humour synapse "..snd.target
 					end
 				end
 			end
@@ -55004,7 +54887,7 @@ end</script>
             end 
     			else
   					if not snd.checksomeAffs({"dizziness", "stupidity"},2) then
-            	string = string..snd.sep.."humour synape "..snd.target
+            	string = string..snd.sep.."humour synapse "..snd.target
   					else
   						string = string..snd.sep.."humour flense "..snd.target.." "..tohit[1]
   					end
@@ -55064,6 +54947,80 @@ end</script>
 								<command></command>
 								<packageName></packageName>
 								<regex>^gaff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Limbs</name>
+								<script>if snd.class == "Bloodborn" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      local string = ""
+      -- we'll load this with our attack string
+      local call = ""
+      -- and this with our affliction call
+      local limbs = {"left leg", "right leg", "left arm", "right arm"}
+      local targ = "nothing"
+      local stalled = false
+      if snd.defenses.def_arrhythmia.state == "deffed" then
+        arrhythmia = true
+      end
+      for limb in pairs(limbs) do
+        -- ignore last parried, last hit, and any limbs being resto'd
+        if
+          ((limbs[limb] ~= snd.parried_limb and
+          limbs[limb] ~= snd.last_hit_limb) or snd.no_parry()) and
+          limbs[limb] ~= snd.resto_limb
+        then
+          if targ == "nothing" then
+            targ = limbs[limb]
+          end
+        end
+      end
+      if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbite") then
+        string = "well imbrue"
+      elseif snd.glimpse == "none" and snd.checkAff("frostbite") then
+        string = "well actualize " .. snd.target .. " phlegm"
+      elseif snd.used.shield == true then
+        string = "humour perforate " .. snd.target
+      elseif snd.glimpse == "phlegm" or snd.glimpse == "yellow" or snd.glimpse == "black" then
+        if gmcp.Char.Vitals.ability_bal == "1" then
+          string = "well palpitate " .. snd.target
+        end
+          if not stalled then
+            if snd.limb_dmg.torso == 0 and (snd.parried_limb ~= "torso" or snd.no_parry()) then
+              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " torso"
+            else
+              string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " " .. targ
+            end
+          elseif stalled then
+            if
+              snd.checkAff("shivering") and
+              not snd.checkAff("frostbite") and
+              not snd.checkAff("excess_phlegm")
+            then
+              string = string .. snd.sep .. "humour frostbite " .. snd.target
+            elseif snd.checkAff("frozen") and not snd.checkAff("writhe_impaled") then
+              string = string .. snd.sep .. "humour perforate " .. snd.target
+            else
+              string = string .. snd.sep .. "humour disgorge " .. snd.target .. " " .. targ
+            end
+          end
+      end
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^limbs$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
