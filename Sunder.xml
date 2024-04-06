@@ -26311,7 +26311,7 @@ end</script>
 	snd.last_limb_dmg = 10
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
-disableTrigger("Heelrush")</script>
+disableTrigger("Overpower")</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>3</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
