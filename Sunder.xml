@@ -7494,8 +7494,10 @@ end
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>You slowly clamber over the rubble in your path.</string>
+						<string>Your labored breathing intesifies as you slowly move.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -36529,12 +36531,12 @@ cecho("\n")</script>
 					<Alias isActive="yes" isFolder="no">
 						<name>setup</name>
 						<script>snd.send("config wrapwidth 0")
-snd.send("config auto_outc on")
+snd.send("config outcache on")
 snd.send("config combatmessages on")
-snd.send("config affliction_view on")
-snd.send("config simple_diag on")
-snd.send("config curemsgs default")
-snd.send("config fishnumbers on")
+snd.send("config showafflictions on")
+snd.send("config simplediagnose on")
+snd.send("config curingtype default")
+snd.send("config fishgraphic off")
 snd.send("gathering on")
 if not sndNDB.installed then
   sndNDB_Install()
