@@ -2013,7 +2013,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>got adder</name>
-								<script>snd.aff_have("adder_tarot")
+								<script>snd.aff_gain("adder_tarot")
 --snd.send("qeb rip card from body")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -2026,15 +2026,17 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(\w+) dips the Adder tarot in venom then flings it at you\. It hooks viciously into you flesh, a small trail of blood dripping from where it pierced the skin\.$</string>
+									<string>^\w+ uses Tarot Adder on you\.$</string>
+									<string>^\w+ uses Hyalincuru Diamond on you\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>cure adder</name>
-								<script>snd.aff_cure("adder_tarot")</script>
+								<script>fsnd.aff_cure("adder_tarot")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -2047,9 +2049,15 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You rip the Adder tarot from your body, the sharp fangs tearing your flesh.</string>
+									<string>You tear the noxious diamond shape from your body, sharp edges slicing your flesh.</string>
+									<string>You feel a swirl of violent red and poisonous green energy shatter against your forehead, combining together to afflict you with a dose of</string>
+									<string>The Adder tarot on you suddenly lurches into motion as an adder rises up from underneath it</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
+									<integer>3</integer>
+									<integer>2</integer>
+									<integer>2</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
