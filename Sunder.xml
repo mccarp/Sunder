@@ -54487,7 +54487,7 @@ end</script>
       if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("excess_phlegm") then
         string = "well imbrue "
       elseif snd.glimpse == "none" and snd.checkAff("excess_phlegm") then
-        string = "well actualize " .. snd.target .. " phlegm"
+        string = "well actualise " .. snd.target .. " phlegm"
       elseif snd.used.shield or 
 			(snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) or snd.limb_status["left leg"] ~= "healed" or snd.limb_status["right leg"] ~= "healed") and not snd.proned() then
 				string = "humour perforate " .. snd.target
@@ -54593,7 +54593,7 @@ function snd.attack_function()
   		end
   		
   		if gmcp.Char.Vitals.aspect == "none" or gmcp.Char.Vitals.aspect == "phlegm" then
-  			string = string..snd.sep.."well contaminate yellowbile"
+  			string = string..snd.sep.."well contaminate yellow"
   		end
   
   		if gmcp.Char.Vitals.aspect == "yellow" then
@@ -54665,7 +54665,7 @@ function snd.attack_function()
 	if snd.glimpse == "none" and not snd.checkAff("excess_melancholic") and not snd.glimpsing then
 		string = "well suffocate"
 	elseif snd.glimpse == "none" and snd.checkAff("excess_melancholic") then
-		string = "well actualize "..snd.target.." black"
+		string = "well actualise "..snd.target.." black"
 	end
 
 	if snd.checkAff("stormtouched") then
@@ -54677,7 +54677,7 @@ function snd.attack_function()
 		end
 		
 		if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "none" or gmcp.Char.Vitals.aspect == "yellow" then
-			string = "well contaminate blackbile"
+			string = "well contaminate black"
 		end
 
 		if gmcp.Char.Vitals.aspect == "phlegm" then
@@ -54980,7 +54980,7 @@ end</script>
       if snd.glimpse == "none" and not snd.glimpsing and not snd.checkAff("frostbite") then
         string = "well imbrue"
       elseif snd.glimpse == "none" and snd.checkAff("frostbite") then
-        string = "well actualize " .. snd.target .. " phlegm"
+        string = "well actualise " .. snd.target .. " phlegm"
       elseif snd.used.shield == true then
         string = "humour perforate " .. snd.target
       elseif snd.glimpse == "phlegm" or snd.glimpse == "yellow" or snd.glimpse == "black" then
