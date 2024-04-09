@@ -15176,9 +15176,11 @@ snd.target_got("cold")</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>You chimera isn't ready to attack just yet.</string>
+											<string>You use Domination Chimera </string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>3</integer>
+											<integer>2</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -15721,9 +15723,11 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>Your quetzal is still recovering; it is not ready to attack again yet.</string>
+											<string>You use Contracts Quetzal </string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>3</integer>
+											<integer>2</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
