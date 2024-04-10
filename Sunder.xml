@@ -25304,7 +25304,7 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Heelrush</name>
 									<script></script>
 									<triggerType>0</triggerType>
@@ -25378,7 +25378,7 @@ end</script>
 	snd.last_limb_dmg = 10
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
-disableTrigger("Heelrush")</script>
+--disableTrigger("Heelrush")</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>3</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
@@ -26416,7 +26416,7 @@ end</script>
 	snd.last_limb_dmg = 10
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
-disableTrigger("Overpower")</script>
+--disableTrigger("Overpower")</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>3</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
