@@ -2036,7 +2036,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>cure adder</name>
-								<script>fsnd.aff_cure("adder_tarot")</script>
+								<script>snd.aff_cure("adder_tarot")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -14960,7 +14960,71 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(\w+) rips the Adder tarot painfully from (the )?\w+ flesh.$  </string>
+											<string>^(\w+) rips the Adder tarot painfully from (the )?\w+ flesh.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+								</TriggerGroup>
+								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Wheel</name>
+									<script></script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList />
+									<regexCodePropertyList />
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Wheel affs</name>
+										<script>if matches[2] == snd.target then
+  local toParse = matches[3]
+  toParse = toParse:gsub("and", ""):gsub(",", ""):gsub("  ", " ")
+  for aff in toParse:gmatch('([^ ]+)') do
+    snd.target_got(aff)
+  end
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Misfortune befalls (\w+), \w+ is suffering from (.*)\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Wheel cures</name>
+										<script>if matches[3] == snd.target then
+  snd.target_cured(matches[2])
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The (\w+) affliction is absorbed from (\w+) as tribute to the Wheel\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -85600,6 +85664,16 @@ snd.cardshapes =
         slickness = {card = "adder"},
         haemophilia = {card = "adder"},
         aeon = {card = "aeon"},
+        shyness = {card = "adder"},
+        allergies = {card = "adder"},
+        peace = {card = "adder"},
+        paresis = {card = "adder"},
+        slickness = {card = "adder"},
+        stuttering = {card = "adder"},
+        blurry_vision = {card = "adder"},
+        deadening = {card = "adder"},
+        disfigurement = {card = "adder"},
+        squelched = {card = "adder"},
       },
     oneiromancer =
       {
@@ -85629,6 +85703,16 @@ snd.cardshapes =
         haemophilia = {card = "diamond"},
         aeon = {card = "hourglass"},
         despair = {card = "phantasmagoria"},
+        shyness = {card = "diamond"},
+        allergies = {card = "diamond"},
+        peace = {card = "diamond"},
+        paresis = {card = "diamond"},
+        slickness = {card = "diamond"},
+        stuttering = {card = "diamond"},
+        blurry_vision = {card = "diamond"},
+        deadening = {card = "diamond"},
+        disfigurement = {card = "diamond"},
+        squelched = {card = "diamond"},
       },
   }</script>
 						<eventHandlerList />
