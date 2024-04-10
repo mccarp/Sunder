@@ -81193,6 +81193,10 @@ end</script>
   Bedevil = function(target, direction)
               snd.pendulum(direction)
             end,
+  Branding = function(target)
+             snd.target_got("infernal_seal")
+             tempTimer(125, [[snd.target_cured("infernal_seal")]])
+           end,
   },
   
   ["Egotism"] = {
