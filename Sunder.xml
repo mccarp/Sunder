@@ -54636,7 +54636,7 @@ end</script>
 							string = string .. snd.sep .. "humour swathe " .. snd.target
             end
           end
-        elseif gmcp.Char.Vitals.aspect == "air" then
+        elseif gmcp.Char.Vitals.aspect == "black" then
           if not stalled then
             if snd.limb_dmg.torso == 0 and snd.parried_limb ~= "torso" then
               string = string .. snd.sep .. "well arrhythmia 3 disgorge " .. snd.target .. " torso"
@@ -81063,6 +81063,7 @@ end</script>
   ["Psionics"] = {
         Neutralise = function(target)
                        snd.target_got("no_speed")
+                       snd.lev_gone = true
                      end,
                     
         Deprival = function(target)
@@ -81204,6 +81205,7 @@ end</script>
   ["Egotism"] = {
         Redress = function(target)
                        snd.target_got("no_speed")
+                       snd.lev_gone = true
                      end,
                     
         Boast = function(target)
