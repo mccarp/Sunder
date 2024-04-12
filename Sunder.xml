@@ -43427,7 +43427,7 @@ end</script>
         chasten = "none"
       end
       if shield~="none" then
-        if snd.toggles.affcalling then
+        if snd.toggles.affcalling and not snd.target_gone then
           if battle~="none" then
             string = string.."wt Battle "..snd.target..": "..battle..snd.sep
           end
