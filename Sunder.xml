@@ -76047,11 +76047,11 @@ function snd.alchemist_bash()
   
   if snd.familiar and snd.balance.morph and hasSkill("Reconfiguration") then
     if snd.shamanpet == "tumefactive" then
-      battack = "order experiment passive"..snd.sep.."experiment reconfigure toxic"..snd.sep
+      battack = "order experiment passive"..snd.sep.."experiment reconfigure toxic"..snd.sep.."order experiment follow me"..snd.sep
     elseif snd.shamanpet == "toxic" then
-      battack = "order experiment passive"..snd.sep.."experiment reconfigure tumefactive"..snd.sep
+      battack = "order experiment passive"..snd.sep.."experiment reconfigure tumefactive"..snd.sep.."order experiment follow me"..snd.sep
     else
-      battack = "order experiment passive"..snd.sep.."experiment reconfigure tumefactive"..snd.sep
+      battack = "order experiment passive"..snd.sep.."experiment reconfigure tumefactive"..snd.sep.."order experiment follow me"..snd.sep
     end
   else
     battack = "experiment recall"..snd.sep.."order experiment passive"..snd.sep.."order experiment follow me"..snd.sep
@@ -76060,7 +76060,7 @@ function snd.alchemist_bash()
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
     else
-      battack = "touch shield"
+      battack = battack.."touch shield"
     end
   else
     if wp&gt;=45 and tonumber(gmcp.Char.Vitals.volatility) &gt; 3 then
@@ -76514,11 +76514,11 @@ function snd.shaman_bash()
   battack = ""
   if snd.familiar and snd.balance.morph and hasSkill("Morph") then
     if snd.shamanpet == "bear" then
-      battack = "order spirit passive"..snd.sep.."familiar morph spider"
+      battack = "order spirit passive"..snd.sep.."familiar morph spider"..snd.sep.."order spirit follow me"
     elseif snd.shamanpet == "spider" then
-      battack = "order spirit passive"..snd.sep.."familiar morph bear"
+      battack = "order spirit passive"..snd.sep.."familiar morph bear"..snd.sep.."order spirit follow me"
     else
-      battack = "order spirit passive"..snd.sep.."familiar morph bear"
+      battack = "order spirit passive"..snd.sep.."familiar morph bear"..snd.sep.."order spirit follow me"
     end
   else
     battack = "familiar recall"..snd.sep.."order spirit passive"..snd.sep.."order spirit follow me"
@@ -76527,7 +76527,7 @@ function snd.shaman_bash()
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
     else
-      battack = "touch shield"
+      battack = battack.."touch shield"
     end
 	else
     if wp&gt;=45 and tonumber(gmcp.Char.Vitals.energy) &gt; 3 then
