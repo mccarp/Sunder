@@ -76538,7 +76538,7 @@ function snd.templar_bash()
     end
   elseif snd.toggles.newbie then
 		battack = "strikebash "..snd.bashing.target
-  elseif (gmcp.Char.Vitals.wield_left:find("warhammer") or gmcp.Char.Vitals.wield_left::find("bastard") or gmcp.Char.Vitals.wield_left::find("glaive")) and hasSkill("Doubleswing") then
+  elseif (gmcp.Char.Vitals.wield_left:find("warhammer") or gmcp.Char.Vitals.wield_left:find("bastard") or gmcp.Char.Vitals.wield_left:find("glaive")) and hasSkill("Doubleswing") then
     battack = "dsw "..snd.bashing.target
   else
   	battack = "dsk "..snd.bashing.target
