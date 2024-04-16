@@ -30476,10 +30476,9 @@ if snd.toggles.calling then
       list = list .. " " .. snd.scented[i][j]
     end
     if i ~= snd.my.room_name then
-      string = "wt " .. i .. " (" .. z .. "): " .. list .. snd.sep
+      string = string.."wt " .. i .. " (" .. z .. "): " .. list .. snd.sep
     end
   end
-	
   if string ~= "" then snd.send(string) end
   snd.scented = {}
 end</script>
