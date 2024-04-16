@@ -956,7 +956,7 @@ send("firstaid on")
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Erudition Broke</name>
 									<script>snd.toggles.active = true
 send("firstaid on")
@@ -6984,6 +6984,28 @@ end</script>
 							<string>You choke as you inhale water.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>anti-dust</name>
+						<script>snd.send("qeb path go")</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>2</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You struggle to make your way through the thick dust.</string>
+							<string>You stop speedwalking.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
