@@ -40652,7 +40652,7 @@ end</script>
 						</Alias>
 						<Alias isActive="yes" isFolder="no">
 							<name>Salve support</name>
-							<script>if true or snd.class == "Bard" then
+							<script>if snd.class == "Bard" then
   -- We're a super awesome badass bard, obv
   snd.starting_attack()
   -- always run this first, it does some important resets
@@ -76368,7 +76368,7 @@ function snd.revenant_bash()
     end
   elseif snd.toggles.newbie then
 		battack = "rivebash "..snd.bashing.target
-  elseif (snd.wielded.left.name:find("warhammer") or snd.wielded.left.name:find("bastard") or snd.wielded.left.name:find("bardiche")) and hasSkill("Fell") then
+  elseif (gmcp.Char.Vitals.wield_left:find("warhammer") or gmcp.Char.Vitals.wield_left:find("bastard") or gmcp.Char.Vitals.wield_left:find("bardiche")) and hasSkill("Fell") then
     battack = "fell "..snd.bashing.target
   else
   	battack = "dpl "..snd.bashing.target
