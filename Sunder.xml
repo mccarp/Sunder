@@ -23487,6 +23487,7 @@ end</script>
 							<script>if matches[2]:lower() == snd.target:lower() then
   snd.target_cured("slickness")
   snd.target_cured("slough")
+  snd.immediateResto()
   if snd.sloughTimer then killTimer(snd.sloughTimer) end
   if not snd.checkAff("burnt_skin") then
     if matches[4] == "epidermal" then
@@ -80245,7 +80246,7 @@ function snd.restoApply(location)
   if snd.checkAff("burnt_skin") and location ~= "torso" then
     return
   end
-  local restoTime = 4.2
+  local restoTime = 4.4 --slightly too long but will use immediateResto
   if snd.checkAff("rot_body") then
     restoTime = restoTime + 4.3
   end
@@ -80262,6 +80263,13 @@ function snd.restoApply(location)
     end
   end
   restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
+end
+
+function snd.immediateResto()
+  if restoration_timer and remainingTime(restoration_timer) and remainingTime(restoration_timer)&lt;1 then
+    killTimer(restoration_timer)
+    snd.restoApply2(snd.resto_limb)
+  end
 end
 
 function snd.restoApply2(location)
