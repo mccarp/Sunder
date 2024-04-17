@@ -80165,6 +80165,9 @@ local mendingMap =
   }
 
 local function mending(limb)
+  if snd.limb_status[limb]~="healed" and snd.limb_bruising[limb]&lt;3 then
+    return false
+  end
   for _, aff in ipairs(mendingCures[limb]) do
     if
       aff:find("bruised") and
@@ -80176,8 +80179,7 @@ local function mending(limb)
       snd.limb_bruising[limb] = math.min(3, snd.limb_bruising[limb]) - 1
       table.insert(snd.last_affs, "bruising " .. limb)
       return true
-    elseif snd.checkAff(aff) and (not aff:find("_crippled") or snd.limb_status[limb]=="healed" or 
-    (snd.limb_status[limb]=="broken" and snd.resto_limb == limb and (not restoration_timer or not remainingTime(restoration_timer) or remainingTime(restoration_timer)&lt;1 ))) then
+    elseif snd.checkAff(aff) then
       if aff == "ablaze" then
         if not snd.checkAff("heatspear") then
           snd.target_cured("ablaze")
