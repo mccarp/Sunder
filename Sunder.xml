@@ -80019,39 +80019,60 @@ function snd.checksomeSelfAffs(afflictions, number)
   end
 end
 
+local pendulum_table =
+    {
+      ["left arm"] = {["clockwise"] = "right arm", ["anti-clockwise"] = "left leg"},
+      ["right arm"] = {["clockwise"] = "right leg", ["anti-clockwise"] = "left arm"},
+      ["right leg"] = {["clockwise"] = "left leg", ["anti-clockwise"] = "right arm"},
+      ["left leg"] = {["clockwise"] = "left arm", ["anti-clockwise"] = "right leg"},
+    }
+local limb_affs = {
+  "_crippled",
+  "_broken",
+  "_mangled",
+  "_dislocated",
+}
 function snd.pendulum(direction)
-  local pendulum_table =
-      {
-        ["left arm"] = {["clockwise"] = "right arm", ["anti-clockwise"] = "left leg"},
-        ["right arm"] = {["clockwise"] = "right leg", ["anti-clockwise"] = "left arm"},
-        ["right leg"] = {["clockwise"] = "left leg", ["anti-clockwise"] = "right arm"},
-        ["left leg"] = {["clockwise"] = "left arm", ["anti-clockwise"] = "right leg"},
-      }
-    local limb_damage_copy = mmp.deepcopy(snd.limb_dmg)
-    local limb_status_copy = mmp.deepcopy(snd.limb_status)
-    -- copy limb damage table so we can manipulate values while iterating current unchanged values
-    for k, v in pairs(limb_damage_copy) do
-      if k ~= "total" and k ~= "head" and k ~= "torso" and v &gt; 0 then
-        -- only check appendages and ones with damage
-        snd.took_limb_dmg(pendulum_table[k][direction], v)
-        -- add limb damage to new limb
-        snd.took_limb_dmg(k, -v)
-        -- remove damage from current limb
-        if snd.checkAff(k:gsub(" ", "_") .. "_crippled") then
-          -- we need to check for level one breaks as well
-          snd.target_got(pendulum_table[k][direction]:gsub(" ", "_") .. "_crippled")
-          --add new limb break
-          snd.target_cured(k:gsub(" ", "_") .. "_crippled")
-          --remove old
-        end
-        if snd.checkAff(k:gsub(" ", "_") .. "_dislocated") then
-          -- we need to check for dislocates as well
-          snd.target_got(pendulum_table[k][direction]:gsub(" ", "_") .. "_dislocated")
-          --add new dislocate
-          snd.target_cured(k:gsub(" ", "_") .. "_dislocated")
-          --remove old
+    local new_affs = {}
+    local old_affs = {}
+    local new_damage = {}
+    local new_status = {}
+    local new_bruising = {}
+    for _, limb in pairs({"left arm", "right arm", "left leg", "right leg"}) do
+      local newLimb = pendulum_table[limb][direction]
+      local limbName = limb:gsub(" ","_")
+      local newLimbName = newLimb:gsub(" ","_")
+      for _, aff in pairs(limb_affs) do
+        if snd.checkAff(limb..aff) then
+          new_affs[newLimb..aff] = true
+          old_affs[limb..aff] = true
         end
       end
+      new_damage[newLimb] = snd.limb_dmg[limb]
+      new_status[newLimb] = snd.limb_status[limb]
+      new_bruising[newLimb] = snd.limb_bruising[limb]
+    end
+    for aff, _ in pairs(old_affs) do
+      if not new_affs[aff] then
+        snd.target_cured(aff)
+      end
+    end
+    for aff, _ in pairs(new_affs) do
+      if not old_affs[aff] then
+        snd.target_got(aff)
+      end
+    end
+    for limb, dmg in pairs(new_damage) do
+      display(dmg)
+      if dmg ~= snd.limb_dmg[limb] then
+        snd.took_limb_dmg(limb, dmg-snd.limb_dmg[limb])
+      end
+    end
+    for limb, status in pairs(new_status) do
+      snd.limb_status[limb] = status
+    end
+    for limb, bruising in pairs(new_bruising) do
+      snd.limb_bruising[limb] = bruising
     end
     if snd.checkAff("sore_wrist") and not snd.checkAff("sore_ankle") then
       snd.target_cured("sore_wrist")
@@ -80060,12 +80081,8 @@ function snd.pendulum(direction)
       snd.target_cured("sore_ankle")
       snd.target_got("sore_wrist")
     end
-    for part,status in pairs(limb_status_copy) do
-      if part ~= "head" and part ~= "torso" then
-        snd.limb_status[pendulum_table[part][direction]] = status
-      end
-    end
 end
+
 
 function snd.took_bruise(limb)
   if snd.limb_bruising[limb] &lt; 3 then
