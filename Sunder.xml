@@ -80063,7 +80063,6 @@ function snd.pendulum(direction)
       end
     end
     for limb, dmg in pairs(new_damage) do
-      display(dmg)
       if dmg ~= snd.limb_dmg[limb] then
         snd.took_limb_dmg(limb, dmg-snd.limb_dmg[limb])
       end
