@@ -24238,8 +24238,10 @@ disableTrigger("Sunder Parry")</script>
 								<string>^With a free hand, (\w+) fends off the attack on \w+ .+\.$</string>
 								<string>^With a predatory growl, (\w+) opposes the attack on [a-z ]+, denying it purchase\.$</string>
 								<string>^Foreseeing the baited attack on .+, (\w+)'s hook streaks out, denying the strike.$</string>
+								<string>^(\w+) parries the attack to \w+ .+, pushing \w+ back\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -27735,8 +27737,10 @@ end</script>
 								<string>^With a predatory growl, (\w+) opposes the attack on \w+ (.+), denying it purchase\.$</string>
 								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm, and shakes you violently\.$</string>
 								<string>^The smoky fumes reveal (\w+) guarding \w+ (.+)\.$</string>
+								<string>^(\w+) parries the attack to \w+ (.+), pushing \w+ back\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
