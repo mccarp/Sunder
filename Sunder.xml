@@ -23483,6 +23483,43 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Poultice v2</name>
+							<script>if matches[2]:lower() == snd.target:lower() then
+  snd.target_last_used_salve = matches[3]
+  snd.target_cured("slickness")
+  snd.target_cured("slough")
+  snd.immediateResto()
+  if snd.sloughTimer then killTimer(snd.sloughTimer) end
+  if matches[3] == "mending" then
+    snd.mendingApply(matches[4])
+  elseif matches[3] == "restoration" then
+    snd.target_last_used_salve = "restoration"
+    snd.track_restoration(matches[2])
+    snd.restoApply(matches[4])
+  else
+    snd.salveApply(matches[3], matches[4])
+  end
+elseif snd.toggles.nontargetgags and snd.toggles.gags then
+  deleteFull()
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(?:You sense )?(\w+) presses a (\w+) poultice against (?:the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into (?:the )?\w+ flesh\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>poultice</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   snd.target_cured("slickness")
@@ -26571,7 +26608,7 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>mending</name>
 								<script>if matches[2]:lower() == snd.target:lower() then
   snd.mendingApply(matches[4])
@@ -26598,7 +26635,7 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>restoration</name>
 								<script>if matches[2] == snd.target and not snd.illusion_found then
   snd.target_last_used_salve = "restoration"
@@ -26771,7 +26808,7 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Soothing</name>
 								<script>if matches[2] == snd.target then
   snd.target_last_used_salve = "soothing"
@@ -80108,6 +80145,23 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
+					<name>Generic applies</name>
+					<packageName></packageName>
+					<script>snd.genericApplies =
+  {
+    legs = {"left leg", "right leg"},
+    arms = {"left arm", "right arm"},
+    skin = {"head", "torso", "left arm", "right arm", "left leg", "right leg"},
+    ["left leg"] = {"left leg"},
+    ["right leg"] = {"right leg"},
+    ["left arm"] = {"left arm"},
+    ["right arm"] = {"right arm"},
+    ["torso"] = {"torso"},
+    ["head"] = {"head"},
+  }</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
 					<name>mending tracking</name>
 					<packageName></packageName>
 					<script>local mendingCures =
@@ -80166,18 +80220,6 @@ end</script>
         "right_leg_dislocated",
       },
   }
-local mendingMap =
-  {
-    legs = {"left leg", "right leg"},
-    arms = {"left arm", "right arm"},
-    skin = {"head", "torso", "left arm", "right arm", "left leg", "right leg"},
-    ["left leg"] = {"left leg"},
-    ["right leg"] = {"right leg"},
-    ["left arm"] = {"left arm"},
-    ["right arm"] = {"right arm"},
-    ["torso"] = {"torso"},
-    ["head"] = {"head"},
-  }
 
 local function mending(limb)
   if snd.limb_status[limb]~="healed" and snd.limb_bruising[limb]&lt;3 then
@@ -80217,7 +80259,7 @@ function snd.mendingApply(location)
   if snd.checkAff("burnt_skin") then
     return
   end
-  for _, limb in ipairs(mendingMap[location]) do
+  for _, limb in ipairs(snd.genericApplies[location]) do
     if mending(limb) then
       return
     end
@@ -80269,13 +80311,19 @@ function snd.restoApply(location)
   end
   snd.resto_limb = location
   snd.enemy_used_regenerate = false
-  for _, aff in ipairs(snd.resto_cure_order[location]) do
-    if snd.checkAff(aff.aff) then
-      if aff.type == "aff" and aff.instant then
-        snd.target_cured(aff.aff)
-      else
-        restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
+  for _, limb in ipairs(snd.genericApplies[location]) do
+    for _, aff in ipairs(snd.resto_cure_order[limb]) do
+      if snd.checkAff(aff.aff) then
+        if aff.type == "aff" and aff.instant then
+          snd.target_cured(aff.aff)
+        else
+          restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
+        end
+        return
       end
+    end
+    if snd.limb_dmg[limb]&gt;0 then
+      restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
       return
     end
   end
@@ -80289,26 +80337,121 @@ function snd.immediateResto()
   end
 end
 
-function snd.restoApply2(location)
-  for _, aff in ipairs(snd.resto_cure_order[location]) do
+local function restore(limb)
+ for _, aff in ipairs(snd.resto_cure_order[limb]) do
     if snd.checkAff(aff.aff) then
       if aff.type == "aff" then
         snd.target_cured(aff.aff)
       else
         if snd.enemy_used_regenerate == true then
-          snd.took_limb_dmg(location, -40, true)
+          snd.took_limb_dmg(limb, -40, true)
         else
-          snd.took_limb_dmg(location, -30, true)
+          snd.took_limb_dmg(limb, -30, true)
         end
       end
-      return
+      return true
     end
     --If they didn't have any of the prior affs, remove limb damage
   end
-  if snd.enemy_used_regenerate == true then
-    snd.took_limb_dmg(location, -40, true)
-  else
-    snd.took_limb_dmg(location, -30, true)
+  if snd.limb_dmg[limb]&gt;0 then
+    if snd.enemy_used_regenerate == true then
+      snd.took_limb_dmg(limb, -40, true)
+    else
+      snd.took_limb_dmg(limb, -30, true)
+    end
+    return true
+  end
+  return false
+end
+
+function snd.restoApply2(location)
+   for _, limb in ipairs(snd.genericApplies[location]) do
+   echo(limb)
+    if restore(limb) then
+      return
+    end
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Other salves</name>
+					<packageName></packageName>
+					<script>local salveCures =
+  {
+    soothing =
+      {
+        ["head"] = {"whiplash"},
+        ["torso"] = {"backstrain", "muscle_spasms", "stiffness"},
+        ["left arm"] = {"sore_wrist", "weak_grip"},
+        ["right arm"] = {"sore_wrist", "weak_grip"},
+        ["left leg"] = {"sore_ankle"},
+        ["right leg"] = {"sore_ankle"},
+      },
+    epidermal =
+      {
+        ["head"] =
+          {
+            "indifference",
+            "stuttering",
+            "blurry_vision",
+            "burnt_eyes",
+            "blindness",
+            "gloom",
+            "deafness",
+          },
+        ["torso"] = {"anorexia", "gorged", "etherflux"},
+        ["left arm"] = {},
+        ["right arm"] = {},
+        ["left leg"] = {},
+        ["right leg"] = {},
+      },
+    caloric =
+      {
+        ["head"] = {},
+        ["torso"] = {"hypothermia", "frozen", "frigid", "shivering"},
+        ["left arm"] = {},
+        ["right arm"] = {},
+        ["left leg"] = {},
+        ["right leg"] = {},
+      },
+  }
+
+local function salve(cure, limb)
+  for _, aff in ipairs(salveCures[cure][limb]) do
+    if aff == "blindness" then
+      if not snd.checkAff("sight") then
+        snd.target_got("sight")
+        return
+      end
+    elseif aff == "deafness" then
+      if not snd.checkAff("hearing") then
+        snd.target_got("hearing")
+        return true
+      end
+    elseif snd.checkAff(aff) then
+      if aff == "gloom" then -- this handled by a delayed trigger
+        return true
+      end
+      snd.target_cured(aff)
+      table.insert(snd.last_affs, aff)
+      return true
+    end
+  end
+  return false
+end
+
+function snd.salveApply(cure, location)
+  if snd.checkAff("burnt_skin") then
+    return
+  end
+  if not salveCures[cure] then 
+    return
+  end
+  for _, limb in ipairs(snd.genericApplies[location]) do
+    if salve(cure, limb) then
+      return
+    end
   end
 end</script>
 					<eventHandlerList />
