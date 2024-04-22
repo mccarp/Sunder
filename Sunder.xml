@@ -47911,9 +47911,9 @@ end</script>
         -- Let's try to give heartflutter and stun if we can. 
         -- If we have apparition, let's give some affs and damage torso.
         -- If all else fails, let's just give those affs.
-        if (snd.balance.earthenwill and hasSkill("Engulf")) and (apparition &gt;= 3 and hasSkill("Apparition")) and hasSkill("Ram") then
+        if (snd.balance.earthenwill and hasSkill("Engulf")) and (apparition &gt;= 5 and hasSkill("Apparition")) and hasSkill("Ram") then
           string = "tide engulf trammel"..snd.sep.."fog terrors "..snd.target.." apparition"..snd.sep.."tide ram "..snd.target
-        elseif (apparition &gt;= 3 and hasSkill("Apparition")) and hasSkill("Ram") then
+        elseif (apparition &gt;= 5 and hasSkill("Apparition")) and hasSkill("Ram") then
           string = "fog terrors "..snd.target.." apparition"..snd.sep.."tide ram "..snd.target
         else
           string = "fog terrors "..snd.target
@@ -47997,21 +47997,21 @@ end</script>
          string = string.."tide capsize "..snd.target      
     	-- If you can impale them, let's do it, so long as no one else has.
       elseif not snd.target_impaled and snd.proned() and hasSkill("Harpoon") then
-        if apparition &gt;= 3 then
+        if apparition &gt;= 5 then
           string = "fog unseen "..snd.target.." apparition"..snd.sep.."tide harpoon"
         else
           string = "tide harpoon"
         end
       -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
       elseif snd.proned() and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},2) and hasSkill("Undulation") then
-        if apparition &gt;= 3 and hasSkill("Apparition") then
+        if apparition &gt;= 5 and hasSkill("Apparition") then
           string = "fog unseen "..snd.target.." apparition"..snd.sep.."tide undulation"
         else
           string = "tide undulation"
         end
       -- Let's go ahead and start damaging their head if they aren't parrying it.
       elseif snd.parried_limb ~= "head" and hasSkill("Feelers") then
-        if apparition &gt;= 3 and hasSkill("Apparition") then
+        if apparition &gt;= 5 and hasSkill("Apparition") then
           string = "fog feelers "..snd.target.." head apparition"..snd.sep.."tide clobber "..snd.target
         else
           string = "fog feelers "..snd.target.." head"
@@ -54146,9 +54146,9 @@ end</script>
         -- Let's try to give heartflutter and stun if we can. 
         -- If we have sandstorm, let's give some affs and damage torso.
         -- If all else fails, let's just give those affs.
-        if (snd.balance.earthenwill and hasSkill("Engulf")) and (sandstorm &gt;= 3 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
+        if (snd.balance.earthenwill and hasSkill("Engulf")) and (sandstorm &gt;= 5 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
           string = "prepare earthenwill heartpunch"..snd.sep.."sand curse "..snd.target.." storm"..snd.sep.."earth gutsmash "..snd.target
-        elseif (sandstorm &gt;= 3 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
+        elseif (sandstorm &gt;= 5 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
           string = "sand curse "..snd.target.." storm"..snd.sep.."earth gutsmash "..snd.target
         else
           string = "sand curse "..snd.target
@@ -54232,21 +54232,21 @@ end</script>
          string = string.."earth shockwave "..snd.target      
     	-- If you can impale them, let's do it, so long as no one else has.
       elseif not snd.target_impaled and snd.proned() and hasSkill("Impale") then
-        if sandstorm &gt;= 3 then
+        if sandstorm &gt;= 5 then
           string = "sand scourge "..snd.target.." storm"..snd.sep.."earth impale"
         else
           string = "earth impale"
         end
       -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
       elseif snd.proned() and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},2) and hasSkill("Quake") then
-        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+        if sandstorm &gt;= 5 and hasSkill("Sandstorm") then
           string = "sand scourge "..snd.target.." storm"..snd.sep.."earth quake"
         else
           string = "earth quake"
         end
       -- Let's go ahead and start damaging their head if they aren't parrying it.
       elseif snd.parried_limb ~= "head" and hasSkill("Shred") then
-        if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+        if sandstorm &gt;= 5 and hasSkill("Sandstorm") then
           string = "sand shred "..snd.target.." head storm"..snd.sep.."earth batter "..snd.target
         else
           string = "sand shred "..snd.target.." head"
