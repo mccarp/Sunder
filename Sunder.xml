@@ -80309,7 +80309,7 @@ function snd.restoApply(location)
   if snd.checkAff("rot_body") then
     restoTime = restoTime + 4.3
   end
-  snd.resto_limb = location
+  --snd.resto_limb = location
   snd.enemy_used_regenerate = false
   for _, limb in ipairs(snd.genericApplies[location]) do
     for _, aff in ipairs(snd.resto_cure_order[limb]) do
@@ -80317,17 +80317,18 @@ function snd.restoApply(location)
         if aff.type == "aff" and aff.instant then
           snd.target_cured(aff.aff)
         else
-          restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
+          restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. limb ..[[")]])
+          snd.resto_limb = limb
         end
         return
       end
     end
     if snd.limb_dmg[limb]&gt;0 then
-      restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
+      restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. limb..[[")]])
+      snd.resto_limb = limb
       return
     end
   end
-  restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. location..[[")]])
 end
 
 function snd.immediateResto()
@@ -80337,8 +80338,8 @@ function snd.immediateResto()
   end
 end
 
-local function restore(limb)
- for _, aff in ipairs(snd.resto_cure_order[limb]) do
+function snd.restoApply2(limb)
+  for _, aff in ipairs(snd.resto_cure_order[limb]) do
     if snd.checkAff(aff.aff) then
       if aff.type == "aff" then
         snd.target_cured(aff.aff)
@@ -80362,15 +80363,6 @@ local function restore(limb)
     return true
   end
   return false
-end
-
-function snd.restoApply2(location)
-   for _, limb in ipairs(snd.genericApplies[location]) do
-   echo(limb)
-    if restore(limb) then
-      return
-    end
-  end
 end</script>
 					<eventHandlerList />
 				</Script>
