@@ -16319,7 +16319,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^You gaze upon ^(\w+) with unveiled contempt and utter bitter condemnations of \w+ heresy against the Light\.$</string>
+										<string>^You gaze upon (\w+) with unveiled contempt and utter bitter condemnations of \w+ heresy against the Light\.$</string>
 										<string>^\w+ cries out, suddenly afflicted with (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
@@ -43080,7 +43080,7 @@ snd.giving_chasten = {
 "lethargy",
 "dementia",
 "recklessness",
-"masochism",
+"justice",
 "paranoia"
 }
 snd.starting_attack()
@@ -43167,7 +43167,7 @@ end</script>
 if snd.class == "Luminary" then
   snd.giving_shield = {"sight", "paresis", "weariness", "confusion", "writhe_transfix", "asthma", "misery"}
   snd.giving_battle = {"impatience", "stupidity", "sensitivity", "self_pity", "vertigo"}
-  snd.giving_chasten = {"hypochondria", "stupidity", "recklessness", "lethargy", "masochism", "dementia", "paranoia", "anorexia",}
+  snd.giving_chasten = {"hypochondria", "stupidity", "recklessness", "lethargy", "justice", "dementia", "paranoia", "anorexia",}
   snd.starting_attack()
 
   function snd.attack_function()
@@ -43281,7 +43281,7 @@ end</script>
 								<script>if snd.class == "Luminary" then
   local limbList = {"left leg", "right leg", "left arm", "right arm"}
   local battleStack = {"impatience", "berserking", "stupidity", "sensitivity", "vertigo", "self-pity", "migraine"}
-  local chastenStack = {"anorexia", "recklessness", "masochism", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
+  local chastenStack = {"anorexia", "recklessness", "justice", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
   local overwhelmChasten = {"recklessness", "anorexia", "masochism", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
   local overwhelmBattle = {"sensitivity", "impatience", "berserking", "stupidity", "vertigo", "self-pity", "migraine"}
   
@@ -43398,7 +43398,7 @@ end</script>
       "hypochondria",
       "dementia",
       "recklessness",
-      "masochism",
+      "justice",
       "paranoia",
     }
   snd.starting_attack()
@@ -43472,7 +43472,7 @@ if snd.class == "Luminary" then
       "recklessness",
       "stupidity",
       "lethargy",
-      "masochism",
+      "justice",
       "dementia",
       "paranoia",
       "anorexia",
@@ -43589,7 +43589,7 @@ end</script>
       "agony",
       "lethargy",
       "recklessness",
-      "masochism",
+      "justice",
 	    "dementia",
 	    "stupidity",
 	    "anorexia",
@@ -49768,7 +49768,7 @@ snd.giving_subdue = {
 "lethargy",
 "dementia",
 "recklessness",
-"masochism",
+"justice",
 "paranoia"
 }
 snd.starting_attack()
@@ -49916,7 +49916,7 @@ if not snd.waiting.queue then
   "lethargy",    
   "recklessness",
   "anorexia",  
-  "masochism",
+  "justice",
   "dementia",
   "paranoia",
    
@@ -49929,7 +49929,7 @@ if not snd.waiting.queue then
   "lethargy",    
   "recklessness",
   "anorexia",  
-  "masochism",
+  "justice",
   "dementia",
   "paranoia",
   "agony",      
@@ -50060,8 +50060,8 @@ end
 								<script>if snd.class == "Earthcaller" then
   local limbList = {"left leg", "right leg", "left arm", "right arm"}
   local battleStack = {"impatience", "berserking", "stupidity", "sensitivity", "vertigo", "self-pity", "migraine"}
-  local chastenStack = {"anorexia", "recklessness", "masochism", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
-  local overwhelmChasten = {"recklessness", "anorexia", "masochism", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
+  local chastenStack = {"anorexia", "recklessness", "justice", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
+  local overwhelmChasten = {"recklessness", "anorexia", "justice", "stupidity", "self_loathing", "paranoia", "hypochondria", "lethargy"}
   local overwhelmBattle = {"sensitivity", "impatience", "berserking", "stupidity", "vertigo", "self-pity", "migraine"}
   
   local function getAff(stack)
@@ -50171,12 +50171,11 @@ end</script>
   snd.giving_subdue =
     {
       "lethargy",
-      "loneliness",
       "stupidity",
       "hypochondria",
       "dementia",
       "recklessness",
-      "masochism",
+      "justice",
       "paranoia",
     }
   snd.starting_attack()
@@ -50243,11 +50242,10 @@ end</script>
   snd.giving_subdue =
     {
       "hypochondria",
-      "loneliness",
       "recklessness",
       "stupidity",
       "lethargy",
-      "masochism",
+      "justice",
       "dementia",
       "paranoia",
       "anorexia",
@@ -50359,11 +50357,10 @@ end</script>
   snd.giving_subdue =
     {
       "dementia",
-      "loneliness",
       "stupidity",
       "hypochondria",
       "recklessness",
-      "masochism",
+      "justice",
       "paranoia",
       "lethargy",
     }
@@ -50490,14 +50487,13 @@ if not snd.waiting.queue then
   }
   
   snd.giving_chasten = {
-   "loneliness",   
    "lethargy",
    "dementia",
    "stupidity",   
    "recklessness",
    "hypochondria",   
    "paranoia",
-   "masochism",
+   "justice",
    "agony",   
    "anorexia",
   }
