@@ -84932,9 +84932,11 @@ end</script>
         snd.onHit2({"Dodge", "Rebounding"})
       end,
     Trip =
-      function(target)
+      function(target, miss)
         snd.setPredatorVenom()
-        snd.target_got("fallen")
+        if not miss then
+          snd.target_got("fallen")
+        end
       end,
     Jab =
       function(target, bodypart)
@@ -85051,8 +85053,12 @@ end</script>
         snd.target_got("lovers_effect")
       end,
     Pindown =
-      function(target)
-        snd.target_got("writhe_dartpinned")
+      function(target, fail)
+        if fail then
+          snd.removeProneStates(true)
+        else
+          snd.target_got("writhe_dartpinned")
+        end
       end,
     Dartshot =
       function(target)
