@@ -49790,7 +49790,6 @@ snd.giving_spur = {
 "migraine",
 }
 snd.giving_subdue = {
-"loneliness",
 "hypochondria",
 "stupidity",
 "lethargy",
@@ -49837,7 +49836,7 @@ function snd.attack_function()
    shield = "shield raze"
   end
   for i in pairs(snd.giving_subdue) do
-   if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= battle then
+   if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= spur then
 	  subdue = snd.giving_subdue[i]
 	 end
   end
@@ -49861,7 +49860,7 @@ function snd.attack_function()
  end
  
  if string.find(string, "deface") and not string.find(gmcp.Char.Vitals.wield_left, "tower") then 
- 	string = string..snd.sep.."quickwield left tower"
+ 	string = "quickwield left tower"..snd.sep..string
  end
 
  if string ~= snd.last_attack and not snd.waiting.queue then
@@ -50126,7 +50125,7 @@ end
     local shield = "none"
     
     if not snd.waiting.queue then
-      if not string.find(gmcp.Char.Vitals.wield_right, "mace") then string = string.."quickwield right mace"..snd.sep end
+      if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then string = string.."quickwield right crozier"..snd.sep end
       if not string.find(gmcp.Char.Vitals.wield_left, "tower") then string = string.."quickwield left tower"..snd.sep end
 
       local smashLimb = getSmashLimb()
