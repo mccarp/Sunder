@@ -32403,7 +32403,10 @@ snd.found_globe = gmcp.Room.Info.num</script>
 				</TriggerGroup>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Room Vnums</name>
-					<script>mmp.locateAndEcho(matches[2], "", matches[3]:gsub("an unstable section of ", ""))</script>
+					<script>if matches[3] == "a bandit encampment in the Bonro Sands" then
+  matches[3] = "bandit encampment in Bonro"
+end
+mmp.locateAndEcho(matches[2], false, matches[3]:gsub("an unstable section of ", ""))</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -32415,9 +32418,11 @@ snd.found_globe = gmcp.Room.Info.num</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You divine the location of this death as (.+) in (.+)\.$</string>
+						<string>^You divine the location of this death as (.+) in (.+)\.$</string>
+						<string>^You see that \w+ is at (.+) in (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
