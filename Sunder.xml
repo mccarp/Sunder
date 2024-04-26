@@ -39797,7 +39797,6 @@ function snd.attack_function()
     local targ = "nothing"
 		local touse = {}
     local tohit = {}
-    local execute_check = false
     local fury = tonumber(gmcp.Char.Vitals.fury)
     local distract = false
     if gmcp.Char.Vitals.ability_bal == "1" and fury &gt;=30 then
@@ -39836,16 +39835,15 @@ function snd.attack_function()
       end
 		end
     
-    for k, v in pairs(snd.limb_dmg) do
-      if k ~= "torso" and k ~= "head" and snd.limb_status[k] ~= "healed" and snd.limb_status["head"] ~= "healed" and snd.checksomeAffs({"fallen", "prone", "frozen"},1) then
-        execute_check = true
-      end
-    end
     
     for i in pairs(touse) do
 			table.insert(tohit, snd.effects[touse[i]])
 		end
-      
+    
+    local execute_check = snd.checkAff("head_broken") and 
+      snd.checksomeAffs({"left_arm_broken","right_arm_broken","left_leg_broken","right_leg_broken"},1) and
+      snd.proned()
+    
     if snd.used.shield and snd.used.rebounding then
       string = "axe devastate "..snd.target
     elseif snd.used.shield or snd.used.rebounding then
