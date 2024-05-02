@@ -23385,6 +23385,29 @@ snd.swoopVenoms = {}</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Veinrip</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("weariness")
+  snd.target_got("dizziness")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^The flow of blood slows and thickens from (\w+)'s neck, pale from from all the loss\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -24562,8 +24585,12 @@ end
 								<string>^(\w+)'s strike is wide and misses completely\.$</string>
 								<string>^(You)r strike is wide and misses completely\.$</string>
 								<string>^(You)r damaged torso twinges as you heave</string>
+								<string>^(You)r blurry vision inhibits your accuracy as you miss\.$</string>
+								<string>^(You)r swing falls short of its target\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
