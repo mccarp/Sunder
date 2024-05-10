@@ -80841,6 +80841,10 @@ function snd.no_parry()
  if (snd.limb_dmg["left arm"] &gt;= 33.33) and (snd.limb_dmg["right arm"] &gt;= 33.33) then
   no_parry = true
  end
+ 
+ if snd.class == "Predator" and snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) then return true
+ end
+ 
  return no_parry
 end
 
@@ -85003,7 +85007,7 @@ end</script>
         snd.setPredatorVenom()
         snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
-        snd.last_limb_dmg = 5.5
+        snd.last_limb_dmg = 7.5
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
         end 
