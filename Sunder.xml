@@ -83312,14 +83312,14 @@ end</script>
     Lacerate = function(target)
                 table.insert(snd.maybe_affs, "rend")
                 snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 11.4
+                snd.last_limb_dmg = 9
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,        
     Facemaul = function(target)
                 table.insert(snd.maybe_affs, "mauled_face")
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 14
+                snd.last_limb_dmg = 11.8
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
@@ -83338,7 +83338,7 @@ end</script>
     Throatslice = function(target)
                 table.insert(snd.maybe_affs, "crippled_throat")
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 7
+                snd.last_limb_dmg = 5.6
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
@@ -83364,14 +83364,14 @@ end</script>
     Rend = function(target, limb)
                 table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_crippled")
                 snd.last_hit_limb = limb
-                snd.last_limb_dmg = 5.81
+                snd.last_limb_dmg = 5.2
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
     Hamstring = function(target, limb)
                 table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_crippled")
                 snd.last_hit_limb = limb
-                snd.last_limb_dmg = 5.81
+                snd.last_limb_dmg = 5.2
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end, 
