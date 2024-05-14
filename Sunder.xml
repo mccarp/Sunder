@@ -23594,7 +23594,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(?:You sense )?(\w+) presses a (\w+) poultice against (?:the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into (?:the )?\w+ flesh\.$</string>
+								<string>^(?:You sense )?(\w+) presses an? (\w+) poultice against (?:the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into (?:the )?\w+ flesh\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
