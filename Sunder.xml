@@ -84517,6 +84517,9 @@ end</script>
     Strum = function(target)
               snd.target_got("barrier")
             end,
+    Stability = function(target)
+              snd.immediateResto()
+            end,
   },
   ["Manipulation"] = {
     Dome = function(target)
