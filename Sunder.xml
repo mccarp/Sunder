@@ -2125,7 +2125,7 @@ snd.clear_afflictions("herb")
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>tree</name>
 								<script>snd.last.tree = "send"
 snd.clear_afflictions("tree")</script>
@@ -17049,9 +17049,11 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.</string>
+										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -25609,9 +25611,11 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.</string>
+										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -25669,8 +25673,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -25732,8 +25738,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -26163,8 +26171,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -26281,8 +26291,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -57468,7 +57480,7 @@ antipsychotic = "an antipsychotic pill",
 coagulation = "a coagulation pill",
 decongestant = "a decongestant pill",
 depressant = "a depressant pill",
-euphoriant = "an euphoriant pill",
+euphoriant = "a euphoriant pill",
 kawhe = "a kawhe pill",
 opiate = "an opiate pill",
 ototoxin = "an ototoxin pill",
