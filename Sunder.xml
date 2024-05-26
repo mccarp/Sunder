@@ -57438,6 +57438,7 @@ snd.moving_to = snd.moving_to or "none"
 snd.can_path = snd.can_path or true
 snd.scented = snd.scented or {}
 snd.items = snd.items or {}
+snd.agros = snd.agros or {}
 snd.group = snd.group or {}
 snd.wielded = snd.wielded or {left =  {name="", id=""}, right = {name="", id=""}}
 snd.eld = snd.eld or 0
