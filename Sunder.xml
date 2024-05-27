@@ -18695,7 +18695,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Hopelessness</name>
 									<script>if matches[2] == snd.target then
-	snd.target_got("lethargy")
+	snd.target_got("hopelessness")
 	if  snd.checkAff("rot_benign") then
 		snd.target_got("rot_spirit")
 		snd.target_got("rot_heat")
@@ -59371,6 +59371,7 @@ snd.priorities =
     -- "aff_writhe_web",
     -- "aff_dazed",
     -- "aff_embedded_axe",
+    "def_insulation",
     "def_lifesense",
     "def_gripping",
     "def_irongrip",
@@ -61451,8 +61452,8 @@ Bloodborn_empowered_moon = {defense = "empowered_moon", type = "normal", effect 
 Sciomancer_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 Runecarver_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "runecarve mysticism"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mysticism" },
 Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = {special = "insomnia"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insomnia"},
-Earthcaller_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {needybalancetake = "tectonic insulation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
-Luminary_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {needybalancetake = "evoke warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
+Earthcaller_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {balanceequilibriumtake = "tectonic insulation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
+Luminary_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {balanceequilibriumtake = "evoke warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warmth"},
 }
 
 
@@ -78559,6 +78560,7 @@ def_heatshield = "once",
 def_battlehymn = "once",
 def_smothering = "once",
 def_constitution = "once",
+def_insulation = "once",
 },
 
 indorani = {
@@ -78582,6 +78584,7 @@ def_lightshield = "once",
 def_inspiration = "once",
 def_fireblock = "once",
 def_constitution = "once",
+def_insulation = "once",
 },
 
 monk = {
