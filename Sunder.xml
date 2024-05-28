@@ -38528,7 +38528,7 @@ end
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^bk(.*)$</regex>
+								<regex>^bk(?: (.*))?$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>backstab</name>
@@ -43116,7 +43116,7 @@ end
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^bk(.*)$</regex>
+								<regex>^bk(?: (.*))?$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -49811,7 +49811,7 @@ end
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^bk(.*)$</regex>
+								<regex>^bk(?: (.*))?$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>force stop</name>
