@@ -63719,6 +63719,7 @@ snd.bashing_area_beginning_rooms ={
   ["the Mannaseh Swamp"] = "1745",
   ["the Arurer Haven"] = "19320",
   [" Dovan Hollow"] = "49286",
+  ["the Mamashi Grasslands"] = "8809",
   ["the Mamashi Tunnels"] = "20855",
   ["the Itzatl Morass"] = "15714",
   ["Scidve"] = "10813",
@@ -80376,7 +80377,7 @@ end</script>
   {
     ["head"] =
       {
-        {aff = "mauled_face", type = "aff"},
+        {aff = "mauled_face", type = "aff", instant = true},
         {aff = "head_mangled", type = "damage"},
         {aff = "head_broken", type = "damage"},
         {aff = "voidgaze", type = "aff"},
