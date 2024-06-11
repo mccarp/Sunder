@@ -2125,7 +2125,7 @@ snd.clear_afflictions("herb")
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>tree</name>
 								<script>snd.last.tree = "send"
 snd.clear_afflictions("tree")</script>
@@ -4336,7 +4336,7 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>You press the Fool tarot to your forehead.</string>
+								<string>You press the Fool tarot to your forehead and a sensation of warmth ripples through your body.</string>
 								<string>The Fool will have no effect for now.</string>
 								<string>You quickly unfurl a crisply folded piece of paper evocative of fire, letting blazing orange salvo cascade over you in a cleansing manner.</string>
 							</regexCodeList>
@@ -4360,7 +4360,7 @@ tempTimer(4.8, [[snd.balance.battle = true]])</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>You may heal another affliction.</string>
+								<string>You may use the Fool tarot once more.</string>
 								<string>You may once more invoke cleansing fire.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -14744,8 +14744,10 @@ end</script>
 											<string>^(\w+) appears to regain a little colour.$</string>
 											<string>^The life aura surrounding (\w+) protects (the )?\w+ from harm.$</string>
 											<string>^As effortlessly as you had taken it, you callously release the coveted life aura of (\w+) to fade into the air around you\.$</string>
+											<string>^The glowing aura of life surrounding (\w+) renders your attempt at deformation ineffective\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
@@ -17047,9 +17049,11 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.</string>
+										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -17207,6 +17211,36 @@ end
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Stupidity</name>
+									<script>if snd.target == matches[2] then
+snd.target_got("stupidity")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Curiously, (\w+) begins gnawing on .+ fingers.$</string>
+										<string>^(\w+) lets out a loud bark. Puzzling isn't it\?$</string>
+										<string>^(\w+) stares at nothing in particular, looking somewhat stupid.$</string>
+										<string>^God only knows why, but (\w+) launches .+ into a set of jumping jacks.$</string>
+										<string>^(\w+) screams in fear and cowers before some unseen terror.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -17392,7 +17426,7 @@ end</script>
     ["debilitating"] = "weariness",
     ["berserking"] = "berserking",
     ["angry"] = "hatred",
-    ["disturbing"] = "disrupted",
+    --["disturbing"] = "disrupted",
     ["befuddling"] = "confusion",
     ["deep"] = "plodding",
     ["dumbing"] = "idiocy",
@@ -17441,7 +17475,7 @@ local howl_conversion =
     ["debilitating"] = "weariness",
     ["berserking"] = "berserking",
     ["angry"] = "hatred",
-    ["disturbing"] = "disrupted",
+    --["disturbing"] = "disrupted",
     ["befuddling"] = "confusion",
     ["deep"] = "plodding",
     ["dumbing"] = "idiocy",
@@ -18659,9 +18693,9 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Lethargy Shaderot</name>
+									<name>Hopelessness</name>
 									<script>if matches[2] == snd.target then
-	snd.target_got("lethargy")
+	snd.target_got("hopelessness")
 	if  snd.checkAff("rot_benign") then
 		snd.target_got("rot_spirit")
 		snd.target_got("rot_heat")
@@ -18679,7 +18713,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+)\'s movements stagger with a lingering lethargy, strength sapped from (the )?\w+ muscles.$</string>
+										<string>^(\w+)'s movements stagger with a lingering hopelessness, strength sapped from \w+ muscles\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -23383,6 +23417,29 @@ snd.swoopVenoms = {}</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Veinrip</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("weariness")
+  snd.target_got("dizziness")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^The flow of blood slows and thickens from (\w+)'s neck, pale from from all the loss\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -23539,7 +23596,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(?:You sense )?(\w+) presses a (\w+) poultice against (?:the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into (?:the )?\w+ flesh\.$</string>
+								<string>^(?:You sense )?(\w+) presses an? (\w+) poultice against (?:the )?\w+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into (?:the )?\w+ flesh\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -24560,8 +24617,12 @@ end
 								<string>^(\w+)'s strike is wide and misses completely\.$</string>
 								<string>^(You)r strike is wide and misses completely\.$</string>
 								<string>^(You)r damaged torso twinges as you heave</string>
+								<string>^(You)r blurry vision inhibits your accuracy as you miss\.$</string>
+								<string>^(You)r swing falls short of its target\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -25550,9 +25611,11 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.</string>
+										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -25610,8 +25673,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -25673,8 +25738,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -26104,8 +26171,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -26222,8 +26291,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
+											<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -32401,7 +32472,10 @@ snd.found_globe = gmcp.Room.Info.num</script>
 				</TriggerGroup>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Room Vnums</name>
-					<script>mmp.locateAndEcho(matches[2], "", matches[3]:gsub("an unstable section of ", ""))</script>
+					<script>if matches[3] == "a bandit encampment in the Bonro Sands" then
+  matches[3] = "bandit encampment in Bonro"
+end
+mmp.locateAndEcho(matches[2], false, matches[3]:gsub("an unstable section of ", ""))</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -32413,9 +32487,11 @@ snd.found_globe = gmcp.Room.Info.num</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You divine the location of this death as (.+) in (.+)\.$</string>
+						<string>^You divine the location of this death as (.+) in (.+)\.$</string>
+						<string>^You see that \w+ is at (.+) in (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -38452,7 +38528,7 @@ end
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^bk(.*)$</regex>
+								<regex>^bk(?: (.*))?$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>backstab</name>
@@ -39790,7 +39866,6 @@ function snd.attack_function()
     local targ = "nothing"
 		local touse = {}
     local tohit = {}
-    local execute_check = false
     local fury = tonumber(gmcp.Char.Vitals.fury)
     local distract = false
     if gmcp.Char.Vitals.ability_bal == "1" and fury &gt;=30 then
@@ -39829,16 +39904,15 @@ function snd.attack_function()
       end
 		end
     
-    for k, v in pairs(snd.limb_dmg) do
-      if k ~= "torso" and k ~= "head" and snd.limb_status[k] ~= "healed" and snd.limb_status["head"] ~= "healed" and snd.checksomeAffs({"fallen", "prone", "frozen"},1) then
-        execute_check = true
-      end
-    end
     
     for i in pairs(touse) do
 			table.insert(tohit, snd.effects[touse[i]])
 		end
-      
+    
+    local execute_check = snd.checkAff("head_broken") and 
+      snd.checksomeAffs({"left_arm_broken","right_arm_broken","left_leg_broken","right_leg_broken"},1) and
+      snd.proned()
+    
     if snd.used.shield and snd.used.rebounding then
       string = "axe devastate "..snd.target
     elseif snd.used.shield or snd.used.rebounding then
@@ -43042,7 +43116,7 @@ end
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^bk(.*)$</regex>
+								<regex>^bk(?: (.*))?$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -49737,7 +49811,7 @@ end
 end</script>
 								<command></command>
 								<packageName></packageName>
-								<regex>^bk(.*)$</regex>
+								<regex>^bk(?: (.*))?$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>force stop</name>
@@ -49788,7 +49862,6 @@ snd.giving_spur = {
 "migraine",
 }
 snd.giving_subdue = {
-"loneliness",
 "hypochondria",
 "stupidity",
 "lethargy",
@@ -49835,7 +49908,7 @@ function snd.attack_function()
    shield = "shield raze"
   end
   for i in pairs(snd.giving_subdue) do
-   if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= battle then
+   if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= spur then
 	  subdue = snd.giving_subdue[i]
 	 end
   end
@@ -49859,7 +49932,7 @@ function snd.attack_function()
  end
  
  if string.find(string, "deface") and not string.find(gmcp.Char.Vitals.wield_left, "tower") then 
- 	string = string..snd.sep.."quickwield left tower"
+ 	string = "quickwield left tower"..snd.sep..string
  end
 
  if string ~= snd.last_attack and not snd.waiting.queue then
@@ -50124,7 +50197,7 @@ end
     local shield = "none"
     
     if not snd.waiting.queue then
-      if not string.find(gmcp.Char.Vitals.wield_right, "mace") then string = string.."quickwield right mace"..snd.sep end
+      if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then string = string.."quickwield right crozier"..snd.sep end
       if not string.find(gmcp.Char.Vitals.wield_left, "tower") then string = string.."quickwield left tower"..snd.sep end
 
       local smashLimb = getSmashLimb()
@@ -57365,6 +57438,7 @@ snd.moving_to = snd.moving_to or "none"
 snd.can_path = snd.can_path or true
 snd.scented = snd.scented or {}
 snd.items = snd.items or {}
+snd.agros = snd.agros or {}
 snd.group = snd.group or {}
 snd.wielded = snd.wielded or {left =  {name="", id=""}, right = {name="", id=""}}
 snd.eld = snd.eld or 0
@@ -57407,7 +57481,7 @@ antipsychotic = "an antipsychotic pill",
 coagulation = "a coagulation pill",
 decongestant = "a decongestant pill",
 depressant = "a depressant pill",
-euphoriant = "an euphoriant pill",
+euphoriant = "a euphoriant pill",
 kawhe = "a kawhe pill",
 opiate = "an opiate pill",
 ototoxin = "an ototoxin pill",
@@ -59094,6 +59168,14 @@ snd.priorities =
     
     -- "aff_bleeding",
     -- "aff_voyria",
+    "def_acuity",
+    "def_thirdeye",
+    "def_blindness",
+    "def_deafness",
+    "def_kola",
+    "def_waterbreathing",
+    "def_deathsight",
+    "def_insomnia",
     "def_spheres",
     "def_earthenform",
     "def_permafrost",
@@ -59297,6 +59379,7 @@ snd.priorities =
     -- "aff_writhe_web",
     -- "aff_dazed",
     -- "aff_embedded_axe",
+    "def_insulation",
     "def_lifesense",
     "def_gripping",
     "def_irongrip",
@@ -59380,13 +59463,6 @@ snd.priorities =
     "def_shadow_engulf",
     "def_shadow_mantle",
     "def_blurring",
-    "def_thirdeye",
-    "def_blindness",
-    "def_deafness",
-    "def_kola",
-    "def_waterbreathing",
-    "def_deathsight",
-    "def_insomnia",
     "def_frost",
     "def_arcane",
     "def_venom",
@@ -61377,8 +61453,8 @@ Bloodborn_empowered_moon = {defense = "empowered_moon", type = "normal", effect 
 Sciomancer_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 Runecarver_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "runecarve mysticism"}, state = "down", needit = false, timer = createStopWatch(), skill = "Mysticism" },
 Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = {special = "insomnia"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insomnia"},
-Earthcaller_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {needybalancetake = "tectonic insulation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
-Luminary_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {needybalancetake = "evoke warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
+Earthcaller_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {balanceequilibriumtake = "tectonic insulation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
+Luminary_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {balanceequilibriumtake = "evoke warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warmth"},
 }
 
 
@@ -63643,6 +63719,7 @@ snd.bashing_area_beginning_rooms ={
   ["the Mannaseh Swamp"] = "1745",
   ["the Arurer Haven"] = "19320",
   [" Dovan Hollow"] = "49286",
+  ["the Mamashi Grasslands"] = "8809",
   ["the Mamashi Tunnels"] = "20855",
   ["the Itzatl Morass"] = "15714",
   ["Scidve"] = "10813",
@@ -63916,7 +63993,7 @@ snd.areas = {
 {area = "the Primal Eye of Czjetija", level = "we're all fucking dead", targets = {"a tendriled shadowisp","a massive tenebrous horror", "a monstrous shadow beast", "a spider-like shadowspinner", "a sinuous umbral creeper", "a many-winged shadowghast",}},
 {area = "the Welto Trench", level = "good luck", targets = {"a black hunter shark", "a spotted bull shark", "a scarred hunter shark", "a brown hunter shark", "a scarred welto shark", "a striped hunter shark", "a great white welto shark", "a brown bull shark", "a bronze tiger shark", "a black bull shark", "a spotted tiger shark", "a bronze tiger shark", "a grey hunter shark", "a bronze welto shark", "a brown tiger shark", "a storm-wing harpy", "a spotted welto shark", "a striped welto shark", "a striped tiger shark", "a striped bull shark", "a spotted hunter shark", "a black tiger shark", "a great white bull shark", "a menacing torvok", "a brown welto shark", "a great white tiger shark", "a menacing torvok", "a great white hunter shark", "a great white welto shark", "a bronze bull shark", "a grey tiger shark", "a bronze hunter shark", "a spotted hunter shark", "a scarred tiger shark", "a black welto shark", "a grey bull shark", "a striped welto shark", "a grey welto shark", "a black welto shark", "a scarred bull shark", "a blacktip shark", "a box jellyfish", "a giant manta ray", "a deep water serpent", "a stone crab"}},
 {area = "the Underbelly", level = "99+", targets ={"a desiccated Utari zombie", "a massive grey rat", "a dire, plagued rat", "a glazed-eye zombie Aslinn", "a snarling vakmut hound", "a slavering vakmut", "a grey-skinned skrell whelp", "a gigantic white rat", "a gigantic black rat", "a feral vakmut", "a malnourished vakmut", "a drooling zombie Tarpen", "a massive, tan-shelled whelk", "a jagged Golban ghast", "a hunched, bone-fisted Golban zombie", "a hulking Ursal ghast", "a crawling, ravenous Aslinn ghast", "an Utari cultist with grim facial markings", "a mangy Caentoi cultist", "an erratic Tarpen cultist", "a pale skrell whelp", "a venomous skrell whelp", "a ravenous skrell"}},
-{area = "the Mannaseh Swamp", level = "99+", targets = {"a savage mutant pumpkin", "a malformed stalker", "a miscreated avian", "an ichorous miscreation", "a hulking miscreation", "an amphibious malformation",}},
+{area = "the Mannaseh Swamp", level = "99+", targets = {"a skittering miscreation", "a savage mutant pumpkin", "a malformed stalker", "a miscreated avian", "an ichorous miscreation", "a hulking miscreation", "an amphibious malformation",}},
 {area = "the Village of Craneskull", level = "35-40", targets = {"a savage mutant pumpkin", "a muddy Trollish child", "a slender mud adder", "a rugged Trollish man", "a plump Trollish woman", "a lumbering Troll guard", "an elderly Troll priest", "a lean guard hound", "a traitorous Mitrine hunter","a black ram", "a militant Troll warrior", "a Troll ritualist", "an arachnid Chiav guard", "an arachnid Chiav enforcer", "an arachnid Chiav archer","an immense Trollish chieftain", "a lanky, Trollish witch doctor"}},
 {area = "the Maestral Shoals", level = "99+", targets = {"a mottled crab", "a glossy red crab", "a tattered skrell", "an emaciated skrell", "a large, ill-tempered crab", "a sinewy skrell lurker", "a small sovereign crab", "a leathery skrell", "a sharp-toothed skrell", "a drooling skrell"}},
 {area = "Maestral's Barrier Reef", level = "99+", targets = {"a skrell hatchling", "a savage, scarred skrell", "a pot-bellied seahorse", "a school of neon tetra fish", "a school of long fin reef minnows", "an Albedian codfish", "a hulking skrell matriarch", "a sharp-toothed skrell", "a bottom-feeding flatfish", "a puffer fish", "a bony Delvian boxfish"}},
@@ -78485,6 +78562,7 @@ def_heatshield = "once",
 def_battlehymn = "once",
 def_smothering = "once",
 def_constitution = "once",
+def_insulation = "once",
 },
 
 indorani = {
@@ -78508,6 +78586,7 @@ def_lightshield = "once",
 def_inspiration = "once",
 def_fireblock = "once",
 def_constitution = "once",
+def_insulation = "once",
 },
 
 monk = {
@@ -79419,6 +79498,7 @@ antipsychotic = {
 eucrasia = {
 "worrywart",
 "misery",
+"hopelessness",
 "hollow",
 "narcolepsy",
 "perplexed",
@@ -80297,7 +80377,7 @@ end</script>
   {
     ["head"] =
       {
-        {aff = "mauled_face", type = "aff"},
+        {aff = "mauled_face", type = "aff", instant = true},
         {aff = "head_mangled", type = "damage"},
         {aff = "head_broken", type = "damage"},
         {aff = "voidgaze", type = "aff"},
@@ -80779,6 +80859,10 @@ function snd.no_parry()
  if (snd.limb_dmg["left arm"] &gt;= 33.33) and (snd.limb_dmg["right arm"] &gt;= 33.33) then
   no_parry = true
  end
+ 
+ if snd.class == "Predator" and snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) then return true
+ end
+ 
  return no_parry
 end
 
@@ -83246,14 +83330,14 @@ end</script>
     Lacerate = function(target)
                 table.insert(snd.maybe_affs, "rend")
                 snd.last_hit_limb = "torso"
-                snd.last_limb_dmg = 11.4
+                snd.last_limb_dmg = 9
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,        
     Facemaul = function(target)
                 table.insert(snd.maybe_affs, "mauled_face")
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 14
+                snd.last_limb_dmg = 11.8
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
@@ -83272,7 +83356,7 @@ end</script>
     Throatslice = function(target)
                 table.insert(snd.maybe_affs, "crippled_throat")
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 7
+                snd.last_limb_dmg = 5.6
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
@@ -83298,14 +83382,14 @@ end</script>
     Rend = function(target, limb)
                 table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_crippled")
                 snd.last_hit_limb = limb
-                snd.last_limb_dmg = 5.81
+                snd.last_limb_dmg = 5.2
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end,
     Hamstring = function(target, limb)
                 table.insert(snd.maybe_affs, limb:gsub(" ", "_").."_crippled")
                 snd.last_hit_limb = limb
-                snd.last_limb_dmg = 5.81
+                snd.last_limb_dmg = 5.2
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 snd.onHit2({"Dodge", "Parry"})
                end, 
@@ -83441,7 +83525,7 @@ end</script>
                 ["debilitating"] = "weariness",
                 ["berserking"] = "berserking",
                 ["angry"] = "hatred",
-                ["disturbing"] = "disrupted",
+                --["disturbing"] = "disrupted",
                 ["befuddling"] = "confusion",
                 ["deep"] = "plodding",
                 ["dumbing"] = "idiocy",
@@ -84451,6 +84535,9 @@ end</script>
     Strum = function(target)
               snd.target_got("barrier")
             end,
+    Stability = function(target)
+              snd.immediateResto()
+            end,
   },
   ["Manipulation"] = {
     Dome = function(target)
@@ -84930,16 +85017,18 @@ end</script>
         snd.onHit2({"Dodge", "Rebounding"})
       end,
     Trip =
-      function(target)
+      function(target, miss)
         snd.setPredatorVenom()
-        snd.target_got("fallen")
+        if not miss then
+          snd.target_got("fallen")
+        end
       end,
     Jab =
       function(target, bodypart)
         snd.setPredatorVenom()
         snd.maybe_affs = {}
         snd.last_hit_limb = bodypart
-        snd.last_limb_dmg = 5.5
+        snd.last_limb_dmg = 7.5
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
         end 
@@ -85049,8 +85138,12 @@ end</script>
         snd.target_got("lovers_effect")
       end,
     Pindown =
-      function(target)
-        snd.target_got("writhe_dartpinned")
+      function(target, fail)
+        if fail then
+          snd.removeProneStates(true)
+        else
+          snd.target_got("writhe_dartpinned")
+        end
       end,
     Dartshot =
       function(target)
