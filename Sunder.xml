@@ -31062,11 +31062,9 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>first aid</name>
-							<script>if snd.toggles.gags then
-  deleteLine()
-end</script>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Firstaid Gags</name>
+							<script></script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -31075,17 +31073,179 @@ end</script>
 							<mFgColor>#ff0000</mFgColor>
 							<mBgColor>#ffff00</mBgColor>
 							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#008080</colorTriggerFgColor>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>FG14BG2</string>
-								<string>[FirstAid]:</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>6</integer>
-								<integer>2</integer>
-							</regexCodePropertyList>
-						</Trigger>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: clot</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: sip</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: outc</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: eat</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: smoke</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: press</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>first aid</name>
+								<script>if snd.gui.enabled then 
+deleteLine()
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#008080</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>FG14BG2</string>
+									<string>[FirstAid]: touch</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>6</integer>
+									<integer>2</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</TriggerGroup>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>outc</name>
 							<script>if snd.toggles.gags then
@@ -64017,6 +64177,7 @@ snd.areas = {
 {area = "the Bonro Sands", level = "99+", targets = {"Match:a sun%-scorched %a+ haatun", "a Bonro spitting cobra", "a black-tailed viper","a Bonro spitting cobra","a scarlet kestrel", "a red-brown burrowing owl","a lappet-faced vulture", "a horned viper", "an ostrich with wispy two-tone feathers", "a sun-spotted harrier", "an immense desert condor", "a crested haoroo", "a sun-scorched burnt umber haatun", "a crowned grouse"}},
 {area = "Huanazedha", level = "LANU DU", targets = {"a Nazetu eusuchian", "a Nazetu sage of tribe Urrop", "a lean Nazetu Child", "Rax, the Ophidian drug dealer", "Lugra Roosi, sage of Huanazedha", "a Goblin mercenary", "a sickly Nazetu addict", "a shady lurker", "Dudly, a Goblin mercenary", "Jacek, the proprietor", "a Mhun liquor merchant", "a drunk man of indeterminate race", "a Nazetu knife merchant", "a dazed Orc addict", "a bruised Goblin addict", "a sickly Orc addict", "a drunken human man",}},
 {area = "the Aqueducts of Spinesreach", level = "idk", targets = {"a massive rockworm", "a ravenous, infected cricket", "an enormous, mutated cricket"}},
+{area = "the shattered remnants of the Nazedha fleet", level="LANU DU", targets={"a slimy Nazetu beastmaster","a malignant Nazetu beastmaster", "a nauseating Nazetu slaver", "a gluttonous, writhing monstrosity", "a chaotic monstrosity of snapping maws", "a pestilent Nazedha monstrosity", "a sinister Chaos cultist",}},
 }
 
 sunder_areaPaths = {
