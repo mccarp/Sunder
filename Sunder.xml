@@ -14527,6 +14527,7 @@ end</script>
 									<name>crushed chest just in case</name>
 									<script>if snd.target == matches[2] then
   snd.target_got("crushed_chest")
+  snd.target_cured("cracked_ribs")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -23569,6 +23570,7 @@ end</script>
 							<name>Poultice v2</name>
 							<script>if matches[2]:lower() == snd.target:lower() then
   snd.target_last_used_salve = matches[3]
+  snd.last_cure = matches[3]
   snd.target_cured("slickness")
   snd.target_cured("slough")
   snd.immediateResto()
@@ -79554,6 +79556,21 @@ caloric = {
 "frigid",
 "shivering",
 --"no_caloric"
+},
+mending = {
+"destroyed_throat",
+"crippled_throat",
+"lightwound",
+"ablaze",
+"cracked_ribs",
+"left_arm_crippled",
+"left_arm_dislocated",
+"right_arm_crippled",
+"right_arm_dislocated",
+"left_leg_crippled",
+"left_leg_dislocated",
+"right_leg_crippled",
+"right_leg_dislocated",
 },
 
 focus = {
