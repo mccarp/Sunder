@@ -14197,6 +14197,32 @@ disableTrigger("Spear Limb Messages")</script>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Batter Hit Confirmation</name>
+										<script>if matches[2] == snd.target then
+  snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = 9
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+  snd.onHit2({"Dodge", "Parry", "Rebounding"})
+end
+disableTrigger("Batter Hit Confirmation")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Taking a solid, aggressive step forward, \w+ slugs? (\w+)'s (.+) with a heavy swing from .+\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Roaring proc</name>
 										<script>if snd.target == matches[2] then
@@ -83925,21 +83951,24 @@ end</script>
   ["Warding"] = {
     Lacerate = function(target)
                   enableTrigger("Spinslash 2nd half")
-                  snd.onHit2({"Dodge", "Rebounding"}, "Warden")
+                  snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Warden")
                 end,
    Bypass = function(target, defense)
                 if defense == "shield" then snd.used.shield = false end
                 if defense == "rebounding" then snd.used.rebounding = false end
                 if defense == "speed" then snd.target_got("no_speed") end
                 if defense == "failure" then snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false end
-                snd.onHit2({"Dodge", "Rebounding"})
+                snd.onHit2({"Dodge", "Rebounding", "Parry"})
               end,
     Terrorize = function(target)
               snd.target_got("fallen")
             end,
     Maim = function(target)
+                snd.last_hit_limb = "head"
+                snd.last_limb_dmg = 13.99
+                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                table.insert(snd.maybe_affs, "blurry_vision")
-               snd.onHit2({"Rebounding", "Dodge"})
+               snd.onHit2({"Rebounding", "Dodge", "Parry"})
               end,
     Pummel = function(target, conditional)
               local aff = {["knees"] = "crushed_kneecaps", ["elbows"] = "crushed_elbows", ["chest"] = "cracked_ribs"}
@@ -83972,6 +84001,9 @@ end</script>
                end
             end
           end,
+    Batter = function(target)
+                  enableTrigger("Batter Hit Confirmation")
+                end,
     Maul = function(target)
                    enableTrigger("Maul Hit Confirmation")
                  end,
