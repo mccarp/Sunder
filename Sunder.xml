@@ -81347,7 +81347,7 @@ end</script>
                 end
                 snd.onHit2({"Dodge", "Rebounding"}, "Luminary Facesmash")
               end,
-  Slam = function(target)
+  Lambaste = function(target)
                 if not snd.checksomeAffs({"asthma", "haemophilia"}, 1) then
                   table.insert(snd.maybe_affs, 1, "asthma")
                   table.insert(snd.maybe_affs, 2, "haemophilia")
@@ -84236,7 +84236,7 @@ end</script>
                 end
                 snd.onHit2({"Dodge", "Rebounding"}, "Luminary Facesmash")
               end,
-  Slam = function(target)
+  Beset = function(target)
                 if not snd.checksomeAffs({"asthma", "haemophilia"}, 1) then
                   table.insert(snd.maybe_affs, 1, "asthma")
                   table.insert(snd.maybe_affs, 2, "haemophilia")
