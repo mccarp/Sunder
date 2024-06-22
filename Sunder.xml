@@ -61202,7 +61202,7 @@ def_battlehymn = {defense = "battlehymn", type = "normal", effect = "Increases s
 -- def_battlehymn_constitution = {defense = "battlehymn_constitution", type = "normal", effect = "Increases constitution", balance = {needyequilibriumtake = "dirge battlehymn constitution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
 -- def_battlehymn_intelligence = {defense = "battlehymn_intelligence", type = "normal", effect = "Increases intelligence", balance = {needyequilibriumtake = "dirge battlehymn intelligence"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
 -- def_battlehymn_dexterity = {defense = "battlehymn_dexterity", type = "normal", effect = "Increases dexterity", balance = {needyequilibriumtake = "dirge battlehymn dexterity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlehymn" },
-def_unbending = {defense = "unbending", type = "normal", effect = "no clumsy on shield attacks", balance = {balanceequilibrium = "tectonics unbending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Unbending"},
+def_unbending = {defense = "unbending", type = "normal", effect = "no clumsy on shield attacks", balance = {balanceequilibrium = "tectonic unbending"}, state = "down", needit = false, timer = createStopWatch(), skill = "Unbending"},
 def_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {needybalancetake = "tectonic insulation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
 
 --Executor
