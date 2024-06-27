@@ -76169,6 +76169,9 @@ function snd.runBasher()
   if snd.toggles.generics then
     --generic logic
     snd.bashing.target = generic_bashing_name(targetName)
+    if snd.bashing.target == "" then
+      snd.bashing.target = targetID
+    end
     if snd.bashing.target ~= snd.bashing.old_target then
       --if snd.toggles.calling then snd.send("wt target: "..snd.bashing.target) end --comment this out to keep from calling web targets
       snd.bashing.old_target = snd.bashing.target
