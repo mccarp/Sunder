@@ -9477,17 +9477,26 @@ end</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>sipped something</name>
-						<script>if matches[2]:lower() == snd.target:lower() and matches[3]:find("vial") then
-  snd.vital_change("health", 25)
-  snd.vital_change("mana", 25)
+						<name>Sipped something</name>
+						<script>if matches[2] == snd.target then
+  local potion = matches[3]
+  if potion == "levitation" then
+      snd.lev_gone = false
+  elseif potion == "infusion" then
+      snd.target_cured("etherflux")
+  elseif potion == "mana" then
+      snd.vital_change("mana", 25)
+  elseif potion == "health" then
+      snd.vital_change("health", 25)
+  elseif potion == "speed" then
+      tempTimer(4.5, [[snd.target_cured("no_speed")]]) 
+  elseif potion == "arcane" then
+      snd.target_cured("no_arcane") --Not a real aff.. yet? Just in case.
+  end
   if snd.checkAff("whiplash") then
     snd.took_limb_dmg("head", 6.49)
   end
-  snd.lev_gone = false
-  if snd.checkAff("no_speed") then -- Assume they sip speed over sipping health, remove speed after the lowest delay (averages between: 4.5-5 seconds)
-    tempTimer(4.5, [[snd.target_cured("no_speed")]])
-  end
+
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end</script>
@@ -9502,8 +9511,8 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(\w+) takes a drink from (.+)\.$</string>
-							<string>^(\w+) empties out .+ into \w+ mouth\.$</string>
+							<string>^(\w+) drinks an elixir of (?:the )?(\w+) from .+.$</string>
+							<string>^(\w+) empties out an elixir of (?:the )?(\w+) into (\w+) mouth\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -60737,6 +60746,9 @@ aff_excess_phlegm = {state = "healed", effect = "frostbrand - continually freeze
 aff_corroded_limb = {state = "healed", effect = "extra limb damage if hit by yellowbile spell", cures = {}, assess = false, timer = createStopWatch()},
 aff_bile_covered = {state = "healed", effect = "dmg over time", cures = {}, assess = false, timer = createStopWatch()},
 aff_phlegm_frozen = {state = "healed", effect = "gives an additional cold damage proc on cold damage receive", cures = {}, assess = false, timer = createStopWatch()},
+aff_etherflux = {state = "healed", effect = "50% chance of elemental damage to cause other things", cures = {vial = "infusion"}, assess = false, timer = createStopWatch()}, 
+
+
 
 --Runecarver
 aff_inoculated = {state = "healed", effect = "auto gravity from scio spells", cures = {}, assess = false, timer = createStopWatch()},
