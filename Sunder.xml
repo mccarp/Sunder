@@ -58131,11 +58131,11 @@ end</script>
   end
   
    if snd.class == "Ascendril" then
-    snd.defenses.def_empowered_moon = snd.alternative_class_defenses.Ascendril_empowered_moon
+    snd.defenses.def_empowered_boar = snd.alternative_class_defenses.Ascendril_empowered_boar
   end
   
    if snd.class == "Bloodborn" then
-    snd.defenses.def_empowered_moon = snd.alternative_class_defenses.Bloodborn_empowered_moon
+    snd.defenses.def_empowered_boar = snd.alternative_class_defenses.Bloodborn_empowered_boar
   end
   
    if snd.class == "Sciomancer" then
@@ -59875,6 +59875,7 @@ snd.priorities =
     "def_soulcage",
     "def_victimise",
     "def_empowered_moon",
+    "def_empowered_boar",
     "def_panoply",
     "def_forestall",
     "def_prowess",
@@ -61698,6 +61699,7 @@ def_lifesense = {defense = "lifesense", type = "normal", effect = "Report people
 
 --making sure empowered moon is in here to avoid errors, regardless of class
 def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
+def_empowered_boar = {defense = "empowered_boar", type = "DarkOrange", effect = "extra health recovery", balance = {balanceequilibriumtake = "cast vivacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vivacity" },
 }
 
 snd.alternative_class_defenses = {
@@ -61726,6 +61728,8 @@ Runecarver_empowered_moon = {defense = "empowered_moon", type = "normal", effect
 Skill_insomnia = {defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = {special = "insomnia"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insomnia"},
 Earthcaller_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {balanceequilibriumtake = "tectonic insulation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Insulation"},
 Luminary_insulation = {defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = {balanceequilibriumtake = "evoke warmth"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warmth"},
+Ascendril_empowered_boar = {defense = "empowered_boar", type = "DarkOrange", effect = "extra health recovery", balance = {balanceequilibriumtake = "cast vivacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vivacity" },
+Bloodborn_empowered_boar = {defense = "empowered_boar", type = "indian_red", effect = "extra health recovery", balance = {balanceequilibriumtake = "unleash acumen"}, state = "down", needit = false, timer = createStopWatch(), skill = "Acumen" },
 }
 
 
@@ -62318,6 +62322,8 @@ end</script>
   ["Your weapons flow through the air."] = "iyedlo",
   ["Your weapons will flow like water."] = "waterflow",
   ["Your form is softened by ghostly ephemerality."] = "diminution",
+  
+  ["Your boar tattoo is being empowered."] = "empowered_boar",
 }
  </script>
 							<eventHandlerList />
@@ -76414,37 +76420,10 @@ function snd.ascendril_bash()
         battack = "touch shield"
       end
     end
-  elseif hasSkill("Quickcast") then
-    if not snd.fulcrum_exists then
-      battack = "fulcrum construct"
-    elseif snd.fulcrum_call then
-      battack = "fulcrum recall"
-    else
-      if snd.toggles.enrich and snd.balance.enrich and wp &gt;= 40 then
-        if (gmcp.Char.Vitals.resonance == "fire" or gmcp.Char.Vitals.resonance == "air") then
-          battack = "fulcrum enrich water"..snd.sep
-        end
-      end
-      if snd.toggles.prism then
-        if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air" then
-          battack = battack.."cast prism frostblade "..snd.bashing.target
-        elseif gmcp.Char.Vitals.resonance == "water" then
-          battack = "cast prism firelash "..snd.bashing.target
-        elseif gmcp.Char.Vitals.resonance == "fire" then
-          battack = "cast prism windlance "..snd.bashing.target
-        end
-      else
-        if gmcp.Char.Vitals.resonance == "" or gmcp.Char.Vitals.resonance == "air"  then
-          battack = "cast frostblade "..snd.bashing.target
-        elseif gmcp.Char.Vitals.resonance == "water" then
-          battack = "cast firelash "..snd.bashing.target
-        elseif gmcp.Char.Vitals.resonance == "fire" then
-          battack = "cast windlance "..snd.bashing.target
-        end
-      end
-    end
+  elseif snd.hasSkill("Iceray") then
+    battack = "cast iceray "..snd.bashing.target
   else
-    battack = "cast firelash "..snd.bashing.target
+    battack = "cast missiles "..snd.bashing.target
   end
 end
 
@@ -76480,37 +76459,10 @@ function snd.bloodborn_bash()
   -- let the reflection do its job
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "unleash geminate"
-  elseif hasSkill("Primacy") then    
-    if not snd.fulcrum_exists then
-      battack = "well draw"
-    elseif snd.fulcrum_call then
-      battack = "well recall"
-    else
-      if snd.toggles.enrich and snd.balance.enrich and wp &gt;= 40 then
-        if (gmcp.Char.Vitals.aspect == "yellow" or gmcp.Char.Vitals.aspect == "black") then
-          battack = "well contaminate phlegm"..snd.sep
-        end
-      end
-      if snd.toggles.prism then
-        if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black" then
-          battack = battack.."unleash triplicate flense "..snd.bashing.target
-        elseif gmcp.Char.Vitals.aspect == "phlegm" then
-          battack = "unleash triplicate disgorge "..snd.bashing.target
-        elseif gmcp.Char.Vitals.aspect == "yellow" then
-          battack = "unleash triplicate befoul "..snd.bashing.target
-        end
-      else
-        if gmcp.Char.Vitals.aspect == "" or gmcp.Char.Vitals.aspect == "black"  then
-          battack = "humour flense "..snd.bashing.target
-        elseif gmcp.Char.Vitals.aspect == "phlegm" then
-          battack = battack.."humour disgorge "..snd.bashing.target
-        elseif gmcp.Char.Vitals.aspect == "yellow" then
-          battack = "humour befoul "..snd.bashing.target
-        end
-      end
-    end
+  elseif hasSkill("Flense") then
+    battack = "humour flense "..snd.bashing.target
   else
-    battack = "humour disgorge "..snd.bashing.target
+    battack = "unleash victimise "..snd.bashing.target
   end
 end
 
@@ -78792,9 +78744,8 @@ def_catabolism = "once",
 
 ascendril = {
 def_countercurrent = "on",
-def_empowered_moon = "on",
+def_empowered_boar = "once",
 def_arcaneskin = "on",
-def_missiles = "once",
 },
 
 bard = {
@@ -78815,9 +78766,8 @@ def_harden = "once",
 },
 
 bloodborn = {
-def_victimise = "once",
-def_empowered_moon = "on",
 def_panoply = "on",
+def_empowered_boar = "once",
 def_forestall = "on",
 },
 
