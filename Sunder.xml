@@ -10790,28 +10790,6 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>windlance prone</name>
-									<script>if matches[2] == snd.target then
-	snd.target_got("fallen")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^The force of the lance knocks (\w+) from .+ feet, local debris tearing into .+ as .+ falls\.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Frostband tick</name>
 									<script>if matches[2] == snd.target then
   snd.target_got("cold")
@@ -10828,29 +10806,6 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^The Brand of the Frost pulses with blue-black light, (\w+)'s face contorting against the excruciating, bone-deep ache of cold.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Frostbrand got</name>
-									<script>if matches[2] == snd.target  then
-  snd.target_cured("direfrost")
-	snd.target_got("frostbrand")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^The gleaming fractals of direfrost unite upon (\w+)'s body, solidifying into the biting Brand of the Frost.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -10879,50 +10834,12 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Stalling a skill</name>
-									<script>snd.stalled_skill = matches[2]</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^You scrawl a glimmering mark of delay in the air, fingers sliding through it to hold on to the (\w+) spell for \d+ seconds\.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Stalled skill used</name>
-									<script>snd.stalled_skill = ""</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You use Thaumaturgy Stall Release.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Ice encased proc</name>
+									<name>hypothermia</name>
 									<script>if matches[2] == snd.target then
+  snd.target_got("shivering")
+  snd.target_got("frigid")
   snd.target_got("frozen")
-  snd.target_got("ice_encased")
+  snd.target_got("hypothermia")
 end
 </script>
 									<triggerType>0</triggerType>
@@ -10936,29 +10853,7 @@ end
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Limned with ice, (\w+) becomes encased in the Brand of the Frost's chilling grasp\.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>ice encased gone</name>
-									<script>if matches[2] == snd.target then
-  snd.target_cured("ice_encased")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^The ice encasing (\w+) cracks and sloughs off in chunks, shattering upon the ground\.$</string>
+										<string>^Limned with ice, (\w+)'s skin becomes a pale blue beneath the Brand of the Frost's chilling grasp.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -10966,17 +10861,13 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>emberbrand proc</name>
-									<script>if matches[2] == snd.target  then
-	snd.target_got("ablaze")
-  snd.target_got("emberbrand")
-end
-if snd.class == "Zealot" and matches[2] == snd.target then
-  if snd.flamestack == 12  and snd.checkAff("ablaze") then 
-    snd.immolation_ready = true
+									<script>if matches[2] == snd.target then
+  if snd.checkAff("clumsiness") then
+    snd.target_got("weariness")
   else
-    snd.immolation_ready = false
+    snd.target_got("clumsiness")
   end
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
+  snd.target_got("emberbrand")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -10989,18 +10880,39 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^The Brand of Ember seared upon (\w+) glows, fire rippling outward to ignite along  .+ body\.$</string>
+										<string>^The Brand of Ember seared upon (\w+) glows, rippling outward as swelting heat eminates from it\.$</string>
+										<string>^The Brand of Ember seared upon (\w+) glows, rippling outward as sweltering heat emanates from it\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Emberbrand cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("emberbrand")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The Emberbrand fades away from (\w+)'s forehead\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>thunderbrand proc</name>
-									<script>if matches[2] == snd.target  then
-  snd.target_got("thunderbrand")
-end
-</script>
+									<script></script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -11058,7 +10970,7 @@ end
 										<string>You must recover fulcrum balance first.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>0</integer>
+										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -11078,11 +10990,11 @@ end
 										<string>You may cast another complex spell.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>0</integer>
+										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Glimpse</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -11363,28 +11275,6 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>windlance prone - hema</name>
-									<script>if matches[2] == snd.target then
-	snd.target_got("fallen")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+) buckles beneath the force of the magical bolt, its sorcerous strength driving .+ to .+ knees.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Frostband tick - hema</name>
 									<script>if matches[2] == snd.target then
   snd.target_got("cold")
@@ -11400,30 +11290,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Agony commands (\w+)'s expression as .+ own innards betray .+, .+ excess phlegm manifesting as ice in .+ veins.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Frostbrand got - hema</name>
-									<script>if matches[2] == snd.target  then
-  snd.target_cured("frostbite")
-	snd.target_got("excess_phlegm")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+)'s frostbite worsens to a critical state, .+ body's internal humours suffering an excess of phlegm.$</string>
+										<string>^Agony commands (\w+)'s expression as .+ own innards betray .+, manifesting ice in .+ veins\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -11452,8 +11319,10 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Stalling a skill - hema</name>
-									<script>snd.stalled_skill = matches[2]</script>
+									<name>excess_choleric cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("excess_choleric")
+end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -11465,37 +11334,19 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^You turn your sanguine mastery inward, binding the (\w+) spell within your own veins for \d+ seconds.$</string>
+										<string>^(\w+)'s excess of yellow bile fades, returning \w+ to normal\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Stalled skill used - hema</name>
-									<script>snd.stalled_skill = ""</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You use Hematurgy Arrhythmia Release.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Ice encased proc - hema</name>
+									<name>Hypothermia</name>
 									<script>if matches[2] == snd.target then
+  snd.target_got("shivering")
+  snd.target_got("frigid")
   snd.target_got("frozen")
-  snd.target_got("ice_encased")
+  snd.target_got("hypothermia")
 end
 </script>
 									<triggerType>0</triggerType>
@@ -11517,8 +11368,12 @@ end
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>emberbrand proc - hema</name>
-									<script>if matches[2] == snd.target  then
-	snd.target_got("ablaze")
+									<script>if matches[2] == snd.target then
+  if snd.checkAff("clumsiness") then
+    snd.target_got("weariness")
+  else
+    snd.target_got("clumsiness")
+  end
   snd.target_got("excess_choleric")
 end</script>
 									<triggerType>0</triggerType>
@@ -11538,7 +11393,7 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>thunderbrand proc - hema</name>
 									<script>if matches[2] == snd.target  then
   snd.target_got("excess_melancholic")
@@ -11579,6 +11434,28 @@ end
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^(\w+)'s excess of black bile fades, returning .+ to normal.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>firebrand cured - hema</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("excess_choleric")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+)'s excess of yellow bile fades, returning \w+ to normal\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -11681,7 +11558,7 @@ end
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>BB Glimpse</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -11871,9 +11748,9 @@ snd.fulcrum_exists = true</script>
 									<string>You do not seem to have a fulcrum within range to use, Mage.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>0</integer>
-									<integer>0</integer>
-									<integer>0</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -11893,7 +11770,7 @@ snd.fulcrum_exists = true</script>
 									<string>You must have a fulcrum to perform any of its abilities.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>0</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -11940,9 +11817,558 @@ snd.fulcrum_exists = true</script>
 									<string>You must have a well to perform any of its abilities.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>0</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Rework</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Windlance/befoul prone</name>
+									<script>if matches[2] == snd.target then
+  snd.used.shield = false
+  snd.target_got("fallen")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The force of the lance knocks (\w+) from .+ feet, the static wind shocking .+.$</string>
+										<string>^(\w+) buckles beneath the force of the magical bolt, its sorcerous strength driving .+ to .+ knees.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Etherflux</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("etherflux")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Elemental energy ripples across (\w+), sizzling as it irradiates their skin\.$</string>
+										<string>^Vile sorcery slides along (\w+), tormenting \w+ with catalysed humours\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Etherflux proc</name>
+									<script>if matches[3] == snd.target then
+  snd.target_got("etherflux")
+  snd.target_got(matches[2])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your etherflux flares under the elements, causing (.+) in (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Frostwrack/coldsnap</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("cold")
+  snd.target_got("cold")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Frost forms upon (\w+), plunging \w+ body temperature into a deep cold\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Frozen feet cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("frozen_feet")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The ice chips away, releasing (\w+)'s feet\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Rimespear/icicle</name>
+									<script>if matches[2] == snd.target then
+  snd.last_hit_limb = "torso"
+  snd.last_limb_dmg = 12
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+  snd.onHit2({"Parry"})
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A vicious icicle launches through the sky and pierces into (\w+)'s stomach with its pointed tip.$</string>
+										<string>^A rime\-crusted lance of energy darts across the air and stabs into (\w+)'s gut\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Fragment/Shatter</name>
+									<script>if matches[2] == snd.target then
+  snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = 4
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+  snd.onHit2({"Parry"})
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Whipping through the air, a rheumy chunk smashes against (\w+)'s (.+)\.$</string>
+										<string>^Winding through the air, an ice shard buries itself into (\w+)'s (.+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>0</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Frozen feet</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("frozen_feet")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Heaps of dark frost accumulate at (\w+)'s feet and harden into ice with the aid of the present direfog\.$</string>
+										<string>^Some of the crystalline ice adheres to (\w+)'s feet and glazes over in thepresence of a frosty glazeflow\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Writhe ice</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("writhe_ice")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Some of the frosty phlegm hardens, encasing (\w+) in ice\.$</string>
+										<string>^Elemental energy coaxes the crystalline ice to harden, encasing (\w+) in frost\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Writhe ice cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("writhe_ice")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The ice encasing (\w+) cracks and sloughs off in chunks, shattering upon the ground\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Arcbolt/Murkspark</name>
+									<script>if matches[2] == snd.target then
+  if snd.checkAff("paresis") then
+    snd.target_got("paralysis")
+  else
+    snd.target_got("paresis")
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Gloomy glimmers gnaw into (\w+)'s flesh, scourging \w+ with galvanised bile\.$</string>
+										<string>^The arcing bolt of lightning strikes (\w+), the sound absolutely deafening as .+ body jerks wildly\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>pressurize/equilibrium laxity</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("laxity")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A vacant expression dominates (\w+)'s expression as \w+ black bile shifts, leaving \w+ lax\.$</string>
+										<string>^The powerful pressure causes a lack of blood flow to (\w+)'s head, leaving .+ with a lax expression.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Capacitance/Impediment disrupt</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("disrupted")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^A nauseating wave ripples outward from \w+, disrupting (\w+) with its profane force\.$</string>
+										<string>^Bolts of shocking energy spark outwards from your hands, leaping into (\w+) in a lightning-fast flash.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Vein/restore</name>
+									<script>snd.balance.restore = false</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Hematurgy Vein.</string>
+										<string>You have too recently purged your tainted blood.</string>
+										<string>You use Thaumaturgy Restore.</string>
+										<string>You have too recently restored your body.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+										<integer>3</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>vein/restore back</name>
+									<script>snd.balance.restore = true</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You may once again cleanse your tainted blood.</string>
+										<string>You may once again restore your body.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Befoul/windlance shield break</name>
+									<script>if matches[2] == snd.target then
+  snd.used.shield = false
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+)'s shield melts away beneath the force of the sorcerous bolt, rendering it worthless\.$</string>
+										<string>^The lance rips through (\w+)'s magical shield, tearing it apart as it passes.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Well/fulcrum passive affs</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your (?:well|fulcrum) affects (\w+) with (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Arcane strip</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("no_arcane")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your (?:fulcrum|well) strips (\w+) of the arcane defence\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>disgorge/conflagrate ablaze</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("ablaze")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The sickening deluge of bile sizzles and pops, causing (\w+) to burst into dark flames\.$</string>
+										<string>^The heated conflagration surrounds (\w+), causing .+ body to burst into flames\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Marrowchill/Winterheart</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("winterheart")
+  if winterheart_timer then killTimer(winterheart_timer) end
+  winterheart_timer = tempTimer(30, [[snd.target_cured("winterheart")]])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Raw phlegmatic power stabs into (\w+)'s heart and rattles \w+ bones\.$</string>
+										<string>^Winter's icy grasp closes around (\w+)'s heart, causing them to wince\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Marrowchill/winterheart full mana drain</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("cold")
+  snd.target_got("cold")
+  snd.target_got("cold")
+  snd.target_got("writhe_ice")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Profane ice enfolds (\w+) in its insidious embrace, encasing \w+ in black frost\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Ashen feet proc</name>
+									<script>if matches[2] == snd.target then
+snd.target_got("left_leg_crippled")
+snd.target_got("right_leg_crippled")
+snd.target_got("fallen")
+snd.target_cured("ashen_feet")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Flames burst from under (\w+)'s feet and consume .+ legs in a horrific blaze.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Bard</name>
@@ -24253,6 +24679,28 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Dazed Cured</name>
+							<script>if matches[2] == snd.target then
+  snd.target_cured("dazed")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) shakes .+ head clear.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists/Undos</name>
@@ -24808,7 +25256,7 @@ end
 						<regexCodePropertyList>
 							<integer>1</integer>
 						</regexCodePropertyList>
-						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Wounds capture stuff</name>
 							<script>local limb = matches[2]:lower()
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
@@ -42693,7 +43141,7 @@ end</script>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
-					<AliasGroup isActive="yes" isFolder="yes">
+					<AliasGroup isActive="no" isFolder="yes">
 						<name>Ascendril</name>
 						<script></script>
 						<command></command>
@@ -54807,7 +55255,7 @@ end</script>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
-					<AliasGroup isActive="yes" isFolder="yes">
+					<AliasGroup isActive="no" isFolder="yes">
 						<name>Bloodborn</name>
 						<script></script>
 						<command></command>
@@ -57619,6 +58067,7 @@ end
   exploit = true, --executor exploit
   regenerate = true, --survival regenerate
   smash = true, --luminary smash
+  restore = true, --restore/vein for asc/bb
 }
 
 snd.waiting = snd.waiting or {
@@ -57849,6 +58298,7 @@ snd.physical_affs = {
 "migraine",
 "deadening",
 "ice_encased",
+"dissonance",
 }
 
 snd.mental_affs = {
@@ -61213,6 +61663,11 @@ def_missiles = {defense = "missiles", type = "normal", effect = "PvE damage", ba
 def_arcaneskin = {defense = "arcaneskin", type = "normal", effect = "Increased cutting/blunt resistances", balance = {balanceequilibrium = "cast arcaneskin"}, state = "down", needit = false, timer = createStopWatch(), skill = "Arcaneskin"},
 def_countercurrent = {defense = "countercurrent", type = "normal", effect = "chance to resist venoms", balance = {balanceequilibrium = "cast countercurrent"}, state = "down", needit = false, timer = createStopWatch(), skill = "Countercurrent"},
 def_stalled = {defense = "stalled", type = "normal", effect = "holding an attack", balance = {balanceequilibrium = ""}, state = "down", needit = false, timer = createStopWatch(), skill = "Stall"},
+def_afterburn = {defense= "afterburn", type = "normal", effect = "faster fire spells", balance = {balanceequilibriumtake = "cast afterburn"}, state = "down", needit = false, timer = createStopWatch(), skill = "Afterburn"},
+def_capacitance = {defense= "capacitance", type = "normal", effect = "one time electric dodge", balance = {balanceequilibriumtake = "cast capacitance"}, state = "down", needit = false, timer = createStopWatch(), skill = "Capacitance"},
+def_fireburst = {defense= "fireburst", type = "normal", effect = "throw fireballs", balance = {balanceequilibriumtake = "cast fireburst"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fireburst"},
+
+
 
 --Bard
 def_sheath = {defense = "sheath", type = "normal", effect = "10% Resist to Cutting/Blunt", balance = {needyequilibriumtake = "weave sheath"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sheath"},
@@ -61230,6 +61685,11 @@ def_victimise = {defense = "victimise", type = "normal", effect = "PvE damage", 
 def_panoply = {defense = "panoply", type = "normal", effect = "Increased cutting/blunt resistances", balance = {balanceequilibrium = "unleash panoply"}, state = "down", needit = false, timer = createStopWatch(), skill = "Panoply"},
 def_forestall = {defense = "forestall", type = "normal", effect = "chance to resist venoms", balance = {balanceequilibrium = "unleash forestall"}, state = "down", needit = false, timer = createStopWatch(), skill = "Forestall"},
 def_arrhythmia = {defense = "arrhythmia", type = "normal", effect = "holding an attack", balance = {balanceequilibrium = ""}, state = "down", needit = false, timer = createStopWatch(), skill = "Arrhythmia"},
+def_roil = {defense= "roil", type = "normal", effect = "faster fire spells", balance = {balanceequilibriumtake = "humour roil"}, state = "down", needit = false, timer = createStopWatch(), skill = "Roil"},
+def_impediment = {defense= "impediment", type = "normal", effect = "Disrupt after 5 spells", balance = {balanceequilibriumtake = "humour impediment"}, state = "down", needit = false, timer = createStopWatch(), skill = "Impediment"},
+def_blackfire = {defense= "blackfire", type = "normal", effect = "throw fireballs", balance = {balanceequilibriumtake = "humour retch"}, state = "down", needit = false, timer = createStopWatch(), skill = "Retch"},
+
+
 
 --Carnifex
 def_fearless = {defense = "fearless", type = "normal", effect = "Protects against fear affliction.", balance = {special = "fearless"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fearless"},
@@ -62324,6 +62784,14 @@ end</script>
   ["Your form is softened by ghostly ephemerality."] = "diminution",
   
   ["Your boar tattoo is being empowered."] = "empowered_boar",
+  
+  ["You are surrounded by a shimmering, charged sphere."] = "capacitance",
+  ["Your next fire spell is hasted with speed."] = "afterburn",
+  ["Your hands glow with heat and flame."] = "fireburst",
+  
+  ["Your throat is filled with roiling black fire."] = "blackfire",
+  ["Your yellow bile sorcery is enhanced with sickly power."] = "roil",
+  ["You have accumulated energy to impede your foes."] = "impediment",
 }
  </script>
 							<eventHandlerList />
@@ -81693,380 +82161,141 @@ end</script>
                   end,
   },
 --Ascendril
-  ["Elemancy"] = {
-  
-    Thunder = function(target)
-                snd.target_got("dizziness")
-                snd.target_got("stupidity")
-  	          end,
-    Direfrost = function(target, failed)
-                  if not failed then
-                    snd.target_got("direfrost")
-                  else
-                    snd.target_cured("shivering")
-                  end
-                end,
-    Ignite = function(target, conditional)
-               if conditional == "Normal" then
-                 snd.target_got("ablaze")
-               elseif conditional == "Water" then
-                 snd.target_got("blisters")
-               end
-             end,
-    Firelash = function(target, element, conditional)
-                	snd.last_hit_limb = conditional
-                	snd.last_limb_dmg = 12
-                  if element == "Water" then snd.last_limb_dmg = 14 end
-                	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-                  snd.onHit2({"Parry", "Dodge"})
-                	if snd.flamewreathed.limb == "" and element == "Fire" then
-                		snd.flamewreathed.limb = conditional
-                	end
-                  snd.flamewreathed.resonance = element
-                end,
-    Scorch = function(target, element, conditional)
-            	if element == "Water" then
-            		snd.target_got("slickness")
-            	elseif element == "Air" then
-            		snd.target_got("asthma")
-            	end
-              if conditional:find("Arm") then
-                if snd.checkAff("ablaze") or snd.checkAff("emberbrand") then
-                  snd.target_got("left_arm_crippled")
-                  snd.target_got("right_arm_crippled")
-                else
-                  snd.target_got("a_crippled_arm")
-                end
-              else
-                if snd.checkAff("ablaze") or snd.checkAff("emberbrand") then
-                  snd.target_got("left_leg_crippled")
-                  snd.target_got("right_leg_crippled")
-                else
-                  snd.target_got("a_crippled_leg")
-                end
-              end
-            end,
-    Hailstorm = function(target, element)
-                	if element == "Air" then
-                  		snd.target_got("lethargy")
-                      snd.target_got("cold")
-                  		if snd.proned() then
-                  			snd.target_got("confusion")
-                  		end
-                  	else
-                  		snd.target_got("dizziness")
-                  	end
-                  end,
-    Windlance = function(target, element)
-                	snd.used.shield = false
-                	if element == "Air" then
-                		if snd.checkAff("clumsiness") then
-                			snd.target_got("dizziness")
-                		else
-                	 		snd.target_got("clumsiness")
-                		end
-                	end
-                end,
-    Pressurize = function(target, element)
-                	if snd.checkAff("vertigo") then
-                		snd.target_got("confusion")
-                	else
-                 		snd.target_got("vertigo")
-                	end
-                	if element == "Water" then
-                		snd.target_got("weariness")
-                	elseif element == "Fire" then
-                		snd.target_got("clumsiness")
-                	end
-                end,
-      Coldsnap = function(target, element)
-                   	snd.target_got("stupidity")
-                  	if element == "Fire" then
-                  		snd.target_got("recklessness")
-                  	elseif element == "Air" then
-                  		snd.target_got("masochism")
-                  	end
-                  end,
-      Mistral = function(target, element)
-                  snd.target_got("cold")
-                	if element == "Water" then
-                    snd.target_got("cold")
-                	elseif element == "Fire" then
-                		snd.target_got("sensitivity")
-                	end
-                end,
-      Lightning = function(target, element)
-                  	snd.target_got("paresis")
-                  	if element == "Fire" then
-                  		snd.target_got("vertigo")
-                  	elseif element == "Water" then
-                  		snd.target_got("epilepsy")
-                  	end
-                  end,
-      Frostblade = function(target, element, venom)
-                     local aff = snd.venomEffect(venom)
-                     snd.target_got(aff)
-                     table.insert(snd.last_affs, aff)
-                     if element == "Water" then
-                   	  snd.target_got("hypothermia")
-                     end
-                   end,
-      Gorge = function(target, element, pill)
-              	snd.target_got("gorged")
-              	if element == "Fire" then
-              		snd.target_got("anorexia")
-              	elseif element == "Air" then
-              		snd.target_got("indifference")
-              	end
-                if pill ~= nil then snd.gorged = pill end
-              end,
-      Icicle = function(target, failed)
-                 if failed then
-                   snd.removeProneStates(true)
-                 else
-                   snd.target_got("writhe_impaled")
-                   snd.theytumbling = false
-                   if snd.hitting == "You" then
-                    snd.target_impaled = true
-                   end
-                end
-              end,
-    Conflagrate = function(target, failed)
-                if not failed then
-                  snd.target_got("emberbrand")
-                  if snd.checksomeAffs({"right_arm_mangled","left_arm_mangled","right_leg_mangled","left_leg_mangled","head_mangled","torso_mangled",}, 1) then
-                    tempTimer(120, [[ snd.target_cured("emberbrand") ]])
-                  elseif snd.checksomeAffs({"right_arm_broken","left_arm_broken","right_leg_broken","left_leg_broken","head_broken","torso_broken",}, 1) then
-                    tempTimer(90, [[ snd.target_cured("emberbrand") ]])
-                  else
-                    tempTimer(60, [[ snd.target_cured("emberbrand") ]])
-                  end
-                end
-              end,
+   ["Elemancy"] = {
+    Spark = function(target)
+      snd.target_got("blisters")
+      snd.target_got("impairment")
+    end,
+    Fireburst = function(target)
+      if not target then return end
+      snd.target_got("ablaze")
+    end,
+    Ashenfeet = function(target)
+      snd.target_got("ashen_feet")
+      if ashenfeet_timer then killTimer(ashenfeet_timer) end
+      ashenfeet_timer = tempTimer(120, [[snd.target_cured("ashen_feet")]])
+    end,
+    Conflagrate = function(target)
+      snd.target_got("hearing")
+    end,
+    Pyroclast = function(target)
+      snd.last_hit_limb = "head"
+      snd.last_limb_dmg = 23
+      if snd.checkAff("blisters") then
+        snd.last_limb_dmg = 69
+      end
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      snd.onHit2({"Parry"})
+    end,
+    Disintegrate = function(target, condition)
+      if condition == "release" then
+        snd.target_got("no_arcane")
+      end
+    end,
+
+    Direfrost = function(target)
+      snd.target_got("direfrost")
+      if direfrostTimer then killTimer(direfrostTimer) end
+      direfrostTimer = tempTimer(180, [[snd.target_cured("direfrost")]])
+    end,
+    Pressurize = function(target)
+      snd.target_got("vertigo")
+      snd.target_got("confusion")
+    end,
+    Thunderclap = function(target)
+      snd.target_got("dizziness")
+      snd.target_got("stupidity")
+      if snd.checkAff("hearing") then
+        snd.target_got("confusion")
+      end
+    end,
+    Aeroblast = function(target)
+      snd.target_got("fallen")
+      if snd.checkAff("torso_broken") then
+        snd.target_got("no_speed")
+      end
+    end
   },
   
   ["Arcanism"] = {
-    Transfix = function(target, blindness)
-                    snd.target_got("sight")
-                    if not blindness then  
-                     snd.target_got("writhe_transfix")
-                   end
-                  end,
-
   },
   
   ["Thaumaturgy"] = {
-    Flare = function(target)
-            if snd.glimpse == "air" then
-              if snd.checkAff("vertigo") then
-             		snd.target_got("muddled")
-              else
-             		snd.target_got("vertigo")
-              end
-            end
-          
-            if snd.glimpse == "water" then
-              if snd.checkAff("hypothermia") then
-                snd.target_got("cold")  
-          		else
-             	 snd.target_got("hypothermia")
-              end
-            end
-          	
-            if snd.glimpse == "fire" then
-              snd.target_got("ablaze")
-          	end
-            snd.fulcrum_ready = false
-          end,   
-
+    Branding = function(target, element)
+	  if element == "water" then
+		snd.target_got("frostbrand")
+	  elseif element == "fire" then
+		snd.target_got("emberbrand")
+	  elseif element == "air" then
+		snd.target_got("thunderbrand")
+	  end
+    end,
   },
   
 --Bloodborn
   ["Humourism"] = {
-  
+    Singe = function(target)
+      snd.target_got("blisters")
+      snd.target_got("impairment")
+    end,
+    Retch = function(target)
+      if not target then return end
+      snd.target_got("ablaze")
+    end,
+    Twist = function(target)
+      snd.target_got("ashen_feet")
+      if ashenfeet_timer then killTimer(ashenfeet_timer) end
+      ashenfeet_timer = tempTimer(120, [[snd.target_cured("ashen_feet")]])
+    end,
+    Disgorge = function(target)
+      snd.target_got("hearing")
+    end,
+    Acidveins = function(target)
+      snd.last_hit_limb = "head"
+      snd.last_limb_dmg = 23
+      if snd.checkAff("blisters") then
+        snd.last_limb_dmg = 69
+      end
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      snd.onHit2({"Parry"})
+    end,
+    Obliteration = function(target, condition)
+      if condition == "release" then
+        snd.target_got("no_arcane")
+      end
+    end,
+
+    Frostbite = function(target)
+      snd.target_got("frostbite")
+      if frostbiteTimer then killTimer(frostbiteTimer) end
+      frostbiteTimer = tempTimer(180, [[snd.target_cured("frostbite")]])
+    end,
+    Equilibrium = function(target)
+      snd.target_got("vertigo")
+      snd.target_got("confusion")
+    end,
     Stupor = function(target)
-                snd.target_got("dizziness")
-                snd.target_got("stupidity")
-  	          end,
-    Frostbite = function(target, failed)
-                  if not failed then
-                    snd.target_got("frostbite")
-                  else
-                    snd.target_cured("shivering")
-                  end
-                end,
-    Boil = function(target, conditional)
-               if conditional == "Normal" then
-                 snd.target_got("ablaze")
-               elseif conditional == "Phlegm" then
-                 snd.target_got("blisters")
-               end
-             end,
-    Disgorge = function(target, element, conditional)
-                	snd.last_hit_limb = conditional
-                	snd.last_limb_dmg = 12
-                  if element == "Phlegm" then snd.last_limb_dmg = 14 end
-                	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-                  snd.onHit2({"Parry", "Dodge"})
-                	if snd.flamewreathed.limb == "" and element == "Yellow" then
-                		snd.flamewreathed.limb = conditional
-                	end
-                  snd.flamewreathed.resonance = element
-                end,
-    Broil = function(target, element, conditional)
-            	if element == "Phlegm" then
-            		snd.target_got("slickness")
-            	elseif element == "Black" then
-            		snd.target_got("asthma")
-            	end
-              if conditional:find("Arm") then
-                if snd.checkAff("ablaze") or snd.checkAff("excess_choleric") then
-                  snd.target_got("left_arm_crippled")
-                  snd.target_got("right_arm_crippled")
-                else
-                  snd.target_got("a_crippled_arm")
-                end
-              else
-                if snd.checkAff("ablaze") or snd.checkAff("excess_choleric") then
-                  snd.target_got("left_leg_crippled")
-                  snd.target_got("right_leg_crippled")
-                else
-                  snd.target_got("a_crippled_leg")
-                end
-              end
-            end,
-    Swathe = function(target, element)
-                	if element == "Black" then
-                  		snd.target_got("lethargy")
-                      snd.target_got("cold")
-                  		if snd.proned() then
-                  			snd.target_got("confusion")
-                  		end
-                  	else
-                  		snd.target_got("dizziness")
-                  	end
-                  end,
-    Befoul = function(target, element)
-                	snd.used.shield = false
-                	if element == "Black" then
-                		if snd.checkAff("clumsiness") then
-                			snd.target_got("dizziness")
-                		else
-                	 		snd.target_got("clumsiness")
-                		end
-                	end
-                end,
-    Equilibrium = function(target, element)
-                	if snd.checkAff("vertigo") then
-                		snd.target_got("confusion")
-                	else
-                 		snd.target_got("vertigo")
-                	end
-                	if element == "Phlegm" then
-                		snd.target_got("weariness")
-                	elseif element == "Yellow" then
-                		snd.target_got("clumsiness")
-                	end
-                end,
-      Brainfreeze = function(target, element)
-                   	snd.target_got("stupidity")
-                  	if element == "Yellow" then
-                  		snd.target_got("recklessness")
-                  	elseif element == "Black" then
-                  		snd.target_got("masochism")
-                  	end
-                  end,
-      Plunge = function(target, element)
-                  snd.target_got("cold")
-                	if element == "Phlegm" then
-                    snd.target_got("cold")
-                	elseif element == "Yellow" then
-                		snd.target_got("sensitivity")
-                	end
-                end,
-      Synapse = function(target, element)
-                  	snd.target_got("paresis")
-                  	if element == "Yellow" then
-                  		snd.target_got("vertigo")
-                  	elseif element == "Phlegm" then
-                  		snd.target_got("epilepsy")
-                  	end
-                  end,
-      Flense = function(target, element, venom)
-                     local aff = snd.venomEffect(venom)
-                     snd.target_got(aff)
-                     table.insert(snd.last_affs, aff)
-                     if element == "Phlegm" then
-                   	  snd.target_got("hypothermia")
-                     end
-                   end,
-      Revulsion = function(target, element, pill)
-              	snd.target_got("gorged")
-              	if element == "Yellow" then
-              		snd.target_got("anorexia")
-              	elseif element == "Black" then
-              		snd.target_got("indifference")
-              	end
-                if pill ~= nil then snd.gorged = pill end
-              end,
-      Perforate = function(target, failed)
-                 if failed then
-                   snd.removeProneStates(true)
-                 else
-                   snd.target_got("writhe_impaled")
-                   snd.theytumbling = false
-                   if snd.hitting == "You" then
-                    snd.target_impaled = true
-                   end
-                end
-              end,
-    Smother = function(target, failed)
-                if not failed then
-                  snd.target_got("excess_choleric")
-                  if snd.checksomeAffs({"right_arm_mangled","left_arm_mangled","right_leg_mangled","left_leg_mangled","head_mangled","torso_mangled",}, 1) then
-                    tempTimer(120, [[ snd.target_cured("excess_choleric") ]])
-                  elseif snd.checksomeAffs({"right_arm_broken","left_arm_broken","right_leg_broken","left_leg_broken","head_broken","torso_broken",}, 1) then
-                    tempTimer(90, [[ snd.target_cured("excess_choleric") ]])
-                  else
-                    tempTimer(60, [[ snd.target_cured("excess_choleric") ]])
-                  end
-                end
-              end,
+      snd.target_got("dizziness")
+      snd.target_got("stupidity")
+      if snd.checkAff("hearing") then
+        snd.target_got("confusion")
+      end
+    end,
+    Synaptopathy = function(target)
+      snd.target_got("fallen")
+      if snd.checkAff("torso_broken") then
+        snd.target_got("no_speed")
+      end
+    end
   },
   
   ["Esoterica"] = {
-    Enthrall = function(target, blindness)
-                    snd.target_got("sight")
-                    if not blindness then  
-                     snd.target_got("writhe_transfix")
-                   end
-                  end,
-
   },
   
   ["Hematurgy"] = {
-    Palpitate = function(target)
-            if snd.glimpse == "black" then
-              if snd.checkAff("vertigo") then
-             		snd.target_got("muddled")
-              else
-             		snd.target_got("vertigo")
-              end
-            end
-          
-            if snd.glimpse == "phlegm" then
-              if snd.checkAff("hypothermia") then
-                snd.target_got("cold")  
-          		else
-             	 snd.target_got("hypothermia")
-              end
-            end
-          	
-            if snd.glimpse == "yellow" then
-              snd.target_got("ablaze")
-          	end
-          end,       
-
+    Surfeit = function(target, humour)
+      snd.target_got("excess_"..humour)
+    end,
   },
   
   
