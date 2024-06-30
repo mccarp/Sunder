@@ -76888,7 +76888,7 @@ function snd.ascendril_bash()
         battack = "touch shield"
       end
     end
-  elseif snd.hasSkill("Iceray") then
+  elseif hasSkill("Iceray") then
     battack = "cast iceray "..snd.bashing.target
   else
     battack = "cast missiles "..snd.bashing.target
