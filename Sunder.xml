@@ -6763,7 +6763,6 @@ snd.loyalsattacking = false</script>
 }
 
 snd.send("qdmount"..snd.sep.."return mount "..stable_check[gmcp.Char.Status.city])
-if sndNDB.highlightNames then expandAlias("sndb hl") end
 
 snd_toggleSave(true)
 sndNDB_saveSettings(true)</script>
@@ -14437,7 +14436,7 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList />
 									<regexCodePropertyList />
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Ancestor Attune give</name>
 										<script>if matches[2] == snd.target then
   for i in pairs(snd.effects) do
@@ -14746,7 +14745,7 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Spinslash 2nd half</name>
 									<script>snd.onHit2({"Rebounding", "Dodge"})
 disableTrigger("Spinslash 2nd half")</script>
@@ -28543,7 +28542,7 @@ end</script>
     snd.send("qeb disperse " .. matches[2])
   elseif sndNDB_Exists(gmcp.Char.Status.name) or not sndNDB_Exists(matches[2]) then 
     -- Eliminate cases where one or the other isn't in the name database
-  elseif (snd.disperse == "all" and sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city) then
+  elseif (snd.disperse == "all" and sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2])) then
     snd.send("qeb disperse " .. matches[2])
   end
 end</script>
@@ -31019,7 +31018,7 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>web invite</name>
 							<script>if snd.toggles.affcalling then
-  if (sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city) then
+  if (sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2])) then
    snd.send("web accept")
 	end
 end</script>
@@ -31152,7 +31151,7 @@ table.insert(snd.scented[matches[3]], matches[2])</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>beckon</name>
-							<script>if (sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city) then
+							<script>if sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2]) then
   snd.send("follow "..matches[2])
 end</script>
 							<triggerType>0</triggerType>
@@ -31175,7 +31174,7 @@ end</script>
 						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>follow enemy</name>
 							<script>if snd.defenses.def_phase.state ~= "deffed" then
-  if (sndNDB.players[gmcp.Char.Status.name].city ~= sndNDB.players[matches[2]].city) then
+  if sndNDB_getCitizenship(gmcp.Char.Status.name) ~= sndNDB_getCitizenship(matches[2]) then
     snd.send("qeb lose "..matches[2])
   end
 end
@@ -31479,7 +31478,7 @@ snd.send(string)</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>defending</name>
-							<script>if (sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city) then
+							<script>if sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2]) then
   cecho(" \n&lt;red&gt;Someone is being defended, make sure it isn't an illusion!")
 	tempTimer(5, [[enableTrigger("defending")]])
 	disableTrigger("defending")
@@ -32322,7 +32321,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>3p lust</name>
-						<script>if sndNDB.players[gmcp.Char.Status.name].tether == "Spirit" then
+						<script>if sndNDB_getTether(gmcp.Char.Status.name) == "Spirit" then
  snd.send("qeb drop monolith")
 end</script>
 						<triggerType>0</triggerType>
@@ -32344,7 +32343,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>brazier</name>
-						<script>if (sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city) then
+						<script>if sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2]) then
  snd.send("qeb touch brazier "..matches[2])
 end</script>
 						<triggerType>0</triggerType>
@@ -32565,7 +32564,7 @@ snd.infiltrate = false
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Target Oblivion</name>
-						<script>if sndNDB.players[gmcp.Char.Status.name].city == sndNDB.players[matches[2]].city then
+						<script>if sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2]) then
 else
   snd.send("wt "..matches[2].." is singing Oblivion next to v"..gmcp.Room.Info.num)
   if snd.class == "Infiltrator" then
@@ -33731,6 +33730,304 @@ end</script>
 				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Neri's Phone Book</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>parse_cwho</name>
+					<script>npb.cwho_city=matches[2]:lower()</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>99</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^The following citizens of (Duiran|Enorian|Bloodloch|Spinesreach) are in the realm:$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>reset on prompt</name>
+						<script>setTriggerStayOpen("parse_cwho", 0)
+npb.add_people(people_from_cwho)
+people_from_cwho=nil</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>return isPrompt()</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>4</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>catch person</name>
+						<script>if type(people_from_cwho) ~= "table" then return end
+table.insert(people_from_cwho, {name=matches[2], city=npb.cwho_city})</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(\w+)\s+.*$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>start list</name>
+						<script>people_from_cwho={}</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>--------------------------------------------------------------------------------</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>parse_honours</name>
+					<script>if not npb.honour_on then
+  deleteLine()
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>999</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>-------------------------------------------------------------------------------</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>more's more</name>
+						<script>if not mmp then
+  npb.echo("&lt;red&gt;You do not have IRE mudlet mapper script installed. This may not work 100%")
+else
+  mmp.deleteLineP()
+end
+send("more", false)
+</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Type MORE to continue reading.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>2</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>city army</name>
+						<script>npb.honour_data.city = matches[2]:lower()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(?:He|She|They|It) (?:is|are) an? .* in the army of (Spinesreach|Enorian|Bloodloch)\.$</string>
+							<string>^(?:He|She|They|It) (?:is|are) an? .* in the Oakengard of (Duiran)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>guess by clan</name>
+						<script>npb.init()
+if npb.t.guess_from_clans and npb.city_guess[matches[2]] and not npb.honour_data.city then
+  npb.honour_data.city = npb.city_guess[matches[2]]
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(?:He|She|TheyIIt) (?:is|are) an? member of the clan called '(.+)'\.</string>
+							<string>^(?:He|She|They|It) (?:is|are) the clan head of the clan called '(.+)'\.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>cleanup</name>
+						<script>deleteLine()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(?:He|She|TheyIIt) .*$</string>
+							<string>^$</string>
+							<string>Fate:</string>
+							<string>General:</string>
+							<string>^.*$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>2</integer>
+							<integer>2</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>count lines</name>
+						<script>npb.honour_count = npb.honour_count + 1
+if npb.honour_count == 3 then
+  setTriggerStayOpen("parse_honours", 0)
+  disableTrigger("parse_honours")
+  npb.honour_on = false
+  npb.add_or_update_person(npb.honour_data.name, npb.honour_data)
+  --npb.unload_guess_triggers()
+  if npb.honour_queue then
+    npb.next_honour()
+  end
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>-------------------------------------------------------------------------------</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>parse_qwho</name>
+					<script>if not matches[2]:match("There are") then
+  npb.qwho_matches = matches[2]
+  deleteLine()
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>2</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(.*).$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>close qwho</name>
+						<script>deleteLine()
+setTriggerStayOpen("parse_qwho", 0)
+disableTrigger("parse_qwho")
+npb.process_qwho()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^There are \d+ people total online with</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Questing</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -33805,7 +34102,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Tellimerius</name>
-						<script>if sndNDB.players[gmcp.Char.Status.name].tether == "Spirit" and snd.toggles.questing then
+						<script>if sndNDB_getTether(gmcp.Char.Status.name) == "Spirit" and snd.toggles.questing then
  snd.send("give Rozhirr to Tellimerius"..snd.sep.."give Tuera to Tellimerius"..snd.sep.."give Mellias to Tellimerius")
 end</script>
 						<triggerType>0</triggerType>
@@ -33849,7 +34146,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Roz</name>
-						<script>if sndNDB.players[gmcp.Char.Status.name].tether == "Shadow" and snd.toggles.questing then
+						<script>if sndNDB_getTether(gmcp.Char.Status.name) == "Shadow" and snd.toggles.questing then
  snd.send("say Tuera wants her")
 end</script>
 						<triggerType>0</triggerType>
@@ -33871,7 +34168,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Roz bow</name>
-						<script>if sndNDB.players[gmcp.Char.Status.name].tether == "Shadow" and snd.toggles.questing then
+						<script>if sndNDB_getTether(gmcp.Char.Status.name) == "Shadow" and snd.toggles.questing then
  expandAlias("pt tue")
 end</script>
 						<triggerType>0</triggerType>
@@ -35685,139 +35982,6 @@ end</script>
 				</TriggerGroup>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Sunder Name DB</name>
-				<script></script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName>Sunder Name DB</packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList />
-				<regexCodePropertyList />
-				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Sunder NDB</name>
-					<script></script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList />
-					<regexCodePropertyList />
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>CWHO</name>
-						<script>cityMembers = {}
-ndbCity = matches[2]</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>99</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^The following citizens of (\w+) are in the realm:$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Person Found</name>
-							<script>if matches[2] == "Citizen" or matches[2] == "The" then 
-
-else
-  local person = string.trim(matches[2])
-	if not sndNDB_Exists(person) or not sndNDB_isCitizenOf(ndbCity, person) then
-		table.insert(cityMembers, person)
-	end
-end</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>^(\w+)\s+(\w+) \s+(.+)</string>
-								<string>^(\w+)\s+(\w+)(?: novice)?$</string>
-								<string>^(\w+)\s+(\w+) of (?:the Great Oak)?\s+(.+)$</string>
-								<string>^(\w+)\s+(\w+) of(?: the)? \w+\s+(.+)?$</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Close CWHO</name>
-							<script>setTriggerStayOpen("CWHO", 0)
-
-if next(cityMembers) then
-	snd.message("Need an update due to: "..table.concat(cityMembers, ", ")..".")
-	sndNDB_NameList(cityMembers)
-end</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string></string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>7</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Header Line</name>
-							<script>deleteLine()
-cecho("\n&lt;a_brown&gt;Citizen        Rank                          Position                    [CT?]")
-</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>Citizen        Rank                          Position                    [CT?]</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-					</Trigger>
-				</TriggerGroup>
-			</TriggerGroup>
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Sunder target calling</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -37379,10 +37543,7 @@ snd.send("config simplediagnose on")
 snd.send("config curingtype default")
 snd.send("config fishgraphic off")
 snd.send("gathering on")
-if not sndNDB.installed then
-  sndNDB_Install()
-  sndNDB.highlightNames = false
-end</script>
+npb.init()</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^\?setup$</regex>
@@ -56301,289 +56462,174 @@ end
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Sunder Name DB</name>
+				<name>Neri's Phone Book</name>
 				<script></script>
 				<command></command>
-				<packageName>Sunder Name DB</packageName>
+				<packageName></packageName>
 				<regex></regex>
-				<AliasGroup isActive="yes" isFolder="yes">
-					<name>Sunder Ndb Aliases</name>
-					<script></script>
+				<Alias isActive="yes" isFolder="no">
+					<name>enable Phonebook</name>
+					<script>npb.enable()
+npb.echo("&lt;green&gt; Enabled.")
+npb.help_handled = true</script>
 					<command></command>
 					<packageName></packageName>
-					<regex></regex>
-					<AliasGroup isActive="yes" isFolder="yes">
-						<name>Configurations</name>
-						<script></script>
-						<command></command>
-						<packageName></packageName>
-						<regex></regex>
-						<Alias isActive="yes" isFolder="no">
-							<name>Toggle Highlighting</name>
-							<script>if sndNDB.highlightNames then
-	--Remove any highlights, and turn off the toggle.
-	sndNDB.highlightNames = false
-	sndNDB_Unhighlight()
-	snd.message("Disabled name highlighting.")
-else
-	--Begin highlighting again, and enable them all.
-	sndNDB.highlightNames = true
-	sndNDB_loadHighlights()
-	snd.message("Enabled name highlighting.")
-end</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb hl$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Set Org Colours</name>
-							<script>local cities = {"Bloodloch", "Duiran", "Enemies", "Enorian", "Rogues", "Spinesreach"}
+					<regex>^pb enable$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>disable Phonebook</name>
+					<script>npb.disable()
+npb.echo("&lt;green&gt; Disabled.")
+npb.help_handled = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb disable$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>update off qwho</name>
+					<script>npb.honour_qwho()
+npb.help_handled = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb update$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>update off qwho - short</name>
+					<script>npb.honour_qwho()
+npb.help_handled = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pbu$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>honour person</name>
+					<script>npb.honour_person(matches[2])
+npb.help_handled = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb honours (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>honour person - shorthand</name>
+					<script>npb.honour_person(matches[2])
+npb.help_handled = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pbh (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>set org</name>
+					<script>npb.set_city(matches[2], matches[3])
+npb.echo("Set &lt;green&gt;"..matches[2]:title().."&lt;reset&gt;'s city to &lt;yellow&gt;"..matches[3]:title().."&lt;reset&gt;.\n")
+npb.help_handled = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb set (\w+) ([Bb]loodloch|[Ss]pinesreach|[Ee]norian|[Dd]uiran|[Rr]ogues)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Set Org Colours</name>
+					<script>npb.help_handled = true
+local cities = {"Bloodloch", "Duiran", "Enorian", "Rogues", "Spinesreach"}
 
 local city, colour = "", ""
 
 if table.contains(cities, matches[2]:title()) then
-	city = matches[2]:title()
+	city = matches[2]:lower():title()
 	colour = matches[3]
 elseif table.contains(cities, matches[3]:title()) then
-	city = matches[3]:title()
+	city = matches[3]:lower():title()
 	colour = matches[2]
 else
-	snd.message("That is not a valid option, please choose from: &lt;green&gt;Bloodloch, Duiran, Enemies, Enorian, Rogues or Spinesreach")
+	snd.message("That is not a valid option, please choose from: &lt;green&gt;Bloodloch, Duiran, Enorian, Rogues or Spinesreach")
 end
 
 if city ~= "" then
 	if table.contains(color_table, colour) then
 		snd.message(city.." will now be highlighted in &lt;"..colour.."&gt;"..colour..".")
-		if city ~= "Enemies" then
-			sndNDB_updateHighlights(city, colour)
-		else
-			sndNDB_enemyHighlights()
-		end
+    npb.t.config.colors[city:lower()] = colour
+    npb.save()
+    if snd.toggles.highlights then
+      npb.enable_highlights()
+    end
 	else
 		snd.message("That is not a valid colour to choose from.")
 	end
 end</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb hl (\w+) (\w+)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Show Settings</name>
-							<script>local count = 0
-for i,v in pairs(sndNDB.players) do
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb hl (\w+) (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Remove single person</name>
+					<script>npb.help_handled = true
+sndNDB_Remove(matches[2])
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb remove (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Toggle highlights</name>
+					<script>npb.help_handled = true
+snd.toggle("highlights")
+if snd.toggles.highlights then
+  npb.enable()
+else
+  npb.disable()
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^(toggle highlights|pb hl)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show Settings</name>
+					<script>local count = 0
+npb.help_handled = true
+for i,v in pairs(npb.t.people) do
 	count = count + 1
 end
-
-snd.message("       snd Name Database Settings")
+npb.echo("       Neri's PhoneBook Settings")
 echo("\n ")
-snd.message((sndNDB.highlightNames and "&lt;green&gt;We are" or "&lt;red&gt;We are not").."&lt;NavajoWhite&gt; currently highlighting names.")
+npb.echo((snd.toggles.highlight and "&lt;green&gt;We are" or "&lt;red&gt;We are not").."&lt;NavajoWhite&gt; currently highlighting names.")
 cecho("\n       &lt;NavajoWhite&gt;      Total of &lt;white&gt;"..count.."&lt;NavajoWhite&gt; names!\n\n")
 
-snd.message("       Highlight settings:")
-for city, colour in pairs(sndNDB.highlighting) do
-	cecho("\n &lt;"..colour.."&gt;"..city.."&lt;white&gt;"..string.rep(" ", 12-string.len(city)).."citizens will be highlighted in &lt;"..colour.."&gt;"..colour..".")
-end
-
-cecho("\n ")
-snd.message("       Enemy settings:")
-cecho("\n "..(sndNDB.highlightPriority == "enemies" and "&lt;green&gt;Prioritising" or "&lt;red&gt;Not prioritising").."&lt;NavajoWhite&gt; highlighting of enemies.")
-cecho("\n &lt;LightSkyBlue&gt;Enemies will be highlighted in &lt;"..sndNDB.highlighting.Enemies.."&gt;"..sndNDB.highlighting.Enemies..".")
-cecho("\n    &lt;LightSkyBlue&gt;-Special-")
-cecho("\n  "..(sndNDB.enemySettings.bold and "&lt;green&gt;" or "&lt;red&gt;")..string.char(7).." &lt;NavajoWhite&gt;Bolded letters.")
-cecho("\n  "..(sndNDB.enemySettings.underline and "&lt;green&gt;" or "&lt;red&gt;")..string.char(7).." &lt;NavajoWhite&gt;Underlined letters.")
-cecho("\n  "..(sndNDB.enemySettings.italics and "&lt;green&gt;" or "&lt;red&gt;")..string.char(7).." &lt;NavajoWhite&gt;Italicized letters.")
-</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb settings$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Set Highlight Priority</name>
-							<script>local type, colour = matches[2], matches[3]
-
-if sndNDB.highlightPriority ~= matches[2] then
-	sndNDB.highlightPriority = matches[2]
-	snd.message("Highlighting will give priority to "..sndNDB.highlightPriority..".")
-	sndNDB_enemyHighlights()
-else
-	snd.message("Already prioritising highlighting of that.")
-end
-</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb hlprio (enemies|city)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Toggle Highlighting Options For Enemies</name>
-							<script>local x = { i = "italics", b = "bold", u = "underline" }
-local opt = x[matches[2]]
-if not sndNDB.enemySettings[opt] then
-	sndNDB.enemySettings[opt] = true
-	snd.message("Enemies &lt;green&gt;will now have &lt;NavajoWhite&gt;"..opt.." applied to it.")
-else
-	sndNDB.enemySettings[opt] = false
-	snd.message("Enemies &lt;red&gt;will no longer have &lt;NavajoWhite&gt;"..opt.." applied to it.")
-end
-sndNDB_enemyHighlights()</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb ehl (i|u|b)$</regex>
-						</Alias>
-					</AliasGroup>
-					<AliasGroup isActive="yes" isFolder="yes">
-						<name>Actions</name>
-						<script></script>
-						<command></command>
-						<packageName></packageName>
-						<regex></regex>
-						<Alias isActive="yes" isFolder="no">
-							<name>Install</name>
-							<script>sndNDB_Install()</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb install$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Parse Names Online</name>
-							<script>if not sndNDB.installed then
-	snd.message("Please install name database first.")
-else
-  ndbCity = ""
-	parsingQW = true
-	peopleOnline = {}
-	if matches[2] then
-		parsingCity = matches[2]
-	end
-	sendGMCP("Comm.Channel.Players")
-	send(" ")
-	if tonumber(snd.toggles.goggle_level) == 20 then
-    snd.true_who = {}
-    enableTrigger("QWP for level 20 goggles")
-    send("qw")
-  else  
-    sndNDB_GetOnline()
-  end
-end
-	</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^qwp(?: (\w+)|)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Honours Person</name>
-							<script>checkingPlayerCity = tempTimer(2, [[; checkingPlayerCity = nil;]])
-ndbCity = ""
-sndNDB_Acquire(matches[2]:title(),false)
-send(matches[1])</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^honou?r?s (\w+)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Whois Person</name>
-							<script>local name = matches[2]:title()
-local x, c
-if not sndNDB_Exists(name) then
-	snd.message(name.." isn't tracked by database.")
-else
-	x = sndNDB.players[name]
-	c = sndNDB_getColour(name)
-
-	cecho("\n&lt;blue&gt;- &lt;NavajoWhite&gt;"..x.title.." &lt;blue&gt;"..string.rep("-", 70-(string.len(x.title)+3)).."\n")
-	cecho("\n&lt;DimGrey&gt; City :   &lt;"..c.."&gt;"..x.city..string.rep(" ", 31-string.len(x.city)).."&lt;DimGrey&gt; Tether:  &lt;white&gt;"..x.tether)
-	cecho("\n\n&lt;blue&gt;"..string.rep("-", 70))
-	cecho("\n ")
-	send(" ",false)
-end	</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^whois (\w+)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Remove Low/Unranked</name>
-							<script>local remove = {}
-
-for i,v in pairs(sndNDB.players) do
-	if v.xp_rank == nil or v.level &lt; 50 or v.xp_rank == 0 then
-		table.insert(remove, v.name)
-		sndNDB.players[v.name] = nil
-	end
-end
-table.sort(remove)
-
-snd.message("Removed a total of &lt;green&gt;"..#remove.."&lt;NavajoWhite&gt; unranked people from the database:\n - "..
-	table.concat(remove, ", ")..".")
-send(" ")
-</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb clearout$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Remove single person</name>
-							<script>local remove = (matches[2]:lower()):title()
-
-sndNDB.players[remove] = nil
-
-snd.message("Removed &lt;NavajoWhite&gt;from the database:\n - "..remove..".")
-
-</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb remove (\w+)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Re-honours everyone</name>
-							<script>local count = 0
-ndbCity = ""
-snd.message("Updating everyone who's currently in the database.")
-for i,v in pairs(sndNDB.players) do
-	count = count + 1
-	sndNDB_Acquire(v.name:title(),false)
-end
-snd.message("This may take a minute or two. Total of "..count.." people are being re-checked.")</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^sndb redo$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Individual Update</name>
-							<script>-- Allow users to update names individually
-local valid_fields = {"guild","city",}
-local name = (matches[3]:lower()):title()
-local field = matches[4]:lower()
-local value = (matches[5]:lower()):title()
-local tether = ""
-
-if table.contains(valid_fields, field) then
-  if field == "city" then
-    local valid_cities = {"Enorian","Spinesreach","Bloodloch","Duiran","None"}
-    if not table.contains(valid_cities, value) then
-      snd.message("Invalid city. Your options are: "..table.concat(valid_cities, ", "))
-      return
-    end
-  end
-  sndNDB.players[name][field] = value
-
-  if sndNDB.players[name].city == "Duiran" or sndNDB.players[name].city == "Enorian" then 
-    tether2 = "Spirit"
-  elseif sndNDB.players[name].city == "Spinesreach" or sndNDB.players[name].city == "Bloodloch" then 
-    tether2 = "Shadow" 
-  else
-    tether2 = "none"
-  end
-
-  sndNDB.players[name]["tether"] = tether2
-
-  snd.message("Changed "..field.." to "..value.." for "..name..". You may check WHOIS &lt;name&gt; to confirm.")
-  sndNDB_saveSettings(false)
+npb.echo("       Highlight settings:")
+for city, colour in pairs(npb.t.config.colors) do
+	cecho("\n &lt;"..colour.."&gt;"..city:title().."&lt;white&gt;"..string.rep(" ", 12-string.len(city)).."citizens will be highlighted in &lt;"..colour.."&gt;"..colour..".")
 end</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^(U|u)pdate (\w+) (\w+) (\w+)$</regex>
-						</Alias>
-					</AliasGroup>
-				</AliasGroup>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb settings$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>help</name>
+					<script>if not npb.help_handled then
+  cecho("\n-----------------------------INFORMATION ------------------------------")
+  cecho("\n Phone Book (ndb replacement) help")
+  cecho("\n pb is meant to provide a more reliant solution to knowing who belongs ")
+  cecho("\n to which city and highlighting it.\n")
+  cecho("\n Below currently supported commands. Each command also has a shorthand.")
+  cecho("\n &lt;b&gt;Note&lt;reset&gt;: NPB is very very new and thus will contain bugs.")
+  cecho("\n Please let Nerissa know if you find one.")
+  cecho("\n------------------------------ COMMANDS -------------------------------")
+  cecho("\npb help - this helpfile")
+  cecho("\npb update/pbu - update and honour people from qwho")
+  cecho("\npb honour/pbh - update a specific persons city from their honours.")
+  cecho("\ncwho - record everone currently online from your city")
+  cecho("\npb enable - turn on highlighting")
+  cecho("\npb disable - turn off highlighting")
+  cecho("\npb set &lt;person&gt; &lt;city&gt; - set someone's city manually")
+  cecho("\npb hl|toggle highlights - toggle city highlighting")
+  cecho("\npb settings - Show highlighting settings")
+  cecho("\npb hl &lt;city&gt; &lt;color&gt; - change city highlighting")
+  cecho("\npb remove &lt;person&gt; - remove a person from the phonebook")
+  cecho("\n-----------------------------------------------------------------------")
+end
+npb.help_handled = false</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pb .+$</regex>
+				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>War</name>
@@ -57775,8 +57821,6 @@ fish = fish or {}</script>
   if level &gt;= 99 then
     tempTimer(5, [[send("raceskill active", false)]])
   end
-                
-  --tempTimer(10, [[if not sndNDB.highlightNames then expandAlias("sndb hl") end]])
   end)
 end
 
@@ -57976,6 +58020,7 @@ laesan = true, --try to use laesan while predator bashing. If false, will go for
 ascendedtype = "none",
 mount = "123456",
 automount = false,
+highlights = true, --npb highlights
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -59802,6 +59847,285 @@ end</script>
   ["Tsol'aa"] = {"Meditator", "Foraging", "Lucidity"},
   Xoran = {"Cold Blooded", "Scales", "Fire Breathing"},
 }</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Custom Colour Table</name>
+						<packageName></packageName>
+						<script>color_table.snow = {255, 250, 250}
+color_table.ghost_white = {248, 248, 255}
+color_table.GhostWhite = {248, 248, 255}
+color_table.white_smoke = {245, 245, 245}
+color_table.WhiteSmoke = {245, 245, 245}
+color_table.gainsboro = {220, 220, 220}
+color_table.floral_white = {255, 250, 240}
+color_table.FloralWhite = {255, 250, 240}
+color_table.old_lace = {253, 245, 230}
+color_table.OldLace = {253, 245, 230}
+color_table.linen = {250, 240, 230}
+color_table.antique_white = {250, 235, 215}
+color_table.AntiqueWhite = {250, 235, 215}
+color_table.papaya_whip = {255, 239, 213}
+color_table.PapayaWhip = {255, 239, 213}
+color_table.blanched_almond = {255, 235, 205}
+color_table.BlanchedAlmond = {255, 235, 205}
+color_table.bisque = {255, 228, 196}
+color_table.peach_puff = {255, 218, 185}
+color_table.PeachPuff = {255, 218, 185}
+color_table.navajo_white = {255, 222, 173}
+color_table.NavajoWhite = {255, 222, 173}
+color_table.moccasin = {255, 228, 181}
+color_table.cornsilk = {255, 248, 220}
+color_table.ivory = {255, 255, 240}
+color_table.lemon_chiffon = {255, 250, 205}
+color_table.LemonChiffon = {255, 250, 205}
+color_table.seashell = {255, 245, 238}
+color_table.honeydew = {240, 255, 240}
+color_table.mint_cream = {245, 255, 250}
+color_table.MintCream = {245, 255, 250}
+color_table.azure = {240, 255, 255}
+color_table.alice_blue = {240, 248, 255}
+color_table.AliceBlue = {240, 248, 255}
+color_table.lavender = {230, 230, 250}
+color_table.lavender_blush = {255, 240, 245}
+color_table.LavenderBlush = {255, 240, 245}
+color_table.misty_rose = {255, 228, 225}
+color_table.MistyRose = {255, 228, 225}
+color_table.white = {255, 255, 255}
+color_table.black = {0, 0, 0}
+color_table.dark_slate_gray = {47, 79, 79}
+color_table.DarkSlateGray = {47, 79, 79}
+color_table.dark_slate_grey = {47, 79, 79}
+color_table.DarkSlateGrey = {47, 79, 79}
+color_table.dim_gray = {105, 105, 105}
+color_table.DimGray = {105, 105, 105}
+color_table.dim_grey = {105, 105, 105}
+color_table.DimGrey = {105, 105, 105}
+color_table.slate_gray = {112, 128, 144}
+color_table.SlateGray = {112, 128, 144}
+color_table.slate_grey = {112, 128, 144}
+color_table.SlateGrey = {112, 128, 144}
+color_table.light_slate_gray = {119, 136, 153}
+color_table.LightSlateGray = {119, 136, 153}
+color_table.light_slate_grey = {119, 136, 153}
+color_table.LightSlateGrey = {119, 136, 153}
+color_table.gray = {190, 190, 190}
+color_table.grey = {190, 190, 190}
+color_table.light_grey = {211, 211, 211}
+color_table.LightGrey = {211, 211, 211}
+color_table.light_gray = {211, 211, 211}
+color_table.LightGray = {211, 211, 211}
+color_table.midnight_blue = {25, 25, 112}
+color_table.MidnightBlue = {25, 25, 112}
+color_table.navy = {0, 0, 128}
+color_table.navy_blue = {0, 0, 128}
+color_table.NavyBlue = {0, 0, 128}
+color_table.cornflower_blue = {100, 149, 237}
+color_table.CornflowerBlue = {100, 149, 237}
+color_table.dark_slate_blue = {72, 61, 139}
+color_table.DarkSlateBlue = {72, 61, 139}
+color_table.slate_blue = {106, 90, 205}
+color_table.SlateBlue = {106, 90, 205}
+color_table.medium_slate_blue = {123, 104, 238}
+color_table.MediumSlateBlue = {123, 104, 238}
+color_table.light_slate_blue = {132, 112, 255}
+color_table.LightSlateBlue = {132, 112, 255}
+color_table.medium_blue = {0, 0, 205}
+color_table.MediumBlue = {0, 0, 205}
+color_table.royal_blue = {65, 105, 225}
+color_table.RoyalBlue = {65, 105, 225}
+color_table.blue = {0, 0, 255}
+color_table.dodger_blue = {30, 144, 255}
+color_table.DodgerBlue = {30, 144, 255}
+color_table.deep_sky_blue = {0, 191, 255}
+color_table.DeepSkyBlue = {0, 191, 255}
+color_table.sky_blue = {135, 206, 235}
+color_table.SkyBlue = {135, 206, 235}
+color_table.light_sky_blue = {135, 206, 250}
+color_table.LightSkyBlue = {135, 206, 250}
+color_table.steel_blue = {70, 130, 180}
+color_table.SteelBlue = {70, 130, 180}
+color_table.light_steel_blue = {176, 196, 222}
+color_table.LightSteelBlue = {176, 196, 222}
+color_table.light_blue = {173, 216, 230}
+color_table.LightBlue = {173, 216, 230}
+color_table.powder_blue = {176, 224, 230}
+color_table.PowderBlue = {176, 224, 230}
+color_table.pale_turquoise = {175, 238, 238}
+color_table.PaleTurquoise = {175, 238, 238}
+color_table.dark_turquoise = {0, 206, 209}
+color_table.DarkTurquoise = {0, 206, 209}
+color_table.medium_turquoise = {72, 209, 204}
+color_table.MediumTurquoise = {72, 209, 204}
+color_table.turquoise = {64, 224, 208}
+color_table.cyan = {0, 255, 255}
+color_table.bright_cyan = {79, 245, 239}
+color_table.light_cyan = {224, 255, 255}
+color_table.LightCyan = {224, 255, 255}
+color_table.cadet_blue = {95, 158, 160}
+color_table.CadetBlue = {95, 158, 160}
+color_table.medium_aquamarine = {102, 205, 170}
+color_table.MediumAquamarine = {102, 205, 170}
+color_table.aquamarine = {127, 255, 212}
+color_table.dark_green = {0, 100, 0}
+color_table.DarkGreen = {0, 100, 0}
+color_table.dark_olive_green = {85, 107, 47}
+color_table.DarkOliveGreen = {85, 107, 47}
+color_table.dark_sea_green = {143, 188, 143}
+color_table.DarkSeaGreen = {143, 188, 143}
+color_table.sea_green = {46, 139, 87}
+color_table.SeaGreen = {46, 139, 87}
+color_table.medium_sea_green = {60, 179, 113}
+color_table.MediumSeaGreen = {60, 179, 113}
+color_table.light_sea_green = {32, 178, 170}
+color_table.LightSeaGreen = {32, 178, 170}
+color_table.pale_green = {152, 251, 152}
+color_table.PaleGreen = {152, 251, 152}
+color_table.spring_green = {0, 255, 127}
+color_table.SpringGreen = {0, 255, 127}
+color_table.lawn_green = {124, 252, 0}
+color_table.LawnGreen = {124, 252, 0}
+color_table.green = {0, 255, 0}
+color_table.chartreuse = {127, 255, 0}
+color_table.MediumSpringGreen = {0, 250, 154}
+color_table.green_yellow = {173, 255, 47}
+color_table.GreenYellow = {173, 255, 47}
+color_table.lime_green = {50, 205, 50}
+color_table.LimeGreen = {50, 205, 50}
+color_table.yellow_green = {154, 205, 50}
+color_table.YellowGreen = {154, 205, 50}
+color_table.forest_green = {34, 139, 34}
+color_table.ForestGreen = {34, 139, 34}
+color_table.olive_drab = {107, 142, 35}
+color_table.OliveDrab = {107, 142, 35}
+color_table.dark_khaki = {189, 183, 107}
+color_table.DarkKhaki = {189, 183, 107}
+color_table.khaki = {240, 230, 140}
+color_table.pale_goldenrod = {238, 232, 170}
+color_table.PaleGoldenrod = {238, 232, 170}
+color_table.light_yellow = {255, 255, 224}
+color_table.LightYellow = {255, 255, 224}
+color_table.yellow = {255, 255, 0}
+color_table.gold = {255, 215, 0}
+color_table.light_goldenrod = {238, 221, 130}
+color_table.LightGoldenrod = {238, 221, 130}
+color_table.goldenrod = {218, 165, 32}
+color_table.dark_goldenrod = {184, 134, 11}
+color_table.DarkGoldenrod = {184, 134, 11}
+color_table.rosy_brown = {188, 143, 143}
+color_table.RosyBrown = {188, 143, 143}
+color_table.indian_red = {205, 92, 92}
+color_table.IndianRed = {205, 92, 92}
+color_table.saddle_brown = {139, 69, 19}
+color_table.SaddleBrown = {139, 69, 19}
+color_table.sienna = {160, 82, 45}
+color_table.peru = {205, 133, 63}
+color_table.burlywood = {222, 184, 135}
+color_table.beige = {245, 245, 220}
+color_table.wheat = {245, 222, 179}
+color_table.sandy_brown = {244, 164, 96}
+color_table.SandyBrown = {244, 164, 96}
+color_table.tan = {210, 180, 140}
+color_table.chocolate = {210, 105, 30}
+color_table.firebrick = {178, 34, 34}
+color_table.light_firebrick = {235, 53, 53}
+color_table.brown = {165, 42, 42}
+color_table.dark_salmon = {233, 150, 122}
+color_table.DarkSalmon = {233, 150, 122}
+color_table.salmon = {250, 128, 114}
+color_table.light_salmon = {255, 160, 122}
+color_table.LightSalmon = {255, 160, 122}
+color_table.orange = {255, 165, 0}
+color_table.dark_orange = {255, 140, 0}
+color_table.DarkOrange = {255, 140, 0}
+color_table.coral = {255, 127, 80}
+color_table.light_coral = {240, 128, 128}
+color_table.LightCoral = {240, 128, 128}
+color_table.tomato = {255, 99, 71}
+color_table.orange_red = {255, 69, 0}
+color_table.OrangeRed = {255, 69, 0}
+color_table.red = {255, 0, 0}
+color_table.hot_pink = {255, 105, 180}
+color_table.HotPink = {255, 105, 180}
+color_table.deep_pink = {255, 20, 147}
+color_table.DeepPink = {255, 20, 147}
+color_table.pink = {255, 192, 203}
+color_table.light_pink = {255, 182, 193}
+color_table.LightPink = {255, 182, 193}
+color_table.pale_violet_red = {219, 112, 147}
+color_table.PaleVioletRed = {219, 112, 147}
+color_table.maroon = {176, 48, 96}
+color_table.medium_violet_red = {199, 21, 133}
+color_table.MediumVioletRed = {199, 21, 133}
+color_table.violet_red = {208, 32, 144}
+color_table.VioletRed = {208, 32, 144}
+color_table.magenta = {255, 0, 255}
+color_table.violet = {238, 130, 238}
+color_table.plum = {221, 160, 221}
+color_table.orchid = {218, 112, 214}
+color_table.medium_orchid = {186, 85, 211}
+color_table.MediumOrchid = {186, 85, 211}
+color_table.dark_orchid = {153, 50, 204}
+color_table.DarkOrchid = {153, 50, 204}
+color_table.dark_violet = {148, 0, 211}
+color_table.DarkViolet = {148, 0, 211}
+color_table.blue_violet = {138, 43, 226}
+color_table.BlueViolet = {138, 43, 226}
+color_table.purple = {160, 32, 240}
+color_table.medium_purple = {147, 112, 219}
+color_table.MediumPurple = {147, 112, 219}
+color_table.thistle = {216, 191, 216}
+color_table.light_violet = {160, 157, 247}
+ 
+color_table.a_darkred = {128, 0, 0}
+color_table.a_darkgreen = {0, 179, 0}
+color_table.a_brown = {128, 128, 0}
+color_table.a_darkblue = {0, 0, 128}
+color_table.a_darkmagenta = {128, 0, 128}
+color_table.a_darkcyan = {0, 128, 128}
+color_table.a_grey = {192, 192, 192}
+color_table.a_darkgrey = {128, 128, 128}
+color_table.a_red = {255, 0, 0}
+color_table.a_green = {0, 255, 0}
+color_table.a_yellow = {255, 255, 0}
+color_table.a_blue = {0, 85, 255}
+color_table.a_magenta = {255, 0, 255}
+color_table.a_cyan = {0, 255, 255}
+color_table.a_white = {255, 255, 255}
+ 
+color_table.chat_bg = {25, 25, 25}
+ 
+function fgcolor(color)
+    setFgColor(color_table[color][1], color_table[color][2], color_table[color][3])
+end
+ 
+function bgcolor(color)
+    setBgColor(color_table[color][1], color_table[color][2], color_table[color][3])
+end
+ 
+function cfgcolor(console, color)
+    setFgColor(console, color_table[color][1], color_table[color][2], color_table[color][3])
+end
+ 
+function cbgcolor(console, color)
+    setBgColor(console, color_table[color][1], color_table[color][2], color_table[color][3])
+end
+ 
+function showColours(num)
+    cecho("\n&lt;green&gt; Showing a list of available colours, with "..num.." columns: \n")
+    local lineBreak = num
+    local linecount = 0
+    local padding = math.floor(90/num)
+    
+    for col, tab in pairs(color_table) do
+        linecount = linecount + 1
+        cecho(string.rep(" ", padding-#col).."&lt;"..col.."&gt;"..col.."&lt;NavajoWhite&gt;,")
+        if linecount &gt;= lineBreak then
+            echo("\n")
+            linecount = 0
+        end
+    end
+end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
@@ -62799,287 +63123,363 @@ end</script>
 					</ScriptGroup>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Sunder NDB</name>
+					<name>Neri's Phone Book</name>
 					<packageName></packageName>
-					<script>sndNDB = sndNDB or {}
-
-function sndNDB_Install()
-  --Will only probably be used on initial loading of system.
-  sndNDB = {}
-  sndNDB =
-    {
-      installed = true,
-      players = {},
-      highlightNames = false,
-      highlighting =
-        {
-          Bloodloch = "firebrick",
-          Duiran = "a_green",
-          Enorian = "a_darkcyan",
-          Spinesreach = "a_darkmagenta",
-          Rogues = "a_brown",
-          Enemies = "IndianRed",
-        },
-      divine =
-        {
-          "Keroc",
-          "Razmael",
-          "Ictinus",
-          "Varian",
-          "Avareti",
-          "Damariel",
-          "Dhar",
-          "Chakrasul",
-          "Ethne",
-          "Haern",
-          "Iosyne",
-          "Ivoln",
-          "Tanixalthas",
-          "Omei",
-          "Severn",
-          "Slyphe",
-          "Bamathis",
-          "Alecto",
-          "Megaera",
-          "Tisiphone",
-          "Veritas",
-          "Imvra",
-          "Becue",
-          "Ere",
-          "Nalus",
-          "Tsoede",
-        },
-      cityEnemies = {},
-      highlightPriority = "city",
-      enemySettings = {bold = false, italics = false, underline = false},
-    }
-  snd.message("Sunder NDB installed perfectly and is ready to go.")
-  sndNDB_Unhighlight()
-  sndNDB_saveSettings(false)
-  --Save on install, as a failsafe.
-end</script>
+					<script></script>
 					<eventHandlerList />
 					<Script isActive="yes" isFolder="no">
-						<name>Saving and Loading</name>
+						<name>init and saving</name>
 						<packageName></packageName>
-						<script>function sndNDB_saveSettings(disp)
-	if not sndNDB or not sndNDB.installed then
-		return false
-	end
+						<script>npb = npb or {}
+npb.t = npb.t or {}
+npb.loc = getMudletHomeDir().."/phonebook.lua"
+sndNDB = sndNDB or {}
 
-	local separator = string.char(getMudletHomeDir():byte()) == "/" and "/" or "\\"
-	local ndb_loc = getMudletHomeDir() .. separator .. "SunderNDB"
-
-	table.save(ndb_loc, sndNDB)
-	
-	if disp then
-		snd.message("Player information saved safely.")
-	end	
+function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
 end
 
-function sndNDB_loadSettings()
-	local separator = string.char(getMudletHomeDir():byte()) == "/" and "/" or "\\"
-	local ndb_loc = getMudletHomeDir() .. separator .. "SunderNDB"
-
-	if not io.exists(ndb_loc) then 
-		snd.message("Name database not found. Use 'sndb install' to fix this.")
-		return
-	end
-
-	sndNDB = {}
-	table.load(ndb_loc, sndNDB)
-	snd.message("Player information found and loaded in.")
-
-	sndNDB_saveSettings(false)
+function npb.save()
+  table.save(npb.loc, npb.t)
 end
 
-registerAnonymousEventHandler("sysDisconnectionEvent", "sndNDB_saveSettings", true)
-registerAnonymousEventHandler("sysLoadEvent", "sndNDB_loadSettings")
+function npb.load(force)
+  if not file_exists(npb.loc) then npb.save() end
+  
+  if force or table.size(npb.t) == 0 then
+     table.load(npb.loc, npb.t)
+  end
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>user interface</name>
+						<packageName></packageName>
+						<script>npb = npb or {}
 
+function npb.echo(args)
+  cecho("\n&lt;a_darkgreen&gt;[&lt;turquoise&gt;NPB&lt;a_darkgreen&gt;]&lt;reset&gt;:"..args)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>user config functions</name>
+						<packageName></packageName>
+						<script>npb = npb or {}
+npb.config_version = 1
+
+-- do not call init_config cirectly, use init instead.
+function npb.init_config()
+  npb.load()
+  npb.t.config = npb.t.config or {}
+  npb.t.config.colors = {
+    bloodloch="firebrick",
+    spinesreach="purple",
+    duiran="lawn_green",
+    enorian="gold",
+    rogues="a_brown",
+  }
+  npb.t.guess_from_clans = true
+  npb.t.people = npb.t.people or {}
+  npb.t.config_version = 1
+  npb.save()
+end
+
+function npb.init()
+  npb.load()
+  if npb.t.config_version == npb.config_version then
+    return
+  end
+  npb.init_config()
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>people management</name>
+						<packageName></packageName>
+						<script>npb = npb or {}
+
+function npb.add_person(person, person_data, force)
+  if npb.t.people[person] and npb.t.people[person].locked and not force then return end
+  
+  npb.t.people[person] = person_data
+  npb.add_highlight(person)
+end
+
+function npb.update_person(person, person_data, force)
+  if npb.t.people[person].locked and not force then return end
+  
+  npb.t.people[person] = person_data
+  npb.add_highlight(person)
+end
+
+function npb.add_or_update_person(person, person_data, force)
+  npb.init()
+  if npb.t.people[person] then
+    npb.update_person(person, person_data, force)
+  else
+    npb.add_person(person, person_data, force)
+  end
+  npb.save()
+end
+
+function npb.add_people(people)
+  npb.init()
+  for _, person in pairs(people) do
+    npb.add_person(person.name, person)
+  end
+  npb.save()
+end
+
+function npb.honour_person(name)
+  npb.honour_data = {name=name:title()}
+  npb.honour_count = 0
+  npb.honour_on = true
+  --npb.load_guess_triggers()
+  enableTrigger("parse_honours")
+  send("honours "..name, false)
+end
+
+function npb.honour_qwho()
+  enableTrigger("parse_qwho")
+  send("qwho")
+end
+
+function npb.process_qwho()
+  if not npb.qwho_matches then
+    npb.echo("&lt;red&gt;No one found.")
+  end
+  
+  local people
+  people = npb.qwho_matches:split(", ")
+  if people[#people]:match("and ") then
+    people[#people] = people[#people]:gsub("^and ", '')
+  end
+
+  local honour_people = {}
+  for _, person in pairs(people) do
+    if not npb.t.people[person] then
+      table.insert(honour_people, person)
+    end
+  end
+  if #honour_people &gt; 0 then
+    npb.echo("checking honours of "..#honour_people.. " people.")
+    npb.honour_queue = honour_people
+    npb.next_honour()
+  else
+    npb.echo("no new people to check.")
+  end
+end
+
+function npb.next_honour()
+  local first
+  if #npb.honour_queue &gt; 0 then
+    first = table.remove(npb.honour_queue, 1)
+    npb.echo("checking "..first)
+    tempTimer(1, [[npb.honour_person("]]..first..[[")]])
+  else
+    npb.echo("done")
+  end
+end
+
+function npb.set_city(person, city)
+  npb.init()
+  person = person:title()
+  city = city:lower()
+  local current = npb.t.people[person] or {}
+  current.city = city
+  current.name = person
+  current.locked = true
+  npb.add_or_update_person(person, current, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>highlight code</name>
+						<packageName></packageName>
+						<script>-- many thanks for sunder ndb and m&amp;m ndb for the idea of how to do this
+
+npb = npb or {}
+
+function npb.disable_highlights()
+  if not next(npb.triggers) then
+    return
+  end
+  
+  for _, trigger_id in pairs(npb.triggers) do
+    killTrigger(trigger_id)
+  end
+  npb.triggers = {}
+end
+
+function npb.enable_highlights()
+  npb.triggers = npb.triggers or {}
+  
+  -- neri: Speed up things by stopping garbage collectin
+  collectgarbage("stop")
+  
+  npb.disable_highlights()
+  if npb.enabled then
+    for index, person in pairs(npb.t.people) do
+      npb.highlight_person(person.name, person.city)
+    end
+  end
+  
+  -- neri: make sure we collect garbage again
+  collectgarbage()
+end
+
+function npb.add_highlight(name)
+  if not npb.enabled or not name then return end
+  if not npb.t.people[name] then return end
+  npb.highlight_person(npb.t.people[name].name, npb.t.people[name].city)
+end
+
+function npb.update_highlights(city, colour)
+  local killTrigger = killTrigger
+  
+  for name, trig in pairs(npb.triggers) do
+    if npb.t.people[name].city == city then
+      killTrigger(trig)
+      
+      if npb.enabled then
+        npb.highlight_person(npb.t.people[name].name,
+          npb.t.people[name].city)
+      end
+    elseif city == "rogues" or city == "(hidden)" then
+      if not npb.t.people[name].city then
+        killTrigger(trig)
+        if npb.enabled then
+          npb.highlight_person(npb.t.people[name].name, npb.t.people[name].city)
+        end
+      end
+    end
+  end
+end
+
+function npb.highlight_person(who, city)
+  -- cleanup old highlight if available
+  if npb.triggers and npb.triggers[who] then
+    killTrigger(npb.triggers[who])
+  end
+  
+  if not npb.enabled then return end
+  
+  local colour = npb.color_person(who, city)
+  
+  npb.triggers = npb.triggers or {}
+  npb.triggers[who] = tempTrigger(
+    who, ([[npb.do_highlight("%s", %s)]]):format(who, 
+      (colour and '"' .. colour .. '"' or "false"))
+  )
+end
+
+function npb.do_highlight(name, color)
+  local count, match = 1, 1
+  
+  while match &gt; 0 do
+    match = line:find(name, match)
+    if match == nil then return end
+    
+    count = count + 1
+    
+    if match == line:find("%f[%a]" .. name .. "%f[%A]", match) then
+      if selectString(name, count - 1) &gt; -1 then
+        if color then
+          fg(color)
+        end
+        resetFormat()
+      else
+        return
+      end
+    end
+    match = match + 1
+  end
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>utility functions</name>
+						<packageName></packageName>
+						<script>npb = npb or {}
+
+function npb.color_person(who, city)
+  npb.init()
+  if npb.t.config.colors[city] then
+    return npb.t.config.colors[city]
+  end
+  
+  return npb.t.config.colors.rogues
+end
+
+function npb.enable()
+  npb.init()
+  npb.enabled = true
+  sndNDB.highlightNames = true
+  npb.enable_highlights()
+end
+
+function npb.disable()
+  npb.init()
+  npb.enabled = false
+  sndNDB.highlightNames = false
+  npb.disable_highlights()
+end
 </script>
 						<eventHandlerList />
 					</Script>
 					<Script isActive="yes" isFolder="no">
-						<name>Grab Information</name>
+						<name>city guesses</name>
 						<packageName></packageName>
-						<script>function sndNDB_GetOnline()
-	local path = getMudletHomeDir().."/sndndb"
-	
-	if not lfs.attributes(path) then
-		--We'll need a folder to store downloaded data. Don't worry, it won't cause issues.
-		lfs.mkdir(path)
-		snd.message("Created folder to store downloaded data at: "..path)
-	end
-	
-	downloadFile(path .. "/Online.json", "http://api.aetolia.com/characters.json")
+						<script>npb = npb or {}
+npb.city_guess = {
+  -- duiran
+  ["Heartwood Yews"] = "duiran",
+  ["Dion an Duir"] = "duiran",
+  ["Memories of the Wild"] = "duiran",
 
-	snd.message("Let me find a list of online players really quick...")
+  -- spinesreach
+  ["the Conclave of Arts"] = "spinesreach",
+  ["the Conclave of Science and Nature"] = "spinesreach",
+  ["the Conclave of Seers"] = "spinesreach",
+  ["the Conclave of Devotion"] = "spinesreach",
+  ["the Conclave of Magic"] = "spinesreach",
+  ["The Spirean Council"] = "spinesreach",
 
-	ndbWatcher = ndbWatcher or createStopWatch()
-	startStopWatch(ndbWatcher)
-end
+  -- bloodloch
+  ["The Stygian Assembly"] = "bloodloch",
+  ["Bloodloch Imperial Army"] = "bloodloch",
+  ["Loch OOC"] = "bloodloch",
 
-function sndNDB_Acquire(person)
-
-	assert(person)
-	local person = person:title()
-	local path = getMudletHomeDir().."/sndndb"
-
-	if not lfs.attributes(path) then
-		--We'll need a folder to store downloaded data. Don't worry, it won't cause issues.
-		lfs.mkdir(path)
-		snd.message("Created folder to store downloaded data at: "..path)
-	end
-	
-	downloadFile(path .. "/"..person..".json", "http://api.aetolia.com/characters/"..person..".json")
-
-end
-
-function sndNDB_NameList(names)
-	--Parse list to see who isn't tracked.
-	for _, name in pairs(names) do
-		if not table.contains(sndNDB.divine, name) then
-			sndNDB_Acquire(name)
-		end
-	end
-	snd.message("Name database is now up to date.")
-end</script>
+  -- enorian
+  ["Crucible of Dawn"] = "enorian",
+  ["The Liberators of Dawn"] = "enorian",
+  ["Leaders of the Dawn"] = "enorian",
+  ["The Side Line"] = "enorian",
+}</script>
 						<eventHandlerList />
-						<Script isActive="yes" isFolder="no">
-							<name>ndb_download_failed</name>
-							<packageName></packageName>
-							<script>function ndb_download_failed(_, filepath)
-	if not filepath:find("sndndb") and not filepath:find("gamefeed") then return end 
-	
-	snd.message("Error downloading information.")
-	if filepath:find("gamefeed") then
-		snd.message("Unknown error while downloading: " .. filepath)
-		os.remove(getMudletHomeDir().."/gamefeed.json")
-	elseif filepath:match("server replied: Not Found") then
-		
-		local person = filepath:match("/(%w+).json")
-		local fpr = getMudletHomeDir().."/sndndb/"..person..".json"
-
-		snd.message("This person does not exist: "..person)
-		sndNDB_Remove(person)
-		os.remove(fpr)
-	else
-		snd.message("Unknown error while downloading: " .. filepath)
-	end
-end</script>
-							<eventHandlerList>
-								<string>sysDownloadError</string>
-							</eventHandlerList>
-						</Script>
-						<Script isActive="yes" isFolder="no">
-							<name>ndb_download_success</name>
-							<packageName></packageName>
-							<script>function ndb_download_success(_, filepath)
-	--Do not mess with if it's not Sunder NDB information.
-	if not filepath:find("sndndb", 1, true) and not filepath:find("gamefeed",1,true) then return end
-
-	if filepath:find("Online",1,true) then
-		sndNDB_SortOnline(filepath)
-		return
-	elseif filepath:find("gamefeed",1,true) then
-		sndNDB_parseFeed(filepath)
-		return
-	end
-
-	local f, s = io.open(filepath)
-	if f then s = f:read("*l"); io.close(f) end
-
-	-- didn't get JSON data? 
-	if s:find("Internal error", 1, true) or s:find("DOCTYPE html PUBLIC", 1, true) then
-		cecho("\n&lt;red&gt;Data Acquisition Failed!") 
-		return 
-	end
-	local t = yajl.to_value(s)
-	local cities = {"Bloodloch", "Duiran", "Enorian", "Spinesreach"}
-	local name = t.name
-	local title = t.fullname
-	local guild = ""
-	local xp_rank = t["xp rank"]:gsub("th", ""):gsub("nd", ""):gsub("st", ""):gsub("rd", "")
-	if xp_rank == "Unranked" then xp_rank = 0 else local xp_rank = tonumber(xp_rank) end
-	local city = ""
-  if ndbCity ~= "" then
-    city = ndbCity
-  end
-
-	local class = "" -- No longer given through API
-	local level = "" -- No longer given through API
-  local race = "" -- No longer given through API
-
-  if sndNDB.players[name] ~= nil then guild = sndNDB.players[name].guild end
-  if sndNDB.players[name] ~= nil and ndbCity == "" then city = sndNDB.players[name].city end
-  if sndNDB.players[name] ~= nil then class = sndNDB.players[name].class end
-  if sndNDB.players[name] ~= nil then level = sndNDB.players[name].level end
-  if sndNDB.players[name] ~= nil then race = sndNDB.players[name].race end
-  
-  
-  local tether = ""
-  if (city == "Duiran" or city == "Enorian") then 
-    tether = "Spirit"
-  elseif (city == "Spinesreach" or city == "Bloodloch") then 
-    tether = "Shadow" 
-  else
-    tether = ""
-  end
-
-	sndNDB.players[name] = {
-		name = name,
-		title = title,
-		guild = guild,
-		xp_rank = xp_rank,
-		city = city,
-		level = level,
-		class = class,
-    race = race,
-    tether = tether
-	}
-
-	if guild:find("none") then
-		sndNDB.players[name].guild = "None"
-	else
-		sndNDB.players[name].guild = guild:title()
-	end
-
-	if city:find("none") or city == "" then
-		sndNDB.players[name].city = "None"
-	else
-		sndNDB.players[name].city = city:title()
-	end
-
-  	os.remove(filepath)
-	
-  raiseEvent("sndNDB Check Highlight", t.name)
-
-end</script>
-							<eventHandlerList>
-								<string>sysDownloadDone</string>
-							</eventHandlerList>
-						</Script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
-						<name>Ndb API</name>
+						<name>sndb api</name>
 						<packageName></packageName>
-						<script>function sndNDB_getColour(name)
+						<script>sndNDB = sndNDB or {}
+function sndNDB_getColour(name)
 	if not sndNDB_Exists(name) then
 		return "white"
 	else
-		return sndNDB.highlighting[sndNDB_getCitizenship(name)]
-	end
-end
-function sndNDB_getClass(name)
-	if sndNDB.players[name] then
-		return sndNDB.players[name:title()].class
-	else
-		return "Unknown"
+		local city = sndNDB_getCitizenship(name)
+    return npb.t.config.colors[city:lower()]
 	end
 end
 
+function sndNDB_getClass(name)
+	return "Unknown"
+end
+
 function sndNDB_Exists(name)
-	if not sndNDB.players[name] then
+  name = name:lower():title()
+	if not npb.t.people[name] then
 		return false
 	else
 		return true
@@ -63087,633 +63487,52 @@ function sndNDB_Exists(name)
 end
 
 function sndNDB_isCitizenOf(city, name)
+  city = city:lower()
+  name = name:lower():title()
 	if sndNDB_Exists(name) then
-		return (sndNDB.players[name:title()].city == city:title() and true or false)
+		return npb.t.people[name].city == city
 	else
 		snd.message("The information for "..name.." has not yet been gathered.")
 		return false
 	end
 end
 
+function sndNDB_getTether(name)
+  local city = sndNDB_getCitizenship(name)
+  if city == "Bloodloch" or city == "Spinesreach" then return "Shadow"
+  elseif city == "Enorian" or city == "Duiran" then return "Spirit"
+  else return "Rogue"
+  end
+end
+
 function sndNDB_getCitizenship(name)
+  name = name:lower():title()
 	if sndNDB_Exists(name) then
-		if sndNDB.players[name].city:lower() == "none" or sndNDB.players[name].city:lower() == "(hidden)" then
+    local city = npb.t.people[name].city
+		if not city then
 			return "Rogues"
 		else
-			return sndNDB.players[name].city
+			return city:title()
 		end
 	else
 		return "Unknown"
 	end
 end
 
-
 function sndNDB_Remove(name)
-	local person = name:title()
-	if sndNDB_Exists(person) then
-		sndNDB.players[person] = nil
-		--If any highlight available, then clear it.
-		if sndNDB.highlightTriggers and sndNDB.highlightTriggers[person] then
-			killTrigger(sndNDB.highlightTriggers[person])
-		end
-		snd.message(person.." has been removed from the database.")
-	else
-		snd.message(person.." is not in the database, anyway.")
-	end
-end
-
-function sndNDB_SortOnline(name_group)
-
-  local player_list = {}
-  if type(name_group) ~= "table" then
-
-  	local f, s = io.open(name_group)
-    if f then s = f:read("*l"); io.close(f) end
-
-  	-- didn't get JSON data? 
-  	if s:find("Internal error", 1, true) or s:find("DOCTYPE html PUBLIC", 1, true) then
-  		cecho("\n&lt;red&gt;Data Acquisition Failed!") 
-  		return 
-  	end
-  
-  	local t = yajl.to_value(s)
-  
-  	apiOnlineFound = {}
-  	apiNeedUpdate = {}
-  	for ind, tab in pairs(t.characters) do
-  		if not tab.name:find("masked") and not table.contains(sndNDB.divine, tab.name) then
-  			table.insert(apiOnlineFound, tab.name)
-  		end
-  	end
-  
-  	for ind, tab in pairs(gmcp.Comm.Channel.Players) do
-  		if not table.contains(apiOnlineFound, tab.name) and not tab.name:find("masked") and not table.contains(sndNDB.divine, tab.name) then
-  			table.insert(apiOnlineFound, tab.name)
-  		end
-  	end
-  
-  	os.remove(name_group)
-  	table.sort(apiOnlineFound)
-    player_list = apiOnlineFound
-    
+	local person = name:lower():title()
+  if npb.t.people[person] then
+    if npb.triggers[person] then
+      killTrigger(npb.triggers[person])
+    end
+    npb.t.people[person] = nil
+    npb.save()
+    npb.echo(person.." has been removed from the database.")
   else
-    apiNeedUpdate = {}
-    player_list = name_group
-  
+  	npb.echo(person.." is not in the database, anyway.")
   end
-
-	--Parse the list to see who needs to be added.
-	local count = 0
-  
-	for index, name in pairs(player_list) do
-		if not sndNDB_Exists(name) and not table.contains(sndNDB.divine, name) then
-			count = count + 1
-			table.insert(apiNeedUpdate, name)
-		end
-	end 
-	if count &gt; 0 then
-		snd.message(count.." new names identified, grabbing their info.")
-		cecho("\n&lt;a_darkgrey&gt; - "..table.concat(apiNeedUpdate, ", ")..".")
-		sndNDB_NameList(apiNeedUpdate)
-	else
-		if parsingCity then
-			if parsingCity:lower() == "classes" then
-				sndNDB_displayOnlineClass(player_list)
-			else
-				sndNDB_displayOnlineCity(player_list)
-			end
-		else
-			sndNDB_displayOnline(player_list)
-		end
-	end
-end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Ndb Highlighting</name>
-						<packageName></packageName>
-						<script>function sndNDB_Unhighlight()
-  if not sndNDB.highlightTriggers or not next(sndNDB.highlightTriggers) then
-    return
-  end
-  local killTrigger = killTrigger
-  for k, v in pairs(sndNDB.highlightTriggers) do
-    killTrigger(v)
-  end
-  sndNDB.highlightTriggers = {}
-end
-
-function sndNDB_enemyHighlights()
-  snd.message("Clearing all highlights to prevent errors. One moment, please.")
-  sndNDB_Unhighlight()
-  tempTimer(2, [[ snd.message("Loading new highlights now."); sndNDB_loadHighlights() ]])
-end
-
-local my_names_not_to_color = {"Example"}
-
-function sndNDB_loadHighlights()
-  sndNDB.highlightTriggers = sndNDB.highlightTriggers or {}
-  collectgarbage("stop")
-  sndNDB_Unhighlight()
-  if sndNDB.highlightNames then
-    for index, person in pairs(sndNDB.players) do
-      sndNDB_highlightName(person.name, person.city)
-    end
-  end
-  collectgarbage()
-end
-
-function sndNDB_addHighlight(_, name)
-  if not sndNDB.highlightNames then
-    return
-  end
-  if not name then
-    return
-  end
-  if not sndNDB.players[name] then
-    return
-  end
-  sndNDB_highlightName(sndNDB.players[name].name, sndNDB.players[name].city)
-end
-
-function sndNDB_updateHighlights(city, colour)
-  sndNDB.highlighting[city] = colour
-  local killTrigger = killTrigger
-  for name, trig in pairs(sndNDB.highlightTriggers) do
-    if sndNDB.players[name].city == city then
-      killTrigger(trig)
-      if sndNDB.highlightNames then
-        sndNDB_highlightName(sndNDB.players[name].name, sndNDB.players[name].city)
-      end
-    elseif city == "Rogues" or city == "(hidden)" then
-      if sndNDB_getCitizenship(name) == "None" then
-        killTrigger(trig)
-        if sndNDB.highlightNames then
-          sndNDB_highlightName(sndNDB.players[name].name, sndNDB.players[name].city)
-        end
-      end
-    end
-  end
-end
-
-function sndNDB_highlightName(who, city)
-  --If any highlight available, then clear it.
-  if sndNDB.highlightTriggers and sndNDB.highlightTriggers[who] then
-    killTrigger(sndNDB.highlightTriggers[who])
-  end
-  local colour = sndNDB.highlighting.Rogues
-  --Get the necessary colour.
-  --Check enemy list first
-  if sndNDB.highlightPriority == "enemies" then
-    if table.contains(sndNDB.cityEnemies, who) then
-      colour = sndNDB.highlighting.Enemies
-    else
-      if city == "None" or city == "(hidden)" then
-        colour = sndNDB.highlighting.Rogues
-      else
-        colour = sndNDB.highlighting[city]
-      end
-    end
-  else
-    if city == "None" or city == "(hidden)" then
-      colour = sndNDB.highlighting.Rogues
-    else
-      colour = sndNDB.highlighting[city]
-    end
-  end
-  sndNDB.highlightTriggers = sndNDB.highlightTriggers or {}
-  if not table.isMember(my_names_not_to_color, who) then
-    sndNDB.highlightTriggers[who] =
-      tempTrigger(
-        who,
-        ([[sndNDB_highlight("%s", %s)]]):format(who, (colour and '"' .. colour .. '"' or "false"))
-      )
-  end
-end
-
-function sndNDB_highlight(name, colour)
-  local c, k = 1, 1
-  while k &gt; 0 do
-    k = line:find(name, k)
-    if k == nil then
-      return
-    end
-    c = c + 1
-    if k == line:find("%f[%a]" .. name .. "%f[%A]", k) then
-      if selectString(name, c - 1) &gt; -1 then
-        if colour then
-          fg(colour)
-        end
-        if sndNDB.highlightPriority == "enemies" and table.contains(sndNDB.cityEnemies, name) then
-          if sndNDB.enemySettings.bold then
-            setBold(true)
-          end
-          if sndNDB.enemySettings.underline then
-            setUnderline(true)
-          end
-          if sndNDB.enemySettings.italics then
-            setItalics(true)
-          end
-        end
-        resetFormat()
-      else
-        return
-      end
-    end
-    k = k + 1
-  end
-end
-
-registerAnonymousEventHandler("sndNDB Check Highlight", "sndNDB_addHighlight")</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Display API</name>
-						<packageName></packageName>
-						<script>function sndNDB_displayOnlineClass(players)
-	local classList = {
-		"Ascendril", "Luminary", "Sentinel", "Shaman", "Zealot", "Templar", "Warden", "Oneiromancer", "Tidesage",
-		"Monk", "Shapeshifter", "Syssin", "Wayfarer",
-		"Archivist", "Carnifex", "Indorani", "Praenomen", "Sciomancer", "Teradrim", "Revenant", "Earthcaller", "Alchemist", "Akkari", "Bloodborn", "Runecarver"
-	}
-	local classes = {
-		Ascendril = {}, Luminary = {}, Sentinel = {}, Shaman = {}, Zealot = {}, Templar = {}, Warden = {}, Oneiromancer = {}, Tidesage = {},
-		Monk = {}, Shapeshifter = {}, Infiltrator = {}, Wayfarer = {}, 
-		Archivist = {}, Carnifex = {}, Indorani = {}, Praenomen = {}, Sciomancer = {}, Teradrim = {}, Revenant = {}, Earthcaller = {}, Alchemist = {},
-    Akkari = {}, Bloodborn = {}, Runecarver = {}
-	}
-
-	for _, player in pairs(players) do
-		local class = sndNDB.players[player].class
-		table.insert(classes[class], player)
-	end
-	
-	snd.message("Data acqusition completed and analysed. Showing class count for online players.")
-
-	for _, class in ipairs(classList) do
-		cecho("\n &lt;DimGrey&gt;[&lt;NavajoWhite&gt;"..class:title().."&lt;DimGrey&gt;]"..string.rep(" ", 13-string.len(class)).."- &lt;NavajoWhite&gt;"..#classes[class].." tracked people are "..class..".")
-	end
-	send(" ")
-	parsingCity = nil
-end
-
-function sndNDB_displayOnlineCity(players)
-	local peopleFound = {}
-
-	snd.message("Data acqusition completed and analysed. Showing online players from &lt;"..sndNDB.highlighting[parsingCity:title()].."&gt;"..parsingCity:title()..".")
-
-	for _, person in pairs(players) do
-		if sndNDB_isCitizenOf(parsingCity:title(), person) then
-			cecho("\n &lt;"..sndNDB.highlighting[parsingCity:title()].."&gt;"..person..string.rep(" ", 13-string.len(person)).."- &lt;NavajoWhite&gt;"..sndNDB_getClass(person))
-		end
-	end
-	send(" ")
-	parsingCity = nil
-end
-
-function sndNDB_displayOnline(players)
-	local onlinePeople = {
-		Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}, Untracked = {},
-	}
-
-	for _, person in pairs(players) do
-		if not sndNDB_Exists(person) then
-			table.insert(onlinePeople.Untracked, person)
-		elseif sndNDB_getCitizenship(person):lower() == "none" or sndNDB_getCitizenship(person) == "(hidden)"  or sndNDB_getCitizenship(person) == "Unknown" then
-			table.insert(onlinePeople.Rogues, person)
-		else
-			table.insert(onlinePeople[sndNDB_getCitizenship(person)], person)
-		end
-	end
-
-	--snd.message("Data acquisition completed and analysed. List of players online:")
-	--echo("\n"..table.concat(players, ", ")..".\nTotal players visible to us: "..#players..".\n")
-  echo("\n")
-	snd.message(" City affiliations of currently online people:")
-	cecho(string.format("\n&lt;%s&gt;[Bloodloch]   :&lt;white&gt;(&lt;orange&gt;%d&lt;white&gt;)&lt;%s&gt; %s.", sndNDB.highlighting.Bloodloch, #onlinePeople.Bloodloch, sndNDB.highlighting.Bloodloch, table.concat(onlinePeople.Bloodloch, ", ")))
-	cecho(string.format("\n&lt;%s&gt;[Duiran]      :&lt;white&gt;(&lt;orange&gt;%d&lt;white&gt;)&lt;%s&gt; %s.", sndNDB.highlighting.Duiran, #onlinePeople.Duiran, sndNDB.highlighting.Duiran, table.concat(onlinePeople.Duiran, ", ")))
-	cecho(string.format("\n&lt;%s&gt;[Enorian]     :&lt;white&gt;(&lt;orange&gt;%d&lt;white&gt;)&lt;%s&gt; %s.", sndNDB.highlighting.Enorian, #onlinePeople.Enorian, sndNDB.highlighting.Enorian, table.concat(onlinePeople.Enorian, ", ")))
-	cecho(string.format("\n&lt;%s&gt;[Spinesreach] :&lt;white&gt;(&lt;orange&gt;%d&lt;white&gt;)&lt;%s&gt; %s.", sndNDB.highlighting.Spinesreach, #onlinePeople.Spinesreach, sndNDB.highlighting.Spinesreach, table.concat(onlinePeople.Spinesreach, ", ")))
-	cecho(string.format("\n&lt;%s&gt;[Rogues]      :&lt;white&gt;(&lt;orange&gt;%d&lt;white&gt;)&lt;%s&gt; %s.", sndNDB.highlighting.Rogues, #onlinePeople.Rogues, sndNDB.highlighting.Rogues, table.concat(onlinePeople.Rogues, ", ")))
-	echo("\n ")
-	send(" ")
-
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Gamefeed Parser</name>
-						<packageName></packageName>
-						<script>function sndNDB_parseFeed(fp)
-
-	local f, s = io.open(fp)
-	if f then s = f:read("*l"); io.close(f) end
-
-	-- didn't get JSON data? 
-	if s:find("Internal error", 1, true) or s:find("DOCTYPE html PUBLIC", 1, true) then
-		cecho("\n&lt;red&gt;Data Acquisition Failed!") 
-		return 
-	end
-	local t = yajl.to_value(s)
-	
-	local colours = {LDN = "a_darkred", LUP = "a_darkgreen",
-		DEA = "tomato",
-	}
-	local gcolour	= false
-	snd.message("Aetolia Game Feed")
-	for _, list in pairs(t) do
-		if table.contains(colours, list.type) then
-			gcolour = colours[list.type]
-		else
-			gcolour = "NavajoWhite"
-		end
-		cecho("\n&lt;NavajoWhite&gt;[&lt;"..gcolour.."&gt;"..list.date.."&lt;NavajoWhite&gt;]:")
-		cecho(string.rep(" ", 23-string.len(list.date)).."&lt;"..gcolour.."&gt;"..string.trim(list.description))
-	end
-	send(" ")
-  os.remove(fp)
-
-end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Custom Colour Table</name>
-						<packageName></packageName>
-						<script>color_table.snow = {255, 250, 250}
-color_table.ghost_white = {248, 248, 255}
-color_table.GhostWhite = {248, 248, 255}
-color_table.white_smoke = {245, 245, 245}
-color_table.WhiteSmoke = {245, 245, 245}
-color_table.gainsboro = {220, 220, 220}
-color_table.floral_white = {255, 250, 240}
-color_table.FloralWhite = {255, 250, 240}
-color_table.old_lace = {253, 245, 230}
-color_table.OldLace = {253, 245, 230}
-color_table.linen = {250, 240, 230}
-color_table.antique_white = {250, 235, 215}
-color_table.AntiqueWhite = {250, 235, 215}
-color_table.papaya_whip = {255, 239, 213}
-color_table.PapayaWhip = {255, 239, 213}
-color_table.blanched_almond = {255, 235, 205}
-color_table.BlanchedAlmond = {255, 235, 205}
-color_table.bisque = {255, 228, 196}
-color_table.peach_puff = {255, 218, 185}
-color_table.PeachPuff = {255, 218, 185}
-color_table.navajo_white = {255, 222, 173}
-color_table.NavajoWhite = {255, 222, 173}
-color_table.moccasin = {255, 228, 181}
-color_table.cornsilk = {255, 248, 220}
-color_table.ivory = {255, 255, 240}
-color_table.lemon_chiffon = {255, 250, 205}
-color_table.LemonChiffon = {255, 250, 205}
-color_table.seashell = {255, 245, 238}
-color_table.honeydew = {240, 255, 240}
-color_table.mint_cream = {245, 255, 250}
-color_table.MintCream = {245, 255, 250}
-color_table.azure = {240, 255, 255}
-color_table.alice_blue = {240, 248, 255}
-color_table.AliceBlue = {240, 248, 255}
-color_table.lavender = {230, 230, 250}
-color_table.lavender_blush = {255, 240, 245}
-color_table.LavenderBlush = {255, 240, 245}
-color_table.misty_rose = {255, 228, 225}
-color_table.MistyRose = {255, 228, 225}
-color_table.white = {255, 255, 255}
-color_table.black = {0, 0, 0}
-color_table.dark_slate_gray = {47, 79, 79}
-color_table.DarkSlateGray = {47, 79, 79}
-color_table.dark_slate_grey = {47, 79, 79}
-color_table.DarkSlateGrey = {47, 79, 79}
-color_table.dim_gray = {105, 105, 105}
-color_table.DimGray = {105, 105, 105}
-color_table.dim_grey = {105, 105, 105}
-color_table.DimGrey = {105, 105, 105}
-color_table.slate_gray = {112, 128, 144}
-color_table.SlateGray = {112, 128, 144}
-color_table.slate_grey = {112, 128, 144}
-color_table.SlateGrey = {112, 128, 144}
-color_table.light_slate_gray = {119, 136, 153}
-color_table.LightSlateGray = {119, 136, 153}
-color_table.light_slate_grey = {119, 136, 153}
-color_table.LightSlateGrey = {119, 136, 153}
-color_table.gray = {190, 190, 190}
-color_table.grey = {190, 190, 190}
-color_table.light_grey = {211, 211, 211}
-color_table.LightGrey = {211, 211, 211}
-color_table.light_gray = {211, 211, 211}
-color_table.LightGray = {211, 211, 211}
-color_table.midnight_blue = {25, 25, 112}
-color_table.MidnightBlue = {25, 25, 112}
-color_table.navy = {0, 0, 128}
-color_table.navy_blue = {0, 0, 128}
-color_table.NavyBlue = {0, 0, 128}
-color_table.cornflower_blue = {100, 149, 237}
-color_table.CornflowerBlue = {100, 149, 237}
-color_table.dark_slate_blue = {72, 61, 139}
-color_table.DarkSlateBlue = {72, 61, 139}
-color_table.slate_blue = {106, 90, 205}
-color_table.SlateBlue = {106, 90, 205}
-color_table.medium_slate_blue = {123, 104, 238}
-color_table.MediumSlateBlue = {123, 104, 238}
-color_table.light_slate_blue = {132, 112, 255}
-color_table.LightSlateBlue = {132, 112, 255}
-color_table.medium_blue = {0, 0, 205}
-color_table.MediumBlue = {0, 0, 205}
-color_table.royal_blue = {65, 105, 225}
-color_table.RoyalBlue = {65, 105, 225}
-color_table.blue = {0, 0, 255}
-color_table.dodger_blue = {30, 144, 255}
-color_table.DodgerBlue = {30, 144, 255}
-color_table.deep_sky_blue = {0, 191, 255}
-color_table.DeepSkyBlue = {0, 191, 255}
-color_table.sky_blue = {135, 206, 235}
-color_table.SkyBlue = {135, 206, 235}
-color_table.light_sky_blue = {135, 206, 250}
-color_table.LightSkyBlue = {135, 206, 250}
-color_table.steel_blue = {70, 130, 180}
-color_table.SteelBlue = {70, 130, 180}
-color_table.light_steel_blue = {176, 196, 222}
-color_table.LightSteelBlue = {176, 196, 222}
-color_table.light_blue = {173, 216, 230}
-color_table.LightBlue = {173, 216, 230}
-color_table.powder_blue = {176, 224, 230}
-color_table.PowderBlue = {176, 224, 230}
-color_table.pale_turquoise = {175, 238, 238}
-color_table.PaleTurquoise = {175, 238, 238}
-color_table.dark_turquoise = {0, 206, 209}
-color_table.DarkTurquoise = {0, 206, 209}
-color_table.medium_turquoise = {72, 209, 204}
-color_table.MediumTurquoise = {72, 209, 204}
-color_table.turquoise = {64, 224, 208}
-color_table.cyan = {0, 255, 255}
-color_table.bright_cyan = {79, 245, 239}
-color_table.light_cyan = {224, 255, 255}
-color_table.LightCyan = {224, 255, 255}
-color_table.cadet_blue = {95, 158, 160}
-color_table.CadetBlue = {95, 158, 160}
-color_table.medium_aquamarine = {102, 205, 170}
-color_table.MediumAquamarine = {102, 205, 170}
-color_table.aquamarine = {127, 255, 212}
-color_table.dark_green = {0, 100, 0}
-color_table.DarkGreen = {0, 100, 0}
-color_table.dark_olive_green = {85, 107, 47}
-color_table.DarkOliveGreen = {85, 107, 47}
-color_table.dark_sea_green = {143, 188, 143}
-color_table.DarkSeaGreen = {143, 188, 143}
-color_table.sea_green = {46, 139, 87}
-color_table.SeaGreen = {46, 139, 87}
-color_table.medium_sea_green = {60, 179, 113}
-color_table.MediumSeaGreen = {60, 179, 113}
-color_table.light_sea_green = {32, 178, 170}
-color_table.LightSeaGreen = {32, 178, 170}
-color_table.pale_green = {152, 251, 152}
-color_table.PaleGreen = {152, 251, 152}
-color_table.spring_green = {0, 255, 127}
-color_table.SpringGreen = {0, 255, 127}
-color_table.lawn_green = {124, 252, 0}
-color_table.LawnGreen = {124, 252, 0}
-color_table.green = {0, 255, 0}
-color_table.chartreuse = {127, 255, 0}
-color_table.MediumSpringGreen = {0, 250, 154}
-color_table.green_yellow = {173, 255, 47}
-color_table.GreenYellow = {173, 255, 47}
-color_table.lime_green = {50, 205, 50}
-color_table.LimeGreen = {50, 205, 50}
-color_table.yellow_green = {154, 205, 50}
-color_table.YellowGreen = {154, 205, 50}
-color_table.forest_green = {34, 139, 34}
-color_table.ForestGreen = {34, 139, 34}
-color_table.olive_drab = {107, 142, 35}
-color_table.OliveDrab = {107, 142, 35}
-color_table.dark_khaki = {189, 183, 107}
-color_table.DarkKhaki = {189, 183, 107}
-color_table.khaki = {240, 230, 140}
-color_table.pale_goldenrod = {238, 232, 170}
-color_table.PaleGoldenrod = {238, 232, 170}
-color_table.light_yellow = {255, 255, 224}
-color_table.LightYellow = {255, 255, 224}
-color_table.yellow = {255, 255, 0}
-color_table.gold = {255, 215, 0}
-color_table.light_goldenrod = {238, 221, 130}
-color_table.LightGoldenrod = {238, 221, 130}
-color_table.goldenrod = {218, 165, 32}
-color_table.dark_goldenrod = {184, 134, 11}
-color_table.DarkGoldenrod = {184, 134, 11}
-color_table.rosy_brown = {188, 143, 143}
-color_table.RosyBrown = {188, 143, 143}
-color_table.indian_red = {205, 92, 92}
-color_table.IndianRed = {205, 92, 92}
-color_table.saddle_brown = {139, 69, 19}
-color_table.SaddleBrown = {139, 69, 19}
-color_table.sienna = {160, 82, 45}
-color_table.peru = {205, 133, 63}
-color_table.burlywood = {222, 184, 135}
-color_table.beige = {245, 245, 220}
-color_table.wheat = {245, 222, 179}
-color_table.sandy_brown = {244, 164, 96}
-color_table.SandyBrown = {244, 164, 96}
-color_table.tan = {210, 180, 140}
-color_table.chocolate = {210, 105, 30}
-color_table.firebrick = {178, 34, 34}
-color_table.light_firebrick = {235, 53, 53}
-color_table.brown = {165, 42, 42}
-color_table.dark_salmon = {233, 150, 122}
-color_table.DarkSalmon = {233, 150, 122}
-color_table.salmon = {250, 128, 114}
-color_table.light_salmon = {255, 160, 122}
-color_table.LightSalmon = {255, 160, 122}
-color_table.orange = {255, 165, 0}
-color_table.dark_orange = {255, 140, 0}
-color_table.DarkOrange = {255, 140, 0}
-color_table.coral = {255, 127, 80}
-color_table.light_coral = {240, 128, 128}
-color_table.LightCoral = {240, 128, 128}
-color_table.tomato = {255, 99, 71}
-color_table.orange_red = {255, 69, 0}
-color_table.OrangeRed = {255, 69, 0}
-color_table.red = {255, 0, 0}
-color_table.hot_pink = {255, 105, 180}
-color_table.HotPink = {255, 105, 180}
-color_table.deep_pink = {255, 20, 147}
-color_table.DeepPink = {255, 20, 147}
-color_table.pink = {255, 192, 203}
-color_table.light_pink = {255, 182, 193}
-color_table.LightPink = {255, 182, 193}
-color_table.pale_violet_red = {219, 112, 147}
-color_table.PaleVioletRed = {219, 112, 147}
-color_table.maroon = {176, 48, 96}
-color_table.medium_violet_red = {199, 21, 133}
-color_table.MediumVioletRed = {199, 21, 133}
-color_table.violet_red = {208, 32, 144}
-color_table.VioletRed = {208, 32, 144}
-color_table.magenta = {255, 0, 255}
-color_table.violet = {238, 130, 238}
-color_table.plum = {221, 160, 221}
-color_table.orchid = {218, 112, 214}
-color_table.medium_orchid = {186, 85, 211}
-color_table.MediumOrchid = {186, 85, 211}
-color_table.dark_orchid = {153, 50, 204}
-color_table.DarkOrchid = {153, 50, 204}
-color_table.dark_violet = {148, 0, 211}
-color_table.DarkViolet = {148, 0, 211}
-color_table.blue_violet = {138, 43, 226}
-color_table.BlueViolet = {138, 43, 226}
-color_table.purple = {160, 32, 240}
-color_table.medium_purple = {147, 112, 219}
-color_table.MediumPurple = {147, 112, 219}
-color_table.thistle = {216, 191, 216}
-color_table.light_violet = {160, 157, 247}
- 
-color_table.a_darkred = {128, 0, 0}
-color_table.a_darkgreen = {0, 179, 0}
-color_table.a_brown = {128, 128, 0}
-color_table.a_darkblue = {0, 0, 128}
-color_table.a_darkmagenta = {128, 0, 128}
-color_table.a_darkcyan = {0, 128, 128}
-color_table.a_grey = {192, 192, 192}
-color_table.a_darkgrey = {128, 128, 128}
-color_table.a_red = {255, 0, 0}
-color_table.a_green = {0, 255, 0}
-color_table.a_yellow = {255, 255, 0}
-color_table.a_blue = {0, 85, 255}
-color_table.a_magenta = {255, 0, 255}
-color_table.a_cyan = {0, 255, 255}
-color_table.a_white = {255, 255, 255}
- 
-color_table.chat_bg = {25, 25, 25}
- 
-function fgcolor(color)
-    setFgColor(color_table[color][1], color_table[color][2], color_table[color][3])
-end
- 
-function bgcolor(color)
-    setBgColor(color_table[color][1], color_table[color][2], color_table[color][3])
-end
- 
-function cfgcolor(console, color)
-    setFgColor(console, color_table[color][1], color_table[color][2], color_table[color][3])
-end
- 
-function cbgcolor(console, color)
-    setBgColor(console, color_table[color][1], color_table[color][2], color_table[color][3])
-end
- 
-function showColours(num)
-    cecho("\n&lt;green&gt; Showing a list of available colours, with "..num.." columns: \n")
-    local lineBreak = num
-    local linecount = 0
-    local padding = math.floor(90/num)
-    
-    for col, tab in pairs(color_table) do
-        linecount = linecount + 1
-        cecho(string.rep(" ", padding-#col).."&lt;"..col.."&gt;"..col.."&lt;NavajoWhite&gt;,")
-        if linecount &gt;= lineBreak then
-            echo("\n")
-            linecount = 0
-        end
-    end
-end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
@@ -63759,6 +63578,9 @@ function snd_toggleLoad()
 	snd.message("Toggles found; we loaded them in just fine.")
   snd.goggle_update()
 	snd_toggleSave(false)
+  if snd.toggles.highlight then
+    npb.enable()
+  end
 end
 
 registerAnonymousEventHandler("sysDisconnectionEvent", "snd_toggleSave", true)
@@ -80636,12 +80458,10 @@ function snd.alertnessHit(dir, name, type)
   if snd.alertnessDir ~= "none" and snd.alertnessDir ~= dir then
     snd.alertness = {}
   end
-  if sndNDB.players[gmcp.Char.Status.name].city ~= nil and sndNDB.players[name].city ~= nil then
-    if sndNDB.players[gmcp.Char.Status.name].city ~= sndNDB.players[name].city then
-      table.insert(snd.alertness, name)
-      snd.alertnessDir = dir
-      snd.alertType = type
-    end
+  if sndNDB_getCitizenship(gmcp.Char.Status.name) ~= sndNDB_getCitizenship(name) then
+    table.insert(snd.alertness, name)
+    snd.alertnessDir = dir
+    snd.alertType = type
   end
 end
 
