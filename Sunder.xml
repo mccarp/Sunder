@@ -6764,8 +6764,7 @@ snd.loyalsattacking = false</script>
 
 snd.send("qdmount"..snd.sep.."return mount "..stable_check[gmcp.Char.Status.city])
 
-snd_toggleSave(true)
-sndNDB_saveSettings(true)</script>
+snd_toggleSave(true)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
