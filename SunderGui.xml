@@ -1924,16 +1924,15 @@ registerAnonymousEventHandler("sunder_update_toggles", "snd.updateToggles")</scr
     local spines = {}
     local bloch = {}
     for name, val in pairs(snd.players_here) do
-      if sndNDB.players[val] then
-        if sndNDB.players[val].city == "Enorian" then
-          table.insert(enorian, val)
-        elseif sndNDB.players[val].city == "Duiran" then
-            table.insert(duiran, val)
-        elseif sndNDB.players[val].city == "Spinesreach" then
-            table.insert(spines, val)
-        elseif sndNDB.players[val].city == "Bloodloch" then
-            table.insert(bloch, val)
-        end
+      local city = sndNDB_getCitizenship(val)
+      if city == "Enorian" then
+        table.insert(enorian, val)
+      elseif city == "Duiran" then
+          table.insert(duiran, val)
+      elseif city == "Spinesreach" then
+          table.insert(spines, val)
+      elseif city == "Bloodloch" then
+          table.insert(bloch, val)
       end
     end
 
