@@ -33849,11 +33849,7 @@ end</script>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>more's more</name>
-						<script>if not mmp then
-  npb.echo("&lt;red&gt;You do not have IRE mudlet mapper script installed. This may not work 100%")
-else
-  mmp.deleteLineP()
-end
+						<script>deleteFull()
 send("more", false)
 </script>
 						<triggerType>0</triggerType>
@@ -33912,7 +33908,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(?:He|She|TheyIIt) (?:is|are) an? member of the clan called '(.+)'\.</string>
+							<string>^(?:He|She|They|It) (?:is|are) an? member of the clan called '(.+)'\.</string>
 							<string>^(?:He|She|They|It) (?:is|are) the clan head of the clan called '(.+)'\.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
@@ -33934,7 +33930,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(?:He|She|TheyIIt) .*$</string>
+							<string>^(?:He|She|They|It) .*$</string>
 							<string>^$</string>
 							<string>Fate:</string>
 							<string>General:</string>
@@ -56622,12 +56618,21 @@ end</script>
   cecho("\npb settings - Show highlighting settings")
   cecho("\npb hl &lt;city&gt; &lt;color&gt; - change city highlighting")
   cecho("\npb remove &lt;person&gt; - remove a person from the phonebook")
+  cecho("\nqws - Show online people, sorted by city")
   cecho("\n-----------------------------------------------------------------------")
 end
 npb.help_handled = false</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^pb .+$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Qws</name>
+					<script>npb.qws = true
+npb.getOnlineCharacters()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^qws$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -63532,6 +63537,79 @@ function sndNDB_Remove(name)
   end
 end
 </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>QWS</name>
+						<packageName></packageName>
+						<script>function npb.getOnlineCharacters()
+  getHTTP("api.aetolia.com/characters.json")
+end
+
+function npb.handleResponse(_, url, body)
+  if url == "https://api.aetolia.com/characters.json" then
+    local data = yajl.to_value(body)
+    if npb.qws then
+      npb.qws = false
+      npb.qwsorted(data)
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysGetHttpDone", "npb.handleResponse")
+
+local order = {"Bloodloch", "Duiran", "Enorian", "Spinesreach", "Rogues"}
+local function newLine()
+  moveCursorEnd()
+  if getCurrentLine() ~= "" then
+    echo("\n")
+    moveCursorEnd()
+  end
+end
+
+function npb.cformat(player, format)
+  local str = "&lt;reset&gt;"
+  local color = sndNDB_getColour(player)
+  if color then
+    str = str.."&lt;"..color.."&gt;"
+  end
+  str = str..player:lower():title().."&lt;reset&gt;"..(format and format or "")
+  return str
+end
+
+function npb.qwsorted(people)
+  local wrap = getWindowWrap()
+  local sorted = {Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}}
+  for _, person in pairs(people.characters) do
+    local name = person.name
+    local org = sndNDB_getCitizenship(name)
+    if org == "Unknown" then org = "Rogues" end
+    table.insert(sorted[org], name)
+  end
+  for _, org in ipairs(order) do
+    local peoples = sorted[org]
+    table.sort(peoples)
+    if #peoples&gt;0 then
+      newLine()
+      cecho("&lt;"..npb.t.config.colors[org:lower()].."&gt;"..
+      string.rep(" ", 11-#org).."&lt;b&gt;&lt;u&gt;"..org:title().."&lt;reset&gt;"..(#peoples&gt;9 and "" or " ").."&lt;white&gt;(&lt;cyan&gt;"..#peoples.."&lt;white&gt;): ")
+      for i, v in pairs(peoples) do
+        local linelength = #getCurrentLine()
+        local comma = next(peoples, i)
+        local personlength = (comma and 2 or 0) + #v
+        if linelength+personlength&gt;wrap then
+          echo("\n"..string.rep(" ",16))
+          moveCursorEnd()
+        end
+        cecho(npb.cformat(v))
+        if comma then echo(", ") end
+      end
+    end
+  end
+  echo("\n")
+  moveCursorEnd()
+  ori.prompt.custom()
+end</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
