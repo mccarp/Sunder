@@ -63598,7 +63598,7 @@ function npb.qwsorted(people)
         local comma = next(peoples, i)
         local personlength = (comma and 2 or 0) + #v
         if linelength+personlength&gt;wrap then
-          echo("\n"..string.rep(" ",16))
+          echo("\n"..string.rep(" ",17))
           moveCursorEnd()
         end
         cecho(npb.cformat(v))
