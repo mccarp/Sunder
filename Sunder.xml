@@ -38195,6 +38195,14 @@ cecho("\n&lt;red&gt;The use of a generic word (ie 'kelki' instead of 'kelki1234'
 					<regex>^orbs$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
+					<name>Buy orbs</name>
+					<script>send("outr 4 token"..snd.sep.."trade token for red"..snd.sep.."trade token for blue"..snd.sep.."trade token for yellow"..snd.sep.."trade token for green", false)
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^buyorbs$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
 					<name>chocolates</name>
 					<script>snd.send("eat mint"..snd.sep.."eat hazelnut"..snd.sep.."eat caramel"..snd.sep.."eat strawberry")</script>
 					<command></command>
