@@ -2834,6 +2834,32 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Hypertension cured</name>
+							<script>if matches[2] == snd.target then
+  snd.target_cured("hypertension")
+  snd.target_cured("hypertension2")
+  snd.target_cured("hypertension3")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) screams in agony as blood bursts from \w+ skewered body in a gory fountain\.$</string>
+								<string>^The crimson glow in (\w+)'s veins slowly fades away as the hypertension ebbs from \w+ system\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>smoked a pipe</name>
@@ -7624,9 +7650,9 @@ snd.send("ql")</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Followbashing</name>
-					<script>if snd.toggles.followbash and matches[2]:lower() == snd.followbashing then
+					<script>if snd.toggles.followbash and multimatches[1][2]:lower() == snd.followbashing then
   if (not snd.toggles.bashing) or gmcp.Room.Info.num~=snd.followLastRoom then
       snd.followLastRoom = gmcp.Room.Info.num
       snd.toggles.bashing = true
@@ -7647,9 +7673,49 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^(\w+) uses .+? on .+\.$</string>
+						<string>return snd.illusionChecks.abilityGate()</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
+						<integer>4</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Followbashing 2</name>
+					<script>local whitelist = {
+  ["Arcanism Missiles"]=true,
+  ["Esoterica Victimise"]=true,
+  ["Elemancy Arcbolt"]=true,
+  ["Humourism Murkspark"]=true,
+  ["Elemancy Windlance"]=true,
+  ["Humourism Befoul"]=true,
+}
+if snd.toggles.followbash and multimatches[1][2]:lower() == snd.followbashing and whitelist[multimatches[1][3]] then
+  if (not snd.toggles.bashing) or gmcp.Room.Info.num~=snd.followLastRoom then
+      snd.followLastRoom = gmcp.Room.Info.num
+      snd.toggles.bashing = true
+      snd.waiting.balance = false
+      snd.room_clear = true
+      snd.runBasher()
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(\w+) uses (\w+ \w+)\.$</string>
+						<string>return snd.illusionChecks.abilityGate()</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>4</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -14578,7 +14644,11 @@ end
 										<name>Maul Hit Confirmation</name>
 										<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
-snd.last_limb_dmg = 7.5
+if snd.hitting == "You" and snd.warden_mauldmg then
+  snd.last_limb_dmg = snd.warden_mauldmg
+else
+  snd.last_limb_dmg = 7.5
+end
 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 snd.onHit2({"Dodge", "Parry", "Rebounding"})
 
@@ -14611,8 +14681,26 @@ end
 											<string>^With a mighty swing of \w+ arm fitted with .+, \w+ smashe?s? into (\w+)'s (.+)\.$</string>
 											<string>^A quick strike with .+ at (\w+)'s (.+) leaves them gasping and bloodied\.$</string>
 											<string>^Slamming a fist into (\w+)'s (.+) with .+, you hear a sickening crunch\.$</string>
+											<string>^Aiming the broad end of a .+ at (\w+)'s (.+), \w+ jabs? forward\.$</string>
+											<string>^Raising .+ high, \w+ swings? forward at (\w+)'s (.+), crushing flesh\.$</string>
+											<string>^Gripping both hands over the grip of .+, \w+ slams? it forcefully into (\w+)'s (.+)\.$</string>
+											<string>^\w+ lifts? .+ overhead and brings? it down with a shattering blow onto (\w+)'s (.+)\.$</string>
+											<string>^\w+ strike (\w+)'s (.+) with a quick but powerful blow from .+\.$</string>
+											<string>^With a downward, diagonal strike from .+, \w+ cuts? a brutal gash into (\w+)'s (.+)\.$</string>
+											<string>^Swinging through the air toward (\w+)'s (.+?) with .+, \w+ draws? lines of blood\.$</string>
+											<string>^With a broad sweep of .+, \w+ brings? a crushing blow onto (\w+)'s (.+)\.$</string>
+											<string>^Holding .+ straight in front of \w+, \w+ bash(?:es)? the end into (\w+)'s (.+)\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
@@ -14744,7 +14832,7 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Spinslash 2nd half</name>
 									<script>snd.onHit2({"Rebounding", "Dodge"})
 disableTrigger("Spinslash 2nd half")</script>
@@ -63315,7 +63403,7 @@ end</script>
 npb = npb or {}
 
 function npb.disable_highlights()
-  if not next(npb.triggers) then
+  if not npb.triggers or not next(npb.triggers) then
     return
   end
   
@@ -83373,12 +83461,18 @@ end</script>
     GutCheck = function(target)
               snd.last_hit_limb = "torso"
               snd.last_limb_dmg = 13.99
+              if snd.hitting == "You" and snd.toggles.targetrune then
+                snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+              end 
               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
               snd.onhit2({"Dodge","Rebounding","Parry"})
             end,
     Batter = function(target)
                 snd.last_hit_limb = "head"
                 snd.last_limb_dmg = 13.99
+                if snd.hitting == "You" and snd.toggles.targetrune then
+                  snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+                end 
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                 table.insert(snd.maybe_affs, "blurry_vision")
                 snd.onHit2({"Rebounding", "Dodge", "Parry"})
@@ -83435,7 +83529,17 @@ end</script>
               snd.target_cured("barrier")
               snd.target_cured("dome")
             end,
-    
+    Bloodburst = function(target)
+      if not snd.checksomeAffs({"hypertension", "hypertension2", "hypertension3"},1) then
+        snd.target_got("hypertension")
+      elseif snd.checkAff("hypertension") then
+        snd.target_cured("hypertension")
+        snd.target_got("hypertension2")
+      elseif snd.checkAff("hypertension2") then
+        snd.target_cured("hypertension2")
+        snd.target_got("hypertension3")
+      end
+    end
   },
   
   ["Warhounds"] = {
@@ -84147,6 +84251,9 @@ end</script>
     Maim = function(target)
                 snd.last_hit_limb = "head"
                 snd.last_limb_dmg = 13.99
+                if snd.hitting == "You" and snd.toggles.targetrune then
+                  snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+                end 
                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                table.insert(snd.maybe_affs, "blurry_vision")
                snd.onHit2({"Rebounding", "Dodge", "Parry"})
@@ -84171,6 +84278,9 @@ end</script>
     Rush = function(target)
             snd.last_hit_limb = "torso"
             snd.last_limb_dmg = 13.99
+            if snd.hitting == "You" and snd.toggles.targetrune then
+              snd.last_limb_dmg = snd.last_limb_dmg * 1.05
+            end 
             snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
             snd.onhit2({"Dodge","Rebounding","Parry"})
     end,
@@ -84232,7 +84342,17 @@ end</script>
               snd.target_cured("barrier")
               snd.target_cured("dome")
             end,
-              
+    Engorge = function(target)
+      if not snd.checksomeAffs({"hypertension", "hypertension2", "hypertension3"},1) then
+        snd.target_got("hypertension")
+      elseif snd.checkAff("hypertension") then
+        snd.target_cured("hypertension")
+        snd.target_got("hypertension2")
+      elseif snd.checkAff("hypertension2") then
+        snd.target_cured("hypertension2")
+        snd.target_got("hypertension3")
+      end
+    end
   },
   
   ["Communion"] = {
