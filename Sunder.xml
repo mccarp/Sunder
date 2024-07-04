@@ -63750,7 +63750,7 @@ function snd_toggleLoad()
 	snd.message("Toggles found; we loaded them in just fine.")
   snd.goggle_update()
 	snd_toggleSave(false)
-  if snd.toggles.highlight then
+  if snd.toggles.highlights then
     npb.enable()
   end
 end
