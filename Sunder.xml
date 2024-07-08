@@ -22784,6 +22784,44 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Estoc</name>
+									<script>if matches[2] == snd.target then
+  snd.onHit2({"Rebounding", "Dodge"}, "Templar2h")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ jabs? .+ forward, driving it forcefully into (\w+)\.$</string>
+										<string>^\w+ lunges? forward, jabbing .+ sharply into (\w+)\.$</string>
+										<string>^\w+ thrusts? sharply with .+, striking (\w+) with pinpoint accuracy\.$</string>
+										<string>^Driving downward with .+, \w+ scores? a deep wound on (\w+)\.$</string>
+										<string>^\w+ hacks? downward with .+, landing a heavy blow on (\w+)\.$</string>
+										<string>^\w+ hacks? brutally at (\w+) with .+, cutting through .+ defenses\.$</string>
+										<string>^With a swift swing of .+, \w+ cleaves? deeply into (\w+)\.$</string>
+										<string>^\w+ swings? .+ swiftly from above, driving the blade downward into (\w+) with crushing force\.$</string>
+										<string>^\w+ swings? .+ in a precise arc, slicing a clean cut across (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Anguish used</name>
