@@ -87046,7 +87046,7 @@ function snd.calcTeradrimLimbDamage(skill, you, limb)
     elseif snd.runemarkMajor == "blue" then
       damage = damage * 0.75
     end
-    if snd.runeMarkMinor == "red" and attack == "fracture" then
+    if snd.runemarkMinor == "red" and attack == "fracture" then
       damage = damage * 1.08
     end
   end
