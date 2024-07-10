@@ -82268,11 +82268,11 @@ end</script>
   
   ["Thaumaturgy"] = {
     Branding = function(target, element)
-	  if element == "water" then
+	  if element == "frost" then
 		snd.target_got("frostbrand")
-	  elseif element == "fire" then
+	  elseif element == "ember" then
 		snd.target_got("emberbrand")
-	  elseif element == "air" then
+	  elseif element == "thunder" then
 		snd.target_got("thunderbrand")
 	  end
     end,
