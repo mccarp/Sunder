@@ -79136,6 +79136,7 @@ end</script>
 
 function snd.load_def(option)
   if snd.def_options[option] ~= nil then
+    snd.defenses_loaded = true
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
