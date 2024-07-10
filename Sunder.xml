@@ -10897,7 +10897,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^The Frostbrand fades away from (\w+)'s body.$</string>
+										<string>^The Frostbrand fades away from (\w+)'s body\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -11017,7 +11017,7 @@ end
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^The Thunderbrand fades away from (\w+)'s forehead.\.$</string>
+										<string>^The Thunderbrand fades away from (\w+)'s forehead\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -12433,6 +12433,28 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^Flames burst from under (\w+)'s feet and consume .+ legs in a horrific blaze.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Ashenfeet cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("ashen_feet")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The ashen curse placed upon (\w+) lifts\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -82219,7 +82241,7 @@ end</script>
     Ashenfeet = function(target)
       snd.target_got("ashen_feet")
       if ashenfeet_timer then killTimer(ashenfeet_timer) end
-      ashenfeet_timer = tempTimer(120, [[snd.target_cured("ashen_feet")]])
+      ashenfeet_timer = tempTimer(180, [[snd.target_cured("ashen_feet")]])
     end,
     Conflagrate = function(target)
       snd.target_got("hearing")
@@ -82291,7 +82313,7 @@ end</script>
     Twist = function(target)
       snd.target_got("ashen_feet")
       if ashenfeet_timer then killTimer(ashenfeet_timer) end
-      ashenfeet_timer = tempTimer(120, [[snd.target_cured("ashen_feet")]])
+      ashenfeet_timer = tempTimer(180, [[snd.target_cured("ashen_feet")]])
     end,
     Disgorge = function(target)
       snd.target_got("hearing")
@@ -87271,7 +87293,7 @@ end</script>
 						<name>Rage</name>
 						<packageName></packageName>
 						<script>function snd.handleRage()
-  for _,aff in pairs(snd.cures.steroid) do
+  for _, aff in pairs(snd.cures.steroid) do
     if snd.checkAff(aff) then
       snd.target_cured(aff)
       break
