@@ -56368,6 +56368,7 @@ end
   "arcane",
   "speed",
   "vigor",
+  "infusion",
   },
   
   poultices = {
@@ -56376,6 +56377,7 @@ end
   "restoration",
   "caloric",
   "epidermal",
+  "soothing",
   },
 }
 for _, v in ipairs(fluid_types[matches[3]]) do
@@ -56401,6 +56403,7 @@ end
 "arcane",
 "speed",
 "vigor",
+"infusion"
 }
 for elixir in pairs(elixirs) do
  snd.send("fc fill "..elixirs[elixir])
@@ -56420,6 +56423,7 @@ end</script>
 "arcane",
 "speed",
 "vigor",
+"infusion",
 }
 for elixir in pairs(elixirs) do
  snd.send("fc consume "..elixirs[elixir])
@@ -56436,6 +56440,7 @@ end
 "mass",
 "restoration",
 "caloric",
+"soothing",
 "epidermal",
 }
 for poultice in pairs(poultices) do
@@ -56451,6 +56456,7 @@ end</script>
 "mending",
 "mass",
 "restoration",
+"soothing",
 "caloric",
 "epidermal",
 }
