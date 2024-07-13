@@ -63457,7 +63457,7 @@ end
 
 function npb.set_city(person, city)
   npb.init()
-  person = person:title()
+  person = person:lower():title()
   city = city:lower()
   local current = npb.t.people[person] or {}
   current.city = city
