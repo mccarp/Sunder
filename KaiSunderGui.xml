@@ -1197,13 +1197,14 @@ kaiUI.amapSize = 14
 -- color1 is the border color, color2 is the color for active chat tabs, font sizes are self explanatory.
 kaiUI.chat = kaiUI.chat or
   {
-    tabs =   {"All", "Tells", "Local", "Web", "City", "Guild", "Clans", "Order", "Misc",},
+    tabs =   {"All", "Tells", "Local", "Web", "City", "Guild", "Clans", "Order", "Misc","Death"},
     color1 = "DarkSlateBlue",
     color2 = "SlateBlue",
 		fontSize = 10,
 		tabFontSize = 11,
   }
-	
+kaiUI.timestamps = false
+
 -- The colors for the info here window.
 kaiUI.infoHereColors =
   {
@@ -2131,6 +2132,41 @@ local talkerWhitelist = {
   ["a gravitationally distorted figure"] = true,
 }
 
+local function timestamp(chat)
+  if not kaiUI.timestamps then return end
+  chat = chat:lower():title()
+  local timestamp = "&lt;burlywood&gt;"..getTime(true, "hh:mm:ss").." "
+    kaiUI.AllConsole:cecho(timestamp)
+  if chat~="All" then
+    kaiUI[chat.."Console"]:cecho(timestamp)
+  end
+end
+
+function chatAppend(chat)
+  selectCurrentLine()
+  local text = copy2decho()
+  timestamp(chat)
+  kaiUI.AllConsole:decho(text.."\n")
+  if chat:lower()~="all" then
+    kaiUI[chat:lower():title() .. "Console"]:decho(text.."\n")
+  end
+end
+
+function kaiUI.chat.deaths()
+  timestamp("death")
+  local text = ""
+  local killer, victim = gmcp.Deathsight.killer, gmcp.Deathsight.victim
+  if sndNDB.highlightNames then
+    text = "&lt;"..sndNDB_getColour(victim).."&gt;"..victim.."&lt;red&gt; was slain by &lt;"..sndNDB_getColour(killer).."&gt;"..killer.."\n"
+  else
+    text = "&lt;red&gt;"..victim .." was slain by "..killer.."\n"
+  end
+  kaiUI.AllConsole:cecho(text)
+  kaiUI.DeathConsole:cecho(text)
+  display(gmcp.Deathsight)
+end
+registerAnonymousEventHandler("gmcp.Deathsight", "kaiUI.chat.deaths")
+
 function kaiUI.chat.capture()
 
 --if the text contains this text, don't echo to tabbed chat
@@ -2210,6 +2246,7 @@ function kaiUI.chat.capture()
   -- demonnic.chat:decho(snd.last_channel, text.."\n")
   -- -- enableTrigger("generic capture")
 -- end
+  timestamp(snd.last_channel)
   kaiUI[snd.last_channel .. "Console"]:decho(text.."\n")
   kaiUI.chat.startBlink(snd.last_channel)
   kaiUI.AllConsole:decho(text.."\n")
