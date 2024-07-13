@@ -2155,7 +2155,7 @@ end
 function kaiUI.chat.deaths()
   timestamp("death")
   local text = ""
-  local killer, victim = gmcp.Deathsight.killer, gmcp.Deathsight.victim
+  local killer, victim, assists = gmcp.Deathsight.killer, gmcp.Deathsight.victim, gmcp.Deathsight.assists
   if sndNDB.highlightNames then
     text = "&lt;"..sndNDB_getColour(victim).."&gt;"..victim.."&lt;red&gt; was slain by &lt;"..sndNDB_getColour(killer).."&gt;"..killer.."\n"
   else
@@ -2163,7 +2163,20 @@ function kaiUI.chat.deaths()
   end
   kaiUI.AllConsole:cecho(text)
   kaiUI.DeathConsole:cecho(text)
-  display(gmcp.Deathsight)
+  if assists~="" then
+    local people = string.match(assists, "They were assisted by: (.+)%.\n"):split(", ")
+    local text = "They were assisted by: "
+    for i, person in ipairs(people) do
+      text = text..(sndNDB.highlightNames and "&lt;"..sndNDB_getColour(person).."&gt;" or "")..person
+      if next(people, i) then
+        text = text.."&lt;r&gt;, "
+      end
+    end
+    text = text.."&lt;r&gt;.\n"
+    timestamp("death")
+    kaiUI.AllConsole:cecho(text)
+    kaiUI.DeathConsole:cecho(text)
+  end
 end
 registerAnonymousEventHandler("gmcp.Deathsight", "kaiUI.chat.deaths")
 
