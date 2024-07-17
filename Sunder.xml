@@ -83521,6 +83521,9 @@ end</script>
              if failed then
                snd.removeProneStates(true)
              else
+               snd.last_hit_limb = "torso"
+               snd.last_limb_dmg = 12.5
+               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.target_got("writhe_impaled")
                snd.theytumbling = false
                if snd.hitting == "You" then
@@ -83529,6 +83532,11 @@ end</script>
                snd.theytumbling = false
             end
           end,
+    Wrench = function(target)
+               snd.last_hit_limb = "torso"
+               snd.last_limb_dmg = 12.5
+               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+            end,
     Fitness = function(target)
                 snd.handleFitness()
               end,
@@ -84385,12 +84393,20 @@ end</script>
              if failed then
                snd.removeProneStates(true)
              else
+               snd.last_hit_limb = "torso"
+               snd.last_limb_dmg = 12.5
+               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                snd.target_got("writhe_impaled")
                snd.theytumbling = false
                if snd.hitting == "You" then
                 snd.target_impaled = true
                end
             end
+          end,
+    Twist = function(target)
+               snd.last_hit_limb = "torso"
+               snd.last_limb_dmg = 12.5
+               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
           end,
     Batter = function(target)
                   enableTrigger("Batter Hit Confirmation")
