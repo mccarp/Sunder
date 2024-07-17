@@ -7626,12 +7626,30 @@ end</script>
 						<string>^You raise your gauntlet, extending your fingers and allowing the latent ylem around you to absorb into the reserve chambers\.$</string>
 						<string>^The light around you slowly ceases to refract as the ylem energy dissipates into your surroundings\.$</string>
 						<string>^With a deliberate motion, \w+ extends \w+ gauntlet into the air, causing a ripple of distortion as the ylem energy surrounding you is harnessed\.$</string>
-						<string>There is no ylem energy mist in this location to absorb.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>No mist</name>
+					<script>snd.ylem_check = false</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>There is no ylem energy mist in this location to absorb.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
