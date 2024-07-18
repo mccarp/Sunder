@@ -44854,7 +44854,7 @@ if snd.class == "Oneiromancer" then
  
 	snd.giving = {
 		"asthma",
-		"aeon",
+		--"aeon",
 		"impatience",
 		"clumsiness",
 		"perplexed",
@@ -44883,8 +44883,8 @@ if snd.class == "Oneiromancer" then
  
 			if snd.used.shield then
 				string = "order cerberus attack "..snd.target..snd.sep
-			elseif snd.theytumbling then
-				string ="unfurl hourglass and favor at "..snd.target..snd.sep
+			-- elseif snd.theytumbling then
+				-- string ="unfurl hourglass and favor at "..snd.target..snd.sep
 			elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
 				string = "vanquish "..snd.target
 			elseif not snd.need_deform then
@@ -45003,7 +45003,7 @@ end</script>
   snd.giving =
     {
       "asthma",
-      "aeon",
+      --"aeon",
       "perplexed",
       "impatience",
       "clumsiness",
@@ -52612,7 +52612,7 @@ end</script>
 
   snd.giving = {
   "asthma",
-  "aeon",
+  --"aeon",
   "perplexed",
   "impatience",
   "clumsiness",
@@ -52769,7 +52769,7 @@ end</script>
 
   snd.giving = {
   "asthma",
-  "aeon",
+  --"aeon",
   "perplexed",
   "impatience",
   "clumsiness",
