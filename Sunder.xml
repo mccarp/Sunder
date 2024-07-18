@@ -8011,6 +8011,28 @@ raiseEvent("sunder_item_update")</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Reckless check</name>
+					<script>snd.recklessCheck()</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You focus your mind intently on curing your mental maladies.</string>
+						<string>You tactfully will your body to clot some of its open wounds.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Offense</name>
@@ -60315,6 +60337,21 @@ function showColours(num)
             linecount = 0
         end
     end
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>reckless check</name>
+						<packageName></packageName>
+						<script>function snd.recklessCheck()
+  if
+    gmcp.Char.Vitals.hp == gmcp.Char.Vitals.maxhp
+    and gmcp.Char.Vitals.mp == gmcp.Char.Vitals.maxmp
+    and snd.afflictions.aff_recklessness.state == "healed"
+    and snd.afflictions.aff_blackout.state == "healed"
+  then
+    send("firstaid predict recklessness")
+  end
 end</script>
 						<eventHandlerList />
 					</Script>
