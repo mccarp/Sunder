@@ -36610,95 +36610,6 @@ save_fishinginfo_db()
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>CaptureFishingHole</name>
-					<script>-- Make sure tables actually exist.
-if not fishing_holes then
-	load_fishing_db()
-end
-
-fishing_holes[multimatches[1][2]] = fishing_holes[multimatches[1][2]] or {}
-
--- Get some basic data.
-fishing_holes[multimatches[1][2]].name = multimatches[1][2]
-fishing_holes[multimatches[1][2]].type = multimatches[2][2]
-
--- Track the room.
-fishing_holes[multimatches[1][2]].rooms = fishing_holes[multimatches[1][2]].rooms or {}
-local found_room = false
-for k,v in pairs(fishing_holes[multimatches[1][2]].rooms) do
-	if v == gmcp.Room.Info.num then 
-		found_room = true
-		break
-	end
-end
-if not found_room then
-	table.insert(fishing_holes[multimatches[1][2]].rooms, gmcp.Room.Info.num)
-end
-
--- Format the fishing hole contents string so that it can be parsed.
-multimatches[2][3] = "|" .. multimatches[2][3]:gsub(", ", "||") .. "|"
-multimatches[2][3] = multimatches[2][3]:gsub(" and ", "||")
-multimatches[2][3] = multimatches[2][3]:gsub("%|and ", "||")
-multimatches[2][3] = multimatches[2][3]:gsub("%|%|%|", "||")
-
--- Iterate over the fishing hole contents and get the fish in the hole.
-local temp_fish = {}
-for ftype in multimatches[2][3]:gmatch("%|%d+ of ([%w%s%'%-]+)%|") do	
-	table.insert(temp_fish, ftype)
-end
-for ftype in multimatches[2][3]:gmatch("%|([%w%s%'%-]+)%|") do
-	local skip = false
-	for tmp in ftype:gmatch("%d of ") do
-		skip = true
-		break
-	end
-	if not skip then 
-		table.insert(temp_fish, ftype) 
-	end
-end
-
--- Make sure our fishing table exists before checking it in the following loop.
-fishing_holes[multimatches[1][2]].fish = fishing_holes[multimatches[1][2]].fish or {}
-for k, v in pairs(fishing_holes[multimatches[1][2]].fish) do
-	if v == "unfamiliar creatures" then
-		table.remove(fishing_holes[multimatches[1][2]].fish, k)
-		break
-	end
-end
-
-for _, ftype in pairs(temp_fish) do
-	local found = false
-	for k,v in pairs(fishing_holes[multimatches[1][2]].fish) do
-		if ftype == v then 
-			found = true
-			break
-		end
-	end
-	if not found then table.insert(fishing_holes[multimatches[1][2]].fish, ftype) end
-end
-
--- Save data.
-save_fishing_db()</script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>1</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
-						<string>^You are standing within (.+)\.$</string>
-						<string>^The (.+) teem with (.+).</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>1</integer>
-					</regexCodePropertyList>
-				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Fishing tick</name>
 					<script>if Fishingcaught then
@@ -37074,6 +36985,96 @@ end
 						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>CaptureFishingHole</name>
+					<script>-- Make sure tables actually exist.
+if not fishing_holes then
+	load_fishing_db()
+end
+
+fishing_holes[multimatches[1][2]] = fishing_holes[multimatches[1][2]] or {}
+
+-- Get some basic data.
+fishing_holes[multimatches[1][2]].name = multimatches[1][2]
+fishing_holes[multimatches[1][2]].type = multimatches[2][2]
+fishing_holes[multimatches[1][2]].fish = fishing_holes[multimatches[1][2]].fish or {}
+current_hole_fish = fishing_holes[multimatches[1][2]].fish
+
+-- Track the room.
+fishing_holes[multimatches[1][2]].rooms = fishing_holes[multimatches[1][2]].rooms or {}
+local found_room = false
+for k,v in pairs(fishing_holes[multimatches[1][2]].rooms) do
+	if v == gmcp.Room.Info.num then 
+		found_room = true
+		break
+	end
+end
+if not found_room then
+	table.insert(fishing_holes[multimatches[1][2]].rooms, gmcp.Room.Info.num)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>1</conditonLineDelta>
+					<mStayOpen>20</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^You are standing within (.+)\.$</string>
+						<string>^The (.+) teem with:</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>CaptureFishingHole close</name>
+						<script>setTriggerStayOpen("CaptureFishingHole", 0)
+save_fishing_db()
+current_hole_fish = nil</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string></string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>7</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Fishing hole line</name>
+						<script>if not table.index_of(current_hole_fish, matches[2]) then
+  table.insert(current_hole_fish, matches[2])
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^ - \d+ of (.+)$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
 				</Trigger>
 			</TriggerGroup>
 		</TriggerGroup>
