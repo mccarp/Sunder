@@ -11950,6 +11950,7 @@ snd.fulcrum_exists = true</script>
 									<script>if matches[2] == snd.target then
   snd.used.shield = false
   snd.target_got("fallen")
+  snd.target_got("whiplash")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
