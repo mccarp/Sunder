@@ -81237,20 +81237,37 @@ end</script>
         {aff = "deepwound", type = "aff"},
       },
     ["left leg"] =
-      {{aff = "left_leg_mangled", type = "damage"}, {aff = "left_leg_broken", type = "damage"}},
+      {
+        {aff = "left_leg_amputated", type = "aff"},
+        {aff = "left_leg_mangled", type = "damage"},
+        {aff = "left_leg_broken", type = "damage"},
+      },
     ["right leg"] =
-      {{aff = "right_leg_mangled", type = "damage"}, {aff = "right_leg_broken", type = "damage"}},
+      {
+        {aff = "right_leg_amputated", type = "aff"},
+        {aff = "right_leg_mangled", type = "damage"},
+        {aff = "right_leg_broken", type = "damage"},
+      },
     ["left arm"] =
-      {{aff = "left_arm_mangled", type = "damage"}, {aff = "left_arm_broken", type = "damage"}},
+      {
+        {aff = "left_arm_amputated", type = "aff"},
+        {aff = "left_arm_mangled", type = "damage"},
+        {aff = "left_arm_broken", type = "damage"},
+      },
     ["right arm"] =
-      {{aff = "right_arm_mangled", type = "damage"}, {aff = "right_arm_broken", type = "damage"}},
+      {
+        {aff = "right_arm_amputated", type = "aff"},
+        {aff = "right_arm_mangled", type = "damage"},
+        {aff = "right_arm_broken", type = "damage"},
+      },
   }
 
 function snd.restoApply(location)
   if snd.checkAff("burnt_skin") and location ~= "torso" then
     return
   end
-  local restoTime = 4.4 --slightly too long but will use immediateResto
+  local restoTime = 4.4
+  --slightly too long but will use immediateResto
   if snd.checkAff("rot_body") then
     restoTime = restoTime + 4.3
   end
@@ -81262,14 +81279,14 @@ function snd.restoApply(location)
         if aff.type == "aff" and aff.instant then
           snd.target_cured(aff.aff)
         else
-          restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. limb ..[[")]])
+          restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. limb .. [[")]])
           snd.resto_limb = limb
         end
         return
       end
     end
-    if snd.limb_dmg[limb]&gt;0 then
-      restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. limb..[[")]])
+    if snd.limb_dmg[limb] &gt; 0 then
+      restoration_timer = tempTimer(restoTime, [[snd.restoApply2("]] .. limb .. [[")]])
       snd.resto_limb = limb
       return
     end
@@ -81277,7 +81294,9 @@ function snd.restoApply(location)
 end
 
 function snd.immediateResto()
-  if restoration_timer and remainingTime(restoration_timer) and remainingTime(restoration_timer)&lt;1 then
+  if
+    restoration_timer and remainingTime(restoration_timer) and remainingTime(restoration_timer) &lt; 1
+  then
     killTimer(restoration_timer)
     snd.restoApply2(snd.resto_limb)
   end
@@ -81299,7 +81318,7 @@ function snd.restoApply2(limb)
     end
     --If they didn't have any of the prior affs, remove limb damage
   end
-  if snd.limb_dmg[limb]&gt;0 then
+  if snd.limb_dmg[limb] &gt; 0 then
     if snd.enemy_used_regenerate == true then
       snd.took_limb_dmg(limb, -40, true)
     else
@@ -81420,12 +81439,16 @@ function snd.attack(attack)
   if not snd.pipes_lit and snd.toggles.lighting then
     string = "light pipes" .. snd.sep .. string
   end
-  if string:find("slaughter") then
-    snd.send("qeb")
-    snd.send("queue axes " .. string)
+  if snd.class == "Wayfarer" then
+    if string:find("slaughter") then
+      snd.send("qeb")
+      snd.send("queue axes " .. string)
+    else
+      snd.send("queue axes")
+      snd.send("qeb " .. string)
+    end
   else
-    snd.send("queue axes")
-    snd.send("qeb " .. string)
+      snd.send("qeb " .. string)
   end
 end
 
@@ -83635,6 +83658,14 @@ end</script>
                   enableTrigger("Spinslash 2nd half")
                   snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Carnifex")
                 end,
+    Dismember = function(target, limb)
+                  if limb == "failure" then return end
+                  local aff = limb:gsub(" ", "_").."_amputated"
+                  snd.target_got(aff)
+                  snd.last_hit_limb = limb
+                  snd.last_limb_dmg = 5
+                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                end,
   },
   
   ["Deathlore"] = {
@@ -84456,7 +84487,14 @@ end</script>
     Maul = function(target)
                    enableTrigger("Maul Hit Confirmation")
                  end,
-     
+    Destruction = function(target, limb)
+                  if limb == "failure" then return end
+                  local aff = limb:gsub(" ", "_").."_amputated"
+                  snd.target_got(aff)
+                  snd.last_hit_limb = limb
+                  snd.last_limb_dmg = 5
+                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+                end,
   },
   
   ["Ancestry"] = {
