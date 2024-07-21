@@ -24997,11 +24997,16 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>undo in general</name>
-							<script>if snd.target == matches[2] then
+							<script>local coldAffs = {"shivering", "frigid", "frozen"}
+if snd.target == matches[2] then
   if matches[1]:find("venom") then
     snd.target_cured(snd.venomEffect(matches[3]))
   else
-    snd.target_cured(matches[3])
+    if table.contains(coldAffs, matches[3]) then
+      snd.target_cured("cold")
+    else
+      snd.target_cured(matches[3])
+    end
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
@@ -75887,10 +75892,10 @@ sunder_areaPaths = {
   v49115 = "49114",
   v49116 = "49115",
   v49117 = "49116",
-  v49118 = "ptcity",
+--  v49118 = "ptcity",
   v49119 = "49120",
   v49120 = "49121",
-  v49121 = "49118",
+  v49121 = "ptcity",
   v49122 = "49117",
   v49123 = "49124",
   v49124 = "49125",
