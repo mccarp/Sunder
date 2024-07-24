@@ -6180,8 +6180,10 @@ snd.firefist_cooldown = false</script>
 								<string>You're not ready to call upon your might.</string>
 								<string>You cannot call upon your enduring grit again so soon.</string>
 								<string>You use Artifice Grit.</string>
+								<string>You use Woodlore Might.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
@@ -6226,8 +6228,10 @@ snd.firefist_cooldown = false</script>
 							<regexCodeList>
 								<string>Spotting an opening for a brutal assault, you send your accomplices into a manic rage with a sharp command.</string>
 								<string>You cannot do that again so soon.</string>
+								<string>Sensing an opportunity to strike against your foe, you drive your companions into a frenzy.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -6247,8 +6251,10 @@ snd.firefist_cooldown = false</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You may once more exploit an opponent's opening.</string>
+								<string>You may take advantage of an opportunity once again.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
