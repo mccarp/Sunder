@@ -63496,6 +63496,7 @@ function npb.process_qwho()
   if people[#people]:match("and ") then
     people[#people] = people[#people]:gsub("^and ", '')
   end
+  if #people == 1 then people = people[1]:split(" and ") end
 
   local honour_people = {}
   for _, person in pairs(people) do
@@ -82499,13 +82500,13 @@ end</script>
             snd.onHit2({"Dodge"}, "Sentinel")
           end,
    Flourish = function(target)
-                  snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+                  snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
                 end,
    Slash = function(target)
-              snd.onHit2({"Dodge", "Rebounding"}, "Sentinel Slash")
+              snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel Slash")
             end,
    Stab = function(target)
-            snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+            snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
           end,
    Weaken = function(target)
               enableTrigger("Weaken arms or legs")
@@ -86065,14 +86066,14 @@ end</script>
             table.insert(snd.maybe_affs, 1, "fallen")
             snd.onHit2({"Dodge"}, "Sentinel")
           end,
-   Flourish = function(target)
-                  snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+   Brandish = function(target)
+                  snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
                 end,
    Contrive = function(target)
-              snd.onHit2({"Dodge", "Rebounding"}, "Sentinel Slash")
+              snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel Slash")
             end,
    Beguile = function(target)
-            snd.onHit2({"Dodge", "Rebounding"}, "Sentinel")
+            snd.onHit2({"Dodge", "Rebounding", "Parry"}, "Sentinel")
           end,
    Impair = function(target)
               enableTrigger("Weaken arms or legs")
