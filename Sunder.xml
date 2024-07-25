@@ -20819,7 +20819,13 @@ end</script>
 								<name>Weaken arms or legs</name>
 								<script>if snd.target == matches[2] then
   if matches[4] == "leg" then
-    snd.target_got("lethargy")
+    if not snd.checkAff("lethargy") then
+      snd.target_got("lethargy")
+      snd.last_affs = {"lethargy"}
+    end
+    enableTrigger("Sunder Parry")
+    enableTrigger("Sunder Dodge")
+    enableTrigger("Sunder Rebounding")
   end
 end
 disableTrigger("Weaken arms or legs")</script>
@@ -20834,15 +20840,15 @@ disableTrigger("Weaken arms or legs")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^\w+ strikes at (\w+)'s (left|right) (leg|arm) with .+, viciously rending \w+ muscles\.$</string>
-									<string>^\w+ rips through (\w+)'s (left|right) (leg|arm) with the lethal contour of .+, shredding .+ muscles.</string>
+									<string>^\w+ strikes? at (\w+)'s (left|right) (leg|arm) with .+, viciously rending \w+ muscles\.$</string>
+									<string>^\w+ rips? through (\w+)'s (left|right) (leg|arm) with the lethal contour of .+, shredding .+ muscles\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Dhuriv Pierce/Sever</name>
 								<script>if matches[2] == snd.target then
  snd.target_got(matches[3]:gsub(" ", "_").."_crippled")
@@ -21048,6 +21054,48 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^.+ reaches out with one slender arm and directs a sudden coalescensce of misty hoarfrost at (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Ambush</name>
+								<script>snd.used.rebounding = false</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+)'s aura of rebounding is pierced and shredded under the attack\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name></name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("lethargy")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^The wound leaves its mark as (\w+) loses \w+ mobility\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -86353,6 +86401,7 @@ snd.dhuriv_attacks =
     loneliness = "daunt",
     berserking = "daunt",
     frozen = "icewyrm",
+    frigid = "icewyrm",
     shivering = "icewyrm",
     ambush = "ambush",
   }
@@ -86363,6 +86412,7 @@ snd.daunt_animals =
     ["loneliness"] = "order crocodile daunt ",
     ["berserking"] = "order cockatrice daunt ",
     ["frozen"] = "order icewyrm icebreath ",
+    ["frigid"] = "order icewyrm icebreath ",
     ["shivering"] = "order icewyrm icebreath ",
   }
 
@@ -86505,6 +86555,7 @@ snd.ringblade_attacks =
     loneliness = "accost",
     berserking = "accost",
     frozen = "rimestalker",
+    frigid = "rimestalker",
     shivering = "rimestalker",
     ambush = "waylay",
     waylay = "waylay",
@@ -86516,6 +86567,7 @@ snd.accost_accomplices =
     ["loneliness"] = "order eviscerator accost ",
     ["berserking"] = "order terrifier accost ",
     ["frozen"] = "order rimestalker verglas ",
+    ["frigid"] = "order rimestalker verglas ",
     ["shivering"] = "order rimestalker verglas ",
   }
 
