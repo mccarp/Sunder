@@ -60418,6 +60418,14 @@ end</script>
 end</script>
 						<eventHandlerList />
 					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Seperator formatting</name>
+						<packageName></packageName>
+						<script>function snd.sepf(...)
+  return table.concat(arg, snd.sep)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Logic</name>
