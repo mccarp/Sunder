@@ -27328,25 +27328,20 @@ end</script>
 								<regexCodeList>
 									<string>You possess mighty swagger in your actions.</string>
 									<string>Contempt and spite drive your body onwards.</string>
+									<string>You let your muscles droop for a moment, then force them taut with all your strength.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Swagger Counter</name>
-								<script>if snd.swagger == 0 then
- 	snd.swagger = 1
-elseif snd.swagger == 1 then
-	snd.swagger = 2
-elseif snd.swagger == 2 then
-	snd.swagger = 3
+								<name>Swagger/Wrath Counter</name>
+								<script>snd.swagger = tonumber(matches[2])
+if snd.class == "Zealot" or snd.class == "Ravager" then
+  cecho("&lt;red&gt;\nSwagger Total: &lt;white&gt;"..snd.swagger)
 end
-      snd.swaggered = true
-      tempTimer(5,[[snd.swaggered = false]])
-
-cecho("&lt;red&gt;\nSwagger Total: &lt;white&gt;"..snd.swagger)
 </script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -27359,15 +27354,15 @@ cecho("&lt;red&gt;\nSwagger Total: &lt;white&gt;"..snd.swagger)
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>You let your muscles droop for a moment, then force them taut with all your strength.</string>
+									<string>^Your sapped_strength affliction now has (\d+) stacks?\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>3</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Too Swag</name>
-								<script>snd.swagger = 3</script>
+								<script>snd.swagger = 4</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -27381,23 +27376,15 @@ cecho("&lt;red&gt;\nSwagger Total: &lt;white&gt;"..snd.swagger)
 								<regexCodeList>
 									<string>Your strength is too sapped to use your fists effectively.</string>
 									<string>Your strength is far too sapped!</string>
-									<string>^Your strength is too sapped to use your fists effectively.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
 									<integer>3</integer>
-									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Strength Returns</name>
-								<script>if snd.swagger == 3 then
-	snd.swagger = 2
-elseif snd.swagger == 2 then
-	snd.swagger = 1
-elseif snd.swagger == 1 then
-	snd.swagger = 0
-end</script>
+								<script>snd.swagger = 0</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
