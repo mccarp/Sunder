@@ -719,8 +719,10 @@ send("firstaid on")</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>A surge of rejuvenating energy floods your system, healing your wounds.</string>
+									<string>You cannot call upon your vitality again so soon.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
