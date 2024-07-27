@@ -6462,6 +6462,48 @@ snd.loyalsattacking = false</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Lifebloom back</name>
+							<script>snd.balance.lifebloom = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may once again gift yourself with lifebloom.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Lifebloom gone</name>
+							<script>snd.balance.lifebloom = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You cannot call upon your lifebloom so soon.</string>
+								<string>The pain of your wounds is suddenly washed away by life-force welling up from within you.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Predator</name>
@@ -58377,6 +58419,7 @@ end
   regenerate = true, --survival regenerate
   smash = true, --luminary smash
   restore = true, --restore/vein for asc/bb
+  lifebloom = true,
 }
 
 snd.waiting = snd.waiting or {
@@ -62484,7 +62527,7 @@ def_alacrity = {defense = "alacrity", type = "normal", effect = "You shoot and t
 def_spiritbond = {defense = "spiritbond", type = "normal", effect = "Share damage with your spirit.", balance = {balanceequilibriumtake = "familiar spiritbond on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spiritbond" },
 def_protection = {defense = "protection", type = "normal", effect = "Resistance to cutting/blunt.", balance = {balanceequilibriumtake = "shaman protection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Protection"},
 def_shaman_spiritsight = {defense = "shaman_spiritsight", type = "normal", effect = "You get loki 2.0.", balance = {balanceequilibriumtake = "shaman spiritsight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Spiritsight" },
-def_lifebloom = {defense = "lifebloom", type = "normal", effect = "Restore HP upon getting low health.", balance = {balanceequilibriumtake = "commune lifebloom"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lifebloom"},
+def_lifebloom = {defense = "lifebloom", type = "normal", effect = "Restore HP upon getting low health.", balance = {balanceequilibriumtake = "commune lifebloom"}, requiredBalance = "lifebloom", state = "down", needit = false, timer = createStopWatch(), skill = "Lifebloom"},
 def_shaman_warding  = {defense = "shaman_warding", type = "normal", effect = "Give mental affs when your parry is hit.", balance = {balanceequilibriumtake = "shaman warding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warding" },
 def_greenfoot  = {defense = "greenfoot", type = "normal", effect = "Bring your nature with you", balance = {balanceequilibriumtake = "nature greenfoot on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Greenfoot"},
 def_oath_durdalis = {defense = "oath_durdalis", type = "normal", effect = "Absorb an elemental attack every 60 sec", balance = {balanceequilibriumtake = "oath durdalis activate"}, state = "down", needit = false, timer = createStopWatch(), skill = "Oaths" },
