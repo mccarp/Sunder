@@ -1197,13 +1197,14 @@ kaiUI.amapSize = 14
 -- color1 is the border color, color2 is the color for active chat tabs, font sizes are self explanatory.
 kaiUI.chat = kaiUI.chat or
   {
-    tabs =   {"All", "Tells", "Local", "Web", "City", "Guild", "Clans", "Order", "Misc",},
+    tabs =   {"All", "Tells", "Local", "Web", "City", "Guild", "Clans", "Order", "Misc","Death"},
     color1 = "DarkSlateBlue",
     color2 = "SlateBlue",
 		fontSize = 10,
 		tabFontSize = 11,
   }
-	
+kaiUI.timestamps = false
+
 -- The colors for the info here window.
 kaiUI.infoHereColors =
   {
@@ -2131,6 +2132,54 @@ local talkerWhitelist = {
   ["a gravitationally distorted figure"] = true,
 }
 
+local function timestamp(chat)
+  if not kaiUI.timestamps then return end
+  chat = chat:lower():title()
+  local timestamp = "&lt;burlywood&gt;"..getTime(true, "hh:mm:ss").." "
+    kaiUI.AllConsole:cecho(timestamp)
+  if chat~="All" then
+    kaiUI[chat.."Console"]:cecho(timestamp)
+  end
+end
+
+function chatAppend(chat)
+  selectCurrentLine()
+  local text = copy2decho()
+  timestamp(chat)
+  kaiUI.AllConsole:decho(text.."\n")
+  if chat:lower()~="all" then
+    kaiUI[chat:lower():title() .. "Console"]:decho(text.."\n")
+  end
+end
+
+function kaiUI.chat.deaths()
+  timestamp("death")
+  local text = ""
+  local killer, victim, assists = gmcp.Deathsight.killer, gmcp.Deathsight.victim, gmcp.Deathsight.assists
+  if sndNDB.highlightNames then
+    text = "&lt;"..sndNDB_getColour(victim).."&gt;"..victim.."&lt;red&gt; was slain by &lt;"..sndNDB_getColour(killer).."&gt;"..killer.."\n"
+  else
+    text = "&lt;red&gt;"..victim .." was slain by "..killer.."\n"
+  end
+  kaiUI.AllConsole:cecho(text)
+  kaiUI.DeathConsole:cecho(text)
+  if assists~="" then
+    local people = string.match(assists, "They were assisted by: (.+)%.\n"):split(", ")
+    local text = "They were assisted by: "
+    for i, person in ipairs(people) do
+      text = text..(sndNDB.highlightNames and "&lt;"..sndNDB_getColour(person).."&gt;" or "")..person
+      if next(people, i) then
+        text = text.."&lt;r&gt;, "
+      end
+    end
+    text = text.."&lt;r&gt;.\n"
+    timestamp("death")
+    kaiUI.AllConsole:cecho(text)
+    kaiUI.DeathConsole:cecho(text)
+  end
+end
+registerAnonymousEventHandler("gmcp.Deathsight", "kaiUI.chat.deaths")
+
 function kaiUI.chat.capture()
 
 --if the text contains this text, don't echo to tabbed chat
@@ -2210,6 +2259,7 @@ function kaiUI.chat.capture()
   -- demonnic.chat:decho(snd.last_channel, text.."\n")
   -- -- enableTrigger("generic capture")
 -- end
+  timestamp(snd.last_channel)
   kaiUI[snd.last_channel .. "Console"]:decho(text.."\n")
   kaiUI.chat.startBlink(snd.last_channel)
   kaiUI.AllConsole:decho(text.."\n")
@@ -2576,8 +2626,9 @@ function kaiUI.onItemsAdd()
     if not kaiUI.itemsSorted then
       sortItems()
     end
-    kaiUI.itemsSorted[item.attrib] = kaiUI.itemsSorted[item.attrib] or {}
-    kaiUI.itemsSorted[item.attrib][item.name] = (kaiUI.itemsSorted[item.attrib][item.name] or 0) + 1
+    local attrib = item.attrib or "none"
+    kaiUI.itemsSorted[attrib] = kaiUI.itemsSorted[attrib] or {}
+    kaiUI.itemsSorted[attrib][item.name] = (kaiUI.itemsSorted[attrib][item.name] or 0) + 1
     kaiUI.writeItemsHere()
   else
     printLine(item.id, item.name, item.attrib, 6)
@@ -2593,11 +2644,12 @@ function kaiUI.onItemsRemove()
     if item2.id == item.id then
       table.remove(kaiUI.itemsHere, index)
       kaiUI.writeItemsHere()
-      if kaiUI.itemsSorted and kaiUI.itemsSorted[item.attrib] then
-        kaiUI.itemsSorted[item.attrib][item.name] =
-          (kaiUI.itemsSorted[item.attrib][item.name] or 0) - 1
-        if kaiUI.itemsSorted[item.attrib][item.name] &lt;= 0 then
-          kaiUI.itemsSorted[item.attrib][item.name] = nil
+      local attrib = item.attrib or "none"
+      if kaiUI.itemsSorted and kaiUI.itemsSorted[attrib] then
+        kaiUI.itemsSorted[attrib][item.name] =
+          (kaiUI.itemsSorted[attrib][item.name] or 0) - 1
+        if kaiUI.itemsSorted[attrib][item.name] &lt;= 0 then
+          kaiUI.itemsSorted[attrib][item.name] = nil
         end
       end
       return
