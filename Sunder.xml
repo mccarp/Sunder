@@ -61181,6 +61181,8 @@ snd.priorities =
     
     "def_diminution",
     "def_putrefaction",
+    "def_tapestry",
+    "def_morisensus",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -62401,7 +62403,7 @@ def_chariot = {defense = "chariot", type = "normal", effect = "+Celerity, +bal f
 def_hierophant = {defense = "hierophant", type = "normal", effect = "Protect against disloyalty.", balance = {balanceequilibriumtake = "fling hierophant at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Hierophant"},
 def_soulcage = {defense = "soulcage", type = "normal", effect = "You come back to life upon death instantly.", balance = {balanceequilibriumtake = "soulcage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Soulcage" },
 def_putrefaction = {defense = "putrefaction", type = "normal", effect = "Cutting/blunt resist.", balance = {balanceequilibriumtake = "putrefaction"}, state = "down", needit = false, timer = createStopWatch(), skill = "Putrefaction"},
-
+def_morisensus = {defense = "morisensus", type = "normal", effect = "Sense people close to death", balance = {balanceequilibriumtake = "morisensus"}, state = "down", needit = false, timer = createStopWatch(), skill = "Morisensus"},
 
 --Luminary
 def_lightshield = {defense = "lightshield", type = "normal", effect = "Light-based damage resistance", balance = {needyequilibriumtake = "evoke lightshield"}, state = "down", needit = false, timer = createStopWatch(), skill = "Lightshield" },
@@ -62437,6 +62439,7 @@ def_cloud = {defense = "cloud", type = "normal", effect = "Every 3rd card is hid
 def_crane = {defense = "crane", type = "normal", effect = "+Celerity, +bal for cards", balance = {balanceequilibriumtake = "unfurl crane at ground"}, state = "down", needit = false, timer = createStopWatch(), skill = "Crane" },
 def_fan = {defense = "fan", type = "normal", effect = "Protect against disloyalty.", balance = {balanceequilibriumtake = "unfurl fan at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fan"},
 def_diminution = {defense = "diminution", type = "normal", effect = "Cutting/blunt resist.", balance = {balanceequilibriumtake = "diminution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Diminution"},
+def_tapestry = {defense = "tapestry", type = "normal", effect = "Sense people close to death", balance = {balanceequilibriumtake = "tapestry"}, state = "down", needit = false, timer = createStopWatch(), skill = "Tapestry"},
 
 --Praenomen
 def_potence_strength = {defense = "potence_strength", type = "normal", effect = "+1 STR", balance = {balanceequilibriumtake = "potence strength"}, state = "down", needit = false, timer = createStopWatch(), skill = "Potence"},
@@ -63446,6 +63449,9 @@ end</script>
   ["Your throat is filled with roiling black fire."] = "blackfire",
   ["Your yellow bile sorcery is enhanced with sickly power."] = "roil",
   ["You have accumulated energy to impede your foes."] = "impediment",
+  
+  ["You may sense those who are near death."] = "tapestry",
+  ["You are able to sense those close to death."] = "morisensus",
 }
  </script>
 							<eventHandlerList />
@@ -79506,6 +79512,7 @@ def_chariot = "on",
 def_eclipse = "on",
 -- def_devilpact = "on",
 def_soulcage = "on",
+def_morisensus = "once",
 },
 
 luminary = {
@@ -79541,6 +79548,7 @@ def_shroud = "on",
 def_fan = "once",
 def_crane = "on",
 def_cloud = "on",
+def_tapestry = "once",
 --def_faerie = "on",
 },
 
@@ -79879,7 +79887,7 @@ function snd.parry()
   	if snd.cureset == "knight" then
   		snd.toparry = "left leg"
   	elseif snd.cureset == "ascendril" then
-  		snd.toparry = "torso"
+  		snd.toparry = "head"
   	elseif snd.cureset == "shifter" and snd.my_limb_damage["head"] &gt;= 33.33 then
   		snd.toparry = "head"
   	else
