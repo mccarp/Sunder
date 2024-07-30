@@ -81827,8 +81827,11 @@ function snd.no_parry()
   "writhe_dartpinned",
  }
  if snd.class == "Sentinel" or snd.class == "Executor" then
+  table.insert(noparryaffs, "confusion")
+ end
+ if snd.cureset == "zealot" then
   table.insert(noparryaffs, "paresis")
- end 
+ end
  if snd.checksomeAffs(noparryaffs, 1) then no_parry = true end
  
  if (snd.limb_dmg["left arm"] &gt;= 33.33) and (snd.limb_dmg["right arm"] &gt;= 33.33) then
@@ -87648,6 +87651,7 @@ function snd.track_focus(target)
     elseif snd.checkAff("mental_fatigue") then
       limit = 7
     end
+    if snd.checkAff("laxity") then limit = limit+2 end
     snd.timers.focus.limit = limit
   end
 end
@@ -87681,6 +87685,7 @@ function snd.track_tree(target)
   if target:lower() == snd.target:lower() then
     snd.timers.tree.start = os.clock()
     local limit = 10
+    if snd.checkAff("laxity") then limit = limit+2 end
     snd.timers.tree.limit = limit
   end
 end
