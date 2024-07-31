@@ -21252,8 +21252,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The static around (\w+) sparks with light, seemingly more alive.$</string>
+									<string>^Crackles of static electricity whisper themselves into existence around (\w+) to hang forebodingly upon the air\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -21274,8 +21276,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The static surrounding (\w+) and .+ feather fetish dissipates\.$</string>
+									<string>^Wafts of ruddy smoke trail from your galvanic compound to engulf (\w+), pinpricks of static electricity blinking ominously into existence in the air around \w+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -21537,6 +21541,28 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The esoteric curse sways your foe - (\w+) is now stricken with (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Vitalbane cured</name>
+								<script>if matches[2] == snd.target then
+  snd.target_cured("vitalbane")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+)'s poisoned vitals have regained their health\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -25445,8 +25471,10 @@ end
 								<string>^(You)r damaged torso twinges as you heave</string>
 								<string>^(You)r blurry vision inhibits your accuracy as you miss\.$</string>
 								<string>^(You)r swing falls short of its target\.$</string>
+								<string>^(\w+) strikes? out clumsily and miss(?:es)? \w+ mark\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
