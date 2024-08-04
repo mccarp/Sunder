@@ -8175,6 +8175,9 @@ end
 
 if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
+  snd.used.shield = false
+  snd.target_cured("barrier")
+  snd.target_cured("dome")
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -8219,6 +8222,9 @@ end
 
 if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
+  snd.used.shield = false
+  snd.target_cured("barrier")
+  snd.target_cured("dome")
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -8252,6 +8258,9 @@ end
 
 if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
+  snd.used.shield = false
+  snd.target_cured("barrier")
+  snd.target_cured("dome")
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -8286,6 +8295,9 @@ end
 
 if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
+  snd.used.shield = false
+  snd.target_cured("barrier")
+  snd.target_cured("dome")
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -8373,6 +8385,9 @@ end
 
 if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
+  snd.used.shield = false
+  snd.target_cured("barrier")
+  snd.target_cured("dome")
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -82750,6 +82765,9 @@ end</script>
                  snd.removeProneStates(true)
                else
                  snd.target_got("writhe_impaled")
+                 snd.last_hit_limb = "torso"
+                 snd.last_limb_dmg = 10
+                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                  snd.theytumbling = false
                  if snd.hitting == "You" then
                   snd.target_impaled = true
@@ -84489,6 +84507,9 @@ end</script>
                  snd.removeProneStates(true)
                else
                  snd.target_got("writhe_impaled")
+                 snd.last_hit_limb = "torso"
+                 snd.last_limb_dmg = 10
+                 snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                  snd.theytumbling = false
                  if snd.hitting == "You" then
                   snd.target_impaled = true
