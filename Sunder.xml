@@ -83841,7 +83841,6 @@ end</script>
               snd.used.shield = false
               snd.used.rebounding = false
               snd.target_cured("barrier")
-              snd.target_cured("dome")
             end,
     Bloodburst = function(target)
       if not snd.checksomeAffs({"hypertension", "hypertension2", "hypertension3"},1) then
@@ -84669,7 +84668,6 @@ end</script>
               snd.used.shield = false
               snd.used.rebounding = false
               snd.target_cured("barrier")
-              snd.target_cured("dome")
             end,
     Engorge = function(target)
       if not snd.checksomeAffs({"hypertension", "hypertension2", "hypertension3"},1) then
