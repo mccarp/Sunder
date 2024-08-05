@@ -83789,7 +83789,7 @@ end</script>
                 snd.last_limb_dmg = snd.last_limb_dmg * 1.05
               end 
               snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-              snd.onhit2({"Dodge","Rebounding","Parry"})
+              snd.onHit2({"Dodge","Rebounding","Parry"})
             end,
     Batter = function(target)
                 snd.last_hit_limb = "head"
@@ -84616,7 +84616,7 @@ end</script>
               snd.last_limb_dmg = snd.last_limb_dmg * 1.05
             end 
             snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-            snd.onhit2({"Dodge","Rebounding","Parry"})
+            snd.onHit2({"Dodge","Rebounding","Parry"})
     end,
     Fitness = function(target)
                 snd.handleFitness()
