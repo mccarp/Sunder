@@ -21974,8 +21974,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^Without conviction, your \w+ empowerment fails to affect (\w+).$</string>
+											<string>^Your strike fails to affect \w+, absent the mark of bimre\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
