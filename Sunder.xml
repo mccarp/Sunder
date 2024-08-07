@@ -36959,7 +36959,9 @@ Fishtick = 0
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Speed up fishing</name>
 					<script>if snd.class == "Archivist" and tonumber(gmcp.Char.Vitals.bio) &gt; 0 then
-	snd.send("bio steroid")
+    snd.send("bio steroid")
+elseif snd.class == "Voidseer" and tonumber(gmcp.Char.Vitals.insight) &gt; 0 then
+    snd.send("void poise")
 end
 Fishtick = 0</script>
 					<triggerType>0</triggerType>
