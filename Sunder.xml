@@ -11055,8 +11055,8 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^The Brand of Ember seared upon (\w+) glows, rippling outward as swelting heat eminates from it\.$</string>
 										<string>^The Brand of Ember seared upon (\w+) glows, rippling outward as sweltering heat emanates from it\.$</string>
+										<string>^The Brand of Ember seared upon (\w+) glows, rippling outward as sweltering heat eminates from it\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -12586,7 +12586,7 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^The howling winds crash into either side of (\w+), flipping .+ over and smashing .+ against the ground\.$</string>
-										<string>^A nauseating jolt runs through (\w+), causing \w+ to smash against the ground\.$</string>
+										<string>^A nauseating jolt runs through (\w+), causing .+ to smash against the ground\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -14851,8 +14851,10 @@ end
 											<string>^Swinging through the air toward (\w+)'s (.+?) with .+, \w+ draws? lines of blood\.$</string>
 											<string>^With a broad sweep of .+, \w+ brings? a crushing blow onto (\w+)'s (.+)\.$</string>
 											<string>^Holding .+ straight in front of \w+, \w+ bash(?:es)? the end into (\w+)'s (.+)\.$</string>
+											<string>^Lunging .+ at (\w+)'s (.+) in a rapid stab, bones snap beneath your grip\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
@@ -32682,10 +32684,12 @@ end</script>
 							<string>You have cleared your axes queue.</string>
 							<string>You are not wielding a handaxe in either of your hands.</string>
 							<string>You have cleared your eqbal queue.</string>
+							<string>You see no 'remains' to take.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
 							<integer>1</integer>
+							<integer>3</integer>
 							<integer>3</integer>
 							<integer>3</integer>
 							<integer>3</integer>
@@ -61962,6 +61966,7 @@ aff_soulbound = {state = "healed", effect = "You gotta run away a bit to cure it
 aff_infernal_explosion = {state = "healed", effect = "You're going to EXPLODE", cures = {}, assess = false, timer = createStopWatch()},
 
 --bulk adding missing affs from afflict list
+aff_ashen_feet = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_backbreak = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_battlelust = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_blackstar = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
