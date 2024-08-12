@@ -12566,6 +12566,33 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Aeroblast prone</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("fallen")
+  if snd.checkAff("torso_broken") then
+    snd.target_got("no_speed")
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The howling winds crash into either side of (\w+), flipping .+ over and smashing .+ against the ground\.$</string>
+										<string>^A nauseating jolt runs through (\w+), causing \w+ to smash against the ground\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -82537,10 +82564,7 @@ end</script>
       end
     end,
     Aeroblast = function(target)
-      snd.target_got("fallen")
-      if snd.checkAff("torso_broken") then
-        snd.target_got("no_speed")
-      end
+      --all effects delayed
     end
   },
   
@@ -82609,10 +82633,7 @@ end</script>
       end
     end,
     Synaptopathy = function(target)
-      snd.target_got("fallen")
-      if snd.checkAff("torso_broken") then
-        snd.target_got("no_speed")
-      end
+      --all effects delayed
     end
   },
   
