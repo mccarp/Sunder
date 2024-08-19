@@ -25545,6 +25545,56 @@ end
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Reflection bop</name>
+							<script>if matches[2] == snd.getting_hit and matches[2] == snd.target then
+  
+  if #snd.last_affs &gt;= 1 then
+    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
+      snd.used.rebounding = true
+    else
+      for i in pairs(snd.last_affs) do
+       snd.target_cured(snd.last_affs[i])
+      end
+    end
+  else
+    for _, aff in pairs(snd.recent_affs) do
+      snd.target_cured(aff)
+    end
+    snd.recent_affs = {}
+  end
+  
+  if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
+    snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
+    snd.last_hit_limb = "none"
+    snd.last_limb_dmg = 0
+  end
+  
+  if snd.skill_being_used == "Overhand" or snd.skill_being_used == "Breach" then
+    snd.lev_gone = false
+  end
+  
+  if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end  
+
+end
+</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^A reflection of (\w+) blinks out of existence\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>200 undo</name>
 							<script>if matches[2] == snd.target and snd.getting_hit == snd.target then
   
@@ -62530,7 +62580,7 @@ def_intoxication = {defense = "intoxication", type = "normal", effect = "You dea
 def_glaciation = {defense = "glaciation", type = "normal", effect = "Cold damage on decay instead of magic.", balance = {balanceequilibriumtake = "glaciation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Glaciation" },
 def_remembrance = {defense = "remembrance", type = "normal", effect = "You come back to life upon death instantly.", balance = {balanceequilibriumtake = "remembrance"}, state = "down", needit = false, timer = createStopWatch(), skill = "remembrance" },
 def_faerie = {defense = "faerie", type = "normal", effect = "Throw 2 cards at once.", balance = {balanceequilibriumtake = "unfurl faerie at ground"}, state = "down", needit = false, timer = createStopWatch(), skill = "Faerie" },
-def_cloud = {defense = "cloud", type = "normal", effect = "Every 3rd card is hidden, sun/moon only.", balance = {balanceequilibriumtake = "unfurl cloud at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cloud" },
+def_cloud = {defense = "cloud", type = "normal", effect = "Every 3rd card is hidden, sun/moon only.", balance = {balanceequilibriumtake = "unfurl cloud at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Cloud", tree = "Hyalincuru"},
 def_crane = {defense = "crane", type = "normal", effect = "+Celerity, +bal for cards", balance = {balanceequilibriumtake = "unfurl crane at ground"}, state = "down", needit = false, timer = createStopWatch(), skill = "Crane" },
 def_fan = {defense = "fan", type = "normal", effect = "Protect against disloyalty.", balance = {balanceequilibriumtake = "unfurl fan at me"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fan"},
 def_diminution = {defense = "diminution", type = "normal", effect = "Cutting/blunt resist.", balance = {balanceequilibriumtake = "diminution"}, state = "down", needit = false, timer = createStopWatch(), skill = "Diminution"},
@@ -81561,7 +81611,7 @@ end</script>
             "gloom",
             "deafness",
           },
-        ["torso"] = {"anorexia", "gorged", "etherflux"},
+        ["torso"] = {"anorexia", "gorged"},
         ["left arm"] = {},
         ["right arm"] = {},
         ["left leg"] = {},
@@ -81577,15 +81627,16 @@ end</script>
         ["right leg"] = {},
       },
   }
+local metaLocation
 
 local function salve(cure, limb)
   for _, aff in ipairs(salveCures[cure][limb]) do
     if aff == "blindness" then
-      if not snd.checkAff("sight") then
+      if not snd.checkAff("sight") and (metaLocation~="skin" or not snd.checksomeAffs({"anorexia","effused_blood"},1)) then
         snd.target_got("sight")
         return
       end
-    elseif aff == "deafness" then
+    elseif aff == "deafness" and (metaLocation~="skin" or not snd.checksomeAffs({"anorexia","effused_blood"},1)) then
       if not snd.checkAff("hearing") then
         snd.target_got("hearing")
         return true
@@ -81603,6 +81654,7 @@ local function salve(cure, limb)
 end
 
 function snd.salveApply(cure, location)
+  metaLocation = location
   if snd.checkAff("burnt_skin") then
     return
   end
