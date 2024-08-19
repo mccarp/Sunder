@@ -12593,6 +12593,28 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Firewhirl shlorp</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("ablaze")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The flames surrounding (\w+) get sucked into a raging whirl of fire as it spins past \w+\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -25545,57 +25567,7 @@ end
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Reflection bop</name>
-							<script>if matches[2] == snd.getting_hit and matches[2] == snd.target then
-  
-  if #snd.last_affs &gt;= 1 then
-    if snd.last_affs[1] == "blaze" or snd.last_affs[1] == "wasi" then
-      snd.used.rebounding = true
-    else
-      for i in pairs(snd.last_affs) do
-       snd.target_cured(snd.last_affs[i])
-      end
-    end
-  else
-    for _, aff in pairs(snd.recent_affs) do
-      snd.target_cured(aff)
-    end
-    snd.recent_affs = {}
-  end
-  
-  if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
-    snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
-    snd.last_hit_limb = "none"
-    snd.last_limb_dmg = 0
-  end
-  
-  if snd.skill_being_used == "Overhand" or snd.skill_being_used == "Breach" then
-    snd.lev_gone = false
-  end
-  
-  if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end  
-
-end
-</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>^A reflection of (\w+) blinks out of existence\.$</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>1</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>200 undo</name>
+							<name>200/reflection undo</name>
 							<script>if matches[2] == snd.target and snd.getting_hit == snd.target then
   
   if #snd.last_affs &gt;= 1 then
@@ -25640,8 +25612,10 @@ end</script>
 								<string>^Effortlessly dismissing the assault, (\w+)'s helix of air whirls in a final defiant typhoon\.$</string>
 								<string>^The corona's searing light devours the attack on (\w+) before consuming itself in the process, dissipating amidst a plume of black smoke\.$</string>
 								<string>^The aegis of the cosmos upon (\w+) sears away the assault, deliquescing to naught\.$</string>
+								<string>^A reflection of (\w+) blinks out of existence\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
