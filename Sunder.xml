@@ -15001,6 +15001,34 @@ end
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Anticipate impale</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("writhe_impaled")
+  if matches[3] == "you" then
+    snd.target_impaled = true
+  end
+  snd.last_hit_limb = "torso"
+  snd.last_limb_dmg = 12.5
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Anticipating (\w+)'s retreat into the skies, (\w+) seizes? \w+ leg in an iron grip and slams? \w+ into the ground with a mighty swing. As \w+ lays winded, \w+ drives? .+ into \w+\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Shared W/C</name>
