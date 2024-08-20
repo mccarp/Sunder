@@ -2057,22 +2057,6 @@ function gmcp_communication()
 
 
   --echo(rawtext)
-  if channel == "web" and snd.toggles.listening and table.contains(snd.callers, talker) then
-    matchText = rawtext:lower()
-    if
-      matchText:find("target:") and
-      not matchText:find("list") and
-      not matchText:find("calling") and
-      not matchText:find("priority") and
-      not matchText:find("removed") and
-      not matchText:find("next")
-    then
-      local check = string.match(matchText, "target: (%w+)%.")
-      if check:lower() ~= snd.target:lower() then
-        expandAlias("t " .. check)
-      end
-    end
-  end
   
   if snd.channel_ignores[channel] then return false end
 

@@ -7087,6 +7087,29 @@ end</script>
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Recall target</name>
+						<script>if snd.toggles.calling and matches[2]:lower()~=snd.target:lower() then
+  snd.message("That's not our current target! Recalling")
+  send("wt Target: "..snd.target)
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\(Web\): You say, "Target: (\w+)\."$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
 				</TriggerGroup>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -38334,6 +38357,13 @@ cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or 
 						<packageName></packageName>
 						<regex>^toggle automount$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Safelistening</name>
+						<script>snd.toggle("safelistening")</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^snd safelistening$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -58473,6 +58503,7 @@ ascendedtype = "none",
 mount = "123456",
 automount = false,
 highlights = true, --npb highlights
+safeListening = true,
 }</script>
 						<eventHandlerList />
 					</Script>
@@ -64519,6 +64550,44 @@ end
 
 registerAnonymousEventHandler("sysMapDownloadEvent", "snd.mapTweaks")
 registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Target listening</name>
+					<packageName></packageName>
+					<script>function snd.targetListening()
+  local event = gmcp.Comm.Channel.Text
+  
+  if event.channel~="web" then return end
+  if not snd.toggles.listening then return end
+  if not table.contains(snd.callers, event.talker) then return end
+  
+  local rawtext = ansi2string(event.text)
+  rawtext = rawtext:gsub(string.char(27) .. [[.-]] .. string.char(4), "")
+
+  matchText = rawtext:lower()
+  if
+    matchText:find("target:") and
+    not matchText:find("list") and
+    not matchText:find("calling") and
+    not matchText:find("priority") and
+    not matchText:find("removed") and
+    not matchText:find("next")
+  then
+    display(rawtext)
+    local check = string.match(matchText, "target: (%w+)%.")
+    display(check)
+    if check:lower() ~= snd.target:lower() then
+      if snd.toggles.safelistening and sndNDB_getCitizenship(check)==gmcp.Char.Status.city and check:lower()~="teflin" then
+        snd.message("Not targeting "..check.." because of safelistening! They're in your city.")
+      else
+        expandAlias("t " .. check)
+      end
+    end
+  end
+end
+
+registerAnonymousEventHandler("gmcp.Comm.Channel.Text", "snd.targetListening")</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
