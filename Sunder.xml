@@ -64574,9 +64574,7 @@ registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")</script>
     not matchText:find("removed") and
     not matchText:find("next")
   then
-    display(rawtext)
     local check = string.match(matchText, "target: (%w+)%.")
-    display(check)
     if check:lower() ~= snd.target:lower() then
       if snd.toggles.safelistening and sndNDB_getCitizenship(check)==gmcp.Char.Status.city and check:lower()~="teflin" then
         snd.message("Not targeting "..check.." because of safelistening! They're in your city.")
