@@ -64058,7 +64058,7 @@ end
 function sndNDB_Remove(name)
 	local person = name:lower():title()
   if npb.t.people[person] then
-    if npb.triggers[person] then
+    if npb.triggers and npb.triggers[person] then
       killTrigger(npb.triggers[person])
     end
     npb.t.people[person] = nil
