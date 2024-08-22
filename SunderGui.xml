@@ -1939,22 +1939,22 @@ registerAnonymousEventHandler("sunder_update_toggles", "snd.updateToggles")</scr
     
 
   if snd.gui.enabled then
-    local colors = {["Enorian"] = "bright_cyan", ["Duiran"] = "a_green", ["Spinesreach"] = "light_violet", ["Bloodloch"] = ""}
-    if sndNDB ~= nil then
-      colors = sndNDB.highlighting
+    local colors = {["enorian"] = "bright_cyan", ["duiran"] = "a_green", ["spinesreach"] = "light_violet", ["bloodloch"] = ""}
+    if npb.t.config.colors ~= nil then
+      colors = npb.t.config.colors
     end
   
     if #enorian &gt;= 1 then
-      enorian_people:cecho("&lt;"..colors["Enorian"].."&gt;&lt;center&gt;" .. table.concat(enorian, "&lt;br&gt;") .. "&lt;/center&gt;")
+      enorian_people:cecho("&lt;"..colors["enorian"].."&gt;&lt;center&gt;" .. table.concat(enorian, "&lt;br&gt;") .. "&lt;/center&gt;")
     end
     if #duiran &gt;= 1 then
-      duiran_people:cecho("&lt;"..colors["Duiran"].."&gt;&lt;center&gt;" .. table.concat(duiran, "&lt;br&gt;") .. "&lt;/center&gt;")
+      duiran_people:cecho("&lt;"..colors["duiran"].."&gt;&lt;center&gt;" .. table.concat(duiran, "&lt;br&gt;") .. "&lt;/center&gt;")
     end
     if #spines &gt;= 1 then
-      spines_people:cecho("&lt;"..colors["Spinesreach"].."&gt;&lt;center&gt;" .. table.concat(spines, "&lt;br&gt;") .. "&lt;/center&gt;")
+      spines_people:cecho("&lt;"..colors["spinesreach"].."&gt;&lt;center&gt;" .. table.concat(spines, "&lt;br&gt;") .. "&lt;/center&gt;")
     end
     if #bloch &gt;= 1 then
-      bloodloch_people:cecho("&lt;"..colors["Bloodloch"].."&gt;&lt;center&gt;" .. table.concat(bloch, "&lt;br&gt;") .. "&lt;/center&gt;")
+      bloodloch_people:cecho("&lt;"..colors["bloodloch"].."&gt;&lt;center&gt;" .. table.concat(bloch, "&lt;br&gt;") .. "&lt;/center&gt;")
     end
   end
 end
