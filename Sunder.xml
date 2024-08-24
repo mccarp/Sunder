@@ -84157,7 +84157,7 @@ end</script>
               	snd.last_limb_dmg = 9
                 enableTrigger("Monk Hit Tracking")
               end,
-    Sweepkick = function(target)
+    Sweep = function(target)
               	snd.target_got("fallen")
                 snd.target_got("sore_ankle")
               end,
