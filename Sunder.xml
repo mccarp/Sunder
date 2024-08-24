@@ -19193,6 +19193,33 @@ disableTrigger("Throatstrike confirmation hit")</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Kaido strike</name>
+								<script>if snd.kaido_strike_dmg then
+  snd.took_limb_dmg("head", snd.kaido_strike_dmg)
+  snd.took_limb_dmg("right leg", snd.kaido_strike_dmg)
+  snd.took_limb_dmg("right arm", snd.kaido_strike_dmg)
+  snd.took_limb_dmg("left leg", snd.kaido_strike_dmg)
+  snd.took_limb_dmg("left arm", snd.kaido_strike_dmg)
+end
+snd.kaido_strike_dmg = nil</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Unrelenting havoc rapidly rips through (\w+)'s body like white-hot electricity, traveling through .+ limbs and into their outermost tips\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Sciomancer/Runecarver</name>
@@ -84237,6 +84264,10 @@ end</script>
     Restoration = function(target)
                     snd.handleRestore()
                   end,
+    Strike = function(target)
+      snd.kaido_strike_dmg = math.floor((snd.limb_dmg.torso/5)*100)/100
+      snd.took_limb_dmg("torso", -snd.limb_dmg.torso)
+    end,
 
   },
   
