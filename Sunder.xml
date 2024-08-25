@@ -84402,6 +84402,9 @@ end</script>
     Strike = function(target)
       snd.kaido_strike_dmg = math.floor((snd.limb_dmg.torso/5)*100)/100
       snd.took_limb_dmg("torso", -snd.limb_dmg.torso)
+      snd.target_cured("torso_mangled")
+      snd.target_cured("torso_broken")
+      snd.limb_status.torso = "healed"
     end,
 
   },
