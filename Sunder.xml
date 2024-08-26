@@ -39731,107 +39731,6 @@ end</script>
 								<packageName></packageName>
 								<regex>^limbs$</regex>
 							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>More In-Depth Quartering</name>
-								<script>--Note, this one is using more than just slashing to do limb damage. So, it's a bit more effective at getting quarters.
-
-local lockMap = {
-  ["left arm"] ="armpit",
-  ["right arm"] = "armpit",
-  ["left leg"] = "thigh",
-  ["right leg"] = "thigh",
-  ["torso"] = "armpit",
-  ["head"] = "neck"
-}
-local strikeMap = {
-  ["left arm"] = "rend left",
-  ["right arm"] = "rend right",
-  ["left leg"] = "hamstring left",
-  ["right leg"] = "hamstring right",
-  ["torso"] = "bodypunch",
-  ["head"] = "skullwhack"
-}
-
-if snd.class == "Shapeshifter" then
-	snd.starting_attack()
-	function snd.attack_function()
- 		if not snd.waiting.queue then
-  		local function feralityConvert(limb)
-    		return strikeMap[limb]
-  		end
-  -- list what limbs to hit
-  		limbs = {"left leg", "right leg", "left arm", "right arm", "head", "torso"}
-			local mangled = "nothing"
-      local crippled = "nothing"
-			local broken = "nothing"
-  		for _, limb in pairs(limbs) do
-	 			if snd.limb_status[limb] == "mangled" and mangled == "nothing" and (snd.parried_limb~= limb or snd.no_parry()) then
-	         if not snd.checkAff("writhe_"..lockMap[limb].."lock") then
-            mangled = limb
-           end
-	 			elseif snd.limb_status[limb] == "broken" and snd.limb_dmg[limb] &lt; 66.66 and broken == "nothing" and (snd.parried_limb~= limb or snd.no_parry()) then
-	  			if string.find(limb, "leg") or string.find(limb, "arm") and snd.parried_limb ~= limb then
-	   				broken = limb
-					end
-	 			end
-  		end  --end of for loop
-      
-  		for _, aff in pairs(snd.target_has) do
-        if string.find(aff, "_crippled") then
-        local limb = aff:gsub("_crippled",""):gsub("_"," ")
-      	if snd.limb_status[limb] == "healed" and snd.parried_limb ~= limb then
-        	crippled = limb
-          break
-        end
-        end
-      end  --end of for loop  
-			
-			if snd.used.shield then
-	 			string = "pounce "..snd.target
-				
-			elseif snd.checksomeAffs({"writhe_thighlock", "writhe_necklock", "writhe_armpitlock"},1) and not snd.jawlocked and hasSkill("Quarter") then -- check if we can jawlock now!
-	 			string = "quarter "..snd.target
-  		elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then -- Checking for Jawlock opertunities
-				string = "jawlock "..lockMap[mangled].." of "..snd.target
-      elseif crippled == "left leg" or crippled =="right leg" and not snd.proned() then
-      	string = "destroy "..crippled.." of "..snd.target
-			elseif broken ~= "nothing" and not snd.jawlocked then
-        string = "mangle "..broken.." of "..snd.target
-      elseif crippled ~= "nothing" and not snd.jawlocked then
-	 			string = "destroy "..crippled.." of "..snd.target
-      else
-	 			left = "nothing"
-	 			right = "nothing"
-	 			for limb in pairs(limbs) do
-	  			if (limbs[limb] ~= snd.parried_limb or snd.no_parry()) and limbs[limb] ~= snd.last_struck_limb then
-		 				if right == "nothing" then
-		  				right = feralityConvert(limbs[limb])
-		 				elseif left == "nothing" then
-		  				left = feralityConvert(limbs[limb])
-		 				end
-					end
-	 			end
-	 			if left == "nothing" then -- we only found one limb to hit
-	  			left = right -- double up!
-	 			end
-	 			string = "combo "..snd.target.." "..left.." "..right
-			end -- end of primary attacking function setup
-				
-  		if string ~= snd.last_attack and not snd.waiting.queue then
-   			snd.last_attack = string
-   			snd.send("qeb "..snd.last_attack)
-   			snd.waiting.queue = true
-   			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  	end--end the actual attack rolling
- 	end --end the main code
-end --end the function
---and sending it to the mud
-snd.attack_function()   
-end -- end the class </script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^quart$</regex>
-							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Damage Offenses</name>
@@ -86222,7 +86121,7 @@ end</script>
         snd.last_hit_limb = "torso"
         snd.last_limb_dmg = 6
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
@@ -86260,7 +86159,7 @@ end</script>
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 6.5
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
@@ -86275,7 +86174,7 @@ end</script>
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 4
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
@@ -86290,7 +86189,7 @@ end</script>
         snd.last_hit_limb = bodypart
         snd.last_limb_dmg = 4.5
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
@@ -86316,7 +86215,7 @@ end</script>
         snd.last_hit_limb = "head"
         snd.last_limb_dmg = 5
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge"})
@@ -86347,7 +86246,7 @@ end</script>
         snd.last_hit_limb = "head"
         snd.last_limb_dmg = 6.5
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         if snd.hitting == "You" and snd.toggles.targetrune then
           snd.last_limb_dmg = snd.last_limb_dmg * 1.05
@@ -86367,7 +86266,7 @@ end</script>
         snd.last_limb_dmg = 1.5
         snd.maybe_affs = {"veinrip"}
         if snd.hitting == "You" and snd.triggered_stance == "Gyanis" then
-          snd.last_limb_dmg = snd.last_limg_dmg + 2
+          snd.last_limb_dmg = snd.last_limb_dmg + 2
         end
         snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
         snd.onHit2({"Parry", "Dodge","Rebounding"})
