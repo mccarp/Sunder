@@ -84489,18 +84489,21 @@ end</script>
                end,
    Armpitlock = function(target)
                   snd.target_got("writhe_armpitlock")
+                  snd.theytumbling = false
                   if snd.hitting == "You" then
                     snd.jawlocked = true
                   end
                 end,
    Thighlock = function(target)
                   snd.target_got("writhe_thighlock")
+                  snd.theytumbling = false
                   if snd.hitting == "You" then
                     snd.jawlocked = true
                   end
                 end,
    Necklock = function(target)
                   snd.target_got("writhe_necklock")
+                  snd.theytumbling = false
                   if snd.hitting == "You" then
                     snd.jawlocked = true
                   end
