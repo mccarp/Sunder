@@ -2865,7 +2865,7 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Unconciousness</name>
+							<name>Uncon and fallover</name>
 							<script>if matches[2] == snd.target then
   snd.target_got("uncon")
   snd.target_got("fallen")
@@ -2883,9 +2883,33 @@ end</script>
 							<regexCodeList>
 								<string>^(\w+) lapses into a state of unconsciousness\.$</string>
 								<string>^(\w+)'s eyes flutter closed and she slumps to the ground, unconscious\.$</string>
+								<string>^Being unconscious, (\w+) falls over\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Uncon no fallover</name>
+							<script>if matches[2] == snd.target then
+  snd.target_got("uncon")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The surging elemancy does its terrifying work as (\w+) loses consciousness\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -16455,8 +16479,10 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^Strands of inky black already swirl loosely around the form of (\w+)\.$</string>
+											<string>^You have already unspooled (\w+), their form beset by strands of inky black\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
