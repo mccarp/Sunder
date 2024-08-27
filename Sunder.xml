@@ -2868,6 +2868,7 @@ end</script>
 							<name>Unconciousness</name>
 							<script>if matches[2] == snd.target then
   snd.target_got("uncon")
+  snd.target_got("fallen")
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -2881,8 +2882,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^(\w+) lapses into a state of unconsciousness\.$</string>
+								<string>^(\w+)'s eyes flutter closed and she slumps to the ground, unconscious\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
