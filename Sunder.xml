@@ -41130,12 +41130,12 @@ function snd.attack_function()
     
         --Can we do this based on number of affs?
 		if snd.aff_count_all() &gt; 8 and not indoors then
-			if not snd.used_rebounding and not snd.highjumped then
+			if not snd.used.rebounding and not snd.highjumped then
 			string = "highjump"
 			elseif snd.highjumped == true then
 				string = "axe dropstrike "..snd.target.." "..tohit[1]
 				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-			elseif snd.used_rebounding then
+			elseif snd.used.rebounding then
 			string = "axe devastate "..snd.target.." "..tohit[1]
 			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
 			end
@@ -83316,7 +83316,7 @@ end</script>
                end
             end,
     Reconstruct = function(target, limb)
-                    snd.took_limb_dmg(limb, -15)
+                    snd.took_limb_dmg(limb, -6)
                   end,
     Gash = function(target, lightly)
             enableTrigger("Weapon Hit Confirmation")
@@ -85541,7 +85541,7 @@ end</script>
                end
             end,
     Rekindle = function(target, limb)
-                    snd.took_limb_dmg(limb, -15)
+                    snd.took_limb_dmg(limb, -6)
                   end,
     Censure = function(target, lenient)
                     enableTrigger("Weapon Hit Confirmation")
