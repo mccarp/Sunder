@@ -50054,14 +50054,14 @@ function snd.attack_function()
                                            -- Swirl is used as we're giving multiple affs that may trigger its special condition
                                            
           if snd.empowerready == true then -- if we can empower, do so to strip clarity
-            string = "affirm branch"..snd.sep.."must foster dread"..snd.sep.."chakra turmoil "..snd.target..snd.sep..biostring
+            string = "affirm branch"..snd.sep.."muse foster dread"..snd.sep.."chakra turmoil "..snd.target..snd.sep..biostring
             
 					else
 						string = "muse foster dread"..snd.sep.."chakra turmoil "..snd.target..snd.sep..biostring
 					end
           
 			else 
-        if snd.health_percent &lt;= 75 and snd.my_impress ~= "Wistfull" then  -- Take advantage of the threshold from star 25/50/75 to give paresis
+        if snd.health_percent &lt;= 75 and snd.my_impress ~= "Wistful" then  -- Take advantage of the threshold from star 25/50/75 to give paresis
 					string = "muse foster wistfull"..snd.sep
 
 				elseif not snd.my_impress == "Spite" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
