@@ -9825,7 +9825,7 @@ end</script>
       snd.target_cured("no_arcane") --Not a real aff.. yet? Just in case.
   end
   if snd.checkAff("whiplash") then
-    snd.took_limb_dmg("head", 6.49)
+    snd.took_limb_dmg("head", 6.5)
   end
 
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
@@ -17486,7 +17486,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 1</name>
 									<script>if matches[2] == snd.target then
-  snd.last_limb_dmg = 2.49
+  snd.last_limb_dmg = 2.5
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.onHit2({"Dodge", "Parry"})
   snd.luminary_crush_first_choice = snd.last_hit_limb
@@ -17511,7 +17511,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crush part 2</name>
 									<script>if snd.getting_hit == snd.target then
-  local amount = 2.49 --buckler/cavalry is 2.49
+  local amount = 2.5 --buckler/cavalry is 2.49
   if matches[1]:find("tower") or matches[1]:find("kite") then
     amount = 12.5
   elseif matches[1]:find("banded") then
@@ -17523,7 +17523,7 @@ end</script>
   
   --We also need to add the difference to the first attack. Since you don't know what shield they're using until part 2, it's a little wonky.
   if amount &gt; 2.5 and snd.luminary_crush_first_choice then -- already good if it's buckler
-    snd.took_limb_dmg(snd.luminary_crush_first_choice, amount-2.49) -- add the amount minus what we've already given
+    snd.took_limb_dmg(snd.luminary_crush_first_choice, amount-2.5) -- add the amount minus what we've already given
     snd.luminary_crush_first_choice = nil
   end
 end
@@ -18207,7 +18207,7 @@ end</script>
 										<string>^(\w+) chokes in \w+ sleep as .+ vomits into \w+ airway\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>0</integer>
+										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -26304,7 +26304,7 @@ disableTrigger("Nocturn Lash")</script>
 								<name>Astral Contaminate</name>
 								<script>if matches[2] == snd.target then
  snd.last_hit_limb = matches[3]
- snd.last_limb_dmg = 10.99
+ snd.last_limb_dmg = 11
  snd.took_limb_dmg(matches[3], snd.last_limb_dmg)
 end
 
@@ -26602,7 +26602,7 @@ end</script>
 										<name>Heelrush 1st hit</name>
 										<script>if multimatches[1][3] == snd.target then
 	snd.last_hit_limb = multimatches[1][4]
-	snd.last_limb_dmg = 5.49
+	snd.last_limb_dmg = 5.5
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end</script>
 										<triggerType>0</triggerType>
@@ -27650,7 +27650,7 @@ end</script>
 										<name>1st hit</name>
 										<script>if multimatches[1][2] == snd.target then
 	snd.last_hit_limb = multimatches[1][4]
-	snd.last_limb_dmg = 5.49
+	snd.last_limb_dmg = 5.5
 	snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end</script>
 										<triggerType>0</triggerType>
@@ -28534,7 +28534,7 @@ end</script>
 									<name>flurry hit</name>
 									<script>if hitting then
  snd.last_hit_limb = matches[3]
- snd.last_limb_dmg = 9.99
+ snd.last_limb_dmg = 10
  snd.took_limb_dmg(matches[3], snd.last_limb_dmg)
 end</script>
 									<triggerType>0</triggerType>
@@ -82544,7 +82544,7 @@ end</script>
                 end,
     Edgekick = function(target)
                  	snd.last_hit_limb = "head"
-                	snd.last_limb_dmg = 3.49
+                	snd.last_limb_dmg = 3.5
                 	snd.took_limb_dmg("head", snd.last_limb_dmg)
                   table.insert(snd.maybe_affs, 1, "crippled_throat")
                   snd.onHit2({"Parry", "Dodge"})
@@ -82677,7 +82677,7 @@ end</script>
                 end,
     Windpipe = function(target)
                  	snd.last_hit_limb = "head"
-                	snd.last_limb_dmg = 3.49
+                	snd.last_limb_dmg = 3.5
                 	snd.took_limb_dmg("head", snd.last_limb_dmg)
                   table.insert(snd.maybe_affs, 1, "crippled_throat")
                   snd.onHit2({"Parry", "Dodge"})
@@ -83273,7 +83273,7 @@ end</script>
                  end,        
         Warrior = function(target, limb)
                      snd.last_hit_limb = limb
-                     snd.last_limb_dmg = 12.49
+                     snd.last_limb_dmg = 12.5
                      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                      enableTrigger("Sunder Parry")
                    end,
@@ -84063,7 +84063,7 @@ end</script>
                  end,
     GutCheck = function(target)
               snd.last_hit_limb = "torso"
-              snd.last_limb_dmg = 13.99
+              snd.last_limb_dmg = 14
               if snd.hitting == "You" and snd.toggles.targetrune then
                 snd.last_limb_dmg = snd.last_limb_dmg * 1.05
               end 
@@ -84072,7 +84072,7 @@ end</script>
             end,
     Batter = function(target)
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 13.99
+                snd.last_limb_dmg = 14
                 if snd.hitting == "You" and snd.toggles.targetrune then
                   snd.last_limb_dmg = snd.last_limb_dmg * 1.05
                 end 
@@ -84198,7 +84198,7 @@ end</script>
             end,
   Bite = function(target, limb)
                  snd.last_hit_limb = limb
-                 snd.last_limb_dmg = 2.49
+                 snd.last_limb_dmg = 2.5
                  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                  enableTrigger("Sunder Parry")
                end,
@@ -84874,7 +84874,7 @@ end</script>
             end,
     Maim = function(target)
                 snd.last_hit_limb = "head"
-                snd.last_limb_dmg = 13.99
+                snd.last_limb_dmg = 14
                 if snd.hitting == "You" and snd.toggles.targetrune then
                   snd.last_limb_dmg = snd.last_limb_dmg * 1.05
                 end 
@@ -84901,7 +84901,7 @@ end</script>
             end,
     Rush = function(target)
             snd.last_hit_limb = "torso"
-            snd.last_limb_dmg = 13.99
+            snd.last_limb_dmg = 14
             if snd.hitting == "You" and snd.toggles.targetrune then
               snd.last_limb_dmg = snd.last_limb_dmg * 1.05
             end 
@@ -85044,7 +85044,7 @@ end</script>
   Assault = function(target, limb)
               if limb ~= nil then
                snd.last_hit_limb = limb
-               snd.last_limb_dmg = 2.49
+               snd.last_limb_dmg = 2.5
                snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
                enableTrigger("Sunder Parry")
               end
@@ -87643,7 +87643,7 @@ end</script>
   }
 local attackDamage = {
   gutsmash = 12,
-  facesmash = 12.99,
+  facesmash = 13,
   batter = 13.75,
   furor = 7.8,
   fracture = 12,
