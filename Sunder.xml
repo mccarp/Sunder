@@ -5895,7 +5895,8 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Fury used</name>
-							<script>snd.balance.fury = false</script>
+							<script>snd.balance.fury = false
+snd.track_fury(tonumber(matches[2]))</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -5907,7 +5908,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^Fury Balance Used: .+ seconds$</string>
+								<string>^Fury Balance Used: (.+) seconds$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -5928,6 +5929,26 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You can bring forth your fury again.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Axe return time</name>
+							<script>snd.track_axes(tonumber(matches[2]))</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^Axe Return Time: (.+) seconds$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
@@ -59364,7 +59385,7 @@ end</script>
   else
     snd.aff_remove("prone")
   end
-  if snd.can_cast() then
+  if snd.can_cast() and (snd.class~="Wayfarer" or snd.can_axe()) then
     snd.last_attack = "none"
   end
   if tonumber(gmcp.Char.Vitals.bleeding) &gt;= 200 then
@@ -59908,6 +59929,10 @@ function snd.can_cast()
   else
     return false
   end
+end
+
+function snd.can_axe()
+  return gmcp.Char.Vitals.wield_left~="empty" or gmcp.Char.Vitals.wield_right~="empty"
 end
 
 function snd.can_tattoo()
@@ -81850,7 +81875,25 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>attack function</name>
 					<packageName></packageName>
-					<script>function snd.attack_function()
+					<script>  local wf_axe_count = {
+    chop = 1,
+    sweep = 1,
+    lacerate = 1,
+    bash = 1,
+    whirlwind = 2,
+    punish = 2,
+    ravage = 2,
+    execute = 2,
+    
+    lob = 1,
+    assault = 1,
+    cripple = 1,
+    carve = 2,
+    devastate = 2,
+    slaughter = 2,
+  }
+
+function snd.attack_function()
   echo("\nYou haven't set up an attack alias yet!")
 end
 
@@ -81874,10 +81917,22 @@ function snd.attack(attack)
   if not snd.pipes_lit and snd.toggles.lighting then
     string = "light pipes" .. snd.sep .. string
   end
+  
   if snd.class == "Wayfarer" then
-    if string:find("slaughter") then
+    local axes = 0
+    local checkString = string:lower()
+    for attack, count in pairs(wf_axe_count) do
+      if checkString:find(attack) then
+        axes = count
+        break
+      end
+    end
+    if axes == 2 then
       snd.send("qeb")
-      snd.send("queue axes " .. string)
+      snd.send("queue axes2 " .. string)
+    elseif axes == 1 and not snd.can_axe() then
+      snd.send("qeb")
+      snd.send("queue axe "..string)
     else
       snd.send("queue axes")
       snd.send("qeb " .. string)
@@ -84721,6 +84776,10 @@ end</script>
     Punish = function(target)
                   enableTrigger("Tenacity Punish")
                   --If only tenacity lines had targetting like others in the combat message
+                end,
+    Ravage = function(target)
+                  snd.target_got("ravaged")
+                  tempTimer(40, function() snd.target_cured("ravaged") end)
                 end,
   },
   ["Wayfaring"] = {
@@ -87942,6 +88001,8 @@ snd.timers.restoration = snd.timers.restoration or {}
 snd.timers.rebounding = snd.timers.rebounding or {}
 snd.timers.induce = snd.timers.induce or {}
 snd.timers.eqbal = snd.timers.eqbal or {}
+snd.timers.fury = snd.timers.fury or {}
+snd.timers.axes = snd.timers.axes or {}
 
 
 for k, _ in pairs(snd.timers) do
@@ -88074,6 +88135,16 @@ function snd.track_eqbal(time)
     snd.timers.eqbal.start = os.clock()
     snd.timers.eqbal.limit = time
   end
+end
+
+function snd.track_fury(time)
+  snd.timers.fury.start = os.clock()
+  snd.timers.fury.limit = time
+end
+
+function snd.track_axes(time)
+  snd.timers.axes.start = os.clock()
+  snd.timers.axes.limit = time
 end
 
 function snd.eqbal_timer_check(timer, time, mode)
