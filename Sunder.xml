@@ -11142,9 +11142,11 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Frostband tick</name>
+									<name>Frostbrand tick</name>
 									<script>if matches[2] == snd.target then
-  snd.target_got("cold")
+  if snd.checkAff("frozen")	then snd.target_got("hypothermia")
+  else snd.target_got("cold")
+  end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -11629,7 +11631,9 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Frostband tick - hema</name>
 									<script>if matches[2] == snd.target then
-  snd.target_got("cold")
+  if snd.checkAff("frozen")	then snd.target_got("hypothermia")
+  else snd.target_got("cold")
+  end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -81054,7 +81058,6 @@ function snd.target_got(affliction)
     if not snd.checkAff("shivering") then affliction = "shivering"
     elseif not snd.checkAff("frigid") then affliction = "frigid"
     elseif not snd.checkAff("frozen") then affliction = "frozen"
-    elseif not snd.checkAff("ice_encased") and snd.checkAff("frostbrand") then affliction = "ice_encased"
     else return
     end
   end
