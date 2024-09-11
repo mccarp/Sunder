@@ -81054,7 +81054,6 @@ function snd.target_got(affliction)
     if not snd.checkAff("shivering") then affliction = "shivering"
     elseif not snd.checkAff("frigid") then affliction = "frigid"
     elseif not snd.checkAff("frozen") then affliction = "frozen"
-    elseif not snd.checkAff("ice_encased") and snd.checkAff("frostbrand") then affliction = "ice_encased"
     else return
     end
   end
