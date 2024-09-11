@@ -60872,6 +60872,8 @@ snd.priorities =
     "def_thirdeye",
     "def_blindness",
     "def_deafness",
+    "def_skywatch",
+    "def_treewatch",
     "def_kola",
     "def_waterbreathing",
     "def_deathsight",
@@ -62552,6 +62554,9 @@ def_rebounding = {defense = "rebounding", type = "blue", effect = "Causes weapon
 def_reflection = {defense = "reflection", type = "blue", effect = "Takes your place for 1 attack", balance = {special = "cast reflection"}, state = "down", needit = false, timer = createStopWatch(), skill = "Reflection"},
 
 --Generic skills or occurs in more than one
+def_treewatch = {defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = {special = "treewatch on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Treewatch"},
+def_skywatch = {defense = "skywatch", type = "normal", effect = "Watch out for fliers", balance = {special = "skywatch on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Skywatch"},
+
 def_nightsight = {defense = "nightsight", type = "normal", effect = "Allows glancing at night", balance = {special = "nightsight on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Nightsight"},
 def_fitness = {defense = "fitness", type = "normal", effect = "Protects from asthma", balance = {balanceequilibriumtake = "fitness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Fitness"},
 def_divert_melee = {defense = "divert_melee", type = "normal", effect = "Protects from melee damage", balance = {special = "divert melee"}, state = "down", needit = false, timer = createStopWatch(), skill = "Jerk"},
@@ -63784,6 +63789,8 @@ end</script>
   
   ["You may sense those who are near death."] = "tapestry",
   ["You are able to sense those close to death."] = "morisensus",
+  ["You are watching the trees for signs of movement."] = "treewatch",
+  ["You are aware of movement in the skies."] = "skywatch",
 }
  </script>
 							<eventHandlerList />
