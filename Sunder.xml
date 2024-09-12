@@ -35,6 +35,7 @@
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>prompt</name>
 					<script>cecho(" &lt;red&gt;[&lt;white&gt;" .. snd.target .. "&lt;red&gt;]")
+raiseEvent("sunder prompt")
 snd.illusion_found = false
 if snd.offense_loaded then
   local msg
@@ -23899,6 +23900,26 @@ disableTrigger("Fury Shatter Second Aff")</script>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Pierce tracking</name>
+								<script>snd.pierced = snd.getting_hit</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You have gained the pierce defence.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -61081,6 +61102,7 @@ snd.priorities =
     -- "aff_writhe_web",
     -- "aff_dazed",
     -- "aff_embedded_axe",
+    "def_dauntless",
     "def_unbending",
     "def_boilingblood",
     "def_insulation",
@@ -62999,6 +63021,8 @@ def_anthem = {defense = "anthem", type = "normal", effect = "Give group extra da
 def_rallied = {defense = "rallied", type = "normal", effect = "Reduce groups willpower and endurance costs", balance = {balanceequilibriumtake = "fury battlechant rally"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
 def_bolstered_morale = {defense = "bolstered_morale", type = "normal", effect = "Give group extra damage", balance = {balanceequilibriumtake = "fury battlechant bolster"}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
 def_battlechant = {defense = "battlechant", type = "normal", effect = "Maintaining a supporting shout", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Battlechant"},
+def_pierce = {defense = "pierce", type = "normal", effect = "Bypass next parry", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Distract"},
+def_dauntless = {defense = "dauntless", type = "normal", effect = "Passive fury gain", balance = {special = "fury dauntless on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Dauntless"},
 
 --Voidseer
 def_erudition = {defense = "erudition", type = "normal", effect = "Erudition defense for Voidseer", balance = {needyequilibriumtake = "pursue erudition"}, state = "down", needit = false, timer = createStopWatch(), skill = "Erudition" },
