@@ -62226,6 +62226,10 @@ aff_barbed_arrow = {state = "healed", effect = "10 stacks kills", cures = {balan
 aff_soulbound = {state = "healed", effect = "You gotta run away a bit to cure it", cures = {}, assess = false, timer = createStopWatch()},
 aff_infernal_explosion = {state = "healed", effect = "You're going to EXPLODE", cures = {}, assess = false, timer = createStopWatch()},
 
+
+aff_hopelessness = {state = "healed", effect = "writhe and tumble stopping", cures = {herb = "eucrasia"}, assess = false, timer = createStopWatch()},
+
+
 --bulk adding missing affs from afflict list
 aff_ashen_feet = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_backbreak = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
