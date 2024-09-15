@@ -32075,8 +32075,10 @@ snd.send(string)</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You cannot do that while mounted.</string>
+								<string>You must dismount first before you can do that.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
