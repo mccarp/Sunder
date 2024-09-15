@@ -56762,6 +56762,7 @@ send(" ")</script>
 "curare",
 "darkshade",
 "hepafarin",
+"jalk",
 "monkshood",
 "oculus",
 "selarnia",
@@ -56810,6 +56811,7 @@ end</script>
 "oleander",
 "voyria",
 "vardrax",
+"jalk",
 }
 for venom in pairs(venoms) do
  snd.send("fc fill "..venoms[venom])
@@ -56846,6 +56848,7 @@ end
   "curare",
   "darkshade",
   "hepafarin",
+  "jalk",
   "monkshood",
   "oculus",
   "selarnia",
