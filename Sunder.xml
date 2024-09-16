@@ -21814,7 +21814,7 @@ snd.message(matches[2].." has been struck by omen!", "dendara")
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Your omen falls [a-z ]+ on (\w+)\.$</string>
+									<string>^Your omen (?:falls lightly on|settles heavily on|falls forcefully on|drops devastatingly onto) (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -83308,6 +83308,8 @@ end</script>
     Omen = function(target)
              snd.incomingomen = true
              snd.message(matches[2].." has an omen incoming in 6 seconds!", "dendara")
+             if snd.omenTimer then killTimer(snd.omenTimer) end
+             snd.omenTimer = tempTimer(12, function() snd.incomingomen = false end) --failsafe
           end,
   },
   
