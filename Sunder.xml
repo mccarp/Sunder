@@ -15027,10 +15027,9 @@ end
 									<regexCodeList />
 									<regexCodePropertyList />
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>New trigger</name>
+										<name>Encircle</name>
 										<script>if matches[2] == snd.target then
-
-
+  snd.onHit2({})
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -15179,7 +15178,8 @@ disableTrigger("Batter Hit Confirmation")</script>
 										<name>Roaring proc</name>
 										<script>if snd.target == matches[2] then
   snd.target_got("fallen")
-end</script>
+end
+</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
@@ -62554,6 +62554,33 @@ end</script>
 							<eventHandlerList />
 						</Script>
 						<Script isActive="yes" isFolder="no">
+							<name>Affliction timers</name>
+							<packageName></packageName>
+							<script>snd.affTimers = snd.affTimers or {}
+snd.affTimers.list = snd.affTimers.list or {}
+
+function snd.affTimers.killAll()
+  for aff, timer in pairs(snd.affTimers.list) do
+    killTimer(timer)
+  end
+  snd.affTimers.list = {}
+end
+
+function snd.affTimers.kill(aff)
+  if snd.affTimers.list[aff] then
+    killTimer(snd.affTimers.list[aff])
+  end
+end
+
+function snd.affTimers.start(aff, time, reset) --reset is true if it'll reset the time on the aff if they already have it
+  if reset or not snd.affTimers.list[aff] or not remainingTime(snd.affTimers.list[aff]) then
+    snd.affTimers.kill(aff)
+    snd.affTimers.list[aff] = tempTimer(time, function() snd.target_cured(aff) end)
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
 							<name>clear</name>
 							<packageName></packageName>
 							<script>
@@ -65356,7 +65383,7 @@ snd.areas = {
 {area = "Spinesreach", level = "globes only", targets = {"a massive elemental"}},
 {area = "the Holy Impire of Sehal", level = "newbie", targets = {"a soulless pixie", "a stern Imp warrior", "a boisterous Imp boy", "a charming Imp girl", "a fluffy white sheep", "a fuzzy grey rabbit"}, items = {}},
 {area = "the Valley of Lodi", level = "newbie", targets = {"a cave bat", "a sheep", "a white hen", "a juvenile wildcat", "an adult wildcat"}, items = {}},
-{area = "the village of Gorshire", level = "newbie", targets = {"a guard pig", "a portly gnome sentry", "a gnome man", "a gnome woman", "a little gnome boy", "a gnome sentry", "a little gnome girl", "a skinny gnome sentry", "a deputy constable", "a lithe weasel", "a large grey goose", "a large gray goose"}, items = {}},
+{area = "the village of Gorshire", level = "newbie", targets = {"a guard pig", "a portly Gnome sentry", "a Gnome man", "a Gnome woman", "a little Gnome boy", "a Gnome sentry", "a little Gnome girl", "a skinny Gnome sentry", "a deputy constable", "a lithe weasel", "a large grey goose", "a large gray goose"}, items = {}},
 {area = "the Tarean Caverns", level = "Newbie", targets = {"a small, black bat", "an unkempt Trog", "a chubby Trog woman", "a rambunctious young Trog", "a hulking Trog man", "a rotting rattlesnake", "an irritable, rabid zebra", "a blood-spattered leopard", "a frothing, manic buffalo", "a gigantic cave bear"}, items = {"a jagged stone shard"}},
 {area = "the Crags", level = "Newbie", targets = {"a light grey stone worm", "a dark grey stone worm", "an infant-like cragling", "a steady cragling", "a vile snatcher", "a hulking snatcher"}, items = {"a dull, irregular gem"}},
 {area = "the village of Rahveir", level = "Newbie", targets = {"a disgustingly warped missionary", "a malevolent poltergeist", "a corrupted spirit"}, items = {"a strange black sphere"}},
@@ -81293,6 +81320,7 @@ function snd.target_cured(affliction)
     --elseif snd.checkAff("no_caloric") then snd.target_cured("no_caloric")
     end
   end 
+  snd.affTimers.kill(aff)
   
 	if snd.checkAff("a_crippled_arm") and (affliction == "right_arm_crippled" or affliction == "left_arm_crippled") and not snd.checkAff(affliction) then
 		affliction = "a_crippled_arm"
@@ -82246,6 +82274,7 @@ end</script>
  for _, timer in pairs(enemyTimers) do
   snd.timers[timer] = {}
  end
+ snd.affTimers.killAll()
  snd.hypno = "none"
  snd.hyp = 0
  snd.last_hypno = 0
