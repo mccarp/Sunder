@@ -82540,7 +82540,7 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
     if all then removals = table.n_union(writhe_table, other_prones)
     else removals = writhe_table
     end
-  for _, v in pairs(removals) do snd.target_cured(v) end
+  for _, v in pairs(removals) do if snd.checkAff(v) then snd.target_cured(v) end end
   
   snd.jawlocked = false
   snd.target_impaled = false
