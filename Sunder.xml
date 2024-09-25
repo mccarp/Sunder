@@ -81717,7 +81717,7 @@ function snd.pendulum(direction)
     if snd.checkAff("sore_wrist") and not snd.checkAff("sore_ankle") then
       snd.target_cured("sore_wrist")
       snd.target_got("sore_ankle")
-    elseif not snd.checkAff("sore_wrist") and snd.checkAff("sore_ankles") then
+    elseif not snd.checkAff("sore_wrist") and snd.checkAff("sore_ankle") then
       snd.target_cured("sore_ankle")
       snd.target_got("sore_wrist")
     end
