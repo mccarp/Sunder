@@ -62254,6 +62254,7 @@ aff_writhe_vines = {state = "healed", effect = "", cures = {writhe = "send"}, as
 aff_writhe_web = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_grappled = {state = "healed", effect = "", cures = {writhe = "send"}, assess = false, timer = createStopWatch()},
 aff_writhe_stasis = {state = "healed", effect = "can't move, can attack", cures = {}, assess = false, timer = createStopWatch()},
+aff_writhe_ice = {state = "healed", effect = "brrrr", cures = {}, assess = false, timer = createStopWatch()},
 
 aff_awakened = {state = "healed", effect = "Some bard nonsense", cures = {}, assess = false, timer = createStopWatch()},
 
@@ -82391,6 +82392,7 @@ function snd.no_parry()
   "writhe_vines",
   "writhe_grappled",
   "writhe_dartpinned",
+  "writhe_ice",
   "uncon",
  }
  if snd.class == "Sentinel" or snd.class == "Executor" then
@@ -82427,6 +82429,7 @@ function snd.proned()
   "writhe_vines",
   "writhe_grappled",
   "writhe_dartpinned",
+  "writhe_ice",
   "fallen",
   "asleep",
  }
@@ -82527,6 +82530,7 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
     "writhe_vines",
     "writhe_grappled",
     "writhe_dartpinned",
+    "writhe_ice",
    }
    
    local other_prones = {
