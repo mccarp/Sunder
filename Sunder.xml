@@ -62367,6 +62367,7 @@ aff_contrition = {state = "healed", effect = "", cures = {}, assess = false, tim
 aff_fragments = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_immobility = {state = "healed", effect = "Can't move", cures = {}, assess = false, timer = createStopWatch()},
 aff_timewarped = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_inaccuracy = {state = "healed", effect = "Reduced accuracy", cures = {}, assess = false, timer = createStopWatch()},
 }
 </script>
 							<eventHandlerList />
