@@ -38451,6 +38451,23 @@ snd.toggle("calling")
 						<regex>^(tpry|toggle parry)$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
+						<name>static parry</name>
+						<script>local map = {
+  ll = "left leg",
+  la = "left arm",
+  rl = "right leg",
+  ra = "right arm",
+  t = "torso",
+  h = "head",
+  a = "auto",
+}
+snd.setStaticParry(map[matches[2]:lower()])
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>(?i)^sp(ll|rl|ra|la|h|t|a)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
 						<name>attack echoes</name>
 						<script>snd.toggle("atkecho")</script>
 						<command></command>
@@ -80413,11 +80430,14 @@ chaos = {
 				<Script isActive="yes" isFolder="no">
 					<name>parrying</name>
 					<packageName></packageName>
-					<script>
+					<script>snd.staticParry = snd.staticParry or "auto"
+
 function snd.parry()
 	local highest = 0
-	snd.toparry = "none"
-  if snd.parry_override then
+  snd.toparry = "none"
+  if snd.staticParry~="auto" then
+    snd.toparry = snd.staticParry
+  elseif snd.parry_override then
     snd.toparry = snd.parry_override()
   else
   	if snd.cureset == "knight" then
@@ -80459,6 +80479,15 @@ function snd.parry()
 		snd.waiting.parry = true
 		tempTimer(snd.delay(), [[snd.waiting.parry = false]])
 	end
+end
+function snd.setStaticParry(limb)
+  snd.staticParry = limb
+  if snd.staticParry ~= "auto" then
+    snd.message("Statically parrying your "..snd.staticParry..". spa to clear it!")
+  else
+    snd.message("Using auto parry!")
+  end
+  snd.core()
 end</script>
 					<eventHandlerList />
 				</Script>
