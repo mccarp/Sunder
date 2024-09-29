@@ -8878,6 +8878,7 @@ end</script>
 								<name>gained shield</name>
 								<script>if matches[2] == snd.target then
  snd.used.shield = true
+ snd.waiting.queue = false
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
