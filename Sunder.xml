@@ -7689,7 +7689,7 @@ end
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^Experience Gained\: (.*) \((\w+)\) \[total\: (.*)\]$</string>
+						<string>^Experience Gained\: (.*) \((.+?)\) \[total\: (.*)\]$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
