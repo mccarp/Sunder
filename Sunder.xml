@@ -39044,8 +39044,11 @@ cecho("\n&lt;red&gt;The use of a generic word (ie 'kelki' instead of 'kelki1234'
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Buy orbs</name>
-					<script>send("outr 4 token"..snd.sep.."trade token for red"..snd.sep.."trade token for blue"..snd.sep.."trade token for yellow"..snd.sep.."trade token for green", false)
-</script>
+					<script>if gmcp.Char.Status.city == "Bloodloch" then
+  send("outr 4 teeth"..snd.sep.."trade tooth for red"..snd.sep.."trade tooth for blue"..snd.sep.."trade tooth for yellow"..snd.sep.."trade tooth for green", false)
+else
+  send("outr 4 token"..snd.sep.."trade token for red"..snd.sep.."trade token for blue"..snd.sep.."trade token for yellow"..snd.sep.."trade token for green", false)
+end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^buyorbs$</regex>
