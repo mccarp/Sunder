@@ -27998,6 +27998,8 @@ end
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>broke</name>
 								<script>if matches[2] == snd.target then
+  snd.target_cured("ravaged")
+  
   snd.target_got(matches[3].." broken")
   if matches[2] == snd.target and matches[3]~= "head" and matches[3] ~= "torso" then
     snd.target_got(matches[3].." crippled")
@@ -28036,8 +28038,9 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>mangled</name>
-								<script>
-if matches[2] == snd.target then
+								<script>if matches[2] == snd.target then
+  snd.target_cured("ravaged")
+  
   snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was mangled!")
   if matches[2] == snd.target then
    snd.last_hit_limb = matches[3]
@@ -81946,6 +81949,9 @@ end</script>
   }
 
 function snd.restoApply(location)
+  if snd.checkAff("ravaged") then
+    snd.affTimers.start("ravaged", 15, true)
+  end
   if snd.checkAff("burnt_skin") and location ~= "torso" then
     return
   end
@@ -82652,7 +82658,7 @@ end</script>
   Sear = function(target)
            snd.target_got("ablaze")
            snd.target_got("angel_seared")
-           tempTimer(15, [[snd.target_cured("angel_seared")]])
+           snd.affTimers.start("angel_seared", 15)
          end,
   
   Strip = function(target, defense)
@@ -82751,7 +82757,7 @@ end</script>
               end,
     Sear = function(target)
              snd.target_got("tree_seared")
-             tempTimer(18.5, [[snd.target_cured("tree_seared")]])
+             snd.affTimers.start("tree_seared", 18.5)
            end,
     Fire = function(target)
              snd.target_got("ablaze")
@@ -83018,7 +83024,7 @@ end</script>
             end,
   Branding = function(target)
              snd.target_got("infernal_seal")
-             tempTimer(125, [[snd.target_cured("infernal_seal")]])
+             snd.affTimers.start("infernal_seal", 125)
            end,
   },
   
@@ -83046,8 +83052,7 @@ end</script>
     end,
     Ashenfeet = function(target)
       snd.target_got("ashen_feet")
-      if ashenfeet_timer then killTimer(ashenfeet_timer) end
-      ashenfeet_timer = tempTimer(180, [[snd.target_cured("ashen_feet")]])
+      snd.affTimers.start("ashen_feet", 180)
     end,
     Conflagrate = function(target)
       snd.target_got("hearing")
@@ -83069,8 +83074,7 @@ end</script>
 
     Direfrost = function(target)
       snd.target_got("direfrost")
-      if direfrostTimer then killTimer(direfrostTimer) end
-      direfrostTimer = tempTimer(180, [[snd.target_cured("direfrost")]])
+      snd.affTimers.start("direfrost", 180)
     end,
     Pressurize = function(target)
       snd.target_got("vertigo")
@@ -83093,13 +83097,16 @@ end</script>
   
   ["Thaumaturgy"] = {
     Branding = function(target, element)
-	  if element == "frost" then
-		snd.target_got("frostbrand")
-	  elseif element == "ember" then
-		snd.target_got("emberbrand")
-	  elseif element == "thunder" then
-		snd.target_got("thunderbrand")
-	  end
+  	  if element == "frost" then
+    		snd.target_got("frostbrand")
+        snd.affTimers.start("frostbrand", 180)
+  	  elseif element == "ember" then
+    		snd.target_got("emberbrand")
+        snd.affTimers.start("emberbrand", 180)
+  	  elseif element == "thunder" then
+  		  snd.target_got("thunderbrand")
+        snd.affTimers.start("thunderbrand", 180)
+  	  end
     end,
   },
   
@@ -83115,8 +83122,7 @@ end</script>
     end,
     Twist = function(target)
       snd.target_got("ashen_feet")
-      if ashenfeet_timer then killTimer(ashenfeet_timer) end
-      ashenfeet_timer = tempTimer(180, [[snd.target_cured("ashen_feet")]])
+      snd.affTimers.start("ashen_feet", 180)
     end,
     Disgorge = function(target)
       snd.target_got("hearing")
@@ -83138,8 +83144,7 @@ end</script>
 
     Frostbite = function(target)
       snd.target_got("frostbite")
-      if frostbiteTimer then killTimer(frostbiteTimer) end
-      frostbiteTimer = tempTimer(180, [[snd.target_cured("frostbite")]])
+      snd.affTimers.start("frostbite", 180)
     end,
     Equilibrium = function(target)
       snd.target_got("vertigo")
@@ -83162,7 +83167,9 @@ end</script>
   
   ["Hematurgy"] = {
     Surfeit = function(target, humour)
+      humour = humour:lower()
       snd.target_got("excess_"..humour)
+      snd.affTimers.start("excess_"..humour, 180)
     end,
   },
   
@@ -83555,7 +83562,7 @@ end</script>
                  
         Despair = function(target)
                    snd.target_got("despair")
-                   tempTimer(15.75, [[snd.target_cured("despair")]])  
+                   snd.affTimers.start("despair", 15.75)
                  end,        
         Warrior = function(target, limb)
                      snd.last_hit_limb = limb
@@ -83703,7 +83710,7 @@ end</script>
   Feast = function(target, fail)
             if not fail then
               snd.target_got("feast")
-      		    tempTimer(19.5, [[snd.target_cured("feast")]])
+      		    snd.affTimers.start("feast", 19.5)
       	      snd.used.paste = false
               snd.target_got("no_paste")
             else
@@ -83733,7 +83740,7 @@ end</script>
                  end,
     Matrix = function(target)
                snd.target_got("matrix")
-               matrix_timer = tempTimer(20.0,[[snd.target_cured("matrix")]])
+               snd.affTimers.start("matrix", 20)
              end,
 
     Circle = function(target)
@@ -83779,13 +83786,7 @@ end</script>
             end,
     Sealing = function(target, shape)
                 snd.target_got(shape.."_sealed")
-                if shape == "square" then
-                  tempTimer(31, [[snd.target_cured("square_sealed")]])
-                elseif shape == "circle" then
-                  tempTimer(31, [[snd.target_cured("circle_sealed")]])
-                elseif shape == "triangle" then
-                  tempTimer(31, [[snd.target_cured("triangle_sealed")]])
-                end
+                snd.affTimers.start(shape.."_sealed", 31)
               end,
     Fork = function(target)
              snd.used.shield = false
@@ -84080,10 +84081,7 @@ end</script>
               snd.used.shield = true
              end,
     Curse = function(target)
-              if not snd.checkAff("slough") then
-                if snd.sloughTimer then killTimer(snd.sloughTimer) end
-                snd.sloughTimer = tempTimer(16, function() snd.target_cured("slough") end)
-              end
+              snd.affTimers.start("slough", 16)
               snd.target_got("slough")
             end,
     Scourge = function(target, where)
@@ -84092,7 +84090,7 @@ end</script>
     
     Trap = function(target)
                 snd.target_got("sand_trapped")
-                tempTimer(30, function() snd.target_cured("sand_trapped") end)
+                snd.affTimers.start("sand_trapped", 30)
               end,
               
     Quicksand = function(target)
@@ -84251,10 +84249,7 @@ end</script>
               snd.used.shield = true
              end,
     Terrors = function(target)
-              if not snd.checkAff("slough") then
-                if snd.sloughTimer then killTimer(snd.sloughTimer) end
-                snd.sloughTimer = tempTimer(16, function() snd.target_cured("slough") end)
-              end
+              snd.affTimers.start("slough", 16)
               snd.target_got("slough")
             end,
     Unseen = function(target, where)
@@ -84266,7 +84261,7 @@ end</script>
               end,
     Snare = function(target)
                 snd.target_got("fog_snared")
-                tempTimer(30, function() snd.target_cured("fog_snared") end)
+                snd.affTimers.start("fog_snared", 30)
               end,
   },
   
@@ -84341,8 +84336,8 @@ end</script>
                 table.insert(snd.maybe_affs, aff[conditional])
               end
               snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Carnifex")
-              if conditional == "knees" then tempTimer(11.5, [[snd.target_cured("crushed_kneecaps")]]) end
-              if conditional == "elbows" then tempTimer(7.5, [[snd.target_cured("crushed_elbows")]]) end
+              if conditional == "knees" then snd.affTimers.start("crushed_kneecaps", 11.5) end
+              if conditional == "elbows" then snd.affTimers.start("crushed_elbows", 7.5) end
             end,
     Doublebash = function(target)
                    enableTrigger("Doublebash Hit Confirmation")
@@ -84686,7 +84681,7 @@ end</script>
                 if conditional == "Numbness" then
                   snd.target_got("numbed_skin")
                   if not table.isMember(gmcp.Room.Info.details, "darkness") then
-                    tempTimer(9.5, [[snd.target_cured("numbed_skin")]])
+                    snd.affTimers.start("numbed_skin", 9.5)
                   end
                 end
     end,   
@@ -85010,7 +85005,7 @@ end</script>
                 end,
     Ravage = function(target)
                   snd.target_got("ravaged")
-                  tempTimer(40, function() snd.target_cured("ravaged") end)
+                  snd.affTimers.start("ravaged", 43)
                 end,
   },
   ["Wayfaring"] = {
@@ -85054,7 +85049,7 @@ end</script>
              enableTrigger("Fury Shatter Second Aff")
              if boosted then
                snd.target_got("muddled")
-               tempTimer(4.9, [[if snd.checkAff("muddled") then snd.target_cured("muddled") end]])
+               snd.affTimers.start("muddled", 4.9)
              end
            end,
     Distract = function(target, boosted)
@@ -85180,8 +85175,8 @@ end</script>
                 table.insert(snd.maybe_affs, aff[conditional])
               end
               snd.onHit2({"Rebounding", "Dodge"}, "Warden")
-              if conditional == "knees" then tempTimer(11.5, [[snd.target_cured("crushed_kneecaps")]]) end
-              if conditional == "elbows" then tempTimer(7.5, [[snd.target_cured("crushed_elbows")]]) end
+              if conditional == "knees" then snd.affTimers.start("crushed_kneecaps", 11.5) end
+              if conditional == "elbows" then snd.affTimers.start("crushed_elbows", 7.5) end
             end,          
     Raze = function(target, defense)
               if defense == "shield" then snd.used.shield = false
@@ -85382,7 +85377,7 @@ end</script>
   Dust = function(target)
            snd.target_got("ablaze")
            snd.target_got("angel_seared") -- needs new aff LUMINARY
-           tempTimer(15, [[snd.target_cured("angel_seared")]])
+           snd.affTimers.start("angel_seared", 15)
          end,
   
   Incisor = function(target, defense)
@@ -85479,7 +85474,7 @@ end</script>
               end,
     Fault = function(target)
              snd.target_got("faulted")
-             tempTimer(18.5, [[snd.target_cured("faulted")]])
+             snd.affTimers.start("faulted",18.5)
            end,
     Spew = function(target)
              snd.target_got("ablaze")
@@ -85566,7 +85561,7 @@ end</script>
                  
         Phantasmagoria = function(target)
                    snd.target_got("despair")
-                   tempTimer(15.75, [[snd.target_cured("despair")]])  
+                   snd.affTimers.start("despair", 15.75)
                  end,        
         Hammer = function(target, limb)
                      snd.last_hit_limb = limb
@@ -85843,7 +85838,7 @@ end</script>
     Exorcism = function(target, fail)
             if not fail then
               snd.target_got("feast")
-      		    tempTimer(19.5, [[snd.target_cured("feast")]])
+              snd.affTimers.start("feast", 19.5)
       	      snd.used.paste = false
               snd.target_got("no_paste")
             else
@@ -85949,7 +85944,7 @@ end</script>
   Exorcism = function(target, fail)
           if not fail then
       		  snd.target_got("feast")
-      		  tempTimer(19.5, [[snd.target_cured("feast")]])
+            snd.affTimers.start("feast", 19.5)
       	    snd.used.paste = false
             snd.target_got("no_paste")
           else
@@ -86006,7 +86001,7 @@ end</script>
              end,
     Armour = function(target)
                snd.target_got("armor_tattoo")
-               tempTimer(10, function() snd.target_cured("armor_tattoo") end)
+               snd.affTimers.start("armor_tattoo", 10)
              end,
     Hourglass = function(target)
                snd.target_got("sleep")
@@ -86637,7 +86632,7 @@ end</script>
         time = time + 2 * tonumber(gmcp.Char.Vitals.apex)
       end
       snd.target_got("goaded")
-      tempTimer(time, function() snd.target_cured("goaded") end)
+      snd.affTimers.start("goaded", time)
     end,
     Mindnumb = function(target)
       snd.setPredatorVenom()
@@ -86668,7 +86663,7 @@ end</script>
                  end,
     Histrionics = function(target)
                snd.target_got("matrix")
-               matrix_timer = tempTimer(20.0,[[snd.target_cured("matrix")]])
+               snd.affTimers.start("matrix", 20)
              end,
     Emanation = function(target, hidden)
               if not hidden then return end
