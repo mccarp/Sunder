@@ -2808,7 +2808,7 @@ end</script>
 							</Trigger>
 						</TriggerGroup>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Paresis</name>
+							<name>Got paresis</name>
 							<script>snd.have_aff("paresis")
 if snd.class == "Zealot" and not snd.swaggered then
     if snd.swagger &lt; 2 then
@@ -17914,7 +17914,7 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>paresis</name>
+									<name>Paresis symptoms</name>
 									<script>if matches[2] == snd.target then
 	snd.target_got("paresis")
 end</script>
@@ -23956,7 +23956,7 @@ disableTrigger("Tenacity Devastate")</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fury Shatter Second Aff</name>
 								<script>if matches[2] == snd.target then
 
@@ -24241,7 +24241,7 @@ end</script>
 								<regexCodeList />
 								<regexCodePropertyList />
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Paresis</name>
+									<name>Squire paresis</name>
 									<script>if matches[2] == snd.target then
   snd.target_got("paresis")
 end</script>
@@ -24263,7 +24263,7 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Haemophilia</name>
+									<name>Squire haemophilia</name>
 									<script>if matches[2] == snd.target then
   snd.target_got("haemophilia")
 end</script>
@@ -24285,7 +24285,7 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>hallucinations</name>
+									<name>Squire hallucinations</name>
 									<script>if matches[2] == snd.target then
   snd.target_got("hallucinations")
 end
@@ -24308,7 +24308,7 @@ end
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>paste</name>
+									<name>Squire paste</name>
 									<script>if matches[2] == snd.target then
 snd.used.paste = false
 snd.target_got("no_paste")
