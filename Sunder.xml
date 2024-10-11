@@ -85610,6 +85610,7 @@ end</script>
           
   
   Rhythm = function(target, conditional)
+            conditional = conditional:lower()
             local rhythm_table = {
             ["one"] = "paresis",
             ["two"] = "shyness",
