@@ -37792,7 +37792,9 @@ cecho("\n&lt;MediumSeaGreen&gt;---------------")
 cecho("\n")
 cecho("\n&lt;ForestGreen&gt;Welcome to &lt;green&gt;Sunder&lt;ForestGreen&gt;! This helpfile is meant to give you an introduction to different things that &lt;green&gt;Sunder &lt;ForestGreen&gt;can do. It will not cover every option entirely, but it will provide the most often used or asked about items a bit more light to show how or when to use them.")
 cecho("\n")
-cecho("\n&lt;ForestGreen&gt;The first thing you should know is the &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;command. You type &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;and &lt;green&gt;Sunder &lt;ForestGreen&gt;will cease whatever it is currently attempting to do, for the most part. Some items may need to be toggled manually depending on the situation, but by and large &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;will keep you from hitting someone or something, or any other number of items.")
+cecho("\n&lt;ForestGreen&gt;The firs thing you should know is the &lt;DeepSkyBlue&gt;?setup &lt;ForestGreen&gt;command. You type &lt;DeepSkyBlue&gt;?setup &lt;ForestGreen&gt;and &lt;green&gt;Sunder &lt;ForestGreen&gt;will run the setup steps. Without this, &lt;green&gt;Sunder &lt;ForestGreen&gt;will not function!")
+cecho("\n")
+cecho("\n&lt;ForestGreen&gt;The second thing you should know is the &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;command. You type &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;and &lt;green&gt;Sunder &lt;ForestGreen&gt;will cease whatever it is currently attempting to do, for the most part. Some items may need to be toggled manually depending on the situation, but by and large &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;will keep you from hitting someone or something, or any other number of items.")
 cecho("\n")
 cecho("\n&lt;MediumTurquoise&gt;The index for the rest of the helpfiles is as such:")
 cecho("\n")
@@ -37801,12 +37803,13 @@ cecho("\n&lt;DeepSkyBlue&gt;PK                    &lt;ForestGreen&gt;Playerkilli
 cecho("\n&lt;DeepSkyBlue&gt;Defenses              &lt;ForestGreen&gt;How to upkeep, turn on/off and customize defenses.")
 cecho("\n&lt;DeepSkyBlue&gt;Ylem                  &lt;ForestGreen&gt;Finding minors and other ylem based information.")
 cecho("\n&lt;DeepSkyBlue&gt;Utilities             &lt;ForestGreen&gt;Vermin, fishing, shops, questing and more.")
-cecho("\n&lt;DeepSkyBlue&gt;War                   &lt;ForestGreen&gt;Helpful aliases for handling war divisions")
+cecho("\n&lt;DeepSkyBlue&gt;War                   &lt;ForestGreen&gt;Helpful aliases for handling war divisions.")
+cecho("\n&lt;DeepSkyBlue&gt;Toggles               &lt;ForestGreen&gt;A list of the available toggles and if they are &lt;DeepSkyBlue&gt;on &lt;ForestGreen&gt;or &lt;SlateGray&gt;off &lt;ForestGreen&gt;.")
 cecho("\n&lt;ForestGreen&gt;Each above entry will point you toward more specific items in each section as needed.")
 cecho("\n")
 cecho("\n&lt;ForestGreen&gt;Use &lt;DeepSkyBlue&gt;sunder help &lt;subject&gt; &lt;ForestGreen&gt;to navigate through everything else.")
 cecho("\n")
-raiseEvent("sunder_update_vitals")
+cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
 </script>
 							<command></command>
 							<packageName></packageName>
@@ -37876,9 +37879,12 @@ cecho("\n&lt;DeepSkyBlue&gt;aa                    &lt;ForestGreen&gt;Make &lt;gr
 cecho("\n                     &lt;ForestGreen&gt; If there is nothing left in the room, this will turn off.")
 cecho("\n&lt;DeepSkyBlue&gt;ff                    &lt;ForestGreen&gt;Want to walk around manually and have Sunder hit things? Use this.")
 cecho("\n                     &lt;ForestGreen&gt; It automatically turns on hitting when it finds a valid target.")
+cecho("\n&lt;DeepSkyBlue&gt;fba &lt;leader&gt;          &lt;ForestGreen&gt;Will start attacking when the leader attacks. Good for duobashing.")
+cecho("\n                     &lt;ForestGreen&gt; NOTE: Does not auto-sync targets. Will be like you entered aa yourself.")
 cecho("\n&lt;DeepSkyBlue&gt;grp &lt;person&gt;          &lt;ForestGreen&gt;Inform &lt;green&gt;Sunder&lt;ForestGreen&gt; of your bashing party.")
 cecho("\n&lt;DeepSkyBlue&gt;grp queen rook pawn   &lt;ForestGreen&gt;Example of adding more than one person.")
 cecho("\n&lt;DeepSkyBlue&gt;orbs                  &lt;ForestGreen&gt;Activate your ylem orbs with one alias!")
+cecho("\n&lt;DeepSkyBlue&gt;buyorbs               &lt;ForestGreen&gt;Buy the four good orbs at once. White orb is lame.")
 cecho("\n&lt;DeepSkyBlue&gt;toggle generic &lt;ForestGreen&gt;Use generic mob type instead of number to bash.")
 cecho("\n")
 cecho("\n")
@@ -38084,53 +38090,29 @@ cecho("\n&lt;ForestGreen&gt;Please note that you do NOT need to utilize the high
 cecho("\n")
 cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
 cecho("\n&lt;MediumSeaGreen&gt;------------")
-cecho("\n&lt;ForestGreen&gt;By default, the name database should be installed when you set everything up. You can either make your own database of names as you go, or check on the discord and see if there's an updated list - you'll probably wind up with 1000+ names!")
+cecho("\n&lt;ForestGreen&gt;By default, the name database should be installed when you set everything up.")
 cecho("\n")
 cecho("\n&lt;CadetBlue&gt;ALIASES")
 cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;sndb settings         &lt;ForestGreen&gt;Shows you current color configuration of everyone.")
-cecho("\n&lt;DeepSkyBlue&gt;sndb hl               &lt;ForestGreen&gt;Toggles the highlighting of names on/off.")
-cecho("\n&lt;DeepSkyBlue&gt;sndb hl &lt;org&gt; &lt;color&gt; &lt;ForestGreen&gt;Change your custom color config per city.")
-cecho("\n&lt;DeepSkyBlue&gt;As a note --          Enemy highlighting isn't functional yet but is being worked on.")
-cecho("\n&lt;DeepSkyBlue&gt;qwp                   &lt;ForestGreen&gt;Parse the who list to add new names.")
-cecho("\n&lt;DeepSkyBlue&gt;whois &lt;person&gt;        &lt;ForestGreen&gt;Shows basic info like level and class. Currently disabled.")
-cecho("\n&lt;tomato&gt;Please don't use this to metagame. Self police.")
-cecho("\n&lt;DeepSkyBlue&gt;honors &lt;person&gt;       &lt;ForestGreen&gt;Update one individual person. Not as useful due to API changes.")
-cecho("\n&lt;DeepSkyBlue&gt;sndb clearout         &lt;ForestGreen&gt;Remove unranked/people below level 50.")
-cecho("\n&lt;DeepSkyBlue&gt;sndb redo             &lt;ForestGreen&gt;Re-check everyone in the database.")
+cecho("\n&lt;DeepSkyBlue&gt;pb help                &lt;ForestGreen&gt;Pull up the help file for the phone book.")
+cecho("\n&lt;DeepSkyBlue&gt;pb settings            &lt;ForestGreen&gt;Shows you current color configuration of everyone.")
+cecho("\n&lt;DeepSkyBlue&gt;pb hl                  &lt;ForestGreen&gt;Toggles the highlighting of names on/off.")
+cecho("\n&lt;DeepSkyBlue&gt;pb hl &lt;org&gt; &lt;color&gt;    &lt;ForestGreen&gt;Change your custom color config per city.")
+cecho("\n&lt;DeepSkyBlue&gt;pbu                    &lt;ForestGreen&gt;Update and honor people from qw/qwho.")
+cecho("\n&lt;DeepSkyBlue&gt;pb set &lt;person&gt; &lt;city&gt; &lt;ForestGreen&gt;Set someone's city manually.")
+cecho("\n&lt;DeepSkyBlue&gt;pb remove &lt;person&gt;     &lt;ForestGreen&gt;Remove a person from the phonebook.")
+cecho("\n&lt;DeepSkyBlue&gt;pbh &lt;person&gt;           &lt;ForestGreen&gt;Update one individual person.")
+cecho("\n&lt;DeepSkyBlue&gt;cw/cwho                &lt;ForestGreen&gt;Record everyone currently online from your city.")
+cecho("\n&lt;DeepSkyBlue&gt;qws                    &lt;ForestGreen&gt;Displays a qw list, sorted by city.")
+cecho("\n&lt;DeepSkyBlue&gt;pb enable              &lt;ForestGreen&gt;Turn on highlighting.")
+cecho("\n&lt;DeepSkyBlue&gt;pb disable             &lt;ForestGreen&gt;Turn off highlighting.")
 cecho("\n")
-cecho("\n&lt;ForestGreen&gt;There are some more functions in the scripts for use in your code for checking city/class/if they exist in the database etc.")
-
-cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")
-
---[[
-sndb settings - Shows basic settings information
-sndb install - Initial install alias, otherwise unused
-
-sndb hl - Highlight Names
-sndb hl (org) (colour) - Change highlighting of a particular city
-sndb hlprio (org|enemies) - Change highlight priority between cities/enemies
-sndb ehl (i|u|b) - Change format of enemy highlighting (italics/bold/underline)
- -- Enemy highlighting isn't functional yet but is being worked on.
-
-qwp - Parse online people. As a failsafe, it won't print if there's unchecked people. Just use it again once it's checked them.
-whois (person) - Prints information pertaining to a person.
-honours (person) - Will honours as per usual, but also check them via API.
-sndb clearout - Remove unranked/low level people (under 50).
-sndb redo - Will re-honours everyone currently in the database.
-
-
-sndNDB_getColour(person) - Useful for highlighting; will return the colour of the person's city.
-sndNDB_Exists(person) - Will tell you if they're tracked by the NDB yet.
-
-sndNDB_getClass(person)
-sndNDB_getCitizenship(person) - Both self-explanatory.
-sndNDB_isCitizenOf(city, person) - Will return true if they're a citizen of X city.
-
-]]</script>
+cecho("\n&lt;ForestGreen&gt;There are some more functions in the scripts for use in your code for checking city if they exist in the database etc.")
+cecho("\n")
+cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")</script>
 							<command></command>
 							<packageName></packageName>
-							<regex>^(S|s)under (H|h)elp (N|n)amedb$</regex>
+							<regex>^(S|s)under (H|h)elp (P|p)(B|b)$</regex>
 						</Alias>
 						<Alias isActive="yes" isFolder="no">
 							<name>Sunder Utilities Index</name>
@@ -38145,9 +38127,10 @@ cecho("\n&lt;DeepSkyBlue&gt;Shops                &lt;ForestGreen&gt;Quick aliase
 cecho("\n&lt;DeepSkyBlue&gt;Fluidcache           &lt;ForestGreen&gt;Aliases to consume and fill vials/rags/bandages!")
 cecho("\n&lt;DeepSkyBlue&gt;Who                  &lt;green&gt;Sunder's &lt;ForestGreen&gt;WHO parsing system and how it works!")
 cecho("\n&lt;DeepSkyBlue&gt;Questing             &lt;ForestGreen&gt;Helpful questing aliases (no more pesky kestrels following you around!)")
-cecho("\n&lt;DeepSkyBlue&gt;Namedb               &lt;ForestGreen&gt;All the commands for the databse.")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-</script>
+cecho("\n&lt;DeepSkyBlue&gt;PB                   &lt;ForestGreen&gt;All the commands for the name databse.")
+cecho("\n&lt;DeepSkyBlue&gt;find my profile      &lt;ForestGreen&gt;Locate the directory for your profile.")
+cecho("\n")
+cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")</script>
 							<command></command>
 							<packageName></packageName>
 							<regex>^(S|s)under (H|h)elp (U|u)tilities$</regex>
@@ -38306,12 +38289,13 @@ cecho("\n&lt;MediumSeaGreen&gt;-------")
 cecho("\n&lt;DeepSkyBlue&gt;defup                 &lt;ForestGreen&gt;Turn on automatic defense upkeep of defenses.")
 cecho("\n&lt;DeepSkyBlue&gt;kd &lt;defname&gt;          &lt;ForestGreen&gt;Toggle a specific defense upkeep on/off.")
 cecho("\n")
-cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; also has the built in capability to utilize the antiquated artifact goggles, making a number of defs instantaneous and without cost.")
+cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; also has the built in capability to utilize the antiquated artifact goggles, making a number of defs instantaneous and without cost, and antiquated artifacts gauntlets.")
 cecho("\n")
 cecho("\n&lt;DeepSkyBlue&gt;toggle goggles        &lt;ForestGreen&gt;Toggle Sunder using goggles or not.")
 cecho("\n&lt;DeepSkyBlue&gt;mygoggles #           &lt;ForestGreen&gt;Tell Sunder what level your goggles are set to.")
+cecho("\n&lt;DeepSkyBlue&gt;mygauntlet #          &lt;ForestGreen&gt;Tell Sunder what level your gauntlet is set to.")
 cecho("\n")
-cecho("\n")</script>
+cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
 							<command></command>
 							<packageName></packageName>
 							<regex>^(S|s)under (H|h)elp (D|d)efenses$</regex>
@@ -38335,7 +38319,8 @@ cecho("\n&lt;DeepSkyBlue&gt;atlc&lt;ForestGreen&gt;                  Clears your
 cecho("\n&lt;DeepSkyBlue&gt;atr&lt;ForestGreen&gt;                   Remove a singular target from your list.")
 cecho("\n")
 cecho("\n&lt;DeepSkyBlue&gt;nt&lt;ForestGreen&gt;                    Manually skip to the next target in line.")
-cecho("\n")</script>
+cecho("\n")
+cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
 							<command></command>
 							<packageName></packageName>
 							<regex>^(S|s)under (H|h)elp (C|c)alling$</regex>
@@ -57470,7 +57455,9 @@ cecho("\n&lt;DeepSkyBlue&gt;mt &lt;dir&gt;                       &lt;ForestGreen
 cecho("\n&lt;DeepSkyBlue&gt;war kill &lt;enemyDivision&gt;       &lt;ForestGreen&gt;Start the slaughter")
 cecho("\n&lt;DeepSkyBlue&gt;war fort                       &lt;ForestGreen&gt;Order your division to fortify")
 cecho("\n&lt;DeepSkyBlue&gt;war order &lt;order&gt;              &lt;ForestGreen&gt;General catchall, will order your division anything you give it")
-cecho("\n&lt;DeepSkyBlue&gt;War package created by &lt;purple&gt;Teflin Vyktaire")</script>
+cecho("\n&lt;DeepSkyBlue&gt;War package created by &lt;purple&gt;Teflin Vyktaire")
+cecho("\n")
+cecho("\n&lt;MediumSeaGreen&gt;---------------------------------------")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^(S|s)under (H|h)elp (W|w)ar$</regex>
