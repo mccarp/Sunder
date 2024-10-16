@@ -38744,6 +38744,14 @@ cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or 
 						<packageName></packageName>
 						<regex>^bcl$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Mono mode</name>
+						<script>snd.toggles.monomode = matches[2]
+snd.message("Mono mode: "..snd.toggles.monomode)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^monomode (on|off|calling)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Misc</name>
@@ -38798,7 +38806,7 @@ end</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>directions</name>
-						<script>if snd.toggles.calling and not snd.toggles.fasthunt and snd.class~="Ravager" and snd.class~="Zealot" then
+						<script>if (snd.toggles.monomode == "on" or (snd.toggles.monomode =="calling" and snd.toggles.calling)) and not snd.toggles.fasthunt and snd.class~="Ravager" and snd.class~="Zealot" then
  snd.send("qeb get monolith"..snd.sep..matches[2]..snd.sep.."drop monolith")
 else
  snd.send("qeb "..matches[2])
@@ -54489,7 +54497,7 @@ end</script>
    snd.send("firstaid elevate paresis")
   end
   snd.send("undefend")
-  snd.send("qeb get monolith"..snd.sep.."get monolith"..snd.sep.."phantasm sidestep")
+  snd.send("qeb get monolith"..snd.sep.."get monolith"..snd.sep.."phantasm sidestep phantasm")
 end</script>
 								<command></command>
 								<packageName></packageName>
@@ -58791,6 +58799,8 @@ mount = "123456",
 automount = false,
 highlights = true, --npb highlights
 safeListening = true,
+bcalling = false,
+monomode = "calling",
 }</script>
 						<eventHandlerList />
 					</Script>
