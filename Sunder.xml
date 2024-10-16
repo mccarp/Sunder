@@ -7269,7 +7269,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Recall target</name>
-						<script>if snd.toggles.calling and matches[2]:lower()~=snd.target:lower() then
+						<script>if snd.toggles.calling and matches[2]:lower()~=snd.target:lower() and matches[2]:lower()~=snd.bashing.target:lower() then
   snd.message("That's not our current target! Recalling")
   send("wt Target: "..snd.target)
 end</script>
@@ -38735,6 +38735,14 @@ cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or 
 						<command></command>
 						<packageName></packageName>
 						<regex>^snd safelistening$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Bashing target calling</name>
+						<script>snd.toggle("bcalling")
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^bcl$</regex>
 					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
@@ -77440,7 +77448,7 @@ function snd.runBasher()
       snd.bashing.target = targetID
     end
     if snd.bashing.target ~= snd.bashing.old_target then
-      --if snd.toggles.calling then snd.send("wt target: "..snd.bashing.target) end --comment this out to keep from calling web targets
+      if snd.toggles.bcalling then snd.send("wt target: "..snd.bashing.target) end --comment this out to keep from calling web targets
       snd.bashing.old_target = snd.bashing.target
     end
   else
@@ -77454,11 +77462,11 @@ function snd.runBasher()
   snd.probed = false
   snd.punisher = false
   if
-    snd.toggles.calling and
+    snd.toggles.bcalling and
     snd.bashing.old_target ~= snd.bashing.target and
     snd.bashing.target ~= "none"
   then
-    --snd.send("wt target: " .. snd.bashing.target)  -- comment this out to keep from calling web targets
+    snd.send("wt target: " .. snd.bashing.target)  -- comment this out to keep from calling web targets
   end
   snd.core()
 end</script>
