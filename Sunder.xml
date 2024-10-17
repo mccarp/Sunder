@@ -84804,18 +84804,12 @@ end</script>
     Flay = function(target, condition)
              enableTrigger("Syssin Hit Confirmation")
              snd.used.shield = false
-             if condition:find("rebounding") then
-                snd.used.rebounding = false
-             end
-             if condition:find("fangbarrier") then
-                snd.used.rebounding = false
-                snd.used.paste = false
-             end
-             if condition:find("speed") then
-                snd.used.rebounding = false
-                snd.used.paste = false
-                snd.target_got("no_speed")
-             end
+             if condition == "shield" then return end
+             snd.used.rebounding = false
+             if condition == "rebounding" then return end
+             snd.used.paste = false
+             if condition == "fangbarrier" then return end
+             snd.target_got("no_speed")
             end,
     Slit = function(target)
                   enableTrigger("Syssin Hit Confirmation")
