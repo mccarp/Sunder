@@ -27128,39 +27128,6 @@ end</script>
 									</Trigger>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Purification Heatspear</name>
-									<script>if matches[2] == snd.target then
-	snd.target_got("heatspear")  
-  if snd.flamestack ~= 12  and snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack + 1
-  end
-end
-if snd.class == "Zealot" and matches[2] == snd.target  then
-  if snd.flamestack == 12 and snd.checkAff("ablaze")  then 
-    snd.immolation_ready = true
-  else
-    snd.immolation_ready = false
-  end
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^\w+ uses? Purification Heatspear on (\w+)\.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>No Flames</name>
 									<script>if matches[2] == snd.target then
   if snd.checkAff("ablaze") then
