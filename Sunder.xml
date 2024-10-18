@@ -8613,6 +8613,9 @@ end</script>
 							<name>got hit</name>
 							<script>--local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = matches[3]
+  local skillname = matches[3]:lower().." "..matches[4]:lower()
+  if snd.assistSkills[skillname] then return end
+    
   if table.contains(snd.cureset_skills, skill) then
     found_set = "none"
     for set in pairs(snd.cureset_skills) do
@@ -8651,7 +8654,7 @@ end</script>
 							<colorTriggerFgColor>#ff0000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) uses (\w+) .+ on you\.$</string>
+								<string>^(\w+) uses (\w+) (\w+).* on you\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -60902,6 +60905,52 @@ end</script>
 						<script>function snd.sepf(...)
   return table.concat(arg, snd.sep)
 end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Support Skills</name>
+						<packageName></packageName>
+						<script>snd.assistSkills = {
+["ancestry intercept"]= true,
+["deathlore soulshield"]= true,
+
+["arcanism vivacity"]= true,
+["esoterica acumen"]= true,
+
+["sorcery sagacity"]= true,
+["runecarving mysticism"]= true,
+
+["arcanism reflection"]= true,
+["esoterica geminate"]= true,
+["sorcery reflection"]= true,
+["runecarving branch"]= true,
+
+["hyalincuru flower"]= true,
+["tarot priestess"]= true,
+
+["hyalincuru fire"]= true,
+["tarot fool"]= true,
+
+["hyalincuru cube"]= true,
+["tarot magician"]= true,
+
+["inundation blanket"]= true,
+["desiccation spire"]= true,
+
+["inundation harden"]= true,
+["desiccation shield"]= true,
+
+["battlefury defend"]= true,
+["riving juxtapose"]= true,
+
+["weaving patchwork"] = true,
+
+["spirituality aura"] = true,
+["subjugation ribcage"] = true,
+
+["devotion hands"] = true,
+["apocalyptia reinforce"] = true,
+}</script>
 						<eventHandlerList />
 					</Script>
 				</ScriptGroup>
