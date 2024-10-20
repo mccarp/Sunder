@@ -23496,6 +23496,44 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Templar Scythe</name>
+									<script>if matches[2] == snd.target then
+  snd.onHit2({"Rebounding", "Dodge"}, "Templar2h")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ attacks (\w+) with a reaping blow of .+\.$</string>
+										<string>^With a sweeping slash of .+, \w+ wounds (\w+)\.$</string>
+										<string>^Whirling .+, \w+ carves open (\w+)\.$</string>
+										<string>^\w+ rips open (\w+) with a cut from .+\.$</string>
+										<string>^\w+ hacks up (\w+) with a strike from .+\.$</string>
+										<string>^\w+ drives .+ downward into (\w+)\.$</string>
+										<string>^Swinging .+ in a curving blow, \w+ wounds (\w+)\.$</string>
+										<string>^Bracing .+, \w+ scores (\w+) with an arcing slice\.$</string>
+										<string>^\w+ pulls .+ into an upswing, splitting (\w+) open\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Anguish used</name>
