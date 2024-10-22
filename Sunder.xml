@@ -9865,7 +9865,7 @@ end</script>
   if potion == "levitation" then
       snd.lev_gone = false
   elseif potion == "infusion" then
-      snd.target_cured("etherflux")
+      snd.target_used("infusion")
   elseif potion == "mana" then
       snd.vital_change("mana", 25)
   elseif potion == "health" then
@@ -81135,7 +81135,10 @@ anabiotic = {
 "plodding",
 "idiocy",
 },
-
+infusion = {
+  "etherflux",
+  "squelched",
+},
 opiate = {
 "paralysis",
 "paresis",
@@ -81249,7 +81252,6 @@ yarrow = {
 "withering",
 "disfigurement",
 "migraine",
-"squelched"
 },
 
 epidermal_torso = {
