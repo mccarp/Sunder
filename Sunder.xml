@@ -15928,10 +15928,12 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Wheel affs</name>
 										<script>if matches[2] == snd.target then
-  local toParse = matches[3]
-  toParse = toParse:gsub("and", ""):gsub(",", ""):gsub("  ", " ")
-  for aff in toParse:gmatch('([^ ]+)') do
-    snd.target_got(aff)
+  local affs = matches[3]
+  affs = affs:gsub(" and ", ", ")
+  affs = affs:gsub(",,", ",")
+  affs = affs:split(", ")
+  for _, aff in ipairs(affs) do
+   snd.target_got(aff)
   end
 end</script>
 										<triggerType>0</triggerType>
@@ -15967,7 +15969,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^The (\w+) affliction is absorbed from (\w+) as tribute to the Wheel\.$</string>
+											<string>^The (.+) affliction is absorbed from (\w+) as tribute to the Wheel\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -17173,6 +17175,28 @@ end
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Cardinal aff cure</name>
+										<script>if matches[3] == snd.target then
+  snd.target_cured(matches[2])
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The (.+) affliction lifts from (\w+), stolen away to further empower the circling cardinal\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
