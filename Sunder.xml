@@ -26428,14 +26428,17 @@ disableTrigger("Titan Spear")</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Tiarna Shear</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = 11
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
-disableTrigger("Tiarna Shear")</script>
+disableTrigger("Tiarna Shear")
+
+
+</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -26447,8 +26450,8 @@ disableTrigger("Tiarna Shear")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^Shimmering wisps of energy surround \w+ as a connection forms between \w+ spirit and that of the bear. An ursine outline encircles \w+ and, with a deafening roar, \w+ claws? the flesh from (\w+)'s (.+)\.$</string>
-									<string>^Shimmering energy surrounds \w+ as \w+ concentrates?\. Moments later, .+ encircled by the outline of a great bear and, with a deafening roar, \w+ claws? the flesh from (\w+)'s (.+)\.$</string>
+									<string>^Verdant energy spills along \w+'s arm, expanding its proportions to that of a mighty bear's\. Transformed into an instrument of Her vengeance, \w+ mauls (\w+)'s (.+) with gleaming claws, rendering flesh to bloodied ribbon\.$</string>
+									<string>^Verdant energy spills along your arm, suffusing it with ursine fury. Transformed into an instrument of Her vengeance, you maul (\w+)'s (.+) with gleaming claws, rendering flesh to bloodied ribbon\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -26625,8 +26628,10 @@ end</script>
 									<string>^\w+ sweeps? a cowl of darkness across \w+ shoulders, gathering the force of night about \w+ before lashing outward toward (\w+) in a chiaroscuro coil of stygian shadow and starry scintillation, tainting \w+ with (\w+).$</string>
 									<string>^Volatile black energy wreathes .+ fingertips as \w+ thrusts? them into (\w+), imparting (\w+) within \w+\.$</string>
 									<string>^Drawing tendrils of raw power from \w+ very body, \w+ weaves? the four elements into an atrophic vortex and turns it loose upon (\w+), observing impassively as the forces assail \w+ with (\w+)\.$</string>
+									<string>^With a simple gesture, you command a swarming hive of enraged bees, marking (\w+) as the unfortunate victim. The bees surround .+, stinging .+ exposed flesh and afflicting .+ with (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -61652,7 +61657,7 @@ snd.priorities =
     "def_tiarna_presence",
     "def_tiarna_shelter",
     "def_tiarna_shelter_stored",
-    "def_tiarna_unleash",
+    "def_tiarna_chimerism",
     
     "def_aetherial_bastion",
     "def_aetherial_presence",
@@ -63343,7 +63348,7 @@ def_glacian_twilight = {defense = "glacian_twilight", type = "normal", effect = 
 def_tiarna_form = {defense = "tiarna_form", type = "normal", effect = "Rustle rustle", balance = {balanceequilibriumtake = "rhythm thrum brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_bulwark = {defense = "tiarna_bulwark", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "tiarna_bulwark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_presence = {defense = "tiarna_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "tiarna presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_tiarna_unleash = {defense = "tiarna_unleash", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "tiarna unleash on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_chimerism = {defense = "tiarna_chimerism", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "tiarna chimerism on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_shelter = {defense = "tiarna_shelter", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "tiarna shelter"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_shelter_stored = {defense = "tiarna_shelter_stored", type = "normal", effect = "Raises shelter when &lt;40% health", balance = {balanceequilibriumtake = "tiarna shelter store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_store = {defense = "tiarna_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -63930,7 +63935,7 @@ end</script>
   ["Nature's protective shelter watches over you."] = "tiarna_shelter",
   ["Nature's shelter will come to your rescue."] = "tiarna_shelter_stored",
   ["You are attuned to the Grove of Isolation."] = "tiarna_store",
-  ["The savage fury of the wilds will echo your attacks."] = "tiarna_unleash",
+  ["The savage fury of the wilds will echo your attacks."] = "tiarna_chimerism",
   
   --Aetherial
   ["The bastion of Tharbar and Shenna is with you."] = "aetherial_bastion",
@@ -80621,7 +80626,7 @@ tiarna = {
   def_tiarna_cultivation = "on",
   def_tiarna_presence = "on",
   def_tiarna_shelter_stored = "once",
-  def_tiarna_unleash = "on",
+  def_tiarna_chimerism = "on",
 },
 glacian = {
   def_glacian_penumbra = "on",
@@ -86302,6 +86307,8 @@ end</script>
       snd.hamartia_used = true
       if shield then
         snd.used.shield = false
+      elseif #snd.maybe_affs&gt;=1 then
+        snd.onHit2({})
       end
     end,    
     Unmask = function(target)
@@ -86351,12 +86358,14 @@ end</script>
  Omission = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
    
   ["Tiarna"] = {
-  Inculcate = function(target)
+  Malison = function(target)
             if snd.checkAff("magic_weakness") and snd.checkAff("fire_weakness") then
               snd.target_got("slickness")
               snd.target_got("disfigurement")
@@ -86368,16 +86377,18 @@ end</script>
            end
          end,
          
- Shear = function(target)
+ Savage = function(target)
           enableTrigger("Tiarna Shear")
           enableTrigger("Sunder Parry")
           if #snd.maybe_affs &gt;= 1 then
-            snd.onHit2({"Parry",})
+            snd.onHit2({"Parry","Dodge"})
           end
          end,
  Hive = function(target, shield)
         if shield then
           snd.used.shield = false
+        elseif #snd.maybe_affs&gt;=1 then
+          snd.onHit2({})
         end
        end,
    },
@@ -86403,6 +86414,8 @@ end</script>
  Corrode = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
@@ -86428,6 +86441,8 @@ end</script>
  Plasma = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
@@ -86453,6 +86468,8 @@ end</script>
  Tentacle = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
@@ -86480,6 +86497,8 @@ end</script>
  Erode = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
@@ -86507,6 +86526,8 @@ end</script>
  Shock = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
@@ -86534,6 +86555,8 @@ end</script>
  Haemoplague = function(target, shield)
               if shield then
                 snd.used.shield = false
+              elseif #snd.maybe_affs&gt;=1 then
+                snd.onHit2({})
               end
             end,
    },
