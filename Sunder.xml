@@ -61653,7 +61653,7 @@ snd.priorities =
     "def_glacian_adumbration_stored",
     
     "def_tiarna_bulwark",
-    "def_tiarna_cultivation",
+    "def_tiarna_ruin",
     "def_tiarna_presence",
     "def_tiarna_shelter",
     "def_tiarna_shelter_stored",
@@ -63346,13 +63346,13 @@ def_glacian_twilight = {defense = "glacian_twilight", type = "normal", effect = 
 
 --tiarna
 def_tiarna_form = {defense = "tiarna_form", type = "normal", effect = "Rustle rustle", balance = {balanceequilibriumtake = "rhythm thrum brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_tiarna_bulwark = {defense = "tiarna_bulwark", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "tiarna_bulwark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_bulwark = {defense = "tiarna_bulwark", type = "normal", effect = "Protect you and absorb afflictions", balance = {balanceequilibriumtake = "tiarna bulwark"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_presence = {defense = "tiarna_presence", type = "normal", effect = "Grants crit and dodge chance", balance = {balanceequilibriumtake = "tiarna presence on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_chimerism = {defense = "tiarna_chimerism", type = "normal", effect = "Chance to replicate your abilities", balance = {balanceequilibriumtake = "tiarna chimerism on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_shelter = {defense = "tiarna_shelter", type = "normal", effect = "Blocks the next attack", balance = {balanceequilibriumtake = "tiarna shelter"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_shelter_stored = {defense = "tiarna_shelter_stored", type = "normal", effect = "Raises shelter when &lt;40% health", balance = {balanceequilibriumtake = "tiarna shelter store"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_tiarna_store = {defense = "tiarna_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_tiarna_cultivation = {defense = "tiarna_cultivation", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "tiarna cultivation on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_tiarna_ruin = {defense = "tiarna_ruin", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = {balanceequilibriumtake = "tiarna ruin on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 --Seraph
 def_seraph_form = {defense = "seraph_form", type = "gold", effect = "Be not afraid!", balance = {balanceequilibrium = "sunrise embrace brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -63929,7 +63929,7 @@ end</script>
   
   --Tiarna
   ["You are surrounded by a bulwark of the wilds."] = "tiarna_bulwark",
-  ["You are cultivating the wilds wherever you walk."] = "tiarna_cultivation",
+  ["You are wreathed in a verdant haze of Dia'ruian ruin."] = "tiarna_ruin",
   ["You have taken the form of a Tiarna an-Kiar."] = "tiarna_form",
   ["You are sensing the presence of the Rhythm around you."] = "tiarna_presence",
   ["Nature's protective shelter watches over you."] = "tiarna_shelter",
@@ -80623,7 +80623,7 @@ instinct = {
 
 tiarna = {
   def_tiarna_bulwark = "on",
-  def_tiarna_cultivation = "on",
+  def_tiarna_ruin = "on",
   def_tiarna_presence = "on",
   def_tiarna_shelter_stored = "once",
   def_tiarna_chimerism = "on",
