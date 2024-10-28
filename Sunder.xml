@@ -62486,6 +62486,11 @@ aff_fragments = {state = "healed", effect = "", cures = {}, assess = false, time
 aff_immobility = {state = "healed", effect = "Can't move", cures = {}, assess = false, timer = createStopWatch()},
 aff_timewarped = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_inaccuracy = {state = "healed", effect = "Reduced accuracy", cures = {}, assess = false, timer = createStopWatch()},
+
+
+aff_mindfog = {state = "healed", effect = "Can't cure mentals", cures = {salve = "caloric to head"}, assess = false, timer = createStopWatch()},
+aff_phosphenes = {state = "healed", effect = "Head trauma knocks eq", cures = {salve = "soothing to head"}, assess = false, timer = createStopWatch()},
+
 }
 </script>
 							<eventHandlerList />
@@ -82281,7 +82286,7 @@ end</script>
   {
     soothing =
       {
-        ["head"] = {"whiplash"},
+        ["head"] = {"phosphenes", "whiplash"},
         ["torso"] = {"backstrain", "muscle_spasms", "stiffness"},
         ["left arm"] = {"sore_wrist", "weak_grip"},
         ["right arm"] = {"sore_wrist", "weak_grip"},
@@ -82308,7 +82313,7 @@ end</script>
       },
     caloric =
       {
-        ["head"] = {},
+        ["head"] = {"mindfog"},
         ["torso"] = {"hypothermia", "frozen", "frigid", "shivering"},
         ["left arm"] = {},
         ["right arm"] = {},
