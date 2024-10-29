@@ -61314,6 +61314,7 @@ snd.priorities =
     -- "aff_writhe_web",
     -- "aff_dazed",
     -- "aff_embedded_axe",
+    "def_closecombat",
     "def_dauntless",
     "def_unbending",
     "def_boilingblood",
@@ -63321,6 +63322,7 @@ def_whitesight = {defense = "whitesight", type = "normal", effect = "See through
 def_aversion = {defense = "aversion", type = "normal", effect = "Avoid aegis and runes, but blocks ql and gmcp map", balance = {balanceequilibrium = "avert eyes"}, state = "down", needit = false, timer = createStopWatch(), skill = "Aversion"},
 def_defang = {defense = "defang", type = "normal", effect = "Knocks offbal if successful parry", balance = {balanceequilibriumtake = "defang"}, state = "down", needit = false, timer = createStopWatch(), skill = "Defang"},
 def_culmination = {defense = "culmination", type = "normal", effect = "Improves dodge all", balance = {balanceequilibrium = "culmination"}, state = "down", needit = false, timer = createStopWatch(), skill = "Culmination"},
+def_closecombat = {defense = "closecombat", type = "normal", effect = "Improved accuracy", balance = {balanceequilibrium = "closecombat"}, state = "down", needit = false, timer = createStopWatch(), skill = "Closecombat"},
 
 --adherent
 def_adherent_form = {defense = "adherent_form", type = "normal", effect = "You are pissed", balance = {balanceequilibriumtake = "ascend soul brutal"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
@@ -64070,6 +64072,8 @@ end</script>
   ["You are able to sense those close to death."] = "morisensus",
   ["You are watching the trees for signs of movement."] = "treewatch",
   ["You are aware of movement in the skies."] = "skywatch",
+  
+  ["You are heavily focused on close combat."] = "closecombat",
 }
  </script>
 							<eventHandlerList />
@@ -80556,6 +80560,7 @@ predator = {
   def_whitesight = "on",
   --def_defang = "on",
   def_culmination = "on",
+  def_closecombat = "once",
 },
 
 executor = {
