@@ -82700,7 +82700,7 @@ function snd.no_parry()
   "uncon",
  }
  if snd.class == "Sentinel" or snd.class == "Executor" then
-  table.insert(noparryaffs, "confusion")
+  table.insert(noparryaffs, "heartflutter")
  end
  if snd.cureset == "zealot" then
   table.insert(noparryaffs, "paresis")
