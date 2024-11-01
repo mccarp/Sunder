@@ -57351,12 +57351,12 @@ npb.echo("Set &lt;green&gt;"..matches[2]:title().."&lt;reset&gt;'s city to &lt;y
 npb.help_handled = true</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^pb set (\w+) ([Bb]loodloch|[Ss]pinesreach|[Ee]norian|[Dd]uiran|[Rr]ogues)$</regex>
+					<regex>^pb set (\w+) ([Bb]loodloch|[Ss]pinesreach|[Ee]norian|[Dd]uiran|[Rr]ogues|[Dd]ivine)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Set Org Colours</name>
 					<script>npb.help_handled = true
-local cities = {"Bloodloch", "Duiran", "Enorian", "Rogues", "Spinesreach"}
+local cities = {"Bloodloch", "Duiran", "Enorian", "Rogues", "Spinesreach", "Divine"}
 
 local city, colour = "", ""
 
@@ -57367,7 +57367,7 @@ elseif table.contains(cities, matches[3]:title()) then
 	city = matches[3]:lower():title()
 	colour = matches[2]
 else
-	snd.message("That is not a valid option, please choose from: &lt;green&gt;Bloodloch, Duiran, Enorian, Rogues or Spinesreach")
+	snd.message("That is not a valid option, please choose from: &lt;green&gt;Bloodloch, Duiran, Divine, Enorian, Rogues, or Spinesreach")
 end
 
 if city ~= "" then
@@ -64150,7 +64150,7 @@ end</script>
 						<name>user config functions</name>
 						<packageName></packageName>
 						<script>npb = npb or {}
-npb.config_version = 1
+npb.config_version = 2
 
 -- do not call init_config cirectly, use init instead.
 function npb.init_config()
@@ -64162,10 +64162,11 @@ function npb.init_config()
     duiran="lawn_green",
     enorian="gold",
     rogues="a_brown",
+    divine="hot_pink",
   }
   npb.t.guess_from_clans = true
   npb.t.people = npb.t.people or {}
-  npb.t.config_version = 1
+  npb.t.config_version = 2
   npb.save()
 end
 
@@ -64538,7 +64539,7 @@ end
 
 registerAnonymousEventHandler("sysGetHttpDone", "npb.handleResponse")
 
-local order = {"Bloodloch", "Duiran", "Enorian", "Spinesreach", "Rogues"}
+local order = {"Bloodloch", "Duiran", "Enorian", "Spinesreach", "Rogues", "Divine"}
 local function newLine()
   moveCursorEnd()
   if getCurrentLine() ~= "" then
@@ -64559,7 +64560,7 @@ end
 
 function npb.qwsorted(people)
   local wrap = getWindowWrap()
-  local sorted = {Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}}
+  local sorted = {Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}, Divine = {}}
   for _, person in pairs(people.characters) do
     local name = person.name
     local org = sndNDB_getCitizenship(name)
