@@ -33448,9 +33448,9 @@ snd.infiltrate = false
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Target Oblivion</name>
-						<script>if sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2]) then
+						<script>snd.send("wt "..matches[2].." is singing Oblivion next to v"..gmcp.Room.Info.num)
+if sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2]) then
 else
-  snd.send("wt "..matches[2].." is singing Oblivion next to v"..gmcp.Room.Info.num)
   if snd.class == "Infiltrator" then
     expandAlias("gs "..matches[2])
   elseif snd.class == "Shaman" or snd.class == "Alchemist" then
