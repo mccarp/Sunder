@@ -38410,6 +38410,7 @@ snd.send("config showafflictions on")
 snd.send("config simplediagnose on")
 snd.send("config curingtype default")
 snd.send("config fishgraphic off")
+snd.send("config badcommand off")
 snd.send("gathering on")
 npb.init()</script>
 						<command></command>
@@ -62128,7 +62129,7 @@ aff_disrupted = {state = "healed", effect = "", cures = {special = "concentrate"
 aff_dissonance = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_distortion = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_dizziness = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
-aff_effused_blood = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_effused_blood = {state = "healed", effect = "", cures = {salve = "epidermal to torso"}, assess = false, timer = createStopWatch()},
 aff_eldritch_invocation = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_electric_weakness = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_echoes = {state = "healed", effect = "", cures = {herb = "eucrasia"}, assess = false, timer = createStopWatch()},
@@ -84014,6 +84015,9 @@ end</script>
   Rune = function(target)            
             snd.target_got("blood_rune")
 	          snd.runeused = true
+        end,
+  Effusion = function(target)
+            snd.target_got("effused_blood")
         end,
     },
     
