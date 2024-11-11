@@ -28931,7 +28931,7 @@ end</script>
 								<script>if matches[2] == snd.target then
  snd.target_cured("writhe_thighlock")
  snd.jawlocked = false
- snd.target_got("groinrip")
+ snd.target_got("ripped_groin")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -29021,7 +29021,7 @@ end</script>
 								<script>if matches[2] == snd.target then
  snd.target_cured("writhe_thighlock")
  snd.jawlocked = false
- snd.target_got("groinrip")
+ snd.target_got("ripped_groin")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -34410,6 +34410,7 @@ end</script>
 	elseif area == "Duiran" then snd.send("sell vermin to nysos")
 	elseif area == "Bloodloch" then snd.send("sell vermin to enzo")
 	elseif area == "the City of Enorian" then snd.send("sell vermin to shrift")
+  elseif area == "Esterport" then snd.send("sell vermin to ren")
 	end
   
 	snd.toggles.vermin = false
@@ -34432,6 +34433,7 @@ end</script>
 							<string>Entering Bloodloch market district</string>
 							<string>A dockyard slum</string>
 							<string>Cabalist Ghada nods curtly at you.</string>
+							<string>Along a reinforced wooden pier</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>2</integer>
@@ -34439,6 +34441,7 @@ end</script>
 							<integer>2</integer>
 							<integer>2</integer>
 							<integer>3</integer>
+							<integer>2</integer>
 						</regexCodePropertyList>
 					</Trigger>
 				</TriggerGroup>
@@ -40081,11 +40084,11 @@ end</script>
 			
 			for limb in pairs(limbs) do
 	 			if snd.limb_status[limbs[limb]] == "mangled" and mangled == "nothing" then -- checking for mangle opertunities
-		  		if string.find(limbs[limb], "leg") and not snd.checksomeAffs({"groinrip","writhe_thighlock"},1) then	
+		  		if string.find(limbs[limb], "leg") and not snd.checksomeAffs({"ripped_groin","writhe_thighlock"},1) then	
 				 		mangled = limbs[limb]
-					elseif limbs[limb] == "head" and not snd.checksomeAffs({"throatrip","writhe_necklock"},1) then
+					elseif limbs[limb] == "head" and not snd.checksomeAffs({"ripped_throat","writhe_necklock"},1) then
 				 		mangled = limbs[limb]
-					elseif not snd.checksomeAffs({"spleenrip","writhe_armpitlock"},1) and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
+					elseif not snd.checksomeAffs({"ripped_spleen","writhe_armpitlock"},1) and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
 				 		mangled = limbs[limb]
 					end
 			 	elseif snd.limb_status[limbs[limb]] == "broken" and snd.limb_dmg[limbs[limb]] &lt; 66.66 and broken == "nothing" then -- Updating the table with current breaks
@@ -40103,13 +40106,13 @@ end</script>
 		 		string = "pounce "..snd.target
 			elseif snd.theyran then
 			   string = "neckdrag "..snd.target..snd.neckdragdir
-		  elseif snd.checksomeAffs({"groinrip", "throatrip", "spleenrip"},2) then --nom nom nom
+		  elseif snd.checksomeAffs({"ripped_groin", "ripped_throat", "ripped_spleen"},2) then --nom nom nom
 				string = "devour "..snd.target            
-			elseif snd.checkAff("writhe_necklock") and not snd.checkAff("throatrip") then-- Checking for Rip opertunities
+			elseif snd.checkAff("writhe_necklock") and not snd.checkAff("ripped_throat") then-- Checking for Rip opertunities
 				string = "throatrip "..snd.target          
-			elseif snd.checkAff("writhe_armpitlock") and not snd.checkAff("spleenrip") then-- Checking for Rip opertunities
+			elseif snd.checkAff("writhe_armpitlock") and not snd.checkAff("ripped_spleen") then-- Checking for Rip opertunities
 				string = "spleenrip "..snd.target
-			elseif snd.checkAff("writhe_thighlock") and not snd.checkAff("groinrip") then-- Checking for Rip opertunities
+			elseif snd.checkAff("writhe_thighlock") and not snd.checkAff("ripped_groin") then-- Checking for Rip opertunities
 				string = "groinrip "..snd.target
 			elseif snd.proned() and mangled ~= "nothing" and not snd.jawlocked then -- Checking for Jawlock opertunities
 				if string.find(mangled, "leg") and not snd.checkAff("writhe_thighlock")then
@@ -61781,6 +61784,8 @@ snd.priorities =
     --Wayfarer
     "def_axe_obstruct",
     "def_brutality",
+    
+    "def_boneshaking",
   }</script>
 						<eventHandlerList />
 					</Script>
@@ -63194,7 +63199,7 @@ def_harden = {defense = "hardening", type = "normal", effect = "Chance to preven
 def_fury = {defense = "fury", type = "normal", effect = "Can use claws off balance", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Fury"},
 def_bracing = {defense = "bracing", type = "normal", effect = "Bracing for physical attacks", balance = {needybalancetake = "brace"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bracing"},
 def_stealth = {defense = "stealth", type = "normal", effect = "Hide yourself", balance = {needybalancetake = "stealth on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stealth"},
-
+def_boneshaking = {defense = "boneshaking", type = "normal", effect = "howls ignore deafness", balance = {balanceequilibriumtake = "boneshaking"}, state = "down", needit = false, timer = createStopWatch(), skill = "Boneshaking"},
 --Syssin
 def_hiding = {defense = "hiding", type = "blue", effect = "Conceals your presence", balance = {needybalancetake = "hide"}, state = "down", needit = false, timer = createStopWatch(), skill = "Hide"},
 def_warding = {defense = "warding", type = "normal", effect = "Physical resistance", balance = {needybalancetake = "warding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warding"},
@@ -64100,6 +64105,8 @@ end</script>
   ["You are aware of movement in the skies."] = "skywatch",
   
   ["You are heavily focused on close combat."] = "closecombat",
+  
+  ["Your howls are shaking the bones of your victims."] = "boneshaking",
 }
  </script>
 							<eventHandlerList />
@@ -80480,6 +80487,7 @@ def_celerity = "once",
 def_thickhide = "once",
 def_corner = "once",
 def_harden = "once",
+def_boneshaking = "once",
 },
 
 infiltrator = {
@@ -80560,6 +80568,7 @@ def_corner = "once",
 def_harden = "once",
 --def_stealth = "once",
 def_cloak_tattoo = "on",
+def_boneshaking = "once",
 },
 
 zealot = {
@@ -82619,6 +82628,7 @@ end</script>
  if restoration_timer then killTimer(restoration_timer) end
  snd.current_restoration_aff = ""
  snd.resto_limb = "none"
+ snd.parried_limb = "none"
  --snd.used.rebounding = false
  snd.used.shield = false
  snd.used.paste = true
@@ -82947,8 +82957,8 @@ end</script>
   
   Sear = function(target)
            snd.target_got("ablaze")
-           snd.target_got("angel_seared")
-           snd.affTimers.start("angel_seared", 15)
+           snd.target_got("salve_seared")
+           snd.affTimers.start("salve_seared", 15)
          end,
   
   Strip = function(target, defense)
@@ -85106,7 +85116,7 @@ end</script>
                   end
                 end,
    Spleenrip = function(target)
-                snd.target_got("spleenrip")
+                snd.target_got("rippled_spleen")
                 snd.jawlocked = false
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = 15
@@ -85115,7 +85125,7 @@ end</script>
                 --snd.onHit2({"Dodge", "Parry"}) don't believe it can be missed
                end, 
    Groinrip = function(target)
-                snd.target_got("groinrip")
+                snd.target_got("ripped_groin")
                 snd.jawlocked = false
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = 15
@@ -85124,7 +85134,7 @@ end</script>
                 --snd.onHit2({"Dodge", "Parry"}) don't believe it can be missed
                end, 
    Throatrip = function(target)
-                snd.target_got("throatrip")
+                snd.target_got("ripped_throat")
                 snd.jawlocked = false
                 snd.last_hit_limb = "head"
                 snd.last_limb_dmg = 10
@@ -85663,8 +85673,8 @@ end</script>
   
   Dust = function(target)
            snd.target_got("ablaze")
-           snd.target_got("angel_seared") -- needs new aff LUMINARY
-           snd.affTimers.start("angel_seared", 15)
+           snd.target_got("salve_seared") -- needs new aff LUMINARY
+           snd.affTimers.start("salve_seared", 15)
          end,
   
   Incisor = function(target, defense)
