@@ -57646,6 +57646,7 @@ registerAnonymousEventHandler("gmcp.Char.Name", "snd.login")</script>
 					<script>function snd.deathCheck()
   if gmcp.Char.Afflictions.Add.name == "dead" then
     snd.reset_me()
+    snd.stap()
     snd.toggles.active = false
     raiseEvent("sunder_update_toggles")
     for i in pairs(snd.my_limb_damage) do
