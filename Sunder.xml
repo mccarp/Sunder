@@ -17866,9 +17866,39 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^(\w+) begins to fume at the mouth and turns bright red.$</string>
-										<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Berserking 2</name>
+									<script>if matches[2] == snd.target then
+	snd.target_got("berserking")
+  snd.used.shield = false
+  snd.used.rebounding = false
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) grabs your arm and begins to chew, drooling all the while\.$</string>
+										<string>^(\w+) grabs one arm of \w+ and attempts to eat it\.$</string>
+										<string>^Screaming and spitting, (\w+) claws at .+ eyes\.$</string>
+										<string>^(\w+) beats ineffectually at your chest\.$</string>
+										<string>^(\w+) pounds his fists maniacally on \w+\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
