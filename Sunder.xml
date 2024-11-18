@@ -84382,7 +84382,7 @@ end</script>
                   end
                 end,
    Spleenrip = function(target)
-                snd.target_got("rippled_spleen")
+                snd.target_got("ripped_spleen")
                 snd.jawlocked = false
                 snd.last_hit_limb = "torso"
                 snd.last_limb_dmg = 15
