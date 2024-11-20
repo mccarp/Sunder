@@ -61588,6 +61588,7 @@ aff_self_loathing = {state = "healed", effect = "5s bal knock if left on for 12s
 ["aff_self-pity"] = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_seduction = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_sensitivity = {state = "healed", effect = "", cures = {herb = "kelp", tree = "send"}, assess = false, timer = createStopWatch()},
+aff_stoneheld = {state = "healed", effect = "Can't move", cures = {}, assess = false, timer = createStopWatch()},
 aff_rot_benign = {state = "healed", effect = "shaderot1 - no affs", cures = { herb = "panacea"}, assess = false, timer = createStopWatch()},
 aff_rot_body = {state = "healed", effect = "shaderot5 - salve recovery doubled", cures = { herb = "panacea"}, assess = false, timer = createStopWatch()},
 aff_rot_heat = {state = "healed", effect = "shaderot3 - can't apply caloric", cures = { herb = "panacea"}, assess = false, timer = createStopWatch()},
