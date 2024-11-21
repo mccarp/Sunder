@@ -2908,7 +2908,7 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^(\w+) lapses into a state of unconsciousness\.$</string>
-								<string>^(\w+)'s eyes flutter closed and she slumps to the ground, unconscious\.$</string>
+								<string>^(\w+)'s eyes flutter closed and .+ slumps to the ground, unconscious\.$</string>
 								<string>^Being unconscious, (\w+) falls over\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
