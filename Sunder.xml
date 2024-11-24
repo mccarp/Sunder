@@ -11375,6 +11375,68 @@ end
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Blazewhirl</name>
+									<script></script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList />
+									<regexCodePropertyList />
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Blazewhirl (ablaze)</name>
+										<script>if snd.target == matches[2] then
+  snd.target_got("ablaze")
+  disableTrigger("Blazewhirl (not ablaze)")
+  tempLineTrigger(2,1,[[enableTrigger("Blazewhirl (not ablaze)")]])
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The flames surrounding (\w+) get sucked into a raging whirl of fire as it spins past .+\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Blazewhirl (not ablaze)</name>
+										<script>if snd.target == matches[2] then
+  snd.target_cured("ablaze")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Streaks of fire burn (\w+)'s body as a raging whirl of fire rotates its mass through .+\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+								</TriggerGroup>
 							</TriggerGroup>
 							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Glimpse</name>
@@ -60862,6 +60924,9 @@ snd.priorities =
     "def_oath_primeval",
     "def_oath_rhythm",
     
+    "def_trepidation",
+    "def_holylight",
+    
     "def_blightbringer",
     "def_discipline_fieldstudies",
     "def_discipline_compounding",
@@ -62371,7 +62436,7 @@ def_deathlink = {defense = "deathlink", type = "normal", effect = "You are linke
 def_bloodrage = {defense = "bloodrage", type = "normal", effect = "Transcend mortal limitations", balance = {balanceequilibriumtake = "blood enrage"}, state = "down", needit = false, timer = createStopWatch(), skill = "Enrage"},
 def_deluge = {defense = "deluge", type = "normal", effect = "Allows the user to fall below zero health, effectively making them immune to damage.", balance = {balanceequilibriumtake = "blood deluge"}, state = "down", needit = false, timer = createStopWatch(), skill = "Deluge"},
 def_arrow_catching = {defense = "arrow_catching", type = "normal", effect = "You have a chance to catch arrows", balance = {balanceequilibriumtake = "catching"}, state = "down", needit = false, timer = createStopWatch(), skill = "Catching"},
-
+def_trepidation= {defense = "trepidation", type = "normal", effect = "Anxieties 4 enemies", balance = {balanceequilibriumtake = "blood trepidation"}, state = "down", needit = false, timer = createStopWatch(), skill = "Trepidation" },
 
 --Ravager
 def_vinculum = {defense = "vinculum", type = "normal", effect = "Enabled your use of abilities", balance = {balanceequilibriumtake = "invoke vinculum"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vinculum" },
@@ -63019,6 +63084,7 @@ end</script>
   ["Your being is protected by the soulcage."] = "soulcage",
   ["You are circulating your blood erratically to hide your vitals."] = "blurred",
   ["You are exuding an aura of trepidation upon those you despise."] = "trepidation",
+  ["An aura of holy light is bringing fear to your enemies."] = "holylight",
   ["Your flesh is fortified against damage."] = "fortify",
   ["You are eluding your opponents' blows."] = "elusion",
   ["You have enhanced your vision to be able to see traces of lifeforce."] = "lifevision",
@@ -79544,7 +79610,8 @@ def_acuity = "on",
 def_stalking = "once",
 def_suppressed = "once",
 def_retaliation = "once",
-def_ascetic = "on"
+def_ascetic = "on",
+def_holylight = "once",
 },
 
 
@@ -79685,6 +79752,7 @@ def_concentrate = "on",
 def_shadowblow = "on",
 def_blurred = "once",
 def_elusion = "once",
+def_trepidation = "once",
 -- def_deathlink = "on",
 },
 
