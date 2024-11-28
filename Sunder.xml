@@ -27409,7 +27409,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^A hellcat shreds (\w+) with blazing claws, heat lashing forth to scourge (her|him|them).$</string>
+										<string>^A hellcat shreds (\w+) with blazing claws, heat lashing forth to scourge .+.$</string>
 										<string>^The ground vents open, and a hellish torrent of heat and ash scourge (\w+).$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
@@ -45637,8 +45637,6 @@ end</script>
       string = "touch crystal"
     elseif snd.used.shield then
   		string = "touch hammer "..snd.target
-    elseif snd.theytumbling then
-        string = "impel athame at "..snd.target.." prefarar"..snd.sep    
     elseif hp &lt;= 75 then
       string = "unfurl flower at me"
     elseif snd.aff_tally() &gt; 3 and snd.balance.fool then
