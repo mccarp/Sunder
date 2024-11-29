@@ -87897,7 +87897,7 @@ function snd.timer_check(which, time_left, mode)
     snd.timers[which]["start"] ~= nil and
     snd.timers[which]["limit"] ~= nil
   then
-    local now = os.clock()
+    local now = getEpoch()
     local endtime = snd.timers[which]["start"] + snd.timers[which]["limit"]
     if mode == "more than" then
       if endtime - now &gt; time_left then
@@ -87927,7 +87927,7 @@ function snd.timer_get_time(which)
     snd.timers[which]["start"] ~= nil and
     snd.timers[which]["limit"] ~= nil
   then
-    local time = (snd.timers[which]["start"] + snd.timers[which]["limit"]) - os.clock()
+    local time = (snd.timers[which]["start"] + snd.timers[which]["limit"]) - getEpoch()
     return time &gt; 0 and time or 0
   else
     return 0
@@ -87940,7 +87940,7 @@ end</script>
 						<packageName></packageName>
 						<script>function snd.track_pill(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.pill.start = os.clock()
+    snd.timers.pill.start = getEpoch()
     local limit = 1.9
     snd.timers.pill.limit = limit
   end
@@ -87948,7 +87948,7 @@ end
 
 function snd.track_focus(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.focus.start = os.clock()
+    snd.timers.focus.start = getEpoch()
     local limit = 5
     if snd.checkAff("mental_disruption") then
       limit = 10
@@ -87962,7 +87962,7 @@ end
 
 function snd.track_rebounding(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.rebounding.start = os.clock()
+    snd.timers.rebounding.start = getEpoch()
     local limit = 6.5
     snd.timers.rebounding.limit = limit
   end
@@ -87970,13 +87970,13 @@ end
 
 function snd.track_rebounding_up(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.rebounding.limit = os.clock()
+    snd.timers.rebounding.limit = getEpoch()
   end
 end
 
 function snd.track_restoration(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.restoration.start = os.clock()
+    snd.timers.restoration.start = getEpoch()
     local limit = 4.15
     if snd.checkAff("rot_body") then
       limit = limit+4.3
@@ -87987,7 +87987,7 @@ end
 
 function snd.track_tree(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.tree.start = os.clock()
+    snd.timers.tree.start = getEpoch()
     local limit = 10
     if snd.checkAff("laxity") then limit = limit+2 end
     snd.timers.tree.limit = limit
@@ -87996,7 +87996,7 @@ end
 
 function snd.track_induce(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.induce.start = os.clock()
+    snd.timers.induce.start = getEpoch()
     local limit = 11
     snd.timers.induce.limit = limit
   end
@@ -88004,25 +88004,25 @@ end
 
 function snd.track_fitness(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.fitness.start = os.clock()
+    snd.timers.fitness.start = getEpoch()
     snd.timers.fitness.limit = 20
   end
 end
 
 function snd.track_eqbal(time)
   if not snd.timer_check("eqbal", time) then
-    snd.timers.eqbal.start = os.clock()
+    snd.timers.eqbal.start = getEpoch()
     snd.timers.eqbal.limit = time
   end
 end
 
 function snd.track_fury(time)
-  snd.timers.fury.start = os.clock()
+  snd.timers.fury.start = getEpoch()
   snd.timers.fury.limit = time
 end
 
 function snd.track_axes(time)
-  snd.timers.axes.start = os.clock()
+  snd.timers.axes.start = getEpoch()
   snd.timers.axes.limit = time
 end
 
