@@ -7284,7 +7284,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^\(Web\): You say, "Target: (\w+)\."$</string>
+							<string>^\(Web\): You say, "[Ta\.]*Target: [\.\w]*?(\w+)\."$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -32290,7 +32290,7 @@ end
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^\(Web\): (\w+) says?, \"Target: (\w+)\.\"$</string>
+								<string>^\(Web\): (\w+) says, "[Ta\.]*Target: [\.\w]*?(\w+)\."$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -64383,8 +64383,9 @@ registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")</script>
     not matchText:find("removed") and
     not matchText:find("next")
   then
-    local check = string.match(matchText, "target: (%w+)%.")
-    if check:lower() ~= snd.target:lower() then
+    local pattern = [["[ta\.]*?target: [\.\w]*?(\w+)\."]]
+    local check = rex.match(matchText, pattern)
+    if check and check:lower() ~= snd.target:lower() then
       if snd.toggles.safelistening and sndNDB_getCitizenship(check)==gmcp.Char.Status.city and check:lower()~="teflin" then
         snd.message("Not targeting "..check.." because of safelistening! They're in your city.")
       else
