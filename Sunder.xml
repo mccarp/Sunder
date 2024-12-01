@@ -2383,6 +2383,7 @@ snd.clear_afflictions("smoke")</script>
 									<string>Agony lances through your arm and you can no longer maintain your guard.</string>
 									<string>You shift your guard to protect yourself.</string>
 									<string>^\w+ uses Fury Distract \(boosted\) on you\.$</string>
+									<string>Struggling to defend yourself, the final blow leaves you reeling.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -2392,6 +2393,7 @@ snd.clear_afflictions("smoke")</script>
 									<integer>3</integer>
 									<integer>3</integer>
 									<integer>1</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
