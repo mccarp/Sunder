@@ -9864,6 +9864,7 @@ end</script>
 						<name>Sipped something</name>
 						<script>if matches[2] == snd.target then
   local potion = matches[3]
+  snd.track_elixir(matches[2], potion)
   if potion == "levitation" then
       snd.lev_gone = false
   elseif potion == "infusion" then
@@ -87888,6 +87889,7 @@ snd.timers.induce = snd.timers.induce or {}
 snd.timers.eqbal = snd.timers.eqbal or {}
 snd.timers.fury = snd.timers.fury or {}
 snd.timers.axes = snd.timers.axes or {}
+snd.timers.elixir = snd.timers.elixir or {}
 
 
 for k, _ in pairs(snd.timers) do
@@ -88019,6 +88021,25 @@ function snd.track_eqbal(time)
   if not snd.timer_check("eqbal", time) then
     snd.timers.eqbal.start = getEpoch()
     snd.timers.eqbal.limit = time
+  end
+end
+
+local times = {
+  harmony = 4.75,
+  health = 4.75,
+  mana = 4.75,
+  infusion = 4.75,
+  levitation = 1.4,
+  immunity = 1.4,
+  speed = 1.4,
+  vigor = 1.4,
+  arcane = 1.4,
+}
+
+function snd.track_elixir(target, elixir)
+  if target:lower() == snd.target:lower() and times[elixir] then
+    snd.timers.elixir.start = getEpoch()
+    snd.timers.elixir.limit = times[elixir]
   end
 end
 
