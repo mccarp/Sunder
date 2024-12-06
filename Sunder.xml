@@ -16822,9 +16822,9 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>You issue the order but \w+ just ignores  (\w+).$</string>
-											<string>You order your puppeteer to weave a hallucination through \w+'s mind.</string>
-											<string>You direct the puppeteer to set its strings into  (\w+).$</string>
+											<string>^You issue the order but \w+ just ignores  (\w+).$</string>
+											<string>^You order your puppeteer to weave a hallucination through \w+'s mind\.$</string>
+											<string>^You direct the puppeteer to set its strings into (\w+).$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -39261,7 +39261,7 @@ display(snd.group)</script>
       "Tara, Cosmina, Derryk, Sylvos, Tiber, Gladius, Gloom, Derban, Grothgar, Grollum, Smirnick, Smythe, Helfga, Naggamantex, Glixx, Quelzar, Sisters, Hecuba",
       "Fengard Mobs",
     },
-    {"Tellimerius, Broondac, Belmith, Marcello, Axel, Makkali, Mamba, Tolonar", "Milestone mobs"},
+    {"Tellimerius, Broondac, Belmith, Marcello, Axel, Makkali, Mamba, Tolonar, Wyvern", "Milestone mobs"},
     {"hg", "Outside the Hunting Grounds"},
     {"Nighteye, Claw, Shade, Staghelm, Silence, Rose, Ivory, Rowan, HGShrine", "Approximate locations of hunting grounds items."},
     {"herolt", "Herolt's quiz"},
@@ -58737,6 +58737,7 @@ snd.landmarks.ivory = 6842
 snd.landmarks.rowan = 6842
 snd.landmarks.hgshrine = 23489
 
+snd.landmarks.wyvern = 78127
 
 local citymarks =
   {
