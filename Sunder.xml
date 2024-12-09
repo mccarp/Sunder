@@ -33479,7 +33479,7 @@ tempTimer(0, function() enableTrigger("got hit") end)</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^\w+ uses (Sorcery|Arcanism|Runecarving|Esoterica) Replicate\.$</string>
+							<string>^\w+ uses (Sorcery|Arcanism|Runecarving|Esoterica|Astranomia) Replicate\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -80795,6 +80795,7 @@ templar = {"Battlefury", "Righteousness", "Bladefire", "Chirography", "Riving", 
 carnifex = {"Savagery", "Deathlore", "Warhounds", "Warding", "Ancestry", "Communion"},
 bard = {"Songcalling", "Performance", "Weaving"},
 predator = {"Knifeplay", "Predation", "Beastmastery"},
+siderealist = {"Astranomia", "Crystalism", "Ostension"},
 }</script>
 					<eventHandlerList />
 				</Script>
