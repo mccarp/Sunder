@@ -60671,6 +60671,10 @@ snd.priorities =
     -- "aff_writhe_web",
     -- "aff_dazed",
     -- "aff_embedded_axe",
+    "def_luminesce",
+    "def_blueshift",
+    "def_stargleam",
+    "def_foresight",
     "def_closecombat",
     "def_dauntless",
     "def_unbending",
@@ -62534,6 +62538,16 @@ def_fury = {defense = "fury", type = "normal", effect = "Can use claws off balan
 def_bracing = {defense = "bracing", type = "normal", effect = "Bracing for physical attacks", balance = {needybalancetake = "brace"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bracing"},
 def_stealth = {defense = "stealth", type = "normal", effect = "Hide yourself", balance = {needybalancetake = "stealth on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Stealth"},
 def_boneshaking = {defense = "boneshaking", type = "normal", effect = "howls ignore deafness", balance = {balanceequilibriumtake = "boneshaking"}, state = "down", needit = false, timer = createStopWatch(), skill = "Boneshaking"},
+--Siderealist
+def_luminesce = {defense= "luminesce", type = "normal", effect = "basic astranomia spells", balance = {balanceequilibriumtake = "astra luminesce"}, state = "down", needit = false, timer = createStopWatch(), skill = "Luminesce"},
+def_blueshift = {defense= "blueshift", type = "normal", effect = "extra hp/mp", balance = {balanceequilibriumtake = "astra blueshift"}, state = "down", needit = false, timer = createStopWatch(), skill = "Blueshift"},
+def_foresight = {defense= "foresight", type = "normal", effect = "dodge next physical", balance = {balanceequilibriumtake = "astra foresight"}, state = "down", needit = false, timer = createStopWatch(), skill = "Foresight"},
+def_centrum = {defense= "centrum", type = "normal", effect = "cast one-handed for short duration", balance = {balanceequilibriumtake = "astra centrum"}, state = "down", needit = false, timer = createStopWatch(), skill = "Centrum"},
+def_stargleam = {defense= "stargleam", type = "normal", effect = "generates charges from mana, used to give affs", balance = {balanceequilibriumtake = "astra gleam on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Gleam"},
+def_parallax = {defense= "parallax", type = "normal", effect = "stalled spell", balance = {balanceequilibriumtake = "astra parallax"}, state = "down", needit = false, timer = createStopWatch(), skill = "Parallax"},
+def_refraction = {defense= "refraction", type = "normal", effect = "vibes affect target regardless of enemy", balance = {balanceequilibriumtake = "refract target"}, state = "down", needit = false, timer = createStopWatch(), skill = "Refraction"},
+
+
 --Syssin
 def_hiding = {defense = "hiding", type = "blue", effect = "Conceals your presence", balance = {needybalancetake = "hide"}, state = "down", needit = false, timer = createStopWatch(), skill = "Hide"},
 def_warding = {defense = "warding", type = "normal", effect = "Physical resistance", balance = {needybalancetake = "warding"}, state = "down", needit = false, timer = createStopWatch(), skill = "Warding"},
@@ -63442,6 +63456,13 @@ end</script>
   ["You are heavily focused on close combat."] = "closecombat",
   
   ["Your howls are shaking the bones of your victims."] = "boneshaking",
+  
+  --Siderealist
+  ["Your vitals are enhanced by the cobalt light of the stars."] = "blueshift",
+  ["You are drawing cosmic will into your body."] = "luminesce",
+  ["You have gained foresight against harm."] = "foresight",
+  ["You are gathering cosmic energy in one hand."] = "centrum",
+  ["You are enfolded by miniature stars of gleaming light."] = "stargleam",
 }
  </script>
 							<eventHandlerList />
@@ -77136,6 +77157,7 @@ end</script>
 {class = "Sentinel", func = function(current) snd.sentinel_bash() end}, 
 {class = "Shaman", func = function(current) snd.shaman_bash() end}, 
 {class = "Shapeshifter", func = function(current) snd.shapeshifter_bash() end}, 
+{class = "Siderealist", func = function(current) snd.siderealist_bash() end},
 {class = "Infiltrator", func = function(current) snd.infiltrator_bash() end}, 
 {class = "Templar", func = function(current) snd.templar_bash() end},
 {class = "Teradrim", func = function(current) snd.teradrim_bash() end},
@@ -77694,6 +77716,18 @@ function snd.shapeshifter_bash()
     end
 	else
     battack = "combo "..snd.bashing.target.." slash slash"
+	end
+end
+
+function snd.siderealist_bash()
+  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
+  if hp &lt;=40 and snd.shield_check() then
+    if snd.punisher then
+    else
+      battack = "touch shield"
+    end
+	else
+    battack = "astra ray "..snd.bashing.target
 	end
 end
 
@@ -79938,6 +79972,12 @@ predator = {
   --def_defang = "on",
   def_culmination = "on",
   def_closecombat = "once",
+},
+siderealist = {
+  def_luminesce = "on",
+  def_blueshift = "on",
+  def_foresight = "once",
+  def_stargleam = "on",
 },
 
 executor = {
