@@ -86610,10 +86610,77 @@ end</script>
 
   },
 
-    ["Brutaliser"] = {
+  ["Brutaliser"] = {
       Rampage = function(target)
                 enableTrigger("Raloth Trample")
               end,
+  },
+  --Siderealist
+  ["Astranomia"] = {
+    Ray = function(target)
+    end,
+    Erode = function(target)
+      snd.used.shield = false
+    end,
+    Dustring = function(target, failure)
+      if not failure then
+        snd.target_got("dustring")
+        snd.affTimers.start("dustring", 150)
+      end
+    end,
+    Inflict = function(target, conditional)
+      local map = {
+        burning = {"red","recklessness"},
+        crushing = {"orange", "gnawing"},
+        radiant = {"yellow", "dizziness"},
+        noxious = {"green", "clumsiness"},
+        frigid = {"blue", "mindfog"},
+        temporal = {"indigo", "paresis"},
+        twisted = {"violet", "paranoia"},
+      }
+      local aff = map[conditional][2]
+      snd.target_got(aff)
+      local color = map[conditional][1]
+    end,
+    Asterism = function(target, failure)
+      if not failure then
+        snd.target_got("asterism")
+        snd.affTimers.start("asterism", 150)
+      end
+    end,
+    Moonlet = function(target, condition)
+      if condition == "end" then
+        snd.target_got("moonlet")
+        snd.affTimers.start("moonlet", 150)
+      end
+    end,
+    Stillness = function(target)
+      local afflist = {"stupidity", "confusion", "dementia", "hallucinations"}
+      local affcount = 0
+      for _, v in ipairs(afflist) do 
+        if not snd.checkAff(v) then
+        snd.target_got(v)
+        affcount = affcount + 1
+        if affcount == 2 then break end
+        end
+      end
+    end,
+    Alteration = function(target, conditional)
+      local aff = conditional:gsub("from ","")
+      snd.target_cured(aff)
+    end,
+    Syzygy = function(target)
+      snd.target_cured("dustring")
+      snd.target_cured("moonlet")
+      snd.target_cured("asterism")
+    end,
+  },
+  ["Crystalism"] = {
+  
+  },
+  ["Ostension"] = {
+  
+  
   },
 }</script>
 					<eventHandlerList />
