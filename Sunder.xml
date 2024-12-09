@@ -22134,6 +22134,231 @@ end</script>
 							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Siderealist</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Astranomia</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Stillness moonlet</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("moonlet")
+  snd.affTimers.start("moonlet", 150)
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^In \w+ terror, (\w+) cries out for the moon - and then quails as .+ beholds its emergent face\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Alteration failure</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) does not have (.+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Alteration</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Dread manifests on (\w+)'s face as (.+) takes hold\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Asterism cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("asterism")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The mottling of stars around (\w+) twinkles out of sight\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Moonlet cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("moonlet")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The moonlet around (\w+) crumbles apart and vanishes\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>dustring cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("dustring")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The dustring around (\w+) loosens and drifts apart\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Glimmercrest echoes</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("echoes")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^.+ swirls around (\w+), its nebulaic centre emanating whispers\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Sprite phosphenes</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("phosphenes")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^.+ races around (\w+) in a corkscrew streak of swirling sidereal light\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Balances</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+							</TriggerGroup>
+						</TriggerGroup>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Syssin</name>
 							<script></script>
 							<triggerType>0</triggerType>
@@ -61418,6 +61643,8 @@ aff_amplify_unblockable = {state = "healed", effect = "more dmg from unblockable
 aff_airwreath = {state = "healed", effect = "dmg over time", cures = {}, assess = false, timer = createStopWatch()},
 aff_arrow_wound = {state = "healed", effect = "delayed by stacks of arrows", cures = {}, assess = false, timer = createStopWatch()},
 aff_asphyxiation_weakness = {state = "healed", effect = "more dmg from asphyx source", cures = {}, assess = false, timer = createStopWatch()},
+aff_asterism = {state = "healed", effect = "anomaly", cures = {}, assess = false, timer = createStopWatch()},
+aff_atrophy = {state = "healed", effect = "half damage except against giver of affliction", cures = {}, assess = false, timer = createStopWatch()},
 aff_attuned = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_backstabbed = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_backstrain = {state = "healed", effect = "torso dmg on standing", cures = {tree = "send", salve = "soothing to torso"}, assess = false, timer = createStopWatch()},
@@ -61469,6 +61696,7 @@ aff_disrupted = {state = "healed", effect = "", cures = {special = "concentrate"
 aff_dissonance = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_distortion = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_dizziness = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
+aff_dustring = {state = "healed", effect = "anomaly", cures = {}, assess = false, timer = createStopWatch()},
 aff_effused_blood = {state = "healed", effect = "", cures = {salve = "epidermal to torso"}, assess = false, timer = createStopWatch()},
 aff_eldritch_invocation = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_electric_weakness = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -61518,9 +61746,10 @@ aff_hypochondria = {state = "healed", effect = "", cures = {herb = "kelp", tree 
 aff_hypothermia = {state = "healed", effect = "", cures = {salve = "epidermal to torso", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_idiocy = {state = "healed", effect = "", cures = {moss = "send", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_impeded = {state = "healed", effect = "10% slower pills, cured by removing gravity", cures = {}, assess = false, timer = createStopWatch()},
-aff_impairment = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_impairment = {state = "healed", effect = "longer stuns, no racials", cures = {herb = "decongestant"}, assess = false, timer = createStopWatch()},
 aff_plodding = {state = "healed", effect = "", cures = {moss = "send", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_ice_encased = {state = "healed", effect = "longer salve bal, extra blunt dmg", cures = {}, assess = false, timer = createStopWatch()},
+aff_illgrasp = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_imbued = {state = "healed", effect = "auto gravity from scio spells", cures = {}, assess = false, timer = createStopWatch()},
 aff_impatience = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_indifference = {state = "healed", effect = "", cures = {salve = "epidermal to head", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
@@ -61528,6 +61757,7 @@ aff_infernal_seal = {state = "healed", effect = "", cures = {}, assess = false, 
 aff_infernal_shroud = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_infested = {state = "healed", effect = "", cures = {herb = "goldenseal", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_insomnia = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_irradiated_limb = {state = "healed", effect = "more damage from bolt", cures = {}, assess = false, timer = createStopWatch()},
 aff_itchy = {state = "healed", effect = "tree has to cure this first always", cures = { tree = "send" }, assess = false, timer = createStopWatch()},
 aff_intimidated = {state = "healed", effect = "can't heal above 90%", cures = {}, assess = false, timer = createStopWatch()},
 aff_justice = {state = "healed", effect = "", cures = {herb = "bellwort", tree = "send"}, assess = false, timer = createStopWatch()},
@@ -61553,6 +61783,7 @@ aff_left_leg_dislocated = {state = "healed", effect = "", cures = {salve = "mend
 aff_left_leg_mangled = {state = "healed", effect = "", cures = {salve = "restoration to legs"}, assess = false, timer = createStopWatch()},
 aff_left_leg_numbed = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_left_leg_ravaged = {state = "healed", effect = "not sure it's actually used since ravage is untargetted now", cures = {}, assess = false, timer = createStopWatch()},
+aff_lesser_atrophy = {state = "healed", effect = "do less damage", cures = {}, timer = createStopWatch()},
 aff_lemniscate = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_lethargy = {state = "healed", effect = "", cures = {herb = "ginseng", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_lifebane = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -61577,6 +61808,7 @@ aff_mind_clamped = {state = "healed", effect = "", cures = {}, assess = false, t
 aff_mirroring = {state = "healed", effect = "", cures = {herb = "bloodroot", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_misery = {state = "healed", effect = "messes with resist aff defenses", cures = {herb = "eucrasia", tree = "send"}, assess = false, timer = createStopWatch()},
 aff_mistbrand = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_moonlet = {state = "healed", effect = "anomaly", cures = {}, assess = false, timer = createStopWatch()},
 aff_muddled = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_muscle_spasms = {state = "healed", effect = "chance to apply incorrectly", cures = {tree = "send", salve = "soothing to torso"}, assess = false, timer = createStopWatch()},
 aff_mutagen = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
@@ -61605,6 +61837,7 @@ aff_pre_restore_right_arm = {state = "healed", effect = "", cures = {salve = "re
 aff_pre_restore_right_leg = {state = "healed", effect = "", cures = {salve = "restoration to right leg"}, assess = false, timer = createStopWatch()},
 aff_pre_restore_torso = {state = "healed", effect = "", cures = {salve = "restoration to torso"}, assess = false, timer = createStopWatch()},
 aff_premonition = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_pressured = {state = "healed", effect = "?", cures = {}, assess = false, timer = createStopWatch()},
 aff_psi_tether = {state = "healed", effect = "hurts you if you walk too far from zealot", cures = {}, assess = false, timer = createStopWatch()},
 aff_psychic_weakness = {state = "healed", effect = "more dmg from psychic source", cures = {}, assess = false, timer = createStopWatch()},
 aff_punished_arms = {state = "healed", effect = "unable to parry", cures = {}, assess = false, timer = createStopWatch()},
@@ -61651,6 +61884,7 @@ aff_sapped_dexterity = {state = "healed", effect = "", cures = {}, assess = fals
 aff_sapped_intelligence = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_sapped_stats = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_sapped_strength = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
+aff_sapped_wisdom = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_sealing_circle = {state = "healed", effect = "circle affs cant be cured by pill", cures = {}, assess = false, timer = createStopWatch()},
 aff_sealing_square = {state = "healed", effect = "square affs cant be cured by pill", cures = {}, assess = false, timer = createStopWatch()},
 aff_sealing_triangle = {state = "healed", effect = "triangle affs cant be cured by pill", cures = {}, assess = false, timer = createStopWatch()},
@@ -61721,6 +61955,7 @@ aff_voyria = {state = "healed", effect = "", cures = {vial = "immunity"}, assess
 aff_weak_grip = {state = "healed", effect = "bypass fist sigil", cures = {tree = "send", salve = "soothing to arms"}, assess = false, timer = createStopWatch()},
 aff_weakvoid = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_whiplash = {state = "healed", effect = "head dmg", cures = {tree = "send", salve = "soothing to legs"}, assess = false, timer = createStopWatch()},
+aff_winterheart = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_weariness = {state = "healed", effect = "", cures = {herb = "kelp", tree = "send", focus = "send"}, assess = false, timer = createStopWatch()},
 aff_windbrand = {state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch()},
 aff_withering = {state = "healed", effect = "", cures = {smoke = "elm", tree = "send"}, assess = false, timer = createStopWatch()},
