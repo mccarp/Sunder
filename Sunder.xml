@@ -7539,9 +7539,9 @@ cecho("&lt;red&gt;\n ***********************************")</script>
   deleteLine()
   snd.message("Summoned: Elemental")
 end
-snd.bashing.target = "elemental"
-snd.bashing.targeted = true
-snd.toggles.bashing = true</script>
+snd.toggles.bashing = true
+snd.room_clear = true
+snd.runBasher()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
