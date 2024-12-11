@@ -87075,7 +87075,7 @@ end</script>
         snd.affTimers.start("dustring", 150)
       end
     end,
-    Inflict = function(target, conditional)
+    Gleam = function(target, inflict, conditional)
       local map = {
         burning = {"red","recklessness"},
         crushing = {"orange", "gnawing"},
