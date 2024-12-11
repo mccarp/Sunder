@@ -22342,6 +22342,192 @@ end</script>
 								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Crystalism</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>VibeAlerts</name>
+									<script>--^(\w+) begins to vibrate in tune with a disruptive harmony\.$
+
+--Not sure if possible to code anti illusion checks.
+
+local vibrationToEffect = {
+    adduction = {},
+    disorientation = { affs = { "dizziness" } },
+    plague_broken_arms = { affs = { "right_arm_crippled", "left_arm_crippled" } },
+    plague_broken_legs = { affs = { "left_leg_crippled", "right_leg_crippled", "fallen" } },
+    plague_vomiting = { affs = { "vomiting" } },
+    dissipate = { mp = 0.055 },
+    energize = {},
+    creeps_claustrophobia = { affs = { "claustrophobia" } },
+    creeps_agoraphobia = { affs = { "agoraphobia" } },
+    creeps_shyness = { affs = { "shyness" } },
+    oscillate = {},
+    lullaby = { affs = { "sleep" } },
+    palpitation = { hp = 0.0925 },
+    dissension = {},
+    gravity = { defStrip = { "levitation" } },
+    tremors = { affs = { "fallen" } },
+    stridulation = { affs = { "disrupted" } },
+}
+
+if snd.target == matches[2] then
+  for i,v in pairs(vibrationToEffect[matches[3]]) do
+    if i ~= "hp" and i ~= "mp" then
+      for num,effect in ipairs(v) do
+        if i == "affs" then
+          snd.target_got(effect)
+        elseif i == "defStrip" then
+          if effect == "levitation" then
+            snd.lev_gone = true
+          end
+        end
+      end
+    else
+      snd.vital_change(i, -v*100)
+    end
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) is suffering the effects of your (\w+) vibration\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>VibeAlerts Plague or Creeps or Cavitation</name>
+									<script>if snd.target == matches[2] then
+  if matches[3] == "cavitation" then
+    snd.last_hit_limb = matches[4]
+    snd.last_limb_dmg = 3.4
+    snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+  elseif matches[4] == "broken arms" then
+    snd.target_got("left_arm_crippled")
+    snd.target_got("right_arm_crippled")
+  elseif matches[4] == "broken legs" then
+    snd.target_got("left_leg_crippled")
+    snd.target_got("right_leg_crippled")
+    snd.target_got("fallen")
+  else
+    snd.target_got(matches[4])
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) is suffering the effects of your (\w+) \((.+)\) vibration\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Vibes Dissonance (dissension)</name>
+									<script>if snd.target == matches[2] then
+  snd.target_got("dissonance")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) begins to vibrate in tune with a disruptive harmony\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Vibes Dissonance Defstrip</name>
+									<script>--need to add other defs that sunder tracks, like arcane etc.
+
+if snd.target == matches[2] then
+  snd.target_got("dissonance")
+  if matches[3] == "levitation" then
+    snd.lev_gone = true
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+)'s dissonant nature has worn down their (.+) defence.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Vibes Tones Plague</name>
+									<script>--Maybe need an illusion check. 
+--Maybe call a flag from the combatmessage and check for the flag here? 
+--You use Crystalism Tones Plague on PERSON.
+
+if snd.target == matches[2] then
+  snd.target_got(matches[3])
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) has received the plague of (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Balances</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -86911,7 +87097,54 @@ end</script>
     end,
   },
   ["Crystalism"] = {
-  
+  Tones =
+    function(target, vibe)
+      if vibe == "Dissipate" then
+        if snd.checkAff("confusion") then
+          snd.vital_change("mana", -14)
+        else
+          snd.vital_change("mana", -7)
+        end
+      elseif vibe == "Palpitation" then
+        if snd.checkAff("paralysis") then
+          snd.vital_change("health", -6)
+        else
+          snd.vital_change("health", -4)
+        end
+      elseif vibe == "Tremors" then
+        snd.target_got("fallen")
+      elseif vibe == "Creeps" then
+        if snd.checkAff("loneliness") then
+          snd.target_got("masochism")
+        else
+          snd.target_got("loneliness")
+        end
+      elseif vibe == "Oscillate" then
+        snd.target_got("muddled")
+      elseif vibe == "Disorientation" then
+        if snd.checkAff("epilepsy") then
+          snd.target_got("berserking")
+        else
+          snd.target_got("epilepsy")
+        end
+      elseif vibe == "Stridulation" then
+        if snd.checkAff("hearing") then
+          snd.target_got("sensitivity")
+        else
+          snd.target_got("hearing")
+        end
+      elseif vibe == "Gravity" then
+        snd.lev_gone = true
+      elseif vibe == "Crystalforest" then
+        snd.used.shield = false
+      elseif vibe == "Dissension" then
+        snd.target_got("dissonance")
+      elseif vibe == "Lullaby" then
+        snd.target_got("sleep")
+      elseif vibe == "Plague" then
+        --add in a flag here to detect plague tone secondary line, for anti illusion purposes?
+      end
+    end
   },
   ["Ostension"] = {
   
