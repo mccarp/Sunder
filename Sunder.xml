@@ -87066,6 +87066,18 @@ end</script>
   --Siderealist
   ["Astranomia"] = {
     Ray = function(target)
+      local baseTime = 8
+      if snd.checkAff("asterism") then
+        baseTime = baseTime + 3
+      end
+      if snd.checkAff("moonlet") then
+        baseTime = baseTime + 3
+      end
+      if snd.checkAff("dustring") then
+        baseTime = baseTime + 3
+      end
+      snd.target_got("magic_weakness")
+      snd.affTimers.start("magic_weakness", baseTime, true)
     end,
     Erode = function(target)
       snd.used.shield = false
