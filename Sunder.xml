@@ -87291,12 +87291,10 @@ end</script>
         snd.onHit2({"Parry", "Dodge"})
       end
     end,
-    Gulbedum = function(target, ability)
-      if ability == "Hex" then
-      elseif ability == "Despair" then
+    Gulbedim = function(target, ability)
+      if ability == "Despair" then
         snd.target_got("despair") -- lasts for 60s
         snd.affTimers.start("despair", 60)
-      elseif ability == "Seal" then
       end
     end,
     Ontesme = function(target, ability)
