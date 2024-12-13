@@ -22555,6 +22555,70 @@ end</script>
 								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Ostension</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>illgrasp aff line</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got(matches[3])
+  snd.illgraspcounter = snd.illgraspcounter - 1
+  if snd.illgraspcounter&lt;=0 then
+    snd.target_cured("illgrasp")
+  end
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You determine that (\w+) has been afflicted by (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Averroes Bolt Irradiated Limb Damage</name>
+									<script>if snd.target == matches[2] then
+  snd.took_limb_dmg(matches[3], 7)
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The arcane force around (\w+)'s (.+) flares to a harsh glare, then expires\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Balances</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -26140,6 +26204,28 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^(\w+) shakes .+ head clear.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Despair cured</name>
+							<script>if snd.target == matches[2] then
+  snd.target_cured("despair")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The despair upon (\w+) lifts from .+ shoulders.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -87187,8 +87273,39 @@ end</script>
     end
   },
   ["Ostension"] = {
-  
-  
+    Averroes = function(target, bolt, limb)
+      snd.last_hit_limb = limb
+      snd.last_limb_dmg = 15
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      snd.onHit2({"Parry"})
+    end,
+    Eja = function(target, kodosa, ability) -- "kodosa" is a filler conditional for this ability
+      if ability == "mend" then
+        for _, limb in ipairs({"left_arm","right_arm","left_leg","right_leg"}) do
+          if snd.checkAff(limb.."_crippled") and not snd.checkAff(limb.."_broken") then snd.target_cured(limb.."_crippled") return end
+        end
+      end
+    end,
+    Vayua = function(target, ability)
+      if ability == "Attack" then
+        snd.onHit2({"Parry", "Dodge"})
+      end
+    end,
+    Gulbedum = function(target, ability)
+      if ability == "Hex" then
+      elseif ability == "Despair" then
+        snd.target_got("despair") -- lasts for 60s
+        snd.affTimers.start("despair", 60)
+      elseif ability == "Seal" then
+      end
+    end,
+    Ontesme = function(target, ability)
+      if ability == "Illgrasp" then
+        snd.target_got("illgrasp")
+        snd.illgraspcounter = 4
+        snd.affTimers.start("illgrasp", 180)
+      end
+    end,
   },
 }</script>
 					<eventHandlerList />
