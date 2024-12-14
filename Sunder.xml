@@ -24767,8 +24767,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^As (\w+) attempts to flee upwards, .+ quickly lashes out to grab \w+ ankle in a crushing grip and throws \w+ to the ground\.$</string>
+									<string>^(\w+)'s attempt to flee upwards stirs .+ into sudden motion, its features implacable as it enacts a detainment protocol and sends \w+ sprawling to the ground\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -24789,8 +24791,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The sudden silhouette leaves (\w+) with (.+)\.$</string>
+									<string>^Your thin whip of sand imparts (\w+) with (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -24833,8 +24837,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Cinders burst from the elemental's digits as the strike connects, setting (\w+) ablaze\.$</string>
+									<string>^As the strike connects, the fist erupts in flames and ignites (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -29953,8 +29959,10 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^.+ suddenly knocks (\w+) to the ground, \w+ (left leg|right leg) snapping from the impact\.$</string>
+									<string>^.+ intercepts (\w+)'s attempt to flee, driving \w+ to the ground with such force that \w+ (left leg|right leg) is left hobbled from the impact\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
