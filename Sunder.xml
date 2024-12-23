@@ -7580,7 +7580,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Recall target</name>
-						<script>if snd.toggles.calling and matches[2]:lower()~=snd.target:lower() and matches[2]:lower()~=snd.bashing.target:lower() then
+						<script>if snd.toggles.calling and matches[2]:lower()~=snd.target:lower() and matches[2]:lower()~=snd.bashing.target:lower() and matches[3]:lower()~=snd.target:lower() and matches[3]:lower()~=snd.bashing.target:lower() then
   snd.message("That's not our current target! Recalling")
   send("wt Target: "..snd.target)
 end</script>
@@ -7595,7 +7595,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^\(Web\): You say, "[Ta\.]*Target: [\.\w]*?(\w+)\."$</string>
+							<string>^\(Web\): You say, "[Ta\.]*Target: ([\.\w]*?(\w+))\."$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -64052,7 +64052,7 @@ end</script>
   ["Your sagacious mind empowers the moon tattoo."] = "empowered_moon",
   ["You are preparing arcane missiles."] = "missiles",
   ["You are protected by a thin layer of magic."] = "arcaneskin",
-  ["You have the countercurrent defence."] = "countercurrent",
+  ["You are surrounded by a thin counter current."] = "countercurrent",
   ["You are blurring the edges of your form."] = "blurring",
   ["You are surrounded in a mantle of pure shadow."] = "shadow_mantle",
   ["You are focusing on precise spellcasting."] = "rigor",
@@ -88540,7 +88540,7 @@ function snd.akkari_attend()
 end
 
 function snd.can_deliver()
-  if ((snd.aff_count_physical() &gt;= 1 or snd.proned()) or snd.checkAff("feast")) and not snd.used.paste
+  if ((snd.checkAff("paresis") or snd.proned()) or snd.checkAff("feast")) and snd.checkAff("no_paste")
   then
     return true
   else
