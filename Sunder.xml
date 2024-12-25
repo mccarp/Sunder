@@ -57294,12 +57294,9 @@ end
   "soothing",
   },
 }
+local refills = matches[2]
 for _, v in ipairs(fluid_types[matches[3]]) do
-  currentamount = 0
-  while currentamount &lt; tonumber(matches[2]) do
-    snd.send("buy refill of " .. v .. " for fluidcache")
-    currentamount = currentamount + 1
-  end
+  snd.send("buy "..refills.." refill of " .. v .. " for fluidcache")
 end
 </script>
 						<command></command>
@@ -61345,7 +61342,7 @@ snd.priorities =
     "rage",
     "dome",
     "def_safeguard",
-    "def_mindseye_tattoo",
+    "def_mindseye",
     "def_miasma",
     "def_warmth",
     "def_cloak_tattoo",
