@@ -1291,7 +1291,7 @@ end
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Allsight-&gt; Mindseye</name>
 								<script>if hasSkill("MindseyeTattoo") then snd.send("touch mindseye") end</script>
 								<triggerType>0</triggerType>
@@ -7580,9 +7580,15 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Recall target</name>
-						<script>if snd.toggles.calling and matches[2]:lower()~=snd.target:lower() and matches[2]:lower()~=snd.bashing.target:lower() and matches[3]:lower()~=snd.target:lower() and matches[3]:lower()~=snd.bashing.target:lower() then
+						<script>if
+  snd.toggles.calling and
+  matches[2]:lower() ~= snd.target:lower() and
+  matches[2]:lower() ~= snd.bashing.target:lower() and
+  matches[3]:lower() ~= snd.target:lower() and
+  matches[3]:lower() ~= snd.bashing.target:lower()
+then
   snd.message("That's not our current target! Recalling")
-  send("wt Target: "..snd.target)
+  send("wt Target: " .. snd.target)
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -60838,7 +60844,7 @@ function snd.goggle_update()
   local goggle_defenses = {
     --heatsight = {level = 1, non_goggle_method = {needybalancetake = "heatsight"}, non_goggle_skill = "Heatsight"},
     nightsight = {level = 1, non_goggle = {special = "nightsight"} , non_goggle_skill = "Nightsight"},
-    mindseye_tattoo = {level = 2, non_goggle = {balanceequilibrium = "touch allsight"}, non_goggle_skill = "Generic"},
+    -- mindseye_tattoo = {level = 2, non_goggle = {balanceequilibrium = "touch allsight"}, non_goggle_skill = "Generic"},
     thirdeye = {level = 2, non_goggle = {eat = "acuity"}, non_goggle_skill = "Generic"},
     overwatch = {level = 5, non_goggle = {""}, non_goggle_skill = "Generic"},
     insight = {level = 8, non_goggle = {needyequilibriumtake = "mind insight on"}, non_goggle_skill = "Insight"},
@@ -60850,11 +60856,7 @@ function snd.goggle_update()
     if tonumber(snd.toggles.goggle_level) &gt;= v.level and snd.toggles.goggles then
       snd.def_options.general_defs["def_"..k] = "on"
       snd.defenses["def_"..k].skill = "Goggle"
-      if k:find("tattoo") then
-        snd.defenses["def_"..k].balance = {special = "goggle toggle mindseye"}
-      else
-        snd.defenses["def_"..k].balance = {special = "goggle toggle "..k}
-      end
+      snd.defenses["def_"..k].balance = {special = "goggle toggle "..k}
     else
       snd.defenses["def_"..k].balance = goggle_defenses[k].non_goggle
       snd.defenses["def_"..k].skill = goggle_defenses[k].non_goggle_skill
@@ -63153,7 +63155,7 @@ def_pacing = {defense = "pacing", type = "red", effect = "Keep up while followin
 def_heatsight = {defense = "heatsight", type = "normal", effect = "See hidden people", balance = {needybalancetake = "heatsight"}, state = "down", needit = false, timer = createStopWatch(), skill = "Heatsight"},
 def_chameleon = {defense = "chameleon", type = "normal", effect = "Change your name on QW/WHO", balance = {balanceequilibrium = "touch chameleon "}, state = "down", needit = false, timer = createStopWatch(), skill = "ChameleonTattoo"},
 def_cloak_tattoo = {defense = "cloak", type = "blue", effect = "Protects from unwanted summons", balance = {tattoo = "cloak"}, state = "down", needit = false, timer = createStopWatch(), skill = "CloakTattoo"},
-def_mindseye_tattoo = {defense = "mindseye", type = "green", effect = "Allows deaf/blind hearing/vision", balance = {special = "touch allsight"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_mindseye = {defense = "mindseye", type = "green", effect = "Allows deaf/blind hearing/vision", balance = {special = "mindseye"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_firefly_tattoo = {defense = "firefly", type = "green", effect = "Protects you against them Sciomancers", balance = {tattoo = "firefly"},state = "down", needit = false, timer = createStopWatch(), skill = "FireflyTattoo"},
 def_flame_tattoo = {defense = "flame", type = "green", effect = "Helps protect against writhe affs", balance = {tattoo = "flame"},state = "down", needit = false, timer = createStopWatch(), skill = "FlameTattoo"},
 def_shield_tattoo = {defense = "shielded", type = "green", effect = "Magical shield to stop attacks", balance = {tattoo = "shield"},state = "down", needit = false, timer = createStopWatch(), skill = "ShieldTattoo"},
@@ -63875,7 +63877,7 @@ end</script>
 							<script>snd.defenses_list =  {
   ["Your hands are gripping your wielded items tightly."] = "irongrip",
   ["You are utilising a careful, trained grip on your weapons."] = "gripping",
-  ["Your senses are magically heightened."] = "mindseye_tattoo",
+  ["Your senses are magically heightened."] = "mindseye",
   ["You are diverting melee attacks."] = "divert_melee",
   ["You are surrounded by a cloak of protection."] = "cloak_tattoo", 
   ["You are utilising your bodily control to make yourself more fit."] = "fitness",
@@ -80541,7 +80543,7 @@ none = {
 
 general_defs = {
 def_thirdeye = "on",
-def_mindseye_tattoo = "on",
+def_mindseye = "on",
 def_cloak_tattoo = "on",
 def_kola = "on",
 def_deathsight = "on",
