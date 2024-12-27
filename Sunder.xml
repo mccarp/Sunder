@@ -77960,17 +77960,25 @@ snd.global_targets = {
 				<Script isActive="yes" isFolder="no">
 					<name>run basher</name>
 					<packageName></packageName>
-					<script>local function getTarget(tab)
+					<script>function snd.getTarget(tab, exclude)
   for _, targ in pairs(table.n_union(snd.possible_targets, snd.global_targets)) do
     if targ:sub(1,6) == "Match:" then
       local pattern = targ:sub(7)
       for name, ids in pairs(tab) do
         if name:find(pattern) and tab[name][1] then
-          return tab[name][1], name
+          if tab[name][1] ~= exclude then
+            return tab[name][1], name
+          else 
+            return tab[name][2], name
+          end
         end
       end
     elseif tab[targ] and tab[targ][1] then
-      return tab[targ][1], targ
+      if tab[targ][1] ~= exclude then
+        return tab[targ][1], targ
+      elseif tab[targ][2] then
+        return tab[targ][2], targ
+      end
     end
   end
 end
@@ -77998,9 +78006,9 @@ function snd.runBasher()
       end
     end
   end
-  local targetID, targetName = getTarget(snd.agros)
+  local targetID, targetName = snd.getTarget(snd.agros)
   if not targetID then
-    targetID, targetName = getTarget(snd.items)
+    targetID, targetName = snd.getTarget(snd.items)
   end
   if not targetID then
     if snd.bashing_cleanup() then return end
@@ -78341,8 +78349,21 @@ function snd.executor_bash()
   elseif snd.toggles.newbie then
   	battack = "ringblade dance "..snd.bashing.target.." contrive beguile"
  	else
-  	battack = "ringblade dance "..snd.bashing.target.." phlebotomise inveigle"
- 	end
+    battack = "ringblade dance " .. snd.bashing.target .. " phlebotomise inveigle"
+    if snd.toggles.bashing then
+      local secondaryId, secondaryName = snd.getTarget(snd.agros, snd.bashing.target)
+      if not secondaryId then
+        secondaryId, secondaryName = snd.getTarget(snd.items, snd.bashing.target)
+      end
+      if secondaryId then
+        battack = battack .. snd.sep .. "ringblade inveigle " .. secondaryId
+      end
+    end
+  end
+  battack = "order loyals passive" .. snd.sep .. battack
+  if not gmcp.Char.Vitals.wield_left:find("ringblade") then
+    battack = "quickwield both ringblade" .. snd.sep .. battack
+  end
 end
 
 function snd.indorani_bash()
@@ -78576,18 +78597,30 @@ function snd.sciomancer_bash()
 end
  
 function snd.sentinel_bash()
-  hp = 100*(gmcp.Char.Vitals.hp/gmcp.Char.Vitals.maxhp)
-	
-  if hp &lt;=40 and snd.shield_check() then
+  hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
+  if hp &lt;= 40 and snd.shield_check() then
     if snd.punisher then
     else
       battack = "touch shield"
     end
   elseif snd.toggles.newbie then
-  	battack = "dhuriv combo "..snd.bashing.target.." slash stab"
- 	else
-  	battack = "dhuriv combo "..snd.bashing.target.." crosscut thrust"
- 	end
+    battack = "dhuriv combo " .. snd.bashing.target .. " slash stab"
+  else
+    battack = "dhuriv combo " .. snd.bashing.target .. " crosscut thrust"
+    if snd.toggles.bashing then
+      local secondaryId, secondaryName = snd.getTarget(snd.agros, snd.bashing.target)
+      if not secondaryId then
+        secondaryId, secondaryName = snd.getTarget(snd.items, snd.bashing.target)
+      end
+      if secondaryId then
+        battack = battack .. snd.sep .. "dhuriv thrust " .. secondaryId
+      end
+    end
+  end
+  battack = "order loyals passive" .. snd.sep .. battack
+  if not gmcp.Char.Vitals.wield_left:find("dhurive") then
+    battack = "quickwield both dhurive" .. snd.sep .. battack
+  end
 end
 
 function snd.shaman_bash()
