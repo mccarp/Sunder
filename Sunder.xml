@@ -82554,7 +82554,7 @@ end</script>
 
 function snd.restoApply(location)
   if snd.checkAff("ravaged") then
-    snd.affTimers.start("ravaged", 15, true)
+    snd.affTimers.start("ravaged", 41, true)
   end
   if snd.checkAff("burnt_skin") and location ~= "torso" then
     return
@@ -85606,7 +85606,7 @@ end</script>
                 end,
     Ravage = function(target)
                   snd.target_got("ravaged")
-                  snd.affTimers.start("ravaged", 43)
+                  snd.affTimers.start("ravaged", 41)
                 end,
   },
   ["Wayfaring"] = {
