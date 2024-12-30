@@ -26943,7 +26943,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) looks mildly stressed in pain, but .+ (.+) resists breaking\.$</string>
+								<string>^(\w+) looks mildly stressed in pain, but .+ (\w+ \w+) resists breaking\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -63864,7 +63864,9 @@ function snd.def_remove(defense)
  if not string.find(defense, "def_") then
   defense = "def_"..defense
  end
- snd.defenses[defense].state = "down"
+ if snd.defenses[defense].state ~= "waiting" then
+  snd.defenses[defense].state = "down"
+ end
 end</script>
 							<eventHandlerList />
 						</Script>
