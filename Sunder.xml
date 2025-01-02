@@ -40171,6 +40171,8 @@ display(snd.group)</script>
     {"boggard", "Boggard in esterport. Takes black ylem."},
     {"staging", "Where your city gathers for combat."},
     {"training", "Your city's training room."},
+    {"epicurean", "The epicurean academy."},
+    {"sgs", "The Siroccian Geological Society."},
   }
 for _, landmark in ipairs(snd.landmarks_descs) do
   cecho("\n&lt;sandy_brown&gt;" .. string.title(landmark[1]) .. ": &lt;aquamarine&gt;" .. landmark[2])
@@ -59641,6 +59643,10 @@ snd.landmarks.rowan = 6842
 snd.landmarks.hgshrine = 23489
 
 snd.landmarks.wyvern = 78127
+
+snd.landmarks.sgs = 59238
+
+snd.landmarks.epicurean = 62454
 
 local citymarks =
   {
