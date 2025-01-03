@@ -22503,6 +22503,28 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Stillness fail</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("echoes")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) resists the stellar scourge, .+ guard held steady against the cosmic sorcery\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Alteration failure</name>
 									<script>if matches[2] == snd.target then
   snd.target_cured(matches[3])
@@ -41543,7 +41565,7 @@ end</script>
       
       if snd.used.shield then
         string = "astra erode " .. snd.target
-      elseif (snd.checkAff("anorexia") and not snd.checkAff("stupidity")) or 
+      elseif snd.checkAff("echoes") and (snd.checkAff("anorexia") and not snd.checkAff("stupidity")) or 
         (snd.target_locked() and not snd.checkAff("moonlet")) then
         string = "astra stillness "..snd.target
       elseif snd.checksomeAffs(snd.all_affs, 5) and not snd.checkAff("asterism") then
