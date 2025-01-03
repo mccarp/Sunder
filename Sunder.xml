@@ -87865,6 +87865,7 @@ end</script>
         end
       elseif vibe == "Oscillate" then
         snd.target_got("muddled")
+        snd.affTimers.start("muddled", 8.5)
       elseif vibe == "Disorientation" then
         if snd.checkAff("epilepsy") then
           snd.target_got("berserking")
