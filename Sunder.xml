@@ -48761,15 +48761,6 @@ function snd.attack_function()
 		end
 
     local wield = ""
-		if not string.find(gmcp.Char.Vitals.wield_left, snd.templar_weapon_one) then 
-      wield = "quickwield left "..snd.templar_weapon_one
-      if not string.find(gmcp.Char.Vitals.wield_right, snd.templar_weapon_two) then 
-        wield = wield..snd.sep.."quickwield right "..snd.templar_weapon_two..snd.sep 
-      end
-    elseif not string.find(gmcp.Char.Vitals.wield_right, snd.templar_weapon_two) then 
-      wield = "quickwield right "..snd.templar_weapon_two..snd.sep 
-    end
-
     
 		-- set the affs we want to use
      snd.giving = {
@@ -48873,14 +48864,6 @@ function snd.attack_function()
 		end
    
     local wield = ""
-		if not string.find(gmcp.Char.Vitals.wield_left, snd.templar_weapon_one) then 
-      wield = "quickwield left "..snd.templar_weapon_one
-      if not string.find(gmcp.Char.Vitals.wield_right, snd.templar_weapon_two) then 
-        wield = wield..snd.sep.."quickwield right "..snd.templar_weapon_two..snd.sep 
-      end
-    elseif not string.find(gmcp.Char.Vitals.wield_right, snd.templar_weapon_two) then 
-      wield = "quickwield right "..snd.templar_weapon_two..snd.sep 
-    end
     
     -- set the affs we want to use
 		snd.giving = {
@@ -61565,6 +61548,7 @@ snd.priorities =
     "def_earthenform",
     "def_permafrost",
     "def_focalmark",
+    "def_alacrity",
     -- "aff_health_10",
     -- "aff_health_35",
     -- "aff_health_55",
@@ -80989,6 +80973,7 @@ def_maskedscent = "once",
 def_vitality = "on",
 def_flexibility = "once",
 def_foreststride = "once",
+def_alacrity = "once",
 },
 
 shaman = {
@@ -81137,6 +81122,7 @@ executor = {
   def_vitality = "on",
   def_limberness = "once",
   def_bounding = "once",
+  def_efficiency = "once",
 },
 
 voidseer = {
@@ -83181,6 +83167,7 @@ end</script>
  snd.locking = false
  snd.target_has_aura = true
  snd.need_leech_aura = true
+ snd.adder_ready = false
  snd.flamewreathed = {limb = "", resonance = ""}
  snd.need_deform = true
  snd.welt_ready = "none"
