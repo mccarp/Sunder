@@ -17069,7 +17069,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^(\w+) tears the noxious Diamond shape from \w+ body, wincing in pain\.$</string>
+											<string>^(\w+) tears the noxious diamond shape from \w+ body, wincing in pain\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -83179,6 +83179,7 @@ end</script>
  snd.target_has_aura = true
  snd.need_leech_aura = true
  snd.adder_ready = false
+ snd.adder_attached = false
  snd.flamewreathed = {limb = "", resonance = ""}
  snd.need_deform = true
  snd.welt_ready = "none"
