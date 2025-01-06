@@ -2936,8 +2936,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^The surging elemancy does its terrifying work as (\w+) loses consciousness\.$</string>
+								<string>^(\w+) looks drowsy for a moment as \w+ eyes flutter and roll back\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -66047,7 +66049,7 @@ snd.areas = {
 {area = "the Ia'shal Barrow", level = "85+", targets = { "a foul spiderling", "a ravenous cave spider", "a bulbous cave spider", "an egg-laden spider"}},
 {area = "Arbothia", level = "85-95", targets = {"an enraged female servant", "an enraged male servant", "an enraged female villager", "an enraged male villager"}},
 {area = "the Eresh Mines", level = "85-95", targets = {"an angry vampire bat", "a blind wolf spider", "a swarm of black beetles", "a slimy brown salamander", "an enormous salamander"}, items = {}},
-{area = "the Fengard Keep", level = "85-95", targets = {"a massive argobole", "a fiery phenkyre", "an ogre berserker", "a horrid basilwyrm", "a shrieking grimshrill", "a vicious horned garwhol", "a brawny glaive knight", "a tall chempala", "a radiant lumore", "a pious invoker", "a pungent lichosphere"}, items = {}},
+{area = "the Fengard Keep", level = "85-95", targets = {"a massive argobole", "a fiery phenkyre", "an Ogre berserker", "a horrid basilwyrm", "a shrieking grimshrill", "a vicious horned garwhol", "a brawny glaive knight", "a tall chempala", "a radiant lumore", "a pious invoker", "a pungent lichosphere"}, items = {}},
 {area = "the Ayhesa Cliffs", level = "90-100", targets = {"a Spellshaper Archon", "a Spellshaper Master", "a Spellshaper Adept"}, items = {"a flat metal disc"}},
 {area = "Yuzurai village", level = "90-100", targets = {"a massive rojalli matriarch", "a sleek black rojalli", "a savage rojalli"}},
 {area = "the Dramedo Warrens", level = "90-100", targets = {"a vast ochre ooze", "a winged fungal horror", "a shambling fungal abomination", "a gigantic fungal strider", "a cloud of fungal spores"}}, 
@@ -77950,7 +77952,7 @@ sunder_areaPaths = {
 {area = "Khauskin Mines", level = "apothecary", targets = {"a grotesque fangtooth", "a large, deepwater salmon", "a school of fish", "a powerful-looking swordfish", "a mantaglow fish", "a large blackfish", "a huge beluga sturgeon", "a plated ixthean", "an angler fish"}},
 {area = "Eastern Ithmia", level = "apothecary", targets = {"a great white stag"}},
 {area = "the Dolbodi Campsite", level = "apothecary", targets = {"a great white stag", "Match:a herd of %a+ white stags"}},
-{area = "the Fengard Keep", level = "apothecary", targets = {"a massive argobole", "a fiery phenkyre", "a vicious horned garwhol", "an ogre berserker", "Match:a horde of %a+ rats", "a large rat"}},
+{area = "the Fengard Keep", level = "apothecary", targets = {"a massive argobole", "a fiery phenkyre", "a vicious horned garwhol", "an Ogre berserker", "Match:a horde of %a+ rats", "a large rat"}},
 {area = "Huanazedha", level = "apothecary", targets = {"Match:a horde of %a+ rats", "a large rat"}},
 {area = "the Southern Tundra", level = "apothecary", targets = {"Match:a bachelor herd of %a+ young bull mugyiks", "a white mugyik calf", "a dusky mugyik", "a bull mugyik"}},
 {area = "the Western Tundra", level = "apothecary", targets = {"Match:a bachelor herd of %a+ young bull mugyiks", "a white mugyik calf", "a dusky mugyik", "a bull mugyik"}},
@@ -79201,7 +79203,7 @@ snd.generic_bashing_table_specific_names = {
   ["an energetic orangutan"] = "orangutan",
   ["a rot-infested swordfish"] = "swordfish",
   ["a vast ochre ooze"] = "ooze",
-  ["an ogre berserker"] = "ogre",
+  ["an Ogre berserker"] = "ogre",
   ["a giant squid"] = "squid",
   ["an amorphous black umbra"] = "umbra",
   ["a swarm of tsetse flies"] = "flies",
