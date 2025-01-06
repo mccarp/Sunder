@@ -16342,7 +16342,13 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Wheel cures</name>
 										<script>if matches[3] == snd.target then
-  snd.target_cured(matches[2])
+  local affs = matches[2]
+  affs = affs:gsub(" and ", ", ")
+  affs = affs:gsub(",,", ",")
+  affs = affs:split(", ")
+  for _, aff in ipairs(affs) do
+   snd.target_cured(aff)
+  end
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -17541,12 +17547,15 @@ end</script>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>cardinal</name>
-										<script>if matches[2]:lower() == snd.target:lower() then
-  snd.target_got(matches[3])
-  if matches[4] ~= nil then snd.target_got(matches[4]) end
-  if matches[5] ~= nil then snd.target_got(matches[5]) end
-end
-</script>
+										<script>if matches[2] == snd.target then
+  local affs = matches[3]
+  affs = affs:gsub(" and ", ", ")
+  affs = affs:gsub(",,", ",")
+  affs = affs:split(", ")
+  for _, aff in ipairs(affs) do
+   snd.target_got(aff)
+  end
+end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
@@ -17558,22 +17567,22 @@ end
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+), ([a-zA-Z_ -]+) and ([a-zA-Z _ -]+)\.</string>
-											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+) and ([a-zA-Z _ -]+)\.</string>
-											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+).</string>
-											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from ([a-zA-Z _ -]+), ([a-zA-Z_ -]+), and ([a-zA-Z _ -]+)\.</string>
+											<string>An ethereal cry echoes, proclaiming (\w+)'s suffering from (.+)\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
-											<integer>1</integer>
-											<integer>1</integer>
-											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Cardinal aff cure</name>
 										<script>if matches[3] == snd.target then
-  snd.target_cured(matches[2])
+  local affs = matches[2]
+  affs = affs:gsub(" and ", ", ")
+  affs = affs:gsub(",,", ",")
+  affs = affs:split(", ")
+  for _, aff in ipairs(affs) do
+   snd.target_cured(aff)
+  end
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -88379,6 +88388,7 @@ snd.cardshapes =
         sensitivity = {card = "sun"},
         hearing = {card = "sun"},
         hypersomnia = {card = "sun"},
+        migraine = {card = "sun"},
         superstition = {card = "sun"},
         prone = {card = "hangedman"},
         writhe_ropes = {card = "hangedman"},
@@ -88417,6 +88427,7 @@ snd.cardshapes =
         sensitivity = {card = "sphere"},
         hearing = {card = "sphere"},
         hypersomnia = {card = "sphere"},
+        migraine = {card = "sphere"},
         superstition = {card = "sphere"},
         prone = {card = "wreath"},
         writhe_ropes = {card = "wreath"},
