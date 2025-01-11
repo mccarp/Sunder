@@ -59873,6 +59873,8 @@ snd.landmarks.sgs = 59238
 
 snd.landmarks.epicurean = 62454
 
+snd.landmarks.mithril = 3429
+
 local citymarks =
   {
     Enorian = {staging = 56509, training = 55768},
@@ -65241,7 +65243,7 @@ local specialExits = {
   {from = 55187, to = 55154, command = [=[script: sendAll("pull 196759", "west") mmp.customwalkdelay(2)]=], locked = false, weight = 0},
   
   --Xaanhal seal
-  {from = 36688, to = 36710, command = [=[script: send("touch seal")]=], locked = false, weight = 0},
+  --{from = 36688, to = 36710, command = [=[script: send("touch seal")]=], locked = false, weight = 0},
   
   --Spiral of the Corrupt
   {from = 36270, to = 36271, command = [=[enter whirlpool]=], locked = false, weight = 0},
@@ -65941,7 +65943,7 @@ snd.bashing_area_beginning_rooms ={
   ["the Village of Kornar"] = "21286",
   ["the Iernian Fracture"] = "10046",
   ["the Hlugnic Labyrinth"] = "57334",
-  ["Xaanhal"] = "36677",
+  ["The abandoned remnants of Xaanhal"] = "36677",
   ["the Sparklight Rift"] = "60845",
   ["a volcano"] = "35217",
   ["Tainhelm"] = "16437",
@@ -66121,7 +66123,7 @@ snd.areas = {
 {area = "the Feral Caves", level = "95+", targets = {"a small green blob", "a slimy green blob", "a massive green blob", "a gigantic green blob"}},
 {area = "The Forgotten Mausoleum", level = "95+", targets = {"a reanimated Dwarf woman", "a rotting Dwarf archer", "a decomposing Dwarf", "a robed reanimated Dwarf"}},
 {area = "Tcanna Island", level = "95+", targets = {"a brown and tan python", "a blue crab", "a box jellyfish", "a large capybara", "a small ocelot", "a spotted leopard", "a howler monkey", "a striped tiger", "a water buffalo", "an enormous elephant", "a vicious copperhead snake", "an oversized tortoise", "a diseased raccoon", "a dark green alligator", "a white-tailed deer", "a lithe cougar", "a black bear", "a black and white badger","a great white stag", "a spotted jaguar","a long-billed toucan", "a scarlet macaw", "a bald eagle", "a gray wolf", "a ragged coyote", "a Troll guard", "a Troll cook","a white goose", "a Nazetu officer", "a silverback gorilla","a venomous bushmaster","a thick boa constrictor","a brown-furred bat","an ebon crow",}},
-{area = "Xaanhal", level = "really high", targets = {"a suspicious Xorani patrol", "a wiry Xorani guard", "a cautious Xorani guard", "a merciless Xorani warrior", "a willowy nest guardian"}, items = {"a fragment of a mosaic"}},
+{area = "The abandoned remnants of Xaanhal", level = "really high", targets = {"a firewrought behemoth", "an arcane anomaly", "a stoic bedrock colossus", "a churning tidal spectre", "an electrified sparkwraith",}},
 {area = "Trapped within a mirror", level = "Quest", targets = {"a fragment of living glass"}},
 {area = "the Teshen Caldera", level = "40-60? Maybe", targets  = {"a Teshen raider", "a Teshen scout", "a Teshen reaver", "a Teshen worker"}},
 {area = "the Temple of Sonn", level = "40+", targets = {"a menacing black rojalli", "a choke creeper", "a darkling", "a shadowdrop", "a giant mosquito", "an elongated black serpent", "a glossy black silk-spinner", "a giant fly"}},
@@ -70622,7 +70624,7 @@ sunder_areaPaths = {
     v69696 = "69698",
     v69698 = "69699"
   },
-  Xaanhal = {
+  ["The abandoned remnants of Xaanhal"] = {
     v36677 = "36678",
     v36678 = "36679",
     v36679 = "36680",
