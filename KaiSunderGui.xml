@@ -2083,6 +2083,7 @@ snd.channel_list =
     ["ct"] = "City",
     ["cnt"] = "City",
     ["emotes"] = "Local",
+    ["premotes"] = "Local",
     ["gt"] = "Guild",
     ["gts"] = "Guild",
     ["clt"] = "Clans",
@@ -2153,14 +2154,30 @@ function chatAppend(chat)
   end
 end
 
+local burstStrings = {
+  "has burst back to life after falling to",
+  "to live on instead.",
+  "Necromantic power has restored ",
+  }
+  
+
 function kaiUI.chat.deaths()
   timestamp("death")
   local text = ""
   local killer, victim, assists = gmcp.Deathsight.killer, gmcp.Deathsight.victim, gmcp.Deathsight.assists
+  local deathstr = "was slain by"
+  local color = "&lt;red&gt;"
+  for _, str in pairs(burstStrings) do
+    if gmcp.Deathsight.message:find(str) then
+      color = "&lt;orange&gt;"
+      deathstr = "burst to"
+      break
+    end
+  end
   if sndNDB.highlightNames then
-    text = "&lt;"..sndNDB_getColour(victim).."&gt;"..victim.."&lt;red&gt; was slain by &lt;"..sndNDB_getColour(killer).."&gt;"..killer.."\n"
+    text = "&lt;"..sndNDB_getColour(victim).."&gt;"..victim..color.." "..deathstr.." &lt;"..sndNDB_getColour(killer).."&gt;"..killer.."\n"
   else
-    text = "&lt;red&gt;"..victim .." was slain by "..killer.."\n"
+    text = color..victim .." "..deathstr.." "..killer.."\n"
   end
   kaiUI.AllConsole:cecho(text)
   kaiUI.DeathConsole:cecho(text)
