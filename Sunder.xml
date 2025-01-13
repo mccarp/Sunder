@@ -63962,6 +63962,8 @@ def_lifesense = {defense = "lifesense", type = "normal", effect = "Report people
 --making sure empowered moon is in here to avoid errors, regardless of class
 def_empowered_moon = {defense = "empowered_moon", type = "normal", effect = "extra mana recovery", balance = {balanceequilibriumtake = "cast sagacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Sagacity" },
 def_empowered_boar = {defense = "empowered_boar", type = "DarkOrange", effect = "extra health recovery", balance = {balanceequilibriumtake = "cast vivacity"}, state = "down", needit = false, timer = createStopWatch(), skill = "Vivacity" },
+
+def_barrier = {defense = "barrier", type = "normal", effect = "Prismatic barrier", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 }
 
 snd.alternative_class_defenses = {
@@ -64616,6 +64618,8 @@ end</script>
   
   
   ["You are maintaining consciousness at all times."] = "consciousness",
+  
+  ["You stand within a prismatic barrier."] = "barrier",
 }
  </script>
 							<eventHandlerList />
