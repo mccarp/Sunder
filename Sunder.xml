@@ -10525,7 +10525,7 @@ snd.maybe_affs = {}</script>
    snd.message("Gave: "..matches[2])
   end
   
-  local attacks = {Lob = true, Assault = true, Slaughter = true, Carve = true, Cripple = true, Bloodscourge = true, Fleshbane = true, Butterfly = true}
+  local attacks = {Backstab = true, Lob = true, Assault = true, Slaughter = true, Carve = true, Cripple = true, Bloodscourge = true, Fleshbane = true, Butterfly = true}
   if attacks[snd.skill_being_used] == nil then
     snd.used.rebounding = false
   end
