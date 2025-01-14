@@ -2174,11 +2174,16 @@ function kaiUI.chat.deaths()
       break
     end
   end
+ 
   if sndNDB.highlightNames then
     text = "&lt;"..sndNDB_getColour(victim).."&gt;"..victim..color.." "..deathstr.." &lt;"..sndNDB_getColour(killer).."&gt;"..killer.."\n"
   else
     text = color..victim .." "..deathstr.." "..killer.."\n"
   end
+  if gmcp.Deathsight.area == "the Sect of Blades arena" then
+    text = "&lt;reset&gt;(Sect): "..text
+  end
+  
   kaiUI.AllConsole:cecho(text)
   kaiUI.DeathConsole:cecho(text)
   if assists~="" then
