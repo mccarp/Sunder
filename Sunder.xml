@@ -15778,6 +15778,7 @@ end
 									<name>secondary gutcheck</name>
 									<script>if snd.target == matches[2] then
   snd.target_got("fallen")
+  snd.target_got("gnawing")
   snd.target_got("anorexia")
 end</script>
 									<triggerType>0</triggerType>
@@ -29391,8 +29392,7 @@ end
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>broke</name>
 								<script>if matches[2] == snd.target then
-  snd.target_cured("ravaged")
-  
+  -- snd.target_cured("ravaged")
   snd.target_got(matches[3].." broken")
   if matches[2] == snd.target and matches[3]~= "head" and matches[3] ~= "torso" then
     snd.target_got(matches[3].." crippled")
@@ -29432,7 +29432,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>mangled</name>
 								<script>if matches[2] == snd.target then
-  snd.target_cured("ravaged")
+  -- snd.target_cured("ravaged")
   
   snd.message("&lt;red&gt;"..matches[2].."'s &lt;white&gt;"..matches[3].." was mangled!")
   if matches[2] == snd.target then
@@ -82829,9 +82829,9 @@ end</script>
   }
 
 function snd.restoApply(location)
-  if snd.checkAff("ravaged") then
-    snd.affTimers.start("ravaged", 41, true)
-  end
+  -- if snd.checkAff("ravaged") then
+    -- snd.affTimers.start("ravaged", 41, true)
+  -- end
   if snd.checkAff("burnt_skin") and location ~= "torso" then
     return
   end
