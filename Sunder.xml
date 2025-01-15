@@ -65846,6 +65846,7 @@ function snd_bashAreas(areas_chosen)
     local path_being_constructed = {}
     cecho("\n&lt;CadetBlue&gt;We are checking your area request:")
     for _, v in pairs(areas) do
+      v = string.patternEscape(v)
       for x, y in pairs(full_list_of_areas) do
         area_being_checked = x:lower()
         if area_being_checked:find(v) then
@@ -66022,6 +66023,7 @@ snd.bashing_area_beginning_rooms ={
   ["Huanazedha"] = "47147",
   ["a basilisk lair"] = "68354",
   ["the Dyisen-Ashtan Memoryscape"] = "72093",
+  ["Tak-re"] = "5966",
 }
 </script>
 						<eventHandlerList />
