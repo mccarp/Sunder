@@ -24155,8 +24155,10 @@ end</script>
 									<name>mace attacks</name>
 									<script>if matches[2] == snd.target and matches[1]:find("mace") then
   snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = snd.templar_direct_dmg
+  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  enableTrigger("Sunder Parry")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24187,10 +24189,12 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>morningstar attacks</name>
-									<script>if matches[2] == snd.target and matches[1]:find("morningstar") then
+									<script>if matches[2] == snd.target and matches[1]:find("mace") then
   snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = snd.templar_direct_dmg
+  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  enableTrigger("Sunder Parry")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24221,10 +24225,12 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>flail attacks</name>
-									<script>if matches[2] == snd.target and matches[1]:find("flail") then
+									<script>if matches[2] == snd.target and matches[1]:find("mace") then
   snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = snd.templar_direct_dmg
+  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  enableTrigger("Sunder Parry")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24338,10 +24344,12 @@ end
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>warhammer</name>
-									<script>if matches[2] == snd.target and matches[1]:find("warhammer") then
+									<script>if matches[2] == snd.target and matches[1]:find("mace") then
   snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = snd.templar_direct_dmg
+  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  enableTrigger("Sunder Parry")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -30477,7 +30485,7 @@ end</script>
   end
 
  snd.last_hit_limb = matches[4]
- snd.took_limb_dmg(matches[4], snd.limb_dmg_done)
+ snd.took_limb_dmg(matches[4], snd.templar_trauma_dmg)
  
  snd.templar_last_limb = snd.last_hit_limb
  
@@ -59255,7 +59263,10 @@ end</script>
 
 snd.faction = snd.faction or "" -- your faction, spirit or shadow
 snd.class = snd.class or "" -- your class, used for bashing
-snd.limb_dmg_done = snd.limb_dmg_done or 6.5 -- really only for Templars
+snd.templar_direct_dmg = 4
+snd.templar_trauma_dmg = 4
+snd.limb_dmg_done = snd.limb_dmg_done or 8 -- really only for Templars
+
 
 snd.stats = snd.stats or { 
   xp = 0,
