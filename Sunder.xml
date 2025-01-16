@@ -24133,6 +24133,7 @@ end</script>
   if #snd.maybe_affs &gt;= 1 then
     table.remove(snd.maybe_affs, 1)
   end
+  snd.templarHits = snd.templarHits - 1
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24156,9 +24157,9 @@ end</script>
 									<script>if matches[2] == snd.target and matches[1]:find("mace") then
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
-  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24189,12 +24190,12 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>morningstar attacks</name>
-									<script>if matches[2] == snd.target and matches[1]:find("mace") then
+									<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
-  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "TemplarBlunt")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24225,12 +24226,12 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>flail attacks</name>
-									<script>if matches[2] == snd.target and matches[1]:find("mace") then
+									<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
-  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -24344,12 +24345,12 @@ end
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>warhammer</name>
-									<script>if matches[2] == snd.target and matches[1]:find("mace") then
+									<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
-  snd.took_limb_dmg(matches[4], snd.last_limb_dmg)
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.templar_last_limb = snd.last_hit_limb
-  snd.onHit2({"Rebounding", "Dodge", "Parry"}, "Templar")
+  snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -82514,6 +82515,10 @@ function snd.onHit2(checks, conditional)
   if conditional == "Templar" and #snd.maybe_affs &lt; 1 then --also works for revenant since same messages
       disableTrigger("Weapon Hit Confirmation") 
   end
+  if conditional == "TemplarBlunt" then
+    snd.templarHits = snd.templarHits-1
+    if snd.templarHits&lt;=0 then disableTrigger("Weapon Hit Confirmation") end
+  end
   if conditional == "Syssin" and #snd.maybe_affs &lt; 1 then
     disableTrigger("Syssin Hit Confirmation")
   end
@@ -84212,9 +84217,11 @@ end</script>
   ["Battlefury"] = {
   
     Duality = function(target)
+                    snd.templarHits = 2
                     enableTrigger("Weapon Hit Confirmation")
                    end,
     Doubleswing = function(target)
+                    snd.templarHits = 2
                     enableTrigger("Weapon Hit Confirmation")
                   end,
                    
@@ -85962,9 +85969,11 @@ end</script>
              snd.handleRage()
            end,
     Duplicity = function(target)
+                    snd.templarHits = 2
                     enableTrigger("Weapon Hit Confirmation")
                    end,
     Fell = function(target)
+                    snd.templarHits = 2
                     enableTrigger("Weapon Hit Confirmation")
                   end,
     Gouge = function(target)
