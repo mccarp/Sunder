@@ -4623,7 +4623,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^The sleek silver shades distort around (\w+) to slow (her|his|their) innate sense of time\.$</string>
+								<string>^The sleek silver shades distort around (\w+) to slow \w+ innate sense of time\.$</string>
 								<string>^You watch as it seems to slow (\w+)'s? movement through the time stream\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -46511,10 +46511,8 @@ if snd.class == "Oneiromancer" then
 				for i in pairs(snd.giving) do
 					if not snd.checkAff(snd.giving[i]) then
 						if snd.giving[i] == "aeon" then
-							if snd.balance.aeon then
-								if snd.checkAff("clumsiness") or snd.checkAff("weariness") then
-									table.insert(raw_affs_to_fling, snd.giving[i])
-								end
+							if snd.checkAff("clumsiness") or snd.checkAff("weariness") then
+								table.insert(raw_affs_to_fling, snd.giving[i])
 							end
 						elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
 							table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
@@ -46655,9 +46653,7 @@ end</script>
         for i in pairs(snd.giving) do
           if not snd.checkAff(snd.giving[i]) then
             if snd.giving[i] == "aeon" then
-              if snd.balance.aeon then
-                table.insert(raw_affs_to_fling, snd.giving[i])
-              end
+              table.insert(raw_affs_to_fling, snd.giving[i])
             elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
               table.insert(raw_affs_to_fling, snd.giving[i])
               -- insert into a raw aff list that they don't have, based on priority chosen above
@@ -54364,9 +54360,8 @@ end</script>
   		for i in pairs(snd.giving) do
   			if not snd.checkAff(snd.giving[i]) then
           if snd.giving[i] == "aeon" then
-            if snd.balance.aeon then
               table.insert(raw_affs_to_fling, snd.giving[i])
-            end
+
   				elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
   					table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
   				end
@@ -54537,9 +54532,7 @@ end</script>
   		for i in pairs(snd.giving) do
   			if not snd.checkAff(snd.giving[i]) then
           if i == "aeon" then
-            if snd.balance.aeon then
               table.insert(raw_affs_to_fling, snd.giving[i])
-            end
   				elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
   					table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
   				end
