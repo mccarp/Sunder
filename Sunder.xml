@@ -45671,7 +45671,7 @@ if snd.class == "Ascendril" then
         ( snd.no_parry() or snd.checkAff("ablaze") ) then
         string = maybeEnrich("fire").."cast pyroclast "..snd.target
       elseif canResonate("fire") then
-        string = "cast disintegrate "..snd.target
+        string = maybeEnrich("fire").."cast disintegrate "..snd.target
       elseif hpp &lt; 25 and snd.defenses.def_reflection.state ~= "deffed" and snd.reflection_charge &gt; 0 then
         string = "cast reflection"
       elseif not snd.checkAff("ashen_feet") then
@@ -51759,14 +51759,13 @@ end</script>
 						<regex></regex>
 						<Alias isActive="yes" isFolder="no">
 							<name>Fire</name>
-							<script>icicles = icicles or {}
-local function canResonate(el)
+							<script>local function canResonate(el)
   if snd.balance.enrich then return true end
   return gmcp.Char.Vitals.aspect == el
 end
 
 local function maybeEnrich(el)
-  if gmcp.Char.Vitals.resonance == el then return "" end
+  if gmcp.Char.Vitals.aspect == el then return "" end
   return "well contaminate "..el..snd.sep
 end
 
@@ -51783,9 +51782,9 @@ if snd.class == "Bloodborn" then
         string = "humour befoul "..snd.target
       elseif canResonate("yellow") and snd.checkAff("blisters") and
         ( snd.no_parry() or snd.checkAff("ablaze") ) then
-        string = maybeEnrich("fire").."cast pyroclast "..snd.target
+        string = maybeEnrich("yellow").."humour acidveins "..snd.target
       elseif canResonate("yellow") then
-        string = "humour obliteration "..snd.target
+        string = maybeEnrich("yellow").."humour obliteration "..snd.target
       elseif hpp &lt; 25 and snd.defenses.def_reflection.state ~= "deffed" and snd.reflection_charge &gt; 0 then
         string = "unleash geminate"
       elseif not snd.checkAff("ashen_feet") then
@@ -51842,7 +51841,7 @@ end</script>
       then
         string = maybeEnrich("yellow") .. "humour acidveins " .. snd.target
       elseif canResonate("black") and snd.checksomeAffs({"dizziness", "vertigo"}, 2) then
-        string = maybeEnrich("black") .. "cast aeroblast " .. snd.target
+        string = maybeEnrich("black") .. "humour synaptopathy " .. snd.target
       elseif not snd.checkAff("dizziness") then
         string = "humour stupor " .. snd.target
       elseif not snd.checkAff("vertigo") then
