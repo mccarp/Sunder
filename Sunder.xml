@@ -2341,7 +2341,7 @@ snd.clear_afflictions("smoke")</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^(.*):\s+((\d+)\.(\d+))\% \(no bruising\)$</string>
+										<string>^(.*):\s+((\d+)\.(\d+))\% \(\w+ bruising\).*$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -24261,6 +24261,48 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Cudgel</name>
+									<script>if matches[2] == snd.target then
+  snd.last_hit_limb = matches[3]
+  snd.last_limb_dmg = snd.templar_direct_dmg
+  snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+  snd.templar_last_limb = snd.last_hit_limb
+  snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ lift .+ overhead and brings? it down with a shattering blow onto (\w+)'s (.+).$</string>
+										<string>^Aiming the broad end of .+ at (\w+)'s (.+), \w+ jabs? forward.$</string>
+										<string>^With a broad sweep of .+, \w+ brings? a crushing blow onto (\w+)'s (.+).$</string>
+										<string>^Raising .+ high, \w+ swings? forward at (\w+)'s (.+), crushing flesh.$</string>
+										<string>^Swinging through the air toward (\w+)'s (.+) with .+, \w+ draws? lines of blood.$</string>
+										<string>^Gripping both hands over the grip of .+, \w+ slams? it forcefully into (\w+)'s (.+).$</string>
+										<string>^\w+ strikes? (\w+)'s (.+) with a quick but powerful blow from .+.$</string>
+										<string>^Holding .+ straight in front of .+, \w+ bashe?s? the end into (\w+)'s (.+).$</string>
+										<string>^With a downward, diagonal strike, \w+ cuts a brutal gash into (\w+)'s (.+) with .+\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>bastard</name>
 									<script>if matches[2] == snd.target and matches[1]:find("bastard") then
   snd.onHit2({"Rebounding", "Dodge"}, "Templar2h")
@@ -27540,7 +27582,7 @@ snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(.+): +(\d{1,2}\.\d{2})% \((\w+) bruising\)$</string>
+								<string>^(.+): +(\d{1,2}\.\d{2})% \((\w+) bruising\).*$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
