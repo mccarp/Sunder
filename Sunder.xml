@@ -28406,8 +28406,10 @@ end</script>
 										<string>^Flames spew from a firelord, engulfing (\w+) and consumes .+ flesh.$</string>
 										<string>^Flames spew in from the .*, engulfing (\w+) and consuming .+ flesh.$</string>
 										<string>^Flames spew from a firelord, engulfing (\w+) and consuming .+ flesh.$</string>
+										<string>^Perdition's flames ravage (\w+) as your blow connects, setting \w+ ablaze\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -28802,7 +28804,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>Flames leap around (\w+), charring (his|her) flesh.</string>
+										<string>^Flames leap around (\w+), charring \w+ flesh\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -28835,7 +28837,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Hot flames leap around (\w+), charring (his|her) flesh.$</string>
+										<string>^Hot flames leap around (\w+), charring \w+ flesh.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -28900,7 +28902,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^White-hot flames leap around (\w+), charring (his|her) flesh.$</string>
+										<string>^White\-hot flames leap around (\w+), charring \w+ flesh\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -28933,7 +28935,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Deadly flames leap around (\w+), charring .+ flesh.$</string>
+										<string>^Deadly flames leap around (\w+), charring .+ flesh\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
