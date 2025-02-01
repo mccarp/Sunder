@@ -7691,6 +7691,26 @@ end</script>
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Waterbreathing with no water</name>
+						<script>snd.defenses.def_waterbreathing.needit = false</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You hear the sound of air rushing from your pores.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>anti-dust</name>
 						<script>snd.send("qeb path go")</script>
@@ -63604,6 +63624,8 @@ def_lifevision = {defense = "lifevision", type = "normal", effect = "See all thi
 def_selfishness = {defense = "selfishness", type = "MediumSpringGreen", effect = "Too selfish to put valuables at risk.", balance ={balanceequilibriumtake = "selfishness"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 def_returning = {defense = "returning", type = "normal", effect = "Return thrown weapons to your hands", balance = {balanceequilibriumtake = "returning on"}, state = "down", needit = false, timer = createStopWatch(), skill = "Returning"},
 def_irongrip = {defense = "irongrip", type = "normal", effect = "Prevents disarming", balance = {balanceequilibriumtake = "irongrip"}, state = "down", needit = false, timer = createStopWatch(), skill = "Irongrip"},
+def_manipulation_wealth = {defense = "manipulation_wealth",  type = "cyan", effect = "More gold drops", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_manipulation_wisdom = {defense = "manipulation_wisdom",  type = "cyan", effect = "More xp!", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 
 --Ylem
@@ -64857,6 +64879,8 @@ end</script>
   ["You are maintaining consciousness at all times."] = "consciousness",
   
   ["You stand within a prismatic barrier."] = "barrier",
+  
+  ["Ylem will increase your wealth."] = "manipulation_wealth",
 }
  </script>
 							<eventHandlerList />
