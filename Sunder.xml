@@ -24248,7 +24248,9 @@ end</script>
   if #snd.maybe_affs &gt;= 1 then
     table.remove(snd.maybe_affs, 1)
   end
-  snd.templarHits = snd.templarHits - 1
+  if snd.templarHits then
+    snd.templarHits = snd.templarHits - 1
+  end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
