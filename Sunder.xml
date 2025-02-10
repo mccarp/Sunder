@@ -84573,6 +84573,12 @@ end</script>
             snd.target_got("cold")
           end
       end,
+      Blastwave = function(target, modifier)
+          snd.target_got("ablaze")
+          if modifier == "two-hand" then
+            snd.target_got("hearing")
+          end
+      end,
   },
   
 --Shaman
@@ -86319,6 +86325,12 @@ end</script>
           snd.target_got("cold")
           if modifier == "two-hand" then
             snd.target_got("cold")
+          end
+      end,
+      Owinta = function(target, modifier)
+          snd.target_got("ablaze")
+          if modifier == "two-hand" then
+            snd.target_got("hearing")
           end
       end,
   },
