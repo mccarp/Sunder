@@ -8518,6 +8518,57 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Reanimation</name>
+					<script>snd.waitingOnReanimation = false
+if snd.reanimateTimer then killTimer(snd.reanimateTimer) end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^.+ shakes and stirs, \w+ decaying limbs rattling in a cacophonous clatter as \w+ form is enveloped in a turgid green miasma. Slowly but surely \w+ rises from the ground, a low snarl forming in the back of \w+ throat as \w+ prepares for another attack\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Slain something</name>
+					<script>local reanimators = {
+  ["a reanimated Dwarf woman"]=true,
+  ["a rotting Dwarf archer"] = true,
+  ["a decomposing Dwarf"] = true,
+  ["a robed reanimated Dwarf"] = true,
+}
+if gmcp.Room.Info.area == "The Forgotten Mausoleum" and reanimators[matches[2]] then
+  snd.waitingOnReanimation = true
+  if snd.reanimateTimer then killTimer(snd.reanimateTimer) end
+  snd.reanimateTimer = tempTimer(2, function() snd.waitingOnReanimation = false snd.runBasher() end)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^Having slain (.+), you retrieve the corpse\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>GUI</name>
@@ -60482,13 +60533,24 @@ end</script>
 						<script>
 function gmcp_item_add()
  v = gmcp.Char.Items.Add.item
+ local prio = false
  if gmcp.Char.Items.Add.location == "room" then
+  if gmcp.Room.Info.area == "The Forgotten Mausoleum" then
+    if v.name:find("the corpse of ") then
+      v.name = v.name:gsub("the corpse of ","")
+      prio = true
+    end
+  end
   if not snd.items[v.name] then snd.items[v.name] = {} end
   if v.icon == "face-angry-horns" then
     if not snd.agros[v.name] then snd.agros[v.name] = {} end
     table.insert(snd.agros[v.name], v.id)
   end
-  table.insert(snd.items[v.name], v.id)
+  if prio then 
+    table.insert(snd.items[v.name], 1, v.id)
+  else
+    table.insert(snd.items[v.name], v.id)
+  end
   snd.updateMonolith()
  elseif gmcp.Char.Items.List ~= nil then
   if gmcp.Char.Vitals.wield_left ~= "empty" then
@@ -78517,6 +78579,7 @@ end
 
 
 function snd.runBasher()
+  if snd.waitingOnReanimation then return end
   snd.gathering = {}
   snd.corpses = {}
   snd.bashing.targeted = false
