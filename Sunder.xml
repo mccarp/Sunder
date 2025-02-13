@@ -8472,7 +8472,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No such target</name>
-					<script>if matches[2] == snd.bashing.target then
+					<script>if matches[2] == snd.bashing.target and not snd.waitingOnReanimation then
   local tid = matches[2]
   for item in pairs(snd.items) do
     for id in pairs(snd.items[item]) do
