@@ -8550,7 +8550,7 @@ if snd.reanimateTimer then killTimer(snd.reanimateTimer) end</script>
 if gmcp.Room.Info.area == "The Forgotten Mausoleum" and reanimators[matches[2]] then
   snd.waitingOnReanimation = true
   if snd.reanimateTimer then killTimer(snd.reanimateTimer) end
-  snd.reanimateTimer = tempTimer(2, function() snd.waitingOnReanimation = false snd.runBasher() end)
+  snd.reanimateTimer = tempTimer(1.7, function() snd.waitingOnReanimation = false snd.runBasher() end)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -8563,7 +8563,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^Having slain (.+), you retrieve the corpse\.$</string>
+						<string>^Having slain (.+), \w+ retrieves? the corpse\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -27092,10 +27092,6 @@ end</script>
     snd.last_hit_limb = "none"
     snd.last_limb_dmg = 0
   end
-  if snd.checkAff("sore_wrist") then
-    snd.took_limb_dmg("left arm", 4)
-    snd.took_limb_dmg("right arm", 4)
-  end
   if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end
   
   snd.last_affs = {}
@@ -30985,6 +30981,39 @@ end</script>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Sore wrist tracking</name>
+							<script>if matches[2] == snd.target then
+  if snd.checkAff("sore_wrist") then
+    snd.took_limb_dmg("left arm", 4)
+    snd.took_limb_dmg("right arm", 4)
+  end
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) parries the attack on \w+ (.+) with a deft maneuver\.$</string>
+								<string>^(\w+) guards the attack on \w+ (.+)\.$</string>
+								<string>^With a free hand, (\w+) fends off the attack on (?:the \w+'s|\w+) (.+)\.$</string>
+								<string>^(\w+) steps into the attack on \w+ (.+), grabs your arm, and shakes you violently\.$</string>
+								<string>^(\w+) parries the attack to \w+ (.+), pushing \w+ back\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
