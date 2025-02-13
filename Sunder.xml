@@ -263,33 +263,6 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>ylem orbs</name>
-								<script>local color = {
-  ["white"] = "white",
-  ["blue"] = "cerulean",
-  ["red"] = "crimson",
-  ["yellow"] = "amber",  
-  ["green"] = "green",}
-  
- snd.def_def(color[matches[2]].."_orb")</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^You are diffused by a (\w+) mist\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Warden anticipation</name>
 								<script>snd.def_def("anticipation")</script>
 								<triggerType>0</triggerType>
@@ -61980,6 +61953,11 @@ snd.priorities =
     "def_permafrost",
     "def_focalmark",
     "def_alacrity",
+    "def_red_orb",
+    "def_blue_orb",
+    "def_green_orb",
+    "def_yellow_orb",
+    "def_white_orb",
     -- "aff_health_10",
     -- "aff_health_35",
     -- "aff_health_55",
@@ -63748,11 +63726,11 @@ def_manipulation_wisdom = {defense = "manipulation_wisdom",  type = "cyan", effe
 
 
 --Ylem
-def_amber_orb = {defense= "amber_orb", type = "ansi_light_yellow", effect = "5% increase in experience", balance = {special = "activate amber orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_green_orb = {defense= "green_orb", type = "lawn_green", effect = "25% increase in vigour healing", balance = {special = "activate green orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_crimson_orb = {defense= "crimson_orb", type = "firebrick", effect = "more damage to and less from denizens", balance = {special = "activate crimson orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_cerulean_orb = {defense= "cerulean_orb", type = "ansiLightBlue", effect = "protection from damage", balance = {special = "activate cerulean orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
-def_white_orb = {defense= "white_orb", type = "ghost_white", effect = "increased ylem gain from eld", balance = {special = "activate white orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_yellow_orb = {defense= "mist_yellow", type = "ansi_light_yellow", effect = "5% increase in experience", balance = {special = "activate amber orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_green_orb = {defense= "mist_green", type = "lawn_green", effect = "25% increase in vigour healing", balance = {special = "activate green orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_red_orb = {defense= "mist_red", type = "firebrick", effect = "more damage to and less from denizens", balance = {special = "activate crimson orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_blue_orb = {defense= "mist_blue", type = "ansiLightBlue", effect = "protection from damage", balance = {special = "activate cerulean orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
+def_white_orb = {defense= "mist_white", type = "ghost_white", effect = "increased ylem gain from eld", balance = {special = "activate white orb"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
 
 --Generic endgame
 def_safeguard = {defense = "safeguard", type = "normal", effect = "Increased resistances", balance = {balanceequilibrium = "safeguard"}, state = "down", needit = false, timer = createStopWatch(), skill = "Instill"},
@@ -65000,6 +64978,13 @@ end</script>
   ["You stand within a prismatic barrier."] = "barrier",
   
   ["Ylem will increase your wealth."] = "manipulation_wealth",
+
+  ["You are diffused by a white mist."] = "white_orb",
+  ["You are diffused by a red mist."] = "red_orb",
+  ["You are diffused by a yellow mist."] = "yellow_orb",
+  ["You are diffused by a blue mist."] = "blue_orb",
+  ["You are diffused by a green mist."] = "green_orb",
+
 }
  </script>
 							<eventHandlerList />
