@@ -8494,6 +8494,8 @@ end</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Reanimation</name>
 					<script>snd.waitingOnReanimation = false
+snd.bashing.target = snd.mausoleumReviving
+snd.bashing.targeted = true
 if snd.reanimateTimer then killTimer(snd.reanimateTimer) end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -8523,7 +8525,7 @@ if snd.reanimateTimer then killTimer(snd.reanimateTimer) end</script>
 if gmcp.Room.Info.area == "The Forgotten Mausoleum" and reanimators[matches[2]] then
   snd.waitingOnReanimation = true
   if snd.reanimateTimer then killTimer(snd.reanimateTimer) end
-  snd.reanimateTimer = tempTimer(1.7, function() snd.waitingOnReanimation = false snd.runBasher() end)
+  snd.reanimateTimer = tempTimer(1.7, function() snd.waitingOnReanimation = false snd.bashing_function() end)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -60532,16 +60534,14 @@ end</script>
 					<Script isActive="yes" isFolder="no">
 						<name>gmcp_item_add</name>
 						<packageName></packageName>
-						<script>
-function gmcp_item_add()
- v = gmcp.Char.Items.Add.item
+						<script>function gmcp_item_add()
+ local v = gmcp.Char.Items.Add.item
  local prio = false
  if gmcp.Char.Items.Add.location == "room" then
-  if gmcp.Room.Info.area == "The Forgotten Mausoleum" then
-    if v.name:find("the corpse of ") then
-      v.name = v.name:gsub("the corpse of ","")
-      prio = true
-    end
+  if gmcp.Room.Info.area == "The Forgotten Mausoleum" and v.name:find("the corpse of ") then
+    v.name = v.name:gsub("the corpse of ","")
+    snd.mausoleumReviving = v.id
+    prio = true
   end
   if not snd.items[v.name] then snd.items[v.name] = {} end
   if v.icon == "face-angry-horns" then
