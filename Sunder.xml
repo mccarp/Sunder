@@ -79273,7 +79273,7 @@ function snd.shaman_bash()
   if hp &lt;=40 and snd.shield_check() then
     if snd.punisher then
     else
-      battack = battack.."touch shield"
+      battack = battack..snd.sep.."touch shield"
     end
 	else
     if wp&gt;=45 and tonumber(gmcp.Char.Vitals.energy) &gt; 3 then
