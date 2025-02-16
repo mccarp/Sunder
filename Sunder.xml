@@ -57867,6 +57867,7 @@ end
   "speed",
   "vigor",
   "infusion",
+  "prudence",
   },
   
   poultices = {
@@ -57898,7 +57899,8 @@ end
 "arcane",
 "speed",
 "vigor",
-"infusion"
+"infusion",
+"prudence",
 }
 for elixir in pairs(elixirs) do
  snd.send("fc fill "..elixirs[elixir])
@@ -57919,6 +57921,7 @@ end</script>
 "speed",
 "vigor",
 "infusion",
+"prudence",
 }
 for elixir in pairs(elixirs) do
  snd.send("fc consume "..elixirs[elixir])
