@@ -80871,7 +80871,7 @@ end
 						<script>
 function snd.do_fitness()
  if snd.can_fitness() and snd.need_fitness and snd.full_balance() then
-  snd.send("fitness")
+  snd.send(snd.fitnessCommandOverride and snd.fitnessCommandOverride() or "fitness")
   echo("(fitness)")
   snd.last_type = "fitness"
   snd.last_item = "fitness"
@@ -83408,7 +83408,7 @@ end
 function snd.attack(attack)
   local string = ""
   if snd.can_fitness() and snd.need_fitness then
-    string = "fitness"
+    string = snd.fitnessCommandOverride and snd.fitnessCommandOverride() or "fitness"
   else
     string = attack
   end
