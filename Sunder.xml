@@ -52,7 +52,7 @@ if snd.offense_loaded then
   if snd.toggles.alerts then
     snd.run_alerts()
   end
-  if #snd.alertness &gt;= 1 and snd.toggles.affcalling then
+  if #snd.alertness &gt;= 1 and snd.toggles.webAnnounce then
     dir = snd.parseDir(snd.alertnessDir)
     msg = "wt [" .. string.upper(snd.alertType) .. "] -" .. string.upper(dir) .. "- "
     for i in pairs(snd.alertness) do
