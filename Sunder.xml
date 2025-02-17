@@ -9685,7 +9685,7 @@ end</script>
   elseif strip == "cloak" then
     snd.used.rebounding = false
     snd.used.shield = false
-    if snd.toggles.calling then
+    if snd.toggles.webAnnounce then
       snd.send("wt " .. snd.target .. " cloak is stripped.")
     end
   elseif strip ~= "cloak" or strip ~= "rebounding" or strip ~= "shield" then
@@ -19463,7 +19463,7 @@ end</script>
 									<script>snd.mindlocked = true
 
 if matches[2] == snd.target then	
-	if snd.toggles.calling then
+	if snd.toggles.webAnnounce then
 		snd.send("wt " ..snd.target.. " has been locked.")
 	end
 end</script>
@@ -19491,7 +19491,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Mindlocking</name>
 									<script>if matches[2] == snd.target then	
-	if snd.toggles.calling then
+	if snd.toggles.webAnnounce then
 		snd.send("wt I'm Attempting a MindLock on " ..snd.target)
 	end
   snd.locking = true
@@ -19519,7 +19519,7 @@ end</script>
 snd.mindclamped = false
 snd.locking = false
 
-if snd.toggles.calling then
+if snd.toggles.webAnnounce then
 	snd.send("wt Lock on target lost.")
 end</script>
 									<triggerType>0</triggerType>
@@ -32197,7 +32197,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>fullsense end</name>
 									<script>setTriggerStayOpen("fullsense", 0)
-if snd.toggles.calling then
+if snd.toggles.webAnnounce then
  local string = "wt Fullsense!"..snd.sep
  for i in pairs(snd.scented) do
   x = mmp.searchRoomExact(i)
@@ -32852,7 +32852,7 @@ end</script>
   cecho("\n\n&lt;red&gt;TARGET FLED &lt;white&gt;"..snd.parseDir(matches[3]).."&lt;red&gt;!")
   cecho("\n&lt;red&gt;TARGET FLED &lt;white&gt;"..snd.parseDir(matches[3]).."&lt;red&gt;!")
   cecho("\n&lt;red&gt;TARGET FLED &lt;white&gt;"..snd.parseDir(matches[3]).."&lt;red&gt;!")
-	if snd.toggles.calling then
+	if snd.toggles.webAnnounce then
 		snd.send("wt " ..snd.target.. " has fled to the "..snd.parseDir(matches[3]))
 	end
   snd.theytumbling = false
@@ -33315,7 +33315,7 @@ end</script>
 							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Mind wrench  to location</name>
 								<script>if matches[2] == snd.target then	
-	if snd.toggles.calling then
+	if snd.toggles.webAnnounce then
 		snd.send("wt " ..snd.target.. " has been wrenched.")
 	end
 end</script>
@@ -33648,7 +33648,7 @@ end
 								<name>scent end</name>
 								<script>setTriggerStayOpen("scent", 0)
 
-if snd.toggles.calling then
+if snd.toggles.webAnnounce then
   local string = ""
 	
   for i in pairs(snd.scented) do
@@ -40498,6 +40498,14 @@ snd.message("Mono mode: "..snd.toggles.monomode)</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^monomode (on|off|calling)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>^wan$</name>
+						<script>snd.toggle("webAnnounce")
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^wan$</regex>
 					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
@@ -59678,6 +59686,7 @@ highlights = true, --npb highlights
 safeListening = true,
 bcalling = false,
 monomode = "calling",
+webAnnounce = false, --whether or not you call out some things on web
 }</script>
 						<eventHandlerList />
 					</Script>
