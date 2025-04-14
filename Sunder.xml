@@ -26210,11 +26210,11 @@ snd.hidden_afflictions = 0</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList />
 					<regexCodePropertyList />
-					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>cwho info</name>
-						<script></script>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Cwho info</name>
+						<script>cinfo = {}</script>
 						<triggerType>0</triggerType>
-						<conditonLineDelta>2</conditonLineDelta>
+						<conditonLineDelta>1</conditonLineDelta>
 						<mStayOpen>100</mStayOpen>
 						<mCommand></mCommand>
 						<packageName></packageName>
@@ -26224,19 +26224,38 @@ snd.hidden_afflictions = 0</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
+							<string>The following citizens of</string>
 							<string>^The following citizens of \w+ are in the realm:$</string>
-							<string>^Citizen\s+Location\s+Class\s+\[CT\?\]$</string>
-							<string>--------------------------------------------------------------------------------</string>
+							<string>1</string>
+							<string>Citizen        Location                                   Class          [CT?]</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>2</integer>
 							<integer>1</integer>
-							<integer>1</integer>
+							<integer>5</integer>
 							<integer>3</integer>
 						</regexCodePropertyList>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>cwho_done</name>
-							<script>setTriggerStayOpen("cwho info", 0)
-</script>
+							<name>done</name>
+							<script>setTriggerStayOpen("Cwho info", 0)
+selectCurrentLine()
+local prompt = copy2decho()
+deleteLine()
+for room, people in spairs(cinfo) do
+  cecho("\n".."&lt;slate_blue&gt;(&lt;light_sky_blue&gt;"..room.."&lt;slate_blue&gt;)")
+  echo(string.rep(" ", 45-#room))
+  if room~="Scoured terrain" and room~="Unknown" then
+    mmp.locateAndEchoSide(room)
+  end
+  for _, person in pairs(people) do
+    local name = person[1]
+    local class = person[2]
+    local color = sndNDB_getColour(name)
+    cecho("\n    &lt;"..color.."&gt;"..name..string.rep(" ",20-#name).." &lt;white_smoke&gt;"..class)
+  end
+end
+echo("\n")
+decho(prompt)</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -26257,10 +26276,14 @@ snd.hidden_afflictions = 0</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>cwho info line</name>
 							<script>if matches[2] ~= "Location" then
-  echo(" ")
-  mmp.echonums(matches[2]:trim())
-end
-</script>
+  local name = matches[2]
+  local room = matches[3]:trim()
+  if room == "" then room = "Unknown" end
+  local class = matches[4]
+  cinfo[room] = cinfo[room] or {}
+  table.insert(cinfo[room], {name, class})
+  deleteLine()
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -26272,9 +26295,11 @@ end
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^\w+\s+((?:[\w\-,]+ ?)+)\s+\w+(?:\s+\[OFF\])?$</string>
+								<string>^(\w+)\s+((?:[\w\-,'\.]+ ?)+)\s+(\w+)(?:\s+\[OFF\])?$</string>
+								<string>^(\w+)(\s+)(\w+)(?:\s+\[OFF\])?$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -55512,15 +55537,10 @@ end</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>directions</name>
-						<script>if (snd.toggles.monomode == "on" or (snd.toggles.monomode =="calling" and snd.toggles.calling)) and not snd.toggles.fasthunt and snd.class~="Ravager" and snd.class~="Zealot" then
- snd.send("qeb get monolith"..snd.sep..matches[2]..snd.sep.."drop monolith")
-else
- snd.send("qeb "..matches[2])
-end
-</script>
+						<script>snd.movement(matches[2])</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(n|e|s|w|ne|nw|se|sw|in|up?|out|o|d|down)$</regex>
+						<regex>^(n|e|s|w|ne|nw|se|sw|in|up?|out|d|down)$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>group</name>
@@ -61092,6 +61112,19 @@ end
 registerAnonymousEventHandler("sysMapDownloadEvent", "snd.mapTweaks")
 registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")
 </script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Movement</name>
+				<packageName></packageName>
+				<script>function snd.movement(dir, modifier)
+  if snd.movement_override then snd.movement_override(dir, modifier) return end
+  if (snd.toggles.monomode == "on" or (snd.toggles.monomode =="calling" and snd.toggles.calling)) and not snd.toggles.fasthunt and snd.class~="Ravager" and snd.class~="Zealot" then
+    snd.send("qeb get monolith"..snd.sep..dir..snd.sep.."drop monolith")
+  else
+    snd.send("qeb "..dir)
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
@@ -87413,7 +87446,7 @@ end
 		</ScriptGroup>
 	</ScriptPackage>
 	<KeyPackage>
-		<KeyGroup isActive="no" isFolder="yes">
+		<KeyGroup isActive="yes" isFolder="yes">
 			<name>Sunder</name>
 			<packageName></packageName>
 			<script></script>
@@ -87430,8 +87463,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>north</name>
 					<packageName></packageName>
-					<script>expandAlias("n", false)
-</script>
+					<script>snd.movement("n")</script>
 					<command></command>
 					<keyCode>56</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87439,7 +87471,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>south</name>
 					<packageName></packageName>
-					<script>expandAlias("s", false)</script>
+					<script>snd.movement("s")</script>
 					<command></command>
 					<keyCode>50</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87447,7 +87479,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>east</name>
 					<packageName></packageName>
-					<script>expandAlias("e", false)</script>
+					<script>snd.movement("e")</script>
 					<command></command>
 					<keyCode>54</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87455,7 +87487,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>west</name>
 					<packageName></packageName>
-					<script>expandAlias("w", false)</script>
+					<script>snd.movement("w")</script>
 					<command></command>
 					<keyCode>52</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87463,7 +87495,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>northeast</name>
 					<packageName></packageName>
-					<script>expandAlias("ne", false)</script>
+					<script>snd.movement("ne")</script>
 					<command></command>
 					<keyCode>57</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87471,7 +87503,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>northwest</name>
 					<packageName></packageName>
-					<script>expandAlias("nw", false)</script>
+					<script>snd.movement("nw")</script>
 					<command></command>
 					<keyCode>55</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87479,7 +87511,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>southeast</name>
 					<packageName></packageName>
-					<script>expandAlias("se", false)</script>
+					<script>snd.movement("se")</script>
 					<command></command>
 					<keyCode>51</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87487,7 +87519,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>southwest</name>
 					<packageName></packageName>
-					<script>expandAlias("sw", false)</script>
+					<script>snd.movement("sw")</script>
 					<command></command>
 					<keyCode>49</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87503,7 +87535,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>up</name>
 					<packageName></packageName>
-					<script>expandAlias("up", false)</script>
+					<script>snd.movement("up")</script>
 					<command></command>
 					<keyCode>45</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87511,7 +87543,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>down</name>
 					<packageName></packageName>
-					<script>expandAlias("d", false)</script>
+					<script>snd.movement("d")</script>
 					<command></command>
 					<keyCode>43</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87519,7 +87551,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>in</name>
 					<packageName></packageName>
-					<script>expandAlias("in", false)</script>
+					<script>snd.movement("in")</script>
 					<command></command>
 					<keyCode>47</keyCode>
 					<keyModifier>536870912</keyModifier>
@@ -87527,7 +87559,7 @@ end
 				<Key isActive="yes" isFolder="no">
 					<name>out</name>
 					<packageName></packageName>
-					<script>expandAlias("out", false)</script>
+					<script>snd.movement("out")</script>
 					<command></command>
 					<keyCode>42</keyCode>
 					<keyModifier>536870912</keyModifier>
