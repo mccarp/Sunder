@@ -58417,7 +58417,8 @@ snd.registerEvent("SunderGMCPVitals", "gmcp.Char.Vitals", gmcp_vitals)
 			<Script isActive="yes" isFolder="no">
 				<name>Wielded item tracking</name>
 				<packageName></packageName>
-				<script>function snd.updateWielded()
+				<script>--this is run on Char.Status
+function snd.updateWielded()
   local wield_updated
   if gmcp.Char.Vitals.wield_left ~= snd.wielded.left.full then
     if gmcp.Char.Vitals.wield_left == "empty" then
@@ -66879,6 +66880,22 @@ snd.e = {
 					<name>tracking functions</name>
 					<packageName></packageName>
 					<script>
+function snd.affNameCheck(aff)
+  local affs_to_change = {
+    ["crippled left leg"] = "left_leg_crippled",
+    ["crippled right leg"] = "right_leg_crippled",
+    ["crippled left arm"] = "left_arm_crippled",
+    ["crippled right arm"] = "right_arm_crippled",
+  }
+
+  if affs_to_change[aff] then
+    return affs_to_change[aff]
+  else
+    aff = aff:gsub("a ", "")
+    return aff:gsub(" ", "_")
+  end
+end
+
 function snd.took_limb_dmg(limb, amount, restoration)
   if limb and amount then
     if snd.checkAff("armor_tattoo") and amount &gt; 0 then
@@ -67267,164 +67284,54 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>Onhit hellscape</name>
 					<packageName></packageName>
-					<script>function snd.onHit()
-  if snd.toggles.atkecho and snd.toggles.gags then
-    deleteLine()
-    snd.message(snd.hitting .. " hit: " .. snd.getting_hit .. ".")
-  end
-  snd.last_affs = {}
-
-  if #snd.maybe_affs &gt;= 1 and (snd.getting_hit == snd.target) then
-    if snd.maybe_affs[1] == "blaze" or snd.maybe_affs[1] == "wasi" then
-      snd.used.rebounding = false
-      table.remove(snd.maybe_affs, 1)
-    else
-      local aff = ""
-      aff = snd.venomEffect(snd.maybe_affs[1])
-
-      if snd.maybe_affs[1] == "placeholder" then
-        snd.last_aff = ""
-        table.remove(snd.maybe_affs, 1)
-      elseif snd.maybe_affs[1]:find("crippled") then
-        snd.target_got(snd.maybe_affs[1])
-        table.remove(snd.maybe_affs, 1)
-        table.insert(snd.last_affs, aff)
-      elseif aff ~= "" then
-        snd.target_got(aff)
-        table.remove(snd.maybe_affs, 1)
-        table.insert(snd.last_affs, aff)
-      end
-    end
-  end
-end
+					<script>local conditionalCounts = {
+  ["Double Aff"] = 2,
+  ["Teradrim Skullbash"] = 3,
+  ["Tidesage Gybe"] = 3,
+}
 
 function snd.onHit2(checks, conditional)
   snd.last_affs = {}
-  local aff = ""
-  if (#snd.maybe_affs &gt;= 1 or snd.last_limb_dmg ~= 0) then -- Make sure affs or limb damage are populated
-    if snd.maybe_affs[1] == "blaze" then                   -- take care of rebounding
-      snd.used.rebounding = false
-    else
-      if #snd.maybe_affs &gt; 0 and not (snd.checkAff(snd.venomEffect(snd.maybe_affs[1])) or snd.checkAff(snd.maybe_affs[1])) then -- if its an aff and
-        if snd.venomEffect(snd.maybe_affs[1]) == "" then                                                                        -- not an aff/venom already
-          aff = snd.maybe_affs
-              [1]                                                                                                               -- on them, populate aff
-        else
-          aff = snd.venomEffect(snd.maybe_affs[1])
-        end
-        snd.target_got(aff)
-        table.insert(snd.last_affs, aff)
-      end
-    end
-
-    if aff == "" and snd.last_limb_dmg == 0 then
-      if #snd.maybe_affs &gt; 0 then
-        table.remove(snd.maybe_affs, 1)
-      end
-      return -- at this point, if aff is empty and there's no limb dmg just abort mission captain
-    else     -- otherwise, something is populated and we need to turn on dodging/rebounding/parrying
-      if checks ~= {} then
-        for _, v in pairs(checks) do
-          enableTrigger("Sunder " .. v)
-        end
-      end
-    end
-    -- With the way it's set up to handle only 1 aff, there's no easy way to account for 2 affs in 1 attack.
-    -- Might look into it more later, this'll work for now.
-    if aff == "laxity" and conditional == "Sentinel Slam" and snd.maybe_affs[2] == "epilepsy" then
-      snd.target_got("epilepsy")
-      table.insert(snd.last_affs, "epilepsy")
-      table.remove(snd.maybe_affs, 2)
-    end
-
-    if conditional == "Double Aff" then
-      if snd.maybe_affs[2] and not (snd.checkAff(snd.venomEffect(snd.maybe_affs[2])) or snd.checkAff(snd.maybe_affs[2])) then -- if its an aff and
-        if snd.venomEffect(snd.maybe_affs[2]) == "" then                                                                      -- not an aff/venom already
-          aff = snd.maybe_affs
-              [2]                                                                                                             -- on them, populate aff
-        else
-          aff = snd.venomEffect(snd.maybe_affs[2])
-        end
-        snd.target_got(aff)
-        table.insert(snd.last_affs, aff)
-      end
-      if snd.maybe_affs[1] then table.remove(snd.maybe_affs, 1) end
-      if snd.maybe_affs[1] then table.remove(snd.maybe_affs, 1) end
-    end
-
-    if aff == "stupidity" and conditional == "Zealot Sunkick" and snd.maybe_affs[2] == "dizziness" then
-      snd.target_got("dizziness")
-      table.insert(snd.last_affs, "dizziness")
-      table.remove(snd.maybe_affs, 2)
-    end
-
-    if aff == "asthma" and conditional == "Luminary Slam" and snd.maybe_affs[2] == "haemophilia" then
-      snd.target_got("haemophilia")
-      table.insert(snd.last_affs, "haemophilia")
-      table.remove(snd.maybe_affs, 2)
-    end
-
-    if aff == "misery" and conditional == "Luminary Facesmash" and snd.maybe_affs[2] == "no_courage" then
-      snd.target_got("no_courage")
-      table.insert(snd.last_affs, "no_courage")
-      table.remove(snd.maybe_affs, 2)
-    end
-
-    if conditional == ("Teradrim Skullbash" or "Tidesage Gybe") and #snd.maybe_affs &gt; 1 then
-      if snd.maybe_affs[3] ~= nil and not snd.checkAff(snd.maybe_affs[3]) then
-        snd.target_got(snd.maybe_affs[3])
-        table.insert(snd.last_affs, snd.maybe_affs[3])
-      end
-      if not snd.checkAff(snd.maybe_affs[2]) then
-        snd.target_got(snd.maybe_affs[2])
-        table.insert(snd.last_affs, snd.maybe_affs[2])
-      end
-    end
-
-    if conditional == "Bard Hiltblow" and #snd.maybe_affs &lt; 1 then
-      disableTrigger("Hiltblow Confirmation")
-    end
-
-    if conditional == "Bard Rhythm" and #snd.maybe_affs &lt; 1 then
-      disableTrigger("Bard Rhythm Confirmation")
-    end
-
-    if aff == "stiffness" and conditional == "Zealot Twinpress" and snd.maybe_affs[2] == "muscle_spasms" then
-      snd.target_got("muscle_spasms")
-      table.insert(snd.last_affs, "muscle_spasms")
-      table.remove(snd.maybe_affs, 2)
-    end
-
-    if aff == "stiffness" and conditional == "Ravager PressurePoint" and snd.maybe_affs[2] == "muscle_spasms" then
-      snd.target_got("muscle_spasms")
-      table.insert(snd.last_affs, "muscle_spasms")
-      table.remove(snd.maybe_affs, 2)
-    end
-
-    -- Need a way to handle 2handed attacks (Sentinel, Templar DSW, Carnifex, etc)
-
-    if conditional == "Sentinel Slash" and #snd.maybe_affs == 2 then
-      snd.using_both_hands = 1
-    end
-
-    if conditional == "Carnifex" or conditional == "Warden" then
-      snd.using_both_hands = 1
-    end
-
-    if conditional == "Templar2h" then
-      snd.using_both_hands = 1
-    end
+  if #snd.maybe_affs == 0 and snd.last_limb_dmg == 0 then return end --there's nothing
+  --enable undos
+  for _, v in pairs(checks) do
+    enableTrigger("Sunder " .. v)
   end
 
-  table.remove(snd.maybe_affs, 1)
+  local affCount = conditionalCounts[conditional] or 1
+  local i = 0
+  while i &lt; affCount and snd.maybe_affs[1] do
+    local aff = snd.maybe_affs[1]
+    if snd.venomEffect(aff) ~= "" then aff = snd.venomEffect(aff) end
+    if aff == "blaze" or aff == "wasi" then
+      snd.used.rebounding = false
+      table.insert(snd.last_affs, aff)
+    elseif not snd.checkAff(aff) then
+      snd.target_got(aff)
+      table.insert(snd.last_affs, aff)
+    end
+    table.remove(snd.maybe_affs, 1)
+    i = i+1
+  end
 
-  if conditional == "Templar" and #snd.maybe_affs &lt; 1 then --also works for revenant since same messages
+
+  if conditional == "Templar2h" or conditional =="Carnifex" or conditional == "Warden" or (conditional == "Sentinel Slash" and #snd.maybe_affs == 2) then
+    snd.using_both_hands = 1
+  end
+
+  if (conditional == "Templar" or conditional == "Syssin") and #snd.maybe_affs &lt; 1 then --also works for revenant since same messages
     disableTrigger("Weapon Hit Confirmation")
   end
+  
+  if conditional == "Bard Rhythm" and #snd.maybe_affs &lt; 1 then
+    disableTrigger("Bard Rhythm Confirmation")
+  end
+  
   if conditional == "TemplarBlunt" then
     snd.templarHits = snd.templarHits - 1
     if snd.templarHits &lt;= 0 then disableTrigger("Weapon Hit Confirmation") end
   end
+  
   if conditional == "Syssin" and #snd.maybe_affs &lt; 1 then
     disableTrigger("Syssin Hit Confirmation")
   end
@@ -67435,22 +67342,6 @@ end</script>
 					<name>Check afflictions on target</name>
 					<packageName></packageName>
 					<script>
-function snd.affNameCheck(aff)
-  local affs_to_change = {
-    ["self_pity"] = "self_pity",
-    ["crippled left leg"] = "left_leg_crippled",
-    ["crippled right leg"] = "right_leg_crippled",
-    ["crippled left arm"] = "left_arm_crippled",
-    ["crippled right arm"] = "right_arm_crippled",
-  }
-
-  if affs_to_change[aff] then
-    return affs_to_change[aff]
-  else
-    aff = aff:gsub("a ", "")
-    return aff:gsub(" ", "_")
-  end
-end
 
 --- Check if affliction exists on target
 -- @function snd.checkAff
@@ -68478,26 +68369,12 @@ end
       snd.onHit2({ "Dodge", "Rebounding" })
     end,
     Facesmash = function(target)
-      if not snd.checksomeAffs({ "misery", "no_courage" }, 1) then
-        table.insert(snd.maybe_affs, 1, "misery")
-        table.insert(snd.maybe_affs, 2, "no_courage")
-      elseif snd.checkAff("misery") then
-        table.insert(snd.maybe_affs, 1, "no_courage")
-      else
-        table.insert(snd.maybe_affs, 1, "misery")
-      end
-      snd.onHit2({ "Dodge", "Rebounding" }, "Luminary Facesmash")
+      snd.maybe_affs = {"misery","no_courage"}
+      snd.onHit2({ "Dodge", "Rebounding" }, "Double Aff")
     end,
     Lambaste = function(target)
-      if not snd.checksomeAffs({ "asthma", "haemophilia" }, 1) then
-        table.insert(snd.maybe_affs, 1, "asthma")
-        table.insert(snd.maybe_affs, 2, "haemophilia")
-      elseif snd.checkAff("asthma") then
-        table.insert(snd.maybe_affs, 1, "haemophilia")
-      else
-        table.insert(snd.maybe_affs, 1, "asthma")
-      end
-      snd.onHit2({ "Dodge", "Rebounding" }, "Luminary Slam")
+      snd.maybe_affs = {"asthma", "haemophilia"}
+      snd.onHit2({ "Dodge", "Rebounding" }, "Double Aff")
     end,
     Brilliance = function(target)
       table.insert(snd.maybe_affs, "no_courage")
@@ -68588,9 +68465,8 @@ end
       snd.onHit2({ "Dodge", "Parry" })
     end,
     Twinpress = function(target)
-      table.insert(snd.maybe_affs, "stiffness")
-      table.insert(snd.maybe_affs, "muscle_spasms")
-      snd.onHit2({ "Dodge" }, "Zealot Twinpress")
+      snd.maybe_affs = {"stiffness","muscle_spasms"},
+      snd.onHit2({ "Dodge" }, "Double Aff")
     end,
     Clawtwist = function(target)
       snd.last_hit_limb = "torso"
@@ -68620,23 +68496,15 @@ end
       snd.last_hit_limb = "head"
       snd.last_limb_dmg = 3.5
       snd.took_limb_dmg("head", snd.last_limb_dmg)
-      table.insert(snd.maybe_affs, 1, "crippled_throat")
-      table.insert(snd.maybe_affs, 2, "stuttering")
+      snd.maybe_affs = {"crippled_throat", "stuttering"}
       snd.onHit2({ "Parry", "Dodge" }, "Double Aff")
     end,
     Sunkick = function(target)
       snd.last_hit_limb = "head"
       snd.last_limb_dmg = 6
       snd.took_limb_dmg("head", snd.last_limb_dmg)
-      if not snd.checksomeAffs({ "stupidity", "dizziness" }, 1) then
-        table.insert(snd.maybe_affs, 1, "stupidity")
-        table.insert(snd.maybe_affs, 2, "dizziness")
-      elseif snd.checkAff("stupidity") then
-        table.insert(snd.maybe_affs, 1, "dizziness")
-      else
-        table.insert(snd.maybe_affs, 1, "stupidity")
-      end
-      snd.onHit2({ "Dodge", "Parry" }, "Zealot Sunkick")
+      snd.maybe_affs = {"stupidity", "dizziness"}
+      snd.onHit2({ "Dodge", "Parry" }, "Double Aff")
     end,
     Direblow = function(target)
       enableTrigger("Direblow Hit Confirmation")
@@ -68722,9 +68590,8 @@ end
       snd.onHit2({ "Dodge", "Parry" })
     end,
     PressurePoint = function(target)
-      table.insert(snd.maybe_affs, "stiffness")
-      table.insert(snd.maybe_affs, "muscle_spasms")
-      snd.onHit2({ "Dodge" }, "Ravager PressurePoint")
+      snd.maybe_affs = {"stiffness", "muscle_spasms"},
+      snd.onHit2({ "Dodge" }, "Double Aff")
     end,
     Plexus = function(target)
       snd.last_hit_limb = "torso"
@@ -68754,23 +68621,15 @@ end
       snd.last_hit_limb = "head"
       snd.last_limb_dmg = 3.5
       snd.took_limb_dmg("head", snd.last_limb_dmg)
-      table.insert(snd.maybe_affs, 1, "crippled_throat")
-      table.insert(snd.maybe_affs, 2, "stuttering")
+      snd.maybe_affs = {"crippled_throat","stuttering"},
       snd.onHit2({ "Parry", "Dodge" }, "Double Aff")
     end,
     Concussion = function(target)
       snd.last_hit_limb = "head"
       snd.last_limb_dmg = 6
       snd.took_limb_dmg("head", snd.last_limb_dmg)
-      if not snd.checksomeAffs({ "stupidity", "dizziness" }, 1) then
-        table.insert(snd.maybe_affs, 1, "stupidity")
-        table.insert(snd.maybe_affs, 2, "dizziness")
-      elseif snd.checkAff("stupidity") then
-        table.insert(snd.maybe_affs, 1, "dizziness")
-      else
-        table.insert(snd.maybe_affs, 1, "stupidity")
-      end
-      snd.onHit2({ "Dodge", "Parry" }, "Zealot Sunkick")
+      snd.maybe_affs = {"stupidity", "dizziness"}
+      snd.onHit2({ "Dodge", "Parry" }, "Double Aff")
     end,
     Rampage = function(target, conditional)
       snd.blitz = true
@@ -69029,15 +68888,8 @@ end
     end,
     Slam = function(target)
       snd.last_hit_limb = "head"
-      if not snd.checksomeAffs({ "laxity", "epilepsy" }, 1) then
-        table.insert(snd.maybe_affs, 1, "laxity")
-        table.insert(snd.maybe_affs, 2, "epilepsy")
-      elseif snd.checkAff("laxity") then
-        table.insert(snd.maybe_affs, 1, "epilepsy")
-      else
-        table.insert(snd.maybe_affs, 1, "laxity")
-      end
-      snd.onHit2({ "Dodge", "Rebounding", "Parry" }, "Sentinel Slam")
+      snd.maybe_affs = {"laxity","epilepsy"}
+      snd.onHit2({ "Dodge", "Rebounding", "Parry" }, "Double Aff")
     end,
     Blind = function(target)
       table.insert(snd.maybe_affs, 1, "blindness")
@@ -71261,26 +71113,12 @@ end
       snd.onHit2({ "Dodge", "Rebounding" })
     end,
     Facesmash = function(target)
-      if not snd.checksomeAffs({ "misery", "no_courage" }, 1) then
-        table.insert(snd.maybe_affs, 1, "misery")
-        table.insert(snd.maybe_affs, 2, "no_courage")
-      elseif snd.checkAff("misery") then
-        table.insert(snd.maybe_affs, 1, "no_courage")
-      else
-        table.insert(snd.maybe_affs, 1, "misery")
-      end
-      snd.onHit2({ "Dodge", "Rebounding" }, "Luminary Facesmash")
+      snd.maybe_affs = { "misery", "no_courage" }
+      snd.onHit2({ "Dodge", "Rebounding" }, "Double Aff")
     end,
     Beset = function(target)
-      if not snd.checksomeAffs({ "asthma", "haemophilia" }, 1) then
-        table.insert(snd.maybe_affs, 1, "asthma")
-        table.insert(snd.maybe_affs, 2, "haemophilia")
-      elseif snd.checkAff("asthma") then
-        table.insert(snd.maybe_affs, 1, "haemophilia")
-      else
-        table.insert(snd.maybe_affs, 1, "asthma")
-      end
-      snd.onHit2({ "Dodge", "Rebounding" }, "Luminary Slam")
+      snd.maybe_affs = {"asthma","haemophilia"}
+      snd.onHit2({ "Dodge", "Rebounding" }, "Double Aff")
     end,
     Horrification = function(target)
       table.insert(snd.maybe_affs, "no_courage")
@@ -72738,15 +72576,8 @@ end
       end
     end,
     Perplex = function(target)
-      if not snd.checksomeAffs({ "laxity", "epilepsy" }, 1) then
-        table.insert(snd.maybe_affs, 1, "laxity")
-        table.insert(snd.maybe_affs, 2, "epilepsy")
-      elseif snd.checkAff("laxity") then
-        table.insert(snd.maybe_affs, 1, "epilepsy")
-      else
-        table.insert(snd.maybe_affs, 1, "laxity")
-      end
-      snd.onHit2({ "Dodge", "Rebounding", "Parry" }, "Sentinel Slam")
+      snd.maybe_affs = { "laxity", "epilepsy" }
+      snd.onHit2({ "Dodge", "Rebounding", "Parry" }, "Double Aff")
     end,
     Ploy = function(target)
       table.insert(snd.maybe_affs, 1, "blindness")
