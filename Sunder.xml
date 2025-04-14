@@ -55509,7 +55509,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.3"
+local version = "11.0.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57347,7 +57347,7 @@ end
 				<name>Class change</name>
 				<packageName></packageName>
 				<script>function snd.changeClass()
-  if not gmcp.Char.Vitals then return end --oop make sure it doesn't fire before things happen
+  if not snd.connected then return end
   local gmcpClass = gmcp.Char.Status.class == "(None)" and "None" or gmcp.Char.Status.class
   if snd.class == gmcpClass then return end
   snd.class = gmcpClass
@@ -61254,9 +61254,10 @@ snd.shopping.pills = {
   "thanatonin",
   "paste",
   -- "somnium",
-  "ototoxin",
+  -- "ototoxin",
   "decongestant",
-  "amaurosis",
+  -- "amaurosis",
+  "pluck",
   "depressant",
   "antipsychotic",
   "panacea",
