@@ -17242,7 +17242,7 @@ end
 								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Elicit Affliction</name>
 									<script>if snd.getting_hit == snd.target then
-  snd.target_got(snd.affNameCheck(matches[3]))
+  snd.target_got(snd.affNameCheck(matches[2]))
 end
 disableTrigger("Elicit Affliction")</script>
 									<triggerType>0</triggerType>
@@ -17319,7 +17319,7 @@ end
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>^You channel your psyche through \w+ and foster (\w+) within it.$</string>
+											<string>^You channel your psyche through .+ and foster (\w+) within it.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -57787,6 +57787,207 @@ snd.outred = snd.outred or {
   waterbreathing = 0,
 }
 
+snd.weapon_types = {
+  "club",
+  "flail",
+  "mace",
+  "morningstar",
+  "greatmaul",
+  "warhammer",
+  "handaxe",
+  "javelin",
+  "battleaxe",
+  "broadsword",
+  "dagger",
+  "stiletto",
+  "dirk",
+  "falchion",
+  "falcata",
+  "flyssa",
+  "longsword",
+  "rapier",
+  "sarissa",
+  "scimitar",
+  "shortsword",
+  "spear",
+  "trident",
+  "whip",
+  "bardiche",
+  "bastard",
+  "falx",
+  "glaive",
+  "halberd",
+  "scythe",
+  "shotel",
+  "gladius",
+  "manta",
+
+  "banded",
+  "buckler",
+  "cavalry",
+  "kite",
+  "tower",
+  "shield",
+}
+
+
+snd.hidden_afflictions = snd.hidden_afflictions or 0
+
+snd.my_limb_damage = snd.my_limb_damage or {
+  head = 0,
+  torso = 0,
+  ["left arm"] = 0,
+  ["right arm"] = 0,
+  ["left leg"] = 0,
+  ["right leg"] = 0
+}
+
+snd.pipes_lit = snd.pipes_lit or false
+snd.emptypipes = snd.emptypipes or
+    {
+      willow = false,
+      yarrow = false,
+      reishi = false,
+    }
+snd.smokedpipe = snd.smokedpipe or "none"
+
+snd.sent = {
+
+}
+
+snd.cur = snd.cur or {
+  herb = "",
+  drink = "",
+  vial = "",
+  salve = "",
+  pipe = ""
+}
+
+snd.last = snd.last or {
+  elixir = "",
+  herb = "",
+  smoke = "",
+  salve = "",
+  tattoo = "",
+  focus = "",
+  tree = ""
+}
+
+snd.waiting = snd.waiting or {
+  balance = false,
+  equilibrium = false,
+  rarm = false,
+  larm = false,
+  quest_get = false,
+  lighting = false,
+  elixir = false,
+  herb = false,
+  vial = false,
+  salve = false,
+  moss = false,
+  writhe = false,
+  concentrate = false,
+  tree = false,
+  focus = false,
+  clot = false,
+  parry = false,
+  queue = false,
+  who_here = false,
+  hound = false,
+  purge = false,
+  purify = false,
+  panacea = false,
+  melting = false,
+}</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Balances</name>
+				<packageName></packageName>
+				<script>snd.balance = snd.balance or {
+  fitness = true,
+  shrug = true,
+  battle = true,
+  hound = true,
+  implant = true,
+  soulpoison = true,
+  purge = true,
+  panacea = true,
+  cleanse = true,
+  fool = true,
+  mend = true,
+  expunge = true,
+  purify = true,
+  nimbleness = true,
+  momentum = true,
+  absorb = true,
+  earthenwill = true,
+  morph = true,
+  ethereal = false,
+  furor = true,
+  vitality = true,
+  kaistrike = true,
+  mindcommand = true,
+  blackout = true,
+  mindpush = true,
+  mindcleanse = true,
+  madness = true,
+  numbness = true,
+  pendulum = true,
+  battle = true,
+  backstab = true,
+  rage = true,
+  enrich = true,
+  regenerate = true,
+  crystal = true,
+  aeon = true,
+  chimera = true,
+  envelop = true,
+  soulmaster = true,
+  sorcery_transfix = true,
+  inspire = true,
+  bravado = true,
+  might = true,
+  leech = true,
+  shadowsphere = true,
+  unbroken = true,
+  soulcage = true,
+  wand = true,
+  fury = true,
+  arouse = true,     --predator arouse
+  ferocity = true,   --predator ferocity
+  orel = true,       --predator orel fly/land
+  spider = true,     --predator spider web
+  feint = true,      --predator's feint
+  bladesurge = true,
+  exploit = true,    --executor exploit
+  regenerate = true, --survival regenerate
+  smash = true,      --luminary smash
+  restore = true,    --restore/vein for asc/bb
+  lifebloom = true,
+  kaistrike = true,
+  foresight = true,
+  centrum = true,
+  ejawave = true,
+  ejamend = true,
+  equinox = true,
+  eventide = true,
+  rattle = true,  -- teradrim/tidesage rattle/reprisal
+  grapple = true, --teradrim/tidesage grapple/clutch
+  dome = true,
+}</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Waiting</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Affliction types</name>
+				<packageName></packageName>
+				<script>
 snd.physical_affs = {
   "paralysis",
   "paresis",
@@ -57942,190 +58143,6 @@ snd.square_affs = {
   "shyness",
   "sealing_square"
 }
-
-snd.weapon_types = {
-  "club",
-  "flail",
-  "mace",
-  "morningstar",
-  "greatmaul",
-  "warhammer",
-  "handaxe",
-  "javelin",
-  "battleaxe",
-  "broadsword",
-  "dagger",
-  "stiletto",
-  "dirk",
-  "falchion",
-  "falcata",
-  "flyssa",
-  "longsword",
-  "rapier",
-  "sarissa",
-  "scimitar",
-  "shortsword",
-  "spear",
-  "trident",
-  "whip",
-  "bardiche",
-  "bastard",
-  "falx",
-  "glaive",
-  "halberd",
-  "scythe",
-  "shotel",
-  "gladius",
-  "manta",
-
-  "banded",
-  "buckler",
-  "cavalry",
-  "kite",
-  "tower",
-  "shield",
-}
-
-snd.balance = snd.balance or {
-  fitness = true,
-  shrug = true,
-  battle = true,
-  hound = true,
-  implant = true,
-  soulpoison = true,
-  purge = true,
-  panacea = true,
-  cleanse = true,
-  fool = true,
-  mend = true,
-  expunge = true,
-  purify = true,
-  nimbleness = true,
-  momentum = true,
-  absorb = true,
-  earthenwill = true,
-  morph = true,
-  ethereal = false,
-  furor = true,
-  vitality = true,
-  kaistrike = true,
-  mindcommand = true,
-  blackout = true,
-  mindpush = true,
-  mindcleanse = true,
-  madness = true,
-  numbness = true,
-  pendulum = true,
-  battle = true,
-  backstab = true,
-  rage = true,
-  enrich = true,
-  regenerate = true,
-  crystal = true,
-  aeon = true,
-  chimera = true,
-  envelop = true,
-  soulmaster = true,
-  sorcery_transfix = true,
-  inspire = true,
-  bravado = true,
-  might = true,
-  leech = true,
-  shadowsphere = true,
-  unbroken = true,
-  soulcage = true,
-  wand = true,
-  fury = true,
-  arouse = true,     --predator arouse
-  ferocity = true,   --predator ferocity
-  orel = true,       --predator orel fly/land
-  spider = true,     --predator spider web
-  feint = true,      --predator's feint
-  bladesurge = true,
-  exploit = true,    --executor exploit
-  regenerate = true, --survival regenerate
-  smash = true,      --luminary smash
-  restore = true,    --restore/vein for asc/bb
-  lifebloom = true,
-  kaistrike = true,
-  foresight = true,
-  centrum = true,
-  ejawave = true,
-  ejamend = true,
-  equinox = true,
-  eventide = true,
-  rattle = true,  -- teradrim/tidesage rattle/reprisal
-  grapple = true, --teradrim/tidesage grapple/clutch
-  dome = true,
-}
-
-snd.waiting = snd.waiting or {
-  balance = false,
-  equilibrium = false,
-  rarm = false,
-  larm = false,
-  quest_get = false,
-  lighting = false,
-  elixir = false,
-  herb = false,
-  vial = false,
-  salve = false,
-  moss = false,
-  writhe = false,
-  concentrate = false,
-  tree = false,
-  focus = false,
-  clot = false,
-  parry = false,
-  queue = false,
-  who_here = false,
-  hound = false,
-  purge = false,
-  purify = false,
-  panacea = false,
-  melting = false,
-}
-snd.hidden_afflictions = snd.hidden_afflictions or 0
-
-snd.my_limb_damage = snd.my_limb_damage or {
-  head = 0,
-  torso = 0,
-  ["left arm"] = 0,
-  ["right arm"] = 0,
-  ["left leg"] = 0,
-  ["right leg"] = 0
-}
-
-snd.pipes_lit = snd.pipes_lit or false
-snd.emptypipes = snd.emptypipes or
-    {
-      willow = false,
-      yarrow = false,
-      reishi = false,
-    }
-snd.smokedpipe = snd.smokedpipe or "none"
-
-snd.sent = {
-
-}
-
-snd.cur = snd.cur or {
-  herb = "",
-  drink = "",
-  vial = "",
-  salve = "",
-  pipe = ""
-}
-
-snd.last = snd.last or {
-  elixir = "",
-  herb = "",
-  smoke = "",
-  salve = "",
-  tattoo = "",
-  focus = "",
-  tree = ""
-}
 </script>
 				<eventHandlerList />
 			</Script>
@@ -58158,15 +58175,6 @@ snd.last = snd.last or {
       table.insert(snd.items[v.name], v.id)
     end
     snd.updateMonolith()
-  elseif gmcp.Char.Items.List ~= nil then
-    if gmcp.Char.Vitals.wield_left ~= "empty" then
-      snd.wielded.left.name = string.match(gmcp.Char.Vitals.wield_left, "%a+")
-      snd.wielded.left.id = string.match(gmcp.Char.Vitals.wield_left, "%d+")
-    end
-    if gmcp.Char.Vitals.wield_right ~= "empty" then
-      snd.wielded.right.name = string.match(gmcp.Char.Vitals.wield_right, "%a+")
-      snd.wielded.right.id = string.match(gmcp.Char.Vitals.wield_right, "%d+")
-    end
   end
   snd.updateItems()
 end
@@ -58198,17 +58206,6 @@ function gmcp_item_remove()
       end
     end
     snd.updateMonolith()
-  elseif gmcp.Char.Items.List ~= nil then
-    if gmcp.Char.Items.List.location == "inv" then
-      if gmcp.Char.Vitals.wield_left ~= "empty" then
-        snd.wielded.left.name = string.match(gmcp.Char.Vitals.wield_left, "%a+")
-        snd.wielded.left.id = string.match(gmcp.Char.Vitals.wield_left, "%d+")
-      end
-      if gmcp.Char.Vitals.wield_right ~= "empty" then
-        snd.wielded.right.name = string.match(gmcp.Char.Vitals.wield_right, "%a+")
-        snd.wielded.right.id = string.match(gmcp.Char.Vitals.wield_right, "%d+")
-      end
-    end
   end
   snd.updateItems()
 end
@@ -58216,24 +58213,6 @@ end
 function gmcp_item_update()
   v = gmcp.Char.Items.Update.item
   --echo(v.name)
-  if gmcp.Char.Items.Update.location == "inv" then
-    if gmcp.Char.Vitals.wield_left ~= "empty" then
-      snd.wielded.left.name = string.match(gmcp.Char.Vitals.wield_left, "%a+")
-      snd.wielded.left.id = string.match(gmcp.Char.Vitals.wield_left, "%d+")
-    end
-    if gmcp.Char.Vitals.wield_left ~= "empty" then
-      snd.wielded.right.name = string.match(gmcp.Char.Vitals.wield_right, "%a+")
-      snd.wielded.right.id = string.match(gmcp.Char.Vitals.wield_right, "%d+")
-    end
-  else
-    if snd.wielded.left.id == v.id then
-      snd.wielded.left.name = ""
-      snd.wielded.left.id = ""
-    elseif snd.wielded.right.id == v.id then
-      snd.wielded.right.name = ""
-      snd.wielded.right.id = ""
-    end
-  end
   snd.updateItems()
 end
 
@@ -58252,16 +58231,6 @@ function gmcp_items()
       end
     end
     snd.updateMonolith()
-  elseif gmcp.Char.Items.List.location == "inv" then
-    snd.wielded = { left = { name = "", id = "" }, right = { name = "", id = "" } }
-    if gmcp.Char.Vitals.wield_left ~= "empty" then
-      snd.wielded.left.name = string.match(gmcp.Char.Vitals.wield_left, "%a+")
-      snd.wielded.left.id = string.match(gmcp.Char.Vitals.wield_left, "%d+")
-    end
-    if gmcp.Char.Vitals.wield_right ~= "empty" then
-      snd.wielded.right.name = string.match(gmcp.Char.Vitals.wield_right, "%a+")
-      snd.wielded.right.id = string.match(gmcp.Char.Vitals.wield_right, "%d+")
-    end
   end
   snd.updateItems()
 end
@@ -58437,6 +58406,8 @@ snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
   else
     snd.need_dome = false
   end
+  
+  snd.updateWielded()
 end
 
 snd.registerEvent("SunderGMCPVitals", "gmcp.Char.Vitals", gmcp_vitals)
@@ -58446,7 +58417,36 @@ snd.registerEvent("SunderGMCPVitals", "gmcp.Char.Vitals", gmcp_vitals)
 			<Script isActive="yes" isFolder="no">
 				<name>Wielded item tracking</name>
 				<packageName></packageName>
-				<script>function snd.weaponType(weapon)
+				<script>function snd.updateWielded()
+  local wield_updated
+  if gmcp.Char.Vitals.wield_left ~= snd.wielded.left.full then
+    if gmcp.Char.Vitals.wield_left == "empty" then
+      snd.wielded.left = {full = "empty", name="", id=""}
+    else
+      snd.wielded.left.full = gmcp.Char.Vitals.wield_left
+      snd.wielded.left.name = string.match(gmcp.Char.Vitals.wield_left, "%a+")
+      snd.wielded.left.id = string.match(gmcp.Char.Vitals.wield_left, "%d+")
+    end
+    wield_updated = true
+  end
+  
+  if gmcp.Char.Vitals.wield_right~=snd.wielded.right.full then
+    if gmcp.Char.Vitals.wield_right == "empty" then
+      snd.wielded.right = {full = "empty", name="", id=""}
+    else
+      snd.wielded.right.full = gmcp.Char.Vitals.wield_right
+      snd.wielded.right.name = string.match(gmcp.Char.Vitals.wield_right, "%a+")
+      snd.wielded.right.id = string.match(gmcp.Char.Vitals.wield_right, "%d+")
+    end
+    wield_updated = true
+  end
+  if wield_updated then
+    raiseEvent("sunder_item_update")
+  end
+end
+
+
+function snd.weaponType(weapon)
   for wtype in pairs(snd.weapon_types) do
     if string.find(weapon, snd.weapon_types[wtype]) then
       return snd.weapon_types[wtype]
@@ -58540,50 +58540,6 @@ function snd.core()
     snd.dodge()
     snd.do_queue()
     snd.do_stuff()
-  end
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Do stuff</name>
-				<packageName></packageName>
-				<script>--- @submodule core
-
-
---- Decide what to do based on a priority list.
--- Stuff like barbed_arrow pulling, moving and fitness are all handled here
--- @function snd.do_stuff
-snd.coreActionMap = snd.coreActionMap or {
-  queue = function() snd.send_attack(snd.queued) end,
-  barbed_arrow = function() snd.pull_arrow() end,
-  embedded_dagger = function() snd.pull_dagger() end,
-  bashing = function() snd.bashing_function() end,
-  lighting = function() snd.do_lighting() end,
-  attack = function() snd.attack_function() end,
-  loot = function() snd.do_loot() end,
-  moving = function() snd.get_moving() end,
-  fitness = function() snd.do_fitness() snd.do_shrug() end,
-  rage = function() snd.do_rage() end,
-  purge = function() snd.do_purge() end,
-  purify = function() snd.do_purify() end,
-  panacea = function() snd.do_panacea() end,
-  dome = function() snd.do_dome() end,
-  diagnose = function() snd.do_diagnose() end,
-}
-
-
-
-function snd.do_stuff()
-  for _, i in ipairs(snd.priorities) do
-    if snd.queue[i] then
-      if snd.coreActionMap[i] then
-        snd.coreActionMap[i]()
-      elseif snd.defenses[i] then
-        local def = snd.defenses[i]
-        local method = next(def.balance)
-        snd.method_priority[method].func(i)
-      end
-    end
   end
 end</script>
 				<eventHandlerList />
@@ -58694,6 +58650,50 @@ function snd.do_queue()
     end
     if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
       snd.queue.attack = true
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Do stuff</name>
+				<packageName></packageName>
+				<script>--- @submodule core
+
+
+--- Decide what to do based on a priority list.
+-- Stuff like barbed_arrow pulling, moving and fitness are all handled here
+-- @function snd.do_stuff
+snd.coreActionMap = snd.coreActionMap or {
+  queue = function() snd.send_attack(snd.queued) end,
+  barbed_arrow = function() snd.pull_arrow() end,
+  embedded_dagger = function() snd.pull_dagger() end,
+  bashing = function() snd.bashing_function() end,
+  lighting = function() snd.do_lighting() end,
+  attack = function() snd.attack_function() end,
+  loot = function() snd.do_loot() end,
+  moving = function() snd.get_moving() end,
+  fitness = function() snd.do_fitness() snd.do_shrug() end,
+  rage = function() snd.do_rage() end,
+  purge = function() snd.do_purge() end,
+  purify = function() snd.do_purify() end,
+  panacea = function() snd.do_panacea() end,
+  dome = function() snd.do_dome() end,
+  diagnose = function() snd.do_diagnose() end,
+}
+
+
+
+function snd.do_stuff()
+  for _, i in ipairs(snd.priorities) do
+    if snd.queue[i] then
+      if snd.coreActionMap[i] then
+        snd.coreActionMap[i]()
+      elseif snd.defenses[i] then
+        local def = snd.defenses[i]
+        local method = next(def.balance)
+        snd.method_priority[method].func(i)
+      end
     end
   end
 end</script>
@@ -64734,10 +64734,15 @@ end
 			<packageName></packageName>
 			<script></script>
 			<eventHandlerList />
-			<Script isActive="yes" isFolder="no">
-				<name>PvP variables</name>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Variables</name>
 				<packageName></packageName>
-				<script>snd.offense_loaded = true
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>PvP variables</name>
+					<packageName></packageName>
+					<script>snd.offense_loaded = true
 snd.hitting = "none"
 
 snd.using_both_hands = 0
@@ -64933,7 +64938,6 @@ snd.limb_bruising = {
 
 snd.use_hourglass_on_prismatic = false
 snd.giving = {}
-snd.hound_queue = {}
 snd.target_has = {}
 snd.player_has = {}
 snd.rebounded = false
@@ -64941,88 +64945,13 @@ snd.target_impaled = false -- do we specifically have our target imapled
 
 snd.fleshbaneStacks = 0
 
-
-function snd.rev_empower(aff)
-  local revenant = {
-    ["conviction"] = "bimre",
-    ["disrupt"] = "dirne",
-    ["cripple"] = "azu",
-    ["hemorrhage"] = "wilave",
-    ["flare"] = "livfa",
-  }
-  if revenant[aff] == nil then
-    return aff
-  else
-    return revenant[aff]
-  end
-end
-
-snd.spirituality_attacks = {
-  paresis = "shield strike",
-  sight = "shield brilliance",
-  misery = "shield facesmash",
-  weariness = "shield punch",
-  asthma = "lambaste",
-  haemophilia = "lambaste",
-  confusion = "perform dazzle",
-  writhe_transfix = "evoke transfixion",
-}
-
-snd.subjugation_attacks = {
-  paresis = "shield strike",
-  sight = "shield horrify",
-  misery = "shield facesmash",
-  weariness = "shield punch",
-  asthma = "beset",
-  haemophilia = "beset",
-  confusion = "dirge hysteria",
-  writhe_transfix = "tectonic transfixion",
-}
-
-snd.hound_attacks = {
-  ["Carnifex"] = {
-    recklessness = "growl",
-    dizziness = "growl",
-    mania = "stare",
-    impairment = "stare",
-    weariness = "acidspit",
-    crippled = "acidspit",
-    epilepsy = "shock",
-    hallucinations = "shock",
-    blisters = "poisonclaw",
-    hypotension = "poisonclaw",
-    frozen = "tundralhowl",
-    frigid = "tundralhowl",
-    shivering = "tundralhowl",
-    ablaze = "firebreath",
-    no_caloric = "tundralhowl",
-    blurry_vision = "ululate",
-    mark = "mark",
-    loki = "contagion",
-    bite = "bite",
-  },
-  ["Warden"] = {
-    recklessness = "chant",
-    dizziness = "chant",
-    mania = "incite",
-    impairment = "incite",
-    weariness = "harry",
-    crippled = "harry",
-    epilepsy = "shock",
-    hallucinations = "shock",
-    blisters = "poison",
-    hypotension = "poison",
-    frozen = "freeze",
-    shivering = "freeze",
-    frigid = "freeze",
-    no_caloric = "freeze",
-    ablaze = "firestrike",
-    blurry_vision = "dirge",
-    mark = "mark",
-    loki = "sabotage",
-    assault = "assault",
-  }
-}
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Cure tables</name>
+					<packageName></packageName>
+					<script>
 
 snd.cures = {
 
@@ -65252,9 +65181,13 @@ snd.cures = {
     "dread"
   }
 
-}
-
-snd.entangleaffs = {
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Entangle afflictions</name>
+					<packageName></packageName>
+					<script>snd.entangleaffs = {
   "writhe_transfix",
   "writhe_impaled",
   "writhe_web",
@@ -65267,9 +65200,13 @@ snd.entangleaffs = {
   "writhe_dartpinned",
 }
 
-
-
-snd.cureset_skills = {
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Cureset skills</name>
+					<packageName></packageName>
+					<script>snd.cureset_skills = {
   ascendril = { "Elemancy", "Arcanism", "Thaumaturgy", "Humourism", "Hematurgy", "Esoterica" },
   sciomancer = { "Sciomancy", "Sorcery", "Gravitation", "Malediction", "Runecarving", "Sporulation" },
   indorani = { "Necromancy", "Tarot", "Domination", "Hyalincuru", "Contracts", "Oneiromancy" },
@@ -65291,8 +65228,9 @@ snd.cureset_skills = {
   siderealist = { "Astranomia", "Crystalism", "Ostension" },
 }
 </script>
-				<eventHandlerList />
-			</Script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
 				<name>Assist skills</name>
 				<packageName></packageName>
@@ -65462,7 +65400,21 @@ function snd.venomEffect(venom)
   end
   return aff
 end
-</script>
+
+function snd.rev_empower(aff)
+  local revenant = {
+    ["conviction"] = "bimre",
+    ["disrupt"] = "dirne",
+    ["cripple"] = "azu",
+    ["hemorrhage"] = "wilave",
+    ["flare"] = "livfa",
+  }
+  if revenant[aff] == nil then
+    return aff
+  else
+    return revenant[aff]
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -66541,6 +66493,85 @@ snd.ravagerChainMap = {
   whiplash = "whiplash",
 }
 </script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Lumi and Earthcaller shield stuff</name>
+					<packageName></packageName>
+					<script>
+snd.spirituality_attacks = {
+  paresis = "shield strike",
+  sight = "shield brilliance",
+  misery = "shield facesmash",
+  weariness = "shield punch",
+  asthma = "lambaste",
+  haemophilia = "lambaste",
+  confusion = "perform dazzle",
+  writhe_transfix = "evoke transfixion",
+}
+
+snd.subjugation_attacks = {
+  paresis = "shield strike",
+  sight = "shield horrify",
+  misery = "shield facesmash",
+  weariness = "shield punch",
+  asthma = "beset",
+  haemophilia = "beset",
+  confusion = "dirge hysteria",
+  writhe_transfix = "tectonic transfixion",
+}
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Wardifex hounds</name>
+					<packageName></packageName>
+					<script>snd.hound_queue = {}
+
+snd.hound_attacks = {
+  ["Carnifex"] = {
+    recklessness = "growl",
+    dizziness = "growl",
+    mania = "stare",
+    impairment = "stare",
+    weariness = "acidspit",
+    crippled = "acidspit",
+    epilepsy = "shock",
+    hallucinations = "shock",
+    blisters = "poisonclaw",
+    hypotension = "poisonclaw",
+    frozen = "tundralhowl",
+    frigid = "tundralhowl",
+    shivering = "tundralhowl",
+    ablaze = "firebreath",
+    no_caloric = "tundralhowl",
+    blurry_vision = "ululate",
+    mark = "mark",
+    loki = "contagion",
+    bite = "bite",
+  },
+  ["Warden"] = {
+    recklessness = "chant",
+    dizziness = "chant",
+    mania = "incite",
+    impairment = "incite",
+    weariness = "harry",
+    crippled = "harry",
+    epilepsy = "shock",
+    hallucinations = "shock",
+    blisters = "poison",
+    hypotension = "poison",
+    frozen = "freeze",
+    shivering = "freeze",
+    frigid = "freeze",
+    no_caloric = "freeze",
+    ablaze = "firestrike",
+    blurry_vision = "dirge",
+    mark = "mark",
+    loki = "sabotage",
+    assault = "assault",
+  }
+}</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
@@ -68324,8 +68355,6 @@ end</script>
 				<packageName></packageName>
 				<script>--- Placeholder.
 
-
-
 --- Check for missing affs from a string.
 -- Takes a string of separated afflictions and checks to see which are missing
 -- @function snd.missingAff
@@ -68347,9 +68376,6 @@ function snd.missingAff(list, separator)
   end
   return tab
 end
-
-
-
 
 
 function snd.loban_no_more(text)
