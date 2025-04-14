@@ -33421,7 +33421,12 @@ snd.parrying.current_parry = "none"
 							</regexCodePropertyList>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>def end</name>
-								<script>setTriggerStayOpen("def start", 0)</script>
+								<script>setTriggerStayOpen("def start", 0)
+
+if snd.defupPending then
+  snd.load_def2(snd.defupPending)
+  snd.defupPending = nil
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -55441,10 +55446,12 @@ for _, package in ipairs(packages) do
   end
 end
 
+local version = "11.0.1"
+
 if isHeartache then
-  snd.message("Your version of sunder is: 10.1.6 - Heartache Edition")
+  snd.message("Your version of sunder is: "..version.." - Heartache Edition")
 else
-  snd.message("Your version of sunder is: 10.1.6")
+  snd.message("Your version of sunder is: "..version)
 end
 </script>
 						<command></command>
@@ -56185,8 +56192,6 @@ end
 if snd.toggles.active == false then
   display(
     "Sunder is currently off. Please SNDON to turn it back on! If you wish to remove this behavior, alter it in the 'general deaths' trigger.")
-else
-  send("def", false)
 end
 
 if snd.class == "Ascendril" then send("simultaneity") end
@@ -56878,13 +56883,14 @@ function snd.login()
 
     enableTrigger("Separator Check Update")
     send("config separator", false)
-
-    tempTimer(1, function() raiseEvent("sunder_login") end)
-    tempTimer(2.5, function()
+    send("tattoos", false)
+    tempTimer(1, function()
       snd.class = ""
       snd.changeClass()
+      raiseEvent("sunder_login")
+      snd.connected = true
     end)
-    tempTimer(4, [[send("tattoos", false)]])
+
     snd.registerCityMarks()
     local x, y = string.match(gmcp.Char.Status.level, "(.*) (.*)")
     local level = tonumber(x)
@@ -56895,7 +56901,13 @@ function snd.login()
 end
 
 snd.registerEvent("SunderLogin", "gmcp.Char.Name", snd.login)
-</script>
+
+
+function snd.disconnected()
+  snd.connected = false
+end
+
+snd.registerEvent("SunderDisconnect", "sysDisconnectEvent", snd.disconnected)</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -58500,6 +58512,18 @@ snd.registerEvent("SunderDeathCheck", "gmcp.Char.Afflictions.Remove", snd.deathC
 </script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Connection tracking</name>
+				<packageName></packageName>
+				<script>function snd.connected()
+
+end
+
+function snd.disconnected()
+
+end</script>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Core queue</name>
@@ -58514,7 +58538,7 @@ snd.registerEvent("SunderDeathCheck", "gmcp.Char.Afflictions.Remove", snd.deathC
 -- @function snd.core
 --- @module core
 function snd.core()
-  if not gmcp.Char then return end
+  if not snd.connected then return end
   if not snd.toggles.active then return end
   
   if not snd.waiting.lighting and snd.can_cast() and snd.not_aff("perplexity") and snd.not_aff("paresis") then
@@ -58572,7 +58596,7 @@ function snd.do_queue()
               snd.queue[k] = true
             end
           elseif (k == "def_shroud" or k == "def_ghost" or k == "def_hiding") then
-            if snd.defenses.def_phase.state ~= "deffed" then
+            if snd.defenses.def_phased.state ~= "deffed" then
               snd.queue[k] = true
             end
           elseif (k == "def_miasma" or k == "def_safeguard" or k == "def_warmth") then
@@ -62561,10 +62585,16 @@ end</script>
 				<script>snd.defenses_loaded = true
 
 function snd.load_def(option)
+  snd.defupPending = option
+  send("def", false)
+end
+
+function snd.load_def2(option)
   class_catch()
   if snd.def_options[option] ~= nil then
     snd.trim_priorities()
     snd.defenses_loaded = true
+    echo("\n")
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
