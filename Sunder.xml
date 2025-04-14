@@ -54449,56 +54449,8 @@ end
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>Buying Fluids</name>
-						<script>local fluid_types = {
-  venoms = {
-  "epteth",
-  "gecko",
-  "epseth",
-  "prefarar",
-  "delphinium",
-  "digitalis",
-  "curare",
-  "darkshade",
-  "hepafarin",
-  "jalk",
-  "monkshood",
-  "oculus",
-  "selarnia",
-  "kalmia",
-  "xentio",
-  "eurypteria",
-  "aconite",
-  "vernalius",
-  "slike",
-  "euphorbia",
-  "larkspur",
-  "oleander",
-  "voyria",
-  },
-  
-  elixirs = {
-  "health",
-  "mana",
-  "immunity",
-  "levitation",
-  "harmony",
-  "arcane",
-  "speed",
-  "vigor",
-  "infusion",
-  "prudence",
-  },
-  
-  poultices = {
-  "mending",
-  "mass",
-  "restoration",
-  "caloric",
-  "epidermal",
-  "soothing",
-  },
-}
-local refills = matches[2]
+						<script>snd.shopping.buy(matches[3],matches[2])
+
 for _, v in ipairs(fluid_types[matches[3]]) do
   snd.send("buy "..refills.." refill of " .. v .. " for fluidcache")
 end
@@ -54508,81 +54460,28 @@ end
 						<regex>^fillcache (\d+) (elixirs|poultices|venoms)$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
-						<name>Filling Elixirs!</name>
-						<script>local elixirs = {
-"health",
-"mana",
-"immunity",
-"levitation",
-"harmony",
-"arcane",
-"speed",
-"vigor",
-"infusion",
-"prudence",
+						<name>Buying pills or plants</name>
+						<script>snd.shopping.buy(matches[2], matches[3])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^buy(pills|plants) (\d+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Fill or empty fluids</name>
+						<script>local map = {
+  vials = "elixirs",
+  rags = "venoms",
+  bandages = "poultices",
 }
-for elixir in pairs(elixirs) do
- snd.send("fc fill "..elixirs[elixir])
+local item = map[matches[3]]
+if matches[2] == "un" then
+  snd.shopping.empty(item)
+else
+  snd.shopping.fill(item)
 end</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^fillvials$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Consuming Elixirs</name>
-						<script>local elixirs = {
-"health",
-"mana",
-"immunity",
-"levitation",
-"harmony",
-"arcane",
-"speed",
-"vigor",
-"infusion",
-"prudence",
-}
-for elixir in pairs(elixirs) do
- snd.send("fc consume "..elixirs[elixir])
-end
-</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^unfillvials$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Filling Poultices</name>
-						<script>local poultices = {
-"mending",
-"mass",
-"restoration",
-"caloric",
-"soothing",
-"epidermal",
-}
-for poultice in pairs(poultices) do
- snd.send("fc fill "..poultices[poultice])
-end</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^fillbandages$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Consuming Poultices</name>
-						<script>local poultices = {
-"mending",
-"mass",
-"restoration",
-"soothing",
-"caloric",
-"epidermal",
-}
-for poultice in pairs(poultices) do
- snd.send("fc consume "..poultices[poultice])
-end</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^unfillbandages$</regex>
+						<regex>^(un)?fill(vials|rags|bandages)$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>priceall</name>
@@ -54594,36 +54493,6 @@ snd.send("ih "..snd.shopitem)</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^priceall (\w+) (\d+) (\d+)$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Buying pills</name>
-						<script>pills = {
-"waterbreathing",
-"kawhepill",
-"acuity",
-"steroid",
-"stimulant",
-"coagulation",
-"thanatonin",
-"paste",
-"somnium",
-"ototoxin",
-"decongestant",
-"amaurosis",
-"depressant",
-"antipsychotic",
-"panacea",
-"euphoriant",
-"anabiotic",
-"opiate",
-"eucrasia",
-}
-for pillname in pairs(pills) do
- snd.send("buy "..matches[2].." "..pills[pillname])
-end</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^buypills (\d+)$</regex>
 					</Alias>
 				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
@@ -57079,7 +56948,7 @@ function snd.login()
   tempTimer(0, function()
     sendGMCP([[Core.Supports.Add ["Comm.Channel 1", "IRE.Time 1"] ]]) -- allows us to use GMCP for communication and time tracking
     snd.pipes_lit = false
-
+    sendGMCP("IRE.Rift.Request")
     raiseEvent("sunder_update_toggles")
 
     if snd.class == "Ascendril" then send("simultaneity") end
@@ -57093,10 +56962,10 @@ function snd.login()
     send("config separator", false)
     send("tattoos", false)
     tempTimer(1, function()
+      snd.connected = true
       snd.class = ""
       snd.changeClass()
       raiseEvent("sunder_login")
-      snd.connected = true
     end)
 
     snd.registerCityMarks()
@@ -58722,15 +58591,33 @@ snd.registerEvent("SunderDeathCheck", "gmcp.Char.Afflictions.Remove", snd.deathC
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Connection tracking</name>
+				<name>Rift</name>
 				<packageName></packageName>
-				<script>function snd.connected()
+				<script>snd.rift = snd.rift or {}
+local mt = {}
+mt.__index =
+  function(table, key)
+    return 0
+  end
+setmetatable(snd.rift, mt)
 
+local function riftChange()
+  local item = gmcp.IRE.Rift.Change
+  snd.rift[item.name] = tonumber(item.amount)
+  raiseEvent("sunder rift updated")
 end
 
-function snd.disconnected()
+local function riftList()
+  snd.rift = {}
+  setmetatable(snd.rift, mt)
+  for _, item in pairs(gmcp.IRE.Rift.List) do
+    snd.rift[item.name] = tonumber(item.amount)
+  end
+  raiseEvent("sunder rift updated")
+end
 
-end</script>
+snd.registerEvent("SunderRiftList", "gmcp.IRE.Rift.List", riftList)
+snd.registerEvent("SunderRiftChange", "gmcp.IRE.Rift.Change", riftChange)</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
@@ -61313,6 +61200,112 @@ registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")
   else
     snd.send("qeb "..dir)
   end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Shopping!</name>
+				<packageName></packageName>
+				<script>snd.shopping = snd.shopping or {}
+snd.shopping.elixirs = {
+  "health",
+  "mana",
+  "immunity",
+  "levitation",
+  "harmony",
+  "arcane",
+  "speed",
+  "vigor",
+  "infusion",
+  "prudence",
+}
+snd.shopping.venoms = {
+  "epteth",
+  "gecko",
+  "epseth",
+  "prefarar",
+  "delphinium",
+  "digitalis",
+  "curare",
+  "darkshade",
+  "hepafarin",
+  "jalk",
+  "monkshood",
+  "oculus",
+  "selarnia",
+  "kalmia",
+  "xentio",
+  "eurypteria",
+  "aconite",
+  "vernalius",
+  "slike",
+  "euphorbia",
+  "larkspur",
+  "oleander",
+  "voyria",
+}
+snd.shopping.pills = {
+  "waterbreathing",
+  "kawhepill",
+  "acuity",
+  "steroid",
+  "stimulant",
+  "coagulation",
+  "thanatonin",
+  "paste",
+  -- "somnium",
+  "ototoxin",
+  "decongestant",
+  "amaurosis",
+  "depressant",
+  "antipsychotic",
+  "panacea",
+  "euphoriant",
+  "anabiotic",
+  "opiate",
+  "eucrasia",
+}
+snd.shopping.plants = {
+  "willow",
+  "reishi",
+  "yarrow",
+}
+snd.shopping.poultices = {
+  "mending",
+  "mass",
+  "restoration",
+  "caloric",
+  "soothing",
+  "epidermal",
+}
+
+function snd.shopping.buy(item, count)
+  if item == "pills" or item == "plants" then
+    count = tonumber(count)
+    for _, pill in ipairs(snd.shopping[item]) do
+      local tobuy = count - snd.rift[pill]
+      if tobuy&gt;0 then
+        send("buy "..tobuy.." "..pill)
+      end
+    end
+    send("incall",false)
+  else
+    for _, fluid in ipairs(snd.shopping[item]) do
+      snd.send("buy "..refills.." refill of " .. v .. " for fluidcache",false)
+    end
+  end
+end
+
+function snd.shopping.fill(item)
+  for _, fluid in ipairs(snd.shopping[item]) do
+    snd.send("fc fill "..fluid, false)
+  end
+end
+
+function snd.shopping.empty(item)
+    for _, fluid in ipairs(snd.shopping[item]) do
+      snd.send("fc consume "..fluid, false)
+    end
 end</script>
 				<eventHandlerList />
 			</Script>
