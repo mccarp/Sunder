@@ -36819,6 +36819,175 @@ npb.process_qwho()</script>
 						</regexCodePropertyList>
 					</Trigger>
 				</Trigger>
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>qwhom</name>
+					<script>qwhom = qwhom or {}
+qwhom.willFire = false
+qwhom.people = {}</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>250</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>-------------------------------------------------------------------------------</string>
+						<string>return qwhom.willFire</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>4</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Grab people</name>
+						<script>local name = matches[2]
+local location = matches[3]
+local realLoc = matches[3]:gsub("%(B%) ",""):gsub("%(N%) ",""):gsub("%(H%) ",""):gsub("%(I%) ","")
+local vnum = matches[4]
+if vnum then vnum = tonumber(matches[4]) end
+local area = "Unknown area"
+if vnum then
+  local aid = getRoomArea(vnum)
+  if aid then
+    area = mmp.areatabler[aid]
+  end
+elseif realLoc~="Scoured terrain" then --no vnum found
+  local possibleRooms = mmp.searchRoomExact(realLoc)
+  local roomCount = table.size(possibleRooms)
+  if roomCount == 1 then
+    vnum = next(possibleRooms)
+    local aid = getRoomArea(vnum)
+    if aid then
+      area = mmp.areatabler[aid]
+    end
+  elseif roomCount &gt; 1 then
+    vnum = "unknown"
+    local areaGuess
+    for id, name in pairs(possibleRooms) do
+      local guess = mmp.areatabler[getRoomArea(id)]
+      areaGuess = areaGuess or guess
+      if guess~=areaGuess then areaGuess = "Unknown area" break end
+    end
+    area = areaGuess
+  else
+    vnum = "unknown"
+  end
+end
+area = area:title()
+if not vnum or vnum~="unknown" and not getRoomName(vnum) then vnum = "unknown" end
+
+qwhom.people[area] = qwhom.people[area] or {confirmed = {}, unconfirmed = {}}
+if vnum=="unknown" then
+  qwhom.people[area].unconfirmed[location] = qwhom.people[area].unconfirmed[location] or {}
+  table.insert(qwhom.people[area].unconfirmed[location], name)
+else
+  qwhom.people[area].confirmed[vnum] = qwhom.people[area].confirmed[vnum] or {}
+  table.insert(qwhom.people[area].confirmed[vnum], name)
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^ +(\w+) \- (.+?) +\- (?:v(\d+))?$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>cleanup gag</name>
+						<script>deleteLine()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>return true</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>4</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>End qwhom</name>
+						<script>disableTrigger("qwhom")
+setTriggerStayOpen("qwhom",0)
+
+for area, rooms in spairs(qwhom.people) do
+    cecho("\n&lt;medium_orchid&gt;[&lt;dodger_blue&gt;" .. area .. "&lt;medium_orchid&gt;]")
+    for vnum, people in spairs(rooms.confirmed) do
+      cecho("\n   &lt;steel_blue&gt;[")
+      cechoPopup(
+          "&lt;u&gt;&lt;medium_turquoise&gt;" .. getRoomName(vnum) .. "&lt;/u&gt;",
+          {
+            function()
+              mmp.gotoRoom(vnum)
+            end,
+            function()
+              centerview(vnum)
+            end,
+          },
+          {"Go to " .. vnum, "Center map on " .. vnum},
+          true
+        )
+        cecho("&lt;steel_blue&gt;] (&lt;light_cyan&gt;" .. #people .. "&lt;steel_blue&gt;): ")
+        table.sort(people)
+        for index, person in spairs(people) do
+          people[index] = "&lt;" .. (sndNDB_getColour(person) or "grey") .. "&gt;" .. person
+        end
+        cecho(table.concat(people, ", "))
+    end
+    for roomName, people in spairs(rooms.unconfirmed) do
+      cecho("\n   &lt;steel_blue&gt;[")
+      cecho("&lt;light_blue&gt;" .. roomName)
+      cecho("&lt;steel_blue&gt;] (&lt;light_cyan&gt;" .. #people .. "&lt;steel_blue&gt;): ")
+      table.sort(people)
+      for index, person in spairs(people) do
+        people[index] = "&lt;" .. (sndNDB_getColour(person) or "grey") .. "&gt;" .. person
+      end
+      cecho(table.concat(people, ", "))
+    end
+  
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>2</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>-------------------------------------------------------------------------------</string>
+							<string>There</string>
+							<string>Your current pagelength: </string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>2</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Fishing</name>
@@ -55471,7 +55640,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.1"
+local version = "11.0.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -56031,6 +56200,14 @@ snd.message("Mono mode: "..snd.toggles.monomode)</script>
 						<packageName></packageName>
 						<regex>^wan$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>^snd pagelength (\d+)$</name>
+						<script>snd.toggles.pagelength = matches[2]
+snd.message("Preferred pagelength set to: "..snd.toggles.pagelength)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^snd pagelength (\d+)$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Vitals</name>
@@ -56476,6 +56653,17 @@ send("qw", false)
 					<command></command>
 					<packageName></packageName>
 					<regex>(?i)^qwp$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>qwhom</name>
+					<script>sendAll("config pagelength 250","who"..snd.sep.."config pagelength "..snd.toggles.pagelength, false)
+enableTrigger("qwhom")
+tempExactMatchTrigger("Your current pagelength: 250", deleteFull, 1)
+qwhom = qwhom or {}
+qwhom.willFire = true</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^qwhom$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -57130,6 +57318,7 @@ snd.toggles = snd.toggles or {
   monomode = "calling",
   webAnnounce = false, --whether or not you call out some things on web
   lifesense = false,
+  pagelength = "30",
 }</script>
 					<eventHandlerList />
 				</Script>
