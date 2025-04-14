@@ -2092,6 +2092,7 @@ snd.channel_list =
     ["ot"] = "Order",
     ["cot"] = "Order",
     ["congregation"] = "Order",
+    ["thoughts"] = "Local",
   }
 snd.channel_ignores = {hints = true}
 local mobs_to_ignore =
@@ -2221,8 +2222,7 @@ function kaiUI.chat.capture()
     end]]
   end
   snd.who_is_talking = talker or ""
-  
-  
+    
   local channel = gmcp.Comm.Channel.Text.channel
   if channel:find("clt") then
     channel = "clt"
@@ -2238,6 +2238,10 @@ function kaiUI.chat.capture()
 
   if snd.channel_ignores[channel] then return false end
 
+  if channel == "thoughts" then
+    text = talker.." thought: "..text
+    rawtext = talker.." thought: "..rawtext
+  end
   
   --NDB highlighting of text
   if sndNDB.highlightNames then
@@ -2699,8 +2703,8 @@ registerAnonymousEventHandler("sunder_my_affs_updated", "display_my_affs")
 
 function display_enemy_affs()
   target_display_table = {}
-  if #snd.target_has &gt;= 1 then
-    for _, v in ipairs(snd.target_has) do
+  if next(snd.target_has) then
+    for _,v in spairs(snd.target_has) do
       if v:find("crippled") then
         v = v:gsub("a ", "")
         v = v:gsub("left", "L")
