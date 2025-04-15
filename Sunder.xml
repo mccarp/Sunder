@@ -36579,7 +36579,7 @@ people_from_cwho=nil</script>
 							<string>return isPrompt()</string>
 						</regexCodeList>
 						<regexCodePropertyList>
-							<integer>4</integer>
+							<integer>7</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -64526,8 +64526,20 @@ function npb.load(force)
   end
 end
 
---- @section mappings
+--- npb output function
+-- @function npb.echo
+-- @param args string message to send
+function npb.echo(args)
+  cecho("\n&lt;dark_green&gt;[&lt;turquoise&gt;NPB&lt;dark_green&gt;]&lt;reset&gt;:" .. args)
+end
 
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>City guesses</name>
+				<packageName></packageName>
+				<script>
 npb.city_guess = {
   -- duiran
   ["Heartwood Yews"] = "duiran",
@@ -64555,81 +64567,13 @@ npb.city_guess = {
 }
 
 npb.order = { "Bloodloch", "Duiran", "Enorian", "Spinesreach", "Rogues", "Divine" }
-
---- @section utilities
-
-function npb.color_person(who, city)
-  npb.init()
-  if npb.t.config.colors[city] then
-    return npb.t.config.colors[city]
-  end
-
-  return npb.t.config.colors.rogues
-end
-
-local function newLine()
-  moveCursorEnd()
-  if getCurrentLine() ~= "" then
-    echo("\n")
-    moveCursorEnd()
-  end
-end
-
---- I think this applies coloring to the players.
--- @function npb.cformat
--- @param player string characters name
--- @param format I have no clue
-function npb.cformat(player, format)
-  local str = "&lt;reset&gt;"
-  local color = sndNDB_getColour(player)
-  if color then
-    str = str .. "&lt;" .. color .. "&gt;"
-  end
-  str = str .. player:lower():title() .. "&lt;reset&gt;" .. (format and format or "")
-  return str
-end
-
---- Sort people into tables by organization.
--- @function npb.qwsorted
--- @param people table of people to sort
-function npb.qwsorted(people)
-  local wrap = getWindowWrap() - 17
-  local sorted = { Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}, Divine = {} }
-  for _, name in pairs(people) do
-    local org = sndNDB_getCitizenship(name)
-    if org == "Unknown" then org = "Rogues" end
-    table.insert(sorted[org], name)
-  end
-  for _, org in ipairs(npb.order) do
-    local peoples = sorted[org]
-    table.sort(peoples)
-    if #peoples &gt; 0 then
-      newLine()
-      x = 0
-      cecho("&lt;" .. npb.t.config.colors[org:lower()] .. "&gt;" ..
-        string.rep(" ", 11 - #org) ..
-        "&lt;b&gt;&lt;u&gt;" .. org:title() .. "&lt;reset&gt;" .. (#peoples &gt; 9 and "" or " ") .. "&lt;white&gt;(&lt;cyan&gt;" ..
-        #peoples .. "&lt;white&gt;): ")
-      for i, v in pairs(peoples) do
-        local comma = next(peoples, i)
-        local personlength = (comma and 2 or 0) + #v
-        x = x + personlength
-        if x &gt; wrap then
-          echo("\n" .. string.rep(" ", 17))
-          x = 0
-          moveCursorEnd()
-        end
-        cecho(npb.cformat(v))
-        if comma then echo(", ") end
-      end
-    end
-  end
-  echo("\n")
-  moveCursorEnd()
-end
-
--- @section people_management
-
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>People management</name>
+				<packageName></packageName>
+				<script>
 function npb.add_person(person, person_data, force)
   if npb.t.people[person] and npb.t.people[person].locked and not force then return end
 
@@ -64662,48 +64606,75 @@ function npb.add_people(people)
   npb.save()
 end
 
---- @section aetolia_api_integration
-
---- Fetch the characters.json from the API
--- @function npb.getOnlineCharacters
-function npb.getOnlineCharacters()
-  getHTTP("api.aetolia.com/characters.json")
+function npb.honour_person(name)
+  npb.honour_data = { name = name:title() }
+  npb.honour_count = 0
+  npb.honour_on = true
+  --npb.load_guess_triggers()
+  enableTrigger("parse_honours")
+  send("honours " .. name, false)
 end
 
---- Handle response from the API request
--- @function npb.handleResponse
--- @see nbp.getOnlineCharacters
-function npb.handleResponse(_, url, body)
-  if url == "https://api.aetolia.com/characters.json" or url == "http://api.aetolia.com/characters.json" then
-    local data = yajl.to_value(body)
-    if npb.qws then
-      npb.qws = false
-      local people = {}
-      for _, person in pairs(data.characters) do
-        table.insert(people, person.name)
-      end
-      npb.qwsorted(people)
+function npb.honour_qwho()
+  enableTrigger("parse_qwho")
+  send("qwho")
+end
+
+function npb.process_qwho()
+  if not npb.qwho_matches then
+    npb.echo("&lt;red&gt;No one found.")
+  end
+
+  local people
+  people = npb.qwho_matches:split(", ")
+  if people[#people]:match("and ") then
+    people[#people] = people[#people]:gsub("^and ", '')
+  end
+  if #people == 1 then people = people[1]:split(" and ") end
+
+  local honour_people = {}
+  for _, person in pairs(people) do
+    if not npb.t.people[person] then
+      table.insert(honour_people, person)
     end
+  end
+  if #honour_people &gt; 0 then
+    npb.echo("checking honours of " .. #honour_people .. " people.")
+    npb.honour_queue = honour_people
+    npb.next_honour()
+  else
+    npb.echo("no new people to check.")
   end
 end
 
-snd.registerEvent("PhonebookAPI", "sysGetHttpDone", npb.handleResponse)
-
---- @section highlighting
-
-function npb.enable()
-  npb.init()
-  npb.enabled = true
-  sndNDB.highlightNames = true
-  npb.enable_highlights()
+function npb.next_honour()
+  local first
+  if #npb.honour_queue &gt; 0 then
+    first = table.remove(npb.honour_queue, 1)
+    npb.echo("checking " .. first)
+    tempTimer(1, [[npb.honour_person("]] .. first .. [[")]])
+  else
+    npb.echo("done")
+  end
 end
 
-function npb.disable()
+function npb.set_city(person, city)
   npb.init()
-  npb.enabled = false
-  sndNDB.highlightNames = false
-  npb.disable_highlights()
-end
+  person = person:lower():title()
+  city = city:lower()
+  local current = npb.t.people[person] or {}
+  current.city = city
+  current.name = person
+  current.locked = true
+  npb.add_or_update_person(person, current, true)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Highlighting</name>
+				<packageName></packageName>
+				<script>--- @section highlighting
+
 
 --- Function to disable player highlighting
 -- @function npb.disable_highlights
@@ -64820,79 +64791,36 @@ function npb.do_highlight(name, color)
     match = match + 1
   end
 end
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>utility functions</name>
+				<packageName></packageName>
+				<script>npb = npb or {}
 
---- @section honour_parsing
-
-function npb.honour_person(name)
-  npb.honour_data = { name = name:title() }
-  npb.honour_count = 0
-  npb.honour_on = true
-  --npb.load_guess_triggers()
-  enableTrigger("parse_honours")
-  send("honours " .. name, false)
-end
-
-function npb.honour_qwho()
-  enableTrigger("parse_qwho")
-  send("qwho")
-end
-
-function npb.process_qwho()
-  if not npb.qwho_matches then
-    npb.echo("&lt;red&gt;No one found.")
-  end
-
-  local people
-  people = npb.qwho_matches:split(", ")
-  if people[#people]:match("and ") then
-    people[#people] = people[#people]:gsub("^and ", '')
-  end
-  if #people == 1 then people = people[1]:split(" and ") end
-
-  local honour_people = {}
-  for _, person in pairs(people) do
-    if not npb.t.people[person] then
-      table.insert(honour_people, person)
-    end
-  end
-  if #honour_people &gt; 0 then
-    npb.echo("checking honours of " .. #honour_people .. " people.")
-    npb.honour_queue = honour_people
-    npb.next_honour()
-  else
-    npb.echo("no new people to check.")
-  end
-end
-
-function npb.next_honour()
-  local first
-  if #npb.honour_queue &gt; 0 then
-    first = table.remove(npb.honour_queue, 1)
-    npb.echo("checking " .. first)
-    tempTimer(1, [[npb.honour_person("]] .. first .. [[")]])
-  else
-    npb.echo("done")
-  end
-end
-
-function npb.set_city(person, city)
+function npb.color_person(who, city)
   npb.init()
-  person = person:lower():title()
-  city = city:lower()
-  local current = npb.t.people[person] or {}
-  current.city = city
-  current.name = person
-  current.locked = true
-  npb.add_or_update_person(person, current, true)
+  if npb.t.config.colors[city] then
+    return npb.t.config.colors[city]
+  end
+  
+  return npb.t.config.colors.rogues
 end
 
---- npb output function
--- @function npb.echo
--- @param args string message to send
-function npb.echo(args)
-  cecho("\n&lt;dark_green&gt;[&lt;turquoise&gt;NPB&lt;dark_green&gt;]&lt;reset&gt;:" .. args)
+function npb.enable()
+  npb.init()
+  npb.enabled = true
+  sndNDB.highlightNames = true
+  npb.enable_highlights()
 end
 
+function npb.disable()
+  npb.init()
+  npb.enabled = false
+  sndNDB.highlightNames = false
+  npb.disable_highlights()
+end
 </script>
 				<eventHandlerList />
 			</Script>
@@ -64972,6 +64900,97 @@ function sndNDB_Remove(name)
     npb.echo(person .. " is not in the database, anyway.")
   end
 end
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>QWS</name>
+				<packageName></packageName>
+				<script>--- Fetch the characters.json from the API
+-- @function npb.getOnlineCharacters
+function npb.getOnlineCharacters()
+  getHTTP("api.aetolia.com/characters.json")
+end
+
+--- Handle response from the API request
+-- @function npb.handleResponse
+-- @see nbp.getOnlineCharacters
+function npb.handleResponse(_, url, body)
+  if url == "https://api.aetolia.com/characters.json" or url == "http://api.aetolia.com/characters.json" then
+    local data = yajl.to_value(body)
+    if npb.qws then
+      npb.qws = false
+      local people = {}
+      for _, person in pairs(data.characters) do
+        table.insert(people, person.name)
+      end
+      npb.qwsorted(people)
+    end
+  end
+end
+
+snd.registerEvent("PhonebookAPI", "sysGetHttpDone", npb.handleResponse)
+
+local function newLine()
+  moveCursorEnd()
+  if getCurrentLine() ~= "" then
+    echo("\n")
+    moveCursorEnd()
+  end
+end
+--- I think this applies coloring to the players.
+-- @function npb.cformat
+-- @param player string characters name
+-- @param format I have no clue
+function npb.cformat(player, format)
+  local str = "&lt;reset&gt;"
+  local color = sndNDB_getColour(player)
+  if color then
+    str = str .. "&lt;" .. color .. "&gt;"
+  end
+  str = str .. player:lower():title() .. "&lt;reset&gt;" .. (format and format or "")
+  return str
+end
+
+--- Sort people into tables by organization.
+-- @function npb.qwsorted
+-- @param people table of people to sort
+function npb.qwsorted(people)
+  local wrap = getWindowWrap() - 17
+  local sorted = { Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}, Divine = {} }
+  for _, name in pairs(people) do
+    local org = sndNDB_getCitizenship(name)
+    if org == "Unknown" then org = "Rogues" end
+    table.insert(sorted[org], name)
+  end
+  for _, org in ipairs(npb.order) do
+    local peoples = sorted[org]
+    table.sort(peoples)
+    if #peoples &gt; 0 then
+      newLine()
+      x = 0
+      cecho("&lt;" .. npb.t.config.colors[org:lower()] .. "&gt;" ..
+        string.rep(" ", 11 - #org) ..
+        "&lt;b&gt;&lt;u&gt;" .. org:title() .. "&lt;reset&gt;" .. (#peoples &gt; 9 and "" or " ") .. "&lt;white&gt;(&lt;cyan&gt;" ..
+        #peoples .. "&lt;white&gt;): ")
+      for i, v in pairs(peoples) do
+        local comma = next(peoples, i)
+        local personlength = (comma and 2 or 0) + #v
+        x = x + personlength
+        if x &gt; wrap then
+          echo("\n" .. string.rep(" ", 17))
+          x = 0
+          moveCursorEnd()
+        end
+        cecho(npb.cformat(v))
+        if comma then echo(", ") end
+      end
+    end
+  end
+  echo("\n")
+  moveCursorEnd()
+end
+
 </script>
 				<eventHandlerList />
 			</Script>
