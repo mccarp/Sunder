@@ -26942,7 +26942,7 @@ raiseEvent("sunder_who_parsing_finished")</script>
 						</regexCodePropertyList>
 					</Trigger>
 				</TriggerGroup>
-				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>QWP for level 20 goggles</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -55509,7 +55509,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.4"
+local version = "11.0.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61292,7 +61292,7 @@ function snd.shopping.buy(item, count)
     send("incall",false)
   else
     for _, fluid in ipairs(snd.shopping[item]) do
-      snd.send("buy "..refills.." refill of " .. v .. " for fluidcache",false)
+      snd.send("buy "..count.." refill of " .. fluid .. " for fluidcache",false)
     end
   end
 end
