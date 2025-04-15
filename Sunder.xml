@@ -11607,7 +11607,7 @@ end</script>
 									</Trigger>
 								</TriggerGroup>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Weapon Hit Confirmation</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -58813,7 +58813,11 @@ function snd.do_stuff()
       elseif snd.defenses[i] then
         local def = snd.defenses[i]
         local method = next(def.balance)
-        snd.method_priority[method].func(i)
+        if method then
+          snd.method_priority[method].func(i)
+        else
+          snd.message("no method defined for "..i)
+        end
       end
     end
   end
@@ -58940,7 +58944,6 @@ snd.priorities =
   "def_ghosted",
   "def_hiding",
   "def_shroud",
-  "def_shadowslip",
   "def_vinculum",
   "def_ruthlessness",
   "def_impenetrable",
@@ -59040,7 +59043,6 @@ snd.priorities =
   "def_fog_obscure",
   "def_fluctuations",
   "def_arcaneskin",
-  "def_countercurrent",
   "def_missiles",
   "def_firefist",
   "def_tempered_body",
@@ -59408,13 +59410,18 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>balance</name>
 					<packageName></packageName>
-					<script>
+					<script>local function sendWrapper(command)
+  if type(command) == "table" then
+    command = table.concat(command, snd.sep)
+  end
+  snd.send(command)
+   echo("("..command..")")
+end
 
 function snd.do_special(current)
  if snd.afflictions[current] ~= nil then
   if snd.afflictions[current].state == "afflicted" then
-   snd.send(snd.afflictions[current].cures.special)
-   echo("("..snd.afflictions[current].cures.special..")")
+   sendWrapper(snd.afflictions[current].cures.special)
    snd.last_type = "special"
    snd.last_item = snd.afflictions[current].cures.special
    snd.afflictions[current].state = "waiting"
@@ -59425,9 +59432,7 @@ function snd.do_special(current)
 	 return
 	else
    if snd.defenses[current].state == "down" then
-    if current == "def_fangbarrier" then snd.send("outc paste"); snd.send(snd.defenses[current].balance.special) 
-    else snd.send(snd.defenses[current].balance.special) end
-    echo("("..snd.defenses[current].balance.special..")")
+    sendWrapper(snd.defenses[current].balance.special)
     snd.last_type = "special"
     snd.last_item = snd.defenses[current].balance.special
     snd.defenses[current].state = "waiting"
@@ -59439,8 +59444,7 @@ end
 
 function snd.do_balance_need(current)
  if gmcp.Char.Vitals.balance == "1" and not snd.waiting.balance and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  snd.send(snd.defenses[current].balance.balanceneed)
-  echo("("..snd.defenses[current].balance.balanceneed..")")
+  sendWrapper(snd.defenses[current].balance.balanceneed)
   snd.last_type = "balanceneed"
   snd.last_item = snd.defenses[current].balance.balanceneed
   snd.defenses[current].state = "waiting"
@@ -59450,8 +59454,7 @@ end
 
 function snd.do_equilibrium_need(current)
  if gmcp.Char.Vitals.equilibrium == "1" and not snd.waiting.equilibrium and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  snd.send(snd.defenses[current].balance.equilibriumneed)
-  echo("("..snd.defenses[current].balance.equilibriumneed..")")
+  sendWrapper(snd.defenses[current].balance.equilibriumneed)
   snd.last_type = "equilibriumneed"
   snd.last_item = snd.defenses[current].balance.equilibriumneed
   snd.defenses[current].state = "waiting"
@@ -59466,14 +59469,13 @@ function snd.do_balance_equilibrium_need(current)
     if current:find("chameleon") then
       local cham_check = snd.toggles.chameleonPeople[math.random(#snd.toggles.chameleonPeople)]
       if hasSkill("Chameleon","raceskills") then
-        snd.send("chameleon "..cham_check)
+        sendWrapper("chameleon "..cham_check)
       else
-        snd.send(snd.defenses[current].balance.balanceequilibrium..cham_check)
+        sendWrapper(snd.defenses[current].balance.balanceequilibrium..cham_check)
       end
     else
-      snd.send(snd.defenses[current].balance.balanceequilibrium)
+      sendWrapper(snd.defenses[current].balance.balanceequilibrium)
     end
-    echo("("..snd.defenses[current].balance.balanceequilibrium..")")
     snd.last_type = "balanceequilibrium"
     snd.last_item = snd.defenses[current].balance.balanceequilibrium
     snd.defenses[current].state = "waiting"
@@ -59481,8 +59483,7 @@ function snd.do_balance_equilibrium_need(current)
    end
   elseif snd.afflictions[current] ~= nil then
    if snd.afflictions[current].state == "afflicted" then
-    snd.send(snd.afflictions[current].cures.balanceequilibrium)
-    echo("("..snd.afflictions[current].cures.balanceequilibrium..")")
+    sendWrapper(snd.afflictions[current].cures.balanceequilibrium)
     snd.last_type = "balanceequilibrium"
     snd.last_item = snd.afflictions[current].cures.balanceequilibrium
     snd.afflictions[current].state = "waiting"
@@ -59494,8 +59495,7 @@ end
 
 function snd.do_balance_take(current)
  if gmcp.Char.Vitals.balance == "1" and not snd.waiting.balance and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  snd.send(snd.defenses[current].balance.balancetake)
-  echo("("..snd.defenses[current].balance.balancetake..")")
+  sendWrapper(snd.defenses[current].balance.balancetake)
   snd.last_type = "balancetake"
   snd.last_item = snd.defenses[current].balance.balancetake
   snd.defenses[current].state = "waiting"
@@ -59507,8 +59507,7 @@ end
 
 function snd.do_equilibrium_take(current)
  if gmcp.Char.Vitals.equilibrium == "1" and not snd.waiting.equilibrium and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  snd.send(snd.defenses[current].balance.equilibriumtake)
-  echo("("..snd.defenses[current].balance.equilibriumtake..")")
+  sendWrapper(snd.defenses[current].balance.equilibriumtake)
   snd.last_type = "equilibriumtake"
   snd.last_item = snd.defenses[current].balance.equilibriumtake
   snd.defenses[current].state = "waiting"
@@ -59520,8 +59519,7 @@ end
 
 function snd.do_needy_balance_take(current)
   if snd.can_cast() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    snd.send(snd.defenses[current].balance.needybalancetake)
-    echo("("..snd.defenses[current].balance.needybalancetake..")")
+    sendWrapper(snd.defenses[current].balance.needybalancetake)
     snd.last_type = "needybalancetake"
     snd.last_item = snd.defenses[current].balance.needybalancetake
     snd.defenses[current].state = "waiting"
@@ -59533,8 +59531,7 @@ end
 
 function snd.do_needy_equilibrium_take(current)
  if snd.can_cast() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  snd.send(snd.defenses[current].balance.needyequilibriumtake)
-  echo("("..snd.defenses[current].balance.needyequilibriumtake..")")
+  sendWrapper(snd.defenses[current].balance.needyequilibriumtake)
   snd.last_type = "needyequilibriumtake"
   snd.last_item = snd.defenses[current].balance.needyequilibriumtake
   snd.defenses[current].state = "waiting"
@@ -59546,7 +59543,6 @@ end
 
 function snd.do_balance_equilibrium_take(current)
   if snd.can_cast() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    
     if snd.class == "Teradrim" and current:find("swelter") then
       if not table.isMember(gmcp.Room.Info.details, "sandy") then
         snd.send("sand flood")
@@ -59567,8 +59563,7 @@ function snd.do_balance_equilibrium_take(current)
       end
     end
         
-    snd.send(snd.defenses[current].balance.balanceequilibriumtake)
-    echo("("..snd.defenses[current].balance.balanceequilibriumtake..")")
+    sendWrapper(snd.defenses[current].balance.balanceequilibriumtake)
     snd.last_type = "balanceequilibriumtake"
     snd.last_item = snd.defenses[current].balance.balanceequilibriumtake
     snd.defenses[current].state = "waiting"
@@ -61333,7 +61328,7 @@ end</script>
   def_arcane         = { defense = "arcane", type = "normal", effect = "Protects against elemental damage", balance = { vial = "arcane" }, state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
   --def_caloric = {defense = "insulation", type = "normal", effect = "Protects against cold damage", balance = {salve = "caloric"}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic"},
   def_vigor          = { defense = "vigor", type = "normal", effect = "Critical hits heal you", balance = { vial = "vigor" }, state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
-  def_fangbarrier    = { defense = "fangbarrier", type = "normal", effect = "Protects against syssin bites", balance = { special = "apply paste" }, state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
+  def_fangbarrier    = { defense = "fangbarrier", type = "normal", effect = "Protects against syssin bites", balance = { special = {"outc paste", "apply paste" }}, state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
   def_rebounding     = { defense = "rebounding", type = "blue", effect = "Causes weapon attacks to backfire", balance = { smoke = "reishi" }, state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
   def_reflection     = { defense = "reflection", type = "blue", effect = "Takes your place for 1 attack", balance = { special = "cast reflection" }, state = "down", needit = false, timer = createStopWatch(), skill = "Reflection" },
   def_courage        = { defense = "courage", type = "normal", effect = "Protects against transfixes n stuff", state = "down", needit = false, timer = createStopWatch(), skill = "Generic" },
@@ -61790,14 +61785,7 @@ end</script>
     defense = "greenheart",
     type = "normal",
     effect = "Tree Tattoo is sped up",
-    balance = setmetatable({},
-      {
-        __index = function(
-            t, k)
-          if k == "balanceequilibriumtake" then return "outc greenink" .. snd.sep .. "wayfare greenheart on" end
-          return rawget(t, k)
-        end
-      }),
+    balance = {balanceequilibriumtake = {"outc greenink", "wayfare greenheart on"}},
     state = "down",
     needit = false,
     timer = createStopWatch(),
@@ -62793,6 +62781,51 @@ end</script>
     end
   end
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Manually raise/lower defenses</name>
+				<packageName></packageName>
+				<script>local function fixName(defense)
+  defense = defense:lower()
+  if not string.find(defense, "def_") then
+    defense = "def_"..defense
+  end
+  return defense
+end
+
+function snd.raise_def(def)
+  def = fixName(def)
+  if not snd.defenses[def] then
+    snd.message(def.." isn't in the def table!")
+    return
+  end
+  if snd.defenses[def].state~="deffed" then
+    snd.defenses[def].needit = true
+    if not table.contains(snd.less_defs, def) then
+      table.insert(snd.less_defs, def)
+    end
+  end
+end
+
+function snd.keep_def(def)
+  def = fixName(def)
+  if not snd.defenses[def] then
+    snd.message(def.." isn't in the def table!")
+    return
+  end
+  snd.defenses[def].needit = true
+end
+  
+function snd.unkeep_def(def)
+  def = fixName(def)
+  if not snd.defenses[def] then
+    snd.message(def.." isn't in the def table!")
+    return
+  end
+  snd.defenses[def].needit = false
+end
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
