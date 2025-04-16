@@ -26338,10 +26338,9 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Scenttrails</name>
-						<script>mmp.locateAndEcho(matches[3], matches[2])
-</script>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Scent analogs</name>
+						<script></script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -26352,13 +26351,178 @@ end</script>
 						<mSoundFile></mSoundFile>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^You pick up the trail of (\w+) at (.*)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Bloodscan trigger</name>
+							<script>mmp.tempscent = {}
+mmp.pdb_lastupdate = {}</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>100</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You crouch down to examine the tracks before you, gaining an understanding of the local area.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Got line</name>
+								<script>selectString(line, 1) replace""
+
+-- get the name
+cecho("&lt;green&gt;"..matches[2].."&lt;reset&gt;: ")
+
+-- ids
+mmp.echonums(matches[3])
+
+-- pad spaces so we have aligned roomname
+echo(string.rep(" ", 25 - #getCurrentLine()))
+
+-- and finally, the roomname
+echo(matches[3])
+
+
+if mmp.tempscent[matches[3]] then
+	mmp.tempscent[matches[3]][#mmp.tempscent[matches[3]]+1] = matches[2]
+else
+	mmp.tempscent[matches[3]] = {matches[2]}
+end
+
+-- save in our person tracking db
+mmp.pdb[matches[2]] = matches[3]
+mmp.pdb_lastupdate[matches[2]] = true</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You detect (\w+) at (.+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>stop capturing</name>
+								<script>setTriggerStayOpen("Bloodscan trigger", 0)
+raiseEvent("mmapper updated pdb")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string></string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>7</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Scenttrails trigger</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>100</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your breath steadies as you drink in the air, parsing the unseen trails that linger.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Got line</name>
+								<script>selectString(line, 1) replace""
+
+-- get the name
+cecho("&lt;green&gt;"..matches[2].."&lt;reset&gt;: ")
+
+-- ids
+mmp.echonums(matches[3])
+
+-- pad spaces so we have aligned roomname
+echo(string.rep(" ", 25 - #getCurrentLine()))
+
+-- and finally, the roomname
+echo(matches[3])
+
+
+if mmp.tempscent[matches[3]] then
+	mmp.tempscent[matches[3]][#mmp.tempscent[matches[3]]+1] = matches[2]
+else
+	mmp.tempscent[matches[3]] = {matches[2]}
+end
+
+-- save in our person tracking db
+mmp.pdb[matches[2]] = matches[3]
+mmp.pdb_lastupdate[matches[2]] = true</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^You pick up the trail of (\w+) at (.*)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>stop capturing</name>
+								<script>setTriggerStayOpen("Scenttrails trigger", 0)
+raiseEvent("mmapper updated pdb")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string></string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>7</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</Trigger>
+					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Pinpoint Locate</name>
 						<script>echo(" ")
@@ -54608,19 +54772,6 @@ end</script>
 					<packageName></packageName>
 					<regex>^reload window (\w+)$</regex>
 				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>gauntlet change</name>
-					<script>if matches[3] then
-  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..matches[3].."&lt;red&gt;.")
-  snd.toggles.gauntlet_level = tonumber(matches[3])
-else
-  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..snd.toggles.gauntlet_level.."&lt;red&gt;.")
-end
-</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^(mygauntlet|mygauntlet (\d+))$</regex>
-				</Alias>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Toxicology</name>
 					<script></script>
@@ -55543,7 +55694,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.7"
+local version = "11.0.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -56110,6 +56261,19 @@ snd.message("Preferred pagelength set to: "..snd.toggles.pagelength)</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^snd pagelength (\d+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>gauntlet change</name>
+						<script>if matches[3] then
+  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..matches[3].."&lt;red&gt;.")
+  snd.toggles.gauntlet_level = tonumber(matches[3])
+else
+  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..snd.toggles.gauntlet_level.."&lt;red&gt;.")
+end
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^(mygauntlet|mygauntlet (\d+))$</regex>
 					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
