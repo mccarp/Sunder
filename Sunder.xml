@@ -55694,7 +55694,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.11"
+local version = "11.0.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61495,6 +61495,30 @@ function snd.shopping.empty(item)
       snd.send("fc consume "..fluid, false)
     end
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Color table tweaks</name>
+				<packageName></packageName>
+				<script>color_table.light_firebrick = {235, 53, 53}
+color_table.bright_cyan = {79, 245, 239}
+color_table.light_violet = {160, 157, 247} 
+color_table.a_darkred = {128, 0, 0}
+color_table.a_darkgreen = {0, 179, 0}
+color_table.a_brown = {128, 128, 0}
+color_table.a_darkblue = {0, 0, 128}
+color_table.a_darkmagenta = {128, 0, 128}
+color_table.a_darkcyan = {0, 128, 128}
+color_table.a_grey = {192, 192, 192}
+color_table.a_darkgrey = {128, 128, 128}
+color_table.a_red = {255, 0, 0}
+color_table.a_green = {0, 255, 0}
+color_table.a_yellow = {255, 255, 0}
+color_table.a_blue = {0, 85, 255}
+color_table.a_magenta = {255, 0, 255}
+color_table.a_cyan = {0, 255, 255}
+color_table.a_white = {255, 255, 255}
+color_table.chat_bg = {25, 25, 25}</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
