@@ -55694,7 +55694,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.10"
+local version = "11.0.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58783,7 +58783,7 @@ end
 -- Here is where all Healing events are registered for.
 -- @section events
 snd.registerEvent("SunderDeathCheck", "gmcp.Char.Afflictions.Add", snd.deathCheck)
-snd.registerEvent("SunderDeathCheck", "gmcp.Char.Afflictions.Remove", snd.deathClear)
+snd.registerEvent("SunderDeathClear", "gmcp.Char.Afflictions.Remove", snd.deathClear)
 </script>
 				<eventHandlerList />
 			</Script>
