@@ -55694,7 +55694,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.8"
+local version = "11.0.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58572,7 +58572,6 @@ function gmcp_people_update()
       table.insert(snd.players_here, gmcp.Room.Players[k].name)
     end
   end
-  snd.are_we_checking_ql = false
   raiseEvent("sunder_people_update")
 end
 
@@ -67078,7 +67077,36 @@ snd.hound_attacks = {
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Targeting</name>
+					<name>set target</name>
+					<packageName></packageName>
+					<script>
+function snd.setTarget(target)
+  snd.target = string.title(target:lower())
+  if snd.toggles.calling then
+    snd.send("wt Target: " .. snd.target)
+  end
+  echo("Target: " .. snd.target)
+  send(" ")
+  if snd.target_trigger_id then killTrigger(snd.target_trigger_id) end
+  snd.target_trigger_id = tempTrigger(snd.target,
+    [[selectString("]] .. snd.target .. [[", 1) fg("DarkOrchid") resetFormat()]])
+  if snd.target_trigger_idlow then killTrigger(snd.target_trigger_idlow) end
+  snd.target_trigger_idlow = tempTrigger(string.lower(snd.target),
+    [[selectString("]] .. string.lower(snd.target) .. [[", 1) fg("DarkOrchid") resetFormat()]])
+  if snd.offense_loaded then
+    snd.reset_target()
+    snd.target_gone = false
+  end
+  raiseEvent("sunder_enemy_affs_updated")
+  raiseEvent("sunder_enemy_limbs_updated")
+end
+
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Target list functions</name>
 					<packageName></packageName>
 					<script>snd.targeting = {
   auto = false,
@@ -67102,132 +67130,9 @@ snd.e = {
 }
 
 
-snd.shadow_targets = {}
-snd.spirit_targets = {}
-snd.are_we_checking_ql = false
-
-function snd.get_new_target()
-  if snd.toggles.calling then
-    local new_target = "nil"
-    if #snd.players_here ~= 0 and (not table.contains(snd.players_here, snd.target:title()) or snd.targeting.skip) then
-      for _, tar in ipairs(snd.targeting.list) do
-        if table.contains(snd.players_here, tar) and snd.target:title() ~= tar then
-          new_target = tar
-          snd.target_gone = false
-          snd.setTarget(tar)
-          break
-        end
-      end
-      --[[if new_target == "nil" then
-           if sndNDB.players[gmcp.Char.Status.name].tether == "Shadow" then check = snd.spirit_targets else check = snd.shadow_targets end
-            for _, tar in ipairs(check) do
-      		    if table.contains(snd.players_here, tar) then
-                new_target = tar
-                snd.target_gone = false
-          			snd.setTarget(tar)
-          			break
-              end
-            end
-        	end]]
-    end
-  end
-  if snd.targeting.skip then snd.targeting.skip = false end
-end
-
-function snd.no_target()
-  --deleteLine()
-  --snd.message("Need new targets!")
-  if snd.offense_loaded then
-    snd.target_gone = true
-    snd.get_new_target()
-  end
-  if snd.bashing_loaded then
-    snd.untarget()
-    snd.waiting.balance = false
-    snd.waiting.equilibrium = false
-    snd.bashing.target_priority = 10000
-  end
-end
-
-function snd.untarget()
-  snd.bashing.engaged = false
-  snd.bashing.targeted = false
-  snd.last_attack = "none"
-  if snd.bashing.stopping then
-    snd.message("Bashing OFF!")
-    if snd.toggles.bashing then
-      snd.toggle("bashing")
-    end
-    snd.bashing.stopping = false
-  end
-end
 
 
---- Targetting.
--- Sets your target, mostly for use in PK but this also works for bashing. Will call target to web if snd.toggles.calling is enabled
--- Resets your target if they are not in the room and you have an offense loaded.
--- @function snd.setTarget
--- @param target string of target
-function snd.setTarget(target)
-  snd.target = string.title(target:lower())
-  if snd.toggles.calling then
-    snd.send("wt Target: " .. snd.target)
-  end
-  echo("Target: " .. snd.target)
-  send(" ")
-  if snd.target_trigger_id then killTrigger(snd.target_trigger_id) end
-  snd.target_trigger_id = tempTrigger(snd.target,
-    [[selectString("]] .. snd.target .. [[", 1) fg("DarkOrchid") resetFormat()]])
-  if snd.target_trigger_idlow then killTrigger(snd.target_trigger_idlow) end
-  snd.target_trigger_idlow = tempTrigger(string.lower(snd.target),
-    [[selectString("]] .. string.lower(snd.target) .. [[", 1) fg("DarkOrchid") resetFormat()]])
-  if snd.offense_loaded then
-    snd.reset_target()
-    snd.target_gone = false
-  end
-  raiseEvent("sunder_enemy_affs_updated")
-  raiseEvent("sunder_enemy_limbs_updated")
-end
-
-function snd.targetListening()
-  local event = gmcp.Comm.Channel.Text
-
-  if event.channel ~= "web" then return end
-  if not snd.toggles.listening then return end
-  if not table.contains(snd.callers, event.talker) then return end
-
-  local rawtext = ansi2string(event.text)
-  rawtext = rawtext:gsub(string.char(27) .. [[.-]] .. string.char(4), "")
-
-  matchText = rawtext:lower()
-  if
-      matchText:find("target:") and
-      not matchText:find("list") and
-      not matchText:find("calling") and
-      not matchText:find("priority") and
-      not matchText:find("removed") and
-      not matchText:find("next")
-  then
-    local pattern = [["[ta\.]*?target: [\.\w]*?(\w+)\."]]
-    local check = rex.match(matchText, pattern)
-    if check and check:lower() ~= snd.target:lower() then
-      if snd.toggles.safelistening and sndNDB_getCitizenship(check) == gmcp.Char.Status.city and check:lower() ~= "teflin" then
-        snd.message("Not targeting " .. check .. " because of safelistening! They're in your city.")
-      else
-        expandAlias("t " .. check)
-      end
-    end
-  end
-end
-
-snd.registerEvent("SunderTargetListen", "gmcp.Comm.Channel.Text", snd.targetListening)
-</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Functions for calling</name>
-					<packageName></packageName>
-					<script>function snd.removeTarget(tar)
+function snd.removeTarget(tar)
 
 	local who = tar:title()
 
@@ -67337,33 +67242,95 @@ function snd.clearTargetList()
 		send("wt Target list cleared.")
 	end
 
-end</script>
+end
+
+function snd.get_new_target()
+  if snd.toggles.calling then
+    local new_target = "nil"
+    if #snd.players_here ~= 0 and (not table.contains(snd.players_here, snd.target:title()) or snd.targeting.skip) then
+      for _, tar in ipairs(snd.targeting.list) do
+        if table.contains(snd.players_here, tar) and snd.target:title() ~= tar then
+          new_target = tar
+          snd.target_gone = false
+          snd.setTarget(tar)
+          break
+        end
+      end
+    end
+  end
+  if snd.targeting.skip then snd.targeting.skip = false end
+end
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Target calling</name>
+					<name>Target listening</name>
 					<packageName></packageName>
-					<script>snd.targeting = {
-  auto = false,
-  list = {},
-  burst = false,
-  skip = false
-}
+					<script>function snd.targetListening()
+  local event = gmcp.Comm.Channel.Text
 
-snd.e = {
-  echo = function(str, lnb, lna)
-    if lnb then echo("\n") end
-    cecho(string.format("%s", "&lt;aquamarine&gt;Target Update: &lt;grey&gt;") .. str:title())
-    if lna then echo("\n") end
-  end,
+  if event.channel ~= "web" then return end
+  if not snd.toggles.listening then return end
+  if not table.contains(snd.callers, event.talker) then return end
 
-  warn = function(str, lnb, lna)
-    if lnb then echo("\n") end
-    cecho(string.format("%s", "&lt;orange_red&gt;Warning:&lt;navajo_white&gt; ") .. str:title())
-    if lna then echo("\n") end
-  end,
-}
-</script>
+  local rawtext = ansi2string(event.text)
+  rawtext = rawtext:gsub(string.char(27) .. [[.-]] .. string.char(4), "")
+
+  matchText = rawtext:lower()
+  if
+      matchText:find("target:") and
+      not matchText:find("list") and
+      not matchText:find("calling") and
+      not matchText:find("priority") and
+      not matchText:find("removed") and
+      not matchText:find("next")
+  then
+    local pattern = [["[ta\.]*?target: [\.\w]*?(\w+)\."]]
+    local check = rex.match(matchText, pattern)
+    if check and check:lower() ~= snd.target:lower() then
+      if snd.toggles.safelistening and sndNDB_getCitizenship(check) == gmcp.Char.Status.city and check:lower() ~= "teflin" then
+        snd.message("Not targeting " .. check .. " because of safelistening! They're in your city.")
+      else
+        snd.setTarget(check)
+      end
+    end
+  end
+end
+
+snd.registerEvent("SunderTargetListen", "gmcp.Comm.Channel.Text", snd.targetListening)</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>No target</name>
+					<packageName></packageName>
+					<script>
+function snd.no_target()
+  --deleteLine()
+  --snd.message("Need new targets!")
+  if snd.offense_loaded then
+    snd.target_gone = true
+    snd.get_new_target()
+  end
+  if snd.bashing_loaded then
+    snd.untarget()
+    snd.waiting.balance = false
+    snd.waiting.equilibrium = false
+    snd.bashing.target_priority = 10000
+  end
+end
+
+function snd.untarget()
+  snd.bashing.engaged = false
+  snd.bashing.targeted = false
+  snd.last_attack = "none"
+  if snd.bashing.stopping then
+    snd.message("Bashing OFF!")
+    if snd.toggles.bashing then
+      snd.toggle("bashing")
+    end
+    snd.bashing.stopping = false
+  end
+end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
@@ -67557,9 +67524,6 @@ function snd.target_cured(affliction)
   if affliction == "blurry_vision" then
     snd.target_cured("watery_eyes")
   end
-  --if affliction == "anorexia" then
-  --  snd.target_cured("voyria")
-  --end
   if affliction == "shivering" then
     snd.target_cured("frozen")
   end
@@ -67778,7 +67742,7 @@ end
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Onhit hellscape</name>
+					<name>Onhit</name>
 					<packageName></packageName>
 					<script>local conditionalCounts = {
   ["Double Aff"] = 2,
@@ -68477,8 +68441,8 @@ end</script>
     {
       "indifference",
       "stuttering",
-      "watery_eyes",
       "blurry_vision",
+      "watery_eyes",
       "burnt_eyes",
       "blindness",
       "gloom",
