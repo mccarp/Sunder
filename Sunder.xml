@@ -26211,7 +26211,7 @@ snd.hidden_afflictions = 0</script>
 					<regexCodeList />
 					<regexCodePropertyList />
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Cwho info</name>
+						<name>Sunder Cwho info</name>
 						<script>cinfo = {}</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>1</conditonLineDelta>
@@ -26237,21 +26237,55 @@ snd.hidden_afflictions = 0</script>
 						</regexCodePropertyList>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>done</name>
-							<script>setTriggerStayOpen("Cwho info", 0)
+							<script>setTriggerStayOpen("Sunder Cwho info", 0)
 selectCurrentLine()
 local prompt = copy2decho()
 deleteLine()
 for room, people in spairs(cinfo) do
-  cecho("\n".."&lt;slate_blue&gt;(&lt;light_sky_blue&gt;"..room.."&lt;slate_blue&gt;)")
-  echo(string.rep(" ", 45-#room))
-  if room~="Scoured terrain" and room~="Unknown" then
-    mmp.locateAndEchoSide(room)
+  cecho("\n".."&lt;slate_blue&gt;(&lt;medium_turquoise&gt;"..room)
+  if room=="Scoured terrain" or room=="Unknown" then
+    cecho("&lt;slate_blue&gt;)")
+  else
+    local t = mmp.searchRoomExact(room)
+    local vnum = next(t)
+    if not vnum then
+      cecho("&lt;slate_blue&gt;)")
+    else
+    local area = getRoomArea(vnum)
+    local areas = {}
+      local multipleAreas = false
+      for vnum, name in pairs(t) do
+        if getRoomArea(vnum)~=area then
+          multipleAreas = true
+          break
+        end
+      end
+      if multipleAreas then
+        cecho("&lt;slate_blue&gt;)")
+      else
+        cecho("&lt;gray&gt; - &lt;cadet_blue&gt;"..getRoomAreaName(area).."&lt;slate_blue&gt;)")
+      end
+      local count = 0
+      cecho(" &lt;slate_blue&gt;(")
+      for vnum, _ in pairs(t) do
+        if count&gt;2 then
+          echo("...")
+          break
+        elseif count&gt;0 then
+          echo(", ")
+        end
+        cechoLink("&lt;cornflower_blue&gt;"..vnum, function() mmp.gotoRoom(vnum) end, "Walk to "..vnum, true)
+        count = count+1
+      end
+      cecho("&lt;slate_blue&gt;)")
+    end
   end
+  
   for _, person in pairs(people) do
     local name = person[1]
     local class = person[2]
     local color = sndNDB_getColour(name)
-    cecho("\n    &lt;"..color.."&gt;"..name..string.rep(" ",20-#name).." &lt;white_smoke&gt;"..class)
+    cecho("\n    &lt;"..color.."&gt;"..name.." &lt;gray&gt;- "..class)
   end
 end
 echo("\n")
@@ -55509,7 +55543,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.5"
+local version = "11.0.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65535,7 +65569,7 @@ snd.cures = {
 				<packageName></packageName>
 				<script>snd.assistSkills = {
   ["ancestry intercept"] = true,
-  ["deathlore soulshield"] = true,
+  ["deathlore shield"] = true,
 
   ["arcanism vivacity"] = true,
   ["esoterica acumen"] = true,
