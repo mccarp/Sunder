@@ -55694,7 +55694,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.9"
+local version = "11.0.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58933,12 +58933,7 @@ function snd.do_queue()
       else
         snd.need_fitness = false
       end
-      if snd.toggles.parrying and snd.offense_loaded then -- remove the offense_loaded check if you want it to always parry
-        snd.parry()
-      end
-      if (snd.toggles.bashing and snd.bashing_loaded) or (snd.offense_loaded) then
-        snd.dodge()
-      end
+
       if ((hasSkill("Purge") and snd.class == "Carnifex") or (hasSkill("Annul") and snd.class == "Warden")) and snd.purge_check() then
         snd.queue.purge = true
       end
@@ -63684,7 +63679,7 @@ function snd.parry()
       snd.send("guard " .. snd.parrying.toparry)
     elseif snd.class == "Ravager" and hasSkill("Oppose") then
       snd.send("oppose " .. snd.parrying.toparry)
-    elseif hasSkill("Parrying") then
+    elseif hasSkill("Parrying") and snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty" then
       snd.send("parry " .. snd.parrying.toparry)
     end
     snd.waiting.parry = true
