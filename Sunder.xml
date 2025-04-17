@@ -58231,7 +58231,7 @@ snd.waiting = snd.waiting or {
   aeon = true,
   chimera = true,
   envelop = true,
-  soulmaster = true,
+  soulmaster = false,
   sorcery_transfix = true,
   inspire = true,
   bravado = true,
@@ -61770,7 +61770,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_resistance           = { defense = "resistance", type = "normal", effect = "Magic resistance", balance = { needyequilibriumtake = "resistance" }, state = "down", needit = false, timer = createStopWatch(), skill = "Resistance" },
 
   --Oneiromancer
-  def_redoubt              = { defense = "redoubt", type = "normal", effect = "Your soul is harder to sense.", balance = { special = "redoubt" }, state = "down", needit = false, timer = createStopWatch(), skill = "Redoubt" },
+  def_redoubt              = { defense = "redoubt", type = "normal", effect = "Your soul is harder to sense.", balance = { balanceequilibriumtake = "redoubt" }, state = "down", needit = false, timer = createStopWatch(), skill = "Redoubt" },
   def_defiance             = { defense = "defiance", type = "normal", effect = "You will deal AoE damage to enemies upon death.", balance = { balanceequilibriumtake = "defiance" }, state = "down", needit = false, timer = createStopWatch(), skill = "Defiance" },
   def_intoxication         = { defense = "intoxication", type = "normal", effect = "You deal damage to enemies in room passively.", balance = { balanceequilibriumtake = "intoxication" }, state = "down", needit = false, timer = createStopWatch(), skill = "Intoxication" },
   def_glaciation           = { defense = "glaciation", type = "normal", effect = "Cold damage on decay instead of magic.", balance = { balanceequilibriumtake = "glaciation" }, state = "down", needit = false, timer = createStopWatch(), skill = "Glaciation" },
@@ -63267,7 +63267,6 @@ end
   },
 
   oneiromancer = {
-    def_irongrip = "once",
     def_intoxication = "once",
     def_lifevision = "on",
     def_redoubt = "on",
@@ -71716,8 +71715,9 @@ end
     Wreath = function(target, conditional)
       if conditional ~= "prone" then
         snd.target_got("writhe_ropes")
+      else
+        snd.target_got("fallen")
       end
-      snd.target_got("fallen")
     end,
     Heart = function(target)
       snd.target_got("infatuation")
