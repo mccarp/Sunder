@@ -1058,14 +1058,14 @@ end</script>
   snd.immediateResto()
   if snd.sloughTimer then killTimer(snd.sloughTimer) end
   if matches[3] == "mending" then
-    snd.track_salve(target)
+    snd.track_salve(matches[2])
     snd.mendingApply(matches[4])
   elseif matches[3] == "restoration" then
     snd.target_last_used_salve = "restoration"
     snd.track_restoration(matches[2])
     snd.restoApply(matches[4])
   else
-    snd.track_salve(target)
+    snd.track_salve(matches[2])
     snd.salveApply(matches[3], matches[4])
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.15"
+local version = "11.0.16"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61743,7 +61743,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_resistance           = { defense = "resistance", type = "normal", effect = "Magic resistance", balance = { needyequilibriumtake = "resistance" }, state = "down", needit = false, timer = createStopWatch(), skill = "Resistance" },
 
   --Oneiromancer
-  def_redoubt              = { defense = "redoubt", type = "normal", effect = "Your soul is harder to sense.", balance = { balanceequilibriumtake = "redoubt" }, state = "down", needit = false, timer = createStopWatch(), skill = "Redoubt" },
+  def_redoubt              = { defense = "redoubt", type = "normal", effect = "Your soul is harder to sense.", balance = { balanceequilibrium = "redoubt" }, state = "down", needit = false, timer = createStopWatch(), skill = "Redoubt" },
   def_defiance             = { defense = "defiance", type = "normal", effect = "You will deal AoE damage to enemies upon death.", balance = { balanceequilibriumtake = "defiance" }, state = "down", needit = false, timer = createStopWatch(), skill = "Defiance" },
   def_intoxication         = { defense = "intoxication", type = "normal", effect = "You deal damage to enemies in room passively.", balance = { balanceequilibriumtake = "intoxication" }, state = "down", needit = false, timer = createStopWatch(), skill = "Intoxication" },
   def_glaciation           = { defense = "glaciation", type = "normal", effect = "Cold damage on decay instead of magic.", balance = { balanceequilibriumtake = "glaciation" }, state = "down", needit = false, timer = createStopWatch(), skill = "Glaciation" },
