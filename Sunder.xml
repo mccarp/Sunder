@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.14"
+local version = "11.0.15"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67486,7 +67486,9 @@ function snd.target_got(affliction)
   if affliction == "crippled_body" then
     snd.target_cured("crippled")
   end
-
+  if affliction  == "aeon" then
+    snd.aeon_got()
+  end
   table.insert(snd.target_has, affliction)
   table.insert(snd.recent_affs, affliction)
   -- add affliction before displaying in pane, used to be below the gui update
@@ -67542,7 +67544,9 @@ function snd.target_cured(affliction)
   if snd.checkAff("a_crippled_leg") and (affliction == "right_leg_crippled" or affliction == "left_leg_crippled") and not snd.checkAff(affliction) then
     affliction = "a_crippled_leg"
   end
-
+  if affliction == "aeon" then
+    snd.aeon_cured()
+  end
   for i in pairs(snd.target_has) do
     if snd.target_has[i] == affliction then
       table.remove(snd.target_has, i)
@@ -73340,6 +73344,7 @@ snd.timers.fury = snd.timers.fury or {}
 snd.timers.axes = snd.timers.axes or {}
 snd.timers.elixir = snd.timers.elixir or {}
 
+local aeonTimers = {fitness = true, focus = true, tree = true}
 
 for k, _ in pairs(snd.timers) do
   snd.timers[k] = {["start"] = nil, ["limit"] = nil}
@@ -73356,6 +73361,10 @@ function snd.timer_check(which, time_left, mode)
   then
     local now = getEpoch()
     local endtime = snd.timers[which]["start"] + snd.timers[which]["limit"]
+    if aeonTimers[which] and snd.checkAff("aeon") then
+      local aeonTime = getEpoch()-math.max(snd.timers[which].start, snd.aeonTime)
+      endtime = endtime+aeonTime
+    end
     if mode == "more than" then
       if endtime - now &gt; time_left then
         return true
@@ -73384,7 +73393,12 @@ function snd.timer_get_time(which)
     snd.timers[which]["start"] ~= nil and
     snd.timers[which]["limit"] ~= nil
   then
-    local time = (snd.timers[which]["start"] + snd.timers[which]["limit"]) - getEpoch()
+    local endtime = (snd.timers[which]["start"] + snd.timers[which]["limit"]) 
+    if aeonTimers[which] and snd.checkAff("aeon") then
+      local aeonTime = getEpoch()-math.max(snd.timers[which].start, snd.aeonTime)
+      endtime = endtime+aeonTime
+    end
+    local time = endtime - getEpoch()
     return time &gt; 0 and time or 0
   else
     return 0
@@ -73395,7 +73409,21 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>method specific timer functions</name>
 					<packageName></packageName>
-					<script>function snd.track_pill(target)
+					<script>function snd.aeon_got()
+  snd.aeonTime = getEpoch()
+end
+
+function snd.aeon_cured()
+  for _, timer in pairs({"focus","tree","fitness"}) do
+    local tinfo = snd.timers[timer]
+    if tinfo.start and snd.aeonTime &lt; tinfo.start then
+      local aeonTime = getEpoch()-math.max(tinfo.start, snd.aeonTime)
+      tinfo.limit = tinfo.limit+aeonTime
+    end
+  end
+end
+
+function snd.track_pill(target)
   if target:lower() == snd.target:lower() then
     snd.timers.pill.start = getEpoch()
     local limit = 1.9
