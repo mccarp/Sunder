@@ -55694,7 +55694,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.12"
+local version = "11.0.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61809,7 +61809,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_criticality          = { defense = "criticality", type = "normal", effect = "Store up dmgs until threshold, then it heal some of your wounds", balance = { balanceequilibriumtake = "invoke criticality" }, state = "down", needit = false, timer = createStopWatch(), skill = "Criticality" },
   def_unfinished           = { defense = "unfinished", type = "normal", effect = "Revive you once you died", balance = { balanceequilibriumtake = "invoke unfinished" }, state = "down", needit = false, timer = createStopWatch(), skill = "Unfinished" },
   def_velocity             = { defense = "velocity", type = "normal", effect = " +2 to movement", balance = { special = "velocity" }, state = "down", needit = false, timer = createStopWatch(), skill = "Velocity" },
-  def_reflexes             = { defense = "reflexes", type = "normal", effect = "Suffer no malus to dodge chance when use channeling action", balance = { needybalance = "reflexes" }, state = "down", needit = false, timer = createStopWatch(), skill = "Reflexes" },
+  def_reflexes             = { defense = "reflexes", type = "normal", effect = "Suffer no malus to dodge chance when use channeling action", balance = { needybalancetake = "reflexes" }, state = "down", needit = false, timer = createStopWatch(), skill = "Reflexes" },
   def_exhilarate           = { defense = "exhilarate", type = "normal", effect = "give chance to reduce eq and bal timer", balance = { balanceequilibriumtake = "exhilarate" }, state = "down", needit = false, timer = createStopWatch(), skill = "Exhilarate" },
   def_inflated             = { defense = "inflated", type = "normal", effect = "raises your intelligence", balance = { balanceequilibrium = "ego inflate" }, state = "down", needit = false, timer = createStopWatch(), skill = "Inflate" },
   def_untouchable          = { defense = "untouchable", type = "normal", effect = "magical damage reduction or something", balance = { balanceequilibrium = "ego untouchable" }, state = "down", needit = false, timer = createStopWatch(), skill = "Untouchable" },
@@ -62046,7 +62046,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_discharge = { defense = "discharge", type = "normal", effect = "Store up dmgs until threshold, then it heal some of your wounds", balance = { balanceequilibriumtake = "enact discharge" }, state = "down", needit = false, timer = createStopWatch(), skill = "Discharge" },
   def_resurgence = { defense = "resurgence", type = "normal", effect = "Revive you once you died", balance = { balanceequilibriumtake = "enact resurgence" }, state = "down", needit = false, timer = createStopWatch(), skill = "Resurgence" },
   def_haste = { defense = "haste", type = "normal", effect = " +2 to movement", balance = { special = "haste" }, state = "down", needit = false, timer = createStopWatch(), skill = "Haste" },
-  def_litheness = { defense = "litheness", type = "normal", effect = "Suffer no malus to dodge chance when use channeling action", balance = { needybalance = "litheness" }, state = "down", needit = false, timer = createStopWatch(), skill = "Litheness" },
+  def_litheness = { defense = "litheness", type = "normal", effect = "Suffer no malus to dodge chance when use channeling action", balance = { needybalancetake = "litheness" }, state = "down", needit = false, timer = createStopWatch(), skill = "Litheness" },
   def_disunion = { defense = "disunion", type = "normal", effect = "give chance to reduce eq and bal timer", balance = { balanceequilibriumtake = "disunion" }, state = "down", needit = false, timer = createStopWatch(), skill = "Disunion" },
   def_wrath = { defense = "wrath", type = "normal", effect = "see what other would parries in very short time", balance = { needybalancetake = "wrath" }, state = "down", needit = false, timer = createStopWatch(), skill = "Wrath" },
   def_zenith = { defense = "zenith", type = "normal", effect = "cure a random AFF, use certain attacks off bal", balance = { balanceequilibriumtake = "enact zenith" }, state = "down", needit = false, timer = createStopWatch(), skill = "Zenith" },
