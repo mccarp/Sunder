@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.13"
+local version = "11.0.14"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -73511,6 +73511,10 @@ local times = {
 function snd.track_elixir(target, elixir)
   if target:lower() == snd.target:lower() and times[elixir] then
     snd.timers.elixir.start = getEpoch()
+    local limit = times[elixir]
+    if snd.checkAff("aeon") then
+      limit = limit+1
+    end
     snd.timers.elixir.limit = times[elixir]
   end
 end
