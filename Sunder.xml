@@ -1058,12 +1058,14 @@ end</script>
   snd.immediateResto()
   if snd.sloughTimer then killTimer(snd.sloughTimer) end
   if matches[3] == "mending" then
+    snd.track_salve(target)
     snd.mendingApply(matches[4])
   elseif matches[3] == "restoration" then
     snd.target_last_used_salve = "restoration"
     snd.track_restoration(matches[2])
     snd.restoApply(matches[4])
   else
+    snd.track_salve(target)
     snd.salveApply(matches[3], matches[4])
   end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
@@ -9924,11 +9926,13 @@ end</script>
 											<string>^You issue the order but \w+ just ignores  (\w+).$</string>
 											<string>^You order your puppeteer to weave a hallucination through \w+'s mind\.$</string>
 											<string>^You direct the puppeteer to set its strings into (\w+).$</string>
+											<string>Your puppeteer extends membranous golden tentacles, vying for control over</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
+											<integer>2</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -9991,6 +9995,26 @@ end</script>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Blob used</name>
+										<script>snd.balance.envelop = false</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>You use Contracts Blob Envelop on </string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>2</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -10503,9 +10527,11 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^The slime upon (\w+) shrinks into little more then an irritation.$</string>
+											<string>You use Domination Slime Envelop on</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
+											<integer>2</integer>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -20861,59 +20887,6 @@ end</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>mending</name>
-								<script>if matches[2]:lower() == snd.target:lower() then
-  snd.mendingApply(matches[3])
-elseif snd.toggles.nontargetgags and snd.toggles.gags then
-  deleteFull()
-end
-if snd.class == "Zealot" and matches[2] == snd.target then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^(?:You sense )?(\w+) presses a mending poultice against .+ (head|torso|right leg|left leg|right arm|left arm|skin|legs|arms), rubbing the poultice into .+ flesh\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>restoration</name>
-								<script>if matches[2] == snd.target and not snd.illusion_found then
-  snd.target_last_used_salve = "restoration"
-  snd.track_restoration(matches[2])
-  snd.restoApply(matches[4])
-end
-
-</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^(?:You sense )?(\w+) presses a restoration poultice against (the )?\w+ (head|torso|right leg|left leg|right arm|left arm), rubbing the poultice into (the )?\w+ flesh\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -69726,7 +69699,8 @@ end
 
   ["Domination"] = {
     Slime = function(target)
-      snd.balance.envelop = false
+      snd.target_got("blob")
+      snd.affTimers.start("blob", 10)
     end,
     Chimera = function(target, head)
       if head == "Gas" then
@@ -71755,7 +71729,8 @@ end
 
   ["Contracts"] = {
     Blob = function(target)
-      snd.balance.envelop = false
+      snd.target_got("blob")
+      snd.affTimers.start("blob", 10)
     end,
     Quetzal = function(target, attack)
       if attack == "Croon" then
@@ -73424,6 +73399,9 @@ end</script>
   if target:lower() == snd.target:lower() then
     snd.timers.pill.start = getEpoch()
     local limit = 1.9
+    if snd.checkAff("aeon") then
+      limit = limit+1
+    end
     snd.timers.pill.limit = limit
   end
 end
@@ -73462,6 +73440,26 @@ function snd.track_restoration(target)
     local limit = 4.15
     if snd.checkAff("rot_body") then
       limit = limit+4.3
+    end
+    if snd.checkAff("aeon") then
+      limit = limit+1
+    end
+    if snd.checkAff("blob") then
+      limit = limit+.3
+    end
+    snd.timers.restoration.limit = limit
+  end
+end
+
+function snd.track_salve(target)
+  if target:lower() == snd.target:lower() then
+    snd.timers.restoration.start = getEpoch()
+    local limit = 1.1
+    if snd.checkAff("aeon") then
+      limit = limit+1
+    end
+    if snd.checkAff("blob") then
+      limit = limit+.3
     end
     snd.timers.restoration.limit = limit
   end
