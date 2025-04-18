@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.16"
+local version = "11.0.17"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67972,6 +67972,7 @@ end
 -- @function snd.reset_target
 function snd.reset_target()
   snd.target_has = {}
+  snd.aeonTime = nil
   for limb in pairs(snd.limb_dmg) do
     snd.limb_dmg[limb] = 0
   end
@@ -73414,6 +73415,7 @@ end</script>
 end
 
 function snd.aeon_cured()
+  if not snd.aeonTime then return end
   for _, timer in pairs({"focus","tree","fitness"}) do
     local tinfo = snd.timers[timer]
     if tinfo.start and snd.aeonTime &lt; tinfo.start then
@@ -73421,6 +73423,7 @@ function snd.aeon_cured()
       tinfo.limit = tinfo.limit+aeonTime
     end
   end
+  snd.aeonTime = nil
 end
 
 function snd.track_pill(target)
