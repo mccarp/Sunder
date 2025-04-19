@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.17"
+local version = "11.0.18"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70121,6 +70121,7 @@ end
     Shockwave = function(target)
       snd.target_got("fallen")
       enableTrigger("Shockwave limb breaks")
+      enableTrigger("Shockwave Prompt Turnoff")
     end,
     Furor = function(target, where)
       snd.last_hit_limb = where
@@ -70301,6 +70302,7 @@ end
     Capsize = function(target)
       snd.target_got("fallen")
       enableTrigger("Shockwave limb breaks")
+      enableTrigger("Shockwave Prompt Turnoff")
     end,
     Pitch = function(target, where)
       snd.last_hit_limb = where
