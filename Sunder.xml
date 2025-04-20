@@ -2390,8 +2390,10 @@ end
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^(\w+) stands up and stretches .+ arms out wide\.$</string>
+							<string>^(\w+) swings .+ legs around and rises up from the ground\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -3701,8 +3703,10 @@ end</script>
 										<string>^Flames spew from a firelord, engulfing (\w+) and consumes .+ flesh.$</string>
 										<string>^Flames spew in from the .*, engulfing (\w+) and consuming .+ flesh.$</string>
 										<string>^Flames spew from a firelord, engulfing (\w+) and consuming .+ flesh.$</string>
+										<string>^A grotesque hippalectryon crows mightily, vomiting astral fire forth to engulf (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -13632,7 +13636,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Like an auditory snare, your song captivates (\w+)'s attention, arresting him with its allurement.$</string>
+										<string>^Like an auditory snare, your song captivates (\w+)'s attention, arresting .+ with its allurement\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -18209,7 +18213,7 @@ end</script>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Crush Confirmation</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -54620,12 +54624,7 @@ end
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>Buying Fluids</name>
-						<script>snd.shopping.buy(matches[3],matches[2])
-
-for _, v in ipairs(fluid_types[matches[3]]) do
-  snd.send("buy "..refills.." refill of " .. v .. " for fluidcache")
-end
-</script>
+						<script>snd.shopping.buy(matches[3],matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^fillcache (\d+) (elixirs|poultices|venoms)$</regex>
@@ -55667,7 +55666,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.18"
+local version = "11.0.19"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
