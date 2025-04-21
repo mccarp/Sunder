@@ -28814,6 +28814,7 @@ end
 
 snd.defended = false
 
+disableTrigger("Weapon Hit Confirmation")
 disableTrigger("Sunder Dodge")
 disableTrigger("Sunder Parry")
 disableTrigger("Sunder Rebounding")
@@ -65237,6 +65238,7 @@ snd.using_both_hands = 0
 snd.templar_weapon_one = "shortsword344140" -- used for Templar offenses
 snd.templar_weapon_two = "shortsword344388" -- used for Templar offenses
 snd.templar_last_limb = ""
+snd.templarHits = 0
 
 snd.current_offense = ""
 
