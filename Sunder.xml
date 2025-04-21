@@ -62206,11 +62206,14 @@ function snd.def_timeout(defense)
 end
 
 function snd.def_gain(defense)
-  --  deleteLine()
-  snd.message("You: &lt;green&gt;GAIN &lt;white&gt;" .. defense .. ".", "defense")
   if not string.find(defense, "def_") then
     defense = "def_" .. defense
   end
+  if defense == "def_miasma" or defense == "def_warmth" then
+    defense = "def_safeguard"
+  end
+  --  deleteLine()
+  snd.message("You: &lt;green&gt;GAIN &lt;white&gt;" .. defense .. ".", "defense")
   check200(defense)
   x = stopStopWatch(snd.defenses[defense].timer)
   -- resetStopWatch(snd.defenses[defense].timer)
@@ -62259,6 +62262,9 @@ function snd.def_take(defense)
   if not string.find(defense, "def_") then
     defense = "def_" .. defense
   end
+  if defense == "def_miasma" or defense == "def_warmth" then
+    defense = "def_safeguard"
+  end
   check200(defense)
   if snd.defenses[defense].state == "deffed" then
     --  deleteLine()
@@ -62268,6 +62274,7 @@ function snd.def_take(defense)
 end
 
 function snd.def_remove(defense)
+
   if not string.find(defense, "def_") then
     defense = "def_" .. defense
   end
@@ -62311,8 +62318,8 @@ end</script>
   ["Your soulstone is split to support your weapon, body, and armour."] = "soul_fracture",
   ["Your soul has been fortified."] = "soul_fortify",
   ["You have the safeguard of an Idreth."] = "safeguard",
-  ["You have the miasma of an Azudim."] = "miasma",
-  ["You have the warmth of a Yeleni."] = "warmth",
+  ["You have the miasma of an Azudim."] = "safeguard",
+  ["You have the warmth of a Yeleni."] = "safeguard",
   ["You are prepared to counterattack against physical aggression."] = "maingauche",
   ["You are paced for bursts of exertion."] = "pacing",
   ["You are sensing the heat of others."] = "heatsight",
@@ -63036,13 +63043,9 @@ function snd.load_def2(option)
     snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
     send(" ")
     snd.less_defs = {}
-    --    if snd.class~="None" then --200 check
-    if gmcp.Char.Status.race:sub(1, 6) == "Azudim" then
-      snd.def_options[option]["def_miasma"] = "on"
-    elseif gmcp.Char.Status.race:sub(1, 6) == "Yeleni" then
-      snd.def_options[option]["def_warmth"] = "on"
-    elseif gmcp.Char.Status.race:sub(1, 6) == "Idreth" then
-      snd.def_options[option]["def_safeguard"] = "on"
+    if tonumber(string.match(gmcp.Char.Status.level, "%d+"))&gt;99 and 
+    not string.find(gmcp.Char.Status.race, "Tekal") then
+        snd.def_options[option]["def_safeguard"] = "on"
     end
     --    end
     local my_def_choice_and_generic_defenses = {}
