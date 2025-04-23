@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.0.19"
+local version = "11.1.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58898,27 +58898,9 @@ function snd.do_queue()
       if snd.moving_to ~= "none" then
         snd.queue.moving = true
       end
-      if snd.toggles.active and
-          (snd.fitness_override and snd.fitness_override()) or
-          (not snd.fitness_override and (snd.have_aff("asthma") and snd.have_aff("slickness") and gmcp.Char.Vitals.pipe == "1")) then
-        snd.need_fitness = true
-        snd.queue.fitness = true
-      else
-        snd.need_fitness = false
-      end
-
-      if ((hasSkill("Purge") and snd.class == "Carnifex") or (hasSkill("Annul") and snd.class == "Warden")) and snd.purge_check() then
-        snd.queue.purge = true
-      end
-      if ((hasSkill("Panacea") and snd.class == "Shaman") or (snd.class == "Alchemist" and hasSkill("Subversion"))) and snd.panacea_check() then
-        snd.queue.panacea = true
-      end
-      if ((hasSkill("Purify") and snd.class == "Praenomen") or (hasSkill("Succour") and snd.class == "Akkari")) and snd.purify_check() then
-        snd.queue.purify = true
-      end
-      if snd.rage_check() and snd.can_rage() then
-        snd.queue.rage = true
-      end
+      
+      snd.queue.activecures = true
+      
       if snd.need_dome and snd.balance.dome then
         snd.queue.dome = true
       end
@@ -58942,6 +58924,166 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Active cure framework</name>
+				<packageName></packageName>
+				<script>snd.activeCures = snd.activeCures or {}
+snd.activeCures.list = snd.activeCures.list or {}
+snd.activeCures.balanceless = snd.activeCures.balanceless or {}
+
+function snd.activeCures.run()
+  for _, cure in pairs(snd.activeCures.balanceless) do
+    if (not cure.waiting) and cure.can() then
+      snd.send(cure.command())
+      echo("("..cure.command()..")")
+      cure.waiting = true
+      tempTimer(snd.delay(), function() cure.waiting = false end)
+    end
+  end
+  snd.needActive = false
+  snd.activeCommand = ""
+  local cureInfo
+  for _, cure in spairs(snd.activeCures.list) do
+    if cure.can() then
+      snd.needActive = true
+      snd.activeCommand = cure.command()
+      cureInfo = cure
+    break
+    end
+  end
+  if snd.needActive and snd.full_balance() and not snd.waiting.balance then
+    snd.send(snd.activeCommand)
+    echo("("..snd.activeCommand..")")
+    snd.last_type = cureInfo.name
+    snd.last_item = cureInfo.name
+    snd.waiting.balance = true
+    tempTimer(snd.delay(), [[snd.waiting.balance = false]])
+  end
+end
+
+function snd.activeCures.reset()
+  snd.activeCures.list = {}
+  snd.activeCures.balanceless = {}
+  snd.activeCures.registerDefault()
+  raiseEvent("sunder register activecures")
+end
+
+function snd.activeCures.register(name, info, priority)
+  for k, cure in pairs(snd.activeCures.list) do
+    if cure.name == name then
+      table.remove(snd.activeCures.list, k)
+      break
+    end
+  end
+  info.name = name
+  info.waiting = false
+  table.insert(snd.activeCures.list, priority, info)
+end
+
+function snd.activeCures.registerBalanceless(name, info)
+  for k, cure in pairs(snd.activeCures.balanceless) do
+    if cure.name == name then
+      table.remove(snd.activeCures.balanceless, k)
+      break
+    end
+  end
+  info.name = name
+  info.waiting = false
+  table.insert(snd.activeCures.balanceless, info)
+end
+
+registerAnonymousEventHandler("sunder_login", "snd.activeCures.reset")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Register default cures</name>
+				<packageName></packageName>
+				<script>function snd.activeCures.registerDefault()
+  snd.activeCures.register("fitness",
+  {
+    can = function()
+      if not snd.can_fitness() then return false end
+      return (snd.fitness_override and snd.fitness_override()) or
+            (not snd.fitness_override and (snd.have_aff("asthma") and snd.have_aff("slickness") and gmcp.Char.Vitals.pipe == "1"))
+    end,
+    command = function()
+      return snd.fitnessCommandOverride and snd.fitnessCommandOverride() or "fitness"
+    end
+  },
+  1)
+  
+  snd.activeCures.register("shrug",
+  {
+    can = function()
+      if not snd.can_shrug() then return end
+      return (snd.fitness_override and snd.fitness_override()) or
+            (not snd.fitness_override and (snd.have_aff("asthma") and snd.have_aff("slickness") and gmcp.Char.Vitals.pipe == "1"))
+    end,
+    command = function()
+      return "shrug venom"
+    end
+  },
+  2)
+  
+  snd.activeCures.registerBalanceless("purge",
+  {
+    can = function()
+      return ((hasSkill("Purge") and snd.class == "Carnifex") or 
+              (hasSkill("Annul") and snd.class == "Warden")) and
+              snd.purge_check()
+    end,
+    command = function()
+      if snd.class == "Carnifex" then
+        return "soul purge"
+      else
+        return "ancest annul"
+      end
+    end,
+  })
+  
+  snd.activeCures.register("panacea",
+  {
+    can = function()
+      return ((hasSkill("Panacea") and snd.class == "Shaman") or 
+              (snd.class == "Alchemist" and hasSkill("Subversion"))) and
+              snd.panacea_check()
+    end,
+    command = function()
+        if snd.class == "Shaman" then
+          return "nature panacea"
+        else
+          return "botany subvert"      
+        end
+    end,
+  },
+  3)
+  
+  snd.activeCures.register("purify", {
+    can = function()
+      return ((hasSkill("Purify") and snd.class == "Praenomen") or (hasSkill("Succour") and snd.class == "Akkari")) and snd.purify_check() 
+    end,
+    command = function()
+      if snd.class == "Praenomen" then
+        return "purify blood"
+      else
+        return "succour"
+      end
+    end
+  },
+  4)
+  
+  snd.activeCures.registerBalanceless("rage",
+  {
+    can = function()
+      return snd.rage_check() and snd.can_rage() and snd.balance.rage
+    end,
+    command = function()
+      return "rage"
+    end
+  })
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Do stuff</name>
 				<packageName></packageName>
 				<script>--- @submodule core
@@ -58959,13 +59101,9 @@ snd.coreActionMap = snd.coreActionMap or {
   attack = function() snd.attack_function() end,
   loot = function() snd.do_loot() end,
   moving = function() snd.get_moving() end,
-  fitness = function() snd.do_fitness() snd.do_shrug() end,
-  rage = function() snd.do_rage() end,
-  purge = function() snd.do_purge() end,
-  purify = function() snd.do_purify() end,
-  panacea = function() snd.do_panacea() end,
   dome = function() snd.do_dome() end,
   diagnose = function() snd.do_diagnose() end,
+  activecures = function() snd.activeCures.run() end,
 }
 
 
@@ -59008,12 +59146,12 @@ snd.priorities =
 {
   "lighting",
   "def_speed",
-  "fitness",
-  "shrugging",
-  "purge",
-  "purify",
-  "panacea",
-  "rage",
+  "activecures",
+  -- "shrugging",
+  -- "purge",
+  -- "purify",
+  -- "panacea",
+  -- "rage",
   "dome",
   "def_safeguard",
   "def_mindseye",
@@ -68527,8 +68665,8 @@ end
 
 function snd.attack(attack)
   local string = ""
-  if snd.can_fitness() and snd.need_fitness then
-    string = snd.fitnessCommandOverride and snd.fitnessCommandOverride() or "fitness"
+  if snd.needActive then
+    string = snd.activeCommand
   else
     string = attack
   end
@@ -68536,12 +68674,13 @@ function snd.attack(attack)
   if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
     string = "parry " .. snd.parrying.toparry .. snd.sep .. string
   end
+  
   for pipe, isEmpty in pairs(snd.emptypipes) do
     if isEmpty then
       string = "outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe" .. snd.sep .. string
     end
   end
-
+  
   if not snd.pipes_lit and snd.toggles.lighting then
     string = "light pipes" .. snd.sep .. string
   end
@@ -73646,75 +73785,6 @@ function snd.shield_check()
   end
 end
 
---- Bashing function, picks attacks based on your class.
--- @function snd.bashing_function
-function snd.bashing_function()
-  if not snd.room_clear then
-    return
-  end
-
-  if not snd.waiting.queue then
-    if not snd.bashing.targeted then
-      snd.runBasher()
-    else
-      battack = ""
-      local class = snd.class:lower()
-      if snd[class .. "_bash_override"] then
-        snd[class .. "_bash_override"]() --try bashing override first
-      elseif snd[class .. "_bash"] then
-        snd[class .. "_bash"]()          --check for/use stock bashing function
-      else
-        battack = "kill " ..
-            snd.bashing.target                                --if no bashing function exists, default to kill
-      end
-      if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
-        battack = "overdrive" .. snd.sep .. battack .. snd.sep
-      end
-      if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-        battack = "parry " .. snd.parrying.toparry .. snd.sep .. battack
-      end
-      if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack .. snd.sep .. "absorb ylem" end       -- if you have a level 2 gauntlet, auto-absorb
-
-      if battack == "" and (snd.counterattack_active or not snd.defenses.def_reflection.state == "deffed") then -- if the basher couldn't change battack to something from your class, it will give an error
-        echo("\nTried to bash, no class ability set.")
-      elseif battack ~= snd.last_attack and not snd.ylem_check then                                             -- if your battack isn't the same as your last attempted attack, and you aren't trying to capture ylem
-        snd.last_attack = battack                                                                               -- ATTACK
-        if battack ~= "none" then                                                                               -- if for some reason it's none as your attack, stand
-          snd.send("qeb stand" .. snd.sep .. snd.last_attack)
-        end
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-end
-
---- This stuff will be run once a room is cleared before moving on.
--- @function snd.bashing_cleanup
--- @usage
--- function snd.templar_cleanup()
--- local bleed = tonumber(gmcp.Char.Vitals.bleeding)
--- local hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
--- local mp = 100 * (gmcp.Char.Vitals.mp / gmcp.Char.Vitals.maxmp)
--- if hp &lt; 75 then
--- cleanupAction = "touch worrystone"
--- elseif mp &lt; 75 then
--- cleanupAction = "touch worrystone"
--- end
--- end
-function snd.bashing_cleanup()
-  cleanupAction = ""
-  if snd[snd.class:lower() .. "_cleanup"] then
-    snd[snd.class:lower() .. "_cleanup"]()
-  end
-  if cleanupAction ~= "" and cleanupAction ~= snd.last_attack then
-    snd.send("qeb stand" .. snd.sep .. cleanupAction)
-    snd.last_attack = cleanupAction
-    snd.waiting.queue = true
-    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    return true
-  end
-end
 
 --- Get room info for the autobasher.
 -- @function bot_room_info
@@ -74639,6 +74709,85 @@ function snd.none_bash() --super basic bashing function for 200's.
     end
   else
     battack = ascendedAttacks[snd.toggles.ascendedtype] .. " " .. snd.bashing.target
+  end
+end
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Main bashing function</name>
+					<packageName></packageName>
+					<script>--- Bashing function, picks attacks based on your class.
+-- @function snd.bashing_function
+function snd.bashing_function()
+  if not snd.room_clear then
+    return
+  end
+  if not snd.waiting.queue then
+    if not snd.bashing.targeted then
+      snd.runBasher()
+    else
+      battack = ""
+      local class = snd.class:lower()
+      if snd[class .. "_bash_override"] then
+        snd[class .. "_bash_override"]() --try bashing override first
+      elseif snd[class .. "_bash"] then
+        snd[class .. "_bash"]()          --check for/use stock bashing function
+      else
+        battack = "kill " ..
+            snd.bashing.target                                --if no bashing function exists, default to kill
+      end
+      
+      if snd.needActive then
+        battack = snd.activeCommand
+      end
+      
+      if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
+        battack = "overdrive" .. snd.sep .. battack .. snd.sep
+      end
+      if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
+        battack = "parry " .. snd.parrying.toparry .. snd.sep .. battack
+      end
+      if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack .. snd.sep .. "absorb ylem" end       -- if you have a level 2 gauntlet, auto-absorb
+
+      if battack == "" and (snd.counterattack_active or not snd.defenses.def_reflection.state == "deffed") then -- if the basher couldn't change battack to something from your class, it will give an error
+        echo("\nTried to bash, no class ability set.")
+      elseif battack ~= snd.last_attack and not snd.ylem_check then                                             -- if your battack isn't the same as your last attempted attack, and you aren't trying to capture ylem
+        snd.last_attack = battack                                                                               -- ATTACK
+        if battack ~= "none" then                                                                               -- if for some reason it's none as your attack, stand
+          snd.send("qeb stand" .. snd.sep .. snd.last_attack)
+        end
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+end
+
+--- This stuff will be run once a room is cleared before moving on.
+-- @function snd.bashing_cleanup
+-- @usage
+-- function snd.templar_cleanup()
+-- local bleed = tonumber(gmcp.Char.Vitals.bleeding)
+-- local hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
+-- local mp = 100 * (gmcp.Char.Vitals.mp / gmcp.Char.Vitals.maxmp)
+-- if hp &lt; 75 then
+-- cleanupAction = "touch worrystone"
+-- elseif mp &lt; 75 then
+-- cleanupAction = "touch worrystone"
+-- end
+-- end
+function snd.bashing_cleanup()
+  cleanupAction = ""
+  if snd[snd.class:lower() .. "_cleanup"] then
+    snd[snd.class:lower() .. "_cleanup"]()
+  end
+  if cleanupAction ~= "" and cleanupAction ~= snd.last_attack then
+    snd.send("qeb stand" .. snd.sep .. cleanupAction)
+    snd.last_attack = cleanupAction
+    snd.waiting.queue = true
+    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    return true
   end
 end
 </script>
