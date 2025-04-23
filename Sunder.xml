@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.0"
+local version = "11.1.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70922,6 +70922,9 @@ end
     end,
     Doublestab = function(target)
       enableTrigger("Syssin Hit Confirmation")
+    end,
+    Backstab = function(target)
+      snd.onHit2({"Dodge"})
     end,
     Flay = function(target, condition)
       enableTrigger("Syssin Hit Confirmation")
