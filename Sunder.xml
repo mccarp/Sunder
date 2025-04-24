@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.1"
+local version = "11.1.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57195,7 +57195,7 @@ end
 function hasSkill(skill, tree)
   if not snd.skills then return false end
   skill = skill:lower()
-  if skill == "200" then return gmcp.Char.Status.class == "None" end
+  if skill == "200" then return gmcp.Char.Status.class == "(None)" end
   if skill == "generic" or skill == "goggle" then return true end
   if snd.assumed_class ~= nil then return true end
   if tree then
@@ -57747,6 +57747,9 @@ function snd.full_vitals()
   return true
 end
 
+function snd.can_order()
+  return not (snd.has_aff("disfigurement") or snd.have_aff("mauled_face"))
+end
 
 --- Check to see if we are able to use dome right now.
 -- @function snd.check_dome
@@ -61163,8 +61166,8 @@ local specialExits = {
   { from = 19752, to = 18801, command = [=[script: send("pull candelabra") mmp.customwalkdelay(3)]=],                                      locked = false, weight = 0 },
   { from = 18801, to = 19752, command = [=[script: send("pull brazier") mmp.customwalkdelay(3)]=],                                         locked = false, weight = 0 },
   { from = 19753, to = 19754, command = [=[script: send("enter maiden") mmp.customwalkdelay(3)]=],                                         locked = false, weight = 0 },
-  { from = 19773, to = 18761, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=],                                          locked = false, weight = 0 },
-  { from = 18761, to = 19773, command = [=[script: send("turn statue") mmp.customwalkdelay(3)]=],                                          locked = false, weight = 0 },
+  { from = 19773, to = 18761, command = [=[script: send("turn statue.here") mmp.customwalkdelay(3)]=],                                          locked = false, weight = 0 },
+  { from = 18761, to = 19773, command = [=[script: send("turn statue.here") mmp.customwalkdelay(3)]=],                                          locked = false, weight = 0 },
   { from = 19763, to = 19764, command = [=[enter portal]=],                                                                                locked = false, weight = 0 },
   { from = 19764, to = 19763, command = [=[enter portal]=],                                                                                locked = false, weight = 0 },
 
