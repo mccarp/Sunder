@@ -58572,7 +58572,7 @@ snd.registerEvent("SunderGMCPRoomAddPlayer", "gmcp.Room.AddPlayer", gmcp_people_
 				<packageName></packageName>
 				<script>function gmcp_room()
   --Check current room
-  if snd.my.room ~= gmcp.Room.Info.num then
+  if snd.my.room ~= gmcp.Room.Info.num or gmcp.Room.Info.num == -1 then
     --Clear room effects
     --Set current room
     snd.my.room = gmcp.Room.Info.num
