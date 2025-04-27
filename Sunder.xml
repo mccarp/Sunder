@@ -25820,7 +25820,6 @@ if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
     snd.all_class_attacks[matches[3]][matches[4]](target)
   end
 end
-
 if matches[2] == snd.target and target == "You" then
   snd.used.rebounding = false
   snd.used.shield = false
@@ -46726,11 +46725,11 @@ if snd.class == "Ravager" then
 
   function snd.attack_function()
     local giving_chain = {
-      "stuttering",
       "whiplash",
       "backstrain",
       "sore_wrist",
       "sore_ankle", 
+      "watery_eyes",
     }
     local chain = "tenderise"
     
@@ -46844,7 +46843,7 @@ if snd.class == "Ravager" then
       "backstrain",
       "sore_wrist",
       "sore_ankle", 
-      "stuttering",
+      "watery_eyes",
     }
     local chain = "tenderise"
     
@@ -50757,11 +50756,11 @@ if snd.class == "Zealot" then
 
   function snd.attack_function()
     local giving_chain = {
-      "stuttering",
       "whiplash",
       "backstrain",
       "sore_wrist",
       "sore_ankle", 
+      "watery_eyes",
     }
     local chain = "whipburst"
     for _, aff in ipairs(giving_chain) do
@@ -50874,7 +50873,7 @@ if snd.class == "Zealot" then
       "backstrain",
       "sore_wrist",
       "sore_ankle",
-      "stuttering",
+      "watery_eyes",
     }
     local chain = "whipburst"
     for _, aff in ipairs(giving_chain) do
@@ -55667,7 +55666,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.2"
+local version = "11.1.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67111,7 +67110,7 @@ end</script>
 					<packageName></packageName>
 					<script>snd.zealotChainMap = {
   sore_ankle = "anklepin",
-  stuttering = "jawcrack",
+  watery_eyes = "jawcrack",
   backstrain = "descent",
   sore_wrist = "wristlash",
   whiplash = "uprise",
@@ -67119,7 +67118,7 @@ end</script>
 
 snd.ravagerChainMap = {
   sore_ankle = "hobble",
-  stuttering = "slug",
+  watery_eyes = "slug",
   backstrain = "flog",
   sore_wrist = "maim",
   whiplash = "whiplash",
