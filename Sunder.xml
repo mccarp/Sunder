@@ -55008,7 +55008,7 @@ if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive i
   table.insert(commands, 1, "overdrive")
 end
 if snd.toggles.parrying and snd.parrying.current_parry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-  table.insert(commands, 1, "parry " .. snd.parrying.toparry)
+  table.insert(commands, 1, snd.parrying.getVerb() .. snd.parrying.toparry)
 end
 if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then
   table.insert(commands, "absorb ylem")
@@ -55666,7 +55666,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.3"
+local version = "11.1.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57395,6 +57395,7 @@ function snd_toggleLoad()
   snd.message("Toggles found; we loaded them in just fine.")
   snd.goggle_update()
   snd_toggleSave(false)
+  npb.init()
   if snd.toggles.highlights then
     npb.enable()
   end
@@ -63795,6 +63796,20 @@ function snd.parrying.set_parry(type)
   end
 end
 
+
+function snd.parrying.getVerb()
+  if snd.class == "Zealot" and hasSkill("Fending") then
+    return "fend "
+  elseif snd.class == "Monk" and hasSkill("Guarding") then
+    return "guard "
+  elseif snd.class == "Ravager" and hasSkill("Oppose") then
+    return "oppose "
+  elseif hasSkill("Parrying") and snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty" then
+    return "parry "
+  end
+  return "parry " --I guess default here
+end
+
 --- Logic to determine what to parry.
 -- This function can be overriden via snd.parry_override
 -- @function snd.parry
@@ -63825,6 +63840,8 @@ function snd.parry()
     tempTimer(snd.delay(), [[snd.waiting.parry = false]])
   end
 end
+
+
 
 --- Default parrying for groups.
 -- @function snd.parrying.get_default
@@ -68674,7 +68691,7 @@ function snd.attack(attack)
   end
   string = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .. "g remains" .. snd.sep .. string
   if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-    string = "parry " .. snd.parrying.toparry .. snd.sep .. string
+    string = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. string
   end
   
   for pipe, isEmpty in pairs(snd.emptypipes) do
@@ -74751,7 +74768,7 @@ function snd.bashing_function()
         battack = "overdrive" .. snd.sep .. battack .. snd.sep
       end
       if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-        battack = "parry " .. snd.parrying.toparry .. snd.sep .. battack
+        battack = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. battack
       end
       if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack .. snd.sep .. "absorb ylem" end       -- if you have a level 2 gauntlet, auto-absorb
 
