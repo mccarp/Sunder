@@ -61072,6 +61072,108 @@ ylm.path = {
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Unmapped rooms</name>
+				<packageName></packageName>
+				<script>local rooms = {
+  {
+    area = "Within the Cave",
+    details = { "indoors" },
+    environment = "Divine",
+    exits = {
+      e = 5731,
+      n = 10057,
+      ne = 53444,
+      s = 19296,
+      se = 1231
+    },
+    name = "Within the Cave",
+    num = 35574
+  },
+  {
+    area = "a bleak mortuary",
+    environment = "Temple",
+    exits = {
+      e = 55540,
+      n = 29626
+    },
+    name = "Within a mortuary chamber",
+    num = 59673
+  },
+  {
+    area = "a Memory of Ashtan",
+    coords = {0,0,5},
+    details = {},
+    environment = "Ethereal",
+    exits = {
+      ne = 73069,
+      nw = 71736
+    },
+    name = "On the shores of memory",
+    num = 72615
+  },
+  {
+    area = "a Memory of Ashtan",
+    coords = {1,1,5},
+    environment = "Ethereal",
+    exits = {
+      sw = 72615
+    },
+    name = "On the shores of memory",
+    num = 73069
+  },
+  {
+    area = "a Memory of Ashtan",
+    coords = {-1,1,5},
+    environment = "Ethereal",
+    exits = {
+      ne = 71508,
+      se = 72615
+    },
+    name = "Temporal Antiques",
+    num = 71736
+  },
+  {
+    area = "a Memory of Ashtan",
+    coords = {0,2,5},
+    environment = "Ethereal",
+    exits = {
+      sw = 71736
+    },
+    name = "Makeshift hut near the dock",
+    num = 71508
+  },
+}
+
+
+function snd.createMissingRooms()
+  local areas = getAreaTable()
+  for _, room in pairs(rooms) do
+    if true or not roomExists(room.num) then
+      local area = areas[room.area]
+      display(area)
+      if not area then
+        area = addAreaName(room.area)
+      end
+      addRoom(room.num, area)
+      setRoomName(room.num, room.name)
+      if mmp.envids[room.environment] then 
+        setRoomEnv(room.num, mmp.envids[room.environment])
+      end
+      if room.coords then
+        setRoomCoordinates(room.num, unpack(room.coords))
+      end
+    end    
+  end
+  --second loop for room exits
+  for _, room in pairs(rooms) do
+    for dir, number in pairs(room.exits) do
+      setExit(room.num, number, dir)
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Map tweaks</name>
 				<packageName></packageName>
 				<script>snd.landmarks = snd.landmarks or {}
@@ -61475,6 +61577,7 @@ local function addFerries()
 end
 
 function snd.mapTweaks()
+  snd.createMissingRooms()
   addFerries()
   for _, exitInfo in pairs(specialExits) do
     addSpecialExit(exitInfo.from, exitInfo.to, exitInfo.command)
