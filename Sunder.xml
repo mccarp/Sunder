@@ -55666,7 +55666,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.4"
+local version = "11.1.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61148,14 +61148,14 @@ ylm.path = {
 function snd.createMissingRooms()
   local areas = getAreaTable()
   for _, room in pairs(rooms) do
-    if true or not roomExists(room.num) then
+    if not roomExists(room.num) then
       local area = areas[room.area]
-      display(area)
       if not area then
         area = addAreaName(room.area)
       end
       addRoom(room.num, area)
       setRoomName(room.num, room.name)
+      setRoomArea(room.num, area)
       if mmp.envids[room.environment] then 
         setRoomEnv(room.num, mmp.envids[room.environment])
       end
