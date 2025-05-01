@@ -55666,7 +55666,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.6"
+local version = "11.1.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -75276,7 +75276,7 @@ snd.areas = {
   ["the Feral Caves"] = {level = "95+", targets = {"a small green blob", "a slimy green blob", "a massive green blob", "a gigantic green blob"}},
   ["The Forgotten Mausoleum"] = {level = "95+", targets = {"a reanimated Dwarf woman", "a rotting Dwarf archer", "a decomposing Dwarf", "a robed reanimated Dwarf"}},
   ["Tcanna Island"] = {level = "95+", targets = {"a brown and tan python", "a blue crab", "a box jellyfish", "a large capybara", "a small ocelot", "a spotted leopard", "a howler monkey", "a striped tiger", "a water buffalo", "an enormous elephant", "a vicious copperhead snake", "an oversized tortoise", "a diseased raccoon", "a dark green alligator", "a white-tailed deer", "a lithe cougar", "a black bear", "a black and white badger","a great white stag", "a spotted jaguar","a long-billed toucan", "a scarlet macaw", "a bald eagle", "a gray wolf", "a ragged coyote", "a Troll guard", "a Troll cook","a white goose", "a Nazetu officer", "a silverback gorilla","a venomous bushmaster","a thick boa constrictor","a brown-furred bat","an ebon crow",}},
-  ["The abandoned remnants of Xaanhal"] = {level = "really high", targets = {"a firewrought behemoth", "an arcane anomaly", "a stoic bedrock colossus", "a churning tidal spectre", "an electrified sparkwraith",}},
+  ["the abandoned remnants of Xaanhal"] = {level = "really high", targets = {"a firewrought behemoth", "an arcane anomaly", "a stoic bedrock colossus", "a churning tidal spectre", "an electrified sparkwraith",}},
   ["Trapped within a mirror"] = {level = "Quest", targets = {"a fragment of living glass"}},
   ["the Teshen Caldera"] = {level = "40-60? Maybe", targets  = {"a Teshen raider", "a Teshen scout", "a Teshen reaver", "a Teshen worker"}},
   ["the Temple of Sonn"] = {level = "40+", targets = {"a menacing black rojalli", "a choke creeper", "a darkling", "a shadowdrop", "a giant mosquito", "an elongated black serpent", "a glossy black silk-spinner", "a giant fly"}},
@@ -76125,7 +76125,7 @@ snd.bashing_area_beginning_rooms = {
   ["the Village of Kornar"] = "21286",
   ["the Iernian Fracture"] = "10046",
   ["the Hlugnic Labyrinth"] = "57334",
-  ["The abandoned remnants of Xaanhal"] = "36677",
+  ["the abandoned remnants of Xaanhal"] = "36677",
   ["the Sparklight Rift"] = "60845",
   ["a volcano"] = "35217",
   ["Tainhelm"] = "16437",
@@ -80617,7 +80617,7 @@ sunder_areaPaths = {
     v69696 = "69698",
     v69698 = "69699"
   },
-  ["The abandoned remnants of Xaanhal"] = {
+  ["the abandoned remnants of Xaanhal"] = {
     v36677 = "36678",
     v36678 = "36679",
     v36679 = "36680",
@@ -88090,12 +88090,6 @@ snd.paths.low = {
   "Teshen Caldera",
 }
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>New script</name>
-					<packageName></packageName>
-					<script></script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
