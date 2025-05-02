@@ -33323,8 +33323,10 @@ snd.balance.ethereal = false</script>
 									<string>You cannot purify your blood again so quickly!</string>
 									<string>The warmth of succour flares for a second time, continuing to soothe what ails you.</string>
 									<string>You cannot call upon heavenly succour again so soon.</string>
+									<string>Your blood begins to seethe as it acts quickly to rectify your marred form.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 									<integer>3</integer>
 									<integer>3</integer>
@@ -55666,7 +55668,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.7"
+local version = "11.1.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
