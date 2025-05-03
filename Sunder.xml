@@ -55668,7 +55668,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.9"
+local version = "11.1.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -62417,7 +62417,7 @@ for name, obj in pairs(defenses) do
   end
 
   if snd.defenses[name].needit == nil then snd.defenses[name].needit = false end
-  if snd.defenses[name].timer == nil then snd.defenses[name].timer = createStopwatch() end
+  if snd.defenses[name].timer == nil then snd.defenses[name].timer = createStopWatch() end
   if snd.defenses[name].state == nil then snd.defenses[name].state = "down" end
 end</script>
 				<eventHandlerList />
