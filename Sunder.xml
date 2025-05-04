@@ -11140,7 +11140,6 @@ disableTrigger("Fury Shatter Second Aff")</script>
   local aff = "assault_damage_"..snd.last_hit_limb:gsub(" ","_")
   if snd.checkAff(aff) then
     snd.last_limb_dmg = 11
-    snd.target_cured(aff) 
   end
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end
@@ -11169,7 +11168,7 @@ disableTrigger("Tenacity Chop")</script>
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   local aff = "assault_damage_"..snd.last_hit_limb:gsub(" ","_")
   snd.target_got(aff)
-  tempTimer(2, function() snd.target_cured(aff) end)
+  snd.affTimers.start(aff, 2)
   table.insert(snd.last_affs, aff)
 end
 disableTrigger("Tenacity Assault")</script>
@@ -55668,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.11"
+local version = "11.1.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -71377,7 +71376,6 @@ end
       snd.last_limb_dmg = 9
       if snd.checkAff("assault_damage_head") then
         snd.last_limb_dmg = 12
-        snd.target_cured("assault_damage_head")
       end
       snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
       snd.onHit2({ "Rebounding", "Dodge", "Parry" }, "Double Aff")
@@ -71388,17 +71386,11 @@ end
       snd.onHit2({ "Dodge" })
     end,
     Carve = function(target)
-      if snd.checkAff("vomiting") then
-        snd.target_got("fallen")
-      end
       table.insert(snd.maybe_affs, "vomiting")
 
       snd.last_hit_limb = "torso"
-      snd.last_limb_dmg = 14
-      if snd.checkAff("assault_damage_torso") then
-        snd.last_limb_dmg = 17
-        snd.target_cured("assault_damage_torso")
-      end
+      snd.last_limb_dmg = 13
+
       snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
       snd.onHit2({ "Parry", "Rebounding", "Dodge" })
     end,
