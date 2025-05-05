@@ -15933,7 +15933,7 @@ end</script>
 										<name>Anathemise - Exhaustion</name>
 										<script>if matches[2] == snd.target then
   snd.target_got("weariness")
-  snd.target_got("exhaustion")
+  snd.target_got("crippled")
 end
 
 </script>
@@ -16919,7 +16919,7 @@ end</script>
 									<script>snd.repay = snd.repay + 1
 snd.repay_timers = snd.repay_timers or {}
 local index = #snd.repay_timers + 1
-local time = 12
+local time = 10
 if snd.have_aff("laxity") then
   time = time + 2
 end
@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.12"
+local version = "11.1.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
