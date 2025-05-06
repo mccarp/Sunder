@@ -41277,78 +41277,20 @@ end
 								<regex>^dmg$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
-								<name>Mes feast</name>
-								<script>if snd.class == "Praenomen" then
-  snd.giving_whisper = {
-    "impatience",
-    "infatuation",
-    "mania",
-    "stupidity",
-    "confusion",
-    "recklessness",
-    "masochism",
-    "anorexia",
-    "agoraphobia",
-    "vertigo",
-    "indifference",
-    "peace",
-    "paranoia",
-  }
-
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = ""
-    local corpus = "none"
-    local touse = {}
-    if not table.contains(snd.target_has, "writhe_transfix") then
-      string = "mesmerize " .. snd.target
-    elseif not table.contains(snd.target_has, "feast") then
-      string = "blood feast " .. snd.target
-    else
-      for i in pairs(snd.giving_whisper) do
-        if not snd.checkAff(snd.giving_whisper[i]) then
-          if not table.contains(touse, snd.giving_whisper[i]) then
-            table.insert(touse, snd.giving_whisper[i])
-          end
-        end
-      end
-
-      string = "feed " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-    end
-
-    string = "contemplate " .. snd.target .. snd.sep .. string
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^feast$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
 								<name>Praenomen Group Dmg</name>
 								<script>if snd.class == "Praenomen" then
   snd.giving_whisper = {
-    "infatuation",
     "impatience",
     "stupidity",
     "recklessness",
-    "epilepsy",
-    "anorexia",
-    "confusion",
-    "dementia",
     "mania",
     "masochism",
-    "peace",
+    "epilepsy",
+    "confusion",
+    "infatuation",
+    "dementia",
     "vertigo",
+    "anorexia",
     "indifference",
     "agoraphobia",
   }
@@ -41371,18 +41313,16 @@ end
           end
         end
       end
-
-      for i in pairs(snd.giving_whisper) do
-        if not snd.checkAff(snd.giving_whisper[i]) then
-          if not table.contains(touse, snd.giving_whisper[i]) then
-            table.insert(touse, snd.giving_whisper[i])
-          end
-        end
-      end
-
+      table.insert(touse, "amnesia")
+      table.insert(touse, "amnesia") --make sure we don't run out of affs, this is useless filler
       string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
     end
-
+    call = "wt Afflicting ".. snd.target..": ".. touse[1] .. ", " .. touse[2]
+    
+    if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+      string = call..snd.sep..string
+    end
+    
     string = "contemplate " ..
         snd.target ..
         snd.sep ..
@@ -41390,7 +41330,6 @@ end
         snd.target ..
         snd.sep ..
         string --Contemplate target and order loyal to attack it before attacking
-    call = "wt Afflicting " .. touse[1] .. " " .. touse[2]
 
     if string ~= snd.last_attack and not snd.waiting.queue then
       snd.last_attack = string
@@ -41419,41 +41358,50 @@ end
 								<script>if snd.class == "Praenomen" then
   snd.starting_attack()
   function snd.attack_function()
-    local string = ""
-    local touse = {}
-    snd.giving_whisper = {
-      "impatience",
-      "infatuation",
-      "stupidity",
-      "anorexia",
-      "confusion",
-      "recklessness",
-      "agoraphobia",
-      "vertigo",
-      "indifference",
-      "peace",
-      "masochism",
-      "paranoia",
-
-    }
-
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-          table.insert(touse, snd.giving_whisper[i])
+    if not snd.waiting.queue then
+      local string = ""
+      local touse = {}
+      snd.giving_whisper = {
+        "impatience",
+        "infatuation",
+        "stupidity",
+        "anorexia",
+        "confusion",
+        "recklessness",
+        "agoraphobia",
+        "vertigo",
+        "indifference",
+        "peace",
+        "masochism",
+        "paranoia",
+  
+      }
+  
+      for i in pairs(snd.giving_whisper) do
+        if not snd.checkAff(snd.giving_whisper[i]) then
+          if not table.contains(touse, snd.giving_whisper[i]) then
+            table.insert(touse, snd.giving_whisper[i])
+          end
         end
       end
-    end
-
-    if not snd.waiting.queue then
+      table.insert(touse, "amnesia")
+      table.insert(touse, "amnesia") --make sure we don't run out of affs, this is useless filler
+      
+      call = "wt Afflicting ".. snd.target..": ".. touse[1] .. ", " .. touse[2]
+  
+    
       string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      
+      if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+        string = call..snd.sep..string
+      end
+      
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
     end
   end
 
@@ -41463,65 +41411,6 @@ end
 								<command></command>
 								<packageName></packageName>
 								<regex>^aff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Annhilate and Mesmerize</name>
-								<script>if snd.class == "Praenomen" then
-  snd.giving_whisper = {
-    "impatience",
-    "infatuation",
-    "stupidity",
-    "anorexia",
-    "confusion",
-    "recklessness",
-    "agoraphobia",
-    "vertigo",
-    "indifference",
-    "peace",
-    "masochism",
-    "paranoia",
-  }
-
-
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = ""
-    local corpus = "none"
-    local touse = {}
-    if snd.mana_percent &lt; 35 and not snd.used.shield then
-      string = "annihilate " .. snd.target
-    elseif snd.proned() then
-      string = "siphon " .. snd.target
-    elseif table.contains(snd.target_has, "sight") then
-      string = "mesmerize " .. snd.target
-    else
-      for i in pairs(snd.giving_whisper) do
-        if not snd.checkAff(snd.giving_whisper[i]) then
-          if not table.contains(touse, snd.giving_whisper[i]) then
-            table.insert(touse, snd.giving_whisper[i])
-          end
-        end
-      end
-
-      string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-    end
-
-    string = "contemplate " .. snd.target .. snd.sep .. string
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^mez$</regex>
 							</Alias>
 							<Alias isActive="yes" isFolder="no">
 								<name>Praenomen Group Affs</name>
@@ -55039,7 +54928,7 @@ snd.send(table.concat(commands, snd.sep))
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^move to next area$</regex>
+					<regex>^(mtna|move to next area)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Apothecary mode</name>
@@ -55667,7 +55556,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.14"
+local version = "11.1.15"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65467,7 +65356,7 @@ function npb.qwsorted(people)
     table.sort(peoples)
     if #peoples &gt; 0 then
       newLine()
-      x = 0
+      local x = 0
       cecho("&lt;" .. npb.t.config.colors[org:lower()] .. "&gt;" ..
         string.rep(" ", 11 - #org) ..
         "&lt;b&gt;&lt;u&gt;" .. org:title() .. "&lt;reset&gt;" .. (#peoples &gt; 9 and "" or " ") .. "&lt;white&gt;(&lt;cyan&gt;" ..
