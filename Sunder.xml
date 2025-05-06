@@ -19021,7 +19021,7 @@ disableTrigger("Titan Spear")</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Tiarna Shear</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -55667,7 +55667,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.13"
+local version = "11.1.14"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65474,11 +65474,13 @@ function npb.qwsorted(people)
         #peoples .. "&lt;white&gt;): ")
       for i, v in pairs(peoples) do
         local comma = next(peoples, i)
+
         local personlength = (comma and 2 or 0) + #v
         x = x + personlength
+        -- display(x)
         if x &gt; wrap then
           echo("\n" .. string.rep(" ", 17))
-          x = 0
+          x = personlength
           moveCursorEnd()
         end
         cecho(npb.cformat(v))
@@ -66043,6 +66045,9 @@ snd.cures = {
 
   ["devotion hands"] = true,
   ["apocalyptia reinforce"] = true,
+  
+  ["enlightenment withstand"] = true,
+  ["numerology sublimation"] = true,
 }</script>
 				<eventHandlerList />
 			</Script>
