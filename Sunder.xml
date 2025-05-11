@@ -21787,7 +21787,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^A final swift strike from your pick shatters an unstable ylem deposit, breaking it into several softly glowing chunks.$</string>
+								<string>^A final swift strike from your pick shatters .+, breaking it into several softly glowing chunks.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -44454,7 +44454,7 @@ end
       if snd.used.shield then
         string = "touch hammer "..snd.target
       elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
-        string = "vivsect "..snd.target
+        string = "vivisect "..snd.target
       elseif not snd.checksomeAffs(snd.giving, 4) then
         for v in pairs(snd.giving) do
           if not snd.checkAff(snd.giving[v])  then
@@ -55556,7 +55556,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.15"
+local version = "11.1.16"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57409,12 +57409,12 @@ end
 				<packageName></packageName>
 				<script>function snd.changeClass()
   if not snd.connected then return end
-  local gmcpClass = gmcp.Char.Status.class == "(None)" and "None" or gmcp.Char.Status.class
+  local gmcpClass = snd.charstats.class
   if snd.class == gmcpClass then return end
   snd.class = gmcpClass
   tempTimer(1, function()
-    sendGMCP("Char.Skills.get")
-    send("")
+    sendGMCP("Char.Skills.Get")
+    send(" ")
   end)
   snd.city = gmcp.Char.Status.city
   if snd.city == "Spinesreach" or snd.city == "Bloodloch" then
@@ -57424,10 +57424,7 @@ end
   end
   raiseEvent("sunder_update_vitals")
   expandAlias("ldd none", false)
-end
-
-snd.registerEvent("SunderClassChanging", "gmcp.Char.Status", snd.changeClass)
-</script>
+end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -58551,6 +58548,7 @@ snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
   hp = (100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)) or 100
   mp = 100 * (gmcp.Char.Vitals.mp / gmcp.Char.Vitals.maxmp)
   hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
+  
   if
       snd.toggles.attacking and snd.offense_loaded and snd.check_dome() and snd.toggles.dome
       and (snd.count(snd.people_hitting_me) &gt;= 3 or snd.aff_tally() &gt;= 5 or hp &lt; 50)
@@ -58559,8 +58557,17 @@ snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
   else
     snd.need_dome = false
   end
-  
   snd.updateWielded()
+  
+  snd.charstats = {}
+  for _, str in pairs(gmcp.Char.Vitals.charstats) do
+    local key, value = unpack(string.split(str,": "))
+    value = tonumber(value) or value
+    snd.charstats[key:lower()] = value
+  end
+  if snd.class~=snd.charstats.Class then
+    snd.changeClass()
+  end  
 end
 
 snd.registerEvent("SunderGMCPVitals", "gmcp.Char.Vitals", gmcp_vitals)
@@ -62102,7 +62109,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_anticipation = { defense = "anticipation", type = "normal", effect = "follow target on fleeing", balance = {}, skill = "Anticipate" },
 
   --Wayfarer
-  def_ironskin = { defense = "ironskin", type = "normal", effect = "Resist physical damage", balance = { balanceequilibriumtake = "wayfare ironskin" }, skill = "Ironskin" },
+  def_ironskin = { defense = "ironskin", type = "normal", effect = "Resist physical damage", balance = { balanceequilibrium = "wayfare ironskin" }, skill = "Ironskin" },
   def_blindsense = { defense = "blindsense", type = "normal", effect = "Resistance to accuracy reduction", balance = { balanceequilibriumtake = "wayfare blindsense on" }, skill = "Blindsense" },
   def_greenheart = {
     defense = "greenheart",
@@ -63085,16 +63092,6 @@ function class_catch()
   end
   if hasSkill("Insomnia") then
     snd.defenses.def_insomnia = snd.alternative_class_defenses.Skill_insomnia
-  end
-
-
-  if snd.assumed_class ~= nil then return end
-  local stats = gmcp.Char.Vitals.charstats
-  for i, v in ipairs(stats) do
-    stat = string.split(v, ": ")
-    if stat[1] == "Class" then
-      snd.class = stat[2]
-    end
   end
 end</script>
 				<eventHandlerList />
@@ -71281,7 +71278,7 @@ end
     end,
     Carve = function(target)
       table.insert(snd.maybe_affs, "vomiting")
-
+      
       snd.last_hit_limb = "torso"
       snd.last_limb_dmg = 13
 
@@ -75168,7 +75165,7 @@ snd.areas = {
   ["the Shattered Vortex (Spirit)"] = {level = "90-100", targets = {"a chaos worm", "a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone", "a chaos storm", "a Sciomancer mage", "a warped indorani", "a strained indorani", "a crazed indorani", "a reinforcement warrior of the aztob", "a warrior of the Aztob", "a warped turtle", "a petrified treant", "a piece of an amalgamation"}, items = {"a finger", "a chunk of grey stone", "a chunk of obsidian glass", "a chunk of green and blue stone", "a broken shard of ruby"}},
   ["Tiyen Esityi"] = {level = "95+", targets = {"Commander Marakhi", "Tirahl the Necromancer", "Lieutenant Gharvoi", "a ball of chitinous legs", "insubstantial whispers", "Quartermaster Kuius", "Lieutenant Chiakhi", "a crazed Nazetu cutter", "a mutated Nazetu intercessor", "a Nazetu cook", "a Nazetu halberdier", "a Nazetu provost", "a deformed Nazetu priest", "a Nazetu crossbowman", "a bound shade", "a Nazetu corrupter", "a Nazetu necromancer", "a supply officer", "a victimised intruder"}},
   ["the Nal'jin Depths"] = {level = "95+", targets = {"an enormous spinelash fish", "a sinewy Nal'jin eel", "a shadow ray", "a serpentine jawsnapper"}},
-  ["the Forgotten Dome"] = {level = "95+", targets = {"a gibbering kelki reaver", "a deformed kelki ravener", "a mutated kelki ravager", "a vile kelki prowler"}},
+  ["the Forgotten Dome"] = {level = "95+", targets = {"a gibbering Kelki reaver", "a deformed Kelki ravener", "a mutated Kelki ravager", "a vile Kelki prowler"}},
   ["Luzith's Lair"] = {level = "95+", targets = {"a mass of deadly trap spiders", "a deadly trap spider", "a monstrous arachnid", "a vicious little spider", "a large, crystalline spider", "a flying spider", "a sentinel spider", "a slender, female arachnoid"}},
   ["the Bastion of Illdon"] = {level = "95+", targets = {"a rabid plant", "a rabid hound", "a nightmare shadow", "a shadowy, mindless demon", "a mutated experiment"}},
   ["Spiral of the Corrupt"] = {level = "95+", targets = {"an ethereal, scarred jellyfish", "a rot-infested swordfish", "a five-tentacled octopus of jade", "a taint-infested shark", "a miasma-wreathed electric eel"}},
