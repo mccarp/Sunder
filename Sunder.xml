@@ -74018,11 +74018,7 @@ function snd.bard_bash()
       battack = "touch shield"
     end
   else
-    if tonumber(gmcp.Char.Vitals.dithering) &gt; 0 then
-      battack = "tempo " .. snd.bashing.target
-    else
-      battack = "weave tearing " .. snd.bashing.target
-    end
+    battack = "tempo " .. snd.bashing.target
   end
 end
 
