@@ -33858,7 +33858,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Righteousness Blessings</name>
-								<script>local blessings = matches[2]:split(" and ")
+								<script>local blessings = matches[2]:gsub(" and ",", "):gsub(",,",","):split(", ")
 for _, blessing in pairs(blessings) do
   snd.def_def(blessing.."_blessing")
 end</script>
