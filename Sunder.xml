@@ -33815,7 +33815,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Manifestation Chimeras</name>
-								<script>local chimeras = matches[2]:split(" and ")
+								<script>local chimeras = matches[2]:gsub(" and ",", "):gsub(",,",","):split(", ")
 for _, chimera in pairs(chimeras) do
   snd.def_def(chimera.."_chimera")
 end</script>
