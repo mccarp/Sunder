@@ -14245,8 +14245,30 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>No globes</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("globes")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^There are no globes encircling (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Bard Rhythm Confirmation</name>
 								<script></script>
 								<triggerType>0</triggerType>
@@ -26135,7 +26157,12 @@ snd.hidden_afflictions = 0</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Synthesis Animation gate.</name>
-						<script></script>
+						<script>local modifier = matches[5]~="" and matches[5] or nil
+if matches[6] == snd.target then
+  snd.getting_hit = target
+  snd.skill_being_used = matches[4]
+  snd.all_class_attacks[matches[3]][matches[4]](target, modifier)
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -40590,6 +40617,10 @@ end
           and hasSkill("Runeband", "Weaving")
           and not snd.checkAff("runeband") then
         string = "weave runeband " .. snd.target
+      elseif canWeave
+          and hasSkill("Globes", "Weaving")
+          and not snd.checkAff("globes") then
+        string = "weave globes "..snd.target
       elseif canWeave
           and not snd.checkAff("besilence")
           and hasSkill("Headstitch", "Weaving")
@@ -55556,7 +55587,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.16"
+local version = "11.1.17"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59294,7 +59325,6 @@ snd.priorities =
   "def_displacement",
   "def_severity",
   "def_roaring",
-  "aff_magic_fire",
   "def_sheath",
   "def_charisma",
   "def_euphonia",
@@ -59476,7 +59506,6 @@ snd.priorities =
   "def_chaos_presence",
   "def_chaos_shroud",
 
-  "def_catching",
   "def_phalanx",
   "def_anthem",
   "def_rallied",
