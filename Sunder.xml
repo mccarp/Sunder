@@ -73628,6 +73628,9 @@ function snd.track_pill(target)
   if target:lower() == snd.target:lower() then
     snd.timers.pill.start = getEpoch()
     local limit = 1.9
+    if snd.last_cure and snd.last_cure == "panacea" then
+      limit = limit * 2
+    end
     if snd.checkAff("aeon") then
       limit = limit+1
     end
