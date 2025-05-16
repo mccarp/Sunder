@@ -61690,7 +61690,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_fangbarrier    = { defense = "fangbarrier", type = "normal", effect = "Protects against syssin bites", balance = { special = {"outc paste", "apply paste" }}, skill = "Generic" },
   def_rebounding     = { defense = "rebounding", type = "blue", effect = "Causes weapon attacks to backfire", balance = { smoke = "reishi" }, skill = "Generic" },
   def_reflection     = { defense = "reflection", type = "blue", effect = "Takes your place for 1 attack", balance = { special = "cast reflection" }, skill = "Reflection" },
-  def_courage        = { defense = "courage", type = "normal", effect = "Protects against transfixes n stuff", skill = "Generic" },
+  def_courage        = { defense = "courage", type = "normal", effect = "Protects against transfixes n stuff", balance = { herb = "pluck"}, skill = "Generic" },
   def_bodyblock      = { defense = "bodyblock", type = "normal", effect = "Chance to reduce cutting/blunt damage by half", balance = { balanceequilibriumtake = "bdb" }, skill = "Bodyblock" },
   def_evadeblock     = { defense = "evadeblock", type = "normal", effect = "Chance to dodge attacks", balance = { balanceequilibriumtake = "evb" }, skill = "Evadeblock" },
   def_armblock       = { defense = "armblock", type = "normal", effect = "Retaliatory arm hits", balance = { balanceequilibriumtake = "asb" }, skill = "Armblock" },
