@@ -1915,8 +1915,12 @@ disableTrigger("Sunder Dodge")</script>
 									<string>^(\w+) slips out of reach before \w+ can touch \w+\.$</string>
 									<string>^You miss (\w+) with .+ as \w+ slips effortlessly out of reach\.$</string>
 									<string>^\w+ misses with .+ as (\w+) slips effortlessly out of reach\.$</string>
+									<string>^Completely blind, you strike thin air with .+ as you miss (\w+)\.$</string>
+									<string>^\w+ stumbles blindly and misses (\w+) with .+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -2079,8 +2083,10 @@ end
 									<string>^(You)r blurry vision inhibits your accuracy as you miss\.$</string>
 									<string>^(You)r swing falls short of its target\.$</string>
 									<string>^(\w+) strikes? out clumsily and miss(?:es)? \w+ mark\.$</string>
+									<string>^(You) stumble blindly and miss your mark completely\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -22961,7 +22967,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>mindnet on</name>
-								<script>if snd.toggles.affcalling then
+								<script>if snd.toggles.webAnnounce then
  snd.send("wt [MINDNET] is now ON!")
 end</script>
 								<triggerType>0</triggerType>
@@ -22983,7 +22989,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>mindnet off</name>
-								<script>if snd.toggles.affcalling then
+								<script>if snd.toggles.webAnnounce then
  snd.send("wt [MINDNET] is now OFF!")
 end</script>
 								<triggerType>0</triggerType>
@@ -55587,7 +55593,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.18"
+local version = "11.1.19"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
