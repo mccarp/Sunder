@@ -15744,7 +15744,7 @@ end
 											<colorTriggerFgColor>#000000</colorTriggerFgColor>
 											<colorTriggerBgColor>#000000</colorTriggerBgColor>
 											<regexCodeList>
-												<string>^(\w+) eyes widen as something unseen captivates .+ attention, .+ mind lost to the mystifying curse plaguing it.$</string>
+												<string>^(\w+)'s eyes widen as something unseen captivates .+ attention, .+ mind lost to the mystifying curse plaguing it.$</string>
 											</regexCodeList>
 											<regexCodePropertyList>
 												<integer>1</integer>
@@ -55587,7 +55587,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.17"
+local version = "11.1.18"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61727,7 +61727,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   --Ylem
   def_mist_yellow                = { defense = "mist_yellow", type = "ansi_light_yellow", effect = "5% increase in experience", balance = { special = "activate amberorb" }, skill = "Generic" },
   def_mist_green                 = { defense = "mist_green", type = "lawn_green", effect = "25% increase in vigour healing", balance = { special = "activate greenorb" }, skill = "Generic" },
-  def_mist_red                   = { defense = "mist_red", type = "firebrick", effect = "more damage to and less from denizens", balance = { special = "activatecrimson orb" }, skill = "Generic" },
+  def_mist_red                   = { defense = "mist_red", type = "firebrick", effect = "more damage to and less from denizens", balance = { special = "activate crimsonorb" }, skill = "Generic" },
   def_mist_blue                  = { defense = "mist_blue", type = "ansiLightBlue", effect = "protection from damage", balance = { special = "activate ceruleanorb" }, skill = "Generic" },
   def_mist_white                 = { defense = "mist_white", type = "ghost_white", effect = "increased ylem gain from eld", balance = { special = "activate whiteorb" }, skill = "Generic" },
 
