@@ -18860,7 +18860,7 @@ disableTrigger("Barrage prompt turn off")</script>
 										<integer>7</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>squeeze</name>
 									<script>if snd.target == matches[3] and matches[2] ~= "torso" then
   local limb = string.gsub(matches[2], " ", "_")
@@ -29403,6 +29403,64 @@ snd.fulcrum_exists = true</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>Your wand tattoo tingles slightly.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</TriggerGroup>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Armour</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Armour tattoo used</name>
+								<script>snd.balance.armour = false</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You use Tattoos Armour.</string>
+									<string>You touch the armour tattoo, but nothing happens.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Armour tattoo back up</name>
+								<script>snd.balance.armour = true</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>Your armour tattoo tingles slightly.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
@@ -58163,6 +58221,7 @@ snd.waiting = snd.waiting or {
   rattle = true,  -- teradrim/tidesage rattle/reprisal
   grapple = true, --teradrim/tidesage grapple/clutch
   dome = true,
+  armour = true,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -58866,8 +58925,9 @@ end</script>
 				<script>snd.activeCures = snd.activeCures or {}
 snd.activeCures.list = snd.activeCures.list or {}
 snd.activeCures.balanceless = snd.activeCures.balanceless or {}
-
+snd.activeCures.balancefree = snd.activeCures.balancefree or {}
 function snd.activeCures.run()
+  snd.balancefree = ""
   for _, cure in pairs(snd.activeCures.balanceless) do
     if (not cure.waiting) and cure.can() then
       snd.send(cure.command())
@@ -58887,9 +58947,14 @@ function snd.activeCures.run()
     break
     end
   end
-  if snd.needActive and snd.full_balance() and not snd.waiting.balance then
-    snd.send(snd.activeCommand)
-    echo("("..snd.activeCommand..")")
+  for _, cure in pairs(snd.activeCures.balancefree) do
+    if cure.can() then
+      snd.balancefree = snd.balancefree..cure.action()..snd.sep
+    end
+  end  
+  if (snd.balancefree ~= "" or snd.needActive) and snd.full_balance() and not snd.waiting.balance then
+    snd.send(snd.balancefree..snd.activeCommand)
+    echo("("..snd.balancefree..snd.activeCommand..")")
     snd.last_type = cureInfo.name
     snd.last_item = cureInfo.name
     snd.waiting.balance = true
@@ -58926,6 +58991,18 @@ function snd.activeCures.registerBalanceless(name, info)
   info.name = name
   info.waiting = false
   table.insert(snd.activeCures.balanceless, info)
+end
+
+function snd.activeCures.registerBalancefree(name, info)
+  for k, cure in pairs(snd.activeCures.balancefree) do
+    if cure.name == name then
+      table.remove(snd.activeCures.balancefree, k)
+      break
+    end
+  end
+  info.name = name
+  info.waiting = false
+  table.insert(snd.activeCures.balancefree, info)
 end
 
 registerAnonymousEventHandler("sunder_login", "snd.activeCures.reset")</script>
@@ -68726,31 +68803,41 @@ function snd.attack_function()
   echo("\nYou haven't set up an attack alias yet!")
 end
 
-function snd.attack(attack)
-  local string = ""
+function snd.attack(attack, new)
+  local strr = ""
   if snd.needActive then
-    string = snd.activeCommand
+    str = snd.activeCommand
   else
-    string = attack
+    str = attack
   end
-  string = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .. "g remains" .. snd.sep .. string
+  str = snd.balancefree..str
+  str = "stand" .. snd.sep .. "g body" .. snd.sep .. "g husk" .. snd.sep .. "g remains" .. snd.sep .. str
   if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-    string = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. string
+    str = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. str
   end
-  
   for pipe, isEmpty in pairs(snd.emptypipes) do
     if isEmpty then
-      string = "outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe" .. snd.sep .. string
+      str = "outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe" .. snd.sep .. str
     end
   end
   
   if not snd.pipes_lit and snd.toggles.lighting then
-    string = "light pipes" .. snd.sep .. string
+    str = "light pipes" .. snd.sep .. str
   end
-
+  
+  if new then
+    if str ~= snd.last_attack and not snd.waiting.queue then
+			snd.last_attack = str
+			snd.waiting.queue = true
+			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+		else
+      return
+    end
+  end
+  
   if snd.class == "Wayfarer" then
     local axes = 0
-    local checkString = string:lower()
+    local checkString = str:lower()
     for attack, count in pairs(wf_axe_count) do
       if checkString:find(attack) then
         axes = count
@@ -68759,16 +68846,16 @@ function snd.attack(attack)
     end
     if axes == 2 then
       snd.send("qeb")
-      snd.send("queue axes2 " .. string)
+      snd.send("queue axes2 " .. str)
     elseif axes == 1 and not snd.can_axe() then
       snd.send("qeb")
-      snd.send("queue axe " .. string)
+      snd.send("queue axe " .. str)
     else
       snd.send("queue axes")
-      snd.send("qeb " .. string)
+      snd.send("qeb " .. str)
     end
   else
-    snd.send("qeb " .. string)
+    snd.send("qeb " .. str)
   end
 end
 
@@ -74799,10 +74886,11 @@ function snd.bashing_function()
       if snd.needActive then
         battack = snd.activeCommand
       end
-      
+      battack = snd.balancefree..battack
       if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
         battack = "overdrive" .. snd.sep .. battack .. snd.sep
       end
+      
       if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
         battack = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. battack
       end
