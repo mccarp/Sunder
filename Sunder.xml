@@ -64283,8 +64283,6 @@ function snd.affTimers.kill(aff)
   if snd.affTimers.list[aff] then
     killTimer(snd.affTimers.list[aff])
   end
-  display(aff)
-  display(snd.affTimers.list)
   snd.affTimers.list[aff] = nil
 end
 
