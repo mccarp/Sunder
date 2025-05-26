@@ -11420,6 +11420,38 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>dsw reset</name>
+								<script>disableTrigger("Sunder Dodge")
+disableTrigger("Sunder Parry")
+disableTrigger("Sunder Rebounding")
+snd.last_affs = {}
+snd.recent_affs = {}
+snd.last_limb_dmg = 0
+snd.bruisingHit = false
+if snd.last_hit_limb and snd.last_hit_limb~="none" then
+  snd.last_struck_limb = snd.last_hit_limb
+  snd.last_hit_limb = "none"
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) propels? \w+ to the side, preparing to strike with .+\.$</string>
+									<string>^With a fluid motion, (\w+) switch(?:es)? \w+ grip on .+\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Revenant</name>
 								<script></script>
@@ -15803,7 +15835,7 @@ end</script>
 										</Trigger>
 										<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 											<name>Initiating Omophagia</name>
-											<script>if snd.checkAff("voidtrapped") then
+											<script>if snd.checkAff("voidtrapped") or snd.checkAff("mystified") then
   snd.vt = true
 end</script>
 											<triggerType>0</triggerType>
