@@ -55683,7 +55683,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.19"
+local version = "11.1.21"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63162,6 +63162,8 @@ snd.alternative_class_defenses = {
   Luminary_insulation = { defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = { balanceequilibriumtake = "evoke warmth" }, state = "down", needit = false, timer = createStopWatch(), skill = "Warmth" },
   Ascendril_empowered_boar = { defense = "empowered_boar", type = "DarkOrange", effect = "extra health recovery", balance = { balanceequilibriumtake = "cast vivacity" }, state = "down", needit = false, timer = createStopWatch(), skill = "Vivacity" },
   Bloodborn_empowered_boar = { defense = "empowered_boar", type = "indian_red", effect = "extra health recovery", balance = { balanceequilibriumtake = "unleash acumen" }, state = "down", needit = false, timer = createStopWatch(), skill = "Acumen" },
+  Wayfarer_stalking = { defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = { balanceequilibriumtake = "stalk" }, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
+
 }
 
 function class_catch()
@@ -63228,6 +63230,10 @@ function class_catch()
   if snd.class == "Praenomen" then
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
     snd.defenses.def_hiding = snd.alternative_class_defenses.Praenomen_hiding
+  end
+  
+  if snd.class == "Wayfarer" then
+    snd.defenses.def_stalking = snd.alternative_class_defenses.Wayfarer_stalking
   end
   if snd.class == "Shapeshifter" then
     snd.defenses.def_celerity = snd.alternative_class_defenses.Shapeshifter_celerity
@@ -64277,6 +64283,14 @@ function snd.affTimers.kill(aff)
   if snd.affTimers.list[aff] then
     killTimer(snd.affTimers.list[aff])
   end
+  display(aff)
+  display(snd.affTimers.list)
+  snd.affTimers.list[aff] = nil
+end
+
+function snd.affTimers.getTime(aff)
+  if not snd.affTimers.list[aff] then return 0 end
+  return remainingTime(snd.affTimers.list[aff])
 end
 
 --- Start an affliction timer.
@@ -67850,7 +67864,7 @@ function snd.target_cured(affliction)
       --elseif snd.checkAff("no_caloric") then snd.target_cured("no_caloric")
     end
   end
-  snd.affTimers.kill(aff)
+  snd.affTimers.kill(affliction)
 
   if snd.checkAff("a_crippled_arm") and (affliction == "right_arm_crippled" or affliction == "left_arm_crippled") and not snd.checkAff(affliction) then
     affliction = "a_crippled_arm"
@@ -70236,8 +70250,12 @@ end
       end
     end,
     Sealing = function(target, shape)
-      snd.target_got(shape .. "_sealed")
-      snd.affTimers.start(shape .. "_sealed", 31)
+      snd.target_got("sealing_"..shape)
+      for _, aff in pairs({"sealing_square","sealing_circle","sealing_triangle"}) do
+        if snd.checkAff(aff) then
+          snd.affTimers.start(aff, 31, true)
+        end
+      end
     end,
     Fork = function(target)
       snd.used.shield = false
@@ -73221,13 +73239,11 @@ end
       end
     end,
     Etch = function(target, shape)
-      snd.target_got(shape .. "_etched")
-      if shape == "fear" then
-        tempTimer(6, [[snd.target_cured("fear_etched")]])
-      elseif shape == "disgust" then
-        tempTimer(6, [[snd.target_cured("disgust_etched")]])
-      elseif shape == "joy" then
-        tempTimer(6, [[snd.target_cured("joy_etched")]])
+      snd.target_got("etched_"..shape)
+      for _, aff in pairs({"etched_fear","etched_disgust","edged_joy"}) do
+        if snd.checkAff(aff) then
+          snd.affTimers.start(aff, 31, true)
+        end
       end
     end,
     Anger = function(target)
