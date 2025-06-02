@@ -13421,7 +13421,7 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You may throw another needle.</string>
-									<string>You fling a thin needle but your aim is off, missing \w+.</string>
+									<string>^You fling a thin needle but your aim is off, missing \w+.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
@@ -26196,7 +26196,7 @@ snd.hidden_afflictions = 0</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Synthesis Animation gate.</name>
 						<script>local modifier = matches[5]~="" and matches[5] or nil
-if matches[6] == snd.target then
+if matches[6] == snd.target and snd.all_class_attacks[matches[3]] and snd.all_class_attacks[matches[3]][matches[4]] then
   snd.getting_hit = target
   snd.skill_being_used = matches[4]
   snd.all_class_attacks[matches[3]][matches[4]](target, modifier)
@@ -55683,7 +55683,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.21"
+local version = "11.1.22"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -56263,6 +56263,13 @@ end
 						<command></command>
 						<packageName></packageName>
 						<regex>^(mygauntlet|mygauntlet (\d+))$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>toggle camouflage</name>
+						<script>snd.toggle("camouflage")</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle camouflage$</regex>
 					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
@@ -57374,6 +57381,7 @@ snd.toggles = snd.toggles or {
   monomode = "calling",
   webAnnounce = false, --whether or not you call out some things on web
   lifesense = false,
+  camouflage = false, -- use the camouflage defense
   pagelength = "30",
 }</script>
 					<eventHandlerList />
@@ -59201,6 +59209,7 @@ snd.priorities =
   "dome",
   "def_safeguard",
   "def_mindseye",
+  "def_camouflage",
   -- "def_miasma",
   -- "def_warmth",
   "def_cloak",
@@ -61812,7 +61821,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_legblock       = { defense = "legblock", type = "normal", effect = "Retaliatory leg hits", balance = { balanceequilibriumtake = "lsb" }, skill = "Legblock" },
   def_tripblock      = { defense = "tripblock", type = "normal", effect = "Chance to trip aggressors", balance = { balanceequilibriumtake = "trb" }, skill = "Tripblock" },
   def_pinchblock     = { defense = "pinchblock", type = "normal", effect = "Can knock low health opponents unconscious", balance = { balanceequilibriumtake = "pnb" }, skill = "Pinchblock" },
-
+  def_camouflage     = { defense = "camouflage", type = "normal", effect = "auto hide after 5 secs", balance = { balanceequilibrium = "camouflage" }, skill = "Generic"}, 
 
   --Generic skills or occurs in more than one
   def_treewatch = { defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = { special = "treewatch on" }, skill = "Treewatch" },
@@ -62587,6 +62596,7 @@ end</script>
 				<name>most defenses</name>
 				<packageName></packageName>
 				<script>snd.defenses_list = {
+  ["You are camouflaging yourself."] = "camouflage",
   ["You are trying to absorb blows to your body."] = "bodyblock",
   ["You are using Tekura to evade incoming attacks."] = "evadeblock",
   ["You will attack the arms of hostile opponents."] = "armblock",
@@ -63379,6 +63389,7 @@ function snd.load_def2(option)
       --add chameleon if you have the toggle for it
       snd.defenses.def_chameleon.needit = snd.toggles.chameleon
       snd.defenses.def_lifesense.needit = snd.toggles.lifesense
+      snd.defenses.def_camouflage.needit = snd.toggles.camouflage
     end
   else
     snd.message("No such defense option as &lt;red&gt;" .. option .. "&lt;white&gt;!", "echo")
