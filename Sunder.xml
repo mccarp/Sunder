@@ -55733,7 +55733,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.23"
+local version = "11.1.24"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -75205,6 +75205,7 @@ snd.global_targets = {
   "a shattered eld monstrosity",
   "a fiery crimson fragmented eld",
   "a skittering verdant eld",
+  "a sickly chartreuse eld",
 
   --survivor
   "a living puppet",
@@ -76304,7 +76305,7 @@ snd.bashing_area_beginning_rooms = {
   ["Beggar's Barrow"] = "41261",
   ["an abandoned hideout of the Red Hands"] = "60651",
   ["a bandit encampment in the Bonro Sands"] = "60323",
-  ["the Vault of Domor"] = "49047",
+  ["the Vault of Domor"] = "49046",
   ["Sunwash Ascent"] = "39167",
   ["Clawhook Range"] = "49546",
   ["the Underbelly"] = "49440",
@@ -87318,6 +87319,7 @@ sunder_areaPaths = {
     v60333 = "60211"
   },
   ["the Vault of Domor"] = {
+    v49046 = "49047",
     v49047 = "49048",
     v49048 = "75508",
     v49050 = "49052",
