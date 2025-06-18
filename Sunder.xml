@@ -13682,7 +13682,7 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Charity Finished</name>
 									<script>if snd.target == matches[2] then
-  snd.target_got("magnanimity")
+  snd.target_got("peace")
 end
 </script>
 									<triggerType>0</triggerType>
@@ -55733,7 +55733,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.1.24"
+local version = "11.1.25"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
