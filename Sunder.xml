@@ -55758,7 +55758,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.0"
+local version = "11.2.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70229,6 +70229,9 @@ end
     Epilepsy = function(target)
       snd.target_got("epilepsy")
     end,
+    Psychosis = function(target)
+      snd.target_got("psychosis")
+    end,
     Anorexia = function(target)
       snd.target_got("anorexia")
     end,
@@ -72529,6 +72532,9 @@ end
       if not failure then
         snd.target_got("disrupted")
       end
+    end,
+    Psychosis = function(target)
+      snd.target_got("psychosis")
     end,
   },
 
