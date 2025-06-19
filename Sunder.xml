@@ -62137,7 +62137,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_celerity             = { defense = "celerity", type = "normal", effect = "Increased movement speed", balance = { balanceequilibriumtake = "celerity" }, skill = "Celerity" },
   def_lifescent            = { defense = "lifescent", type = "normal", effect = "Detect nearby prey movements", balance = { balanceequilibriumtake = "lifescent" }, skill = "Lifescent" },
   def_concentrate          = { defense = "concentrate", type = "normal", effect = "Make your blood use more efficient", balance = { balanceequilibriumtake = "blood concentrate" }, skill = "Concentration", tree = "Sanguis" },
-  def_shadowblow           = { defense = "shadowblow", type = "normal", effect = "Your shadow strikes out at your attacker", balance = { balanceequilibriumtake = "blood shadow" }, skill = "Shadow" },
+  def_shadowblow           = { defense = "shadowblow", type = "normal", effect = "Your shadow strikes out at your attacker", balance = { balanceequilibriumtake = "blood shadowblow" }, skill = "Shadowblow" },
   def_blurred              = { defense = "blurred", type = "normal", effect = "Others cannot see your vitals", balance = { balanceequilibriumtake = "blood blur" }, skill = "Blur" },
   def_elusion              = { defense = "elusion", type = "normal", effect = "You avoid opponents' blows", balance = { balanceequilibriumtake = "elusion on" }, skill = "Elusion" },
   def_deathlink            = { defense = "deathlink", type = "normal", effect = "You are linked to your coffin", balance = { balanceequilibriumtake = "deathlink" }, skill = "Deathlink" },
