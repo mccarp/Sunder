@@ -55732,7 +55732,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.1"
+local version = "11.2.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
