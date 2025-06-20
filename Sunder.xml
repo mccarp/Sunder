@@ -3657,32 +3657,6 @@ end
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>deafness</name>
-									<script>if matches[2] == snd.target then
-	snd.target_got("hearing")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+) clutches .+ ears, attempting to block out an unheard noise.$</string>
-										<string>^The lion head upon your chimera suddenly opens its maw and lets forth a mighty roar at (\w+), stunning .+ with its power.$</string>
-										<string>^The lion head upon your chimera lets forth a powerful roar at (\w+), but .+ appears unfazed by the attack.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Paresis symptoms</name>
 									<script>if matches[2] == snd.target then
 	snd.target_got("paresis")
@@ -59758,6 +59732,8 @@ snd.priorities =
   "def_consciousness",
   "def_exaction",
   "def_bloodwisp",
+  "def_strengthening",
+  "def_spiritbolster",
 }
 end
 snd.reset_priorities()
@@ -61961,11 +61937,11 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_acuity                     = { defense = "acuity", type = "ivory", effect = "Detect nearby movements", balance = { balanceequilibriumtake = "acuity" }, skill = "Acuity" },
   def_transience                 = { defense = "transience", type = "ivory", effect = "You avoid opponents' blows", balance = { balanceequilibriumtake = "transience" }, skill = "Transience" },
   def_entrench                   = { defense = "entrench", type = "ivory", effect = "You are linked to your coffin", balance = { balanceequilibriumtake = "entrench" }, skill = "Entrench" },
-  def_ascetic                    = { defense = "ascetic", type = "ivory", effect = "Make your spirit use more efficient", balance = { balanceequilibriumtake = "spirit ascetic" }, skill = "Ascetic" },
+  def_ascetic                    = { defense = "ascetic", type = "ivory", effect = "Make your spirit use more efficient", balance = { balanceequilibrium = "spirit ascetic" }, skill = "Ascetic" },
   def_retaliation                = { defense = "retaliation", type = "ivory", effect = "The Light strikes out at your attacker", balance = { balanceequilibriumtake = "spirit retaliation" }, skill = "Retaliation" },
   def_suppressed                 = { defense = "suppressed", type = "ivory", effect = "Others cannot see your vitals", balance = { balanceequilibriumtake = "spirit suppress" }, skill = "Suppress" },
   def_holylight                  = { defense = "holylight", type = "ivory", effect = "Strike fear into enemies with the Light", balance = { balanceequilibriumtake = "spirit light" }, skill = "Light" },
-  def_spiritbolster              = { defense = "spiritbolster", type = "ivory", effect = "Reduce damage to your squire by half", balance = { balanceequilibriumtake = "spirit bolster" }, skill = "Bolster" },
+  def_spiritbolster              = { defense = "spiritbolster", type = "ivory", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "spirit bolster" }, skill = "Bolster" },
   def_unbroken                   = { defense = "unbroken", type = "ivory", effect = "Damage will not break you.", balance = { balanceequilibriumtake = "spirit unbroken" }, skill = "Unbroken" },
   def_transcendence              = { defense = "transcendence", type = "ivory", effect = "Transcend mortal limitations", balance = { balanceequilibriumtake = "spirit transcend" }, skill = "Transcend" },
   def_exaction                   = { defense = "exaction", type = "normal", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "spirit exaction"}, skill = "Exaction"},
@@ -62136,7 +62112,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_corpus_warding       = { defense = "corpus_warding", type = "normal", effect = "Fortify your body to take less magical damage", balance = { balanceequilibriumtake = "ward" }, skill = "Warding" },
   def_celerity             = { defense = "celerity", type = "normal", effect = "Increased movement speed", balance = { balanceequilibriumtake = "celerity" }, skill = "Celerity" },
   def_lifescent            = { defense = "lifescent", type = "normal", effect = "Detect nearby prey movements", balance = { balanceequilibriumtake = "lifescent" }, skill = "Lifescent" },
-  def_concentrate          = { defense = "concentrate", type = "normal", effect = "Make your blood use more efficient", balance = { balanceequilibriumtake = "blood concentrate" }, skill = "Concentration", tree = "Sanguis" },
+  def_concentrate          = { defense = "concentrate", type = "normal", effect = "Make your blood use more efficient", balance = { balanceequilibrium = "blood concentrate" }, skill = "Concentration", tree = "Sanguis" },
   def_shadowblow           = { defense = "shadowblow", type = "normal", effect = "Your shadow strikes out at your attacker", balance = { balanceequilibriumtake = "blood shadowblow" }, skill = "Shadowblow" },
   def_blurred              = { defense = "blurred", type = "normal", effect = "Others cannot see your vitals", balance = { balanceequilibriumtake = "blood blur" }, skill = "Blur" },
   def_elusion              = { defense = "elusion", type = "normal", effect = "You avoid opponents' blows", balance = { balanceequilibriumtake = "elusion on" }, skill = "Elusion" },
@@ -62146,6 +62122,8 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_arrow_catching       = { defense = "arrow_catching", type = "normal", effect = "You have a chance to catch arrows", balance = { balanceequilibriumtake = "catching" }, skill = "Catching" },
   def_trepidation          = { defense = "trepidation", type = "normal", effect = "Anxieties 4 enemies", balance = { balanceequilibriumtake = "blood trepidation" }, skill = "Trepidation" },
   def_bloodwisp            = { defense = "bloodwisp", type = "normal", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "blood wisp"}, skill = "Wisp" },
+  def_strengthening        = { defense = "strengthening", type = "normal", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "blood strengthen" }, skill = "Strengthen" },
+
   --Ravager
   def_vinculum             = { defense = "vinculum", type = "normal", effect = "Enabled your use of abilities", balance = { balanceequilibriumtake = "invoke vinculum" }, skill = "Vinculum" },
   def_ruthlessness         = { defense = "ruthlessness", type = "normal", effect = "Resist cutting and blunt dmg", balance = { balanceequilibriumtake = "invoke ruthlessness" }, skill = "Ruthlessness" },
@@ -63013,6 +62991,7 @@ end</script>
   ["You are refreshed and refocused."] = "warding_rigor",
   ["Your hound has created an opportunity for you to strike."] = "hound_opening",
   ["Your blood is strengthening the ties to your coffin."] = "deathlink",
+  ["You have strengthened your bond with your minion."] = "strengthening",
   ["Your firefly tattoo glows softly."] = "firefly",
   ["Your wrath allows you to see through others."] = "wrath",
   ["Your spirit will surge with power should it falter."] = "resurgence",
@@ -63214,7 +63193,7 @@ end</script>
   
   ["Your faith is buoyed by your own holy spirit."] = "exaction",
   ["Your blood wisp floats about your head."] = "bloodwisp",
-
+  ["Your squire's resolve and resilience are bolstered."] = "spiritbolster",
 }
 </script>
 				<eventHandlerList />
@@ -63518,7 +63497,7 @@ end
     def_ascetic = "on",
     def_holylight = "once",
     def_exaction = "once",
-    
+    def_spiritbolster = "once",
   },
 
 
@@ -63662,6 +63641,7 @@ end
     def_trepidation = "once",
     -- def_deathlink = "on",
     def_bloodwisp = "once",
+    def_strengthening = "once",
   },
 
   ravager = {
@@ -70301,8 +70281,7 @@ end
     Effusion = function(target)
       snd.target_got("effused_blood")
     end,
-    Seize = function(target)
-      snd.target_got("loneliness")
+    Thrombus = function(target)
     end,
   },
 
@@ -72579,7 +72558,6 @@ end
       snd.target_got("effused_blood")
     end,
     Inquisition = function(target)
-      snd.target_got("loneliness")
     end,
   },
 
