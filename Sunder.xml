@@ -4052,6 +4052,52 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Shock</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("shock")
+  snd.affTimers.start("shock", 20, true)
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The horrible wounds upon (\w+)'s body send \w+ into shock\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Burnout</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("burnout")
+  snd.affTimers.start("burnout", 20, true)
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+)'s eyes dim, \w+ mind swelling with fatigue\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -55732,7 +55778,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.3"
+local version = "11.2.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59721,8 +59767,8 @@ snd.priorities =
 
   "def_diminution",
   "def_putrefaction",
-  "def_tapestry",
-  "def_morisensus",
+  -- "def_tapestry",
+  -- "def_morisensus",
 
   --Wayfarer
   "def_axe_obstruct",
@@ -63585,7 +63631,7 @@ end
     def_eclipse = "on",
     -- def_devilpact = "on",
     def_soulcage = "on",
-    def_morisensus = "once",
+    -- def_morisensus = "once",
   },
 
   luminary = {
@@ -63621,7 +63667,7 @@ end
     def_fan = "once",
     def_crane = "on",
     def_cloud = "on",
-    def_tapestry = "once",
+    -- def_tapestry = "once",
     --def_faerie = "on",
   },
 
@@ -68151,6 +68197,7 @@ end
 					<packageName></packageName>
 					<script>local conditionalCounts = {
   ["Double Aff"] = 2,
+  ["Triple Aff"] = 3,
   ["Teradrim Skullbash"] = 3,
   ["Tidesage Gybe"] = 3,
 }
@@ -69380,8 +69427,8 @@ end
       snd.last_hit_limb = "head"
       snd.last_limb_dmg = 6
       snd.took_limb_dmg("head", snd.last_limb_dmg)
-      snd.maybe_affs = {"stupidity", "dizziness"}
-      snd.onHit2({ "Dodge", "Parry" }, "Double Aff")
+      snd.maybe_affs = {"stupidity", "dizziness", "plodding",}
+      snd.onHit2({ "Dodge", "Parry" }, "Triple Aff")
     end,
     Direblow = function(target)
       enableTrigger("Direblow Hit Confirmation")
@@ -69508,8 +69555,8 @@ end
       snd.last_hit_limb = "head"
       snd.last_limb_dmg = 6
       snd.took_limb_dmg("head", snd.last_limb_dmg)
-      snd.maybe_affs = {"stupidity", "dizziness"}
-      snd.onHit2({ "Dodge", "Parry" }, "Double Aff")
+      snd.maybe_affs = {"stupidity", "dizziness", "plodding",}
+      snd.onHit2({ "Dodge", "Parry" }, "Triple Aff")
     end,
     Rampage = function(target, conditional)
       snd.blitz = true
