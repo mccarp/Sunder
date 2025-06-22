@@ -33220,8 +33220,8 @@ snd.balance.ethereal = false</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You may demand their attendance once more.</string>
 										<string>You can spew your blood once more.</string>
+										<string>Your voice returns fully, you can demand their attendance once more.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>3</integer>
@@ -55778,7 +55778,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.4"
+local version = "11.2.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61922,6 +61922,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_tripblock      = { defense = "tripblock", type = "normal", effect = "Chance to trip aggressors", balance = { balanceequilibriumtake = "trb" }, skill = "Tripblock" },
   def_pinchblock     = { defense = "pinchblock", type = "normal", effect = "Can knock low health opponents unconscious", balance = { balanceequilibriumtake = "pnb" }, skill = "Pinchblock" },
   def_camouflage     = { defense = "camouflage", type = "normal", effect = "auto hide after 5 secs", balance = { balanceequilibrium = "camouflage" }, skill = "Generic"}, 
+  def_harmony        = { defense = "harmony", type = "normal", effect = "See people cure while out of room", balance = {vial = "harmony"}, skill = "Generic"},
 
   --Generic skills or occurs in more than one
   def_treewatch = { defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = { special = "treewatch on" }, skill = "Treewatch" },
@@ -61991,6 +61992,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_unbroken                   = { defense = "unbroken", type = "ivory", effect = "Damage will not break you.", balance = { balanceequilibriumtake = "spirit unbroken" }, skill = "Unbroken" },
   def_transcendence              = { defense = "transcendence", type = "ivory", effect = "Transcend mortal limitations", balance = { balanceequilibriumtake = "spirit transcend" }, skill = "Transcend" },
   def_exaction                   = { defense = "exaction", type = "normal", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "spirit exaction"}, skill = "Exaction"},
+  def_adjudicate                 = { defense = "adjudicate", type = "normal", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Adjudicate"},
   --Alchemist
   def_interposition              = { defense = "interposition", type = "normal", effect = "Share damage with your experiment.", balance = { balanceequilibriumtake = "experiment interposition on" }, skill = "Interposition" },
   def_obfuscation                = { defense = "obfuscation", type = "normal", effect = "Resistance to cutting/blunt.", balance = { balanceequilibriumtake = "derive obfuscation" }, skill = "Obfuscation" },
@@ -62169,6 +62171,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_trepidation          = { defense = "trepidation", type = "normal", effect = "Anxieties 4 enemies", balance = { balanceequilibriumtake = "blood trepidation" }, skill = "Trepidation" },
   def_bloodwisp            = { defense = "bloodwisp", type = "normal", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "blood wisp"}, skill = "Wisp" },
   def_strengthening        = { defense = "strengthening", type = "normal", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "blood strengthen" }, skill = "Strengthen" },
+  def_bloodhunger          = { defense = "bloodhunger", type = "normal", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Ravish"},
 
   --Ravager
   def_vinculum             = { defense = "vinculum", type = "normal", effect = "Enabled your use of abilities", balance = { balanceequilibriumtake = "invoke vinculum" }, skill = "Vinculum" },
@@ -63240,6 +63243,9 @@ end</script>
   ["Your faith is buoyed by your own holy spirit."] = "exaction",
   ["Your blood wisp floats about your head."] = "bloodwisp",
   ["Your squire's resolve and resilience are bolstered."] = "spiritbolster",
+  ["You are trembling with excitement from the taste of blood."] = "bloodhunger",
+  ["Your mind races with zeal, ready to deliver sentence."] = "adjudicate",
+  ["Your thoughts are harmonized"] = "harmony",
 }
 </script>
 				<eventHandlerList />
