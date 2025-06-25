@@ -33270,10 +33270,14 @@ snd.balance.ethereal = false</script>
 									<regexCodeList>
 										<string>You cannot yet undertake another holy inquisition.</string>
 										<string>^You use Discipline Inquisition on \w+.$</string>
+										<string>You use Sanguis Thrombus on</string>
+										<string>You are not able to create a blood clot again just yet.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>3</integer>
 										<integer>1</integer>
+										<integer>2</integer>
+										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -33291,8 +33295,10 @@ snd.balance.ethereal = false</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>You may undertake another holy inquisition.</string>
+										<string>You can seize the blood within another once more.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>3</integer>
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -55778,7 +55784,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.5"
+local version = "11.2.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70216,8 +70222,11 @@ end
       enableTrigger("Weapon Hit Confirmation")
     end,
 
-    Clawing = function(target)
-      snd.target_got("rend")
+    Clawing = function(target, miss)
+      if not miss then
+        table.insert(snd.maybe_affs,1,"rend")
+        snd.onHit2({ "Dodge" })
+      end
     end,
 
   },
@@ -70306,9 +70315,18 @@ end
     end,
 
     Spew = function(target)
-      snd.target_got("blisters")
-      snd.target_got("impairment")
-      snd.target_got("vomiting")
+      if snd.checkAff("hubris") then
+        snd.target_got("blisters")
+      end
+      if snd.checkAff("self_pity") then
+        snd.target_got("impairment")
+      end
+      if snd.checkAff("sadness") then
+        snd.target_got("vomiting")
+      end
+      if snd.checkAff("mercy") then
+        snd.target_got("haemophilia")
+      end
     end,
 
     Feast = function(target, fail)
@@ -72477,8 +72495,11 @@ end
       enableTrigger("Weapon Hit Confirmation")
     end,
 
-    Bloodlet = function(target)
-      snd.target_got("rend")
+    Bloodlet = function(target, miss)
+      if not miss then
+        table.insert(snd.maybe_affs,1,"rend")
+        snd.onHit2({ "Dodge" })
+      end
     end,
     Exorcism = function(target, fail)
       if not fail then
@@ -72584,9 +72605,18 @@ end
     end,
 
     Attend = function(target)
-      snd.target_got("blisters")
-      snd.target_got("impairment")
-      snd.target_got("vomiting")
+      if snd.checkAff("hubris") then
+        snd.target_got("blisters")
+      end
+      if snd.checkAff("self_pity") then
+        snd.target_got("impairment")
+      end
+      if snd.checkAff("sadness") then
+        snd.target_got("vomiting")
+      end
+      if snd.checkAff("mercy") then
+        snd.target_got("haemophilia")
+      end
     end,
 
     Exorcism = function(target, fail)
