@@ -26414,7 +26414,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+)\s+((?:[\w\-,'\.]+ ?)+)\s+(\w+)(?:\s+\[OFF\])?$</string>
+								<string>^(\w+)\s+((?:[\w\-,'\.&amp;]+ ?)+)\s+(\w+)(?:\s+\[OFF\])?$</string>
 								<string>^(\w+)(\s+)(\w+)(?:\s+\[OFF\])?$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -55784,7 +55784,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.6"
+local version = "11.2.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
