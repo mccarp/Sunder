@@ -55841,7 +55841,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.8"
+local version = "11.2.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70399,11 +70399,8 @@ end
       if not fail then
         snd.target_got("feast")
         snd.affTimers.start("feast", 19.5)
-        snd.used.paste = false
-        snd.target_got("no_paste")
       else
         snd.target_cured("feast")
-        snd.target_cured("no_paste")
       end
     end,
 
@@ -72572,11 +72569,8 @@ end
       if not fail then
         snd.target_got("feast")
         snd.affTimers.start("feast", 19.5)
-        snd.used.paste = false
-        snd.target_got("no_paste")
       else
         snd.target_cured("feast")
-        snd.target_cured("no_paste")
       end
     end,
   },
