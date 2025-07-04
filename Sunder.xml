@@ -55841,7 +55841,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.10"
+local version = "11.2.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -73487,7 +73487,7 @@ end
     end,
     Etch = function(target, shape)
       snd.target_got("etched_"..shape)
-      for _, aff in pairs({"etched_fear","etched_disgust","edged_joy"}) do
+      for _, aff in pairs({"etched_fear","etched_disgust","etched_joy"}) do
         if snd.checkAff(aff) then
           snd.affTimers.start(aff, 31, true)
         end
