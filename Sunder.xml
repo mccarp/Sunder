@@ -55841,7 +55841,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.9"
+local version = "11.2.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -56428,6 +56428,13 @@ end
 						<command></command>
 						<packageName></packageName>
 						<regex>^toggle camouflage$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>^toggle mindseye$</name>
+						<script>snd.toggle("mindseye")</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle mindseye$</regex>
 					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
@@ -57541,6 +57548,7 @@ snd.toggles = snd.toggles or {
   lifesense = false,
   camouflage = false, -- use the camouflage defense
   pagelength = "30",
+  mindseye = true, --use mindseye?
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -63527,6 +63535,9 @@ function snd.load_def2(option)
     not string.find(gmcp.Char.Status.race, "Tekal") then
         snd.def_options[option]["def_safeguard"] = "on"
     end
+    
+    snd.def_options.general_defs.def_mindseye = snd.toggles.mindseye and "once" or nil
+    
     --    end
     local my_def_choice_and_generic_defenses = {}
     if option ~= "none" then
@@ -63585,7 +63596,7 @@ end
 
   general_defs = {
     def_thirdeye = "on",
-    def_mindseye = "once",
+    -- def_mindseye = "once",
     def_cloak = "on",
     def_instawake = "on",
     def_deathsight = "on",
