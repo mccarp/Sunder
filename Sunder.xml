@@ -2975,6 +2975,33 @@ end
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>holy light no courage</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("sadness")
+  snd.target_got("hubris")
+  snd.target_got("self_pity")
+  snd.target_got("no_courage")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+)'s poise falters beneath the harsh glory of the light, \w+ courage melting away\.$</string>
+									<string>^Summoning your might, (\w+)'s courage is shattered by the sanguine blood exuding your will\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Exsanguinate</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("effused_blood")
@@ -3186,6 +3213,30 @@ end</script>
 								<regexCodeList>
 									<string>^A crushing combination of blows sends (\w+) reeling to \w+ knees\.$</string>
 									<string>^The craze and ferocity of the blows flings (\w+) to the floor\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Wisp/exaction</name>
+								<script>if matches[2]:find(snd.target) then
+  snd.target_got("haemophilia")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Your blood-willed wisp inflicts itself upon (.+)\.$</string>
+									<string>^Your light exacts harm upon (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -9020,6 +9071,9 @@ end
 								<name>Arm block proc</name>
 								<script>if snd.target == matches[2] then
   snd.last_limb_dmg = 8
+  if snd.stance == "cobra" or snd.stance == "tiger" then
+    snd.last_limb_dmg = snd.last_limb_dmg * 1.2
+  end
   snd.last_hit_limb = matches[3]
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end</script>
@@ -9044,6 +9098,9 @@ end</script>
 								<name>Leg block proc</name>
 								<script>if snd.target == matches[2] then
   snd.last_limb_dmg = 8
+  if snd.stance == "cobra" or snd.stance == "tiger" then
+    snd.last_limb_dmg = snd.last_limb_dmg * 1.2
+  end
   snd.last_hit_limb = matches[3]
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
 end</script>
@@ -55784,7 +55841,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.7"
+local version = "11.2.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -69397,6 +69454,9 @@ end
       snd.target_got("fallen")
     end,
     Dislocate = function(target, limb)
+      if snd.checkAff(limb.."_broken") then
+        return
+      end
       table.insert(snd.maybe_affs, 1, limb .. "_dislocated")
       snd.onHit2({ "Dodge", "Parry" })
     end,
@@ -69525,6 +69585,9 @@ end
       snd.target_got("fallen")
     end,
     Bustup = function(target, limb)
+      if snd.checkAff(limb.."_broken") then
+        return
+      end
       table.insert(snd.maybe_affs, 1, limb .. "_dislocated")
       snd.onHit2({ "Dodge", "Parry" })
     end,
@@ -70052,7 +70115,9 @@ end
         snd.target_got("hallucinations")
       end
     end,
-    Effusion    = function(target, boosted)
+    Effusion    = function(target, boosted, ally)
+      if boosted == "ally" or ally then return end
+      
       snd.target_got("no_courage")
       if boosted then
         snd.target_got("sensitivity")
@@ -70315,6 +70380,7 @@ end
     end,
 
     Spew = function(target)
+      snd.target_got("ringing_ears")
       if snd.checkAff("hubris") then
         snd.target_got("blisters")
       end
@@ -70324,8 +70390,8 @@ end
       if snd.checkAff("sadness") then
         snd.target_got("vomiting")
       end
-      if snd.checkAff("mercy") then
-        snd.target_got("haemophilia")
+      if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
+        snd.target_got("no_courage")
       end
     end,
 
@@ -72441,7 +72507,8 @@ end
         snd.target_got("hallucinations")
       end
     end,
-    Rousing      = function(target, boosted) --33 fabled
+    Rousing      = function(target, boosted, ally)
+      if boosted == "ally" or ally then return end
       snd.target_got("no_courage")
       if boosted then
         snd.target_got("sensitivity")
@@ -72605,6 +72672,7 @@ end
     end,
 
     Attend = function(target)
+      snd.target_got("ringing_ears")
       if snd.checkAff("hubris") then
         snd.target_got("blisters")
       end
@@ -72614,8 +72682,8 @@ end
       if snd.checkAff("sadness") then
         snd.target_got("vomiting")
       end
-      if snd.checkAff("mercy") then
-        snd.target_got("haemophilia")
+      if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
+        snd.target_got("no_courage")
       end
     end,
 
@@ -73833,6 +73901,17 @@ function snd.calc.crescentcutMultiplier()
   end
   return multi
 end
+
+function snd.calc.sepsis()
+  if not snd.checkAff("sepsis") then return 0 end
+  local count = (snd.checksomeAffs(snd.cures.euphoriant, 1) and 1 or 0) + 
+                (snd.checksomeAffs(snd.cures.antipsychotic, 1) and 1 or 0) +
+                (snd.checksomeAffs(snd.cures.depressant, 1) and 1 or 0)
+  if count &gt; 0 then
+    return count * .3 -.1
+  end
+  return 0
+end
 </script>
 				<eventHandlerList />
 			</Script>
@@ -73946,6 +74025,8 @@ function snd.track_pill(target)
     if snd.last_cure and snd.last_cure == "panacea" then
       limit = limit * 2
     end
+    limit = limit + snd.calc.sepsis()
+    
     if snd.checkAff("aeon") then
       limit = limit+1
     end
@@ -73994,6 +74075,8 @@ function snd.track_restoration(target)
     if snd.checkAff("blob") then
       limit = limit+.3
     end
+    limit = limit + snd.calc.sepsis()
+
     snd.timers.restoration.limit = limit
   end
 end
@@ -74008,6 +74091,7 @@ function snd.track_salve(target)
     if snd.checkAff("blob") then
       limit = limit+.3
     end
+    limit = limit + snd.calc.sepsis()
     snd.timers.restoration.limit = limit
   end
 end
