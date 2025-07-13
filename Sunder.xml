@@ -44262,7 +44262,7 @@ end</script>
     "stupidity",
     "anorexia",
     "epilepsy",
-    "sensitivity",
+    "ringing_ears",
     "vomiting",
     "lethargy",
     "confusion",
@@ -49937,7 +49937,7 @@ if snd.class == "Oneiromancer" then
     "stupidity",
     "anorexia",
     "epilepsy",
-    "sensitivity",
+    "ringing_ears",
     "vomiting",
     "lethargy",
     "confusion",
@@ -50089,7 +50089,7 @@ end
       "stupidity",
       "anorexia",
       "epilepsy",
-      "sensitivity",
+      "ringing_ears",
       "vomiting",
       "lethargy",
       "confusion",
@@ -55446,7 +55446,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.12"
+local version = "11.2.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
