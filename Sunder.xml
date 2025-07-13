@@ -38590,16 +38590,14 @@ end</script>
   function snd.attack_function()
     snd.giving =
       {
-        "left_leg_crippled",
-        "right_leg_crippled",
-        "left_arm_crippled",
-        "right_arm_crippled",
+        "feeble_legs",
+        "feeble_arms",
         "anorexia",
         "stupidity",
         "asthma",
         "slickness",
         "paresis",
-        "sensitivity",
+        "ringing_ears",
         "voyria",
       }
     local aff = "paresis" --default aff in case none is found
@@ -38691,7 +38689,7 @@ end</script>
       "allergies",
       "vomiting",
       "haemophilia",
-      "sensitivity",
+      "ringing_ears",
       "stupidity",
       "recklessness",
       "weariness",
@@ -39378,7 +39376,7 @@ end
         "slickness",
         "stupidity",
         "anorexia",
-        "sensitivity",
+        "ringing_ears",
         --"haemophilia",
         --"recklessness",
         "weariness",
@@ -40337,7 +40335,7 @@ end
 
       -- set the affs we want to use
       snd.giving = {
-        "sensitivity",
+        "ringing_ears",
         "clumsiness",
         "allergies",
         "vomiting",
@@ -40452,7 +40450,7 @@ end
         "stupidity",
         "paresis",
         "clumsiness",
-        "sensitivity",
+        "ringing_ears",
       }
       if #missing == 2 and not snd.used.shield and not snd.used.rebounding then
         venom = snd.effects[missing[1]]
@@ -40714,7 +40712,7 @@ end
           "shyness",
           "dizziness",
           "weariness",
-          "sensitivity",
+          "ringing_ears",
           "haemophilia",
           "vomiting",
           "allergies",
@@ -40909,7 +40907,7 @@ function snd.attack_function() -- defining this function is how we tell sunder w
     snd.giving = {
   "paresis",
   "clumsiness",
-  "sensitivity",
+  "ringing_ears",
   "asthma",
   "shyness",
   "haemophilia",
@@ -41105,7 +41103,7 @@ end
           "shyness",
           "dizziness",
           "weariness",
-          "sensitivity",
+          "ringing_ears",
           "haemophilia",
           "vomiting",
           "allergies",
@@ -42156,7 +42154,7 @@ end</script>
       elseif (snd.proned() and hasSkill("Pulp")) and not snd.checkAff("collapsed_lung") then
         string = string .. "earth pulp " .. snd.target
         -- If we get slough up, let's throw out some useful group affs going.
-      elseif snd.checksomeAffs({ "recklessness", "dizziness", "sensitivity", "epilepsy", "stupidity" }, 4) and hasSkill("Whip") then
+      elseif not snd.checksomeAffs({ "recklessness", "dizziness", "ringing_ears", "epilepsy", "stupidity" }, 4) and hasSkill("Whip") then
         string = "sand whip " .. snd.target
         -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
       elseif not snd.checksomeAffs({ "left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled" }, 4) and hasSkill("Scourge") then
@@ -42251,7 +42249,7 @@ end</script>
 							<Alias isActive="yes" isFolder="no">
 								<name>mana drain</name>
 								<script>if snd.class == "Earthcaller" then
-  snd.giving_spur = { "stupidity", "vertigo", "self_pity", "migraine", "sensitivity", "impatience" }
+  snd.giving_spur = { "stupidity", "vertigo", "self_pity", "migraine", "ringing_ears", "impatience" }
   snd.giving_subdue =
   {
     "lethargy",
@@ -42452,7 +42450,7 @@ end
 							<Alias isActive="yes" isFolder="no">
 								<name>Smite - Straight damage</name>
 								<script>if snd.class == "Earthcaller" then
-  snd.giving_spur = { "sensitivity", "stupidity", "vertigo", "self_pity", "migraine", "impatience" }
+  snd.giving_spur = { "ringing_ears", "stupidity", "vertigo", "self_pity", "migraine", "impatience" }
   snd.giving_subdue =
   {
     "dementia",
@@ -42905,7 +42903,7 @@ if snd.class == "Earthcaller" then
         "mania",
         "impatience",
         "migraine",
-        "sensitivity",
+        "ringing_ears",
       }
 
       if snd.checkAff("impatience") and not snd.checkAff("agony") then
@@ -42944,7 +42942,7 @@ if snd.class == "Earthcaller" then
         "slickness",
         "stupidity",
         "anorexia",
-        "sensitivity",
+        "ringing_ears",
         "haemophilia",
         "recklessness",
         "weariness",
@@ -43055,12 +43053,12 @@ end
 								<name>Group limbs</name>
 								<script>if snd.class == "Earthcaller" then
   local limbList = { "left leg", "right leg", "left arm", "right arm" }
-  local battleStack = { "impatience", "mania", "stupidity", "sensitivity", "vertigo", "self_pity", "migraine" }
+  local battleStack = { "impatience", "mania", "stupidity", "ringing_ears", "vertigo", "self_pity", "migraine" }
   local chastenStack = { "anorexia", "recklessness", "justice", "stupidity", "self_loathing", "paranoia", "hypochondria",
     "lethargy" }
   local overwhelmChasten = { "recklessness", "anorexia", "justice", "stupidity", "self_loathing", "paranoia",
     "hypochondria", "lethargy" }
-  local overwhelmBattle = { "sensitivity", "impatience", "mania", "stupidity", "vertigo", "self_pity", "migraine" }
+  local overwhelmBattle = { "ringing_ears", "impatience", "mania", "stupidity", "vertigo", "self_pity", "migraine" }
 
   local function getAff(stack)
     for _, aff in ipairs(stack) do
@@ -43327,7 +43325,7 @@ end</script>
           "delirium",
           "extravasation",
           "crippled_body",
-          "sensitivity",
+          "ringing_ears",
           "clumsiness",
           "weariness",
         }
@@ -43349,7 +43347,7 @@ end</script>
           "weariness",
           "haemophilia",
           "allergies",
-          "sensitivity",
+          "ringing_ears",
           "vomiting",
           "recklessness",
           "dizziness"
@@ -43539,7 +43537,7 @@ if snd.class == "Revenant" then
         "paresis",
         "clumsiness",
         "asthma",
-        "sensitivity",
+        "ringing_ears",
         "vomiting",
         "allergies",
         "haemophilia",
@@ -43629,7 +43627,7 @@ end
         "paresis",
         "clumsiness",
         "asthma",
-        "sensitivity",
+        "ringing_ears",
         "vomiting",
         "allergies",
         "haemophilia",
@@ -44427,7 +44425,7 @@ end</script>
   "stupidity",
   "anorexia",
   "epilepsy",
-  "sensitivity",
+  "ringing_ears",
   "vomiting",
   "lethargy",
   "confusion",
@@ -44810,7 +44808,7 @@ snd.giving = {
 "allergies",
 "vomiting",
 "haemophilia",
-"sensitivity",
+"ringing_ears",
 "recklessness",
 "dizziness",
 --"voyria",
@@ -44978,13 +44976,13 @@ snd.giving = {
 "stupidity",
 "anorexia",
 "allergies",
---"weariness",
---"haemophilia",
---"sensitivity",
---"vomiting",
---"recklessness",
---"dizziness",
---"voyria",
+"weariness",
+"haemophilia",
+"ringing_ears",
+"vomiting",
+"recklessness",
+"dizziness",
+"voyria",
 }
 snd.starting_attack()
 function snd.attack_function()
@@ -45047,13 +45045,13 @@ end
     "stupidity",
     "anorexia",
     "dizziness",
-    --"weariness",
-    --"sensitivity",
-    --"haemophilia",
-    --"vomiting",
-    --"allergies",
-    --"recklessness",
-    --"voyria",
+    "weariness",
+    "ringing_ears",
+    "haemophilia",
+    "vomiting",
+    "allergies",
+    "recklessness",
+    "voyria",
   }
   snd.hound_queue = {
     "mark",
@@ -45147,13 +45145,13 @@ snd.giving = {
 "stupidity",
 "anorexia",
 "dizziness",
---"clumsiness",
---"sensitivity",
---"haemophilia",
---"vomiting",
---"allergies",
---"recklessness",
---"voyria",
+"clumsiness",
+"ringing_ears",
+"haemophilia",
+"vomiting",
+"allergies",
+"recklessness",
+"voyria",
 }
 snd.hound_queue = {
 "stupidity",
@@ -45449,13 +45447,13 @@ snd.giving = {
 "anorexia",
 "dizziness",
 "clumsiness",
---"weariness",
---"sensitivity",
---"haemophilia",
---"vomiting",
---"allergies",
---"recklessness",
---"voyria",
+"weariness",
+"ringing_ears",
+"haemophilia",
+"vomiting",
+"allergies",
+"recklessness",
+"voyria",
 }
 
   snd.hound_queue = {
@@ -49207,7 +49205,7 @@ snd.giving = {
 "allergies",
 "vomiting",
 "haemophilia",
-"sensitivity",
+"ringing_ears",
 "recklessness",
 "dizziness",
 --"voyria",
@@ -50821,13 +50819,13 @@ end
     "stupidity",
     "anorexia",
     "allergies",
-    --"weariness",
-    --"haemophilia",
-    --"sensitivity",
-    --"vomiting",
-    --"recklessness",
-    --"dizziness",
-    --"voyria",
+    "weariness",
+    "haemophilia",
+    "ringing_ears",
+    "vomiting",
+    "recklessness",
+    "dizziness",
+    "voyria",
   }
   snd.starting_attack()
   function snd.attack_function()
@@ -50890,13 +50888,13 @@ end
     "stupidity",
     "anorexia",
     "dizziness",
-    --"weariness",
-    --"sensitivity",
-    --"haemophilia",
-    --"vomiting",
-    --"allergies",
-    --"recklessness",
-    --"voyria",
+    "weariness",
+    "ringing_ears",
+    "haemophilia",
+    "vomiting",
+    "allergies",
+    "recklessness",
+    "voyria",
   }
   snd.hound_queue = {
     "mark",
@@ -50978,7 +50976,7 @@ end
 								<packageName></packageName>
 								<regex>^aff$</regex>
 							</Alias>
-							<Alias isActive="yes" isFolder="no">
+							<Alias isActive="no" isFolder="no">
 								<name>legs</name>
 								<script>if snd.class == "Warden" then
   snd.giving = {
@@ -50989,7 +50987,7 @@ end
   "recklessness",
   "dizziness",
   "weariness",
-  "sensitivity",
+  "ringing_ears",
   }
   snd.hound_queue = {
   "frozen",
@@ -51055,90 +51053,6 @@ end
 								<command></command>
 								<packageName></packageName>
 								<regex>^legs$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>stuff</name>
-								<script>if snd.class == "Warden" then
-  snd.giving = {
-  --push recklnessness/focus balance to try and make locks easier for others
-  "recklessness",
-  "slickness",
-  "stupidity",
-  "anorexia",
-  "dizziness",
-  "weariness",
-  "sensitivity",
-  "haemophilia",
-  "vomiting",
-  "allergies",
-  --"voyria",
-  }
-  snd.hound_queue = {
-  "dizziness",
-  "mania",
-  "weariness",
-  "impairment",
-  }
-  snd.starting_attack()
-  function snd.attack_function()
-   snd.handle_hounds()
-   if not snd.waiting.queue then
-    local string = ""
-    local left = "none"
-    local right = "none"
-  
-    for i in pairs(snd.giving) do
-     if not snd.checkAff(snd.giving[i]) and snd.giving[i] ~= snd.implant then
-      if right == "none" then
-       right = snd.effects[snd.giving[i]]
-      elseif left == "none" then
-       left = snd.effects[snd.giving[i]]
-      end
-     end
-    end
-    
-    if left == "none" then left = "epseth" end
-    if right == "none" then right = "epseth" end
-  	x = ""
-    
-    if snd.used.rebounding and snd.used.shield then
-     string = "warden raze "..snd.target
-    elseif snd.used.rebounding or snd.used.shield then
-     string = "warden bypass "..snd.target.." "..right
-  	 if snd.toggles.affcalling and not snd.target_gone then
-  	  x = "wt Afflicting "..snd.target..": "..right..snd.sep
-  	 end
-    else
-  	 if snd.checkAff("fallen") then
-  	  if table.contains(snd.target_has, "crushed_chest") then
-  		 string = "warden decimate "..snd.target
-  		else
-  	   string = "warden pummel "..snd.target.." chest"
-  		end
-  	 else
-      
-      string = "warden lacerate "..snd.target.." "..left.." "..right
-  	  if snd.toggles.affcalling and not snd.target_gone then
-        x = "wt Afflicting "..snd.target..": "..left..", "..right..snd.sep
-  	  end
-  	 end
-  	end
-    
-  	string = "wipe left"..snd.sep..x..string..snd.sep.."warden release "..snd.target
-    if string ~= snd.last_attack and not snd.waiting.queue then
-     snd.last_attack = string
-     snd.attack(snd.last_attack)
-     snd.waiting.queue = true
-     tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-   end
-  end
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^support$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -52111,7 +52025,7 @@ end
 							<Alias isActive="yes" isFolder="no">
 								<name>mana drain</name>
 								<script>if snd.class == "Luminary" then
-  snd.giving_battle = { "stupidity", "vertigo", "self_pity", "migraine", "sensitivity", "impatience" }
+  snd.giving_battle = { "stupidity", "vertigo", "self_pity", "migraine", "ringing_ears", "impatience" }
   snd.giving_chasten =
   {
     "lethargy",
@@ -52312,7 +52226,7 @@ end
 							<Alias isActive="yes" isFolder="no">
 								<name>Lumi damage</name>
 								<script>if snd.class == "Luminary" then
-  snd.giving_battle = { "impatience", "sensitivity", "vertigo", "stupidity", "self_pity", "mania", "migraine", "anorexia" }
+  snd.giving_battle = { "impatience", "ringing_ears", "vertigo", "stupidity", "self_pity", "mania", "migraine", "anorexia" }
   snd.giving_chasten =
   {
     "hypochondria",
@@ -52411,7 +52325,7 @@ end
   }
   snd.giving_battle = {
     "impatience",
-    "sensitivity",
+    "ringing_ears",
     "stupidity",
     "vertigo",
     "self_pity",
@@ -52633,12 +52547,12 @@ end
 								<name>Limb support</name>
 								<script>if snd.class == "Luminary" then
   local limbList = { "left leg", "right leg", "left arm", "right arm" }
-  local battleStack = { "impatience", "mania", "stupidity", "sensitivity", "vertigo", "self_pity", "migraine" }
+  local battleStack = { "impatience", "mania", "stupidity", "ringing_ears", "vertigo", "self_pity", "migraine" }
   local chastenStack = { "anorexia", "recklessness", "justice", "stupidity", "self_loathing", "paranoia", "hypochondria",
     "lethargy" }
   local overwhelmChasten = { "recklessness", "anorexia", "masochism", "stupidity", "self_loathing", "paranoia",
     "hypochondria", "lethargy" }
-  local overwhelmBattle = { "sensitivity", "impatience", "mania", "stupidity", "vertigo", "self_pity", "migraine" }
+  local overwhelmBattle = { "ringing_ears", "impatience", "mania", "stupidity", "vertigo", "self_pity", "migraine" }
 
   local function getAff(stack)
     for _, aff in ipairs(stack) do
@@ -52863,7 +52777,7 @@ function snd.attack_function()
 		-- set the affs we want to use
      snd.giving = {
 		  "paresis",
-	    "sensitivity",
+	    "ringing_ears",
 			"asthma",
       "vomiting",
       "allergies",
@@ -53248,7 +53162,7 @@ if snd.class == "Templar" then
           "weariness",
           "haemophilia",
           "allergies",
-          "sensitivity",
+          "ringing_ears",
           "vomiting",
           "recklessness",
           "dizziness"
@@ -53438,7 +53352,7 @@ function snd.attack_function()
       "paresis",
       "clumsiness",
       "asthma",
-      "sensitivity",
+      "ringing_ears",
       "vomiting",
       "allergies",
       "haemophilia",
@@ -53529,7 +53443,7 @@ function snd.attack_function()
       "paresis",
       "clumsiness",
       "asthma",
-      "sensitivity",
+      "ringing_ears",
       "vomiting",
       "allergies",
       "haemophilia",
@@ -53681,120 +53595,6 @@ end
 								<command></command>
 								<packageName></packageName>
 								<regex>^sent$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>retri but its legit only retri lmao</name>
-								<script>--Meat and potatoes for 1v1, this is a classic vlock followed by
---retri finisher. Good for whales.
-if snd.class == "Templar" then
-snd.starting_attack()
-function snd.attack_function()
-	if not snd.waiting.queue then
-		local string = "" -- we'll load this with our attack string
-		local call = "" -- and this with our affliction call
-		-- next, the afflictions we want to give
-		local touse = {}
-		local tohit = {}
-		-- and in case we don't find enough of them
-		local extraaff = "sacrifice"
-		-- let's determine how many affs we are away from locking
-		local missing = snd.missingAff("stupidity/paresis/anorexia/asthma/slickness", "/")
-		local vorpal = false -- can we use vorpal?
-		if tonumber(gmcp.Char.Vitals.charge_left) &gt;= 140 and tonumber(gmcp.Char.Vitals.charge_right) &gt;= 140 then
-			vorpal = true -- yesssssss
-		end
-		-- we're going to use a different affliction stack if the target is locked
-		if snd.target_locked() then
-			snd.giving = {
-			"crippled",
-			"delirium",
-			"extravasation",
-			"crippled_body",
-			"sensitivity",
-			"clumsiness",
-			"weariness",
-			}
-		else
-		-- and this one if they're not
-			snd.giving = {
-			"conviction",
-			"crippled",
-			"delirium",
-			"extravasation",
-			"crippled_body",
-			--deathblow!
-			"weariness",
-			"haemophilia",
-			"allergies",
-			"sensitivity",
-			"vomiting",
-			"recklessness",
-			"dizziness"
-			}
-		end
-		-- first and foremost, check if we can retri!
-		if snd.checksomeAffs({"paralysis", "crippled_body", "delirium","extravasation" },4) then
-			string = "retribution "..snd.target
-		else -- if not...
-			-- see if we can lock this round, in any of three possible ways
-			if vorpal and #missing == 3 and not snd.used.shield and not snd.used.rebounding then
-				touse = missing
-			elseif #missing == 2 and not snd.used.shield and not snd.used.rebounding then
-				touse = missing
-			elseif #missing == 1 and not snd.used.shield then
-				touse = missing
-			end
-			-- any aff we're not using to lock, we'll pick from the list above
-			for i in pairs(snd.giving) do
-				-- make sure not to double up paresis and paralysis
-				if not snd.checkAff(snd.giving[i]) then
-					-- and don't add an aff we've already got in the list!
-					if not table.contains(touse, snd.giving[i]) then
-						table.insert(touse, snd.giving[i])
-					end
-				end
-			end
-			-- now let's convert affs to venoms/empowerments
-			for aff in pairs(touse) do
-				table.insert(tohit, snd.effects[touse[aff]])
-			end
-			-- if we didn't find enough stuff to hit with, stick in our filler
-			while #tohit &lt; 3 do
-				table.insert(tohit, extraaff)
-			end
-			-- now to decide what attack to use!
-			if snd.used.shield and snd.used.rebounding then
-				string = "razestrike "..snd.target.." blaze"
-			elseif snd.used.rebounding or snd.used.shield then
-				string = "razestrike "..snd.target.." "..tohit[1]
-				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-			elseif vorpal and not snd.target_locked() and #missing &gt; 2 then
-				string = "blade release right vorpal "..snd.target.." "..tohit[1]..snd.sep.."dsk "..snd.target.." "..tohit[3].." "..tohit[2]
-				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
-			else
-				string = "dsk "..snd.target.." "..tohit[2].." "..tohit[1]
-				call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
-			end
-		end
-		-- prepend our affliction call, if we need one
-		if snd.toggles.affcalling and not snd.target_gone then
-			string = call..string
-		end
-		-- handle anti-spam and the actual attacking now
-		if string ~= snd.last_attack and not snd.waiting.queue then
-			snd.last_attack = string
-			snd.attack(snd.last_attack)
-			snd.waiting.queue = true
-			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-		end
-	end
-end
-snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^cheese$</regex>
 							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
@@ -54355,7 +54155,7 @@ end</script>
       elseif (snd.proned() and hasSkill("Wreck")) and not snd.checkAff("collapsed_lung") then
          string = string.."tide wreck "..snd.target
       -- If we get slough up, let's throw out some useful group affs going.
-      elseif snd.checksomeAffs({"recklessness", "dizziness", "sensitivity", "epilepsy", "stupidity"},4) and hasSkill("Gnash") then
+      elseif not snd.checksomeAffs({"recklessness", "dizziness", "ringing_ears", "epilepsy", "stupidity"},4) and hasSkill("Gnash") then
         string = "fog gnash "..snd.target
       -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
       elseif not snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},4) and hasSkill("Unseen") then
