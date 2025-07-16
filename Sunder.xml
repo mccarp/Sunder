@@ -20631,9 +20631,6 @@ end</script>
 										<name>Branding Infernal Seal Ablaze</name>
 										<script>if matches[2] == snd.target then
   snd.target_got("ablaze")
-  if snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack + 1
-  end
 end
 if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
   cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
@@ -55246,7 +55243,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.13"
+local version = "11.2.14"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
