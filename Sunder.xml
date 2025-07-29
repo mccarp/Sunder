@@ -26277,6 +26277,26 @@ snd.hidden_afflictions = 0</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Pendulum/bedevil</name>
+							<script>snd.self_pendulum(matches[3])</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) uses (?:Ravaging Bedevil|Purificatoin Pendulum) \((.+)\) on you\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Synthesis Animation gate.</name>
@@ -55262,7 +55282,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.14"
+local version = "11.2.15"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67613,7 +67633,26 @@ function snd.checksomeSelfAffs(afflictions, number)
   end
 end
 
-local pendulum_table =
+
+
+function snd.took_bruise(limb)
+  if snd.limb_bruising[limb] &lt; 3 then
+    snd.limb_bruising[limb] = snd.limb_bruising[limb] + 1
+    snd.bruisingHit = true
+    snd.bruisingEcho(limb, true)
+  end
+end
+
+function snd.bruisingEcho(limb, gain)
+  cecho((gain and " &lt;green&gt;" or " &lt;red&gt;") .. limb .. " bruised " .. snd.limb_bruising[limb])
+end
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Pendulum</name>
+					<packageName></packageName>
+					<script>local pendulum_table =
 {
   ["left arm"] = { ["clockwise"] = "right arm", ["anti-clockwise"] = "left leg" },
   ["right arm"] = { ["clockwise"] = "right leg", ["anti-clockwise"] = "left arm" },
@@ -67627,6 +67666,15 @@ local limb_affs = {
   "_dislocated",
   "_amputated",
 }
+
+function snd.self_pendulum(direction)
+local new_damage = table.deepcopy(snd.my_limb_damage)
+  for _, limb in pairs({ "left arm", "right arm", "left leg", "right leg" }) do
+    new_damage[pendulum_table[limb][direction]] = snd.my_limb_damage[limb]
+  end
+  snd.my_limb_damage = new_damage
+end
+
 function snd.pendulum(direction)
   local new_affs = {}
   local old_affs = {}
@@ -67682,20 +67730,7 @@ function snd.pendulum(direction)
     snd.target_cured("feeble_arms")
     snd.target_got("feeble_legs")
   end
-end
-
-function snd.took_bruise(limb)
-  if snd.limb_bruising[limb] &lt; 3 then
-    snd.limb_bruising[limb] = snd.limb_bruising[limb] + 1
-    snd.bruisingHit = true
-    snd.bruisingEcho(limb, true)
-  end
-end
-
-function snd.bruisingEcho(limb, gain)
-  cecho((gain and " &lt;green&gt;" or " &lt;red&gt;") .. limb .. " bruised " .. snd.limb_bruising[limb])
-end
-</script>
+end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
