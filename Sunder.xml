@@ -13408,7 +13408,7 @@ deleteLine()
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You use Performance Rhythm \(one\) on (\w+).$</string>
+									<string>^You use Performance Rhythm One on (\w+).$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -13597,6 +13597,28 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^The haunting melody of the song lashes out against (\w+), entrapping \w+ in its slowly weakening hold\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Seduce infatuation</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("infatuation")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) falters, a blush lightly reddening \w+ face\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -14015,17 +14037,14 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Globes Complete</name>
 									<script>if matches[2] == snd.target then
-
-
-
-for i in pairs(snd.globe_affs) do
-  if snd.globecount ~= 0 then
-    snd.target_got(snd.globe_affs[snd.globecount])
-    snd.globecount = snd.globecount-1
-  else
-    break
-  end
-end     
+  for i in pairs(snd.globe_affs) do
+    if snd.globecount ~= 0 then
+      snd.target_got(snd.globe_affs[snd.globecount])
+      snd.globecount = snd.globecount-1
+    else
+      break
+    end
+  end     
 snd.target_cured("globes")
 end</script>
 									<triggerType>0</triggerType>
@@ -71818,20 +71837,24 @@ end
     Headstitch = function(target)
       snd.target_got("deadening")
       snd.target_got("besilence")
-      snd.target_got(snd.globe_affs[snd.globecount])
-      snd.globecount = snd.globecount - 1
-      if snd.globecount == 0 then
-        snd.target_cured("globes")
+      if snd.checkAff("globes") then
+        snd.target_got(snd.globe_affs[snd.globecount])
+        snd.globecount = snd.globecount - 1
+        if snd.globecount == 0 then
+          snd.target_cured("globes")
+        end
       end
     end,
 
 
     Barbs = function(target)
       snd.target_got("manabarbs")
-      snd.target_got(snd.globe_affs[snd.globecount])
-      snd.globecount = snd.globecount - 1
-      if snd.globecount == 0 then
-        snd.target_cured("globes")
+      if snd.checkAff("globes") then
+        snd.target_got(snd.globe_affs[snd.globecount])
+        snd.globecount = snd.globecount - 1
+        if snd.globecount == 0 then
+          snd.target_cured("globes")
+        end
       end
     end,
 
