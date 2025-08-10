@@ -266,7 +266,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>dome or prismatic on target</name>
-					<script>if matches[2] == snd.target then
+					<script>if matches[2] == snd.target and snd.toggles.domeswap then
   local who = matches[2]:title()
   local count = 1
   if not snd.illusion_found then
@@ -55793,6 +55793,13 @@ end
 						<packageName></packageName>
 						<regex>^toggle mindseye$</regex>
 					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Toggle domeswap</name>
+						<script>snd.toggle("domeswap")</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^toggle domeswap$</regex>
+					</Alias>
 				</AliasGroup>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Vitals</name>
@@ -56906,6 +56913,7 @@ snd.toggles = snd.toggles or {
   camouflage = false, -- use the camouflage defense
   pagelength = "30",
   mindseye = true, --use mindseye?
+  domeswap = true,
 }</script>
 					<eventHandlerList />
 				</Script>
