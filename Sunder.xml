@@ -7873,7 +7873,7 @@ end
   end
 end
 snd.balance.implant = false
-tempTimer(15, [[snd.balance.implant = true]])
+tempTimer(30, [[snd.balance.implant = true]])
 disableTrigger("Ancestor Attune give")</script>
 											<triggerType>0</triggerType>
 											<conditonLineDelta>0</conditonLineDelta>
@@ -8205,7 +8205,8 @@ end</script>
   end
 end
 snd.balance.implant = false
-tempTimer(15, [[snd.balance.implant = true]])</script>
+tempTimer(30, [[snd.balance.implant = true]])
+disableTrigger("Soul Implant give")</script>
 											<triggerType>0</triggerType>
 											<conditonLineDelta>0</conditonLineDelta>
 											<mStayOpen>0</mStayOpen>
