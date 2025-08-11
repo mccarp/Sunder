@@ -73493,10 +73493,18 @@ end
       snd.target_got("slickness")
       snd.used.paste = false
     end,
-    Thrash = function(target, sunder)
-      if sunder then
+    Thrash = function(target, modifier)
+      if modifier == "demolish" then
         snd.used.shield = false
-      end
+      elseif modifier == "miss" then
+        return
+      elseif modifier then
+        snd.last_hit_limb = modifier
+        snd.last_limb_dmg = 9
+        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+        enableTrigger("Sunder Parry")
+        enableTrigger("Sunder Dodge")
+	    end
     end,
     Reknit = function(target, limb)
       snd.took_limb_dmg(limb, -6)
