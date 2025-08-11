@@ -34768,8 +34768,10 @@ send("firstaid on")</script>
 								<regexCodeList>
 									<string>Your power to conceal your movement is ineffective during the day.</string>
 									<string>You cannot muffle your footsteps during the day.</string>
+									<string>The light of Sol Eos foils your tenebrous trickery, rendering it ineffective.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
@@ -55229,7 +55231,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.16"
+local version = "11.3.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -74592,6 +74594,33 @@ function snd.siderealist_bash()
     battack = "astra ray " .. snd.bashing.target
   end
 end
+
+
+function snd.sylvan_bash()
+  hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
+  wp = 100 * (gmcp.Char.Vitals.wp / gmcp.Char.Vitals.maxwp)
+  bp = tonumber(gmcp.Char.Vitals.blood)
+
+  if hp &lt;= 40 and snd.shield_check() then
+    if snd.punisher then       -- if they will kill you for having a shield, don't do it
+    else
+      battack = "touch shield" -- otherwise, shield
+    end
+  elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Rejuvenation") then
+    battack = "rejuvenation"
+  elseif bp &gt;= 50 and hp &lt;= 30 and hasSkill("Inexorable") then
+    if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
+      battack = "fae inexorable" .. snd.sep .. "thrash " .. snd.bashing.target
+    else
+      battack = "thrash " .. snd.bashing.target
+    end
+  elseif bp &lt;= 25 then
+    battack = "slake corpse"
+  else
+    battack = "thrash " .. snd.bashing.target
+  end
+end
+
 
 --- infiltrator bashing function.
 -- @function snd.infiltrator_bash
