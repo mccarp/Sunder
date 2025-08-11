@@ -33717,6 +33717,66 @@ snd.balance.ethereal = false</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Prae path swap</name>
+							<script>send("ab sanguis", false)</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Sanguis Path </string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>2</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Akkari host swap</name>
+							<script>send("ab discipline", false)</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Discipline Host </string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>2</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Sylvan covenant swap</name>
+							<script>send("ab glamours", false)</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Glamours Covenant </string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>2</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -55359,7 +55419,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.1"
+local version = "11.3.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63124,6 +63184,7 @@ end
 
 function snd.load_def2(option)
   class_catch()
+  snd.goggle_update()
   if snd.def_options[option] ~= nil then
     snd.trim_priorities()
     snd.defenses_loaded = true
@@ -70037,7 +70098,7 @@ end
         snd.target_got("vomiting")
       end
       if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
-        snd.target_got("no_courage")
+        snd.target_got("no_paste")
       end
     end,
 
@@ -72324,7 +72385,7 @@ end
         snd.target_got("vomiting")
       end
       if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
-        snd.target_got("no_courage")
+        snd.target_got("no_paste")
       end
     end,
 
@@ -73494,17 +73555,14 @@ end
       snd.used.paste = false
     end,
     Thrash = function(target, modifier)
-      if modifier == "demolish" then
-        snd.used.shield = false
-      elseif modifier == "miss" then
-        return
-      elseif modifier then
-        snd.last_hit_limb = modifier
-        snd.last_limb_dmg = 9
-        snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-        enableTrigger("Sunder Parry")
-        enableTrigger("Sunder Dodge")
-	    end
+      if modifier == "miss" then return end
+      snd.used.shield = false
+      if modifier == "demolish" or not modifier then return end
+      snd.last_hit_limb = modifier
+      snd.last_limb_dmg = 9
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      enableTrigger("Sunder Parry")
+      enableTrigger("Sunder Dodge")
     end,
     Reknit = function(target, limb)
       snd.took_limb_dmg(limb, -6)
@@ -73612,7 +73670,7 @@ end
         snd.target_got("vomiting")
       end
       if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
-        snd.target_got("no_courage")
+        snd.target_got("no_paste")
       end
     end,
 
