@@ -9417,7 +9417,7 @@ end</script>
 										</regexCodePropertyList>
 									</Trigger>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>New trigger</name>
+										<name>Already unspooled</name>
 										<script>if matches[2] ~= snd.target then
   snd.target_has_aura = true
   snd.need_leech_aura = true
@@ -33169,7 +33169,7 @@ snd.balance.ethereal = false</script>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Praenomen </name>
+						<name>Prae Akkari Sylvan</name>
 						<script></script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -33183,9 +33183,9 @@ snd.balance.ethereal = false</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList />
 						<regexCodePropertyList />
-						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name> Akkari</name>
-							<script></script>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>spew True</name>
+							<script>snd.balance.spew = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -33196,399 +33196,399 @@ snd.balance.ethereal = false</script>
 							<mSoundFile></mSoundFile>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList />
-							<regexCodePropertyList />
-							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Akkari</name>
-								<script></script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList />
-								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Attend True</name>
-									<script>snd.can_attend = true</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You can spew your blood once more.</string>
-										<string>Your voice returns fully, you can demand their attendance once more.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Attend False</name>
-									<script>snd.can_attend = false</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You may not force their attendance again quite yet.</string>
-										<string>^You use Discipline Attend on \w+\.$</string>
-										<string>^You use Sanguis Spew on \w+\.$</string>
-										<string>You cannot spew forth your blood again so soon.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>1</integer>
-										<integer>1</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Inquisition false</name>
-									<script>snd.can_inquisition = false</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You cannot yet undertake another holy inquisition.</string>
-										<string>^You use Discipline Inquisition on \w+.$</string>
-										<string>You use Sanguis Thrombus on</string>
-										<string>You are not able to create a blood clot again just yet.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>1</integer>
-										<integer>2</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>inquisition true</name>
-									<script>snd.can_inquisition = true</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You may undertake another holy inquisition.</string>
-										<string>You can seize the blood within another once more.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Proclaim True</name>
-									<script>snd.can_proclaim = true</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>Your ability to make proclamations reasserts itself.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Proclaim False</name>
-									<script>snd.can_proclaim = false</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You cannot yet carry out another proclamation.</string>
-										<string>You use Dictum Proclamation.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Crusade False</name>
-									<script>snd.can_crusade = false</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^You use Ascendance Crusade on \w+.$</string>
-										<string>You have not yet recovered from your last crusade.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Crusade True</name>
-									<script>snd.can_crusade = true</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You may once again embark upon a crusade.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Unbroken False</name>
-									<script>snd.balance.unbroken = false</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You use Discipline Unbroken.</string>
-										<string>You have not yet recovered from your previous last stand.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Unbroken True</name>
-									<script>snd.balance.unbroken = true</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You may defy the clutches of death once more.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-							</TriggerGroup>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Mending Vivify False</name>
-								<script>snd.balance.mend = false</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You utter a low hiss from exertion as you will the power of your blood to repair the wounds your undead body has sustained.</string>
-									<string>Blood cannot be called upon to repair your walking corpse again so soon.</string>
-									<string>Flushed with the bounty of purest, unadulterated life, you exert your will to expend your vitality in a surge which knits your flesh in an instant.</string>
-									<string>You may not invoke the vitality of your lifeforce again quite yet.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Mending Vivify True</name>
-								<script>snd.balance.mend = true</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You may mend your body once more.</string>
-									<string>Your body thrums anew, the vitality inherent in your essence ready to once again knit your flesh.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Purify Succour False</name>
-								<script>snd.balance.purify = false</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>Your blood boils and you let out a mighty roar of defiance.</string>
-									<string>A soothing glow surrounds you as you draw on spiritual succour, comforting warmth easing your ills.</string>
-									<string>You cannot purify your blood again so quickly!</string>
-									<string>The warmth of succour flares for a second time, continuing to soothe what ails you.</string>
-									<string>You cannot call upon heavenly succour again so soon.</string>
-									<string>Your blood begins to seethe as it acts quickly to rectify your marred form.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Purify Succour True</name>
-								<script>snd.balance.purify = true</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You may purify your blood once more.</string>
-									<string>You may draw upon spiritual succour once more.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Unbroken Deluge True</name>
-								<script>snd.balance.unbroken = true</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You may defy the clutches of death once more.</string>
-									<string>Your skin prickles as your blood regains its thickness.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Unbroken Deluge False</name>
-								<script>snd.balance.unbroken = false</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You have not yet recovered from your previous last stand.</string>
-									<string>You use Discipline Unbroken.</string>
-									<string>You use Sanguis Deluge.</string>
-									<string>Your blood reserves has not recovered just yet.</string>
-									<string>Your deluge defence has been stripped.</string>
-									<string>You have flooded your undead body with warm, pulsating lifeblood.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-						</TriggerGroup>
+							<regexCodeList>
+								<string>You can spew your blood once more.</string>
+								<string>Your voice returns fully, you can demand their attendance once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>spew False</name>
+							<script>snd.balance.spew = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may not force their attendance again quite yet.</string>
+								<string>You use Discipline Attend on </string>
+								<string>You use Sanguis Spew on </string>
+								<string>You cannot spew forth your blood again so soon.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>2</integer>
+								<integer>2</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>thrombus false</name>
+							<script>snd.balance.thrombus = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You cannot yet undertake another holy inquisition.</string>
+								<string>You use Discipline Inquisition on </string>
+								<string>You use Sanguis Thrombus on</string>
+								<string>You are not able to create a blood clot again just yet.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>2</integer>
+								<integer>2</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>thrombus true</name>
+							<script>snd.balance.thrombus = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may undertake another holy inquisition.</string>
+								<string>You can seize the blood within another once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Trill true</name>
+							<script>snd.balance.trill = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your ability to make proclamations reasserts itself.</string>
+								<string>You are capable of another execrative incantation.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>trill False</name>
+							<script>snd.balance.trill = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You cannot yet carry out another proclamation.</string>
+								<string>You use Dictum Proclamation.</string>
+								<string>You use Caprice Execrate.</string>
+								<string>Your pact magics still wane due to a recent execration.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Fling false</name>
+							<script>snd.balance.fling = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Ascendance Crusade on </string>
+								<string>You have not yet recovered from your last crusade.</string>
+								<string>You use Extirpation Ragdoll on </string>
+								<string>You have yet to recover from the exertion of casting your foes aside, sylvan.</string>
+								<string>You use Corpus Fling on </string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>2</integer>
+								<integer>3</integer>
+								<integer>2</integer>
+								<integer>3</integer>
+								<integer>2</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Fling true</name>
+							<script>snd.balance.fling = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may once again embark upon a crusade.</string>
+								<string>You may once again cast your foes aside like ragdolls.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Mending Vivify False</name>
+							<script>snd.balance.mend = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You utter a low hiss from exertion as you will the power of your blood to repair the wounds your undead body has sustained.</string>
+								<string>Blood cannot be called upon to repair your walking corpse again so soon.</string>
+								<string>Flushed with the bounty of purest, unadulterated life, you exert your will to expend your vitality in a surge which knits your flesh in an instant.</string>
+								<string>You may not invoke the vitality of your lifeforce again quite yet.</string>
+								<string>You cannot call upon your Fae pact's rejuvenating energies so soon.</string>
+								<string>You use Extirpation Rejuvenation.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Mending Vivify True</name>
+							<script>snd.balance.mend = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may mend your body once more.</string>
+								<string>Your body thrums anew, the vitality inherent in your essence ready to once again knit your flesh.</string>
+								<string>Fae magic courses throughout your blood once more, ready to rejuvenate you.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Purify Succour False</name>
+							<script>snd.balance.purify = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your blood boils and you let out a mighty roar of defiance.</string>
+								<string>A soothing glow surrounds you as you draw on spiritual succour, comforting warmth easing your ills.</string>
+								<string>You cannot purify your blood again so quickly!</string>
+								<string>The warmth of succour flares for a second time, continuing to soothe what ails you.</string>
+								<string>You cannot call upon heavenly succour again so soon.</string>
+								<string>Your blood begins to seethe as it acts quickly to rectify your marred form.</string>
+								<string>You use Extirpation Naturalise.</string>
+								<string>You cannot cleanse yourself with naturalising energies so soon!</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Purify Succour True</name>
+							<script>snd.balance.purify = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may purify your blood once more.</string>
+								<string>You may draw upon spiritual succour once more.</string>
+								<string>You may call upon Faebound naturalisation once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Unbroken Deluge True</name>
+							<script>snd.balance.deluge = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may defy the clutches of death once more.</string>
+								<string>Your skin prickles as your blood regains its thickness.</string>
+								<string>Her fury drifts at the edge of your consciousness, begging to use you as an inexorable outlet once more.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Unbroken Deluge False</name>
+							<script>snd.balance.deluge = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You have not yet recovered from your previous last stand.</string>
+								<string>You use Discipline Unbroken.</string>
+								<string>You use Sanguis Deluge.</string>
+								<string>Your blood reserves has not recovered just yet.</string>
+								<string>Your deluge defence has been stripped.</string>
+								<string>You have flooded your undead body with warm, pulsating lifeblood.</string>
+								<string>You use Glamours Inexorable.</string>
+								<string>Your veins roil rebelliously, sylvan one - you cannot yet invoke inexorable magics again!</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Reconstruct false</name>
+							<script>snd.balance.reconstruct = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Extirpation Reknit </string>
+								<string>You are not quite ready to reknit another limb.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>2</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Reconstruct true</name>
+							<script>snd.balance.reconstruct = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your body forgets the phantom pain of forced healing, allowing for another reknitting.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -47552,14 +47552,14 @@ if snd.class == "Akkari" then -- set this to the class this alias is for
         sattack = "spirit bane " .. snd.target .. snd.sep
       else
         if (touse[2] == "hearing" or touse[2] == "sight") then
-          if snd.can_proclaim then
+          if snd.balance.trill then
             sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
           else
             sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
           end
           scall = "Whispering: " .. touse[1] .. " " .. touse[3]
         else
-          if snd.can_proclaim then
+          if snd.balance.trill then
             sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
           else
             sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
@@ -47595,7 +47595,7 @@ if snd.class == "Akkari" then -- set this to the class this alias is for
         string = "spirit anathema " .. snd.target
         fcall = ""
         scall = ""
-      elseif gmcp.Char.Status.spec == "Naarak" and snd.can_inquisition and
+      elseif gmcp.Char.Status.spec == "Naarak" and snd.balance.thrombus and
           ((snd.aff_count_mental() == 12 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 10))
             or
             (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 7))))
@@ -48014,7 +48014,7 @@ end</script>
         sattack = "spirit bane " .. snd.target .. snd.sep
       else
         if (touse[2] == "hearing" or touse[2] == "sight") then
-          if snd.can_proclaim then
+          if snd.balance.trill then
             sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
           else
             sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
@@ -48024,7 +48024,7 @@ end</script>
             scall = "Whispering: " .. touse[1] .. " " .. touse[3]
           end
         else
-          if snd.can_proclaim then
+          if snd.balance.trill then
             sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
           else
             sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
@@ -48068,7 +48068,7 @@ end</script>
         string = "spirit anathema " .. snd.target
         fcall = ""
         scall = ""
-      elseif gmcp.Char.Status.spec == "Naarak" and snd.can_inquisition and
+      elseif gmcp.Char.Status.spec == "Naarak" and snd.balance.thrombus and
           ((snd.aff_count_mental() == 12 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 10))
             or
             (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 7))))
@@ -48574,7 +48574,7 @@ if snd.class == "Akkari" then
         sattack = "spirit bane " .. snd.target .. snd.sep
       else
         if (touse[2] == "hearing" or touse[2] == "sight") then
-          if snd.can_proclaim then
+          if snd.balance.trill then
             sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
           else
             sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
@@ -48584,7 +48584,7 @@ if snd.class == "Akkari" then
             scall = "Whispering: " .. touse[1] .. " " .. touse[3]
           end
         else
-          if snd.can_proclaim then
+          if snd.balance.trill then
             sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
           else
             sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
@@ -48622,7 +48622,7 @@ if snd.class == "Akkari" then
         scall = ""
       elseif
           gmcp.Char.Status.spec == "Naarak" and
-          snd.can_inquisition and
+          snd.balance.thrombus and
           (
             (
               snd.aff_count_mental() == 12 or
@@ -57800,7 +57800,7 @@ snd.waiting = snd.waiting or {
   might = true,
   leech = true,
   shadowsphere = true,
-  unbroken = true,
+  deluge = true,
   soulcage = true,
   wand = true,
   fury = true,
@@ -57826,6 +57826,11 @@ snd.waiting = snd.waiting or {
   grapple = true, --teradrim/tidesage grapple/clutch
   dome = true,
   armour = true,
+  spew = true,
+  thrombus = true,
+  trill = true,
+  fling = true,
+  reconstruct = true,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -64592,7 +64597,8 @@ end
   aff_immobility = { state = "healed", effect = "Can't move", cures = {}, assess = false, timer = createStopWatch() },
   aff_timewarped = { state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch() },
   aff_inaccuracy = { state = "healed", effect = "Reduced accuracy", cures = {}, assess = false, timer = createStopWatch() },
-
+  aff_hoodwink = { state = "healed", effect = "Drains health", cures = {}, assess = false, timer = createStopWatch() },
+  aff_trickery = { state = "healed", effect = "Drains mana", cures = {}, assess = false, timer = createStopWatch() },
 
   aff_mindfog = { state = "healed", effect = "Can't cure mentals", cures = { salve = "caloric to head" }, assess = false, timer = createStopWatch() },
   aff_phosphenes = { state = "healed", effect = "Head trauma knocks eq", cures = { salve = "soothing to head" }, assess = false, timer = createStopWatch() },
@@ -66597,13 +66603,6 @@ snd.runeband_affs = {
 					<packageName></packageName>
 					<script>snd.primary_aff = {}
 
-snd.can_attend = true
-snd.can_proclaim = true
-snd.can_crusade = true
-snd.passion_active = false
-snd.can_inquisition = true
-snd.remorseful = false
-snd.contrite = false
 snd.doctrine = "none"
 
 snd.secondary_aff = {}
@@ -66751,7 +66750,7 @@ function snd.akkari_host()
 end
 
 function snd.akkari_attend()
-  if (gmcp.Char.Status.spec == "Dosan" or gmcp.Char.Status.spec == "Phreneses") and snd.can_attend == true then
+  if (gmcp.Char.Status.spec == "Dosan" or gmcp.Char.Status.spec == "Phreneses") and snd.balance.spew then
     if table.contains(snd.primary_aff, "sight") then
       table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "sight"))
     end
@@ -73994,7 +73993,7 @@ function snd.akkari_bash()
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Vivify") then
     battack = "vivify"
   elseif bp &gt;= 50 and hp &lt;= 30 and hasSkill("Unbroken") then
-    if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
+    if snd.balance.deluge and snd.defenses.def_unbroken.state == "down" then
       battack = "spirit unbroken" .. snd.sep .. "denounce " .. snd.bashing.target
     else
       battack = "denounce " .. snd.bashing.target
@@ -74313,7 +74312,7 @@ function snd.praenomen_bash()
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Mending") then
     battack = "mend"
   elseif bp &gt;= 50 and hp &lt;= 30 and hasSkill("Deluge") then
-    if snd.balance.unbroken and snd.defenses.def_deluge.state == "down" then
+    if snd.balance.deluge and snd.defenses.def_deluge.state == "down" then
       battack = "blood deluge" .. snd.sep .. "frenzy " .. snd.bashing.target
     else
       battack = "frenzy " .. snd.bashing.target
@@ -74609,7 +74608,7 @@ function snd.sylvan_bash()
   elseif hp &lt;= 45 and bp &gt;= 30 and snd.balance.mend and hasSkill("Rejuvenation") then
     battack = "rejuvenation"
   elseif bp &gt;= 50 and hp &lt;= 30 and hasSkill("Inexorable") then
-    if snd.balance.unbroken and snd.defenses.def_unbroken.state == "down" then
+    if snd.balance.deluge and snd.defenses.def_inexorable.state == "down" then
       battack = "fae inexorable" .. snd.sep .. "thrash " .. snd.bashing.target
     else
       battack = "thrash " .. snd.bashing.target
