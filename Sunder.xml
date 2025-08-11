@@ -55198,7 +55198,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.2.15"
+local version = "11.2.16"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65592,7 +65592,7 @@ snd.cures = {
   ascendril = { "Elemancy", "Arcanism", "Thaumaturgy", "Humourism", "Hematurgy", "Esoterica" },
   sciomancer = { "Sciomancy", "Sorcery", "Gravitation", "Malediction", "Runecarving", "Sporulation" },
   indorani = { "Necromancy", "Tarot", "Domination", "Hyalincuru", "Contracts", "Oneiromancy" },
-  praenomen = { "Corpus", "Mentis", "Sanguis", "Ascendance", "Dictum", "Discipline" },
+  praenomen = { "Corpus", "Mentis", "Sanguis", "Ascendance", "Dictum", "Discipline", "Extirpation", "Caprice", "Glamours", },
   archivist = { "Geometrics", "Numerology", "Bioessence", "Cultivation", "Enlightenment", "Voidgazing" },
   teradrim = { "Terramancy", "Animation", "Desiccation", "Wavebreaking", "Inundation", "Synthesis" },
   luminary = { "Spirituality", "Devotion", "Illumination", "Tectonics", "Apocalyptia", "Subjugation" },
@@ -67294,7 +67294,7 @@ function snd.took_limb_dmg(limb, amount, restoration)
         snd.target_cured(limb:gsub(" ", "_") .. "_mangled")
         snd.limb_status[limb] = "broken"
       end
-    elseif snd.skill_being_used == "Rekindle" or snd.skill_being_used == "Reconstruct" then
+    elseif snd.skill_being_used == "Rekindle" or snd.skill_being_used == "Reconstruct" or snd.skill_being_used == "Reknit" then
       if snd.limb_dmg[limb] &lt; 33.33 then
         snd.target_cured(limb:gsub(" ", "_") .. "_broken")
         snd.limb_status[limb] = "healed"
@@ -73238,6 +73238,155 @@ end
         snd.illgraspcounter = 4
         snd.affTimers.start("illgrasp", 180)
       end
+    end,
+  },
+  --Sylvan
+  ["Extirpation"] = {
+
+    Snarl = function(target)
+      snd.target_got("slickness")
+      snd.used.paste = false
+    end,
+    Thrash = function(target, sunder)
+      if sunder then
+        snd.used.shield = false
+      end
+    end,
+    Reknit = function(target, limb)
+      snd.took_limb_dmg(limb, -6)
+    end,
+    Reap = function(target, lightly)
+      enableTrigger("Weapon Hit Confirmation")
+    end,
+
+    Wound = function(target, miss)
+      if not miss then
+        table.insert(snd.maybe_affs,1,"rend")
+        snd.onHit2({ "Dodge" })
+      end
+    end,
+
+  },
+
+  ["Caprice"] = {
+    Imprecate = function(target)
+      for _, aff in pairs(snd.maybe_affs) do
+        if not table.contains(snd.venoms, snd.maybe_affs[1]) then
+          snd.target_got(aff)
+        end
+      end
+    end,
+    Bewitch = function(target, courage)
+      if not courage then
+        snd.target_got("writhe_transfix")
+      end
+    end,
+    Confusion = function(target)
+      snd.target_got("confusion")
+    end,
+    Impatience = function(target)
+      snd.target_got("impatience")
+    end,
+    Paranoia = function(target)
+      snd.target_got("paranoia")
+    end,
+    Stupidity = function(target)
+      snd.target_got("stupidity")
+    end,
+    Agoraphobia = function(target)
+      snd.target_got("agoraphobia")
+    end,
+    Masochism = function(target)
+      snd.target_got("masochism")
+    end,
+    Infatuation = function(target)
+      snd.target_got("infatuation")
+    end,
+    Loneliness = function(target)
+      snd.target_got("loneliness")
+    end,
+    Epilepsy = function(target)
+      snd.target_got("epilepsy")
+    end,
+    Psychosis = function(target)
+      snd.target_got("psychosis")
+    end,
+    Anorexia = function(target)
+      snd.target_got("anorexia")
+    end,
+    Peace = function(target)
+      snd.target_got("peace")
+    end,
+    Dementia = function(target)
+      snd.target_got("dementia")
+    end,
+    Mania = function(target)
+      snd.target_got("mania")
+    end,
+    Indifference = function(target)
+      snd.target_got("indifference")
+    end,
+    Vertigo = function(target)
+      snd.target_got("vertigo")
+    end,
+    Recklessness = function(target)
+      snd.target_got("recklessness")
+    end,
+	Loneliness = function(target)
+	  snd.target_got("loneliness")
+	end,
+    Trickery = function(target)
+      snd.target_got("trickery")
+    end,
+    Hoodwink = function(target)
+      snd.target_got("hoodwink")
+    end,
+    Disrupt = function(target, failure)
+      if not failure then
+        snd.target_got("disrupted")
+      end
+    end,
+  },
+
+  ["Sanguis"] = {
+    Winnow = function(target)
+      snd.target_got("ringing_ears")
+      if snd.checkAff("hubris") then
+        snd.target_got("blisters")
+      end
+      if snd.checkAff("self_pity") then
+        snd.target_got("impairment")
+      end
+      if snd.checkAff("sadness") then
+        snd.target_got("vomiting")
+      end
+      if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
+        snd.target_got("no_courage")
+      end
+    end,
+
+    Savage = function(target, fail)
+      if not fail then
+        snd.target_got("feast")
+        snd.affTimers.start("feast", 19.5)
+      else
+        snd.target_cured("feast")
+      end
+    end,
+
+    Disfavour = function(target)
+      snd.target_got("sepsis")
+    end,
+
+    Nightbrand = function(target)
+      snd.target_got("blood_rune")
+      snd.runeused = true
+    end,
+    Weeping = function(target)
+      snd.target_got("effused_blood")
+    end,
+	
+    Spellbind = function(target)
     end,
   },
 }
