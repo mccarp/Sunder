@@ -55419,7 +55419,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.2"
+local version = "11.3.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -69982,10 +69982,15 @@ end
       snd.target_got("slickness")
       snd.used.paste = false
     end,
-    Frenzy = function(target, sunder)
-      if sunder then
-        snd.used.shield = false
-      end
+    Frenzy = function(target, modifier)
+      if modifier == "miss" then return end
+      snd.used.shield = false
+      if modifier == "sunder" or not modifier then return end
+      snd.last_hit_limb = modifier
+      snd.last_limb_dmg = 9
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      enableTrigger("Sunder Parry")
+      enableTrigger("Sunder Dodge")
     end,
     Reconstruct = function(target, limb)
       snd.took_limb_dmg(limb, -6)
@@ -72255,10 +72260,15 @@ end
       snd.used.paste = false
       snd.target_got("no_paste")
     end,
-    Denounce = function(target, quell)
-      if quell then
-        snd.used.shield = false
-      end
+    Denounce = function(target, modifier)
+      if modifier == "miss" then return end
+      snd.used.shield = false
+      if modifier == "quell" or not modifier then return end
+      snd.last_hit_limb = modifier
+      snd.last_limb_dmg = 9
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      enableTrigger("Sunder Parry")
+      enableTrigger("Sunder Dodge")
     end,
     Rekindle = function(target, limb)
       snd.took_limb_dmg(limb, -6)
