@@ -12626,6 +12626,37 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Sylvan Reap</name>
+									<script>if matches[2] == snd.target then
+  snd.onHit2({"Rebounding", "Dodge"})
+end
+disableTrigger("Weapon Hit Confirmation")</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^With a frenzied swing of .+, \w+ hews? through (\w+), ululating all the while\.$</string>
+										<string>^With a vicious snarl, \w+ brutally gores? (\w+) with .+\.$</string>
+										<string>^With an exultant howl, \w+ rives? through (\w+)'s flesh with .+\.$</string>
+										<string>^Whirling .+ all about, \w+ reaps? a bloody harvest from (\w+)\.$</string>
+										<string>^\w+ swiftly nicks? (\w+) with .+'s edge\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Templar</name>
@@ -58816,7 +58847,25 @@ snd.priorities =
   "def_ardour_dexterity",
   "def_ardour_intelligence",
   "def_relentless",
+  
+  "def_thrive_strength",
+  "def_thrive_constitution",
+  "def_thrive_dexterity",
+  "def_thrive_intelligence",
+  "def_thrive_wisdom",
+  "def_indurated",
+  "def_persisted",
   "def_resolved",
+  "def_bloodscent",
+  "def_veering",
+  "def_redress",
+  "def_concealing",
+  "def_seedward",
+  "def_wildfury",
+  "def_awe",
+  "def_bloodbath",
+  "def_favour",
+  
   "def_acuity",
   "def_transience",
   "def_retaliation",
@@ -61715,6 +61764,26 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_parallax = { defense = "parallax", type = "normal", effect = "stalled spell", balance = { balanceequilibriumtake = "astra parallax" }, skill = "Parallax" },
   def_refraction = { defense = "refraction", type = "normal", effect = "vibes affect target regardless of enemy", balance = { balanceequilibriumtake = "refract target" }, skill = "Refraction" },
 
+  --Sylvan
+  def_thrive_strength      = { defense = "thrive_strength", type = "spring_green", effect = "+1 STR", balance = { balanceequilibriumtake = "thrive strength" }, skill = "Thrive" },
+  def_thrive_constitution  = { defense = "thrive_constitution", type = "spring_green", effect = "+1 CON", balance = { balanceequilibriumtake = "thrive constitution" }, skill = "Thrive" },
+  def_thrive_intelligence  = { defense = "thrive_intelligence", type = "spring_green", effect = "+1 INT", balance = { balanceequilibriumtake = "thrive intelligence" }, skill = "Thrive" },
+  def_thrive_dexterity     = { defense = "thrive_dexterity", type = "spring_green", effect = "+1 DEX", balance = { balanceequilibriumtake = "thrive dexterity" }, skill = "Thrive" },
+  def_thrive_wisdom        = { defense = "thrive_wisdom", type = "spring_green", effect = "+1 WIS", balance = { balanceequilibriumtake = "thrive wisdom" }, skill = "Thrive" },
+  def_indurated            = { defense = "indurated", type = "spring_green", effect = "Indurate your body to take less physical damage", balance = { balanceequilibriumtake = "indurate" }, skill = "Indurate" },
+  def_persisted            = { defense = "persisted", type = "spring_green", effect = "Fortify your body to take less magical damage", balance = { balanceequilibriumtake = "persist" }, skill = "Persist" },
+  def_bloodscent           = { defense = "bloodscent", type = "spring_green", effect = "Detect nearby prey movements", balance = { balanceequilibriumtake = "bloodscent" }, skill = "Bloodscent" },
+  def_abundance            = { defense = "abundance", type = "spring_green", effect = "Make your blood use more efficient", balance = { balanceequilibrium = "fae abundance" }, skill = "Abundance", tree = "Glamours" },
+  def_redress              = { defense = "redress", type = "spring_green", effect = "Furious moonlight exacts a toll on your attacker", balance = { balanceequilibriumtake = "fae redress" }, skill = "Redress" },
+  def_concealing           = { defense = "concealing", type = "spring_green", effect = "Others cannot see your vitals", balance = { balanceequilibriumtake = "fae conceal" }, skill = "Concealing" },
+  def_veering              = { defense = "veering", type = "spring_green", effect = "You avoid opponents' blows", balance = { balanceequilibriumtake = "veering on" }, skill = "Veering" },
+  def_seedward             = { defense = "seedward", type = "spring_green", effect = "You are linked to your seedbed", balance = { balanceequilibriumtake = "seedward" }, skill = "Seedward" },
+  def_wildfury             = { defense = "wildfury", type = "spring_green", effect = "Transcend mortal limitations", balance = { balanceequilibriumtake = "fae wildfury" }, skill = "Craven" },
+  def_inexorable           = { defense = "inexorable", type = "spring_green", effect = "Allows the user to fall below zero health, effectively making them immune to damage.", balance = { balanceequilibriumtake = "fae inexorable" }, skill = "Inexorable" },
+  def_awe                  = { defense = "awe", type = "spring_green", effect = "Anxieties 2 enemies", balance = { balanceequilibriumtake = "fae awe" }, skill = "Awe" },
+  def_bloodbath            = { defense = "bloodbath", type = "spring_green", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "fae bloodbath"}, skill = "Bloodbath" },
+  def_favour               = { defense = "favour", type = "spring_green", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "fae favour" }, skill = "Favour" },
+  def_bloodhunger          = { defense = "bloodhunger", type = "spring_green", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodthirst"},
 
   --Syssin
   def_hiding = { defense = "hiding", type = "blue", effect = "Conceals your presence", balance = { needybalancetake = "hide" }, skill = "Hide" },
@@ -62687,6 +62756,24 @@ end</script>
   ["Your thoughts are harmonized"] = "harmony",
   ["You have summoned a shadowy spectre."] = "spectre",
   ["You toil for double trouble."] = "toil",
+  
+  --Sylvan
+  ["Your flesh is indurated against damage."] = "indurated",
+  ["You are employing veering movements to evade your opponents' blows."] = "veering",
+  ["You thrive with faebound strength."] = "thrive_strength",
+  ["You thrive with faebound intelligence."] = "thrive_intelligence",
+  ["You thrive with faebound dexterity."] = "thrive_dexterity",
+  ["You thrive with faebound constitution."] = "thrive_constitution",
+  ["You thrive with faebound wisdom."] = "thrive_wisdom",
+  ["Your geas persists against magical energies."] = "persisted",
+  ["You detect the movements of nearby prey."] = "bloodscent",
+  ["You are practising abundant ritual practices."] = "abundance",
+  ["Ethereal awe suppresses those foes who stand in your presence."] = "awe",
+  ["Primal wildfury sings in your veins."] = "wildfury",
+  ["You exude the palpable fury of a bloody predator."] = "bloodbath",
+  ["Gelid nightfury swathes you, ready to seek redress."] = "redress",
+  ["You swell with the favour of the Queensguard."] = "favour",
+  ["You are concealing all vulnerabilities."] = "concealing",
 }
 </script>
 				<eventHandlerList />
@@ -62701,6 +62788,8 @@ snd.alternative_class_defenses = {
   --Class catch
   Praenomen_hiding = { defense = "hiding", type = "normal", effect = "Hide deeper in the shadows", balance = { balanceequilibriumtake = "veil" }, state = "down", needit = false, timer = createStopWatch(), skill = "Veil" },
   Akkari_hiding = { defense = "hiding", type = "ivory", effect = "Conceal your fervor", balance = { balanceequilibriumtake = "dim" }, state = "down", needit = false, timer = createStopWatch(), skill = "Dim" },
+  Sylvan_hiding = { defense = "hiding", type = "normal", effect = "Conceal your fervor", balance = { balanceequilibriumtake = "hide" }, state = "down", needit = false, timer = createStopWatch(), skill = "Hide" },
+
   Shapeshifter_celerity = { defense = "celerity", type = "normal", effect = "Faster movement", balance = { needybalancetake = "endurance" }, state = "down", needit = false, timer = createStopWatch(), skill = "Endurance" },
   Vampire_celerity = { defense = "celerity", type = "normal", effect = "Faster movement", balance = { needybalancetake = "celerity" }, state = "down", needit = false, timer = createStopWatch(), skill = "Celerity" },
   Praenomen_stalking = { defense = "stalking", type = "normal", effect = "Nighttime hiding in the shadows", balance = { balanceequilibriumtake = "stalk" }, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
@@ -62726,7 +62815,7 @@ snd.alternative_class_defenses = {
   Ascendril_empowered_boar = { defense = "empowered_boar", type = "DarkOrange", effect = "extra health recovery", balance = { balanceequilibriumtake = "cast vivacity" }, state = "down", needit = false, timer = createStopWatch(), skill = "Vivacity" },
   Bloodborn_empowered_boar = { defense = "empowered_boar", type = "indian_red", effect = "extra health recovery", balance = { balanceequilibriumtake = "unleash acumen" }, state = "down", needit = false, timer = createStopWatch(), skill = "Acumen" },
   Wayfarer_stalking = { defense = "stalking", type = "ivory", effect = "Muffle your footsteps at night", balance = { balanceequilibriumtake = "stalk" }, state = "down", needit = false, timer = createStopWatch(), skill = "Stalking" },
-
+  Sylvan_stalking = { defense = "stalking", type = "normal", effect = "quiets your movement at night", balance = { balanceequilibriumtake = "faetrail" }, state = "down", needit = false, timer = createStopWatch(), skill = "Trailing" },
 }
 
 function class_catch()
@@ -62794,6 +62883,12 @@ function class_catch()
     snd.defenses.def_stalking = snd.alternative_class_defenses.Praenomen_stalking
     snd.defenses.def_hiding = snd.alternative_class_defenses.Praenomen_hiding
   end
+  
+  if snd.class == "Sylvan" then
+    snd.defenses.def_stalking = snd.alternative_class_defenses.Sylvan_stalking
+    snd.defenses.def_hiding = snd.alternative_class_defenses.Sylvan_hiding
+  end
+  
   
   if snd.class == "Wayfarer" then
     snd.defenses.def_stalking = snd.alternative_class_defenses.Wayfarer_stalking
@@ -63208,6 +63303,24 @@ end
     def_cornering = "once",
     def_hardening = "once",
     def_boneshaking = "once",
+  },
+  sylvan = {
+    def_thrive_constitution = "once",
+    def_indurated = "on",
+    def_persisted = "on",
+    def_celerity = "once",
+    def_bloodscent = "once",
+    def_lifevision = "once",
+    -- def_prowl = "on",
+    def_stalking = "once",
+    def_abundance = "on",
+    def_redress = "on",
+    def_concealing = "once",
+    def_veering = "once",
+    def_awe = "once",
+    -- def_seedward = "on",
+    def_bloodbath = "once",
+    def_favour = "once",
   },
 
   infiltrator = {
