@@ -2754,7 +2754,7 @@ end</script>
 						<regexCodeList />
 						<regexCodePropertyList />
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Akkari</name>
+							<name>Praekarri</name>
 							<script></script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -2769,7 +2769,7 @@ end</script>
 							<regexCodeList />
 							<regexCodePropertyList />
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Squire Attacks</name>
+								<name>Minion Attacks</name>
 								<script></script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -2800,8 +2800,10 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^A fervent .* crouches low and strikes at (\w+)'s spine, causing .* muscles to seize.$</string>
+										<string>^Sable curselight wreathes .+'s fist as \w+ strikes (\w+), causing \w+ muscles to seize\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -2822,8 +2824,10 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^A fervent .* sashays forward in a frenzy, lashing out at (\w+) in a flurry of rage-fuelled strikes.$</string>
+										<string>^Ashen mist swirls around .+ as \w+ slams into (\w+), conveying a ruinous curse\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -2845,8 +2849,10 @@ end
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^A fervent .+ lurches at (\w+) with violent purpose before turning away at the last moment, its feinting manoeuvre leaving .+ mind reeling.$</string>
+										<string>^A bewitched .+ gibbers wildly, \w+ incoherent babbling that manifests virid light around (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -2868,8 +2874,10 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^A fervent .*flourishes its weapon before (\w+)'s eyes in an unerring display of skill, sweat breaking out upon .* skin in recognition of the harrowing assault.$</string>
+										<string>^Dazzling emerald light manifests as .+ babbles in High Fae, laying bare (\w+)'s weaknesses and instilling new vulnerabilities\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -2893,8 +2901,10 @@ end
 								<regexCodeList>
 									<string>^Defiant in the face of a crusader's light, (\w+) adopts an expression of utmost hubris\.$</string>
 									<string>^Mania manifests in (\w+)'s eyes as .+ achieves new heights of hubris\.$</string>
+									<string>^The glory of your noble aura befuddles (\w+)'s mind, sowing the seeds of hubris\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -2918,13 +2928,15 @@ end
 								<regexCodeList>
 									<string>^The glorious light moves (\w+) to tears with its majesty, filling .+ heart with sadness\.$</string>
 									<string>^(\w+) trembles as newfound sadness compels tears from .+ eyes\.$</string>
+									<string>^Tears well in (\w+)'s eyes as .+ beholds your beauty, \w+ incomprehension met with sadness\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Holy Light Merciful</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("mercy")
@@ -2968,8 +2980,10 @@ end
 								<regexCodeList>
 									<string>^Pitiless light commands contrition from (\w+), .+ heart burdened by self pity\.$</string>
 									<string>^Weary with woe, (\w+) heaves a sigh as .+ self pity settles in\.$</string>
+									<string>^Your awe-inspiring Fae glory sends (\w+) tumbling into the depths of self pity\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -2995,8 +3009,10 @@ end</script>
 								<regexCodeList>
 									<string>^(\w+)'s poise falters beneath the harsh glory of the light, \w+ courage melting away\.$</string>
 									<string>^Summoning your might, (\w+)'s courage is shattered by the sanguine blood exuding your will\.$</string>
+									<string>^(\w+) trembles as .+ looks upon you, rattled to \w+ core and stripped of \w+ courage\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -3070,6 +3086,50 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Trickery symptom</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("trickery")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Your tricksome magic lays claim to another share of (\w+)'s mental fortitude\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Hoodwink symptom</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("hoodwink")
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Your terrible trickery claims another shred of (\w+)'s vitality\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>black bile got</name>
 								<script>if matches[2] == snd.target then
 snd.target_got("black_bile")
@@ -3087,8 +3147,10 @@ end</script>
 								<regexCodeList>
 									<string>^(\w+)'s body turns sickly as \w+ skin takes on a yellow shade\.$</string>
 									<string>^Motes of light pulse beneath (\w+)'s skin, .+ veins twisting oddly as the scouring incandescence wreaks havoc upon .+ insides.$</string>
+									<string>^(\w+)'s body trembles as an ominous light runs through \w+ veins, \w+ organs suffering the beginningsof cursewrought collapse\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -3163,8 +3225,10 @@ end</script>
 								<regexCodeList>
 									<string>^You place your palms together, willing the rune placed on (\w+)'s soul to activate\.$</string>
 									<string>^You declare that all shall know of (\w+)'s villainy, and incite the brand you have placed to consume.$</string>
+									<string>^You evoke the terrible curse within the brand on (\w+)'s chest by way of a harsh rasp\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -3188,8 +3252,10 @@ end
 								<regexCodeList>
 									<string>^You feel the rune placed on (\w+)'s soul grow weaker before dispersing in a plume of foul smoke.$</string>
 									<string>^The brand of the pariah you had placed upon (\w+) fades from your awareness.$</string>
+									<string>^The accursed brand upon (\w+) unlaces, becoming naught but ill will that fades on the wind\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -3213,8 +3279,10 @@ end</script>
 								<regexCodeList>
 									<string>^A crushing combination of blows sends (\w+) reeling to \w+ knees\.$</string>
 									<string>^The craze and ferocity of the blows flings (\w+) to the floor\.$</string>
+									<string>^(\w+) sinks to \w+ knees in the face of sylvan savagery, bloodied and cowed like weak prey\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -3237,10 +3305,36 @@ end</script>
 								<regexCodeList>
 									<string>^Your blood-willed wisp inflicts itself upon (.+)\.$</string>
 									<string>^Your light exacts harm upon (.+)\.$</string>
+									<string>^Your sylvan presence exacts its bloody toll upon (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Pillar</name>
+								<script>if snd.last_cured_real ~= "" then
+  snd.target_got(snd.last_cured_real)
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>Bewitching sorcery roils forth from a feral dryad enchantress's runescribed bark, bathing her surroundings in hazy witchlight.</string>
+									<string>A great and terrible radiance erupts from a font of spiritual light, bathing the area in an effulgent glow.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -33199,8 +33293,10 @@ snd.balance.ethereal = false</script>
 							<regexCodeList>
 								<string>You can spew your blood once more.</string>
 								<string>Your voice returns fully, you can demand their attendance once more.</string>
+								<string>You may speak Her winnowing curse once more.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -33223,10 +33319,14 @@ snd.balance.ethereal = false</script>
 								<string>You use Discipline Attend on </string>
 								<string>You use Sanguis Spew on </string>
 								<string>You cannot spew forth your blood again so soon.</string>
+								<string>You use Glamours Winnow on </string>
+								<string>You must wait before separating wheat from chaff with Her winnowing breath once more.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>2</integer>
+								<integer>2</integer>
+								<integer>3</integer>
 								<integer>2</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -33249,10 +33349,14 @@ snd.balance.ethereal = false</script>
 								<string>You use Discipline Inquisition on </string>
 								<string>You use Sanguis Thrombus on</string>
 								<string>You are not able to create a blood clot again just yet.</string>
+								<string>You use Glamours Spellbind on </string>
+								<string>The Lunar Court is a fickle one - you may not call upon their spellbinding magic yet.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
 								<integer>2</integer>
+								<integer>2</integer>
+								<integer>3</integer>
 								<integer>2</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -33273,8 +33377,10 @@ snd.balance.ethereal = false</script>
 							<regexCodeList>
 								<string>You may undertake another holy inquisition.</string>
 								<string>You can seize the blood within another once more.</string>
+								<string>You may summon the Lunar Court's spellbound wrath once more.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -33295,14 +33401,16 @@ snd.balance.ethereal = false</script>
 							<regexCodeList>
 								<string>Your ability to make proclamations reasserts itself.</string>
 								<string>You are capable of another execrative incantation.</string>
+								<string>You are capable of trilling once more.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>trill False</name>
+							<name>Trill False</name>
 							<script>snd.balance.trill = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -33319,8 +33427,12 @@ snd.balance.ethereal = false</script>
 								<string>You use Dictum Proclamation.</string>
 								<string>You use Caprice Execrate.</string>
 								<string>Your pact magics still wane due to a recent execration.</string>
+								<string>You use Mentis Trill.</string>
+								<string>Your blood has yet to recover from your trilled commands earlier.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
@@ -33346,6 +33458,7 @@ snd.balance.ethereal = false</script>
 								<string>You use Extirpation Ragdoll on </string>
 								<string>You have yet to recover from the exertion of casting your foes aside, sylvan.</string>
 								<string>You use Corpus Fling on </string>
+								<string>Your arms are weak from flinging another recently.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>2</integer>
@@ -33353,6 +33466,7 @@ snd.balance.ethereal = false</script>
 								<integer>2</integer>
 								<integer>3</integer>
 								<integer>2</integer>
+								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -33371,8 +33485,10 @@ snd.balance.ethereal = false</script>
 							<regexCodeList>
 								<string>You may once again embark upon a crusade.</string>
 								<string>You may once again cast your foes aside like ragdolls.</string>
+								<string>Your arms regain their strength to fling others.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
 								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -33563,8 +33679,16 @@ snd.balance.ethereal = false</script>
 							<regexCodeList>
 								<string>You use Extirpation Reknit </string>
 								<string>You are not quite ready to reknit another limb.</string>
+								<string>You use Ascendance Rekindle</string>
+								<string>You cannot yet rekindle life in another limb.</string>
+								<string>You use Corpus Reconstruct </string>
+								<string>You are not quite ready to reconstruct another limb.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>2</integer>
+								<integer>3</integer>
+								<integer>2</integer>
+								<integer>3</integer>
 								<integer>2</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
@@ -33584,8 +33708,12 @@ snd.balance.ethereal = false</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>Your body forgets the phantom pain of forced healing, allowing for another reknitting.</string>
+								<string>Your spirit can rekindle another limb.</string>
+								<string>Your body can reconstruct another limb.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -55231,7 +55359,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.0"
+local version = "11.3.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65369,6 +65497,7 @@ snd.last_attack = "none"
 snd.last_affs = {}
 snd.last_cure = ""
 snd.last_cured = ""
+snd.last_cured_real = ""
 snd.mana_percent = 100
 snd.health_percent = 100
 snd.jawlocked = false
@@ -67569,6 +67698,9 @@ function snd.target_cured(affliction)
       table.remove(snd.target_has, i)
       cecho("&lt;red&gt; " .. affliction)
       snd.last_cured = affliction
+      if table.contains(snd.real_all_affs, affliction) then
+        snd.last_cured_real = affliction
+      end
       if affliction == "gorged" then
         snd.gorged = ""
       end
@@ -73446,9 +73578,6 @@ end
     Recklessness = function(target)
       snd.target_got("recklessness")
     end,
-	Loneliness = function(target)
-	  snd.target_got("loneliness")
-	end,
     Trickery = function(target)
       snd.target_got("trickery")
     end,
@@ -73462,7 +73591,7 @@ end
     end,
   },
 
-  ["Sanguis"] = {
+  ["Glamours"] = {
     Winnow = function(target)
       snd.target_got("ringing_ears")
       if snd.checkAff("hubris") then
@@ -73486,6 +73615,10 @@ end
       else
         snd.target_cured("feast")
       end
+    end,
+    --typo'd version aaa
+    Disfavor = function(target)
+      snd.target_got("sepsis")
     end,
 
     Disfavour = function(target)
