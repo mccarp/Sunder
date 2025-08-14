@@ -3314,8 +3314,30 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Pillar</name>
-								<script>if snd.last_cured_real ~= "" then
+								<name>Font</name>
+								<script>if snd.class == "Akkari" and gmcp.Char.Status.spec == "Il'ahji" and snd.last_cured_real ~= "" then
+  snd.target_got(snd.last_cured_real)
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>A great and terrible radiance erupts from a font of spiritual light, bathing the area in an effulgent glow.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Dryad</name>
+								<script>if snd.class == "Sylvan" and gmcp.Char.Status.spec == "Queensguard" and snd.last_cured_real ~= "" then
   snd.target_got(snd.last_cured_real)
 end</script>
 								<triggerType>0</triggerType>
@@ -3330,10 +3352,8 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>Bewitching sorcery roils forth from a feral dryad enchantress's runescribed bark, bathing her surroundings in hazy witchlight.</string>
-									<string>A great and terrible radiance erupts from a font of spiritual light, bathing the area in an effulgent glow.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
-									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -34406,6 +34426,7 @@ end</script>
     deleteLine()
   end
   snd.def_take(i)
+  if snd.defenses[i].stacks then snd.defenses[i].stacks = 0 end
  end
 end</script>
 							<triggerType>0</triggerType>
@@ -34424,6 +34445,26 @@ end</script>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>6</integer>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>defline stack</name>
+							<script>snd.defenses["def_"..matches[2]].stacks = tonumber(matches[3])</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^Your ([a-z_]+) defence now has (\d+) stacks?\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -55419,7 +55460,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.4"
+local version = "11.3.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61978,7 +62019,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_awe                  = { defense = "awe", type = "spring_green", effect = "Anxieties 2 enemies", balance = { balanceequilibriumtake = "fae awe" }, skill = "Awe" },
   def_bloodbath            = { defense = "bloodbath", type = "spring_green", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "fae bloodbath"}, skill = "Bloodbath" },
   def_favour               = { defense = "favour", type = "spring_green", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "fae favour" }, skill = "Favour" },
-  def_bloodhunger          = { defense = "bloodhunger", type = "spring_green", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodthirst"},
+  def_bloodthirst          = { defense = "bloodthirst", type = "spring_green", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodthirst"},
 
   --Syssin
   def_hiding = { defense = "hiding", type = "blue", effect = "Conceals your presence", balance = { needybalancetake = "hide" }, skill = "Hide" },
@@ -62969,6 +63010,7 @@ end</script>
   ["Gelid nightfury swathes you, ready to seek redress."] = "redress",
   ["You swell with the favour of the Queensguard."] = "favour",
   ["You are concealing all vulnerabilities."] = "concealing",
+  ["The thrill of the hunt stokes your bloodthirst."] = "bloodthirst",
 }
 </script>
 				<eventHandlerList />
@@ -64822,6 +64864,16 @@ function snd.have_def(defense)
     return false
   end
   return snd.defenses[defense].state == "deffed"
+end
+
+function snd.def_stacks(defense)
+  if not string.find(defense, "def_") then
+    defense = "def_" .. defense
+  end
+  if not snd.defenses[defense] or snd.defenses[defense].state ~= "deffed" then
+    return 0
+  end
+  return snd.defenses[defense].stacks or 0  
 end
 
 function snd.aff_tally()
@@ -69980,6 +70032,7 @@ end
 
     Deadbreath = function(target)
       snd.target_got("slickness")
+      snd.target_got("no_paste")
       snd.used.paste = false
     end,
     Frenzy = function(target, modifier)
@@ -73562,6 +73615,7 @@ end
 
     Snarl = function(target)
       snd.target_got("slickness")
+      snd.target_got("no_paste")
       snd.used.paste = false
     end,
     Thrash = function(target, modifier)
