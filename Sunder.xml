@@ -55460,7 +55460,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.6"
+local version = "11.3.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63327,6 +63327,7 @@ end
     def_holylight = "once",
     def_exaction = "once",
     def_spiritbolster = "once",
+    def_transcendence = "once",
   },
 
 
@@ -63471,6 +63472,7 @@ end
     -- def_deathlink = "on",
     def_bloodwisp = "once",
     def_strengthening = "once",
+    def_craven = "once",
   },
 
   ravager = {
@@ -63559,6 +63561,7 @@ end
     -- def_seedward = "on",
     def_bloodbath = "once",
     def_favour = "once",
+    def_wildfury = "once",
   },
 
   infiltrator = {
