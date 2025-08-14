@@ -55460,7 +55460,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.5"
+local version = "11.3.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -66045,7 +66045,6 @@ snd.cures = {
   -- sensitivity = "prefarar",
   vomiting = "euphorbia",
   allergies = "darkshade",
-  colocasia = "colocasia",
   haemophilia = "hepafarin",
   peace = "ouabain",
   deadening = "vardrax",
