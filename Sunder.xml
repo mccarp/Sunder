@@ -3147,7 +3147,7 @@ end</script>
 								<regexCodeList>
 									<string>^(\w+)'s body turns sickly as \w+ skin takes on a yellow shade\.$</string>
 									<string>^Motes of light pulse beneath (\w+)'s skin, .+ veins twisting oddly as the scouring incandescence wreaks havoc upon .+ insides.$</string>
-									<string>^(\w+)'s body trembles as an ominous light runs through \w+ veins, \w+ organs suffering the beginningsof cursewrought collapse\.$</string>
+									<string>^(\w+)'s body trembles as an ominous light runs through \w+ veins, \w+ organs suffering the beginnings of cursewrought collapse\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -55419,7 +55419,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.3"
+local version = "11.3.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
