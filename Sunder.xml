@@ -25198,11 +25198,13 @@ snd.target_cured("no_paste")</script>
 									<string>Your fangs won't penetrate the odd waxy coating protecting them.</string>
 									<string>Your victim is protected by a hard coating.</string>
 									<string>^Your fangs won't penetrate the odd waxy coating protecting (\w+)\.$</string>
+									<string>A viscous barrier prevents your attempt to slake your bloodthirst.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
 									<integer>3</integer>
 									<integer>1</integer>
+									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -55460,7 +55462,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.7"
+local version = "11.3.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -66031,6 +66033,24 @@ snd.cures = {
   
   ["purification cascade"] = true,
   ["ravaging begrudge"] = true,
+  
+  ["tiarna renewal"] = true,
+  ["chaos mend"] = true,
+  ["titan defy"] = true,
+  ["nocturn stitching"] = true,
+  ["adherent purify"] = true,
+  ["morale purify"] = true,
+  ["malevolent purify"] = true,
+  ["strife purify"] = true,
+  ["corruption purify"] = true,
+  ["memory purify"] = true,
+  ["tyranny purify"] = true,
+  ["instinct purify"] = true,
+  ["aetherial revitalise"] = true,
+  ["sagani wellspring"] = true,
+  ["seraph soothe"] = true,
+  ["astral ambrosia"] = true,
+  ["glacian erase"] = true,
 }</script>
 				<eventHandlerList />
 			</Script>
