@@ -59085,7 +59085,7 @@ snd.priorities =
   "def_ardour_dexterity",
   "def_ardour_intelligence",
   "def_relentless",
-  
+  "def_abundance",
   "def_thrive_strength",
   "def_thrive_constitution",
   "def_thrive_dexterity",
@@ -62011,7 +62011,7 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_indurated            = { defense = "indurated", type = "spring_green", effect = "Indurate your body to take less physical damage", balance = { balanceequilibriumtake = "indurate" }, skill = "Indurate" },
   def_persisted            = { defense = "persisted", type = "spring_green", effect = "Fortify your body to take less magical damage", balance = { balanceequilibriumtake = "persist" }, skill = "Persist" },
   def_bloodscent           = { defense = "bloodscent", type = "spring_green", effect = "Detect nearby prey movements", balance = { balanceequilibriumtake = "bloodscent" }, skill = "Bloodscent" },
-  def_abundance            = { defense = "abundance", type = "spring_green", effect = "Make your blood use more efficient", balance = { balanceequilibrium = "fae abundance" }, skill = "Abundance", tree = "Abundance" },
+  def_abundance            = { defense = "abundance", type = "spring_green", effect = "Make your blood use more efficient", balance = { balanceequilibrium = "fae abundance" }, skill = "Abundance" },
   def_redress              = { defense = "redress", type = "spring_green", effect = "Furious moonlight exacts a toll on your attacker", balance = { balanceequilibriumtake = "fae redress" }, skill = "Redress" },
   def_concealing           = { defense = "concealing", type = "spring_green", effect = "Others cannot see your vitals", balance = { balanceequilibriumtake = "fae conceal" }, skill = "Concealing" },
   def_veering              = { defense = "veering", type = "spring_green", effect = "You avoid opponents' blows", balance = { balanceequilibriumtake = "veering on" }, skill = "Veering" },
