@@ -55462,7 +55462,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.8"
+local version = "11.3.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59011,6 +59011,7 @@ snd.priorities =
   "def_safeguard",
   "def_mindseye",
   "def_camouflage",
+  "def_telesense",
   -- "def_miasma",
   -- "def_warmth",
   "def_cloak",
@@ -61651,7 +61652,8 @@ color_table.chat_bg = {25, 25, 25}</script>
   def_treewatch = { defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = { special = "treewatch on" }, skill = "Treewatch" },
   def_skywatch = { defense = "skywatch", type = "normal", effect = "Watch out for fliers", balance = { special = "skywatch on" }, skill = "Skywatch" },
   def_detection = { defense = "detection", type = "normal", effect = "See foci in room", balance = { needyequilibriumtake = "detection on" }, skill = "Detection" },
-
+  def_telesense = { defense = "telesense", type = "normal", effect = "Sense telapathy stuff", balance = { special = "telesense on" }, skill = "Telesense" },
+  
   def_nightsight = { defense = "nightsight", type = "normal", effect = "Allows glancing at night", balance = { special = "nightsight on" }, skill = "Nightsight" },
   def_fitness = { defense = "fitness", type = "normal", effect = "Protects from asthma", balance = { balanceequilibriumtake = "fitness" }, skill = "Fitness" },
   def_clarity = { defense = "clarity", type = "normal", effect = "Protects against some mental affs", balance = { needyequilibriumtake = "clarity" }, skill = "Clarity", tree = "Survival" },
@@ -62447,6 +62449,7 @@ end</script>
 				<name>most defenses</name>
 				<packageName></packageName>
 				<script>snd.defenses_list = {
+  ["You are attuned to local telepathic interference."] = "telesense",
   ["You are camouflaging yourself."] = "camouflage",
   ["You are trying to absorb blows to your body."] = "bodyblock",
   ["You are using Tekura to evade incoming attacks."] = "evadeblock",
