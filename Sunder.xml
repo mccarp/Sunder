@@ -55482,7 +55482,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.11"
+local version = "11.3.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65483,6 +65483,7 @@ function npb.cformat(player, format)
   return str
 end
 
+npb.last_known_online = npb.last_known_online or { Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}, Divine = {} }
 --- Sort people into tables by organization.
 -- @function npb.qwsorted
 -- @param people table of people to sort
@@ -65494,6 +65495,7 @@ function npb.qwsorted(people)
     if org == "Unknown" then org = "Rogues" end
     table.insert(sorted[org], name)
   end
+  npb.last_known_online = sorted
   for _, org in ipairs(npb.order) do
     local peoples = sorted[org]
     table.sort(peoples)
