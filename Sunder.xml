@@ -41711,6 +41711,82 @@ end
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
+						<Alias isActive="yes" isFolder="no">
+							<name>gaff</name>
+							<script>if snd.class == "Praenomen" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if snd.waiting.queue then return end
+    local attack = ""
+    local call = ""
+    
+    snd.giving = {
+      "paresis",
+      "asthma",
+      "clumsiness",
+      "weariness",
+      "dizziness",
+    }
+    
+    snd.giving_whisper = {
+      "impatience",
+      "epilepsy",
+      "stupidity",
+      "loneliness",
+      "mania",
+      "masochism",
+      "recklessness",
+      "vertigo",
+      "infatuation",
+      "confusion",
+      "agoraphobia",
+      "paranoia",
+    }
+      
+    local whispers = snd.utils.basic_stack(snd.giving_whisper)
+    
+    local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
+    
+    table.insert(whispers, "amnesia")
+    table.insert(whispers, "amnesia")
+    table.insert(venoms, "voyria")
+    
+    local modifier = ""
+    if snd.checksomeAffs(snd.cures.antipsychotic, 3) and not snd.checkAff("no_courage") then
+      modifier = " craze"
+    elseif snd.checksomeAffs(snd.cures.depressant, 3) then
+      modifier = " subdue"
+    end
+    
+    local whisperCmd = "whisper "..whispers[1].." "..whispers[2].." "..snd.target
+    
+    if snd.used.shield or snd.used.rebounding then
+      if not snd.checkAff("rend") and not snd.used.shield then
+        attack = "claw "..snd.target..snd.sep..whisperCmd
+      elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
+        attack = "mesmerize "..snd.target..snd.sep..whisperCmd
+      else
+        attack = "frenzy "..snd.target..modifier..snd.sep..whisperCmd
+      end
+      call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
+    else
+      attack = "gash "..snd.target.." "..venoms[1]..snd.sep..whisperCmd
+      call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. whispers[1]..", "..whispers[2]
+    end
+    
+    if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+      attack = call .. snd.sep .. attack
+    end
+    snd.attack(attack, true)
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^gaff$</regex>
+						</Alias>
 					</AliasGroup>
 					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Teradrim</name>
@@ -47153,6 +47229,165 @@ end</script>
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
+						<Alias isActive="yes" isFolder="no">
+							<name>gaff</name>
+							<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if snd.waiting.queue then return end
+    local attack = ""
+    local call = ""
+    
+    snd.giving = {
+      "paresis",
+      "asthma",
+      "clumsiness",
+      "weariness",
+      "dizziness",
+    }
+    
+    snd.giving_whisper = {
+      "impatience",
+      "epilepsy",
+      "stupidity",
+      "loneliness",
+      "mania",
+      "masochism",
+      "recklessness",
+      "vertigo",
+      "infatuation",
+      "confusion",
+      "agoraphobia",
+      "paranoia",
+    }
+      
+    local whispers = snd.utils.basic_stack(snd.giving_whisper)
+    
+    local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
+    
+    table.insert(whispers, "amnesia")
+    table.insert(whispers, "amnesia")
+    table.insert(venoms, "voyria")
+    
+    local modifier = ""
+    if snd.checksomeAffs(snd.cures.antipsychotic, 3) and not snd.checkAff("no_courage") then
+      modifier = " strife"
+    elseif snd.checksomeAffs(snd.cures.depressant, 3) then
+      modifier = " evil"
+    end
+    
+    local whisperCmd = "dictate "..whispers[1].." "..whispers[2].." "..snd.target
+    
+    if snd.used.shield or snd.used.rebounding then
+      if not snd.checkAff("rend") and not snd.used.shield then
+        attack = "bloodlet "..snd.target..snd.sep..whisperCmd
+      elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
+        attack = "exhort "..snd.target..snd.sep..whisperCmd
+      else
+        attack = "denounce "..snd.target..modifier..snd.sep..whisperCmd
+      end
+      call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
+    else
+      attack = "censure "..snd.target.." "..venoms[1]..snd.sep..whisperCmd
+      call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. whispers[1]..", "..whispers[2]
+    end
+    
+    if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+      attack = call .. snd.sep .. attack
+    end
+    snd.attack(attack, true)
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^gaff$</regex>
+						</Alias>
+					</AliasGroup>
+					<AliasGroup isActive="yes" isFolder="yes">
+						<name>Sylvan</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<Alias isActive="yes" isFolder="no">
+							<name>Gaff</name>
+							<script>if snd.class == "Sylvan" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if snd.waiting.queue then return end
+    local attack = ""
+    local call = ""
+    
+    snd.giving = {
+      "paresis",
+      "asthma",
+      "clumsiness",
+      "weariness",
+      "dizziness",
+    }
+    
+    snd.giving_whisper = {
+      "impatience",
+      "epilepsy",
+      "stupidity",
+      "loneliness",
+      "mania",
+      "masochism",
+      "recklessness",
+      "vertigo",
+      "infatuation",
+      "confusion",
+      "agoraphobia",
+      "paranoia",
+    }
+      
+    local whispers = snd.utils.basic_stack(snd.giving_whisper)
+    
+    local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
+    
+    table.insert(whispers, "amnesia")
+    table.insert(whispers, "amnesia")
+    table.insert(venoms, "voyria")
+    
+    local modifier = ""
+    if snd.checksomeAffs(snd.cures.antipsychotic, 3) and not snd.checkAff("no_courage") then
+      modifier = " wolfine"
+    elseif snd.checksomeAffs(snd.cures.depressant, 3) then
+      modifier = " asrai"
+    end
+    
+    local whisperCmd = "imprecate "..whispers[1].." "..whispers[2].." "..snd.target
+    
+    if snd.used.shield or snd.used.rebounding then
+      if not snd.checkAff("rend") and not snd.used.shield then
+        attack = "wound "..snd.target..snd.sep..whisperCmd
+      elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
+        attack = "bewitch "..snd.target..snd.sep..whisperCmd
+      else
+        attack = "thrash "..snd.target..modifier..snd.sep.."imprecate "..whispers[1].." "..whispers[2].." "..snd.target
+      end
+      call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
+    else
+      attack = "reap "..snd.target.." "..venoms[1]..snd.sep..whisperCmd
+      call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. whispers[1]..", "..whispers[2]
+    end
+    
+    if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+      attack = call .. snd.sep .. attack
+    end
+    snd.attack(attack, true)
+  end
+
+  snd.attack_function()
+end</script>
+							<command></command>
+							<packageName></packageName>
+							<regex>^gaff$</regex>
+						</Alias>
 					</AliasGroup>
 					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Voidseer</name>
@@ -61664,6 +61899,36 @@ color_table.chat_bg = {25, 25, 25}</script>
 ⣿⣻⣿⣻⡷⣿⢿⣽⣯⣿⣻⣿⣽⡾⣷⣟⣿⣻⣟⣯⣿⣻⣾⢿⣻⡿⣾⢿⣻⣿⣻⣟⣷⣟⣯⣿⣻⣾⣟⣯⡿⣷⢿⡿⣾⣟⣿⢯⣿⣟⣿⣻⡿⣶⣦⣤⣈⣉⢁⠀⠀⠀⠀
 ⣽⡿⣾⣯⣿⣟⣿⣻⣾⢯⣿⢾⡷⣿⣻⣽⣯⡿⣯⣿⣽⣯⣿⣻⣿⣽⣿⣻⣯⣿⡽⣯⣷⢿⣯⣿⣽⣾⣯⢿⣻⣯⣿⣟⣿⢾⣻⡿⣷⣟⣷⢿⣻⡿⣾⣻⣯⣿⢷⣷⣶⣤⣄
 ]]</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>utils</name>
+				<packageName></packageName>
+				<script>snd.utils = snd.utils or {}
+
+function snd.utils.i_collect(tab, func)
+  local result = {}
+  for _, v in ipairs(tab) do
+    if func(v) and not table.contains(result, v) then table.insert(result, v) end
+  end
+  return result
+end
+
+local function notAff(v)
+  return not snd.checkAff(v)
+end
+
+function snd.utils.basic_stack(tab)
+  return snd.utils.i_collect(tab, notAff)
+end
+
+function snd.utils.venomify(tab)
+  local result = {}
+  for _, v in ipairs(tab) do
+    table.insert(result, snd.effects[v])
+  end
+  return result
+end</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
