@@ -41711,367 +41711,6 @@ end
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Damage Offenses</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>damage</name>
-								<script>if snd.class == "Praenomen" then
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = ""
-    if not snd.waiting.queue then
-      string = "frenzy " .. snd.target
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function()
-end
-
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^dmg$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Praenomen Group Dmg</name>
-								<script>if snd.class == "Praenomen" then
-  snd.giving_whisper = {
-    "impatience",
-    "stupidity",
-    "recklessness",
-    "mania",
-    "masochism",
-    "epilepsy",
-    "confusion",
-    "infatuation",
-    "dementia",
-    "vertigo",
-    "anorexia",
-    "indifference",
-    "agoraphobia",
-  }
-
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local string = ""
-    local corpus = "none"
-    local touse = {}
-    local call = ""
-
-    if snd.mana_percent &lt; 35 and not snd.used.shield then --Checking if we could annihilate the last time we contemplated, and trying if we can. Need to add logic to announce mana calls
-      string = "annihilate " .. snd.target
-    else
-      for i in pairs(snd.giving_whisper) do
-        if not snd.checkAff(snd.giving_whisper[i]) then
-          if not table.contains(touse, snd.giving_whisper[i]) then
-            table.insert(touse, snd.giving_whisper[i])
-          end
-        end
-      end
-      table.insert(touse, "amnesia")
-      table.insert(touse, "amnesia") --make sure we don't run out of affs, this is useless filler
-      string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-    end
-    call = "wt Afflicting ".. snd.target..": ".. touse[1] .. ", " .. touse[2]
-    
-    if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
-      string = call..snd.sep..string
-    end
-    
-    string = "contemplate " ..
-        snd.target ..
-        snd.sep ..
-        "order loyals attack " ..
-        snd.target ..
-        snd.sep ..
-        string --Contemplate target and order loyal to attack it before attacking
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gdmg$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Afflictions</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group Afflictions</name>
-								<script>if snd.class == "Praenomen" then
-  snd.starting_attack()
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      local string = ""
-      local touse = {}
-      snd.giving_whisper = {
-        "impatience",
-        "infatuation",
-        "stupidity",
-        "anorexia",
-        "confusion",
-        "recklessness",
-        "agoraphobia",
-        "vertigo",
-        "indifference",
-        "peace",
-        "masochism",
-        "paranoia",
-  
-      }
-  
-      for i in pairs(snd.giving_whisper) do
-        if not snd.checkAff(snd.giving_whisper[i]) then
-          if not table.contains(touse, snd.giving_whisper[i]) then
-            table.insert(touse, snd.giving_whisper[i])
-          end
-        end
-      end
-      table.insert(touse, "amnesia")
-      table.insert(touse, "amnesia") --make sure we don't run out of affs, this is useless filler
-      
-      call = "wt Afflicting ".. snd.target..": ".. touse[1] .. ", " .. touse[2]
-  
-    
-      string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-      
-      if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
-        string = call..snd.sep..string
-      end
-      
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^aff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Praenomen Group Affs</name>
-								<script>if snd.class == "Praenomen" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local string = ""
-    local touse = {}
-    local gashaff = {}
-    local call = ""
-
-    snd.giving_whisper = {
-      "impatience",
-      "stupidity",
-      "recklessness",
-      "masochism",
-      "agoraphobia",
-      "confusion",
-      "epilepsy",
-      "anorexia",
-      "mania",
-      "vertigo",
-      "dementia",
-      "infatuation",
-      "peace",
-      "paranoia",
-      "indifference",
-
-    }
-
-    snd.scythe_gash = {
-      "paresis",
-      "asthma",
-      "slickness",
-      "anorexia",
-      "clumsiness",
-      "dizziness",
-      "stupidity",
-      "weariness",
-
-    }
-
-
-
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-          table.insert(touse, snd.giving_whisper[i])
-        end
-      end
-    end
-
-    for i in pairs(snd.scythe_gash) do
-      if not snd.checkAff(snd.scythe_gash[i]) then
-        if not table.contains(gashaff, snd.scythe_gash[i]) then
-          table.insert(gashaff, snd.scythe_gash[i])
-        end
-      end
-    end
-
-    if snd.mana_percent &lt; 35 and not snd.used.shield then
-      string = "annihilate " .. snd.target
-    else
-      if snd.used.shield or snd.used.rebounding then
-        string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-        call = "wt Afflicting " .. snd.target .. ": " .. touse[1] .. snd.sep .. ", " .. touse[2]
-      else
-        string = "wipe weapon " ..
-        snd.sep ..
-        "gash " ..
-        snd.target ..
-        " " ..
-        snd.effects[gashaff[1]] .. " lightly" .. snd.sep .. "whisper " ..
-        touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
-        call = "wt Afflicting " .. snd.target ..
-        ": " .. snd.effects[gashaff[1]] .. ". Whispering: " .. touse[1] .. ", " .. touse[2]
-      end
-    end
-
-    string = "contemplate " .. snd.target .. snd.sep .. "order loyals attack " .. snd.target .. snd.sep .. string
-    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-      string = call .. snd.sep .. string
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gaff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Salve support</name>
-								<script>if snd.class == "Praenomen" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local string = ""
-    local touse = {}
-    local gashaff = {}
-    local call = ""
-
-    snd.giving_whisper = {
-      "indifference",
-      "anorexia",
-      "impatience",
-      "stupidity",
-      "recklessness",
-      "masochism",
-      "agoraphobia",
-      "confusion",
-      "epilepsy",
-      "mania",
-      "vertigo",
-      "dementia",
-      "peace",
-      "paranoia",
-    }
-
-    snd.scythe_gash = {
-      "asthma",
-      "slickness",
-      "anorexia",
-      "paresis",
-      "haemophilia",
-      "clumsiness",
-      "dizziness",
-      "stupidity",
-      "weariness",
-
-    }
-    
-
-
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-          table.insert(touse, snd.giving_whisper[i])
-        end
-      end
-    end
-
-    for i in pairs(snd.scythe_gash) do
-      if not snd.checkAff(snd.scythe_gash[i]) then
-        if not table.contains(gashaff, snd.scythe_gash[i]) then
-          table.insert(gashaff, snd.scythe_gash[i])
-        end
-      end
-    end
-
-    if snd.mana_percent &lt; 35 and not snd.used.shield then
-      string = "annihilate " .. snd.target
-    else
-      if snd.used.shield or snd.used.rebounding then
-        string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-        call = "Afflicting " .. snd.target .. ": " .. touse[1] .. snd.sep .. ", " .. touse[2]
-      else
-        string = "wipe weapon " ..
-        snd.sep ..
-        "gash " ..
-        snd.target .. " " .. snd.effects[gashaff[1]] ..
-        " lightly" .. snd.sep .. "whisper " .. touse[1] .. " " .. snd.target .. snd.sep
-        call = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. ". Whispering: " .. touse[1]
-      end
-    end
-    string = "contemplate " .. snd.target .. snd.sep .. "order loyals attack " .. snd.target .. snd.sep .. string
-    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-      string = call .. snd.sep .. string
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^legs$</regex>
-							</Alias>
-						</AliasGroup>
 					</AliasGroup>
 					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Teradrim</name>
@@ -47514,1432 +47153,6 @@ end</script>
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Misc</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Lure</name>
-								<script>if snd.class == "Akkari" then
-  snd.send("qeb DEJEMASHAI "..matches[2])
-elseif snd.class == "Praenomen" then
-  snd.send("qeb lure "..matches[2])
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^lure (\w+)$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>1v1</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Naarak Host Route</name>
-								<script>if snd.class == "Akkari" then
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = "contemplate " .. snd.target .. snd.sep
-    local corpus = "none"
-    local touse = {}
-    local tohit = {}
-    local whis = {}
-
-    snd.giving_whisper = {
-      "impatience",
-      "infatuation",
-      "peace",
-      "stupidity",
-      "confusion",
-      "anorexia",
-      "mania",
-      "recklessness",
-      "agoraphobia",
-      "vertigo",
-      "indifference",
-      "masochism",
-      "paranoia",
-
-    }
-
-
-    snd.giving = {
-      "asthma",
-      "paresis",
-      "clumsiness",
-      "weariness",
-    }
-    for i in pairs(snd.giving) do
-      if not snd.checkAff(snd.giving[i]) then
-        if not table.contains(touse, snd.giving[i]) then
-          table.insert(touse, snd.giving[i])
-        end
-      end
-    end
-    for aff in pairs(touse) do
-      table.insert(tohit, snd.effects[touse[aff]])
-    end
-
-    for j in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[j]) then
-        if not table.contains(whis, snd.giving_whisper[j]) then
-          table.insert(whis, snd.giving_whisper[j])
-        end
-      end
-    end
-    local physcount = 0
-    for aff in pairs(snd.physical_affs) do
-      if table.contains(snd.target_has, snd.physical_affs[aff]) then
-        physcount = physcount + 1
-      end
-    end
-    local mentcount = 0
-    for aff in pairs(snd.mental_affs) do
-      if table.contains(snd.target_has, snd.mental_affs[aff]) then
-        mentcount = mentcount + 1
-      end
-    end
-
-    if not snd.loyalsattacking then
-      string = string .. "order loyals kill " .. snd.target .. snd.sep
-    end
-
-    local seizeMana = 0
-    local mAffBump = 4.00
-    seizeMana = tonumber((10.98) + (mentcount * mAffBump))
-
-    if snd.checkAff("psychosis") then
-      seizeMana = seizeMana + ((seizeMana / 10) * 1.5)
-    end
-
-    if not snd.waiting.queue then
-      if snd.theytumbling then
-        string = string .. "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
-      elseif snd.theyran then
-        string = string .. "DEJEMASHAI " .. snd.target
-      elseif snd.used.shield then
-        string = string .. "denounce " ..
-            snd.target .. " upset" .. snd.sep .. "dictate " .. whis[1] .. " " .. whis[2] .. " " .. snd.target
-      elseif snd.used.rebounding then
-        string = string ..
-            snd.target .. snd.sep .. "bloodlet " .. snd.target ..
-            snd.sep .. "dictate " .. whis[1] .. " " .. whis[2] .. " " .. snd.target
-      elseif not snd.checkAff("rend") then
-        string = string .. "bloodlet " .. snd.target .. snd.sep .. "dictate " .. whis[1] .. " " ..
-            whis[2] .. " " .. snd.target
-      elseif not snd.checkAff("blood_rune") and not snd.runeused then
-        string = string .. "spirit pariah " .. snd.target
-      elseif ((snd.mana_percent - seizeMana) &lt;= 37 and snd.checkAff("blood_rune")) or ((snd.mana_percent - seizeMana) &lt;= 32) and snd.balance.seize then
-        string = string .. "spirit inquisition " .. snd.target
-      elseif snd.mana_percent &lt;= 37 and not snd.balance.seize and snd.runeused and snd.checkAff("blood_rune") then
-        string = string .. "spirit vilify"
-      elseif snd.mana_percent &lt; 35 or (snd.mana_percent &lt; 44 and snd.checkAff("blood_rune")) then
-        string = string .. "dumavai " .. snd.target
-      elseif mentcount &gt;= 3 and not snd.checkAff("psychosis") then
-        string = string .. "spirit anathema " .. snd.target
-      else
-        string = string ..
-            "wipe weapon" ..
-            snd.sep ..
-            "censure " ..
-            snd.target .. " " .. tohit[1] .. " lenient" ..
-            snd.sep .. "dictate " .. whis[1] .. " " .. whis[2] .. " " .. snd.target .. snd.sep
-      end
-    end
-
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^narrak$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Limbs</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group Limbs</name>
-								<script>snd.current_offense = "gli"
-if snd.class == "Akkari" then -- set this to the class this alias is for
-  snd.starting_attack()
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      -- declare some important variables
-      local string = ""
-      local touse = {}
-      local gashaff = {}
-      local call = ""
-      local fcall = ""
-      local scall = ""
-      local paff = "none"
-      local saff_one = "none"
-      local saff_two = "none"
-      local pattack = ""
-      local sattack = ""
-      local extraaff = "amnesia"
-
-
-      snd.primary_aff = {
-        --"effused_blood",
-        "blood_rune",
-        "paresis",
-        "stupidity",
-        "anorexia",
-        "asthma",
-        "slickness",
-        "psychosis",
-        "black_bile",
-      }
-
-      snd.secondary_aff = {
-        "stupidity",
-        "impatience",
-        "epilepsy",
-        "mania",
-        "loneliness",
-        "confusion",
-        "peace",
-        "recklessness",
-        "dementia",
-        "paranoia",
-        "anorexia",
-        "vertigo",
-        "masochism",
-        "agoraphobia",
-        "indifference",
-        "amnesia",
-      }
-
-
-      snd.akkari_host()
-      snd.akkari_attend()
-
-      for i in pairs(snd.primary_aff) do
-        if not snd.checkAff(snd.primary_aff[i])
-            and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis"))
-        then
-          if not table.contains(gashaff, snd.primary_aff[i]) then
-            table.insert(gashaff, snd.primary_aff[i])
-          end
-        end
-      end
-
-      if table.isMember(snd.censure_affs, gashaff[1]) then
-        if gashaff[1] == "sight" then
-          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " lenient " .. snd.effects[gashaff[1]] ..
-              snd.sep
-        else
-          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " " .. snd.effects[gashaff[1]] .. snd.sep
-        end
-        fcall = "Afflicting " .. snd.target .. ": " .. gashaff[1] .. " "
-      elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
-        if gashaff[1] == "black_bile" then
-          pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
-        else
-          pattack = snd.akkari_bal_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
-        end
-      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
-        pattack = snd.akkari_eq_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
-      else
-        pattack = "denounce " .. snd.target .. snd.sep
-        fcall = ""
-      end
-
-      for i in pairs(snd.secondary_aff) do
-        if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
-          if not table.contains(touse, snd.secondary_aff[i]) then
-            table.insert(touse, snd.secondary_aff[i])
-          end
-        end
-      end
-
-      if touse[2] == "sight" then
-        table.remove(touse, table.index_of(touse, "sight"))
-      end
-
-      if touse[2] == "hearing" then
-        table.remove(touse, table.index_of(touse, "hearing"))
-      end
-
-      while #touse &lt; 3 do
-        table.insert(touse, extraaff)
-      end
-
-
-      if gashaff[1] == "sight" then
-        if touse[1] == "sight" then
-          table.remove(touse, table.index_of(touse, "sight"))
-        end
-        if touse[1] == "hearing" then
-          table.remove(touse, table.index_of(touse, "hearing"))
-        end
-        sattack = "dictate " .. touse[1] .. " " .. snd.target .. snd.sep
-        if touse[1] == "remorse" or touse[1] == "contrition" then
-        else
-          scall = "Whispering " .. snd.target .. ": " .. touse[1]
-        end
-      elseif touse[1] == "sight" then
-        sattack = "spirit attend " .. snd.target .. snd.sep
-      elseif touse[1] == "hearing" then
-        sattack = "spirit attend " .. snd.target .. snd.sep
-      elseif touse[1] == "sepsis" then
-        sattack = "spirit bane " .. snd.target .. snd.sep
-      else
-        if (touse[2] == "hearing" or touse[2] == "sight") then
-          if snd.balance.trill then
-            sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
-          else
-            sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
-          end
-          scall = "Whispering: " .. touse[1] .. " " .. touse[3]
-        else
-          if snd.balance.trill then
-            sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
-          else
-            sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
-          end
-          if touse[1] == "remorse" or touse[1] == "contrition" then
-          else
-            scall = "Whispering " .. snd.target .. ": " .. touse[1] .. " " .. touse[2]
-          end
-        end
-      end
-
-
-      if snd.used.shield and snd.used.rebounding then
-        string = "denounce " .. snd.target .. snd.sep .. "spirit provoke " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.used.shield then
-        string = "denounce " .. snd.target .. snd.sep .. sattack
-        fcall = ""
-      elseif snd.mana_percent &lt; 35 then
-        string = "dumavai " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
-        string = "spirit vilify" .. snd.sep .. "dumavai " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
-        string = "denounce " .. snd.target .. " corruption" .. snd.sep .. sattack
-        fcall = ""
-      elseif snd.checkAff("impatience") and snd.checksomeAffs({ "sadness", "confusion", }, 2)
-          and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("psychosis") then
-        string = "spirit anathema " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif gmcp.Char.Status.spec == "Naarak" and snd.balance.thrombus and
-          ((snd.aff_count_mental() == 12 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 10))
-            or
-            (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 7))))
-      then
-        string = "spirit inquisition " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
-        string = pattack
-        fcall = ""
-        scall = ""
-      else
-        string = pattack .. snd.sep .. sattack
-      end
-
-
-      if not snd.loyalsattacking then
-        string = "order loyals attack " .. snd.target .. snd.sep .. string
-      end
-
-      string = "contemplate " .. snd.target .. snd.sep .. string
-
-
-      if fcall ~= "" then
-        call = "wt " .. fcall
-      end
-
-      if scall ~= "" then
-        if call ~= "" then
-          call = call .. snd.sep .. "wt " .. scall
-        else
-          call = "wt " .. scall
-        end
-      end
-
-
-      -- check if we need to prepend an affliction call
-      if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-        string = call .. snd.sep .. string
-      end
-
-
-      -- we don't want to resend our existing attack, so check against that
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        -- if we've got a new attack now,
-        snd.last_attack = string
-        cecho("\n&lt;white&gt;" .. string)
-        snd.attack(snd.last_attack)
-        -- manage the anti-spam check below
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function() -- make sure to actually send the attack once on use!
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gli$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Damage Offenses</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>damage</name>
-								<script>if snd.class == "Akkari" then
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = ""
-    local corpus = "none"
-    local touse = {}
-
-    snd.giving_whisper = {
-      "impatience",
-      "infatuation",
-      "stupidity",
-      "anorexia",
-      "confusion",
-      "recklessness",
-      "agoraphobia",
-      "vertigo",
-      "indifference",
-      "peace",
-      "masochism",
-      "paranoia",
-    }
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-          table.insert(touse, snd.giving_whisper[i])
-        end
-      end
-    end
-
-    if not snd.loyalsattacking then
-      string = "order loyals kill " .. snd.target .. snd.sep
-    end
-
-    if not snd.waiting.queue then
-      if snd.theytumbling then
-        string = string .. "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
-      elseif snd.theyran then
-        string = string .. "DEJEMASHAI " .. snd.target
-      elseif not snd.checkAff("writhe_transfix") then
-        string = string .. "Exhort " .. snd.target
-      else
-        string = string .. "denounce " .. snd.target .. snd.sep .. "dictate " .. touse[1] ..
-            " " .. touse[2] .. " " .. snd.target
-      end
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^dmg$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Mes feast</name>
-								<script>if snd.class == "Akkari" then
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = ""
-    local corpus = "none"
-    local touse = {}
-
-
-    snd.giving_whisper = {
-      "impatience",
-      "infatuation",
-      "mania",
-      "stupidity",
-      "confusion",
-      "recklessness",
-      "masochism",
-      "anorexia",
-      "agoraphobia",
-      "vertigo",
-      "indifference",
-      "peace",
-      "paranoia",
-    }
-    
-    if not snd.loyalsattacking then
-      string = "order loyals kill " .. snd.target .. snd.sep
-    end
-
-
-    if not snd.waiting.queue then
-      if snd.theytumbling then
-        string = string .. "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
-      elseif snd.theyran then
-        string = string .. "DEJEMASHAI " .. snd.target
-      elseif not snd.checkAff("writhe_transfix") then
-        string = string .. "exhort " .. snd.target
-      elseif not snd.checkAff("feast") then
-        string = string .. "spirit exorcise " .. snd.target
-      else
-        for i in pairs(snd.giving_whisper) do
-          if not snd.checkAff(snd.giving_whisper[i]) then
-            if not table.contains(touse, snd.giving_whisper[i]) then
-              table.insert(touse, snd.giving_whisper[i])
-            end
-          end
-        end
-
-        string = string .. "deliver " .. snd.target .. snd.sep .. "dictate " .. touse[1] ..
-        " " .. touse[2] .. " " .. snd.target
-      end
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^feast$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Praenomen Group Dmg</name>
-								<script>if snd.class == "Akkari" then
-  snd.giving_whisper =
-    {
-      "infatuation",
-      "impatience",
-      "stupidity",
-      "recklessness",
-      "epilepsy",
-      "anorexia",
-      "confusion",
-      "dementia",
-      "mania",
-      "masochism",
-      "peace",
-      "vertigo",
-      "indifference",
-      "agoraphobia",
-    }
-  
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local string = ""
-    local corpus = "none"
-    local touse = {}
-    local call = ""
-    if snd.theytumbling then
-      string = "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
-    elseif snd.theyran then
-      string = "DEJEMASHAI " .. snd.target
-    elseif snd.mana_percent &lt; 35 and not snd.used.shield then
-      --Checking if we could annihilate the last time we contemplated, and trying if we can. Need to add logic to announce mana calls
-      string = "dumavai " .. snd.target
-    else
-      for i in pairs(snd.giving_whisper) do
-        if not snd.checkAff(snd.giving_whisper[i]) then
-          if not table.contains(touse, snd.giving_whisper[i]) then
-            table.insert(touse, snd.giving_whisper[i])
-          end
-        end
-      end
-      string =
-        "denounce " ..
-        snd.target ..
-        snd.sep ..
-        "dictate " ..
-        touse[1] ..
-        " " ..
-        touse[2] ..
-        " " ..
-        snd.target
-    end
-    string =
-      "contemplate " ..
-      snd.target ..
-      snd.sep ..
-      "order loyals attack " ..
-      snd.target ..
-      snd.sep ..
-      string
-    --Contemplate target and order loyal to attack it before attacking
-    call = "wt Afflicting " .. touse[1] .. " " .. touse[2]
-    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-      string =
-        call ..
-        snd.sep ..
-        "contemplate " ..
-        snd.target ..
-        snd.sep ..
-        "order loyals attack " ..
-        snd.target ..
-        snd.sep ..
-        string
-    end
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gdmg$</regex>
-							</Alias>
-						</AliasGroup>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Wielding</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>wield bashing</name>
-								<script>if snd.class == "Akkari" then
-  snd.send("quickwield both mantha")
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^wbsh$</regex>
-							</Alias>
-						</AliasGroup>
-						<Alias isActive="yes" isFolder="no">
-							<name>Akkari Attack Template</name>
-							<script>if snd.class == "Akkari" then -- set this to the class this alias is for
-  snd.starting_attack()
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      -- declare some important variables
-      local string = ""
-      local touse = {}
-      local gashaff = {}
-      local call = ""
-      local fcall = ""
-      local scall = ""
-      local paff = "none"
-      local saff_one = "none"
-      local saff_two = "none"
-      local pattack = ""
-      local sattack = ""
-      local extraaff = "amnesia"
-
-
-      snd.primary_aff = {
-        --"effused_blood",
-
-      }
-
-      snd.secondary_aff = {
-        "remorse",
-        "contrition",
-      }
-
-      snd.akkari_host()
-      snd.akkari_attend()
-
-      for i in pairs(snd.primary_aff) do
-        if not snd.checkAff(snd.primary_aff[i])
-            --   and not (snd.used.rebounding and table.isMember(snd.censure_affs, snd.primary_aff[i]))
-
-            and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis"))
-        then
-          if not table.contains(gashaff, snd.primary_aff[i]) then
-            table.insert(gashaff, snd.primary_aff[i])
-          end
-        end
-      end
-
-      if table.isMember(snd.censure_affs, gashaff[1]) then
-        if gashaff[1] == "sight" then
-          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " lenient " .. snd.effects[gashaff[1]] ..
-              snd.sep
-        else
-          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " " .. snd.effects[gashaff[1]] .. snd.sep
-        end
-        fcall = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. " "
-      elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
-        if gashaff[1] == "black_bile" then
-          pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
-          fcall = ""
-        else
-          pattack = snd.akkari_bal_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
-        end
-      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
-        pattack = snd.akkari_eq_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
-      else
-        pattack = "denounce " .. snd.target .. snd.sep
-      end
-
-      for i in pairs(snd.secondary_aff) do
-        if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
-          if not table.contains(touse, snd.secondary_aff[i]) then
-            table.insert(touse, snd.secondary_aff[i])
-          end
-        end
-      end
-
-      if touse[2] == "sight" then
-        table.remove(touse, table.index_of(touse, "sight"))
-      end
-
-      if touse[2] == "hearing" then
-        table.remove(touse, table.index_of(touse, "hearing"))
-      end
-
-      while #touse &lt; 3 do
-        table.insert(touse, extraaff)
-      end
-
-
-      if gashaff[1] == "sight" then
-        if touse[1] == "sight" then
-          table.remove(touse, table.index_of(touse, "sight"))
-        end
-        if touse[1] == "hearing" then
-          table.remove(touse, table.index_of(touse, "hearing"))
-        end
-        sattack = "dictate " .. touse[1] .. " " .. snd.target .. snd.sep
-        if touse[1] == "remorse" or touse[1] == "contrition" then
-        else
-          scall = "Whispering " .. snd.target .. ": " .. touse[1]
-        end
-      elseif touse[1] == "sight" then
-        sattack = "spirit attend " .. snd.target .. snd.sep
-      elseif touse[1] == "hearing" then
-        sattack = "spirit attend " .. snd.target .. snd.sep
-      elseif touse[1] == "sepsis" then
-        sattack = "spirit bane " .. snd.target .. snd.sep
-      else
-        if (touse[2] == "hearing" or touse[2] == "sight") then
-          if snd.balance.trill then
-            sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
-          else
-            sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
-          end
-          if touse[1] == "remorse" or touse[1] == "contrition" then
-          else
-            scall = "Whispering: " .. touse[1] .. " " .. touse[3]
-          end
-        else
-          if snd.balance.trill then
-            sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
-          else
-            sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
-          end
-          if touse[1] == "remorse" or touse[1] == "contrition" then
-          else
-            scall = "Whispering " .. snd.target .. ": " .. touse[1] .. " " .. touse[2]
-          end
-        end
-      end
-
-
-      if snd.used.shield and snd.used.rebounding then
-        string = "denounce " .. snd.target .. snd.sep .. "spirit provoke " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.used.shield then
-        string = "denounce " .. snd.target .. snd.sep .. sattack
-        fcall = ""
-      elseif snd.mana_percent &lt; 35 then
-        string = "dumavai " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
-        string = "spirit vilify" .. snd.sep .. "dumavai " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.checkAff("writhe_transfix") and not snd.checkAff("feast") and gmcp.Char.Status.spec == "Dosan" then
-        string = "spirit exorcise " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.can_deliver() then
-        string = "deliver " .. snd.target .. snd.sep .. sattack
-        fcall = ""
-      elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
-        string = "denounce " .. snd.target .. " corruption" .. snd.sep .. sattack
-        fcall = ""
-        --fcall = "Afflicting "..snd.target..": black_bile"
-      elseif snd.checkAff("impatience") and snd.checksomeAffs({ "sadness", "confusion", }, 2)
-          and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("psychosis") then
-        string = "spirit anathema " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif gmcp.Char.Status.spec == "Naarak" and snd.balance.thrombus and
-          ((snd.aff_count_mental() == 12 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 10))
-            or
-            (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 7))))
-      then
-        string = "spirit inquisition " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
-        string = pattack
-        fcall = ""
-        scall = ""
-      else
-        string = pattack .. snd.sep .. sattack
-      end
-
-
-      if not snd.loyalsattacking then
-        string = "order loyals attack " .. snd.target .. snd.sep .. string
-      end
-
-      string = "contemplate " .. snd.target .. snd.sep .. string .. snd.sep
-
-      if fcall ~= "" then
-        call = "wt " .. fcall
-      end
-
-      if scall ~= "" then
-        if call ~= "" then
-          call = call .. snd.sep .. "wt " .. scall
-        else
-          call = "wt " .. scall
-        end
-      end
-
-
-      -- check if we need to prepend an affliction call
-      if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-        string = call .. snd.sep .. string
-      end
-
-
-      -- we don't want to resend our existing attack, so check against that
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        -- if we've got a new attack now,
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        -- manage the anti-spam check below
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function() -- make sure to actually send the attack once on use!
-end
-
-</script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-						</Alias>
-						<AliasGroup isActive="yes" isFolder="yes">
-							<name>Afflictions</name>
-							<script></script>
-							<command></command>
-							<packageName></packageName>
-							<regex></regex>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group Afflictions</name>
-								<script>if snd.class == "Akkari" then
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = ""
-    local touse = {}
-    snd.giving_whisper = {
-      "impatience",
-      "infatuation",
-      "stupidity",
-      "anorexia",
-      "confusion",
-      "recklessness",
-      "agoraphobia",
-      "vertigo",
-      "indifference",
-      "peace",
-      "masochism",
-      "paranoia",
-
-    }
-    if not snd.waiting.queue then
-      if snd.theytumbling then
-        string = "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
-      elseif snd.theyran then
-        string = "DEJEMASHAI " .. snd.target
-      else
-        string = "denounce " .. snd.target .. snd.sep .. "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-      end
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^aff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Annhilate and Mesmerize</name>
-								<script>if snd.class == "Akkari" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local string = "contemplate " .. snd.target .. snd.sep
-    local corpus = "none"
-    local touse = {}
-    local physcount = 0
-    for aff in pairs(snd.physical_affs) do
-      if table.contains(snd.target_has, snd.physical_affs[aff]) then
-        physcount = physcount + 1
-      end
-    end
-    local mentcount = 0
-    for aff in pairs(snd.mental_affs) do
-      if table.contains(snd.target_has, snd.mental_affs[aff]) then
-        mentcount = mentcount + 1
-      end
-    end
-    snd.giving_whisper =
-      {
-        "impatience",
-        "infatuation",
-        "stupidity",
-        "anorexia",
-        "confusion",
-        "recklessness",
-        "agoraphobia",
-        "vertigo",
-        "indifference",
-        "peace",
-        "masochism",
-        "paranoia",
-      }
-    if not snd.loyalsattacking then
-      string = string .. "order loyals kill " .. snd.target .. snd.sep
-    end
-    if not snd.waiting.queue then
-      if snd.theytumbling then
-        string = "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
-      elseif snd.theyran then
-        string = "DEJEMASHAI " .. snd.target
-      elseif snd.mana_percent &lt; 35 and not snd.used.shield then
-        string = string .. "dumavai " .. snd.target
-      elseif snd.proned() then
-        string = string .. "tithe " .. snd.target
-      elseif not snd.checkAff("writhe_transfix") then
-        string = string .. "exhort " .. snd.target
-      else
-        for i in pairs(snd.giving_whisper) do
-          if not snd.checkAff(snd.giving_whisper[i]) then
-            if not table.contains(touse, snd.giving_whisper[i]) then
-              table.insert(touse, snd.giving_whisper[i])
-            end
-          end
-        end
-        string =
-          "denounce " ..
-          snd.target ..
-          snd.sep ..
-          "dictate " ..
-          touse[1] ..
-          " " ..
-          touse[2] ..
-          " " ..
-          snd.target
-      end
-    end
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^mez$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>akkari Group Affs</name>
-								<script>if snd.class == "Akkari" then
-  snd.starting_attack()
-
-  function snd.attack_function()
-    local string = ""
-    local touse = {}
-    local gashaff = {}
-    local call = ""
-
-    snd.giving_whisper = {
-      "infatuation",
-      "impatience",
-      "recklessness",
-      "stupidity",
-      "masochism",
-      "agoraphobia",
-      "confusion",
-      "epilepsy",
-      "anorexia",
-      "mania",
-      "vertigo",
-      "dementia",
-      "peace",
-      "paranoia",
-      "indifference",
-
-    }
-
-    snd.scythe_gash = {
-      "paresis",
-      "asthma",
-      "slickness",
-      "anorexia",
-      "clumsiness",
-      "dizziness",
-      "stupidity",
-      "weariness",
-
-    }
-
-
-    for i in pairs(snd.giving_whisper) do
-      if not snd.checkAff(snd.giving_whisper[i]) then
-        if not table.contains(touse, snd.giving_whisper[i]) then
-          table.insert(touse, snd.giving_whisper[i])
-        end
-      end
-    end
-
-    for i in pairs(snd.scythe_gash) do
-      if not snd.checkAff(snd.scythe_gash[i]) then
-        if not table.contains(gashaff, snd.scythe_gash[i]) then
-          table.insert(gashaff, snd.scythe_gash[i])
-        end
-      end
-    end
-
-    if snd.mana_percent &lt; 35 and not snd.used.shield then
-      string = "dumavai " .. snd.target
-    else
-      if snd.used.shield or snd.used.rebounding then
-        string = "denounce " .. snd.target .. snd.sep .. "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
-        call = "wt Afflicting " .. snd.target .. ": " .. touse[1] .. snd.sep .. ", " .. touse[2]
-      else
-        string = "wipe weapon" ..
-            snd.sep ..
-            "censure " ..
-            snd.target ..
-            " " ..
-            snd.effects[gashaff[1]] .. " lenient" .. snd.sep .. "dictate " ..
-            touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
-        call = "wt Afflicting " .. snd.target ..
-            ": " .. snd.effects[gashaff[1]] .. ". Whispering: " .. touse[1] .. ", " .. touse[2]
-      end
-    end
-
-    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-      string = call .. snd.sep ..
-          "contemplate " .. snd.target .. snd.sep .. "order loyals attack " .. snd.target .. snd.sep .. string
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-    end
-  end
-
-  snd.attack_function()
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^gaff$</regex>
-							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Group Lock</name>
-								<script>snd.current_offense = "glo"
-if snd.class == "Akkari" then
-  -- set this to the class this alias is for
-  snd.starting_attack()
-
-  function snd.attack_function()
-    if not snd.waiting.queue then
-      -- declare some important variables
-      local string = ""
-      local touse = {}
-      local gashaff = {}
-      local call = ""
-      local fcall = ""
-      local scall = ""
-      local paff = "none"
-      local saff_one = "none"
-      local saff_two = "none"
-      local pattack = ""
-      local sattack = ""
-      local extraaff = "amnesia"
-      if snd.target_locked() then
-        snd.primary_aff =
-        {
-          "writhe_transfix",
-          "paresis",
-          "stupidity",
-          "anorexia",
-          "asthma",
-          "slickness",
-          "no_paste",
-          "psychosis",
-          "black_bile",
-        }
-      else
-        --  "effused_blood",
-        -- "blood_rune",
-        snd.primary_aff =
-        {
-          "paresis",
-          "stupidity",
-          "anorexia",
-          "asthma",
-          "slickness",
-          "no_paste",
-          "psychosis",
-          "black_bile",
-        }
-      end
-      if snd.target_locked() then
-        snd.secondary_aff =
-        {
-          "impatience",
-          "confusion",
-          "indifference",
-          "stupidity",
-          "confusion",
-          "epilepsy",
-          "mania",
-          "infatuation",
-          "peace",
-          "recklessness",
-          "dementia",
-          "paranoia",
-          "anorexia",
-          "vertigo",
-          "masochism",
-          "agoraphobia",
-          "amnesia",
-        }
-      else
-        if
-            snd.cureset == "archivist" or
-            snd.cureset == "shaman" or
-            snd.cureset == "ascendril" or
-            snd.cureset == "Sciomancer"
-        then
-          snd.secondary_aff =
-          {
-            "stupidity",
-            "impatience",
-            "confusion",
-            "epilepsy",
-            "mania",
-            "infatuation",
-            "peace",
-            "recklessness",
-            "dementia",
-            "paranoia",
-            "anorexia",
-            "vertigo",
-            "masochism",
-            "agoraphobia",
-            "indifference",
-            "amnesia",
-          }
-        else
-          snd.secondary_aff =
-          {
-            "stupidity",
-            "impatience",
-            "epilepsy",
-            "mania",
-            "infatuation",
-            "confusion",
-            "peace",
-            "recklessness",
-            "dementia",
-            "paranoia",
-            "anorexia",
-            "vertigo",
-            "masochism",
-            "agoraphobia",
-            "indifference",
-            "amnesia",
-          }
-        end
-      end
-
-      snd.akkari_host()
-      snd.akkari_attend()
-      for i in pairs(snd.primary_aff) do
-        --   and not (snd.used.rebounding and table.isMember(snd.censure_affs, snd.primary_aff[i]))
-        if
-            not snd.checkAff(snd.primary_aff[i]) and
-            not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis"))
-        then
-          if not table.contains(gashaff, snd.primary_aff[i]) then
-            table.insert(gashaff, snd.primary_aff[i])
-          end
-        end
-      end
-      if table.isMember(snd.censure_affs, gashaff[1]) then
-        if gashaff[1] == "sight" then
-          pattack =
-              "wipe left" ..
-              snd.sep ..
-              "censure " ..
-              snd.target ..
-              " lenient " ..
-              snd.effects[gashaff[1]] ..
-              snd.sep
-        else
-          pattack =
-              "wipe left" ..
-              snd.sep ..
-              "censure " ..
-              snd.target ..
-              " " ..
-              snd.effects[gashaff[1]] ..
-              snd.sep
-        end
-        fcall = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. " "
-      elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
-        if gashaff[1] == "black_bile" then
-          pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
-        else
-          pattack = snd.akkari_bal_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
-        end
-      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
-        pattack = snd.akkari_eq_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
-      else
-        pattack = "denounce " .. snd.target .. snd.sep
-      end
-      for i in pairs(snd.secondary_aff) do
-        if
-            not (
-              snd.checkAff(snd.secondary_aff[i]) or
-              snd.secondary_aff[i] == gashaff[1] or
-              (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")
-            )
-        then
-          if not table.contains(touse, snd.secondary_aff[i]) then
-            table.insert(touse, snd.secondary_aff[i])
-          end
-        end
-      end
-      if touse[2] == "sight" then
-        table.remove(touse, table.index_of(touse, "sight"))
-      end
-      if touse[2] == "hearing" then
-        table.remove(touse, table.index_of(touse, "hearing"))
-      end
-      while #touse &lt; 3 do
-        table.insert(touse, extraaff)
-      end
-      if gashaff[1] == "sight" then
-        if touse[1] == "sight" then
-          table.remove(touse, table.index_of(touse, "sight"))
-        end
-        if touse[1] == "hearing" then
-          table.remove(touse, table.index_of(touse, "hearing"))
-        end
-        sattack = "dictate " .. touse[1] .. " " .. snd.target .. snd.sep
-        if touse[1] == "remorse" or touse[1] == "contrition" then
-        else
-          scall = "Whispering " .. snd.target .. ": " .. touse[1]
-        end
-      elseif touse[1] == "sight" then
-        sattack = "spirit attend " .. snd.target .. snd.sep
-      elseif touse[1] == "hearing" then
-        sattack = "spirit attend " .. snd.target .. snd.sep
-      elseif touse[1] == "sepsis" then
-        sattack = "spirit bane " .. snd.target .. snd.sep
-      else
-        if (touse[2] == "hearing" or touse[2] == "sight") then
-          if snd.balance.trill then
-            sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
-          else
-            sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
-          end
-          if touse[1] == "remorse" or touse[1] == "contrition" then
-          else
-            scall = "Whispering: " .. touse[1] .. " " .. touse[3]
-          end
-        else
-          if snd.balance.trill then
-            sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
-          else
-            sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
-          end
-          if touse[1] == "remorse" or touse[1] == "contrition" then
-          else
-            scall = "Whispering " .. snd.target .. ": " .. touse[1] .. " " .. touse[2]
-          end
-        end
-      end
-      if snd.used.shield and snd.used.rebounding then
-        string = "denounce " .. snd.target .. snd.sep .. "spirit provoke " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.used.shield then
-        string = "denounce " .. snd.target .. snd.sep .. sattack
-        fcall = ""
-      elseif snd.mana_percent &lt; 35 then
-        string = "dumavai " .. snd.target
-      elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
-        string = "spirit vilify" .. snd.sep .. "dumavai " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
-        string = "denounce " .. snd.target .. " corruption" .. snd.sep .. sattack
-        fcall = ""
-      elseif
-          snd.checkAff("impatience") and
-          snd.checksomeAffs({ "sadness", "confusion" }, 2) and
-          gmcp.Char.Status.spec == "Naarak" and
-          not snd.checkAff("psychosis")
-      then
-        string = "spirit anathema " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif
-          gmcp.Char.Status.spec == "Naarak" and
-          snd.balance.thrombus and
-          (
-            (
-              snd.aff_count_mental() == 12 or
-              (snd.checkAff("psychosis") and snd.aff_count_mental() == 10)
-            ) or
-            (
-              snd.checkAff("blood_rune") and
-              (
-                snd.aff_count_mental() == 9 or
-                (snd.checkAff("psychosis") and snd.aff_count_mental() == 7)
-              )
-            )
-          )
-      then
-        string = "spirit inquisition " .. snd.target
-        fcall = ""
-        scall = ""
-      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
-        string = pattack
-        fcall = ""
-        scall = ""
-      else
-        string = pattack .. snd.sep .. sattack
-        if table.isMember(snd.censure_affs, gashaff[1]) then
-        end
-      end
-      if not snd.loyalsattacking then
-        string = "order loyals attack " .. snd.target .. snd.sep .. string
-      end
-      string = "contemplate " .. snd.target .. snd.sep .. string .. snd.sep
-      if fcall ~= "" then
-        call = "wt " .. fcall
-      end
-      if scall ~= "" then
-        if call ~= "" then
-          call = call .. snd.sep .. "wt " .. scall
-        else
-          call = "wt " .. scall
-        end
-      end
-      -- check if we need to prepend an affliction call
-      if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
-        string = call .. snd.sep .. string
-      end
-      -- we don't want to resend our existing attack, so check against that
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        -- if we've got a new attack now,
-        snd.last_attack = string
-        cecho("\n&lt;white&gt;" .. string)
-        snd.attack(snd.last_attack)
-        -- manage the anti-spam check below
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
-    end
-  end
-
-  snd.attack_function()
-  -- make sure to actually send the attack once on use!
-end
-</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^glo$</regex>
-							</Alias>
-						</AliasGroup>
 					</AliasGroup>
 					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Voidseer</name>
@@ -54421,6 +52634,1798 @@ end
 								<command></command>
 								<packageName></packageName>
 								<regex>^aff$</regex>
+							</Alias>
+						</AliasGroup>
+					</AliasGroup>
+				</AliasGroup>
+				<AliasGroup isActive="no" isFolder="yes">
+					<name>Archive</name>
+					<script></script>
+					<command></command>
+					<packageName></packageName>
+					<regex></regex>
+					<AliasGroup isActive="no" isFolder="yes">
+						<name>Akkari</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Misc</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Lure</name>
+								<script>if snd.class == "Akkari" then
+  snd.send("qeb DEJEMASHAI "..matches[2])
+elseif snd.class == "Praenomen" then
+  snd.send("qeb lure "..matches[2])
+end</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^lure (\w+)$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>1v1</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Naarak Host Route</name>
+								<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+  function snd.attack_function()
+    local string = "contemplate " .. snd.target .. snd.sep
+    local corpus = "none"
+    local touse = {}
+    local tohit = {}
+    local whis = {}
+
+    snd.giving_whisper = {
+      "impatience",
+      "infatuation",
+      "peace",
+      "stupidity",
+      "confusion",
+      "anorexia",
+      "mania",
+      "recklessness",
+      "agoraphobia",
+      "vertigo",
+      "indifference",
+      "masochism",
+      "paranoia",
+
+    }
+
+
+    snd.giving = {
+      "asthma",
+      "paresis",
+      "clumsiness",
+      "weariness",
+    }
+    for i in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[i]) then
+        if not table.contains(touse, snd.giving[i]) then
+          table.insert(touse, snd.giving[i])
+        end
+      end
+    end
+    for aff in pairs(touse) do
+      table.insert(tohit, snd.effects[touse[aff]])
+    end
+
+    for j in pairs(snd.giving_whisper) do
+      if not snd.checkAff(snd.giving_whisper[j]) then
+        if not table.contains(whis, snd.giving_whisper[j]) then
+          table.insert(whis, snd.giving_whisper[j])
+        end
+      end
+    end
+    local physcount = 0
+    for aff in pairs(snd.physical_affs) do
+      if table.contains(snd.target_has, snd.physical_affs[aff]) then
+        physcount = physcount + 1
+      end
+    end
+    local mentcount = 0
+    for aff in pairs(snd.mental_affs) do
+      if table.contains(snd.target_has, snd.mental_affs[aff]) then
+        mentcount = mentcount + 1
+      end
+    end
+
+    if not snd.loyalsattacking then
+      string = string .. "order loyals kill " .. snd.target .. snd.sep
+    end
+
+    local seizeMana = 0
+    local mAffBump = 4.00
+    seizeMana = tonumber((10.98) + (mentcount * mAffBump))
+
+    if snd.checkAff("psychosis") then
+      seizeMana = seizeMana + ((seizeMana / 10) * 1.5)
+    end
+
+    if not snd.waiting.queue then
+      if snd.theytumbling then
+        string = string .. "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
+      elseif snd.theyran then
+        string = string .. "DEJEMASHAI " .. snd.target
+      elseif snd.used.shield then
+        string = string .. "denounce " ..
+            snd.target .. " upset" .. snd.sep .. "dictate " .. whis[1] .. " " .. whis[2] .. " " .. snd.target
+      elseif snd.used.rebounding then
+        string = string ..
+            snd.target .. snd.sep .. "bloodlet " .. snd.target ..
+            snd.sep .. "dictate " .. whis[1] .. " " .. whis[2] .. " " .. snd.target
+      elseif not snd.checkAff("rend") then
+        string = string .. "bloodlet " .. snd.target .. snd.sep .. "dictate " .. whis[1] .. " " ..
+            whis[2] .. " " .. snd.target
+      elseif not snd.checkAff("blood_rune") and not snd.runeused then
+        string = string .. "spirit pariah " .. snd.target
+      elseif ((snd.mana_percent - seizeMana) &lt;= 37 and snd.checkAff("blood_rune")) or ((snd.mana_percent - seizeMana) &lt;= 32) and snd.balance.seize then
+        string = string .. "spirit inquisition " .. snd.target
+      elseif snd.mana_percent &lt;= 37 and not snd.balance.seize and snd.runeused and snd.checkAff("blood_rune") then
+        string = string .. "spirit vilify"
+      elseif snd.mana_percent &lt; 35 or (snd.mana_percent &lt; 44 and snd.checkAff("blood_rune")) then
+        string = string .. "dumavai " .. snd.target
+      elseif mentcount &gt;= 3 and not snd.checkAff("psychosis") then
+        string = string .. "spirit anathema " .. snd.target
+      else
+        string = string ..
+            "wipe weapon" ..
+            snd.sep ..
+            "censure " ..
+            snd.target .. " " .. tohit[1] .. " lenient" ..
+            snd.sep .. "dictate " .. whis[1] .. " " .. whis[2] .. " " .. snd.target .. snd.sep
+      end
+    end
+
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^narrak$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Limbs</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Limbs</name>
+								<script>snd.current_offense = "gli"
+if snd.class == "Akkari" then -- set this to the class this alias is for
+  snd.starting_attack()
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      -- declare some important variables
+      local string = ""
+      local touse = {}
+      local gashaff = {}
+      local call = ""
+      local fcall = ""
+      local scall = ""
+      local paff = "none"
+      local saff_one = "none"
+      local saff_two = "none"
+      local pattack = ""
+      local sattack = ""
+      local extraaff = "amnesia"
+
+
+      snd.primary_aff = {
+        --"effused_blood",
+        "blood_rune",
+        "paresis",
+        "stupidity",
+        "anorexia",
+        "asthma",
+        "slickness",
+        "psychosis",
+        "black_bile",
+      }
+
+      snd.secondary_aff = {
+        "stupidity",
+        "impatience",
+        "epilepsy",
+        "mania",
+        "loneliness",
+        "confusion",
+        "peace",
+        "recklessness",
+        "dementia",
+        "paranoia",
+        "anorexia",
+        "vertigo",
+        "masochism",
+        "agoraphobia",
+        "indifference",
+        "amnesia",
+      }
+
+
+      snd.akkari_host()
+      snd.akkari_attend()
+
+      for i in pairs(snd.primary_aff) do
+        if not snd.checkAff(snd.primary_aff[i])
+            and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis"))
+        then
+          if not table.contains(gashaff, snd.primary_aff[i]) then
+            table.insert(gashaff, snd.primary_aff[i])
+          end
+        end
+      end
+
+      if table.isMember(snd.censure_affs, gashaff[1]) then
+        if gashaff[1] == "sight" then
+          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " lenient " .. snd.effects[gashaff[1]] ..
+              snd.sep
+        else
+          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " " .. snd.effects[gashaff[1]] .. snd.sep
+        end
+        fcall = "Afflicting " .. snd.target .. ": " .. gashaff[1] .. " "
+      elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
+        if gashaff[1] == "black_bile" then
+          pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
+        else
+          pattack = snd.akkari_bal_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
+        end
+      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+        pattack = snd.akkari_eq_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
+      else
+        pattack = "denounce " .. snd.target .. snd.sep
+        fcall = ""
+      end
+
+      for i in pairs(snd.secondary_aff) do
+        if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
+          if not table.contains(touse, snd.secondary_aff[i]) then
+            table.insert(touse, snd.secondary_aff[i])
+          end
+        end
+      end
+
+      if touse[2] == "sight" then
+        table.remove(touse, table.index_of(touse, "sight"))
+      end
+
+      if touse[2] == "hearing" then
+        table.remove(touse, table.index_of(touse, "hearing"))
+      end
+
+      while #touse &lt; 3 do
+        table.insert(touse, extraaff)
+      end
+
+
+      if gashaff[1] == "sight" then
+        if touse[1] == "sight" then
+          table.remove(touse, table.index_of(touse, "sight"))
+        end
+        if touse[1] == "hearing" then
+          table.remove(touse, table.index_of(touse, "hearing"))
+        end
+        sattack = "dictate " .. touse[1] .. " " .. snd.target .. snd.sep
+        if touse[1] == "remorse" or touse[1] == "contrition" then
+        else
+          scall = "Whispering " .. snd.target .. ": " .. touse[1]
+        end
+      elseif touse[1] == "sight" then
+        sattack = "spirit attend " .. snd.target .. snd.sep
+      elseif touse[1] == "hearing" then
+        sattack = "spirit attend " .. snd.target .. snd.sep
+      elseif touse[1] == "sepsis" then
+        sattack = "spirit bane " .. snd.target .. snd.sep
+      else
+        if (touse[2] == "hearing" or touse[2] == "sight") then
+          if snd.balance.trill then
+            sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
+          else
+            sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
+          end
+          scall = "Whispering: " .. touse[1] .. " " .. touse[3]
+        else
+          if snd.balance.trill then
+            sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
+          else
+            sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
+          end
+          if touse[1] == "remorse" or touse[1] == "contrition" then
+          else
+            scall = "Whispering " .. snd.target .. ": " .. touse[1] .. " " .. touse[2]
+          end
+        end
+      end
+
+
+      if snd.used.shield and snd.used.rebounding then
+        string = "denounce " .. snd.target .. snd.sep .. "spirit provoke " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.used.shield then
+        string = "denounce " .. snd.target .. snd.sep .. sattack
+        fcall = ""
+      elseif snd.mana_percent &lt; 35 then
+        string = "dumavai " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
+        string = "spirit vilify" .. snd.sep .. "dumavai " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
+        string = "denounce " .. snd.target .. " corruption" .. snd.sep .. sattack
+        fcall = ""
+      elseif snd.checkAff("impatience") and snd.checksomeAffs({ "sadness", "confusion", }, 2)
+          and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("psychosis") then
+        string = "spirit anathema " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif gmcp.Char.Status.spec == "Naarak" and snd.balance.thrombus and
+          ((snd.aff_count_mental() == 12 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 10))
+            or
+            (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 7))))
+      then
+        string = "spirit inquisition " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+        string = pattack
+        fcall = ""
+        scall = ""
+      else
+        string = pattack .. snd.sep .. sattack
+      end
+
+
+      if not snd.loyalsattacking then
+        string = "order loyals attack " .. snd.target .. snd.sep .. string
+      end
+
+      string = "contemplate " .. snd.target .. snd.sep .. string
+
+
+      if fcall ~= "" then
+        call = "wt " .. fcall
+      end
+
+      if scall ~= "" then
+        if call ~= "" then
+          call = call .. snd.sep .. "wt " .. scall
+        else
+          call = "wt " .. scall
+        end
+      end
+
+
+      -- check if we need to prepend an affliction call
+      if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+        string = call .. snd.sep .. string
+      end
+
+
+      -- we don't want to resend our existing attack, so check against that
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        -- if we've got a new attack now,
+        snd.last_attack = string
+        cecho("\n&lt;white&gt;" .. string)
+        snd.attack(snd.last_attack)
+        -- manage the anti-spam check below
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function() -- make sure to actually send the attack once on use!
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gli$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Damage Offenses</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>damage</name>
+								<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+  function snd.attack_function()
+    local string = ""
+    local corpus = "none"
+    local touse = {}
+
+    snd.giving_whisper = {
+      "impatience",
+      "infatuation",
+      "stupidity",
+      "anorexia",
+      "confusion",
+      "recklessness",
+      "agoraphobia",
+      "vertigo",
+      "indifference",
+      "peace",
+      "masochism",
+      "paranoia",
+    }
+    for i in pairs(snd.giving_whisper) do
+      if not snd.checkAff(snd.giving_whisper[i]) then
+        if not table.contains(touse, snd.giving_whisper[i]) then
+          table.insert(touse, snd.giving_whisper[i])
+        end
+      end
+    end
+
+    if not snd.loyalsattacking then
+      string = "order loyals kill " .. snd.target .. snd.sep
+    end
+
+    if not snd.waiting.queue then
+      if snd.theytumbling then
+        string = string .. "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
+      elseif snd.theyran then
+        string = string .. "DEJEMASHAI " .. snd.target
+      elseif not snd.checkAff("writhe_transfix") then
+        string = string .. "Exhort " .. snd.target
+      else
+        string = string .. "denounce " .. snd.target .. snd.sep .. "dictate " .. touse[1] ..
+            " " .. touse[2] .. " " .. snd.target
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^dmg$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Mes feast</name>
+								<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+  function snd.attack_function()
+    local string = ""
+    local corpus = "none"
+    local touse = {}
+
+
+    snd.giving_whisper = {
+      "impatience",
+      "infatuation",
+      "mania",
+      "stupidity",
+      "confusion",
+      "recklessness",
+      "masochism",
+      "anorexia",
+      "agoraphobia",
+      "vertigo",
+      "indifference",
+      "peace",
+      "paranoia",
+    }
+    
+    if not snd.loyalsattacking then
+      string = "order loyals kill " .. snd.target .. snd.sep
+    end
+
+
+    if not snd.waiting.queue then
+      if snd.theytumbling then
+        string = string .. "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
+      elseif snd.theyran then
+        string = string .. "DEJEMASHAI " .. snd.target
+      elseif not snd.checkAff("writhe_transfix") then
+        string = string .. "exhort " .. snd.target
+      elseif not snd.checkAff("feast") then
+        string = string .. "spirit exorcise " .. snd.target
+      else
+        for i in pairs(snd.giving_whisper) do
+          if not snd.checkAff(snd.giving_whisper[i]) then
+            if not table.contains(touse, snd.giving_whisper[i]) then
+              table.insert(touse, snd.giving_whisper[i])
+            end
+          end
+        end
+
+        string = string .. "deliver " .. snd.target .. snd.sep .. "dictate " .. touse[1] ..
+        " " .. touse[2] .. " " .. snd.target
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^feast$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Praenomen Group Dmg</name>
+								<script>if snd.class == "Akkari" then
+  snd.giving_whisper =
+    {
+      "infatuation",
+      "impatience",
+      "stupidity",
+      "recklessness",
+      "epilepsy",
+      "anorexia",
+      "confusion",
+      "dementia",
+      "mania",
+      "masochism",
+      "peace",
+      "vertigo",
+      "indifference",
+      "agoraphobia",
+    }
+  
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local string = ""
+    local corpus = "none"
+    local touse = {}
+    local call = ""
+    if snd.theytumbling then
+      string = "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
+    elseif snd.theyran then
+      string = "DEJEMASHAI " .. snd.target
+    elseif snd.mana_percent &lt; 35 and not snd.used.shield then
+      --Checking if we could annihilate the last time we contemplated, and trying if we can. Need to add logic to announce mana calls
+      string = "dumavai " .. snd.target
+    else
+      for i in pairs(snd.giving_whisper) do
+        if not snd.checkAff(snd.giving_whisper[i]) then
+          if not table.contains(touse, snd.giving_whisper[i]) then
+            table.insert(touse, snd.giving_whisper[i])
+          end
+        end
+      end
+      string =
+        "denounce " ..
+        snd.target ..
+        snd.sep ..
+        "dictate " ..
+        touse[1] ..
+        " " ..
+        touse[2] ..
+        " " ..
+        snd.target
+    end
+    string =
+      "contemplate " ..
+      snd.target ..
+      snd.sep ..
+      "order loyals attack " ..
+      snd.target ..
+      snd.sep ..
+      string
+    --Contemplate target and order loyal to attack it before attacking
+    call = "wt Afflicting " .. touse[1] .. " " .. touse[2]
+    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+      string =
+        call ..
+        snd.sep ..
+        "contemplate " ..
+        snd.target ..
+        snd.sep ..
+        "order loyals attack " ..
+        snd.target ..
+        snd.sep ..
+        string
+    end
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gdmg$</regex>
+							</Alias>
+						</AliasGroup>
+						<Alias isActive="yes" isFolder="no">
+							<name>Akkari Attack Template</name>
+							<script>if snd.class == "Akkari" then -- set this to the class this alias is for
+  snd.starting_attack()
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      -- declare some important variables
+      local string = ""
+      local touse = {}
+      local gashaff = {}
+      local call = ""
+      local fcall = ""
+      local scall = ""
+      local paff = "none"
+      local saff_one = "none"
+      local saff_two = "none"
+      local pattack = ""
+      local sattack = ""
+      local extraaff = "amnesia"
+
+
+      snd.primary_aff = {
+        --"effused_blood",
+
+      }
+
+      snd.secondary_aff = {
+        "remorse",
+        "contrition",
+      }
+
+      snd.akkari_host()
+      snd.akkari_attend()
+
+      for i in pairs(snd.primary_aff) do
+        if not snd.checkAff(snd.primary_aff[i])
+            --   and not (snd.used.rebounding and table.isMember(snd.censure_affs, snd.primary_aff[i]))
+
+            and not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis"))
+        then
+          if not table.contains(gashaff, snd.primary_aff[i]) then
+            table.insert(gashaff, snd.primary_aff[i])
+          end
+        end
+      end
+
+      if table.isMember(snd.censure_affs, gashaff[1]) then
+        if gashaff[1] == "sight" then
+          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " lenient " .. snd.effects[gashaff[1]] ..
+              snd.sep
+        else
+          pattack = "wipe left" .. snd.sep .. "censure " .. snd.target .. " " .. snd.effects[gashaff[1]] .. snd.sep
+        end
+        fcall = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. " "
+      elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
+        if gashaff[1] == "black_bile" then
+          pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
+          fcall = ""
+        else
+          pattack = snd.akkari_bal_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
+        end
+      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+        pattack = snd.akkari_eq_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
+      else
+        pattack = "denounce " .. snd.target .. snd.sep
+      end
+
+      for i in pairs(snd.secondary_aff) do
+        if not (snd.checkAff(snd.secondary_aff[i]) or snd.secondary_aff[i] == gashaff[1] or (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")) then
+          if not table.contains(touse, snd.secondary_aff[i]) then
+            table.insert(touse, snd.secondary_aff[i])
+          end
+        end
+      end
+
+      if touse[2] == "sight" then
+        table.remove(touse, table.index_of(touse, "sight"))
+      end
+
+      if touse[2] == "hearing" then
+        table.remove(touse, table.index_of(touse, "hearing"))
+      end
+
+      while #touse &lt; 3 do
+        table.insert(touse, extraaff)
+      end
+
+
+      if gashaff[1] == "sight" then
+        if touse[1] == "sight" then
+          table.remove(touse, table.index_of(touse, "sight"))
+        end
+        if touse[1] == "hearing" then
+          table.remove(touse, table.index_of(touse, "hearing"))
+        end
+        sattack = "dictate " .. touse[1] .. " " .. snd.target .. snd.sep
+        if touse[1] == "remorse" or touse[1] == "contrition" then
+        else
+          scall = "Whispering " .. snd.target .. ": " .. touse[1]
+        end
+      elseif touse[1] == "sight" then
+        sattack = "spirit attend " .. snd.target .. snd.sep
+      elseif touse[1] == "hearing" then
+        sattack = "spirit attend " .. snd.target .. snd.sep
+      elseif touse[1] == "sepsis" then
+        sattack = "spirit bane " .. snd.target .. snd.sep
+      else
+        if (touse[2] == "hearing" or touse[2] == "sight") then
+          if snd.balance.trill then
+            sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
+          else
+            sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
+          end
+          if touse[1] == "remorse" or touse[1] == "contrition" then
+          else
+            scall = "Whispering: " .. touse[1] .. " " .. touse[3]
+          end
+        else
+          if snd.balance.trill then
+            sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
+          else
+            sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
+          end
+          if touse[1] == "remorse" or touse[1] == "contrition" then
+          else
+            scall = "Whispering " .. snd.target .. ": " .. touse[1] .. " " .. touse[2]
+          end
+        end
+      end
+
+
+      if snd.used.shield and snd.used.rebounding then
+        string = "denounce " .. snd.target .. snd.sep .. "spirit provoke " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.used.shield then
+        string = "denounce " .. snd.target .. snd.sep .. sattack
+        fcall = ""
+      elseif snd.mana_percent &lt; 35 then
+        string = "dumavai " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
+        string = "spirit vilify" .. snd.sep .. "dumavai " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.checkAff("writhe_transfix") and not snd.checkAff("feast") and gmcp.Char.Status.spec == "Dosan" then
+        string = "spirit exorcise " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.can_deliver() then
+        string = "deliver " .. snd.target .. snd.sep .. sattack
+        fcall = ""
+      elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
+        string = "denounce " .. snd.target .. " corruption" .. snd.sep .. sattack
+        fcall = ""
+        --fcall = "Afflicting "..snd.target..": black_bile"
+      elseif snd.checkAff("impatience") and snd.checksomeAffs({ "sadness", "confusion", }, 2)
+          and gmcp.Char.Status.spec == "Naarak" and not snd.checkAff("psychosis") then
+        string = "spirit anathema " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif gmcp.Char.Status.spec == "Naarak" and snd.balance.thrombus and
+          ((snd.aff_count_mental() == 12 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 10))
+            or
+            (snd.checkAff("blood_rune") and (snd.aff_count_mental() == 9 or (snd.checkAff("psychosis") and snd.aff_count_mental() == 7))))
+      then
+        string = "spirit inquisition " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+        string = pattack
+        fcall = ""
+        scall = ""
+      else
+        string = pattack .. snd.sep .. sattack
+      end
+
+
+      if not snd.loyalsattacking then
+        string = "order loyals attack " .. snd.target .. snd.sep .. string
+      end
+
+      string = "contemplate " .. snd.target .. snd.sep .. string .. snd.sep
+
+      if fcall ~= "" then
+        call = "wt " .. fcall
+      end
+
+      if scall ~= "" then
+        if call ~= "" then
+          call = call .. snd.sep .. "wt " .. scall
+        else
+          call = "wt " .. scall
+        end
+      end
+
+
+      -- check if we need to prepend an affliction call
+      if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+        string = call .. snd.sep .. string
+      end
+
+
+      -- we don't want to resend our existing attack, so check against that
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        -- if we've got a new attack now,
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        -- manage the anti-spam check below
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function() -- make sure to actually send the attack once on use!
+end
+
+</script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+						</Alias>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Afflictions</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Afflictions</name>
+								<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+  function snd.attack_function()
+    local string = ""
+    local touse = {}
+    snd.giving_whisper = {
+      "impatience",
+      "infatuation",
+      "stupidity",
+      "anorexia",
+      "confusion",
+      "recklessness",
+      "agoraphobia",
+      "vertigo",
+      "indifference",
+      "peace",
+      "masochism",
+      "paranoia",
+
+    }
+    if not snd.waiting.queue then
+      if snd.theytumbling then
+        string = "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
+      elseif snd.theyran then
+        string = "DEJEMASHAI " .. snd.target
+      else
+        string = "denounce " .. snd.target .. snd.sep .. "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
+      end
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^aff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Annhilate and Mesmerize</name>
+								<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local string = "contemplate " .. snd.target .. snd.sep
+    local corpus = "none"
+    local touse = {}
+    local physcount = 0
+    for aff in pairs(snd.physical_affs) do
+      if table.contains(snd.target_has, snd.physical_affs[aff]) then
+        physcount = physcount + 1
+      end
+    end
+    local mentcount = 0
+    for aff in pairs(snd.mental_affs) do
+      if table.contains(snd.target_has, snd.mental_affs[aff]) then
+        mentcount = mentcount + 1
+      end
+    end
+    snd.giving_whisper =
+      {
+        "impatience",
+        "infatuation",
+        "stupidity",
+        "anorexia",
+        "confusion",
+        "recklessness",
+        "agoraphobia",
+        "vertigo",
+        "indifference",
+        "peace",
+        "masochism",
+        "paranoia",
+      }
+    if not snd.loyalsattacking then
+      string = string .. "order loyals kill " .. snd.target .. snd.sep
+    end
+    if not snd.waiting.queue then
+      if snd.theytumbling then
+        string = "penitence " .. snd.target .. snd.sep .. "qeb deliver " .. snd.target
+      elseif snd.theyran then
+        string = "DEJEMASHAI " .. snd.target
+      elseif snd.mana_percent &lt; 35 and not snd.used.shield then
+        string = string .. "dumavai " .. snd.target
+      elseif snd.proned() then
+        string = string .. "tithe " .. snd.target
+      elseif not snd.checkAff("writhe_transfix") then
+        string = string .. "exhort " .. snd.target
+      else
+        for i in pairs(snd.giving_whisper) do
+          if not snd.checkAff(snd.giving_whisper[i]) then
+            if not table.contains(touse, snd.giving_whisper[i]) then
+              table.insert(touse, snd.giving_whisper[i])
+            end
+          end
+        end
+        string =
+          "denounce " ..
+          snd.target ..
+          snd.sep ..
+          "dictate " ..
+          touse[1] ..
+          " " ..
+          touse[2] ..
+          " " ..
+          snd.target
+      end
+    end
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^mez$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>akkari Group Affs</name>
+								<script>if snd.class == "Akkari" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local string = ""
+    local touse = {}
+    local gashaff = {}
+    local call = ""
+
+    snd.giving_whisper = {
+      "infatuation",
+      "impatience",
+      "recklessness",
+      "stupidity",
+      "masochism",
+      "agoraphobia",
+      "confusion",
+      "epilepsy",
+      "anorexia",
+      "mania",
+      "vertigo",
+      "dementia",
+      "peace",
+      "paranoia",
+      "indifference",
+
+    }
+
+    snd.scythe_gash = {
+      "paresis",
+      "asthma",
+      "slickness",
+      "anorexia",
+      "clumsiness",
+      "dizziness",
+      "stupidity",
+      "weariness",
+
+    }
+
+
+    for i in pairs(snd.giving_whisper) do
+      if not snd.checkAff(snd.giving_whisper[i]) then
+        if not table.contains(touse, snd.giving_whisper[i]) then
+          table.insert(touse, snd.giving_whisper[i])
+        end
+      end
+    end
+
+    for i in pairs(snd.scythe_gash) do
+      if not snd.checkAff(snd.scythe_gash[i]) then
+        if not table.contains(gashaff, snd.scythe_gash[i]) then
+          table.insert(gashaff, snd.scythe_gash[i])
+        end
+      end
+    end
+
+    if snd.mana_percent &lt; 35 and not snd.used.shield then
+      string = "dumavai " .. snd.target
+    else
+      if snd.used.shield or snd.used.rebounding then
+        string = "denounce " .. snd.target .. snd.sep .. "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
+        call = "wt Afflicting " .. snd.target .. ": " .. touse[1] .. snd.sep .. ", " .. touse[2]
+      else
+        string = "wipe weapon" ..
+            snd.sep ..
+            "censure " ..
+            snd.target ..
+            " " ..
+            snd.effects[gashaff[1]] .. " lenient" .. snd.sep .. "dictate " ..
+            touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
+        call = "wt Afflicting " .. snd.target ..
+            ": " .. snd.effects[gashaff[1]] .. ". Whispering: " .. touse[1] .. ", " .. touse[2]
+      end
+    end
+
+    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+      string = call .. snd.sep ..
+          "contemplate " .. snd.target .. snd.sep .. "order loyals attack " .. snd.target .. snd.sep .. string
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gaff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Lock</name>
+								<script>snd.current_offense = "glo"
+if snd.class == "Akkari" then
+  -- set this to the class this alias is for
+  snd.starting_attack()
+
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      -- declare some important variables
+      local string = ""
+      local touse = {}
+      local gashaff = {}
+      local call = ""
+      local fcall = ""
+      local scall = ""
+      local paff = "none"
+      local saff_one = "none"
+      local saff_two = "none"
+      local pattack = ""
+      local sattack = ""
+      local extraaff = "amnesia"
+      if snd.target_locked() then
+        snd.primary_aff =
+        {
+          "writhe_transfix",
+          "paresis",
+          "stupidity",
+          "anorexia",
+          "asthma",
+          "slickness",
+          "no_paste",
+          "psychosis",
+          "black_bile",
+        }
+      else
+        --  "effused_blood",
+        -- "blood_rune",
+        snd.primary_aff =
+        {
+          "paresis",
+          "stupidity",
+          "anorexia",
+          "asthma",
+          "slickness",
+          "no_paste",
+          "psychosis",
+          "black_bile",
+        }
+      end
+      if snd.target_locked() then
+        snd.secondary_aff =
+        {
+          "impatience",
+          "confusion",
+          "indifference",
+          "stupidity",
+          "confusion",
+          "epilepsy",
+          "mania",
+          "infatuation",
+          "peace",
+          "recklessness",
+          "dementia",
+          "paranoia",
+          "anorexia",
+          "vertigo",
+          "masochism",
+          "agoraphobia",
+          "amnesia",
+        }
+      else
+        if
+            snd.cureset == "archivist" or
+            snd.cureset == "shaman" or
+            snd.cureset == "ascendril" or
+            snd.cureset == "Sciomancer"
+        then
+          snd.secondary_aff =
+          {
+            "stupidity",
+            "impatience",
+            "confusion",
+            "epilepsy",
+            "mania",
+            "infatuation",
+            "peace",
+            "recklessness",
+            "dementia",
+            "paranoia",
+            "anorexia",
+            "vertigo",
+            "masochism",
+            "agoraphobia",
+            "indifference",
+            "amnesia",
+          }
+        else
+          snd.secondary_aff =
+          {
+            "stupidity",
+            "impatience",
+            "epilepsy",
+            "mania",
+            "infatuation",
+            "confusion",
+            "peace",
+            "recklessness",
+            "dementia",
+            "paranoia",
+            "anorexia",
+            "vertigo",
+            "masochism",
+            "agoraphobia",
+            "indifference",
+            "amnesia",
+          }
+        end
+      end
+
+      snd.akkari_host()
+      snd.akkari_attend()
+      for i in pairs(snd.primary_aff) do
+        --   and not (snd.used.rebounding and table.isMember(snd.censure_affs, snd.primary_aff[i]))
+        if
+            not snd.checkAff(snd.primary_aff[i]) and
+            not (snd.primary_aff[i] == "paresis" and snd.checkAff("paralysis"))
+        then
+          if not table.contains(gashaff, snd.primary_aff[i]) then
+            table.insert(gashaff, snd.primary_aff[i])
+          end
+        end
+      end
+      if table.isMember(snd.censure_affs, gashaff[1]) then
+        if gashaff[1] == "sight" then
+          pattack =
+              "wipe left" ..
+              snd.sep ..
+              "censure " ..
+              snd.target ..
+              " lenient " ..
+              snd.effects[gashaff[1]] ..
+              snd.sep
+        else
+          pattack =
+              "wipe left" ..
+              snd.sep ..
+              "censure " ..
+              snd.target ..
+              " " ..
+              snd.effects[gashaff[1]] ..
+              snd.sep
+        end
+        fcall = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. " "
+      elseif table.isMember(snd.akkari_bal_affs, gashaff[1]) then
+        if gashaff[1] == "black_bile" then
+          pattack = "denounce " .. snd.target .. " corruption" .. snd.sep
+        else
+          pattack = snd.akkari_bal_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
+        end
+      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+        pattack = snd.akkari_eq_attacks[gashaff[1]] .. " " .. snd.target .. snd.sep
+      else
+        pattack = "denounce " .. snd.target .. snd.sep
+      end
+      for i in pairs(snd.secondary_aff) do
+        if
+            not (
+              snd.checkAff(snd.secondary_aff[i]) or
+              snd.secondary_aff[i] == gashaff[1] or
+              (gashaff[1] == "sight" and snd.secondary_aff[1] == "hearing")
+            )
+        then
+          if not table.contains(touse, snd.secondary_aff[i]) then
+            table.insert(touse, snd.secondary_aff[i])
+          end
+        end
+      end
+      if touse[2] == "sight" then
+        table.remove(touse, table.index_of(touse, "sight"))
+      end
+      if touse[2] == "hearing" then
+        table.remove(touse, table.index_of(touse, "hearing"))
+      end
+      while #touse &lt; 3 do
+        table.insert(touse, extraaff)
+      end
+      if gashaff[1] == "sight" then
+        if touse[1] == "sight" then
+          table.remove(touse, table.index_of(touse, "sight"))
+        end
+        if touse[1] == "hearing" then
+          table.remove(touse, table.index_of(touse, "hearing"))
+        end
+        sattack = "dictate " .. touse[1] .. " " .. snd.target .. snd.sep
+        if touse[1] == "remorse" or touse[1] == "contrition" then
+        else
+          scall = "Whispering " .. snd.target .. ": " .. touse[1]
+        end
+      elseif touse[1] == "sight" then
+        sattack = "spirit attend " .. snd.target .. snd.sep
+      elseif touse[1] == "hearing" then
+        sattack = "spirit attend " .. snd.target .. snd.sep
+      elseif touse[1] == "sepsis" then
+        sattack = "spirit bane " .. snd.target .. snd.sep
+      else
+        if (touse[2] == "hearing" or touse[2] == "sight") then
+          if snd.balance.trill then
+            sattack = "proclaim " .. touse[1] .. " " .. touse[3] .. snd.sep
+          else
+            sattack = "dictate " .. touse[1] .. " " .. touse[3] .. " " .. snd.target .. snd.sep
+          end
+          if touse[1] == "remorse" or touse[1] == "contrition" then
+          else
+            scall = "Whispering: " .. touse[1] .. " " .. touse[3]
+          end
+        else
+          if snd.balance.trill then
+            sattack = "proclaim " .. touse[1] .. " " .. touse[2] .. snd.sep
+          else
+            sattack = "dictate " .. touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
+          end
+          if touse[1] == "remorse" or touse[1] == "contrition" then
+          else
+            scall = "Whispering " .. snd.target .. ": " .. touse[1] .. " " .. touse[2]
+          end
+        end
+      end
+      if snd.used.shield and snd.used.rebounding then
+        string = "denounce " .. snd.target .. snd.sep .. "spirit provoke " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.used.shield then
+        string = "denounce " .. snd.target .. snd.sep .. sattack
+        fcall = ""
+      elseif snd.mana_percent &lt; 35 then
+        string = "dumavai " .. snd.target
+      elseif snd.mana_percent &lt; 44 and snd.checkAff("blood_rune") then
+        string = "spirit vilify" .. snd.sep .. "dumavai " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif snd.used.rebounding and table.isMember(snd.censure_affs, gashaff[1]) then
+        string = "denounce " .. snd.target .. " corruption" .. snd.sep .. sattack
+        fcall = ""
+      elseif
+          snd.checkAff("impatience") and
+          snd.checksomeAffs({ "sadness", "confusion" }, 2) and
+          gmcp.Char.Status.spec == "Naarak" and
+          not snd.checkAff("psychosis")
+      then
+        string = "spirit anathema " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif
+          gmcp.Char.Status.spec == "Naarak" and
+          snd.balance.thrombus and
+          (
+            (
+              snd.aff_count_mental() == 12 or
+              (snd.checkAff("psychosis") and snd.aff_count_mental() == 10)
+            ) or
+            (
+              snd.checkAff("blood_rune") and
+              (
+                snd.aff_count_mental() == 9 or
+                (snd.checkAff("psychosis") and snd.aff_count_mental() == 7)
+              )
+            )
+          )
+      then
+        string = "spirit inquisition " .. snd.target
+        fcall = ""
+        scall = ""
+      elseif table.isMember(snd.akkari_eq_affs, gashaff[1]) then
+        string = pattack
+        fcall = ""
+        scall = ""
+      else
+        string = pattack .. snd.sep .. sattack
+        if table.isMember(snd.censure_affs, gashaff[1]) then
+        end
+      end
+      if not snd.loyalsattacking then
+        string = "order loyals attack " .. snd.target .. snd.sep .. string
+      end
+      string = "contemplate " .. snd.target .. snd.sep .. string .. snd.sep
+      if fcall ~= "" then
+        call = "wt " .. fcall
+      end
+      if scall ~= "" then
+        if call ~= "" then
+          call = call .. snd.sep .. "wt " .. scall
+        else
+          call = "wt " .. scall
+        end
+      end
+      -- check if we need to prepend an affliction call
+      if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+        string = call .. snd.sep .. string
+      end
+      -- we don't want to resend our existing attack, so check against that
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        -- if we've got a new attack now,
+        snd.last_attack = string
+        cecho("\n&lt;white&gt;" .. string)
+        snd.attack(snd.last_attack)
+        -- manage the anti-spam check below
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+  -- make sure to actually send the attack once on use!
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^glo$</regex>
+							</Alias>
+						</AliasGroup>
+					</AliasGroup>
+					<AliasGroup isActive="no" isFolder="yes">
+						<name>Praenomen</name>
+						<script></script>
+						<command></command>
+						<packageName></packageName>
+						<regex></regex>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Damage Offenses</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>damage</name>
+								<script>if snd.class == "Praenomen" then
+  snd.starting_attack()
+  function snd.attack_function()
+    local string = ""
+    if not snd.waiting.queue then
+      string = "frenzy " .. snd.target
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+end
+
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^dmg$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Praenomen Group Dmg</name>
+								<script>if snd.class == "Praenomen" then
+  snd.giving_whisper = {
+    "impatience",
+    "stupidity",
+    "recklessness",
+    "mania",
+    "masochism",
+    "epilepsy",
+    "confusion",
+    "infatuation",
+    "dementia",
+    "vertigo",
+    "anorexia",
+    "indifference",
+    "agoraphobia",
+  }
+
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local string = ""
+    local corpus = "none"
+    local touse = {}
+    local call = ""
+
+    if snd.mana_percent &lt; 35 and not snd.used.shield then --Checking if we could annihilate the last time we contemplated, and trying if we can. Need to add logic to announce mana calls
+      string = "annihilate " .. snd.target
+    else
+      for i in pairs(snd.giving_whisper) do
+        if not snd.checkAff(snd.giving_whisper[i]) then
+          if not table.contains(touse, snd.giving_whisper[i]) then
+            table.insert(touse, snd.giving_whisper[i])
+          end
+        end
+      end
+      table.insert(touse, "amnesia")
+      table.insert(touse, "amnesia") --make sure we don't run out of affs, this is useless filler
+      string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
+    end
+    call = "wt Afflicting ".. snd.target..": ".. touse[1] .. ", " .. touse[2]
+    
+    if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+      string = call..snd.sep..string
+    end
+    
+    string = "contemplate " ..
+        snd.target ..
+        snd.sep ..
+        "order loyals attack " ..
+        snd.target ..
+        snd.sep ..
+        string --Contemplate target and order loyal to attack it before attacking
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gdmg$</regex>
+							</Alias>
+						</AliasGroup>
+						<AliasGroup isActive="yes" isFolder="yes">
+							<name>Afflictions</name>
+							<script></script>
+							<command></command>
+							<packageName></packageName>
+							<regex></regex>
+							<Alias isActive="yes" isFolder="no">
+								<name>Group Afflictions</name>
+								<script>if snd.class == "Praenomen" then
+  snd.starting_attack()
+  function snd.attack_function()
+    if not snd.waiting.queue then
+      local string = ""
+      local touse = {}
+      snd.giving_whisper = {
+        "impatience",
+        "infatuation",
+        "stupidity",
+        "anorexia",
+        "confusion",
+        "recklessness",
+        "agoraphobia",
+        "vertigo",
+        "indifference",
+        "peace",
+        "masochism",
+        "paranoia",
+  
+      }
+  
+      for i in pairs(snd.giving_whisper) do
+        if not snd.checkAff(snd.giving_whisper[i]) then
+          if not table.contains(touse, snd.giving_whisper[i]) then
+            table.insert(touse, snd.giving_whisper[i])
+          end
+        end
+      end
+      table.insert(touse, "amnesia")
+      table.insert(touse, "amnesia") --make sure we don't run out of affs, this is useless filler
+      
+      call = "wt Afflicting ".. snd.target..": ".. touse[1] .. ", " .. touse[2]
+  
+    
+      string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
+      
+      if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+        string = call..snd.sep..string
+      end
+      
+      if string ~= snd.last_attack and not snd.waiting.queue then
+        snd.last_attack = string
+        snd.attack(snd.last_attack)
+        snd.waiting.queue = true
+        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      end
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^aff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Praenomen Group Affs</name>
+								<script>if snd.class == "Praenomen" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local string = ""
+    local touse = {}
+    local gashaff = {}
+    local call = ""
+
+    snd.giving_whisper = {
+      "impatience",
+      "stupidity",
+      "recklessness",
+      "masochism",
+      "agoraphobia",
+      "confusion",
+      "epilepsy",
+      "anorexia",
+      "mania",
+      "vertigo",
+      "dementia",
+      "infatuation",
+      "peace",
+      "paranoia",
+      "indifference",
+
+    }
+
+    snd.scythe_gash = {
+      "paresis",
+      "asthma",
+      "slickness",
+      "anorexia",
+      "clumsiness",
+      "dizziness",
+      "stupidity",
+      "weariness",
+
+    }
+
+
+
+    for i in pairs(snd.giving_whisper) do
+      if not snd.checkAff(snd.giving_whisper[i]) then
+        if not table.contains(touse, snd.giving_whisper[i]) then
+          table.insert(touse, snd.giving_whisper[i])
+        end
+      end
+    end
+
+    for i in pairs(snd.scythe_gash) do
+      if not snd.checkAff(snd.scythe_gash[i]) then
+        if not table.contains(gashaff, snd.scythe_gash[i]) then
+          table.insert(gashaff, snd.scythe_gash[i])
+        end
+      end
+    end
+
+    if snd.mana_percent &lt; 35 and not snd.used.shield then
+      string = "annihilate " .. snd.target
+    else
+      if snd.used.shield or snd.used.rebounding then
+        string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
+        call = "wt Afflicting " .. snd.target .. ": " .. touse[1] .. snd.sep .. ", " .. touse[2]
+      else
+        string = "wipe weapon " ..
+        snd.sep ..
+        "gash " ..
+        snd.target ..
+        " " ..
+        snd.effects[gashaff[1]] .. " lightly" .. snd.sep .. "whisper " ..
+        touse[1] .. " " .. touse[2] .. " " .. snd.target .. snd.sep
+        call = "wt Afflicting " .. snd.target ..
+        ": " .. snd.effects[gashaff[1]] .. ". Whispering: " .. touse[1] .. ", " .. touse[2]
+      end
+    end
+
+    string = "contemplate " .. snd.target .. snd.sep .. "order loyals attack " .. snd.target .. snd.sep .. string
+    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+      string = call .. snd.sep .. string
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^gaff$</regex>
+							</Alias>
+							<Alias isActive="yes" isFolder="no">
+								<name>Salve support</name>
+								<script>if snd.class == "Praenomen" then
+  snd.starting_attack()
+
+  function snd.attack_function()
+    local string = ""
+    local touse = {}
+    local gashaff = {}
+    local call = ""
+
+    snd.giving_whisper = {
+      "indifference",
+      "anorexia",
+      "impatience",
+      "stupidity",
+      "recklessness",
+      "masochism",
+      "agoraphobia",
+      "confusion",
+      "epilepsy",
+      "mania",
+      "vertigo",
+      "dementia",
+      "peace",
+      "paranoia",
+    }
+
+    snd.scythe_gash = {
+      "asthma",
+      "slickness",
+      "anorexia",
+      "paresis",
+      "haemophilia",
+      "clumsiness",
+      "dizziness",
+      "stupidity",
+      "weariness",
+
+    }
+    
+
+
+    for i in pairs(snd.giving_whisper) do
+      if not snd.checkAff(snd.giving_whisper[i]) then
+        if not table.contains(touse, snd.giving_whisper[i]) then
+          table.insert(touse, snd.giving_whisper[i])
+        end
+      end
+    end
+
+    for i in pairs(snd.scythe_gash) do
+      if not snd.checkAff(snd.scythe_gash[i]) then
+        if not table.contains(gashaff, snd.scythe_gash[i]) then
+          table.insert(gashaff, snd.scythe_gash[i])
+        end
+      end
+    end
+
+    if snd.mana_percent &lt; 35 and not snd.used.shield then
+      string = "annihilate " .. snd.target
+    else
+      if snd.used.shield or snd.used.rebounding then
+        string = "frenzy " .. snd.target .. snd.sep .. "whisper " .. touse[1] .. " " .. touse[2] .. " " .. snd.target
+        call = "Afflicting " .. snd.target .. ": " .. touse[1] .. snd.sep .. ", " .. touse[2]
+      else
+        string = "wipe weapon " ..
+        snd.sep ..
+        "gash " ..
+        snd.target .. " " .. snd.effects[gashaff[1]] ..
+        " lightly" .. snd.sep .. "whisper " .. touse[1] .. " " .. snd.target .. snd.sep
+        call = "Afflicting " .. snd.target .. ": " .. snd.effects[gashaff[1]] .. ". Whispering: " .. touse[1]
+      end
+    end
+    string = "contemplate " .. snd.target .. snd.sep .. "order loyals attack " .. snd.target .. snd.sep .. string
+    if snd.toggles.affcalling and not snd.target_gone and (call ~= nil or call ~= "") then
+      string = call .. snd.sep .. string
+    end
+
+    if string ~= snd.last_attack and not snd.waiting.queue then
+      snd.last_attack = string
+      snd.attack(snd.last_attack)
+      snd.waiting.queue = true
+      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    end
+  end
+
+  snd.attack_function()
+end
+</script>
+								<command></command>
+								<packageName></packageName>
+								<regex>^legs$</regex>
 							</Alias>
 						</AliasGroup>
 					</AliasGroup>
