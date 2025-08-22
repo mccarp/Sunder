@@ -3288,6 +3288,29 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Undine</name>
+								<script>if matches[2] == snd.target then
+  snd.target_got("sapped_dexterity")
+  snd.affTimers.start("sapped_dexterity", 30, true)
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Anointed by the court of rivers and streams, .+ claws bestow an undine's curse upon (\w+)\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Wisp/exaction</name>
 								<script>if matches[2]:find(snd.target) then
   snd.target_got("haemophilia")
@@ -18222,6 +18245,28 @@ end</script>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Mutagen cured</name>
+									<script>if matches[2] == snd.target then
+  snd.target_cured("mutagen")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^(\w+) heaves a sigh of relief, the tension and horror upon his face ebbing away\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -55722,7 +55767,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.14"
+local version = "11.3.15"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
