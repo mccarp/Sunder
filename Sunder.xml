@@ -18164,8 +18164,12 @@ end</script>
 										<string>^The mutagen placed upon (\w+) has expired, too far from you.$</string>
 										<string>^The maddening revelations placed within (\w+)'s mind expire, too far away from your psychic influence.$</string>
 										<string>^The maddening revelations within (\w+)'s mind reach their end, their lifespan complete.$</string>
+										<string>^(\w+) heaves as the mutation within subsides\.$</string>
+										<string>^(\w+) heaves a sigh of relief, the tension and horror upon his face ebbing away\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -18245,28 +18249,6 @@ end</script>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Mutagen cured</name>
-									<script>if matches[2] == snd.target then
-  snd.target_cured("mutagen")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+) heaves a sigh of relief, the tension and horror upon his face ebbing away\.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -28779,7 +28761,8 @@ end</script>
 
 snd.send("qdmount"..snd.sep.."return mount "..stable_check[gmcp.Char.Status.city])
 
-snd_toggleSave(true)</script>
+snd_toggleSave(true)
+snd.rpAlert({"Wait!", "Consider writing an ESTEEM for someone you interacted with today."})</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -55767,7 +55750,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.16"
+local version = "11.3.17"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57266,6 +57249,7 @@ function snd.login()
     if level &gt;= 99 then
       tempTimer(5, [[send("raceskill active", false)]])
     end
+    tempTimer(15, function() snd.rpAlert({"Looking for roleplay?","","Try using RPWHO!","Use the ROLEPLAY command to see relevant syntaxes"}) end)
   end)
 end
 
@@ -61256,7 +61240,6 @@ ylm.path = {
 				<script>local rooms = {
   {
     area = "Within the Cave",
-    details = { "indoors" },
     environment = "Divine",
     exits = {
       e = 5731,
@@ -61281,7 +61264,6 @@ ylm.path = {
   {
     area = "a Memory of Ashtan",
     coords = {0,0,5},
-    details = {},
     environment = "Ethereal",
     exits = {
       ne = 73069,
@@ -61321,6 +61303,43 @@ ylm.path = {
     name = "Makeshift hut near the dock",
     num = 71508
   },
+  {
+    area = "within synaethetic throes",
+    environment = "Ancient forest",
+    exits = {
+      e = 1231,
+      ne = 42826,
+      s = 80760,
+      sw = 57583
+    },
+    name = "Within synaesthetic fury",
+    num = 83252
+  },
+  {
+    area = "Light's Purchase",
+    environment = "Temple",
+    exits = {
+      e = 1231,
+      ne = 74265,
+      se = 74152,
+      sw = 74784
+    },
+    name = "Immured by holy light",
+    num = 73940
+  },
+  {
+    area = "Earthen Font",
+    environment = "Graveyard",
+    exits = {
+      e = 59772,
+      n = 17033,
+      s = 21043,
+      se = 1231,
+      sw = 57770
+    },
+    name = "The Earthen Font",
+    num = 35572
+  }
 }
 
 
@@ -61973,6 +61992,30 @@ function snd.utils.venomify(tab)
     table.insert(result, snd.effects[v])
   end
   return result
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>rpalert</name>
+				<packageName></packageName>
+				<script>local header = 
+[[  ____   ___  _     _____ ____  _        _ __   __     _    _     _____ ____ _____ 
+ |  _ \ / _ \| |   | ____|  _ \| |      / \\ \ / /    / \  | |   | ____|  _ \_   _|
+ | |_) | | | | |   |  _| | |_) | |     / _ \\ V /    / _ \ | |   |  _| | |_) || |  
+ |  _ &lt;| |_| | |___| |___|  __/| |___ / ___ \| |    / ___ \| |___| |___|  _ &lt; | |  
+ |_| \_\\___/|_____|_____|_|   |_____/_/   \_\_|   /_/   \_\_____|_____|_| \_\|_|  ]]
+
+function snd.rpAlert(textTable)
+if type(textTable) == "string" then textTable = {textTable} end
+
+cecho("\n&lt;medium_orchid&gt;"..header)
+cecho("\n"..string.rep("~=",41).."~")
+for _, text in ipairs(textTable) do
+  local raw = string.gsub(text, "&lt;.-&gt;" ,"")
+  local padding = 41-#raw/2
+  cecho("\n&lt;dodger_blue&gt;"..string.rep(" ",padding)..text)
+end
+cecho("\n"..string.rep("~=",41).."~")
 end</script>
 				<eventHandlerList />
 			</Script>
