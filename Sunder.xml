@@ -55776,7 +55776,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.18"
+local version = "11.3.19"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -74272,6 +74272,7 @@ function snd.calc.crescentcutMultiplier()
   if snd.checkAff("left_leg_crippled") then multi = multi + .1 end
   if snd.checkAff("right_leg_crippled") then multi = multi + .1 end
   if snd.checkAff("fallen") then multi = multi + .25 end
+  if snd.checkAff("shock") then multi = multi + .4 end
   --writhe affs
   for _, aff in pairs(snd.entangleaffs) do
     if snd.checkAff(aff) then
