@@ -9002,6 +9002,30 @@ end</script>
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Disrupted</name>
+									<script>if snd.target == matches[2] then
+  snd.target_got("disrupted")
+end
+
+</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You quickly attack (\w+)'s mind from multiple directions, upsetting \w+ equilibrium\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Backbreaker limb damage tracking</name>
@@ -36565,6 +36589,7 @@ end
 									<string>You shift your guard to protect yourself.</string>
 									<string>^\w+ uses Fury Distract \(boosted\) on you\.$</string>
 									<string>Struggling to defend yourself, the final blow leaves you reeling.</string>
+									<string>^As you parry the blow, .+ enacts a vengeful reprisal, leaving you reeling and vulnerable\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -36575,6 +36600,7 @@ end
 									<integer>3</integer>
 									<integer>1</integer>
 									<integer>3</integer>
+									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -55750,7 +55776,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.17"
+local version = "11.3.18"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -68287,6 +68313,12 @@ function snd.target_used(curative)
             --nothing happens
           elseif snd.cures[curative][affliction] == "hellsight" and snd.checkAff("accursed") then
             --nothing happens
+          elseif curative == "depressant" and table.contains(snd.circle_affs, i) and snd.checksomeAffs({"sealing_circle", "etched_disgust"}, 1) then 
+            --nothing
+          elseif curative == "steroid" and table.contains(snd.triangle_affs, i) and snd.checksomeAffs({"sealing_triangle", "etched_joy"}, 1) then 
+            --nothing
+          elseif curative == "euphoriant" and table.contains(snd.square_affs, i) and snd.checksomeAffs({"sealing_square", "etched_fear"}, 1) then 
+            --nothing
           else
             snd.target_cured(snd.cures[curative][affliction])
             aff_found = true
@@ -71565,6 +71597,10 @@ end
     end,
 
     Bite = function(target, venom)
+      if venom == "failure" then
+        snd.used.paste = true
+        return
+      end
       snd.used.paste = false
       if venom ~= "camus" then
         snd.target_got(snd.venomEffect(venom))
