@@ -4220,6 +4220,7 @@ end</script>
 										<string>^(\w+) stares at nothing in particular, looking somewhat stupid.$</string>
 										<string>^God only knows why, but (\w+) launches .+ into a set of jumping jacks.$</string>
 										<string>^(\w+) screams in fear and cowers before some unseen terror.$</string>
+										<string>^Confusingly, (\w+) adds a spin afterward and missteps, falling to the ground.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -55776,7 +55777,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.19"
+local version = "11.3.20"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
