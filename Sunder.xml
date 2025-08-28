@@ -6217,8 +6217,12 @@ end
 									<regexCodeList>
 										<string>You use Elemancy Feedback</string>
 										<string>You cannot issue a mana feedback again so soon.</string>
+										<string>You use Humourism Traumatise</string>
+										<string>You cannot traumatise another again so soon.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>2</integer>
+										<integer>3</integer>
 										<integer>2</integer>
 										<integer>3</integer>
 									</regexCodePropertyList>
@@ -6238,8 +6242,10 @@ end
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>You may once more introduce a massive feedback of mana into another.</string>
+										<string>Your powers swell as you feel capable of traumatising another.</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>3</integer>
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -55819,7 +55825,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.21"
+local version = "11.3.22"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
