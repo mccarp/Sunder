@@ -55825,7 +55825,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.22"
+local version = "11.3.23"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -74161,7 +74161,9 @@ end
         snd.onHit2({ "Dodge" })
       end
     end,
-
+    Petrify = function(target)
+      snd.target_got("cold")
+    end,
   },
 
   ["Caprice"] = {
