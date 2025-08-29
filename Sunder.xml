@@ -6203,7 +6203,7 @@ end
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Feedback bal gone</name>
-									<script>snd.balance.feedback = true</script>
+									<script>snd.balance.feedback = false</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -9612,8 +9612,10 @@ end</script>
 										<regexCodeList>
 											<string>^(\w+) appears to regain a little colour.$</string>
 											<string>^Too substantial, still\.\.\. you'll need to unspool (\w+) to make a disjunction effective\.$</string>
+											<string>^(\w+) looks more lucid suddenly\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
+											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
 										</regexCodePropertyList>
@@ -9639,34 +9641,12 @@ end</script>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
 											<string>^Strands of inky black already swirl loosely around the form of (\w+)\.$</string>
+											<string>^You tug at the very air around (\w+) and unspool threads of inky black, exposing them for all to see\.$</string>
 											<string>^You have already unspooled (\w+), their form beset by strands of inky black\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
 											<integer>1</integer>
-										</regexCodePropertyList>
-									</Trigger>
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-										<name>Already unspooled</name>
-										<script>if matches[2] ~= snd.target then
-  snd.target_has_aura = true
-  snd.need_leech_aura = true
-	snd.target_cured("leeched_aura")
-end</script>
-										<triggerType>0</triggerType>
-										<conditonLineDelta>0</conditonLineDelta>
-										<mStayOpen>0</mStayOpen>
-										<mCommand></mCommand>
-										<packageName></packageName>
-										<mFgColor>#ff0000</mFgColor>
-										<mBgColor>#ffff00</mBgColor>
-										<mSoundFile></mSoundFile>
-										<colorTriggerFgColor>#000000</colorTriggerFgColor>
-										<colorTriggerBgColor>#000000</colorTriggerBgColor>
-										<regexCodeList>
-											<string>^You have already unspooled (\w+), their form beset by strands of inky black\.$</string>
-										</regexCodeList>
-										<regexCodePropertyList>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
