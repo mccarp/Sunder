@@ -4228,6 +4228,7 @@ end</script>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
+										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -55828,7 +55829,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.23"
+local version = "11.3.24"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
