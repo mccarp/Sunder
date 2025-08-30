@@ -5952,6 +5952,29 @@ end
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Winterheart</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("winterheart")
+  snd.affTimers.start("winterheart", 35, true)
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Winter's icy grasp closes around (\w+)'s heart, causing .+ to wince\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Elemancy</name>
@@ -62260,6 +62283,7 @@ end</script>
   def_houndmark = { defense = "houndmark", type = "yellow", effect = "hounds go zoom", balance = {}, skill = "Generic" },
   def_cruelty = { defense = "cruelty", type = "normal", effect = "Increased strength.", balance = { needyequilibriumtake = "cruelty" }, skill = "Cruelty" },
   def_charging = { defense = "charging", type = "normal", effect = "Chase fleeing targetS", balance = {}, skill = "Charging" },
+  def_soul_purge = { defense = "soul_purge", type = "normal", effect = "go fast nyoom", balance = {}, skill = "Purge"},
 
   --Earthcaller
   def_heatshield = { defense = "heatshield", type = "normal", effect = "Light-based damage resistance", balance = { needyequilibriumtake = "tectonic heatshield" }, skill = "Heatshield" },
@@ -62576,6 +62600,8 @@ end</script>
   def_homage = { defense = "homage", type = "normal", effect = "Increased strength.", balance = { needyequilibriumtake = "warden homage" }, skill = "Homage" },
   def_warding_rigor = { defense = "warding_rigor", type = "normal", effect = "Cheap Furor.", balance = { needybalancetake = "warden rigor" }, skill = "Rigor" },
   def_anticipation = { defense = "anticipation", type = "normal", effect = "follow target on fleeing", balance = {}, skill = "Anticipate" },
+  def_ancestral_annul = { defense = "ancestral_annul", type = "normal", effect = "go fast nyoom", balance = {}, skill = "Annul"},
+
 
   --Wayfarer
   def_ironskin = { defense = "ironskin", type = "normal", effect = "Resist physical damage", balance = { balanceequilibrium = "wayfare ironskin" }, skill = "Ironskin" },
@@ -63479,6 +63505,9 @@ end</script>
   ["You swell with the favour of the Queensguard."] = "favour",
   ["You are concealing all vulnerabilities."] = "concealing",
   ["The thrill of the hunt stokes your bloodthirst."] = "bloodthirst",
+  
+  ["You are currently blessed by the ancestors."] = "ancestral_annul",
+  ["Your purged soul is currently empowered."] = "soul_purge",
 }
 </script>
 				<eventHandlerList />
