@@ -25146,9 +25146,11 @@ snd.getting_hit = "You"
   snd.track_rebounding(snd.target)
   if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
   snd.reboundingTimer = tempTimer(6, [[
-                snd.used.rebounding = true;
-                snd.waiting_queue = false;
-                if snd.toggles.attacking then snd.attack_function() end
+                if not snd.checkAff("collapsed_lung") then
+                  snd.used.rebounding = true
+                  snd.waiting_queue = false;
+                  if snd.toggles.attacking then snd.attack_function() end
+                end
               ]])
   end
 end</script>
@@ -26893,7 +26895,7 @@ mmp.echonums(matches[2])
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^You must go south to reach (.*)\.$</string>
+							<string>^You must go \w+ to reach (.*)\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -55829,7 +55831,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.24"
+local version = "11.3.25"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61419,6 +61421,18 @@ ylm.path = {
     },
     name = "The Earthen Font",
     num = 35572
+  },
+  {
+  area = "the Endless Mist",
+  environment = "Graveyard",
+  exits = {
+    n = 17033,
+    s = 21043,
+    se = 1231,
+    sw = 57770
+  },
+  name = "Dark, endless mist",
+  num = 31039
   }
 }
 
