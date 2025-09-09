@@ -15641,7 +15641,7 @@ local vibrationToEffect = {
     dissension = {},
     gravity = { defStrip = { "levitation" } },
     tremors = { affs = { "fallen" } },
-    stridulation = { affs = { "disrupted" } },
+    stridulation = { affs = { "disrupted", "no_courage" } },
 }
 
 if snd.target == matches[2] then
@@ -55831,7 +55831,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.25"
+local version = "11.3.26"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -62984,7 +62984,7 @@ end</script>
   ["You are completely fearless."] = "fearless",
   ["Your soulstone is split to support your weapon, body, and armour."] = "soul_fracture",
   ["Your soul has been fortified."] = "soul_fortify",
-  ["You have the safeguard of an Idreth."] = "safeguard",
+  ["You are surrounded by a safeguard charm."] = "safeguard",
   ["You have the miasma of an Azudim."] = "safeguard",
   ["You have the warmth of a Yeleni."] = "safeguard",
   ["You are prepared to counterattack against physical aggression."] = "maingauche",
