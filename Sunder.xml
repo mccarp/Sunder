@@ -15625,7 +15625,7 @@ end</script>
 --Not sure if possible to code anti illusion checks.
 
 local vibrationToEffect = {
-    adduction = {},
+    adduction = {affs = { "no_density"} },
     disorientation = { affs = { "dizziness" } },
     plague_broken_arms = { affs = { "right_arm_crippled", "left_arm_crippled" } },
     plague_broken_legs = { affs = { "left_leg_crippled", "right_leg_crippled", "fallen" } },
@@ -55831,7 +55831,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.26"
+local version = "11.3.27"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
