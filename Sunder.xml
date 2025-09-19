@@ -55831,7 +55831,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.27"
+local version = "11.3.28"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -68393,6 +68393,9 @@ function snd.target_used(curative)
             --nothing
           elseif curative == "euphoriant" and table.contains(snd.square_affs, i) and snd.checksomeAffs({"sealing_square", "etched_fear"}, 1) then 
             --nothing
+          elseif snd.checkAff("mindfog") and table.contains(snd.mental_affs, i) then
+            cecho("&lt;yellow&gt; cure blocked by mindfog")
+            return
           else
             snd.target_cured(snd.cures[curative][affliction])
             aff_found = true
