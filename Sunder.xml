@@ -55831,7 +55831,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.28"
+local version = "11.3.29"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -62742,7 +62742,7 @@ end</script>
   def_seraph_store = { defense = "seraph_store", type = "gold", effect = "Return to your fancy room on death", balance = {}, skill = "200" },
 
   --aetherial
-  def_aetherial_form = { defense = "aetherial_form", type = "normal", effect = "You are a star", balance = { balanceequilibriumtake = "arise heavens brutal" }, skill = "200" },
+  def_aetherial_form = { defense = "aetherial_form", type = "normal", effect = "Star light, star bright", balance = { balanceequilibriumtake = "arise heavens brutal" }, skill = "200" },
   def_aetherial_bastion = { defense = "aetherial_bastion", type = "normal", effect = "Protect you and absorb afflictions", balance = { balanceequilibriumtake = "aetherial bastion" }, skill = "200" },
   def_aetherial_presence = { defense = "aetherial_presence", type = "normal", effect = "Grants crit and dodge chance", balance = { balanceequilibriumtake = "aetherial presence on" }, skill = "200" },
   def_aetherial_torment = { defense = "aetherial_torment", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = { balanceequilibriumtake = "aetherial torment on" }, skill = "200" },
@@ -76182,6 +76182,7 @@ snd.areas = {
   ["Qor Qogol"] = {level = "Dorfs n stuff", targets = {"a felsic loamarl", "a clastic brechelf", "a striated reghorst"}},
   ["Snowswell"] = {level = "Easy but annoying", targets = {"a snow wight"}, items = {"snow wight essence"}},
   ["a memory of Relovec Mansion"] = {level = "Bring friends", targets = {"an enraged memory of a female servant", "an enraged memory of a male servant", "an enraged memory of a female villager", "an enraged memory of a male villager"}},
+  ["the Tarblack Marshes"] = {level = "gloop gloop", targets = {"a grotesque bloater", "a tarclaw caiman", "a rock scorpion", "a lumbering stonefiend"}},
 }
 --- Target list of apothecary creatures by area.
 -- @table snd.apoAreas
