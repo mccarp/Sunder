@@ -15302,6 +15302,257 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Resins</name>
+								<script></script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList />
+								<regexCodePropertyList />
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Resin hurled</name>
+									<script>if matches[3]~=snd.target then return end
+snd.resins.apply(matches[2])</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ uses? Tracking Hurling \((\w+)\) on (\w+)\.$</string>
+										<string>^\w+ uses? Toxin Splatter \((\w+)\) on (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Arrow shot</name>
+									<script>snd.resins.arrowEffect = matches[2]</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^You use Archery Shoot \((\w+)\)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Fireshot</name>
+									<script>snd.resins.arrowEffect = "fireshot"</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Tracking Fireshot.</string>
+										<string>You use Subversion Fireshot.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Arrow hit</name>
+									<script>if matches[2] == snd.target then
+  local arrow = snd.resins.arrowEffect
+  if snd.resins.tickCounts[arrow] then
+    snd.resins.apply(arrow)
+  end
+  if arrow == "fireshot" then
+    snd.resins.ignite()
+  end
+end
+snd.arrowEffect = "none"</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your arrow strikes (\w+) true\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Arrow missed</name>
+									<script>snd.resins.arrowEffect = "none"</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^Your arrow bounces off (\w+)'s magical shield\.$</string>
+										<string>Your arrow misses its mark completely.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Combust</name>
+									<script>if matches[2]~=snd.target then return end
+snd.resins.combust()</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^\w+ uses? Tracking Combust on (\w+)\.$</string>
+										<string>^\w+ uses? Subversion Kindle on (\w+)\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Cold burns</name>
+									<script>if matches[2]~=snd.target then return end
+snd.resins.tickObserved()
+snd.resins.burning = true</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The resin upon (\w+) begins to crack and harden, the fumes it produces having little scent\.$</string>
+										<string>^The resin burns furiously around (\w+)'s skin, releasing heated fumes\.$</string>
+										<string>^The resin upon (\w+) emits visible fumes that make \w+ recoil and cough\.$</string>
+										<string>^Thick fumes rise as the resin burns swiftly around (\w+), producing a focused heat\.$</string>
+										<string>^Thick, tarry smoke rises up from the resin upon (\w+), who cannot help but inhale it\.$</string>
+										<string>^The toxic fumes from the burning resin cause (\w+) to grimace with pain\.$</string>
+										<string>^The aromatic fumes from the resin leaves (\w+) sluggish and slow\.$</string>
+										<string>^Burnt flesh and smoke dominate the air as the adhesive toxin upon (\w+) continues to burn\.$</string>
+										<string>^Nauseating fumes arise from the burning toxin upon (\w+)'s skin, who winces in irritation\.$</string>
+										<string>^The fumes of the toxin upon (\w+) swirl before his eyes, interfering with \w+ focus\.$</string>
+										<string>^Smoky fumes arise from the flammable toxin on (\w+)'s flesh, searing \w+ skin and lungs?\.$</string>
+										<string>^Noxious alchemical fumes arise from the burning toxin on (\w+)'?s? flesh, who sways uneasily\.$</string>
+										<string>^The fumes exuding from (\w+)'s toxin-riddled flesh cause \w+ muscles to visibly clench\.$</string>
+										<string>^The septic toxin's acrid smoke cakes (\w+)'s wounds in a sooty layer, causing \w+ to flinch\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Hot burns</name>
+									<script>if matches[3]~=snd.target then return end
+snd.resins.reset()
+</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The heated resin upon (\w+)'s skin begins to rapidly harden into stone-like toughness, forming a shell\.$</string>
+										<string>^In an eruption with towering flames, the resin upon (\w+)'s skin alights in a burst of heat\.$</string>
+										<string>^The resin burns off completely from (\w+), producing an acidic bubbling effect that dazes \w+\.$</string>
+										<string>^The intense flame of the resin leaves (\w+) cringing as \w+ skin turns black\.$</string>
+										<string>^As the resin is heated to its vapor point, (\w+) staggers as \w+ loses \w+ focus completely\.$</string>
+										<string>^The heightened heat causes the resin upon (\w+) to liquify, and quickly seeps into \w+ wounds\.$</string>
+										<string>^The superheated resin fumes swarm (\w+)'s senses and \w+ looks around dazed\.$</string>
+										<string>^Heat and chemical conspire into a blinding conflagration that leaves (\w+)'s skin charred to a crisp\.$</string>
+										<string>^Vaporising amidst roaring flames, the choking toxin's final fumes cause (\w+) to stagger\.$</string>
+										<string>^The burning toxin upon (\w+)'s flesh coagulates into rigidity, forming a debilitating shell\.$</string>
+										<string>^Conflagrant heat engulfs (\w+) as the flammable toxin upon \w+ flesh ignites in a destructive plume\.$</string>
+										<string>^The noxious toxin coating (\w+) sears? away in a chemical flash, causing \w+ eyes to dilate\.$</string>
+										<string>^In a final flash, the toxin on (\w+)'s flesh ignites and \w+ sways on \w+ feet\.$</string>
+										<string>^Immense heat potentiates the septic toxin upon (\w+)'s flesh, who cries out in agony\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Siderealist</name>
@@ -55831,7 +56082,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.3.29"
+local version = "11.4.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67852,6 +68103,135 @@ snd.hound_attacks = {
     assault = "assault",
   }
 }</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Resins</name>
+					<packageName></packageName>
+					<script>snd.resins = snd.resins or {}
+snd.resins.cold = snd.resins.cold or "none"
+snd.resins.hot = snd.resins.hot or "none"
+snd.resins.burning = snd.resins.burning or false
+snd.resins.remainingTicks = snd.resins.remainingTicks or 0
+snd.resins.tickTimer = snd.resins.tickTimer
+snd.resins.lastTarget = snd.resins.lastTarget or "none"
+
+snd.resins.tickCounts = {
+  pyrolum = 12,
+  flammable = 12,
+  
+  corsin = 8,
+  coagulating = 8,
+  
+  trientia = 9,
+  hallucinatory = 9,
+  
+  harimel = 14,
+  adhesive = 14,
+  
+  glauxe = 10,
+  choking = 10,
+  
+  badulem = 8,
+  septic = 8,
+  
+  lysirine = 6,
+  paralytic = 6,
+}
+
+function snd.resins.resetCheck()
+  if snd.resins.lastTarget~=snd.target then
+    snd.resins.lastTarget = snd.target
+    snd.resins.reset()
+  end
+end
+
+function snd.resins.combust()
+  snd.resins.resetCheck()
+  if not snd.resins.burning then
+    snd.resins.ignite()
+  else
+    snd.resins.remainingTicks = math.max(0, snd.resins.remainingTicks - 3)
+    snd.echo("Remaining ticks: "..snd.resins.remainingTicks)
+  end
+end
+
+function snd.resins.apply(resin)
+  snd.resins.resetCheck()
+  snd.resins.hot = snd.resins.cold
+  snd.resins.cold = resin
+  snd.echo("Cold - "..snd.resins.cold.."   Hot - "..snd.resins.hot)
+end
+
+function snd.resins.tickObserved()
+  snd.resins.resetCheck()
+  if not snd.resins.burning then return end --ugh
+  local time = snd.resins.timeToTick()
+  if time&lt;3 then
+    if snd.resins.tickTimer then killTimer(snd.resins.tickTimer) end
+    snd.resins.tick()
+  elseif time&gt;3 then
+    if snd.resins.tickTimer then killTimer(snd.resins.tickTimer) end
+    snd.resins.tickTimer = tempTimer(6, snd.resins.tick)
+  end
+end
+
+function snd.resins.ignite()
+  snd.resins.resetCheck()
+  if snd.resins.burning then return end
+  if snd.resins.cold == "none" then return end
+  snd.resins.burning = true
+  snd.resins.remainingTicks = snd.resins.tickCounts[snd.resins.cold]
+  snd.resins.tickTimer = tempTimer(6, snd.resins.tick)
+end
+
+function snd.resins.reset()
+  snd.echo("Resins reset!")
+  snd.resins.burning = false
+  snd.resins.cold = "none"
+  snd.resins.hot = "none"
+  snd.resins.remainingTicks = 0
+  if snd.resins.tickTimer then
+    killTimer(snd.resins.tickTimer)
+  end
+end
+
+function snd.resins.tick()
+  snd.resins.resetCheck()
+  snd.resins.remainingTicks = snd.resins.remainingTicks-1
+  if snd.resins.remainingTicks&gt;=0 then
+    snd.resins.tickTimer = tempTimer(6, snd.resins.tick)
+    snd.echo("Remaining ticks: "..snd.resins.remainingTicks)
+  else
+    snd.echo("HOT BURN!!")
+    snd.resins.reset()
+  end
+end
+
+function snd.resins.timeToHot()
+  return math.max(0, 6*(snd.resins.remainingTicks)+snd.resins.timeToTick())
+end
+
+function snd.resins.timeToTick()
+  if not snd.resins.tickTimer then return 0 end
+  local time = remainingTime(snd.resins.tickTimer)
+  return time and time or 0
+end
+
+function snd.resins.getAction(cold, hot)
+  snd.resins.resetCheck()
+  if snd.resins.burning then return "none" end
+  if cold == snd.resins.cold and hot == snd.resins.hot then
+    return "ignite"
+  end
+  if snd.resins.cold == hot and snd.resins.hot ~= hot then
+    return cold
+  end
+  if snd.resins.hot~= hot and snd.resins.cold~= hot then
+    return hot
+  end
+end
+</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
