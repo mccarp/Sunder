@@ -32684,10 +32684,14 @@ snd.track_fury(tonumber(matches[2]))</script>
 								<regexCodeList>
 									<string>You cannot transfix again just yet.</string>
 									<string>The wisp rune's bewitching power eludes you for now.</string>
+									<string>You use Sorcery Transfix</string>
+									<string>You use Runecarving Bewitch</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>3</integer>
 									<integer>3</integer>
+									<integer>2</integer>
+									<integer>2</integer>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -56082,7 +56086,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.4.0"
+local version = "11.4.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70085,6 +70089,8 @@ end
     Transfixion = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
     end,
     Heatwave = function(target)
@@ -70995,6 +71001,8 @@ end
     Mesmerize = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
     end,
     Confusion = function(target)
@@ -71303,8 +71311,9 @@ end
     Transfix = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
-      snd.balance.sorcery_transfix = false
     end,
 
   },
@@ -72869,6 +72878,8 @@ end
     Transfixion = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
     end,
     Vent = function(target)
@@ -73284,6 +73295,8 @@ end
     Exhort = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
     end,
     Confusion = function(target)
@@ -73823,8 +73836,9 @@ end
     Bewitch = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
-      snd.balance.sorcery_transfix = false
     end,
 
   },
@@ -74452,7 +74466,7 @@ end
   },
   ["Crystalism"] = {
     Tones =
-        function(target, vibe)
+        function(target, vibe, conditional)
           if vibe == "Dissipate" then
             if snd.checkAff("confusion") then
               snd.vital_change("mana", -14)
@@ -74495,7 +74509,11 @@ end
           elseif vibe == "Dissension" then
             snd.target_got("dissonance")
           elseif vibe == "Lullaby" then
-            snd.target_got("sleep")
+            if conditional == "hypersomnia" then
+              snd.target_got("hypersomnia")
+            else
+              snd.target_got("sleep")
+            end
           elseif vibe == "Plague" then
             --add in a flag here to detect plague tone secondary line, for anti illusion purposes?
           end
@@ -74584,6 +74602,8 @@ end
     Bewitch = function(target, courage)
       if not courage then
         snd.target_got("writhe_transfix")
+      else
+        snd.target_cured("no_courage")
       end
     end,
     Confusion = function(target)
