@@ -56086,7 +56086,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.4.1"
+local version = "11.4.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -72062,7 +72062,7 @@ end
       enableTrigger("Syssin Hit Confirmation")
     end,
 
-    Bite = function(target, venom)
+    Fangs = function(target, venom)
       if venom == "failure" then
         snd.used.paste = true
         return
