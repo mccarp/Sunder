@@ -12221,7 +12221,7 @@ end</script>
 										<string>^\w+ sweeps .+ before \w+, brutally carving into (\w+)\.$</string>
 										<string>^Leaping in, \w+ rips (\w+) open with .+\.$</string>
 										<string>^With a violent upward swing, \w+ mangles (\w+) with .+\.$</string>
-										<string>^With an arcing blow, \w+ swing at (\w+) with .+\.$</string>
+										<string>^With an arcing blow, \w+ swings at (\w+) with .+\.$</string>
 										<string>^\w+ cuts open (\w+) with an overhead slash from .+\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
@@ -56086,7 +56086,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.4.2"
+local version = "11.5.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -62365,6 +62365,46 @@ for _, text in ipairs(textTable) do
   cecho("\n&lt;dodger_blue&gt;"..string.rep(" ",padding)..text)
 end
 cecho("\n"..string.rep("~=",41).."~")
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>random</name>
+				<packageName></packageName>
+				<script>snd = snd or {}
+snd.random = snd.random or {}
+snd.random.cache = snd.random.cache or {}
+
+function snd.random.num(min, max, name, time)
+  if not time then
+    min, max, name, time = 1, min, max, name
+  end
+  if snd.random.cache[name] and
+     snd.random.cache[name].min == min and
+     snd.random.cache[name].max == max and
+     (snd.random.cache[name].hardCached or
+     getEpoch()&lt;snd.random.cache[name].limit)
+     then
+    return snd.random.cache[name].result
+  end
+  local entry = 
+  {
+    min = min,
+    max = max,
+    result = math.random(min, max)
+  }
+  if type(time) == "boolean" then
+    entry.hardCached = true
+  else
+    entry.limit = getEpoch()+time
+  end
+  snd.random.cache[name] = entry
+  return entry.result
+end
+
+
+function snd.random.clearCache(name)
+  snd.random.cache[name] = nil
 end</script>
 				<eventHandlerList />
 			</Script>
