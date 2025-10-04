@@ -2084,8 +2084,10 @@ end
 									<string>^(You)r swing falls short of its target\.$</string>
 									<string>^(\w+) strikes? out clumsily and miss(?:es)? \w+ mark\.$</string>
 									<string>^(You) stumble blindly and miss your mark completely\.$</string>
+									<string>^(You)r watery eyes distract your concentration as you miss with .+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -7863,7 +7865,7 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList />
 									<regexCodePropertyList />
-									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Maul Hit Confirmation</name>
 										<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -56086,7 +56088,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.0"
+local version = "11.5.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -60130,6 +60132,10 @@ snd.priorities =
   "def_bloodwisp",
   "def_strengthening",
   "def_spiritbolster",
+  
+  "def_bloodhunt",
+  "def_perceive",
+  "def_bloodtrack",
 }
 end
 snd.reset_priorities()
@@ -61425,7 +61431,8 @@ ylm.path = {
   v1602 = "19344",
   v19344 = "62798",
   v62798 = "1433",
-  v1433 = "3018",
+  v1433 = "36677",
+  v36677 = "3018",
   v3018 = "16438",
   v16438 = "36865",
   v36865 = "6",
@@ -62514,6 +62521,10 @@ end</script>
   def_transcendence              = { defense = "transcendence", type = "ivory", effect = "Transcend mortal limitations", balance = { balanceequilibriumtake = "spirit transcend" }, skill = "Transcend" },
   def_exaction                   = { defense = "exaction", type = "normal", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "spirit exaction"}, skill = "Exaction"},
   def_adjudicate                 = { defense = "adjudicate", type = "normal", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Adjudicate"},
+  def_perceive                   = { defense = "perceive", type = "normal", effect = "track target's bleeding", balance = { balanceequilibriumtake = "spirit perceive"}, state = "down", needit = false, timer = createStopWatch(), tree = "Discipline", skill = "Perceive"},
+
+  
+  
   --Alchemist
   def_interposition              = { defense = "interposition", type = "normal", effect = "Share damage with your experiment.", balance = { balanceequilibriumtake = "experiment interposition on" }, skill = "Interposition" },
   def_obfuscation                = { defense = "obfuscation", type = "normal", effect = "Resistance to cutting/blunt.", balance = { balanceequilibriumtake = "derive obfuscation" }, skill = "Obfuscation" },
@@ -62694,6 +62705,7 @@ end</script>
   def_bloodwisp            = { defense = "bloodwisp", type = "normal", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "blood wisp"}, skill = "Wisp" },
   def_strengthening        = { defense = "strengthening", type = "normal", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "blood strengthen" }, skill = "Strengthen" },
   def_bloodhunger          = { defense = "bloodhunger", type = "normal", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Ravish"},
+  def_bloodtrack            = { defense = "bloodtrack", type = "normal", effect = "track target's bleeding", balance = { balanceequilibriumtake = "blood track"}, state = "down", needit = false, timer = createStopWatch(), tree = "Sanguis", skill = "Track"},
 
   --Ravager
   def_vinculum             = { defense = "vinculum", type = "normal", effect = "Enabled your use of abilities", balance = { balanceequilibriumtake = "invoke vinculum" }, skill = "Vinculum" },
@@ -62821,7 +62833,8 @@ end</script>
   def_bloodbath            = { defense = "bloodbath", type = "spring_green", effect = "Passive enemy bleeding", balance = {balanceequilibriumtake = "fae bloodbath"}, skill = "Bloodbath" },
   def_favour               = { defense = "favour", type = "spring_green", effect = "Masochism buries effused blood", balance = { balanceequilibriumtake = "fae favour" }, skill = "Favour" },
   def_bloodthirst          = { defense = "bloodthirst", type = "spring_green", effect = "speeds next single whisper", balance = {}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodthirst"},
-
+  def_bloodhunt            = { defense = "bloodhunt", type = "spring_green", effect = "track target's bleeding", balance = { balanceequilibriumtake = "fae bloodhunt"}, state = "down", needit = false, timer = createStopWatch(), skill = "Bloodhunt"},
+ 
   --Syssin
   def_hiding = { defense = "hiding", type = "blue", effect = "Conceals your presence", balance = { needybalancetake = "hide" }, skill = "Hide" },
   def_warding = { defense = "warding", type = "normal", effect = "Physical resistance", balance = { needybalancetake = "warding" }, skill = "Warding" },
@@ -63815,6 +63828,10 @@ end</script>
   ["You swell with the favour of the Queensguard."] = "favour",
   ["You are concealing all vulnerabilities."] = "concealing",
   ["The thrill of the hunt stokes your bloodthirst."] = "bloodthirst",
+  
+  ["You have sworn to seek out bleeding prey."] = "bloodhunt",
+  ["You are tracking the bleeding of others."] = "bloodtrack",
+  ["You are perceiving the flow of life blood."] = "perceive",
   
   ["You are currently blessed by the ancestors."] = "ancestral_annul",
   ["Your purged soul is currently empowered."] = "soul_purge",
@@ -68811,13 +68828,13 @@ function snd.target_used(curative)
             --nothing happens
           elseif snd.cures[curative][affliction] == "hellsight" and snd.checkAff("accursed") then
             --nothing happens
-          elseif curative == "depressant" and table.contains(snd.circle_affs, i) and snd.checksomeAffs({"sealing_circle", "etched_disgust"}, 1) then 
+          elseif curative == "depressant" and table.contains(snd.circle_affs, snd.target_has[i]) and snd.checksomeAffs({"sealing_circle", "etched_disgust"}, 1) then 
             --nothing
-          elseif curative == "steroid" and table.contains(snd.triangle_affs, i) and snd.checksomeAffs({"sealing_triangle", "etched_joy"}, 1) then 
+          elseif curative == "steroid" and table.contains(snd.triangle_affs, snd.target_has[i]) and snd.checksomeAffs({"sealing_triangle", "etched_joy"}, 1) then 
             --nothing
-          elseif curative == "euphoriant" and table.contains(snd.square_affs, i) and snd.checksomeAffs({"sealing_square", "etched_fear"}, 1) then 
+          elseif curative == "euphoriant" and table.contains(snd.square_affs, snd.target_has[i]) and snd.checksomeAffs({"sealing_square", "etched_fear"}, 1) then 
             --nothing
-          elseif snd.checkAff("mindfog") and table.contains(snd.mental_affs, i) then
+          elseif snd.checkAff("mindfog") and table.contains(snd.mental_affs, snd.target_has[i]) then
             cecho("&lt;yellow&gt; cure blocked by mindfog")
             return
           else
