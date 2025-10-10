@@ -26733,7 +26733,7 @@ snd.hidden_afflictions = 0</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^(\w+) uses (?:Ravaging Bedevil|Purificatoin Pendulum) \((.+)\) on you\.$</string>
+								<string>^(\w+) uses (?:Ravaging Bedevil|Purification Pendulum) \((.+)\) on you\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -56088,7 +56088,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.1"
+local version = "11.5.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
