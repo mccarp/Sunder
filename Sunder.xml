@@ -39418,17 +39418,6 @@ end</script>
 								<packageName></packageName>
 								<regex>^gs(?: (.*))?$</regex>
 							</Alias>
-							<Alias isActive="yes" isFolder="no">
-								<name>Shoot</name>
-								<script>if matches[2] == "" then
- snd.send("qeb shoot "..snd.target.." curare")
-else
- snd.send("qeb shoot "..matches[2].." curare")
-end</script>
-								<command></command>
-								<packageName></packageName>
-								<regex>^shoot(.*)$</regex>
-							</Alias>
 						</AliasGroup>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Damage Offenses</name>
@@ -44013,17 +44002,6 @@ end
 								<regex>^newb$</regex>
 							</Alias>
 						</AliasGroup>
-						<Alias isActive="yes" isFolder="no">
-							<name>Blender Alias (Wield a 2-handed)</name>
-							<script>if snd.class == "Revenant" then
-   snd.send("riving umbrage wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave wilave")
-end
-   
-</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^arc$</regex>
-						</Alias>
 						<AliasGroup isActive="yes" isFolder="yes">
 							<name>Righteousness</name>
 							<script></script>
@@ -56088,7 +56066,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.2"
+local version = "11.5.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
