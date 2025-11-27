@@ -12576,11 +12576,13 @@ end</script>
 										<string>^With an arcing slice, \w+ sinks? .+ into (\w+)\.$</string>
 										<string>^\w+ throws? momentum behind .+, cleanly stabbing (\w+)\.$</string>
 										<string>^\w+ slams? .+'s edge into (\w+), bracing against the impact\.$</string>
-										<string>^\w+ charges? forward, hacking (/w+) asunder with .+\.$</string>
-										<string>^\w+ neatly swings? .+, ripping into (/w+)\.$</string>
+										<string>^\w+ charges? forward, hacking (\w+) asunder with .+\.$</string>
+										<string>^\w+ neatly swings? .+, ripping into (\w+)\.$</string>
 										<string>^Lifting up .+, \w+ swings? brutally downward at (\w+)\.$</string>
+										<string>^\w+ arms twisting, \w+ thrusts? .+ into (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -12615,7 +12617,7 @@ end
 										<string>^\w+ scores? (\w+) with a wild blow from .+\.$</string>
 										<string>^\w+ viciously skewers? (\w+) with a thrust from .+\.$</string>
 										<string>^Cutting forcefully, \w+ rends? (\w+) with .+\.$</string>
-										<string>^With a brutal swipe of .+, \w+ rips? up (/w+)\.$</string>
+										<string>^With a brutal swipe of .+, \w+ rips? up (\w+)\.$</string>
 										<string>^Swinging .+ in a powerful arc, \w+ tears? into (\w+)\.$</string>
 										<string>^Lancing forward, \w+ drives? .+ into (\w+)\.$</string>
 										<string>^With a powerful jab, \w+ gouges? into (\w+) with .+\.$</string>
@@ -19606,7 +19608,6 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Undertow (levitation) done</name>
 									<script>if matches[2] == snd.target then
-  snd.lev_gone = false
   snd.target_cured("quicksand")
 end</script>
 									<triggerType>0</triggerType>
@@ -27113,7 +27114,8 @@ raiseEvent("mmapper updated pdb")</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Scenttrails trigger</name>
-							<script></script>
+							<script>mmp.tempscent = {}
+mmp.pdb_lastupdate = {}</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>100</mStayOpen>
@@ -56156,7 +56158,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.4"
+local version = "11.5.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -64804,7 +64806,7 @@ function snd.parry()
       snd.send("guard " .. snd.parrying.toparry)
     elseif snd.class == "Ravager" and hasSkill("Oppose") then
       snd.send("oppose " .. snd.parrying.toparry)
-    elseif hasSkill("Parrying") and snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty" then
+    elseif hasSkill("Parrying") and snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty" or snd.class == "Shapeshifter" then
       snd.send("parry " .. snd.parrying.toparry)
     end
     snd.waiting.parry = true
@@ -68281,7 +68283,7 @@ function snd.resins.combust()
     snd.resins.ignite()
   else
     snd.resins.remainingTicks = math.max(0, snd.resins.remainingTicks - 3)
-    snd.echo("Remaining ticks: "..snd.resins.remainingTicks)
+    snd.message("Remaining ticks: "..snd.resins.remainingTicks)
   end
 end
 
@@ -68289,7 +68291,7 @@ function snd.resins.apply(resin)
   snd.resins.resetCheck()
   snd.resins.hot = snd.resins.cold
   snd.resins.cold = resin
-  snd.echo("Cold - "..snd.resins.cold.."   Hot - "..snd.resins.hot)
+  snd.message("Cold - "..snd.resins.cold.."   Hot - "..snd.resins.hot)
 end
 
 function snd.resins.tickObserved()
@@ -68315,7 +68317,7 @@ function snd.resins.ignite()
 end
 
 function snd.resins.reset()
-  snd.echo("Resins reset!")
+  snd.message("Resins reset!")
   snd.resins.burning = false
   snd.resins.cold = "none"
   snd.resins.hot = "none"
@@ -68330,9 +68332,9 @@ function snd.resins.tick()
   snd.resins.remainingTicks = snd.resins.remainingTicks-1
   if snd.resins.remainingTicks&gt;=0 then
     snd.resins.tickTimer = tempTimer(6, snd.resins.tick)
-    snd.echo("Remaining ticks: "..snd.resins.remainingTicks)
+    snd.message("Remaining ticks: "..snd.resins.remainingTicks)
   else
-    snd.echo("HOT BURN!!")
+    snd.message("HOT BURN!!")
     snd.resins.reset()
   end
 end
@@ -71211,9 +71213,8 @@ end
       if snd.checkAff("sadness") then
         snd.target_got("vomiting")
       end
-      if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
-        snd.target_got("no_paste")
-      end
+      snd.target_got("no_paste")
+      snd.used.paste = false
     end,
 
     Feast = function(target, fail)
@@ -73512,9 +73513,8 @@ end
       if snd.checkAff("sadness") then
         snd.target_got("vomiting")
       end
-      if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
-        snd.target_got("no_paste")
-      end
+      snd.target_got("no_paste")
+      snd.used.paste = false
     end,
 
     Exorcism = function(target, fail)
@@ -74807,9 +74807,8 @@ end
       if snd.checkAff("sadness") then
         snd.target_got("vomiting")
       end
-      if snd.checksomeAffs({"sadness","self_pity","hubris"},3) then
-        snd.target_got("no_paste")
-      end
+      snd.target_got("no_paste")
+      snd.used.paste = false
     end,
 
     Savage = function(target, fail)
@@ -76708,6 +76707,7 @@ snd.areas = {
   ["Snowswell"] = {level = "Easy but annoying", targets = {"a snow wight"}, items = {"snow wight essence"}},
   ["a memory of Relovec Mansion"] = {level = "Bring friends", targets = {"an enraged memory of a female servant", "an enraged memory of a male servant", "an enraged memory of a female villager", "an enraged memory of a male villager"}},
   ["the Tarblack Marshes"] = {level = "gloop gloop", targets = {"a grotesque bloater", "a tarclaw caiman", "a rock scorpion", "a lumbering stonefiend"}},
+  ["the Crimson Coast"] = {level = "99+", targets = {"Match:%a+ %a+ smuggler", "a massive white gull", "a broad-nosed crocodile", "a large sand crab", "a baby seagull", "a grisled, heavily scarred Grecht pirate", "a turgid Troll pirate covered in tattoos", "a scrawny Human pirate wearing a straw hat", "a dainty, sable-sailed Harpy pirate", "a lavishly dressed Mhun pirate", "a peg-legged Imp pirate", "a short, mop-wielding Human pirate", "a lithe, sea-slick Grook pirate with shimmer-dark eyes", "a stout, sure-footed Dwarf pirate", "a finched Minotaur pirate", "a small, snub-nosed Grecht pirate", "a scrawny, one-eyed Rajamalan pirate", "a bearded Gnome pirate", "a bespectacled Orc pirate", "a brassy Ophidian pirate", "a flowering Arborean pirate", "a gaunt, head-shaved Nazetu pirate", "a brawny, hook-handed Kelki pirate", "a powerful, resinous Arborean pirate", "a knife-strapped Kobold pirate", "a tall, tigrine Rajamalan pirate", "a moss-green Arqeshi pirate", "a lumbering, bespectacled Ogre pirate", }},
 }
 --- Target list of apothecary creatures by area.
 -- @table snd.apoAreas
