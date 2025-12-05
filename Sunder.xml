@@ -1751,9 +1751,11 @@ end
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^(\w+)'s? face flushes as .* body purges the (\w+) venom\.$</string>
-									<string>^The countercurrent coating (\w+)'s skin wicks away (\w+) before it can take.$</string>
+									<string>^The countercurrent coating (\w+)'s skin wicks away (\w+) before it can take\.$</string>
+									<string>^The arcane forestallment protecting (\w+) turns away (\w+) before it touches \w+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
@@ -56158,7 +56160,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.6"
+local version = "11.5.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -76707,7 +76709,7 @@ snd.areas = {
   ["Snowswell"] = {level = "Easy but annoying", targets = {"a snow wight"}, items = {"snow wight essence"}},
   ["a memory of Relovec Mansion"] = {level = "Bring friends", targets = {"an enraged memory of a female servant", "an enraged memory of a male servant", "an enraged memory of a female villager", "an enraged memory of a male villager"}},
   ["the Tarblack Marshes"] = {level = "gloop gloop", targets = {"a grotesque bloater", "a tarclaw caiman", "a rock scorpion", "a lumbering stonefiend"}},
-  ["the Crimson Coast"] = {level = "99+", targets = {"Match:%a+ %a+ smuggler", "a massive white gull", "a broad-nosed crocodile", "a large sand crab", "a baby seagull", "a grisled, heavily scarred Grecht pirate", "a turgid Troll pirate covered in tattoos", "a scrawny Human pirate wearing a straw hat", "a dainty, sable-sailed Harpy pirate", "a lavishly dressed Mhun pirate", "a peg-legged Imp pirate", "a short, mop-wielding Human pirate", "a lithe, sea-slick Grook pirate with shimmer-dark eyes", "a stout, sure-footed Dwarf pirate", "a finched Minotaur pirate", "a small, snub-nosed Grecht pirate", "a scrawny, one-eyed Rajamalan pirate", "a bearded Gnome pirate", "a bespectacled Orc pirate", "a brassy Ophidian pirate", "a flowering Arborean pirate", "a gaunt, head-shaved Nazetu pirate", "a brawny, hook-handed Kelki pirate", "a powerful, resinous Arborean pirate", "a knife-strapped Kobold pirate", "a tall, tigrine Rajamalan pirate", "a moss-green Arqeshi pirate", "a lumbering, bespectacled Ogre pirate", }},
+  ["the Crimson Coast"] = {level = "99+", targets = {"Match:%a+ %a+ smuggler", "a massive white gull", "a broad-nosed crocodile", "a large sand crab", "a baby seagull", "Match:pirate" }},
 }
 --- Target list of apothecary creatures by area.
 -- @table snd.apoAreas
@@ -77542,6 +77544,7 @@ snd.bashing_area_beginning_rooms = {
   ["Tak-re"] = "5966",
   ["Eftehl Island"] = "59815",
   ["Kkirrrr'shi Hive"] = "69831",
+  ["the Crimson Coast"] = "77048",
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -89400,6 +89403,98 @@ sunder_areaPaths = {
     v76089 = "76090",
     v76090 = "76091",
     v76091 = "74946"
+  },
+  ["the Crimson Coast"] = {
+    v76295 = "77707",
+    v76660 = "76661",
+    v76661 = "76804",
+    v76662 = "77430",
+    v76663 = "77708",
+    v76664 = "77428",
+    v76676 = "76677",
+    v76677 = "76681",
+    v76678 = "76679",
+    v76679 = "77115",
+    v76681 = "76678",
+    v76804 = "77120",
+    v76805 = "76808",
+    v76806 = "77388",
+    v76807 = "77122",
+    v76808 = "76809",
+    v76809 = "77121",
+    v77040 = "77314",
+    v77042 = "77040",
+    v77044 = "76663",
+    v77045 = "77591",
+    v77046 = "77045",
+    v77047 = "77046",
+    v77048 = "77047",
+    v77115 = "77449",
+    v77116 = "77450",
+    v77117 = "77118",
+    v77118 = "77126",
+    v77119 = "76660",
+    v77120 = "77236",
+    v77121 = "76807",
+    v77122 = "77127",
+    v77123 = "77124",
+    v77124 = "77125",
+    v77125 = "83743",
+    v77126 = "77119",
+    v77127 = "77123",
+    v77168 = "77389",
+    v77233 = "77235",
+    v77235 = "76805",
+    v77236 = "77233",
+    v77292 = "77295",
+    v77295 = "77296",
+    v77296 = "77297",
+    v77297 = "77298",
+    v77298 = "77299",
+    v77299 = "77300",
+    v77300 = "77621",
+    v77301 = "76676",
+    v77310 = "77301",
+    v77312 = "77310",
+    v77313 = "77312",
+    v77314 = "77313",
+    v77384 = "77117",
+    v77385 = "77432",
+    v77386 = "77624",
+    v77387 = "77435",
+    v77388 = "ptcity",
+    v77389 = "77445",
+    v77390 = "77168",
+    v77391 = "77447",
+    v77396 = "77292",
+    v77428 = "77396",
+    v77429 = "76664",
+    v77430 = "77429",
+    v77431 = "76295",
+    v77432 = "77431",
+    v77433 = "77386",
+    v77435 = "77433",
+    v77444 = "77623",
+    v77445 = "77444",
+    v77446 = "77390",
+    v77447 = "77446",
+    v77449 = "77584",
+    v77450 = "77585",
+    v77584 = "77116",
+    v77585 = "77391",
+    v77589 = "77709",
+    v77591 = "77589",
+    v77621 = "77622",
+    v77622 = "77384",
+    v77623 = "77387",
+    v77624 = "77625",
+    v77625 = "77385",
+    v77707 = "76662",
+    v77708 = "77042",
+    v77709 = "77710",
+    v77710 = "77711",
+    v77711 = "77044",
+    v83743 = "76806"
   },
 }
 </script>
