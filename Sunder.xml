@@ -33840,7 +33840,7 @@ snd.balance.ethereal = false</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>You can spew your blood once more.</string>
+								<string>Your throat heals and you can spew your blood once more.</string>
 								<string>Your voice returns fully, you can demand their attendance once more.</string>
 								<string>You may speak Her winnowing curse once more.</string>
 							</regexCodeList>
@@ -56225,7 +56225,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.8"
+local version = "11.5.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
