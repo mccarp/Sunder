@@ -15719,7 +15719,8 @@ end</script>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Alteration</name>
 									<script>if matches[2] == snd.target then
-  snd.target_got(matches[3])
+  snd.target_cured(matches[3])
+  snd.target_got(matches[4])
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -15732,7 +15733,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Dread manifests on (\w+)'s face as (.+) takes hold\.$</string>
+										<string>^Dread manifests on (\w+)'s face as the cosmos transfigures \w+ (.+) into (.+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -15894,6 +15895,16 @@ end</script>
 									<name>Averroes Bolt Irradiated Limb Damage</name>
 									<script>if snd.target == matches[2] then
   snd.took_limb_dmg(matches[3], 7)
+  for _, aff in pairs({
+      "irradiated_head",
+      "irradiated_left_leg",
+      "irradiated_right_leg",
+      "irradiated_torso",
+      "irradiated_left_arm",
+      "irradiated_right_arm",
+      }) do
+      snd.target_cured(aff) 
+  end
 end</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -15910,6 +15921,35 @@ end</script>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>No irradiated limb</name>
+									<script>for _, aff in pairs({
+    "irradiated_head",
+    "irradiated_left_leg",
+    "irradiated_right_leg",
+    "irradiated_torso",
+    "irradiated_left_arm",
+    "irradiated_right_arm",
+    }) do
+    snd.target_cured(aff) 
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>Your opponent must have an irradiated limb.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
 							</TriggerGroup>
@@ -21863,6 +21903,34 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Crosswiring proc</name>
+								<script>if snd.target == matches[2] then
+  if not snd.checkAff("crosswiring") then
+    snd.target_got("crosswiring")
+  end
+  if snd.checkAff("indifference") then -- indiff is already in the snd.took_limb_dmg function
+    snd.last_limb_dmg = snd.last_limb_dmg/1.15
+  end
+  snd.took_limb_dmg(matches[3], snd.last_limb_dmg/2)
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Pain flares within (\w+)'s eyes as \w+ (.+) spasms\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -22496,26 +22564,6 @@ end</script>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>ylem chunks</name>
-							<script>snd.send("qeb get chunk"..snd.sep.."get chunk")</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>^A final swift strike from your pick shatters .+, breaking it into several softly glowing chunks.$</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
 					</TriggerGroup>
@@ -32738,6 +32786,48 @@ snd.track_fury(tonumber(matches[2]))</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Upsurge used</name>
+							<script>snd.balance.upsurge = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Ostension Averroes Upsurge </string>
+								<string>You cannot call upon an upsurge of power just yet.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>2</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Upsurge back</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You may call upon an upsurge of magical power again.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Sciomancer</name>
@@ -35385,7 +35475,8 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Earthenform Permafrost interrupted.</name>
-								<script></script>
+								<script>snd.toggles.active = true
+send("firstaid on")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -38797,6 +38888,94 @@ end                                                                             
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Mines</name>
+					<script></script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList />
+					<regexCodePropertyList />
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Rubble mining start</name>
+						<script>local mines = {
+  ["Cinderbreach Mine"] = true,
+  ["Difohr Passage"] = true,
+  ["Myesian Run"] = true,
+  ["Radial Dig Shaft #15"] = true,
+}
+if mines[gmcp.Room.Info.area] then
+  snd.off()
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You set to work shoveling away the rubble blocking off the mine, chipping away at the detritus before you find a suitable opening and begin to dig.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Rubble cleared</name>
+						<script>snd.on()</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You have finished clearing away the rubble blocking off the mine, leaving it open for the workers to clear out the remaining stone and detritus with ease.</string>
+							<string>You lose your focus upon shoveling away the rubble.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>ylem chunks</name>
+						<script>send("qeb get chunk"..snd.sep.."get chunk")</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^A final swift strike from your pick shatters .+, breaking it into several softly glowing chunks.$</string>
+							<string>A jagged chunk of crystallized ylem tumbles out of a crystalline plague nodule.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</TriggerGroup>
 			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
@@ -56225,7 +56404,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.5.9"
+local version = "11.6.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57949,7 +58128,7 @@ snd.toggles = snd.toggles or {
   lifesense = false,
   camouflage = false, -- use the camouflage defense
   pagelength = "30",
-  mindseye = true, --use mindseye?
+  mindseye = false, --use mindseye?
   domeswap = true,
   reboundingtime = 6,
 }</script>
@@ -58837,6 +59016,7 @@ snd.waiting = snd.waiting or {
   fling = true,
   reconstruct = true,
   feedback = true,
+  upsurge = true,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -58851,6 +59031,7 @@ snd.waiting = snd.waiting or {
 				<packageName></packageName>
 				<script>
 snd.physical_affs = {
+  "crosswiring",
   "paralysis",
   "paresis",
   "right_arm_crippled",
@@ -65397,6 +65578,7 @@ end
   aff_crippled                   = { state = "healed", effect = "", cures = { herb = "bloodroot", tree = "send" }, assess = false, timer = createStopWatch() },
   aff_crippled_body              = { state = "healed", effect = "", cures = { herb = "bloodroot", tree = "send" }, assess = false, timer = createStopWatch() },
   aff_crippled_throat            = { state = "healed", effect = "", cures = { salve = "mending to head", tree = "send" }, assess = false, timer = createStopWatch() },
+  aff_crosswiring                = { state = "healed", effect = "", cures = { salve = "epidermal to head" }, assess = false, timer = createStopWatch() }, 
   aff_crushed_chest              = { state = "healed", effect = "", cures = { salve = "restoration to torso" }, assess = false, timer = createStopWatch() },
   aff_crushed_elbows             = { state = "healed", effect = "", cures = { salve = "mending to arms", tree = "send" }, assess = false, timer = createStopWatch() },
   aff_crushed_kneecaps           = { state = "healed", effect = "", cures = { salve = "mending to legs", tree = "send" }, assess = false, timer = createStopWatch() },
@@ -66820,7 +67002,7 @@ snd.cures = {
   },
 
   epidermal_head = {
-    "indifference",
+    "crosswiring",
     "stuttering",
     "blurry_vision",
     "watery_eyes",
@@ -66830,11 +67012,11 @@ snd.cures = {
     "deafness"
   },
 
-  epidermal = {
+  epidermal = { 
     "anorexia",
     "gorged",
+    "crosswiring",
     --"effused_blood",
-    "indifference",
     "stuttering",
     "blurry_vision",
     "watery_eyes",
@@ -66843,6 +67025,8 @@ snd.cures = {
   },
 
   caloric = {
+    "mindfog",
+    "indifference",
     "hypothermia",
     "frozen",
     "frigid",
@@ -66987,6 +67171,9 @@ snd.cures = {
 
   ["battlefury defend"] = true,
   ["riving juxtapose"] = true,
+  
+  ["righteousness protect"] = true,
+  ["manifestation shade"] = true,
 
   ["righteousness unity"] = true,
   ["manifestation engulf"] = true,
@@ -68733,10 +68920,10 @@ end
 
 function snd.took_limb_dmg(limb, amount, restoration)
   if limb and amount then
-    -- if snd.checkAff("armor_tattoo") and amount &gt; 0 then
-      -- amount = amount / 2
-      -- snd.last_limb_dmg = amount
-    -- end
+    if snd.checkAff("indifference") and amount &gt; 0 then
+      amount = amount * 1.15
+      snd.last_limb_dmg = amount
+    end
     if restoration then --resto apply
       snd.limb_dmg[limb] = snd.limb_dmg[limb] + math.min(-0.01, amount + 2 * snd.fleshbaneStacks)
       if snd.fleshbaneTimer then killTimer(snd.fleshbaneTimer) end
@@ -68867,6 +69054,11 @@ function snd.target_got(affliction)
   if affliction == "crippled_body" then
     snd.target_cured("crippled")
   end
+  
+  if affliction == "no_courage" and snd.cureset == "monk" then
+    snd.affTimers.start("no_courage", 6)
+  end
+  
   if affliction  == "aeon" then
     snd.aeon_got()
   end
@@ -69852,7 +70044,7 @@ end</script>
   {
     ["head"] =
     {
-      "indifference",
+      "crosswiring",
       "stuttering",
       "blurry_vision",
       "watery_eyes",
@@ -69869,7 +70061,7 @@ end</script>
   },
   caloric =
   {
-    ["head"] = { "mindfog" },
+    ["head"] = { "mindfog", "indifference" },
     ["torso"] = { "hypothermia", "frozen", "frigid", "shivering" },
     ["left arm"] = {},
     ["right arm"] = {},
@@ -74631,11 +74823,11 @@ end
     Gleam = function(target, inflict, conditional)
       if not inflict or not conditional then return end
       local map = {
-        burning = { "red", "recklessness" },
+        burning = { "red", "crosswiring" },
         crushing = { "orange", "gnawing" },
         radiant = { "yellow", "dizziness" },
         noxious = { "green", "clumsiness" },
-        frigid = { "blue", "mindfog" },
+        frigid = { "blue", "shivering" },
         temporal = { "indigo", "paresis" },
         twisted = { "violet", "paranoia" },
       }
@@ -74667,8 +74859,8 @@ end
       end
     end,
     Alteration = function(target, conditional)
-      local aff = conditional:gsub("from ", "")
-      snd.target_cured(aff)
+      -- local aff = conditional:gsub("from ", "")
+      -- snd.target_cured(aff)
     end,
     Syzygy = function(target)
       snd.target_cured("dustring")
@@ -74734,8 +74926,33 @@ end
   ["Ostension"] = {
     Averroes = function(target, bolt, limb)
       snd.last_hit_limb = limb
-      snd.last_limb_dmg = 15
+      if bolt == "Upsurge" then
+        snd.last_limb_dmg = 30
+        for _, aff in pairs({
+          "irradiated_head",
+          "irradiated_left_leg",
+          "irradiated_right_leg",
+          "irradiated_torso",
+          "irradiated_left_arm",
+          "irradiated_right_arm",
+          }) do
+          snd.target_cured(aff) 
+        end
+      else
+        snd.last_limb_dmg = 15
+      end
       snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      if bolt == "Bolt" and
+      not snd.checksomeAffs({
+      "irradiated_head",
+      "irradiated_left_leg",
+      "irradiated_right_leg",
+      "irradiated_torso",
+      "irradiated_left_arm",
+      "irradiated_right_arm",
+      }, 1) then
+        snd.maybe_affs = {"irradiated_"..limb}
+      end
       snd.onHit2({ "Parry" })
     end,
     Eja = function(target, kodosa, ability) -- "kodosa" is a filler conditional for this ability
@@ -76356,10 +76573,39 @@ end
 -- cleanupAction = "touch worrystone"
 -- end
 -- end
+
+local mines = {
+  ["Cinderbreach Mine"] = true,
+  ["Difohr Passage"] = true,
+  ["Myesian Run"] = true,
+  ["Radial Dig Shaft #15"] = true,
+}
+
+local function doMineStuff()
+  if mines[gmcp.Room.Info.area] then
+    if snd.items["a pile of rubble"] then
+      cleanupAction = "dig"
+    elseif snd.items["a crystalline plague nodule"] then
+      cleanupAction = "ignite nodule"
+    elseif snd.items["a smoldering ylem deposit"] or
+           snd.items["an unstable ylem deposit"] or
+           snd.items["a sparkling ylem deposit"] or
+           snd.items[""] or
+           snd.items[""] then
+      cleanupAction = "mine deposit"
+    end
+  end
+end
+
+
+
 function snd.bashing_cleanup()
   cleanupAction = ""
   if snd[snd.class:lower() .. "_cleanup"] then
     snd[snd.class:lower() .. "_cleanup"]()
+  end
+  if cleanupAction == "" then
+    doMineStuff()
   end
   if cleanupAction ~= "" and cleanupAction ~= snd.last_attack then
     snd.send("qeb stand" .. snd.sep .. cleanupAction)
@@ -87924,7 +88170,7 @@ sunder_areaPaths = {
     v29396 = "29394",
     v29397 = "29392",
     v29398 = "29396",
-    v29399 = "29402",
+    v29399 = "29398",
     v29400 = "29399",
     v29401 = "29400",
     v29402 = "29398",
