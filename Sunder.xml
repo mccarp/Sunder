@@ -1696,6 +1696,28 @@ end
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Monk Courage</name>
+							<script>if matches[2] == snd.target then
+  snd.target_cured("no_courage")
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) bristles with inner courage\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists</name>
@@ -7675,6 +7697,54 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Malice / spear used</name>
+									<script>snd.balance.malice = false</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You use Deathlore Malice</string>
+										<string>You may not call upon a malice of souls just yet.</string>
+										<string>You use Ancestry Spear</string>
+										<string>Your call for the spear would go unanswered right now.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>2</integer>
+										<integer>3</integer>
+										<integer>2</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Malice / spear back</name>
+									<script>snd.balance.malice = true</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>You can summon forth a malice of souls once more.</string>
+										<string>You feel capable of directing the might of the spear at another.</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>3</integer>
+										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
 							</TriggerGroup>
 							<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Warden</name>
@@ -10312,7 +10382,7 @@ end</script>
 										<colorTriggerFgColor>#000000</colorTriggerFgColor>
 										<colorTriggerBgColor>#000000</colorTriggerBgColor>
 										<regexCodeList>
-											<string>Your mocker has afflicted (\w+) with (\w+)\.$</string>
+											<string>^Your mocker has afflicted (\w+) with (\w+)\.$</string>
 										</regexCodeList>
 										<regexCodePropertyList>
 											<integer>1</integer>
@@ -20974,7 +21044,8 @@ end</script>
 									<regexCodePropertyList />
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Direblow Hit Confirmation</name>
-										<script>if (multimatches[1][3]:lower() == snd.target:lower() or multimatches[1][4]:lower() == snd.target:lower()) then
+										<script>display(multimatches)
+if (multimatches[1][3]:lower() == snd.target:lower() or (multimatches[1][4] and multimatches[1][4]:lower() == snd.target:lower())) then
 	if multimatches[1][2]:find("drive") then
 		snd.last_limb_dmg = 20
   	snd.target_got("lightwound")
@@ -21202,7 +21273,7 @@ end</script>
 									<regexCodePropertyList />
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>Haymaker Hit Confirmation</name>
-										<script>if (multimatches[1][3]:lower() == snd.target:lower() or multimatches[1][4]:lower() == snd.target:lower()) then
+										<script>if (multimatches[1][3]:lower() == snd.target:lower() or (multimatches[1][4] and multimatches[1][4]:lower() == snd.target:lower())) then
 	if multimatches[1][2]:find("mercy") then
 		snd.last_limb_dmg = 20
   	snd.target_got("lightwound")
@@ -56404,7 +56475,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.6.0"
+local version = "11.6.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59017,6 +59088,7 @@ snd.waiting = snd.waiting or {
   reconstruct = true,
   feedback = true,
   upsurge = true,
+  malice = true,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -69055,10 +69127,6 @@ function snd.target_got(affliction)
     snd.target_cured("crippled")
   end
   
-  if affliction == "no_courage" and snd.cureset == "monk" then
-    snd.affTimers.start("no_courage", 6)
-  end
-  
   if affliction  == "aeon" then
     snd.aeon_got()
   end
@@ -72202,9 +72270,18 @@ end
     Distortion = function(target)
       snd.target_got("distortion")
     end,
-    Wither = function(target)
-      enableTrigger("Wither Limb Messages")
+    Malice = function(target, limbs)
+      if limbs == "arms" then
+        snd.target_got("left_arm_crippled")
+        snd.target_got("right_arm_crippled")
+      elseif limbs == "legs" then
+        snd.target_got("left_leg_crippled")
+        snd.target_got("right_leg_crippled")
+      end
     end,
+    -- Wither = function(target)
+      -- enableTrigger("Wither Limb Messages")
+    -- end,
     Wraith = function(target)
       snd.target_got("soul_wraith")
     end,
@@ -73060,8 +73137,14 @@ end
     Inhibit = function(target)
       snd.target_got("inhibited")
     end,
-    Spear = function(target)
-      enableTrigger("Spear Limb Messages")
+    Spear = function(target, limbs)
+      if limbs == "arms" then
+        snd.target_got("left_arm_crippled")
+        snd.target_got("right_arm_crippled")
+      elseif limbs == "legs" then
+        snd.target_got("left_leg_crippled")
+        snd.target_got("right_leg_crippled")
+      end
     end,
     Intercept = function(target)
       snd.used.shield = true
@@ -76590,7 +76673,7 @@ local function doMineStuff()
     elseif snd.items["a smoldering ylem deposit"] or
            snd.items["an unstable ylem deposit"] or
            snd.items["a sparkling ylem deposit"] or
-           snd.items[""] or
+           snd.items["a crackling ylem deposit"] or
            snd.items[""] then
       cleanupAction = "mine deposit"
     end
