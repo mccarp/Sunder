@@ -28651,6 +28651,7 @@ end</script>
   deleteLine()
 end 
 --snd.message("DEATH: "..matches[2], "death")
+snd.bash_shielded = false
 snd.waiting.queue = false
 snd.untarget()</script>
 					<triggerType>0</triggerType>
@@ -29273,6 +29274,101 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Bashing shield stuff</name>
+					<script></script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList />
+					<regexCodePropertyList />
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Bashing shielded</name>
+						<script>if snd.items[matches[2]] and table.contains(snd.items[matches[2]], snd.bashing.target) then
+  snd.bash_shielded = true
+  snd.waiting.queue = false
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^A nearly invisible magical shield forms around (.+)\.$</string>
+							<string>^A dizzying beam of energy strikes you as your attack rebounds off of (.+)'s shield\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Bashing razed</name>
+						<script>if snd.bash_shielded and
+  snd.bashing_razes[matches[2]] and
+  snd.items[matches[3]] and
+  table.contains(snd.items[matches[3]], snd.bashing.target) then
+    snd.bash_shielded = false
+    snd.waiting.queue = false
+end
+
+</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\w+ uses? (\w+ \w+) on (.+)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Bashing target broke own shield</name>
+						<script>if snd.bash_shielded and
+  snd.items[matches[2]] and
+  table.contains(snd.items[matches[2]], snd.bashing.target) then
+    snd.bash_shielded = false
+    snd.waiting.queue = false
+end
+</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^The protective shield around (.+) dissipates\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</TriggerGroup>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Core</name>
@@ -56475,7 +56571,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.6.2"
+local version = "11.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -68954,6 +69050,7 @@ function snd.untarget()
   snd.bashing.engaged = false
   snd.bashing.targeted = false
   snd.last_attack = "none"
+  snd.bash_shielded = false
   if snd.bashing.stopping then
     snd.message("Bashing OFF!")
     if snd.toggles.bashing then
@@ -75697,6 +75794,43 @@ end
 </script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Bashing razes</name>
+				<packageName></packageName>
+				<script>snd.bashing_razes = {
+  ["Tattoos Hammer"] = true,
+  ["Spirituality Raze"] = true,
+  ["Subjugation Raze"] = true,
+  ["Riving Raze"] = true,
+  ["Battlefury Raze"] = true,
+  ["Warding Raze"] = true,
+  ["Savagery Raze"] = true,
+  ["Warding Bypass"] = true,
+  ["Savagery Razehack"] = true,
+  ["Knifeplay Raze"] = true,
+  ["Astranomia Erode"] = true,
+  ["Elemancy Windlance"] = true,
+  ["Humourism Befoul"] = true,
+  ["Performance Pierce"] = true,
+  ["Dhuriv Dualraze"] = true,
+  ["Shadowdancing Twinraze"] = true,
+  ["Assassination Flay"] = true,
+  ["Shadowdancing Shave"] = true,
+  ["Dhuriv Reave"] = true,
+  ["Tekura Scythekick"] = true,
+  ["Tenacity Devastate"] = true,
+  ["Primality Leafstorm"] = true,
+  ["Alchemy Corrosive"] = true,
+  ["Wavebreaking Riptide"] = true,
+  ["Terramancy Stoneblast"] = true,
+  ["Corpus Frenzy"] = true,
+  ["Ascendance Denounce"] = true,
+  ["Extirpation Thrash"] = true,
+  ["Cultivation Anger"] = true,
+  ["Geometrics Fork"] = true,
+}</script>
+				<eventHandlerList />
+			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Smack things!</name>
 				<packageName></packageName>
@@ -76712,6 +76846,7 @@ function snd.runBasher()
   snd.corpses = {}
   snd.bashing.targeted = false
   snd.bashing.target_priority = 10000
+  snd.bash_shielded = false
   snd.bashing.target = "none"
   for item in pairs(snd.items) do
     if item == "some gold sovereigns" and #snd.items[item] &gt;= 1 then
