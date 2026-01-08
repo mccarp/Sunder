@@ -29291,7 +29291,11 @@ end</script>
 					<regexCodePropertyList />
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Bashing shielded</name>
-						<script>if snd.items[matches[2]] and table.contains(snd.items[matches[2]], snd.bashing.target) then
+						<script>local critter = matches[2]
+if critter == "A large smoke elemental" then
+  critter = critter:lower()
+end
+if snd.items[critter] and table.contains(snd.items[critter], snd.bashing.target) then
   snd.bash_shielded = true
   snd.waiting.queue = false
 end</script>
@@ -29308,8 +29312,10 @@ end</script>
 						<regexCodeList>
 							<string>^A nearly invisible magical shield forms around (.+)\.$</string>
 							<string>^A dizzying beam of energy strikes you as your attack rebounds off of (.+)'s shield\.$</string>
+							<string>^(A large smoke elemental) releases a strange vapor that hardens into a smoky barrier around it\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
@@ -56571,7 +56577,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7"
+local version = "11.7.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -75863,6 +75869,12 @@ function snd.akkari_bash()
     end
   elseif bp &lt;= 25 then
     battack = "lustrate corpse"
+  elseif snd.bash_shielded then
+    if hasSkill("Quell") then
+      battack = "denounce " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     battack = "denounce " .. snd.bashing.target
   end
@@ -75900,6 +75912,12 @@ function snd.alchemist_bash()
     else
       battack = battack .. "touch shield"
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Corrosive") and tonumber(gmcp.Char.Vitals.volatility) &gt; 0 then
+      battack = "alchemy corrosive " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     if wp &gt;= 45 and tonumber(gmcp.Char.Vitals.volatility) &gt; 3 then
       battack = battack .. "alchemy catalyse" .. snd.sep .. "alchemy static " .. snd.bashing.target
@@ -75924,6 +75942,12 @@ function snd.archivist_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Fork") then
+      battack = "incite fork " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   else
     if bioessence &gt; 1 and hasSkill("Stimulant") then
@@ -75955,6 +75979,12 @@ function snd.ascendril_bash()
         battack = "touch shield"
       end
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Windlance") then
+      battack = "cast windlance " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif hasSkill("Iceray") then
     battack = "cast iceray " .. snd.bashing.target
   else
@@ -75971,6 +76001,12 @@ function snd.bard_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Pierce") then
+      battack = "pierce " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   else
     battack = "tempo " .. snd.bashing.target
@@ -75992,6 +76028,12 @@ function snd.bloodborn_bash()
     -- let the reflection do its job
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "unleash geminate"
+  elseif snd.bash_shielded then
+    if hasSkill("Befoul") then
+      battack = "humour befoul " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif hasSkill("Flense") then
     battack = "humour flense " .. snd.bashing.target
   else
@@ -76011,6 +76053,16 @@ function snd.carnifex_bash()
     end
   elseif hp &lt;= 60 and snd.soul &gt;= 60 then
     battack = "soul consume for health"
+  elseif snd.bash_shielded then
+    if hasSkill("Razehack") then
+      battack = "pole razehack " .. snd.bashing.target
+    elseif hasSkill("Raze") then
+      battack = "pole raze " .. snd.bashing.target
+    elseif hasSkill("Erosion") then
+      battack = "soul erode " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     battack = "pole spinslash " .. snd.bashing.target
   end
@@ -76025,6 +76077,12 @@ function snd.earthcaller_bash()
     if snd.punisher then
     else
       battack = "osso ribcage me"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Raze") then
+      battack = "shield raze " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.toggles.lightning then
     battack = "tectonic ashfall " .. snd.bashing.target
@@ -76042,6 +76100,12 @@ function snd.executor_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Shave") then
+      battack = "ringblade dance "..snd.bashing.target .. " shave inveigle"
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.toggles.newbie then
     battack = "ringblade dance " .. snd.bashing.target .. " contrive beguile"
@@ -76075,6 +76139,8 @@ function snd.indorani_bash()
     end
   elseif hp &lt;= 55 and hasSkill("Priestess") then
     battack = "fling priestess at me"
+  elseif snd.bash_shielded then
+    battack = "touch hammer " .. snd.bashing.target
   else
     if snd.wielded.left.name == "bonedagger" or snd.wielded.right.name == "bonedagger" then
       battack = "flick bonedagger at " .. snd.bashing.target
@@ -76092,6 +76158,12 @@ function snd.luminary_bash()
     if snd.punisher then
     else
       battack = "angel aura me"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Raze") then
+      battack = "shield raze " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.toggles.lightning then
     battack = "evoke lightning " .. snd.bashing.target
@@ -76126,13 +76198,23 @@ function snd.monk_bash()
     else
       battack = battack .. snd.sep .. "touch shield"
     end
+  elseif snd.bash_shielded and not hasSkill("Scythekick") then
+    battack = "touch hammer " .. snd.bashing.target
   elseif snd.toggles.cobra and hasSkill("Cobra") then
     if snd.stance ~= "cobra" then
       battack = battack .. "cbs"
     else
-      battack = battack .. "combo " .. snd.bashing.target .. " " .. kick .. " " .. kick
+      if snd.bash_shielded and hasSkill("Scythekick") then
+        battack = battack .. "combo " .. snd.bashing.target .. " sck "  .. kick
+      else
+        battack = battack .. "combo " .. snd.bashing.target .. " " .. kick .. " " .. kick
+      end
     end
   else
+    if snd.bash_shielded and hasSkill("Scythekick") then
+      kick = "sck"
+    end
+
     battack = battack .. "combo " .. snd.bashing.target .. " " .. kick .. " ucp ucp"
   end
 end
@@ -76149,6 +76231,8 @@ function snd.oneiromancer_bash()
     end
   elseif hp &lt;= 55 and hasSkill("Flower") then
     battack = "unfurl flower at me"
+  elseif snd.bash_shielded then
+    battack = "touch hammer " .. snd.bashing.target
   elseif snd.toggles.newbie then
     battack = "starlight " .. snd.bashing.target
   else
@@ -76182,6 +76266,12 @@ function snd.praenomen_bash()
     end
   elseif bp &lt;= 25 then
     battack = "drain corpse"
+  elseif snd.bash_shielded then
+    if hasSkill("Sunder") then
+      battack = "frenzy " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     battack = "frenzy " .. snd.bashing.target
   end
@@ -76245,6 +76335,12 @@ function snd.predator_bash()
   local attacks = snd.get_predator_bash_attacks()
   if hp &lt;= 40 and snd.shield_check() then
     battack = "touch shield"
+  elseif snd.bash_shielded then
+    if hasSkill("Raze") then
+      battack = "sitara raze " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     battack = "wolf flank " .. snd.bashing.target .. snd.sep .. attacks[stance] .. " " .. snd.bashing.target
   end
@@ -76272,6 +76368,8 @@ function snd.ravager_bash()
     else
       battack = battack .. "touch shield"
     end
+  elseif snd.bash_shielded then
+    battack = "touch hammer " .. snd.bashing.target
   elseif not snd.can_arms() and hasSkill("Concussion") then
     battack = battack .. "concuss " .. snd.bashing.target
   else
@@ -76291,6 +76389,12 @@ function snd.revenant_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Deceive") then
+      battack = "raze " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.toggles.newbie then
     battack = "rivebash " .. snd.bashing.target
@@ -76323,6 +76427,12 @@ function snd.runecarver_bash()
     -- let the reflection do its job
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "runecarve branch"
+  elseif snd.bash_shielded then
+    if hasSkill("Imperil") then
+      battack = "hex imperil " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif snd.toggles.newbie then
     battack = "hex enervate " .. snd.bashing.target
   else
@@ -76351,6 +76461,12 @@ function snd.sciomancer_bash()
     -- let the reflection do its job
   elseif hp &lt;= 60 and snd.reflection_charge &gt; 0 then
     battack = "cast reflection"
+  elseif snd.bash_shielded then
+    if hasSkill("Hew") then
+      battack = "cast hew " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif snd.toggles.newbie then
     battack = battack .. snd.sep .. "cast ruin " .. snd.bashing.target
   else
@@ -76370,6 +76486,12 @@ function snd.sentinel_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Reave") then
+      battack = "dhuriv combo " .. snd.bashing.target.." reave thrust"
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.toggles.newbie then
     battack = "dhuriv combo " .. snd.bashing.target .. " slash stab"
@@ -76419,6 +76541,12 @@ function snd.shaman_bash()
     else
       battack = battack .. snd.sep .. "touch shield"
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Leafstorm") and tonumber(gmcp.Char.Vitals.energy) &gt; 0 then
+      battack = "commune leafstorm " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     if wp &gt;= 45 and tonumber(gmcp.Char.Vitals.energy) &gt; 3 then
       battack = battack .. snd.sep .. "commune boost" .. snd.sep .. "commune lightning " .. snd.bashing.target
@@ -76438,6 +76566,12 @@ function snd.shapeshifter_bash()
     else
       battack = "touch shield"
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Pounce") then
+      battack = "pounce " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     battack = "combo " .. snd.bashing.target .. " slash slash"
   end
@@ -76451,6 +76585,12 @@ function snd.siderealist_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Erode") then
+      battack = "astra erode " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   else
     battack = "astra ray " .. snd.bashing.target
@@ -76476,6 +76616,12 @@ function snd.sylvan_bash()
     else
       battack = "thrash " .. snd.bashing.target
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Demolish") then
+      battack = "thrash " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif bp &lt;= 25 then
     battack = "nutrify corpse"
   else
@@ -76493,6 +76639,12 @@ function snd.infiltrator_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Flay") then
+      battack = "flay " .. snd.bashing.target .. " shield"
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.balance.backstab and hasSkill("Backstab") and endur &gt; 75 then
     if snd.wielding("dirk") then
@@ -76532,6 +76684,12 @@ function snd.templar_bash()
     else
       battack = "touch shield"
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Raze") then
+      battack = "raze " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif snd.toggles.newbie then
     battack = "strikebash " .. snd.bashing.target
   elseif (gmcp.Char.Vitals.wield_left:find("warhammer") or gmcp.Char.Vitals.wield_left:find("bastard") or gmcp.Char.Vitals.wield_left:find("glaive")) and hasSkill("Doubleswing") then
@@ -76558,6 +76716,12 @@ function snd.teradrim_bash()
     else
       battack = "sand shield me"
     end
+  elseif snd.bash_shielded then
+    if hasSkill("Stoneblast") then
+      battack = "earth stoneblast " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   elseif snd.balance.momentum and hasSkill("Momentum") and endur &gt;= 45 then
     battack = "earth momentum " .. snd.sep .. "earth batter " .. snd.bashing.target .. snd.sep .. "golem recover"
   else
@@ -76576,6 +76740,12 @@ function snd.tidesage_bash()
     if snd.punisher then
     else
       battack = "fog harden me"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Riptide") then
+      battack = "tide riptide " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   elseif snd.balance.momentum and hasSkill("Hightide") and endur &gt;= 45 then
     battack = "tide hightide " .. snd.sep .. "tide clobber " .. snd.bashing.target .. snd.sep .. "synth recuperate"
@@ -76596,6 +76766,16 @@ function snd.warden_bash()
     end
   elseif hp &lt;= 60 and snd.soul &gt;= 60 then
     battack = "ancest suffuse health"
+  elseif snd.bash_shielded then
+    if hasSkill("Bypass") then
+      battack = "warden bypass " .. snd.bashing.target
+    elseif hasSkill("Raze") then
+      battack = "warden raze " .. snd.bashing.target
+    elseif hasSkill("Carve") then
+      battack = "ancest carve " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
+    end
   else
     if gmcp.Char.Vitals.wield_left:find("scythe") or gmcp.Char.Vitals.wield_left:find("greatspear") then
       battack = "warden lacerate " .. snd.bashing.target
@@ -76618,10 +76798,14 @@ function snd.wayfarer_bash()
     else
       battack = "touch shield"
     end
-  elseif hp &lt;= 70 and hasSkill("Sustain") then
-    battack = "fury sustain" .. snd.sep .. "axe chop " .. snd.bashing.target
+  elseif snd.bash_shielded then
+    battack = "touch hammer " .. snd.bashing.target
   else
     battack = "axe chop " .. snd.bashing.target
+  end
+
+  if hp &lt;= 70 and hasSkill("Sustain") then
+    battack = "fury sustain" .. snd.sep .. battack
   end
 end
 
@@ -76640,6 +76824,12 @@ function snd.voidseer_bash()
     if snd.punisher then
     else
       battack = "touch shield"
+    end
+  elseif snd.bash_shielded then
+    if hasSkill("Anger") then
+      battack = "foment anger " .. snd.bashing.target
+    else
+      battack = "touch hammer " .. snd.bashing.target
     end
   else
     if insight &gt; 1 and hasSkill("Aplomb") then
@@ -76671,6 +76861,8 @@ function snd.zealot_bash()
         battack = battack .. "respiration"
       end
     end
+  elseif snd.bash_shielded then
+    battack = "touch hammer " .. snd.bashing.target
   elseif not snd.can_arms() and hasSkill("Sunkick") then
     battack = battack .. "sunkick " .. snd.bashing.target
   else
@@ -76685,6 +76877,7 @@ local ascendedAttacks = {
   memory = "adherent shend",
   tyranny = "adherent oppress",
   instinct = "adherent embitter",
+  morale = "adherent jubilate",
 
   seraph = "seraph admonish",
   aetherial = "aetherial spiral",
@@ -76709,6 +76902,8 @@ function snd.none_bash() --super basic bashing function for 200's.
     else
       battack = "touch shield"
     end
+  elseif snd.bash_shielded then
+    battack = "touch hammer "..snd.bashing.target
   else
     battack = ascendedAttacks[snd.toggles.ascendedtype] .. " " .. snd.bashing.target
   end
