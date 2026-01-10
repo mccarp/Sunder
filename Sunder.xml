@@ -29313,8 +29313,10 @@ end</script>
 							<string>^A nearly invisible magical shield forms around (.+)\.$</string>
 							<string>^A dizzying beam of energy strikes you as your attack rebounds off of (.+)'s shield\.$</string>
 							<string>^(A large smoke elemental) releases a strange vapor that hardens into a smoky barrier around it\.$</string>
+							<string>^(Ghorahel, the Kelki abomination) shudders as a barrier of bioelectricity coalesces around his form\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -29828,6 +29830,7 @@ if snd.bashing_loaded or snd.toggles.fastwalk then
   end
   if snd.new.room then
     snd.ylem_check = false
+    snd.bash_shielded = false
   end
 
   if snd.new.room and (snd.toggles.fasthunt or snd.toggles.fastwalk) then
@@ -56577,7 +56580,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.1"
+local version = "11.7.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65415,7 +65418,9 @@ function snd.aff_have(affliction)
           if snd.circle_affs[aff] == affliction then
             hit_aff = true
           else
-            snd.send("firstaid predict " .. snd.circle_affs[aff])
+            if not snd.have_aff(snd.circle_affs[aff]) then
+              snd.send("firstaid predict " .. snd.circle_affs[aff])
+            end
           end
         end
       end
@@ -65427,7 +65432,9 @@ function snd.aff_have(affliction)
           if snd.square_affs[aff] == affliction then
             hit_aff = true
           else
-            snd.send("firstaid predict " .. snd.square_affs[aff])
+            if not snd.have_aff(snd.square_affs[aff]) then
+              snd.send("firstaid predict " .. snd.square_affs[aff])
+            end
           end
         end
       end
@@ -65439,7 +65446,9 @@ function snd.aff_have(affliction)
           if snd.triangle_affs[aff] == affliction then
             hit_aff = true
           else
-            snd.send("firstaid predict " .. snd.triangle_affs[aff])
+            if not snd.have_aff(snd.triangle_affs[aff]) then
+              snd.send("firstaid predict " .. snd.triangle_affs[aff])
+            end
           end
         end
       end
