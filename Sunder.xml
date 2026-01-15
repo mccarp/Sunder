@@ -11930,11 +11930,11 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>cripple body</name>
 										<script>if matches[2] == snd.target then
- snd.target_got("crippled_body")
+ snd.target_got("sundering")
  if crippleTimer then
   killTimer(crippleTimer)
  end
- crippleTimer = tempTimer(15, function() snd.target_cured("crippled") snd.target_cured("crippled_body") end)
+ crippleTimer = tempTimer(15, function() snd.target_cured("lameness") snd.target_cured("sundering") end)
 
 end</script>
 										<triggerType>0</triggerType>
@@ -11957,11 +11957,11 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>cripple legs</name>
 										<script>if matches[2] == snd.target then
- snd.target_got("crippled")
+ snd.target_got("lameness")
  if crippleTimer then
   killTimer(crippleTimer)
  end
- crippleTimer = tempTimer(30, function() snd.target_cured("crippled") snd.target_cured("crippled_body") end)
+ crippleTimer = tempTimer(30, function() snd.target_cured("lameness") snd.target_cured("sundering") end)
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -13078,11 +13078,11 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>cripple body</name>
 										<script>if matches[2] == snd.target then
- snd.target_got("crippled_body")
+ snd.target_got("sundering")
  if crippleTimer then
   killTimer(crippleTimer)
  end
- crippleTimer = tempTimer(15, function() snd.target_cured("crippled") snd.target_cured("crippled_body") end)
+ crippleTimer = tempTimer(15, function() snd.target_cured("lameness") snd.target_cured("sundering") end)
 
 end</script>
 										<triggerType>0</triggerType>
@@ -13105,11 +13105,11 @@ end</script>
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>cripple legs</name>
 										<script>if matches[2] == snd.target then
- snd.target_got("crippled")
+ snd.target_got("lameness")
  if crippleTimer then
   killTimer(crippleTimer)
  end
- crippleTimer = tempTimer(30, function() snd.target_cured("crippled") snd.target_cured("crippled_body") end)
+ crippleTimer = tempTimer(30, function() snd.target_cured("lameness") snd.target_cured("sundering") end)
 end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
@@ -16757,7 +16757,7 @@ end</script>
 										<name>Anathemise - Exhaustion</name>
 										<script>if matches[2] == snd.target then
   snd.target_got("weariness")
-  snd.target_got("crippled")
+  snd.target_got("lameness")
 end
 
 </script>
@@ -17612,7 +17612,7 @@ end</script>
 										<name>Falter Exhaustion just in case</name>
 										<script>if matches[2] == snd.target then
   snd.target_got("weariness")
-  snd.target_got("crippled")
+  snd.target_got("lameness")
 end
 </script>
 										<triggerType>0</triggerType>
@@ -20120,7 +20120,7 @@ end</script>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Seraph Flagellate</name>
 								<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -44129,10 +44129,10 @@ end</script>
       -- we're going to use a different affliction stack if the target is locked
       if snd.target_locked() then
         snd.giving = {
-          "crippled",
+          "lameness",
           "delirium",
           "extravasation",
-          "crippled_body",
+          "sundering",
           "ringing_ears",
           "clumsiness",
           "weariness",
@@ -44147,10 +44147,10 @@ end</script>
           "slickness",
           "stupidity",
           "anorexia",
-          "crippled",
+          "lameness",
           "delirium",
           "extravasation",
-          "crippled_body",
+          "sundering",
           --deathblow!
           "weariness",
           "haemophilia",
@@ -44162,7 +44162,7 @@ end</script>
         }
       end
       -- first and foremost, check if we can retri!
-      if snd.checksomeAffs({ "paralysis", "crippled_body", "delirium", "extravasation" }, 4) then
+      if snd.checksomeAffs({ "paralysis", "sundering", "delirium", "extravasation" }, 4) then
         string = "cull " .. snd.target
       else -- if not...
         -- see if we can lock this round, in any of three possible ways
@@ -52665,12 +52665,10 @@ if snd.class == "Templar" then
 
       if snd.target_locked() then
         snd.giving = {
-          "left_leg_crippled",
-          "right_leg_crippled",
-          "crippled",
+          "lameness",
           "delirium",
           "extravasation",
-          "crippled_body",
+          "sundering",
           "clumsiness",
           "weariness",
         }
@@ -52684,10 +52682,10 @@ if snd.class == "Templar" then
           "slickness",
           "stupidity",
           "anorexia",
-          "crippled",
+          "lameness",
           "delirium",
           "extravasation",
-          "crippled_body",
+          "sundering",
           --deathblow!
           "weariness",
           "haemophilia",
@@ -52699,7 +52697,7 @@ if snd.class == "Templar" then
         }
       end
       -- first and foremost, check if we can retri!
-      if snd.checksomeAffs({ "paralysis", "crippled_body", "delirium", "extravasation" }, 4) then
+      if snd.checksomeAffs({ "paralysis", "sundering", "delirium", "extravasation" }, 4) then
         string = "retribution " .. snd.target
       else -- if not...
         -- see if we can lock this round, in any of three possible ways
@@ -56580,7 +56578,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.2"
+local version = "11.7.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59314,8 +59312,8 @@ snd.other_affs = {
   "rot_benign",
   "idiocy",
   "plodding",
-  "crippled",
-  "crippled_body",
+  "lameness",
+  "sundering",
   "accursed",
   "agony",
   "superstition",
@@ -65758,8 +65756,8 @@ end
   aff_conviction                 = { state = "healed", effect = "", cures = {}, assess = false, timer = createStopWatch() },
   aff_corsin_weight              = { state = "healed", effect = "One celery", cures = {}, assess = false, timer = createStopWatch() },
   aff_cracked_ribs               = { state = "healed", effect = "", cures = { salve = "mending to torso", tree = "send" }, assess = false, timer = createStopWatch() },
-  aff_crippled                   = { state = "healed", effect = "", cures = { herb = "bloodroot", tree = "send" }, assess = false, timer = createStopWatch() },
-  aff_crippled_body              = { state = "healed", effect = "", cures = { herb = "bloodroot", tree = "send" }, assess = false, timer = createStopWatch() },
+  aff_lameness                   = { state = "healed", effect = "", cures = { herb = "bloodroot", tree = "send" }, assess = false, timer = createStopWatch() },
+  aff_sundering                  = { state = "healed", effect = "", cures = { herb = "bloodroot", tree = "send" }, assess = false, timer = createStopWatch() },
   aff_crippled_throat            = { state = "healed", effect = "", cures = { salve = "mending to head", tree = "send" }, assess = false, timer = createStopWatch() },
   aff_crosswiring                = { state = "healed", effect = "", cures = { salve = "epidermal to head" }, assess = false, timer = createStopWatch() }, 
   aff_crushed_chest              = { state = "healed", effect = "", cures = { salve = "restoration to torso" }, assess = false, timer = createStopWatch() },
@@ -67073,8 +67071,8 @@ snd.cures = {
     "paralysis",
     "paresis",
     "mirroring",
-    "crippled_body",
-    "crippled",
+    "sundering",
+    "lameness",
     "blisters",
     "slickness",
     "arrhythmia",
@@ -67444,8 +67442,8 @@ snd.cures = {
   conviction = "conviction",
   delirium = "disrupt",
   extravasation = "disrupt",
-  crippled = "cripple",
-  crippled_body = "cripple",
+  lameness = "cripple",
+  sundering = "cripple",
   hemorrhage = "hemorrhage",
   flared = "flare",
 
@@ -67494,10 +67492,10 @@ snd.venoms = {
 function snd.venomEffect(venom)
   local aff = ""
   if venom == "cripple" then
-    if snd.checkAff("crippled") then
-      aff = "crippled_body"
+    if snd.checkAff("lameness") then
+      aff = "sundering"
     else
-      aff = "crippled"
+      aff = "lameness"
     end
   elseif venom == "disrupt" then
     if snd.checkAff("extravasation") then
@@ -69235,8 +69233,8 @@ function snd.target_got(affliction)
     end
   end
 
-  if affliction == "crippled_body" then
-    snd.target_cured("crippled")
+  if affliction == "sundering" then
+    snd.target_cured("lameness")
   end
   
   if affliction  == "aeon" then
@@ -69597,8 +69595,8 @@ function snd.checkAff(affliction)
     else
       return false
     end
-  elseif affliction == "crippled" then
-    if table.contains(snd.target_has, affliction) or table.contains(snd.target_has, "crippled_body") then
+  elseif affliction == "lameness" then
+    if table.contains(snd.target_has, affliction) or table.contains(snd.target_has, "sundering") then
       return true
     else
       return false
@@ -71878,7 +71876,7 @@ end
     end,
     Falter = function(target, shadowprice)
       if snd.checkAff("dizziness") then snd.target_got("dementia") end
-      if snd.checkAff("weariness") then snd.target_got("crippled") end
+      if snd.checkAff("weariness") then snd.target_got("lameness") end
     end,
     Shadowbrand = function(target, conditional)
       if conditional == "Shadowprice" or conditional == "end" then
@@ -72432,7 +72430,7 @@ end
 
     Acidspit = function(target)
       if snd.checkAff("weariness") then
-        snd.target_got("crippled")
+        snd.target_got("lameness")
       else
         snd.target_got("weariness")
       end
@@ -73320,7 +73318,7 @@ end
     end,
     Harrier = function(target)
       if snd.checkAff("weariness") then
-        snd.target_got("crippled")
+        snd.target_got("lameness")
       else
         snd.target_got("weariness")
       end
@@ -74422,7 +74420,7 @@ end
     end,
     Anathemise = function(target, spiritpact)
       if snd.checkAff("dizziness") then snd.target_got("dementia") end
-      if snd.checkAff("weariness") then snd.target_got("crippled") end
+      if snd.checkAff("weariness") then snd.target_got("lameness") end
     end,
     Preymark = function(target, conditional)
       if conditional == "Spiritpact" or conditional == "end" then
