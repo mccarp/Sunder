@@ -12006,7 +12006,8 @@ end
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>disrupt mind</name>
 										<script>if matches[2] == snd.target then
- snd.target_got("delirium")
+  snd.target_got("extravasation")
+  snd.target_got("delirium")
 end
 </script>
 										<triggerType>0</triggerType>
@@ -13155,6 +13156,7 @@ end
 									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 										<name>disrupt mind</name>
 										<script>if matches[2] == snd.target then
+  snd.target_got("extravasation")
   snd.target_got("delirium")
 end
 
@@ -56578,7 +56580,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.3"
+local version = "11.7.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65283,7 +65285,7 @@ function snd.parrying.get_default()
   elseif snd.checkAff("blisters") then
     toparry = "head"
   else
-    toparry = snd.parrying.get_random()
+    toparry = snd.parrying.get_highest()
   end
   return toparry
 end
