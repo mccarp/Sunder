@@ -37327,6 +37327,36 @@ end
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Clear parry cache</name>
+								<script>snd.random.clearCache("parry")
+snd.waiting.parry = false
+snd.waiting.queue = false</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^Your (.+) has (taken|recovered) .+ damage\.$</string>
+									<string>^You are afflicted with .+\.$</string>
+									<string>^You have cured .+\.$</string>
+									<string>^(Balance|Equilibrium) Used: .+$</string>
+									<string>^You parry the attack to your</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Pipes</name>
@@ -56580,7 +56610,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.4"
+local version = "11.7.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65256,33 +65286,33 @@ end
 function snd.parrying.get_default()
   local toparry = "none"
   local dmg = snd.my_limb_damage
-  if snd.checkAff("right_leg_broken") and not snd.checkAff("right_leg_mangled") then
+  if snd.have_aff("right_leg_broken") and not snd.have_aff("right_leg_mangled") then
     toparry = "right leg"
-  elseif snd.checkAff("left_leg_broken") and not snd.checkAff("left_leg_mangled") then
+  elseif snd.have_aff("left_leg_broken") and not snd.have_aff("left_leg_mangled") then
     toparry = "left leg"
-  elseif snd.checkAff("left_arm_broken") and not snd.checkAff("left_arm_mangled") then
+  elseif snd.have_aff("left_arm_broken") and not snd.have_aff("left_arm_mangled") then
     toparry = "left arm"
-  elseif snd.checkAff("right_arm_broken") and not snd.checkAff("right_arm_mangled") then
+  elseif snd.have_aff("right_arm_broken") and not snd.have_aff("right_arm_mangled") then
     toparry = "right arm"
-  elseif gmcp.Char.Vitals.prone == "1" and snd.checkAff("right_leg_mangled") and dmg["right leg"] &gt; dmg["left leg"] then
+  elseif gmcp.Char.Vitals.prone == "1" and snd.have_aff("right_leg_mangled") and dmg["right leg"] &gt; dmg["left leg"] then
     toparry = "right leg"
-  elseif gmcp.Char.Vitals.prone == "1" and snd.checkAff("left_leg_mangled") and dmg["left leg"] &gt; dmg["right leg"] then
+  elseif gmcp.Char.Vitals.prone == "1" and snd.have_aff("left_leg_mangled") and dmg["left leg"] &gt; dmg["right leg"] then
     toparry = "left leg"
-  elseif snd.checkAff("torso_mangled") or dmg["torso"] &gt; 31 then
+  elseif snd.have_aff("torso_mangled") or dmg["torso"] &gt; 31 then
     toparry = "torso"
-  elseif snd.checkAff("head_mangled") or dmg["head"] &gt; 31 then
+  elseif snd.have_aff("head_mangled") or dmg["head"] &gt; 31 then
     toparry = "head"
-  elseif snd.checkAff("right_arm_mangled") or dmg["right arm"] &gt; 21 then
+  elseif snd.have_aff("right_arm_mangled") or dmg["right arm"] &gt; 21 then
     toparry = "right arm"
-  elseif snd.checkAff("left_arm_mangled") or dmg["left arm"] &gt; 21 then
+  elseif snd.have_aff("left_arm_mangled") or dmg["left arm"] &gt; 21 then
     toparry = "left arm"
-  elseif snd.checkAff("head_mangled") or dmg["head"] &gt; 18 then
+  elseif snd.have_aff("head_mangled") or dmg["head"] &gt; 18 then
     toparry = "head"
-  elseif snd.checkAff("right_leg_mangled") or dmg["right leg"] &gt; 21 then
+  elseif snd.have_aff("right_leg_mangled") or dmg["right leg"] &gt; 21 then
     toparry = "right leg"
-  elseif snd.checkAff("left_leg_mangled") or dmg["left leg"] &gt; 21 then
+  elseif snd.have_aff("left_leg_mangled") or dmg["left leg"] &gt; 21 then
     toparry = "left leg"
-  elseif snd.checkAff("blisters") then
+  elseif snd.have_aff("blisters") then
     toparry = "head"
   else
     toparry = snd.parrying.get_highest()
@@ -65319,12 +65349,8 @@ function snd.parrying.get_random()
     [6] = "right leg"
   }
   local toparry = "none"
-  local limb_state = 0
-  for limb, damage in pairs(snd.my_limb_damage) do
-    limb_state = limb_state + (damage * #limb)
-  end
-  math.randomseed(snd.parrying.seed + limb_state)
-  toparry = limb_to_num[math.random(1, 6)]
+  
+  toparry = limb_to_num[snd.random.num(1, 6, "parry", true)]
 
   return toparry
 end
