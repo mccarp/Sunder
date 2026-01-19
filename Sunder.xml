@@ -56610,7 +56610,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.5"
+local version = "11.7.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70817,7 +70817,6 @@ end
       snd.used.rebounding = true
     end,
     Quicken = function(target)
-      snd.target_got("ablaze")
       snd.flamestack = snd.flamestack + 3
       if snd.class == "Zealot" then
         cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
@@ -70957,7 +70956,7 @@ end
       snd.used.rebounding = true
     end,
     Intensify = function(target)
-      --not used by base sunder but some may want it available
+      snd.flamestack = snd.flamestack + 3
     end,
     Bedevil = function(target, direction)
       snd.pendulum(direction)
