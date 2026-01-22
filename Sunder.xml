@@ -29030,11 +29030,13 @@ end
 						<string>You slowly clamber over the rubble in your path.</string>
 						<string>Your labored breathing intesifies as you slowly move.</string>
 						<string>You lash out frantically as you begin to slowly fight your way </string>
+						<string>You struggle northeast with your lame legs.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>2</integer>
+						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -36557,6 +36559,26 @@ end</script>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Predictions</name>
+							<script>snd.predictions[matches[3]] = matches[2] == "add" or nil</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^\[FirstAid\]: (add|end) prediction: (.+)$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>affline got</name>
 							<script>if snd.toggles.gags then
@@ -56632,7 +56654,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.7"
+local version = "11.7.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58508,7 +58530,7 @@ function snd.recklessCheck()
       and snd.afflictions.aff_recklessness.state == "healed"
       and snd.afflictions.aff_blackout.state == "healed"
   then
-    send("firstaid predict recklessness")
+    snd.predict("recklessness")
   end
 end
 
@@ -65432,7 +65454,9 @@ function snd.remove_all_affs()
   for i in pairs(snd.afflictions) do
     snd.aff_remove(i)
   end
-
+  
+  snd.predictions = {}
+  
   snd.hidden_afflictions = 0
 
   snd.defer_ui_update = nil
@@ -65459,45 +65483,17 @@ end
 -- @param affliction string of aff
 function snd.aff_have(affliction)
   if snd.cureset == "archivist" then
-    if table.contains(snd.circle_affs, affliction) then
-      hit_aff = false
-      for aff in pairs(snd.circle_affs) do
-        if not hit_aff then
-          if snd.circle_affs[aff] == affliction then
-            hit_aff = true
-          else
-            if not snd.have_aff(snd.circle_affs[aff]) then
-              snd.send("firstaid predict " .. snd.circle_affs[aff])
+    for _, shape in pairs({snd.circle_affs, snd.square_affs, snd.triangle_affs}) do
+      if table.contains(shape, affliction) then
+        hit_aff = false
+        for _2, aff in ipairs(shape) do
+          if not hit_aff then
+            if aff == affliction then
+              hit_aff = true
             end
-          end
-        end
-      end
-    end
-    if table.contains(snd.square_affs, affliction) then
-      hit_aff = false
-      for aff in pairs(snd.square_affs) do
-        if not hit_aff then
-          if snd.square_affs[aff] == affliction then
-            hit_aff = true
           else
-            if not snd.have_aff(snd.square_affs[aff]) then
-              snd.send("firstaid predict " .. snd.square_affs[aff])
-            end
-          end
-        end
-      end
-    end
-    if table.contains(snd.triangle_affs, affliction) then
-      hit_aff = false
-      for aff in pairs(snd.triangle_affs) do
-        if not hit_aff then
-          if snd.triangle_affs[aff] == affliction then
-            hit_aff = true
-          else
-            if not snd.have_aff(snd.triangle_affs[aff]) then
-              snd.send("firstaid predict " .. snd.triangle_affs[aff])
-            end
-          end
+            snd.predict(aff)
+          end 
         end
       end
     end
@@ -66327,6 +66323,48 @@ function snd.not_aff(affliction)
   if snd.afflictions[affliction].state == "healed" then
     return true
   else
+    return false
+  end
+end
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Predictions</name>
+				<packageName></packageName>
+				<script>snd.predictions = {}
+
+function snd.predict(aff)
+  if not snd.phave_aff(aff) then
+    send("firstaid predict "..aff, false)
+  end
+end
+
+function snd.phave_aff(aff)
+  aff = aff:lower()
+  return snd.predictions[aff] or snd.have_aff(aff)
+end
+
+function snd.pchecksomeSelfAffs(afflictions, number)
+  if number == 0 then
+    return true
+  end
+  if number == nil then
+    number = 1
+  end
+  if type(afflictions) == "string" then
+    return snd.phave_aff(afflictions)
+  elseif type(afflictions) == "table" then
+    local count = 0
+    for i, v in ipairs(afflictions) do
+      if snd.phave_aff(v) then
+        count = count + 1
+        if count &gt;= number then
+          return true
+        end
+      end
+    end
+    -- if the count of how many returned true didn't meet or exceed the number given, return false
     return false
   end
 end
@@ -70376,7 +70414,7 @@ function snd.attack_function()
 end
 
 function snd.attack(attack, new)
-  local strr = ""
+  local str = ""
   if snd.needActive then
     str = snd.activeCommand
   else
