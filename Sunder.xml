@@ -56654,7 +56654,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.8"
+local version = "11.7.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -65893,6 +65893,7 @@ end
   aff_irradiated_limb            = { effect = "more damage from bolt" },
   aff_intimidated                = { effect = "can't heal above 90%" },
   aff_justice                    = { cures = { herb = "bellwort", tree = "send" } },
+  aff_lacerations                = { effect = "Bleeding on movement and after expiry" },
   aff_laxity                     = { cures = { herb = "bellwort", tree = "send" } },
   aff_leeched_aura               = { },
   aff_left_arm_amputated         = { cures = { salve = "restoration to arms" } },
@@ -70828,7 +70829,7 @@ end
       snd.onHit2({ "Dodge", "Parry" })
     end,
     Twinpress = function(target)
-      snd.maybe_affs = {"stiffness","muscle_spasms"},
+      snd.maybe_affs = {"stiffness","muscle_spasms"}
       snd.onHit2({ "Dodge" }, "Double Aff")
     end,
     Clawtwist = function(target)
@@ -70958,7 +70959,7 @@ end
       snd.onHit2({ "Dodge", "Parry" })
     end,
     PressurePoint = function(target)
-      snd.maybe_affs = {"stiffness", "muscle_spasms"},
+      snd.maybe_affs = {"stiffness", "muscle_spasms"}
       snd.onHit2({ "Dodge" }, "Double Aff")
     end,
     Plexus = function(target)
@@ -71034,6 +71035,9 @@ end
     end,
     Intensify = function(target)
       snd.flamestack = snd.flamestack + 3
+      if snd.class == "Ravager" then
+        cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
+      end
     end,
     Bedevil = function(target, direction)
       snd.pendulum(direction)
@@ -78416,6 +78420,7 @@ snd.bashing_area_beginning_rooms = {
   ["Eftehl Island"] = "59815",
   ["Kkirrrr'shi Hive"] = "69831",
   ["the Crimson Coast"] = "77048",
+  ["a deep underground cavern"] = "45878",
 }</script>
 					<eventHandlerList />
 				</Script>
