@@ -38302,7 +38302,7 @@ qwhom.people = {}</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>-------------------------------------------------------------------------------</string>
-						<string>return qwhom.willFire</string>
+						<string>return qwhom and qwhom.willFire</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -69981,7 +69981,6 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
 
   local other_prones = {
     "frozen",
-    "indifference",
     "asleep",
     "paralysis",
   }
