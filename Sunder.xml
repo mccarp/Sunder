@@ -11523,7 +11523,7 @@ disableTrigger("Tenacity Devastate")</script>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fury Shatter Second Aff</name>
 								<script>if matches[2] == snd.target then
 
@@ -16258,6 +16258,237 @@ end</script>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
+								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Tones 3p lines</name>
+									<script></script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList />
+									<regexCodePropertyList />
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Crystalforest</name>
+										<script>if matches[2] == snd.target then
+  snd.used.shield = false
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The forest of crystals suddenly explodes, launching razor\-sharp fragments that shred (\w+)'smagical shield\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Tremors</name>
+										<script>if matches[2] == snd.target then
+  snd.target_got("fallen")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The ground beneath you heaves in revolt, casting (\w+) down\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Adduction</name>
+										<script>if matches[2] == snd.target then
+  snd.target_got("no_density")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The air around (\w+) ripples as .+ appears lighter\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Creeps</name>
+										<script>if matches[2] == snd.target then
+  if snd.checkAff("loneliness") then
+    snd.target_got("masochism")
+  else
+    snd.target_got("loneliness")
+  end
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Something unheard drives (\w+) to cast an anxious glance over \w+ shoulder\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Oscillate</name>
+										<script>if matches[2] == snd.target then
+  snd.target_got("muddled")
+  snd.affTimers.start("muddled", 8.5)
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+)'s vacant stare stretches for untold yards, \w+ focus shattered\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Disorientation</name>
+										<script>if matches[2] == snd.target then
+  if snd.checkAff("epilepsy") then
+    snd.target_got("mania")
+  else
+    snd.target_got("epilepsy")
+  end
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+)'s body twitches and seizes, \w+ eyes blank\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Stridulation</name>
+										<script>if matches[2] == snd.target then
+  if snd.checkAff("no_courage") then
+    snd.target_got("ringing_ears")
+  else
+    snd.target_got("no_courage")
+  end
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+) lifts \w+ hands to \w+ ears, a look of agony on \w+ features\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>0</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Dissension</name>
+										<script>if matches[2] == snd.target then
+  snd.target_got("dissonance")
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+) begins to vibrate in tune with a disruptive harmony\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Lullaby</name>
+										<script>if matches[2] == snd.target then
+  if snd.checkAff("asleep") then
+    snd.target_got("hypersomnia")
+  else
+    snd.target_got("sleep")
+  end
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+)'s eyelids begin to flutter as .+ suddenly appears wearied\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+								</TriggerGroup>
 							</TriggerGroup>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -16638,8 +16869,10 @@ end</script>
 											<colorTriggerBgColor>#000000</colorTriggerBgColor>
 											<regexCodeList>
 												<string>You use Sporulation Omophagia.</string>
+												<string>You use Gravitation Collapse.</string>
 											</regexCodeList>
 											<regexCodePropertyList>
+												<integer>3</integer>
 												<integer>3</integer>
 											</regexCodePropertyList>
 										</Trigger>
@@ -16686,8 +16919,12 @@ end</script>
 											<regexCodeList>
 												<string>As the morass grows to truly terrifying proportions, you thread a single strand of enticing life essence into the now ravenous cloud of flesh eating spores set loose by your vernal prowess. The presence of so little nourishment to split between its myriad colonies sets the seething pool of malnourished fungi into a feeding frenzy.</string>
 												<string>You use Sporulation Omophagia Consume.</string>
+												<string>As the singularity teeters upon the brink of collapse, you thrust a final mote of power into it before severing your connection, the blackening brand within reality distorting into violent darkness.</string>
+												<string>You use Gravitation Collapse Complete.</string>
 											</regexCodeList>
 											<regexCodePropertyList>
+												<integer>3</integer>
+												<integer>3</integer>
 												<integer>3</integer>
 												<integer>3</integer>
 											</regexCodePropertyList>
@@ -29821,7 +30058,7 @@ disableTrigger("Weapon Hit Confirmation")
 disableTrigger("Sunder Dodge")
 disableTrigger("Sunder Parry")
 disableTrigger("Sunder Rebounding")
-
+enableTrigger("Tones 3p lines")
 snd.core()
 
 if snd.delete_prompt then
@@ -56654,7 +56891,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.9"
+local version = "11.7.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -73746,12 +73983,16 @@ end
       if not venom then
         if snd.maybe_affs[1] then
           snd.needle = snd.venomEffect(snd.maybe_affs[1])
+          if snd.needleTimer then killTimer(snd.needleTimer) end
+          snd.needleTimer = tempTimer(5, function() snd.needle = "none" end)
         else
           snd.needle = "none"
         end
       elseif venom ~= "dodge" then
         if snd.needle == "none" then
           snd.needle = snd.venomEffect(venom)
+          if snd.needleTimer then killTimer(snd.needleTimer) end
+          snd.needleTimer = tempTimer(5, function() snd.needle = "none" end)
         end
       end
     end,
@@ -75172,6 +75413,7 @@ end
   ["Crystalism"] = {
     Tones =
         function(target, vibe, conditional)
+          disableTrigger("Tones 3p lines")
           if vibe == "Dissipate" then
             if snd.checkAff("confusion") then
               snd.vital_change("mana", -14)
