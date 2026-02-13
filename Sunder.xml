@@ -1740,6 +1740,28 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Bard stretching</name>
+							<script>if matches[2] == snd.target then
+  snd.took_limb_dmg(matches[3], -2)
+end</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) stretches \w+ (.+) satisfyingly\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>0</integer>
+							</regexCodePropertyList>
+						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Resists</name>
@@ -2131,8 +2153,10 @@ end
 									<string>^(\w+) strikes? out clumsily and miss(?:es)? \w+ mark\.$</string>
 									<string>^(You) stumble blindly and miss your mark completely\.$</string>
 									<string>^(You)r watery eyes distract your concentration as you miss with .+\.$</string>
+									<string>^(You) miss your strike by mere inches\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -56891,7 +56915,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.10"
+local version = "11.7.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
