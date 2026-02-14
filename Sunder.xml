@@ -4302,7 +4302,6 @@ end
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Frost appears on (\w+)'s flesh as an inky shadeling reaches out to touch .+.$</string>
 										<string>^You send the cold of the grave to freeze (\w+).$</string>
 										<string>^(\w+) shivers slightly as the fist strikes .+.$</string>
 										<string>^You reach out and grab (\w+)'s arm, chilling .+ to the bone.$</string>
@@ -4313,7 +4312,6 @@ end
 										<string>^Terror overcomes (\w+) as the frost forms over \w+ completely\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -16613,7 +16611,7 @@ end</script>
 											<colorTriggerFgColor>#000000</colorTriggerFgColor>
 											<colorTriggerBgColor>#000000</colorTriggerBgColor>
 											<regexCodeList>
-												<string>^(\w+) experiences a violent shiver as a shambling myconid lashes out at \w+ with a fungal protrusion\.$</string>
+												<string>^(\w+) experiences a violent shiver as .+ lashes out at \w+ with a fungal protrusion\.$</string>
 											</regexCodeList>
 											<regexCodePropertyList>
 												<integer>1</integer>
@@ -17479,7 +17477,7 @@ end</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>^Frost appears on (\w+)'s flesh as an inky shadeling reaches out to touch .+.$</string>
+										<string>^Frost appears on (\w+)'s flesh as .+ reaches out to touch .+.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -33273,7 +33271,7 @@ snd.track_fury(tonumber(matches[2]))</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Upsurge back</name>
-							<script></script>
+							<script>snd.balance.upsurge = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -45400,7 +45398,6 @@ end</script>
     "confusion",
     "recklessness",
     "superstition",
-    "hypersomnia",
   }
 
   snd.starting_attack()
@@ -49809,7 +49806,7 @@ if snd.class == "Oneiromancer" then
     "recklessness",
     "superstition",
     "mania",
-    "hypersomnia",
+    -- "hypersomnia",
   }
 
   snd.starting_attack()
@@ -49960,7 +49957,6 @@ end
       "confusion",
       "recklessness",
       "superstition",
-      "hypersomnia",
     }
   snd.starting_attack()
 
@@ -56915,7 +56911,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.11"
+local version = "11.7.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
