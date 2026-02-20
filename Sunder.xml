@@ -65747,9 +65747,9 @@ function snd.aff_have(affliction)
           if not hit_aff then
             if aff == affliction then
               hit_aff = true
+            else
+              snd.predict(aff)
             end
-          else
-            snd.predict(aff)
           end 
         end
       end
