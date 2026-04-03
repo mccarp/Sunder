@@ -1224,7 +1224,7 @@ snd.target_cured("writhe_necklock")</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>void</name>
 							<script>if matches[2] == snd.target then
  if snd.last_cured ~= "" then
@@ -1253,7 +1253,7 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>weak void</name>
 							<script>if matches[2] == snd.target and snd.last_cured ~= "" then
  if snd.cures[snd.last_cure] ~= nil then
@@ -6397,6 +6397,30 @@ end
 									<regexCodePropertyList>
 										<integer>3</integer>
 										<integer>3</integer>
+									</regexCodePropertyList>
+								</Trigger>
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+									<name>Direfrost / Frostbite procs</name>
+									<script>if matches[2] == snd.target then
+  snd.target_got("mindfog")
+end</script>
+									<triggerType>0</triggerType>
+									<conditonLineDelta>0</conditonLineDelta>
+									<mStayOpen>0</mStayOpen>
+									<mCommand></mCommand>
+									<packageName></packageName>
+									<mFgColor>#ff0000</mFgColor>
+									<mBgColor>#ffff00</mBgColor>
+									<mSoundFile></mSoundFile>
+									<colorTriggerFgColor>#000000</colorTriggerFgColor>
+									<colorTriggerBgColor>#000000</colorTriggerBgColor>
+									<regexCodeList>
+										<string>^The gleaming fractals of direfrost unite upon (\w+)'s body, solidifying into a biting frost that aches\.$</string>
+										<string>^(\w+)'s frostbite worsens to a critical state, .+ body's internal humours imbalanced\.$</string>
+									</regexCodeList>
+									<regexCodePropertyList>
+										<integer>1</integer>
+										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -28356,7 +28380,7 @@ disableTrigger("QWP for level 20 goggles")
 						<name>vermin</name>
 						<script>if snd.toggles.vermin then
   if snd.toggles.newbie then
-    send("k vermin")
+    send("qeb k vermin")
   else
     --single attack logic
     snd.bashing.target = "vermin"
@@ -63920,7 +63944,7 @@ end</script>
 
   --nocturn
   def_nocturn_form = { defense = "nocturn_form", type = "normal", effect = "I vant to suck your blood!", balance = { balanceequilibriumtake = "shadow meld brutal" }, skill = "200" },
-  def_nocturn_bloodcoat = { defense = "nocturn_bloodcoat", type = "normal", effect = "Protect you and absorb afflictions", balance = { balanceequilibriumtake = "nocturn_bloodcoat" }, skill = "200" },
+  def_nocturn_bloodcoat = { defense = "nocturn_bloodcoat", type = "normal", effect = "Protect you and absorb afflictions", balance = { balanceequilibriumtake = "nocturn bloodcoat" }, skill = "200" },
   def_nocturn_presence = { defense = "nocturn_presence", type = "normal", effect = "Grants crit and dodge chance", balance = { balanceequilibriumtake = "nocturn presence on" }, skill = "200" },
   def_nocturn_haze = { defense = "nocturn_haze", type = "normal", effect = "Aura that damages and sometimes affs enemies", balance = { balanceequilibriumtake = "nocturn haze on" }, skill = "200" },
   def_nocturn_double = { defense = "nocturn_double", type = "normal", effect = "Chance to replicate your abilities", balance = { balanceequilibriumtake = "nocturn double on" }, skill = "200" },
@@ -64288,7 +64312,7 @@ end</script>
   ["You are blurring the edges of your form."] = "blurring",
   ["You are surrounded in a mantle of pure shadow."] = "shadow_mantle",
   ["You are focusing on precise spellcasting."] = "rigor",
-  ["You have the shadow_engulf defence."] = "shadow_engulf",
+  ["Your mobility has become one with the darkness."] = "shadow_engulf",
   ["You are prepared to discharge energy."] = "discharge",
   ["You are wreathed in an aura of toxicity."] = "nexus",
   ["Your fiery soul has reached its zenith of power."] = "zenith",
@@ -69008,7 +69032,7 @@ snd.hound_attacks = {
     mania = "stare",
     impairment = "stare",
     weariness = "acidspit",
-    crippled = "acidspit",
+    lameness = "acidspit",
     epilepsy = "shock",
     hallucinations = "shock",
     blisters = "poisonclaw",
@@ -69029,7 +69053,7 @@ snd.hound_attacks = {
     mania = "incite",
     impairment = "incite",
     weariness = "harry",
-    crippled = "harry",
+    lameness = "harry",
     epilepsy = "shock",
     hallucinations = "shock",
     blisters = "poison",
