@@ -5606,6 +5606,9 @@ end
 									<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = 4
+  if snd.checkAff(snd.last_hit_limb:gsub(" ","_").."_broken") then
+    snd.last_limb_dmg = 2
+  end
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
   snd.onHit2({ "Parry" })
 end
@@ -71349,6 +71352,7 @@ end
     end,
 
     Direfrost = function(target)
+      snd.target_got("cold")
       snd.target_got("direfrost")
       snd.affTimers.start("direfrost", 180)
     end,
@@ -71419,6 +71423,7 @@ end
     end,
 
     Frostbite = function(target)
+      snd.target_got("cold")
       snd.target_got("frostbite")
       snd.affTimers.start("frostbite", 180)
     end,
@@ -72327,6 +72332,7 @@ end
     end,
     Shockwave = function(target)
       snd.target_got("fallen")
+      snd.target_cured("quicksand")
       enableTrigger("Shockwave limb breaks")
       enableTrigger("Shockwave Prompt Turnoff")
     end,
@@ -72508,6 +72514,7 @@ end
     end,
     Capsize = function(target)
       snd.target_got("fallen")
+      snd.target_cured("quicksand")
       enableTrigger("Shockwave limb breaks")
       enableTrigger("Shockwave Prompt Turnoff")
     end,
@@ -72917,7 +72924,7 @@ end
       snd.lev_gone = true
     end,
     Jab = function(target)
-      snd.last_limb_dmg = 5
+      snd.last_limb_dmg = 4.5
       enableTrigger("Monk Hit Tracking")
     end,
     Throatstrike = function(target)
@@ -75542,7 +75549,7 @@ end
     Ontesme = function(target, ability)
       if ability == "Illgrasp" then
         snd.target_got("illgrasp")
-        snd.illgraspcounter = 4
+        snd.illgraspcounter = 6
         snd.affTimers.start("illgrasp", 180)
       end
     end,
@@ -76211,6 +76218,22 @@ end
   ["Extirpation Thrash"] = true,
   ["Cultivation Anger"] = true,
   ["Geometrics Fork"] = true,
+  ["Seraph Plasma"] = true,
+  ["Chaos Shock"] = true,
+  ["Titan Corrode"] = true,
+  ["Nocturn Haemoplague"] = true,
+  ["Malevolent Tentacle"] = true,
+  ["Tiarna Hive"] = true,
+  ["Aetherial Omission"] = true,
+  ["Sagani Erode"] = true,
+  ["Astral Hamartia"] = true,
+  ["Strife Riot"] = true,
+  ["Glacian Infect"] = true,
+  ["Corruption Duskywing"] = true,
+  ["Memory Senesce"] = true,
+  ["Tyranny Besiege"] = true,
+  ["Instinct Terrorise"] = true,
+  ["Morale Celebrate"] = true,
 }</script>
 				<eventHandlerList />
 			</Script>
