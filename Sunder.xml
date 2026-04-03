@@ -33011,6 +33011,66 @@ snd.track_fury(tonumber(matches[2]))</script>
 						</Trigger>
 					</TriggerGroup>
 					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Shapeshifter</name>
+						<script></script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Berserk used</name>
+							<script>snd.balance.berserk = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Shapeshifting Berserk.</string>
+								<string>You have not yet recovered enough to make yourself berserk.</string>
+								<string>You are already berserking!</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Berserk back</name>
+							<script>snd.balance.berserk = true</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Your body tenses as you feel like you could go berserk.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Siderealist</name>
 						<script></script>
 						<triggerType>0</triggerType>
@@ -37957,6 +38017,22 @@ snd.clear_afflictions("smoke")</script>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
+					</TriggerGroup>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Self timer tracking</name>
+						<script></script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList />
+						<regexCodePropertyList />
 					</TriggerGroup>
 				</TriggerGroup>
 			</TriggerGroup>
@@ -59552,6 +59628,7 @@ snd.waiting = snd.waiting or {
   feedback = true,
   upsurge = true,
   malice = true,
+  berserk = true,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -60180,7 +60257,8 @@ function snd.do_queue()
     end
     if snd.defenses_loaded and snd.toggles.defenses then
       for k in pairs(snd.defenses) do
-        if snd.defenses[k].state == "down" and snd.defenses[k].needit then
+        if snd.defenses[k].state == "down" and snd.defenses[k].needit and 
+          (not snd.defenses[k].requiredBalance or snd.balance[snd.defenses[k].requiredBalance]) then
           if k == "def_vitality" then
             if snd.balance.vitality and snd.full_vitals() then
               snd.queue[k] = true
@@ -60999,6 +61077,7 @@ snd.priorities =
   "def_bloodhunt",
   "def_perceive",
   "def_bloodtrack",
+  "def_berserk",
 }
 end
 snd.reset_priorities()
@@ -63667,6 +63746,7 @@ end</script>
   def_bracing = { defense = "bracing", type = "normal", effect = "Bracing for physical attacks", balance = { needybalancetake = "brace" }, skill = "Bracing" },
   def_stealth = { defense = "stealth", type = "normal", effect = "Hide yourself", balance = { needybalancetake = "stealth on" }, skill = "Stealth" },
   def_boneshaking = { defense = "boneshaking", type = "normal", effect = "howls ignore courage", balance = { balanceequilibriumtake = "boneshaking" }, skill = "Boneshaking" },
+  def_berserk = { defense = "berserk", type = "normal", effect = "Immune to stuns and uncon", balance = { balanceequilibriumtake = "berserk" }, requiredBalance = "berserk", skill = "Berserk" },
   --Siderealist
   def_luminesce = { defense = "luminesce", type = "normal", effect = "basic astranomia spells", balance = { balanceequilibriumtake = "astra luminesce" }, skill = "Luminesce" },
   def_blueshift = { defense = "blueshift", type = "normal", effect = "extra hp/mp", balance = { balanceequilibriumtake = "astra blueshift" }, skill = "Blueshift" },
@@ -64698,6 +64778,7 @@ end</script>
   
   ["You are currently blessed by the ancestors."] = "ancestral_annul",
   ["Your purged soul is currently empowered."] = "soul_purge",
+  ["You are blind with primal rage."] = "berserk",
 }
 </script>
 				<eventHandlerList />
