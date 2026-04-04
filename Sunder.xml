@@ -35924,11 +35924,11 @@ snd.def_gain(defName)</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You use Manifestation Phantasm.</string>
+										<string>You use Manifestation Phantasm</string>
 										<string>^Tendrils of shadowy essence slither out from your mouth, manifesting at your command into the (\w+) phantasm\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>3</integer>
+										<integer>2</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -35947,11 +35947,11 @@ snd.def_gain(defName)</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You use Manifestation Chimerization.</string>
+										<string>You use Manifestation Chimerization</string>
 										<string>^You open your mouth wide, vision going black momentarily as you utterly devour your (\w+) phantasm, chimerizing it deep beneath your flesh to amplify its effects\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>3</integer>
+										<integer>2</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -36203,11 +36203,11 @@ snd.def_gain(defName)</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You use Righteousness Aura.</string>
+										<string>You use Righteousness Aura</string>
 										<string>^You focus momentarily as you envelop yourself in the righteous aura of (\w+)\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>3</integer>
+										<integer>2</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -36247,11 +36247,11 @@ snd.def_gain(defName)</script>
 									<colorTriggerFgColor>#000000</colorTriggerFgColor>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
-										<string>You use Righteousness Blessing.</string>
+										<string>You use Righteousness Blessing</string>
 										<string>^You focus on your (\w+) aura and draw its power into you, focusing it onto your body\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>3</integer>
+										<integer>2</integer>
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
@@ -37778,8 +37778,10 @@ snd.waiting.queue = false</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>You light your supply of pipes, igniting the herbs within.</string>
+									<string>You are not holding any pipes.</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>3</integer>
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
