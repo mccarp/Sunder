@@ -1880,6 +1880,7 @@ end</script>
   snd.templar_last_limb = snd.last_hit_limb
   if snd.last_hit_limb ~= "none" and snd.bruisingHit then
     snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
+    snd.bruisingEcho(snd.last_hit_limb)
   end
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
@@ -1945,6 +1946,7 @@ disableTrigger("Sunder Parry")</script>
   end
   if snd.last_hit_limb ~= "none" and snd.bruisingHit then
     snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
+    snd.bruisingEcho(snd.last_hit_limb)
   end
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
@@ -2013,6 +2015,7 @@ end
 
   if snd.last_hit_limb ~= "none" and snd.bruisingHit then
     snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
+    snd.bruisingEcho(snd.last_hit_limb)
   end
 
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
@@ -11938,6 +11941,30 @@ end</script>
 								<regexCodeList>
 									<string>^(\w+) propels? \w+ to the side, preparing to strike with .+\.$</string>
 									<string>^With a fluid motion, (\w+) switch(?:es)? \w+ grip on .+\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Stress/jakive</name>
+								<script>if matches[2] == snd.target then
+  snd.took_bruise(matches[3])
+end</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^A deep throb emanates from .+, spreading into (\w+)'s (.+)\.$</string>
+									<string>^Twisted shadows seep from .+, assailing (\w+)'s (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -22155,7 +22182,7 @@ end</script>
 								<script>if matches[3] == snd.target then
   local bruise = matches[2]
   local limb = matches[4]
-
+  local oldBruising = snd.limb_bruising[limb]
 	if bruise == "light" then
  		snd.limb_bruising[limb] = 1
 	elseif bruise == "moderate" then
@@ -22163,7 +22190,9 @@ end</script>
 	elseif bruise == "critical" then
  		snd.limb_bruising[limb] = 3
 	end
-  snd.bruisingEcho(limb, true)
+  if snd.limb_bruising[limb]~=oldBruising then
+    snd.bruisingEcho(limb, true)
+  end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end
