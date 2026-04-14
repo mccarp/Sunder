@@ -13108,14 +13108,10 @@ disableTrigger("Weapon Hit Confirmation")</script>
 										<string>^With a frenzied swing of .+, \w+ hews? through (\w+), ululating all the while\.$</string>
 										<string>^With a vicious snarl, \w+ brutally gores? (\w+) with .+\.$</string>
 										<string>^With an exultant howl, \w+ rives? through (\w+)'s flesh with .+\.$</string>
-										<string>^Whirling .+ all about, \w+ reaps? a crimson harvest from (\w+)\.$</string>
+										<string>^Whirling .+ all about, \w+ reaps? a bloody harvest from (\w+)\.$</string>
 										<string>^\w+ swiftly nicks? (\w+) with .+'s edge\.$</string>
-										<string>^Howling \w+ primacy, \w+ rives through (\w+)'s flesh with .+\.$</string>
-										<string>^\w+ ululates? as \w+ hews? into (\w+) with a frenzied swing of .+\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -72107,7 +72103,7 @@ end
   ["Mentis"] = {
     Whisper = function(target)
       for _, aff in pairs(snd.maybe_affs) do
-        if not table.contains(snd.venoms, aff) then
+        if not table.contains(snd.venoms, snd.maybe_affs[1]) then
           snd.target_got(aff)
         end
       end
@@ -74428,7 +74424,7 @@ end
   ["Dictum"] = {
     Dictate = function(target)
       for _, aff in pairs(snd.maybe_affs) do
-        if not table.contains(snd.venoms, aff) then
+        if not table.contains(snd.venoms, snd.maybe_affs[1]) then
           snd.target_got(aff)
         end
       end
@@ -75765,7 +75761,7 @@ end
   ["Caprice"] = {
     Imprecate = function(target)
       for _, aff in pairs(snd.maybe_affs) do
-        if not table.contains(snd.venoms, aff) then
+        if not table.contains(snd.venoms, snd.maybe_affs[1]) then
           snd.target_got(aff)
         end
       end
