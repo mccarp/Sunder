@@ -13458,28 +13458,6 @@ end</script>
 									</Trigger>
 								</TriggerGroup>
 							</TriggerGroup>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Disembowel Connect</name>
-								<script>if snd.target ~= matches[2] then return end
-
-snd.removeProneStates()</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^The blade of .+ tears through the bindings entangling (\w+)\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
 						</TriggerGroup>
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Bard</name>
@@ -57067,7 +57045,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.14"
+local version = "11.7.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58389,31 +58367,26 @@ save_fishinginfo_db()</script>
 	<ActionPackage />
 	<ScriptPackage>
 		<ScriptGroup isActive="yes" isFolder="yes">
-			<name>Sunder</name>
+			<name>Core</name>
 			<packageName></packageName>
 			<script></script>
 			<eventHandlerList />
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Core</name>
+			<Script isActive="yes" isFolder="no">
+				<name>System Initialization</name>
 				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>System Initialization</name>
-					<packageName></packageName>
-					<script>--- Sunder root namespace
+				<script>--- Sunder root namespace
 -- @table snd
 snd = snd or {}
 snd.skills = snd.skills or {}
 snd.skills.tattoos_on_me = snd.skills.tattoos_on_me or {}
 snd.skills.raceskills = snd.skills.raceskills or {}
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Important functions</name>
-					<packageName></packageName>
-					<script>--- Register event handlers under the Sunder namespace
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Important functions</name>
+				<packageName></packageName>
+				<script>--- Register event handlers under the Sunder namespace
 -- Please use this instead of registerAnonymousEventHandler when you want to register an event that extends Sunder functionality
 -- @function snd.registerEvent
 -- @param string name of your handler
@@ -58540,12 +58513,12 @@ function snd.message(string, type)
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Login</name>
-					<packageName></packageName>
-					<script>--- Login handling function.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Login</name>
+				<packageName></packageName>
+				<script>--- Login handling function.
 -- This function runs at login to setup some GMCP calls that need to happen.
 -- We also setup the game separator, and grab our skills and raceskills. City landmarks for the internal pathing system also get loaded in depending on our city
 -- @function snd.login
@@ -58592,12 +58565,12 @@ function snd.disconnected()
 end
 
 snd.registerEvent("SunderDisconnect", "sysDisconnectEvent", snd.disconnected)</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Skills</name>
-					<packageName></packageName>
-					<script>--- Parse GMCP for skills.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Skills</name>
+				<packageName></packageName>
+				<script>--- Parse GMCP for skills.
 -- Loads your skills into snd.skills, additionally adds tattoos on your body and your racial skills
 -- @function parse_skillsets
 function parse_skillsets()
@@ -58725,17 +58698,17 @@ snd.registerEvent("SunderParseSkills", "gmcp.Char.Skills.Groups", parse_skillset
 snd.registerEvent("SunderPopulateSkills", "gmcp.Char.Skills.List", populate_skills)
 
 </script>
-					<eventHandlerList />
-				</Script>
-				<ScriptGroup isActive="yes" isFolder="yes">
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Toggles</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
 					<name>Toggles</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Toggles</name>
-						<packageName></packageName>
-						<script>
+					<script>
 snd.toggles = snd.toggles or {
   active = true,       -- is the system running?
   healing = false,     -- keep off, incomplete
@@ -58800,12 +58773,12 @@ snd.toggles = snd.toggles or {
   domeswap = true,
   reboundingtime = 6,
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Load/save toggles</name>
-						<packageName></packageName>
-						<script>--- @module settings
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Load/save toggles</name>
+					<packageName></packageName>
+					<script>--- @module settings
 
 function snd_toggleSave(disp)
   local separator = string.char(getMudletHomeDir():byte()) == "/" and "/" or "\\"
@@ -58868,12 +58841,12 @@ function snd.toggle(toggle)
 
   send(" ")
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Toggle info</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Toggle info</name>
+					<packageName></packageName>
+					<script>
 
 snd.toggle_info = {
   active = { info = "System full stop of on/off.", command = "sndon and sndoff" },
@@ -58913,13 +58886,13 @@ snd.toggle_info = {
   diagaffs = { info = "How many hidden affs before you diagnose?", command = "diagaffs &lt;#&gt;" }
 }
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<Script isActive="yes" isFolder="no">
-					<name>Illusions</name>
-					<packageName></packageName>
-					<script>snd.illusionChecks = snd.illusionChecks or {}
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>Illusions</name>
+				<packageName></packageName>
+				<script>snd.illusionChecks = snd.illusionChecks or {}
 
 --- Check to see if a line sent is actually an illusion.
 -- @function snd.illusionChecks.abilityGate
@@ -58953,12 +58926,12 @@ function snd.recklessCheck()
 end
 
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Class change</name>
-					<packageName></packageName>
-					<script>function snd.changeClass()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Class change</name>
+				<packageName></packageName>
+				<script>function snd.changeClass()
   if not snd.connected then return end
   local gmcpClass = snd.charstats.class
   if snd.class == gmcpClass then return end
@@ -58976,12 +58949,12 @@ end
   raiseEvent("sunder_update_vitals")
   expandAlias("ldd none", false)
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Can I do that?</name>
-					<packageName></packageName>
-					<script>function snd.functional()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Can I do that?</name>
+				<packageName></packageName>
+				<script>function snd.functional()
   if snd.have_aff("stun") or snd.have_aff("petrified") or snd.have_aff("asleep") then
     return false
   else
@@ -59201,12 +59174,12 @@ function snd.check_dome()
     return false
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Utility functions</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Utility functions</name>
+				<packageName></packageName>
+				<script>
 function snd.parseDir(direction)
   if direction == "north" then
     return "n"
@@ -59296,12 +59269,12 @@ function Reverse(arr)
     j = j - 1
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Movement</name>
-					<packageName></packageName>
-					<script>function snd.get_moving()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Movement</name>
+				<packageName></packageName>
+				<script>function snd.get_moving()
   hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
   if snd.can_path and snd.can_cast() and hp &gt;= 85 and snd.moving_to ~= "none" then
     if snd.toggles.gallop then
@@ -59320,12 +59293,12 @@ end</script>
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Self reset</name>
-					<packageName></packageName>
-					<script>--- Reset self status.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Self reset</name>
+				<packageName></packageName>
+				<script>--- Reset self status.
 -- @function snd.reset_me
 function snd.reset_me()
   for i in pairs(snd.afflictions) do
@@ -59345,24 +59318,24 @@ function snd.reset_me()
   snd.runemarkMinor = "none"
   snd.current_dodge = "none"
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Targeting</name>
-					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Variables</name>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Targeting</name>
 				<packageName></packageName>
 				<script></script>
 				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Sunder Vars</name>
-					<packageName></packageName>
-					<script>snd.sep = snd.sep or "\\" -- important! CONFIG SEPARATOR value
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Variables</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Sunder Vars</name>
+				<packageName></packageName>
+				<script>snd.sep = snd.sep or "\\" -- important! CONFIG SEPARATOR value
 --snd.mount = snd.mount or "79667" -- your horse's ID number
 
 
@@ -59601,12 +59574,12 @@ snd.waiting = snd.waiting or {
   panacea = false,
   melting = false,
 }</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Balances</name>
-					<packageName></packageName>
-					<script>snd.balance = snd.balance or {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Balances</name>
+				<packageName></packageName>
+				<script>snd.balance = snd.balance or {
   fitness = true,
   shrug = true,
   battle = true,
@@ -59688,18 +59661,18 @@ snd.waiting = snd.waiting or {
   malice = true,
   berserk = true,
 }</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Waiting</name>
-					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Affliction types</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Waiting</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Affliction types</name>
+				<packageName></packageName>
+				<script>
 snd.physical_affs = {
   "crosswiring",
   "paralysis",
@@ -59858,18 +59831,18 @@ snd.square_affs = {
   "sealing_square"
 }
 </script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>GMCP handling</name>
-				<packageName></packageName>
-				<script></script>
 				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Items</name>
-					<packageName></packageName>
-					<script>function gmcp_item_add()
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>GMCP handling</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Items</name>
+				<packageName></packageName>
+				<script>function gmcp_item_add()
   local v = gmcp.Char.Items.Add.item
   local prio = false
   if gmcp.Char.Items.Add.location == "room" then
@@ -59970,12 +59943,12 @@ snd.registerEvent("SunderGMCPItemsList", "gmcp.Char.Items.List", gmcp_items)
 snd.registerEvent("SunderGMCPItemsAdd", "gmcp.Char.Items.Add", gmcp_item_add)
 snd.registerEvent("SunderGMCPItemsRemove", "gmcp.Char.Items.Remove", gmcp_item_remove)
 snd.registerEvent("SunderGMCPItemsUpdate", "gmcp.Char.Items.Update", gmcp_item_update)</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>players</name>
-					<packageName></packageName>
-					<script>function gmcp_people_add()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>players</name>
+				<packageName></packageName>
+				<script>function gmcp_people_add()
   local newPlayers = gmcp.Room.AddPlayer.name
   if not table.contains(snd.players_here, newPlayers) then
     table.insert(snd.players_here, newPlayers)
@@ -60016,12 +59989,12 @@ end
 snd.registerEvent("SunderGMCPRoomPlayers", "gmcp.Room.Players", gmcp_people_update)
 snd.registerEvent("SunderGMCPRoomRemovePlayer", "gmcp.Room.RemovePlayer", gmcp_people_remove)
 snd.registerEvent("SunderGMCPRoomAddPlayer", "gmcp.Room.AddPlayer", gmcp_people_add)</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>room</name>
-					<packageName></packageName>
-					<script>function gmcp_room()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>room</name>
+				<packageName></packageName>
+				<script>function gmcp_room()
   --Check current room
   if snd.my.room ~= gmcp.Room.Info.num or gmcp.Room.Info.num == -1 then
     --Clear room effects
@@ -60093,12 +60066,12 @@ end
 
 snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>vitals</name>
-					<packageName></packageName>
-					<script>function gmcp_vitals()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>vitals</name>
+				<packageName></packageName>
+				<script>function gmcp_vitals()
   -- snd.core()
   if gmcp.Char.Vitals.prone == "1" and snd.not_entangled() and snd.not_aff("paralysis") then
     snd.aff_have("prone")
@@ -60135,12 +60108,12 @@ end
 
 snd.registerEvent("SunderGMCPVitals", "gmcp.Char.Vitals", gmcp_vitals)
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Wielded item tracking</name>
-					<packageName></packageName>
-					<script>--this is run on Char.Status
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Wielded item tracking</name>
+				<packageName></packageName>
+				<script>--this is run on Char.Status
 function snd.updateWielded()
   local wield_updated
   if gmcp.Char.Vitals.wield_left ~= snd.wielded.left.full then
@@ -60178,12 +60151,12 @@ function snd.weaponType(weapon)
   end
   return weapon
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Death</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Death</name>
+				<packageName></packageName>
+				<script>
 --- Check to see if ur dead.
 -- If you're dead then it resets your afflictions, stops the system and resets your limb damage.
 -- @function snd.deathCheck
@@ -60221,12 +60194,12 @@ end
 snd.registerEvent("SunderDeathCheck", "gmcp.Char.Afflictions.Add", snd.deathCheck)
 snd.registerEvent("SunderDeathClear", "gmcp.Char.Afflictions.Remove", snd.deathClear)
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Rift</name>
-					<packageName></packageName>
-					<script>snd.rift = snd.rift or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Rift</name>
+				<packageName></packageName>
+				<script>snd.rift = snd.rift or {}
 local mt = {}
 mt.__index =
   function(table, key)
@@ -60251,18 +60224,18 @@ end
 
 snd.registerEvent("SunderRiftList", "gmcp.IRE.Rift.List", riftList)
 snd.registerEvent("SunderRiftChange", "gmcp.IRE.Rift.Change", riftChange)</script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Core queue</name>
-				<packageName></packageName>
-				<script></script>
 				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Core</name>
-					<packageName></packageName>
-					<script>--- Primary logic loop.
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Core queue</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Core</name>
+				<packageName></packageName>
+				<script>--- Primary logic loop.
 -- This is the heart of everything. It gets run at every prompt.
 -- @function snd.core
 --- @module core
@@ -60296,12 +60269,12 @@ function snd.core()
     snd.do_stuff()
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Queue stuff</name>
-					<packageName></packageName>
-					<script>--- @submodule core
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Queue stuff</name>
+				<packageName></packageName>
+				<script>--- @submodule core
 
 --- Queue handling.
 -- This handles any queued actions we're doing including:
@@ -60385,12 +60358,12 @@ function snd.do_queue()
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Active cure framework</name>
-					<packageName></packageName>
-					<script>snd.activeCures = snd.activeCures or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Active cure framework</name>
+				<packageName></packageName>
+				<script>snd.activeCures = snd.activeCures or {}
 snd.activeCures.list = snd.activeCures.list or {}
 snd.activeCures.balanceless = snd.activeCures.balanceless or {}
 snd.activeCures.balancefree = snd.activeCures.balancefree or {}
@@ -60474,12 +60447,12 @@ function snd.activeCures.registerBalancefree(name, info)
 end
 
 registerAnonymousEventHandler("sunder_login", "snd.activeCures.reset")</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Register default cures</name>
-					<packageName></packageName>
-					<script>function snd.activeCures.registerDefault()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Register default cures</name>
+				<packageName></packageName>
+				<script>function snd.activeCures.registerDefault()
   snd.activeCures.register("fitness",
   {
     can = function()
@@ -60563,12 +60536,12 @@ registerAnonymousEventHandler("sunder_login", "snd.activeCures.reset")</script>
     end
   })
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Do stuff</name>
-					<packageName></packageName>
-					<script>--- @submodule core
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Do stuff</name>
+				<packageName></packageName>
+				<script>--- @submodule core
 
 
 --- Decide what to do based on a priority list.
@@ -60607,12 +60580,12 @@ function snd.do_stuff()
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Priorities</name>
-					<packageName></packageName>
-					<script>--make it not check a lot of non-class relevant things
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Priorities</name>
+				<packageName></packageName>
+				<script>--make it not check a lot of non-class relevant things
 function snd.trim_priorities()
   snd.reset_priorities()
   for def, info in pairs(snd.defenses) do
@@ -61140,12 +61113,12 @@ snd.priorities =
 end
 snd.reset_priorities()
  </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>method priorities</name>
-					<packageName></packageName>
-					<script>snd.method_priority = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>method priorities</name>
+				<packageName></packageName>
+				<script>snd.method_priority = {
   special = { func = function(current) snd.do_special(current) end},
   balanceneed = { func = function(current) snd.do_balance_need(current) end},
   equilibriumneed = { func = function(current) snd.do_equilibrium_need(current) end},
@@ -61174,12 +61147,12 @@ snd.reset_priorities()
   needyequilibriumtake = { func = function(current) snd.do_needy_equilibrium_take(current) end},
   balanceequilibriumtake = { func = function(current) snd.do_balance_equilibrium_take(current) end}
 }</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Manual queue</name>
-					<packageName></packageName>
-					<script>function snd.set_queue(action)
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Manual queue</name>
+				<packageName></packageName>
+				<script>function snd.set_queue(action)
   if snd.can_cast() then
     snd.send_attack(action)
   else
@@ -61188,12 +61161,12 @@ snd.reset_priorities()
     send(" ")
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Pipe lighting</name>
-					<packageName></packageName>
-					<script>--- Pipe handling.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Pipe lighting</name>
+				<packageName></packageName>
+				<script>--- Pipe handling.
 -- Checks to see if our pipes are lit and if not, lights them
 -- @function snd.do_lighting
 -- @see snd.light_up
@@ -61212,17 +61185,17 @@ function snd.light_up()
   tempTimer(snd.delay(), [[snd.waiting.lighting = false]])
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Methods</name>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Methods</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>balance</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>balance</name>
-						<packageName></packageName>
-						<script>local function sendWrapper(command)
+					<script>local function sendWrapper(command)
   if type(command) == "table" then
     command = table.concat(command, snd.sep)
   end
@@ -61386,12 +61359,12 @@ function snd.do_balance_equilibrium_take(current)
     tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>tattoo</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>tattoo</name>
+					<packageName></packageName>
+					<script>
 function snd.do_tattoo(current)
  if snd.can_cast() and snd.can_tattoo() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
   snd.send("touch "..snd.defenses[current].balance.tattoo.." tattoo")
@@ -61404,12 +61377,12 @@ function snd.do_tattoo(current)
   tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>eat</name>
-						<packageName></packageName>
-						<script>-- 
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>eat</name>
+					<packageName></packageName>
+					<script>-- 
 -- function snd.do_eat(current)
  -- if snd.defenses[current] ~= nil then
   -- if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
@@ -61458,12 +61431,12 @@ function snd.eat(current)
  snd.defenses[current].state = "waiting"
  startStopWatch(snd.defenses[current].timer)
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>drink</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>drink</name>
+					<packageName></packageName>
+					<script>
 function snd.do_drink(current)
  if snd.can_eat() then
   if snd.afflictions[current] ~= nil then
@@ -61489,12 +61462,12 @@ function snd.do_drink(current)
  end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>herb</name>
-						<packageName></packageName>
-						<script>-- 
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>herb</name>
+					<packageName></packageName>
+					<script>-- 
 -- function snd.do_herb(current)
  -- if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
   -- if snd.afflictions[current] ~= nil then
@@ -61604,12 +61577,12 @@ function snd.herb(current)
  end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>vial</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>vial</name>
+					<packageName></packageName>
+					<script>
 function snd.do_vial(current)
  if gmcp.Char.Vitals.elixir == "1" and not snd.waiting.vial and snd.can_eat() then
   if snd.afflictions[current] ~= nil then
@@ -61639,12 +61612,12 @@ function snd.do_vial(current)
  end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>salve</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>salve</name>
+					<packageName></packageName>
+					<script>
 function snd.do_salve(current)
  if gmcp.Char.Vitals.salve == "1" and not snd.waiting.salve and snd.can_apply() then
   if snd.afflictions[current] ~= nil then
@@ -61677,12 +61650,12 @@ function snd.do_salve(current)
   end
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>elixir</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>elixir</name>
+					<packageName></packageName>
+					<script>
 function snd.do_elixir(current)
  if gmcp.Char.Vitals.elixir == "1" and not snd.waiting.elixir and snd.can_eat() then
   snd.send("sip "..snd.afflictions[current].cures.elixir)
@@ -61690,12 +61663,12 @@ function snd.do_elixir(current)
   tempTimer(snd.delay(), [[snd.waiting.elixir = false]] )
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>moss</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>moss</name>
+					<packageName></packageName>
+					<script>
 function snd.do_moss(current)
  if gmcp.Char.Vitals.moss == "1" and not snd.waiting.moss and snd.can_eat() then
   snd.cur.herb = "moss"
@@ -61730,12 +61703,12 @@ function snd.do_moss(current)
   tempTimer(snd.delay(), [[snd.waiting.moss = false]] )
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>writhe</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>writhe</name>
+					<packageName></packageName>
+					<script>
 function snd.do_writhe(current)
  if snd.afflictions[current].state == "afflicted" and gmcp.Char.Vitals.writhing == "0" and (not snd.waiting.writhe) and (not string.find(current, "impale") or snd.full_balance()) then
   snd.send("writhe")
@@ -61749,12 +61722,12 @@ function snd.do_writhe(current)
  end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>concentrate</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>concentrate</name>
+					<packageName></packageName>
+					<script>
 function snd.do_concentrate(current)
  if snd.afflictions[current].state == "afflicted" and not snd.waiting.concentrate then
   snd.send("concentrate")
@@ -61767,12 +61740,12 @@ function snd.do_concentrate(current)
   startStopWatch(snd.afflictions[current].timer)
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>other</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>other</name>
+					<packageName></packageName>
+					<script>
 function snd.do_tree(current)
  limb = false
  if string.find(current, "_crippled") then
@@ -61830,12 +61803,12 @@ function snd.do_clot(current)
   end
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>smoke</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>smoke</name>
+					<packageName></packageName>
+					<script>
 function snd.do_smoke(current)
  if snd.can_smoke() then
   if snd.pipes_lit or (not snd.toggles.lighting) then
@@ -61880,12 +61853,12 @@ function snd.smoke(current)
   end
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>stand</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>stand</name>
+					<packageName></packageName>
+					<script>
 function snd.do_stand(current)
  if snd.afflictions[current].state == "afflicted" and snd.toggles.standing and (not snd.waiting.stand) and snd.full_balance() and snd.can_legs() then
   snd.send("stand")
@@ -61899,12 +61872,12 @@ function snd.do_stand(current)
  end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>fitness</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>fitness</name>
+					<packageName></packageName>
+					<script>
 function snd.do_fitness()
  if snd.can_fitness() and snd.need_fitness and snd.full_balance() then
   snd.send(snd.fitnessCommandOverride and snd.fitnessCommandOverride() or "fitness")
@@ -61915,12 +61888,12 @@ function snd.do_fitness()
   tempTimer(snd.delay(), [[snd.waiting.balance = false]])
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>purge annul</name>
-						<packageName></packageName>
-						<script>purge_threshold = 2
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>purge annul</name>
+					<packageName></packageName>
+					<script>purge_threshold = 2
 
 function snd.purge_check()
   -- Attempt to purge if don't have paralysis and have at least 2 curable physical affs.
@@ -61964,12 +61937,12 @@ function snd.do_purge()
   tempTimer(snd.delay(), [[snd.waiting.purge = false]])
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>shrugging</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>shrugging</name>
+					<packageName></packageName>
+					<script>
 function snd.do_shrug()
  if snd.full_balance() and snd.can_shrug() then
   snd.send("shrug venom")
@@ -61980,12 +61953,12 @@ function snd.do_shrug()
   tempTimer(snd.delay(), [[snd.waiting.balance = false]])
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>dome</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>dome</name>
+					<packageName></packageName>
+					<script>
 function snd.do_dome()
  if snd.full_balance() then
   snd.send("manipulate pylon for dome")
@@ -61995,12 +61968,12 @@ function snd.do_dome()
   tempTimer(snd.delay(), [[snd.waiting.balance = false]])
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>rage</name>
-						<packageName></packageName>
-						<script>function snd.do_rage()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>rage</name>
+					<packageName></packageName>
+					<script>function snd.do_rage()
   if snd.rage_check() and snd.can_rage() and snd.balance.rage then
     snd.send("rage")
     echo("(rage)")
@@ -62039,12 +62012,12 @@ function snd.rage_check()
   return false
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>purify succour</name>
-						<packageName></packageName>
-						<script>purify_threshold = 2
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>purify succour</name>
+					<packageName></packageName>
+					<script>purify_threshold = 2
 
 function snd.purify_check()
   -- Attempt to purge if don't have paralysis and have at least 2 curable physical affs.
@@ -62088,12 +62061,12 @@ function snd.do_purify()
   tempTimer(snd.delay(), [[snd.waiting.purify = false]])
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>panacea subvert</name>
-						<packageName></packageName>
-						<script>function snd.panacea_check()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>panacea subvert</name>
+					<packageName></packageName>
+					<script>function snd.panacea_check()
   if snd.balance.panacea and not snd.waiting.panacea and not (snd.have_aff("paresis") or snd.have_aff("paralysis")) then
     if snd.panacea_override then
       return snd.panacea_override()
@@ -62125,12 +62098,12 @@ function snd.do_panacea()
 end
 
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Diagnose</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Diagnose</name>
+					<packageName></packageName>
+					<script>
 function snd.do_diagnose()
  if snd.full_balance() then
   snd.send("diagnose")
@@ -62140,12 +62113,12 @@ function snd.do_diagnose()
   tempTimer(snd.delay(), [[snd.waiting.balance = false]])
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Barbed arrows</name>
-						<packageName></packageName>
-						<script>function snd.pull_arrow()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Barbed arrows</name>
+					<packageName></packageName>
+					<script>function snd.pull_arrow()
   if not snd.waiting.queue then
     snd.send("qeb pull arrow from body")
     snd.waiting.queue = true
@@ -62160,19 +62133,19 @@ function snd.pull_dagger()
     tempTimer(snd.delay(), [[snd.waiting.queue = false]])
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Misc</name>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Misc</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Mount handling</name>
 				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Mount handling</name>
-					<packageName></packageName>
-					<script>
+				<script>
 --- Mounting.
 -- Recalls and quickmounts your saved mount
 -- @function snd.mount
@@ -62209,12 +62182,12 @@ function snd.mapperAutoMount()
 end
 
 snd.registerEvent("SunderAutoMount", "mmp link externals", snd.mapperAutoMount)</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Sunder Fishing</name>
-					<packageName></packageName>
-					<script>--- Fishing
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Sunder Fishing</name>
+				<packageName></packageName>
+				<script>--- Fishing
 -- @module Fishing
 
 --- Fishing echos.
@@ -62366,12 +62339,12 @@ function get_fishing_holes(search_string, display_results, display_full_results)
   return results
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Parse who</name>
-					<packageName></packageName>
-					<script>--- Parse the who list.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Parse who</name>
+				<packageName></packageName>
+				<script>--- Parse the who list.
 -- @function snd.parse_who
 function snd.parse_who()
   snd.who_list = {}
@@ -62389,12 +62362,12 @@ function snd.parse_who_groups()
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Ylem path</name>
-					<packageName></packageName>
-					<script>--- Sunder Ylem.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Ylem path</name>
+				<packageName></packageName>
+				<script>--- Sunder Ylem.
 -- @module Ylem
 
 snd.ylem_loaded = true
@@ -62576,12 +62549,12 @@ ylm.path = {
 
 }
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Unmapped rooms</name>
-					<packageName></packageName>
-					<script>local rooms = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Unmapped rooms</name>
+				<packageName></packageName>
+				<script>local rooms = {
   {
     area = "Within the Cave",
     environment = "Divine",
@@ -62725,12 +62698,12 @@ function snd.createMissingRooms()
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Map tweaks</name>
-					<packageName></packageName>
-					<script>snd.landmarks = snd.landmarks or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Map tweaks</name>
+				<packageName></packageName>
+				<script>snd.landmarks = snd.landmarks or {}
 --tear of lleis
 snd.landmarks.tear = 19296
 
@@ -63146,12 +63119,12 @@ end
 registerAnonymousEventHandler("sysMapDownloadEvent", "snd.mapTweaks")
 registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Movement</name>
-					<packageName></packageName>
-					<script>function snd.movement(dir, modifier)
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Movement</name>
+				<packageName></packageName>
+				<script>function snd.movement(dir, modifier)
   if snd.movement_override then snd.movement_override(dir, modifier) return end
   if (snd.toggles.monomode == "on" or (snd.toggles.monomode =="calling" and snd.toggles.calling)) and not snd.toggles.fasthunt and snd.class~="Ravager" and snd.class~="Zealot" then
     snd.send("qeb get monolith"..snd.sep..dir..snd.sep.."drop monolith")
@@ -63159,12 +63132,12 @@ registerAnonymousEventHandler("sunder_login", "snd.mapTweaks")
     snd.send("qeb "..dir)
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Shopping!</name>
-					<packageName></packageName>
-					<script>snd.shopping = snd.shopping or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Shopping!</name>
+				<packageName></packageName>
+				<script>snd.shopping = snd.shopping or {}
 snd.shopping.elixirs = {
   "health",
   "mana",
@@ -63266,12 +63239,12 @@ function snd.shopping.empty(item)
       snd.send("fc consume "..fluid, false)
     end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Color table tweaks</name>
-					<packageName></packageName>
-					<script>color_table.light_firebrick = {235, 53, 53}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Color table tweaks</name>
+				<packageName></packageName>
+				<script>color_table.light_firebrick = {235, 53, 53}
 color_table.bright_cyan = {79, 245, 239}
 color_table.light_violet = {160, 157, 247} 
 color_table.a_darkred = {128, 0, 0}
@@ -63290,12 +63263,12 @@ color_table.a_magenta = {255, 0, 255}
 color_table.a_cyan = {0, 255, 255}
 color_table.a_white = {255, 255, 255}
 color_table.chat_bg = {25, 25, 25}</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>bongomoth</name>
-					<packageName></packageName>
-					<script>snd.bongomoth = [[
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>bongomoth</name>
+				<packageName></packageName>
+				<script>snd.bongomoth = [[
 ⠀⢀⣴⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠈⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠐⢕⣣⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -63319,12 +63292,12 @@ color_table.chat_bg = {25, 25, 25}</script>
 ⣿⣻⣿⣻⡷⣿⢿⣽⣯⣿⣻⣿⣽⡾⣷⣟⣿⣻⣟⣯⣿⣻⣾⢿⣻⡿⣾⢿⣻⣿⣻⣟⣷⣟⣯⣿⣻⣾⣟⣯⡿⣷⢿⡿⣾⣟⣿⢯⣿⣟⣿⣻⡿⣶⣦⣤⣈⣉⢁⠀⠀⠀⠀
 ⣽⡿⣾⣯⣿⣟⣿⣻⣾⢯⣿⢾⡷⣿⣻⣽⣯⡿⣯⣿⣽⣯⣿⣻⣿⣽⣿⣻⣯⣿⡽⣯⣷⢿⣯⣿⣽⣾⣯⢿⣻⣯⣿⣟⣿⢾⣻⡿⣷⣟⣷⢿⣻⡿⣾⣻⣯⣿⢷⣷⣶⣤⣄
 ]]</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>utils</name>
-					<packageName></packageName>
-					<script>snd.utils = snd.utils or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>utils</name>
+				<packageName></packageName>
+				<script>snd.utils = snd.utils or {}
 
 function snd.utils.i_collect(tab, func)
   local result = {}
@@ -63349,12 +63322,12 @@ function snd.utils.venomify(tab)
   end
   return result
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>rpalert</name>
-					<packageName></packageName>
-					<script>local header = 
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>rpalert</name>
+				<packageName></packageName>
+				<script>local header = 
 [[  ____   ___  _     _____ ____  _        _ __   __     _    _     _____ ____ _____ 
  |  _ \ / _ \| |   | ____|  _ \| |      / \\ \ / /    / \  | |   | ____|  _ \_   _|
  | |_) | | | | |   |  _| | |_) | |     / _ \\ V /    / _ \ | |   |  _| | |_) || |  
@@ -63373,12 +63346,12 @@ for _, text in ipairs(textTable) do
 end
 cecho("\n"..string.rep("~=",41).."~")
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>random</name>
-					<packageName></packageName>
-					<script>snd = snd or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>random</name>
+				<packageName></packageName>
+				<script>snd = snd or {}
 snd.random = snd.random or {}
 snd.random.cache = snd.random.cache or {}
 
@@ -63413,18 +63386,18 @@ end
 function snd.random.clearCache(name)
   snd.random.cache[name] = nil
 end</script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Defenses</name>
-				<packageName></packageName>
-				<script></script>
 				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>defense table</name>
-					<packageName></packageName>
-					<script>local defenses = {
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Defenses</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>defense table</name>
+				<packageName></packageName>
+				<script>local defenses = {
   -- Probably handled by firstaid anyways, otherwise auto assume people have plants/vials.
   def_waterbreathing = { defense = "waterbreathing", type = "normal", effect = "Prevents choking underwater", balance = { herb = "waterbreathing" }, skill = "Generic" },
   def_instawake      = { defense = "instawake", type = "normal", effect = "Removes the WAKE delay", balance = { herb = "stimulant" }, skill = "Generic" },
@@ -64134,12 +64107,12 @@ for name, obj in pairs(defenses) do
   if snd.defenses[name].timer == nil then snd.defenses[name].timer = createStopWatch() end
   if snd.defenses[name].state == nil then snd.defenses[name].state = "down" end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>give take defenses</name>
-					<packageName></packageName>
-					<script>--- Sunder Defenses.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>give take defenses</name>
+				<packageName></packageName>
+				<script>--- Sunder Defenses.
 -- @module Defenses
 
 local formDefs = {
@@ -64256,12 +64229,12 @@ function snd.def_remove(defense)
     snd.defenses[defense].state = "down"
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>most defenses</name>
-					<packageName></packageName>
-					<script>snd.defenses_list = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>most defenses</name>
+				<packageName></packageName>
+				<script>snd.defenses_list = {
   ["You are attuned to local telepathic interference."] = "telesense",
   ["You are camouflaging yourself."] = "camouflage",
   ["You are trying to absorb blows to your body."] = "bodyblock",
@@ -64839,12 +64812,12 @@ end</script>
   ["You are blind with primal rage."] = "berserk",
 }
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Class catch</name>
-					<packageName></packageName>
-					<script>--- Set some alternate defenses for classes that use the same defense name
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Class catch</name>
+				<packageName></packageName>
+				<script>--- Set some alternate defenses for classes that use the same defense name
 -- @function class_catch
 
 snd.alternative_class_defenses = {
@@ -64965,12 +64938,12 @@ function class_catch()
     snd.defenses.def_insomnia = snd.alternative_class_defenses.Skill_insomnia
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Goggles</name>
-					<packageName></packageName>
-					<script>function snd.goggle_update()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Goggles</name>
+				<packageName></packageName>
+				<script>function snd.goggle_update()
   local goggle_defenses = {
     --heatsight = {level = 1, non_goggle_method = {needybalancetake = "heatsight"}, non_goggle_skill = "Heatsight"},
     nightsight = { level = 1, non_goggle = { special = "nightsight" }, non_goggle_skill = "Nightsight" },
@@ -64993,12 +64966,12 @@ end</script>
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Manually raise/lower defenses</name>
-					<packageName></packageName>
-					<script>local function fixName(defense)
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Manually raise/lower defenses</name>
+				<packageName></packageName>
+				<script>local function fixName(defense)
   defense = defense:lower()
   if not string.find(defense, "def_") then
     defense = "def_"..defense
@@ -65038,12 +65011,12 @@ function snd.unkeep_def(def)
   snd.defenses[def].needit = false
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>load defenses</name>
-					<packageName></packageName>
-					<script>snd.defenses_loaded = true
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>load defenses</name>
+				<packageName></packageName>
+				<script>snd.defenses_loaded = true
 
 function snd.load_def(option)
   snd.defupPending = option
@@ -65112,12 +65085,12 @@ function snd.load_def2(option)
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>defense options</name>
-					<packageName></packageName>
-					<script>snd.def_options = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>defense options</name>
+				<packageName></packageName>
+				<script>snd.def_options = {
 
   none = {
 
@@ -65639,12 +65612,12 @@ end
 
 }
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>dodging</name>
-					<packageName></packageName>
-					<script>snd.current_dodge = nil
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>dodging</name>
+				<packageName></packageName>
+				<script>snd.current_dodge = nil
 snd.waiting.dodge = nil
 
 --- Logic to determine how to dodge.
@@ -65669,12 +65642,12 @@ function snd.dodge()
   tempTimer(snd.delay(), [[snd.waiting.dodge = false]])
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Sunder Parrying</name>
-					<packageName></packageName>
-					<script>--- Sunder Parrying module.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Sunder Parrying</name>
+				<packageName></packageName>
+				<script>--- Sunder Parrying module.
 -- @module Parrying
 
 
@@ -65832,18 +65805,18 @@ function snd.parrying.set_static_parry(limb)
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Afflictions (self)</name>
-				<packageName></packageName>
-				<script></script>
 				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>give take afflictions</name>
-					<packageName></packageName>
-					<script>--- placeholder.
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Afflictions (self)</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>give take afflictions</name>
+				<packageName></packageName>
+				<script>--- placeholder.
 
 --- This function checks afflictions that have been marked as "waiting" and applies their afflicted status if they meet that criteria.
 -- @function snd.aff_check
@@ -65982,12 +65955,12 @@ function snd.aff_remove(affliction)
     end
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Affliction timers</name>
-					<packageName></packageName>
-					<script>snd.affTimers = snd.affTimers or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Affliction timers</name>
+				<packageName></packageName>
+				<script>snd.affTimers = snd.affTimers or {}
 snd.affTimers.list = snd.affTimers.list or {}
 
 --- Stop all affliction timers.
@@ -66031,12 +66004,12 @@ function snd.affTimers.start(aff, time, reset) --reset is true if it'll reset th
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>clear</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>clear</name>
+				<packageName></packageName>
+				<script>
 function snd.clear_afflictions(type)
  snd.clear_affs = {}
  for i in pairs(snd.afflictions) do
@@ -66059,12 +66032,12 @@ function snd.clear_afflictions(type)
  end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Timer</name>
-					<packageName></packageName>
-					<script>timer = timer or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Timer</name>
+				<packageName></packageName>
+				<script>timer = timer or {}
 timer.values = timer.values or {}
 
 -- Usage:
@@ -66125,12 +66098,12 @@ function timer:script()
 end
 
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>affliction table</name>
-					<packageName></packageName>
-					<script>snd.afflictions = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>affliction table</name>
+				<packageName></packageName>
+				<script>snd.afflictions = {
   aff_oblivion        = { effect = "Death unless you interrupt the bard" },
   aff_blindness       = { effect = "negates accuracy for 1s every 8s", cures = { salve = "press epidermal to head" } },
   aff_deafness        = { effect = "Grants attackers 15% accuracy bonus", cures = { salve = "press epidermal to head" } },
@@ -66659,12 +66632,12 @@ for aff, info in pairs(snd.afflictions) do
   if not info.cures then info.cures = {} end
   if not info.effect then info.effect = "" end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Check afflictions on self</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Check afflictions on self</name>
+				<packageName></packageName>
+				<script>
 function snd.have_aff(affliction)
   if not string.find(affliction, "aff_") then
     affliction = "aff_" .. affliction
@@ -66751,12 +66724,12 @@ function snd.not_aff(affliction)
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Predictions</name>
-					<packageName></packageName>
-					<script>snd.predictions = {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Predictions</name>
+				<packageName></packageName>
+				<script>snd.predictions = {}
 
 function snd.predict(aff)
   if not snd.phave_aff(aff) then
@@ -66793,18 +66766,18 @@ function snd.pchecksomeSelfAffs(afflictions, number)
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Phonebook (NPB)</name>
-				<packageName></packageName>
-				<script></script>
 				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Sunder Phonebook</name>
-					<packageName></packageName>
-					<script>--- Neri's Phone Book: Sunder Edition
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Phonebook (NPB)</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Sunder Phonebook</name>
+				<packageName></packageName>
+				<script>--- Neri's Phone Book: Sunder Edition
 -- @module phonebook
 npb = npb or {}
 npb.t = npb.t or {}
@@ -66873,12 +66846,12 @@ function npb.echo(args)
 end
 
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>City guesses</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>City guesses</name>
+				<packageName></packageName>
+				<script>
 npb.city_guess = {
   -- duiran
   ["Heartwood Yews"] = "duiran",
@@ -66907,12 +66880,12 @@ npb.city_guess = {
 
 npb.order = { "Bloodloch", "Duiran", "Enorian", "Spinesreach", "Rogues", "Divine" }
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>People management</name>
-					<packageName></packageName>
-					<script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>People management</name>
+				<packageName></packageName>
+				<script>
 function npb.add_person(person, person_data, force)
   if npb.t.people[person] and npb.t.people[person].locked and not force then return end
 
@@ -67007,12 +66980,12 @@ function npb.set_city(person, city)
   current.locked = true
   npb.add_or_update_person(person, current, true)
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Highlighting</name>
-					<packageName></packageName>
-					<script>--- @section highlighting
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Highlighting</name>
+				<packageName></packageName>
+				<script>--- @section highlighting
 
 
 --- Function to disable player highlighting
@@ -67131,12 +67104,12 @@ function npb.do_highlight(name, color)
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>utility functions</name>
-					<packageName></packageName>
-					<script>npb = npb or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>utility functions</name>
+				<packageName></packageName>
+				<script>npb = npb or {}
 
 function npb.color_person(who, city)
   npb.init()
@@ -67161,12 +67134,12 @@ function npb.disable()
   npb.disable_highlights()
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>SndNDB api</name>
-					<packageName></packageName>
-					<script>--- @section sndNDB
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>SndNDB api</name>
+				<packageName></packageName>
+				<script>--- @section sndNDB
 
 function sndNDB_getColour(name)
   if not sndNDB_Exists(name) then
@@ -67240,12 +67213,12 @@ function sndNDB_Remove(name)
   end
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>QWS</name>
-					<packageName></packageName>
-					<script>--- Fetch the characters.json from the API
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>QWS</name>
+				<packageName></packageName>
+				<script>--- Fetch the characters.json from the API
 -- @function npb.getOnlineCharacters
 function npb.getOnlineCharacters()
   getHTTP("api.aetolia.com/characters.json")
@@ -67335,23 +67308,23 @@ function npb.qwsorted(people)
 end
 
 </script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Offense</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
 			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Offense</name>
+				<name>Variables</name>
 				<packageName></packageName>
 				<script></script>
 				<eventHandlerList />
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Variables</name>
+				<Script isActive="yes" isFolder="no">
+					<name>PvP variables</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>PvP variables</name>
-						<packageName></packageName>
-						<script>snd.offense_loaded = true
+					<script>snd.offense_loaded = true
 snd.hitting = "none"
 
 snd.using_both_hands = 0
@@ -67557,12 +67530,12 @@ snd.target_impaled = false -- do we specifically have our target imapled
 snd.fleshbaneStacks = 0
 
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Cure tables</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Cure tables</name>
+					<packageName></packageName>
+					<script>
 
 snd.cures = {
 
@@ -67797,12 +67770,12 @@ snd.cures = {
   }
 
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Entangle afflictions</name>
-						<packageName></packageName>
-						<script>snd.entangleaffs = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Entangle afflictions</name>
+					<packageName></packageName>
+					<script>snd.entangleaffs = {
   "writhe_transfix",
   "writhe_impaled",
   "writhe_web",
@@ -67816,12 +67789,12 @@ snd.cures = {
 }
 
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Cureset skills</name>
-						<packageName></packageName>
-						<script>snd.cureset_skills = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Cureset skills</name>
+					<packageName></packageName>
+					<script>snd.cureset_skills = {
   ascendril = { "Elemancy", "Arcanism", "Thaumaturgy", "Humourism", "Hematurgy", "Esoterica" },
   sciomancer = { "Sciomancy", "Sorcery", "Gravitation", "Malediction", "Runecarving", "Sporulation" },
   indorani = { "Necromancy", "Tarot", "Domination", "Hyalincuru", "Contracts", "Oneiromancy" },
@@ -67843,13 +67816,13 @@ snd.cures = {
   siderealist = { "Astranomia", "Crystalism", "Ostension" },
 }
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<Script isActive="yes" isFolder="no">
-					<name>Assist skills</name>
-					<packageName></packageName>
-					<script>snd.assistSkills = {
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>Assist skills</name>
+				<packageName></packageName>
+				<script>snd.assistSkills = {
   ["ancestry intercept"] = true,
   ["deathlore shield"] = true,
 
@@ -67920,12 +67893,12 @@ snd.cures = {
   ["astral ambrosia"] = true,
   ["glacian erase"] = true,
 }</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Effects and venoms</name>
-					<packageName></packageName>
-					<script>snd.effects = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Effects and venoms</name>
+				<packageName></packageName>
+				<script>snd.effects = {
   --venoms
   watery_eyes = "oculus",
   -- blurry_vision = "oculus",
@@ -68056,17 +68029,17 @@ function snd.rev_empower(aff)
     return revenant[aff]
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Special Cures</name>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Special Cures</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Expunge</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Expunge</name>
-						<packageName></packageName>
-						<script>function snd.handleExpunge()
+					<script>function snd.handleExpunge()
   for aff in pairs(snd.physical_affs) do
     if snd.checkAff(snd.physical_affs[aff]) then
       if string.find(snd.physical_affs[aff], "_crippled") then
@@ -68083,12 +68056,12 @@ end</script>
     end
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Rage</name>
-						<packageName></packageName>
-						<script>function snd.handleRage()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Rage</name>
+					<packageName></packageName>
+					<script>function snd.handleRage()
   for _, aff in pairs(snd.cures.steroid) do
     if snd.checkAff(aff) then
       snd.target_cured(aff)
@@ -68096,12 +68069,12 @@ end</script>
     end
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Fitness</name>
-						<packageName></packageName>
-						<script>function snd.handleFitness()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Fitness</name>
+					<packageName></packageName>
+					<script>function snd.handleFitness()
   if snd.checkAff("asthma") then
     snd.target_cured("asthma")
     -- snd.target_got("exhaustion")
@@ -68109,12 +68082,12 @@ end</script>
 end
 
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Restore</name>
-						<packageName></packageName>
-						<script>function snd.handleRestore()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Restore</name>
+					<packageName></packageName>
+					<script>function snd.handleRestore()
   local limbs = {"right arm", "left arm", "left leg", "right leg"}
  
   for _, v in pairs(limbs) do
@@ -68124,18 +68097,18 @@ end
     end
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Class specific stuff</name>
-					<packageName></packageName>
-					<script></script>
 					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Archivist aff picking</name>
-						<packageName></packageName>
-						<script>snd.shape_affs = {
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Class specific stuff</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Archivist aff picking</name>
+					<packageName></packageName>
+					<script>snd.shape_affs = {
   "mercy",
   "masochism",
   "mania",
@@ -68165,12 +68138,12 @@ snd.shape_attacks = {
   shyness = "square",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Voidseer aff picking</name>
-						<packageName></packageName>
-						<script>snd.foment_affs = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Voidseer aff picking</name>
+					<packageName></packageName>
+					<script>snd.foment_affs = {
   "mercy",
   "masochism",
   "mania",
@@ -68200,12 +68173,12 @@ snd.foment_attacks = {
   shyness = "fear",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Sentinel Scripts and Tables</name>
-						<packageName></packageName>
-						<script>snd.dhuriv_affs =
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Sentinel Scripts and Tables</name>
+					<packageName></packageName>
+					<script>snd.dhuriv_affs =
 {
   "impatience",
   "destroyed_throat",
@@ -68354,12 +68327,12 @@ function Sentinel_Attack_Choice(giving, left, right)
   ---- Return our attack choices back to the main alias.
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Executor Scripts and Tables</name>
-						<packageName></packageName>
-						<script>snd.ringblade_affs =
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Executor Scripts and Tables</name>
+					<packageName></packageName>
+					<script>snd.ringblade_affs =
   {
     "impatience",
     "destroyed_throat",
@@ -68510,12 +68483,12 @@ snd.accost_accomplices =
     ---- Return our attack choices back to the main alias.
   end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Indorani Oneiromancer card table</name>
-						<packageName></packageName>
-						<script>--Nested tables incase someone wants to add a devil y/n field to cards and change picking based on it, though so few use it that it may not come to fruition.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Indorani Oneiromancer card table</name>
+					<packageName></packageName>
+					<script>--Nested tables incase someone wants to add a devil y/n field to cards and change picking based on it, though so few use it that it may not come to fruition.
 snd.cardshapes =
 {
   indorani =
@@ -68583,12 +68556,12 @@ for aff, source in pairs(snd.effects) do
   end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Bard attack stuff</name>
-						<packageName></packageName>
-						<script>snd.globecount = 0
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Bard attack stuff</name>
+					<packageName></packageName>
+					<script>snd.globecount = 0
 snd.singing = false
 snd.playing = false
 snd.song = "none"
@@ -68728,12 +68701,12 @@ snd.runeband_affs = {
 
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Akkari Attack Stuff</name>
-						<packageName></packageName>
-						<script>snd.primary_aff = {}
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Akkari Attack Stuff</name>
+					<packageName></packageName>
+					<script>snd.primary_aff = {}
 
 snd.doctrine = "none"
 
@@ -69017,36 +68990,36 @@ function snd.akkari_inquisition()
   return seizeMana
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Scourge Affs (Sciomancer and Runecarver)</name>
-						<packageName></packageName>
-						<script>snd.scourge_affs = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Scourge Affs (Sciomancer and Runecarver)</name>
+					<packageName></packageName>
+					<script>snd.scourge_affs = {
 		"dizziness",
 		"nyctophobia",
 		"confusion",
 		"dementia",
 		"faintness",
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Monk Stuff</name>
-						<packageName></packageName>
-						<script>function cantBeParried()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Monk Stuff</name>
+					<packageName></packageName>
+					<script>function cantBeParried()
   if (snd.checkAff("a broken right arm") and snd.checkAff("a broken left arm")) or snd.checkAff("numb_arms") or snd.checkAff("paresis") or snd.checkAff("paralysis") then
 		return true
 		else
 		return false
 	end 
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Teradrim Tidesage stuff</name>
-						<packageName></packageName>
-						<script>local mirrors = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Teradrim Tidesage stuff</name>
+					<packageName></packageName>
+					<script>local mirrors = {
   ram = "gutsmash",
   crest = "facesmash",
   clobber = "batter",
@@ -69093,12 +69066,12 @@ function snd.calcTeradrimLimbDamage(skill, you, limb)
   return round(damage, 2)
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Predator</name>
-						<packageName></packageName>
-						<script>function snd.setPredatorVenom()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Predator</name>
+					<packageName></packageName>
+					<script>function snd.setPredatorVenom()
 	if not snd.predatorVenom then
     if snd.maybe_affs[1] then
     snd.predatorVenom = snd.maybe_affs[1]
@@ -69108,12 +69081,12 @@ end
     end
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Zealot ravager</name>
-						<packageName></packageName>
-						<script>snd.zealotChainMap = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Zealot ravager</name>
+					<packageName></packageName>
+					<script>snd.zealotChainMap = {
   sore_ankle = "anklepin",
   watery_eyes = "jawcrack",
   backstrain = "descent",
@@ -69129,12 +69102,12 @@ snd.ravagerChainMap = {
   whiplash = "whiplash",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Lumi and Earthcaller shield stuff</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Lumi and Earthcaller shield stuff</name>
+					<packageName></packageName>
+					<script>
 snd.spirituality_attacks = {
   paresis = "shield strike",
   no_courage = "shield brilliance",
@@ -69157,12 +69130,12 @@ snd.subjugation_attacks = {
   writhe_transfix = "tectonic transfixion",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Wardifex hounds</name>
-						<packageName></packageName>
-						<script>snd.hound_queue = {}
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Wardifex hounds</name>
+					<packageName></packageName>
+					<script>snd.hound_queue = {}
 
 snd.hound_attacks = {
   ["Carnifex"] = {
@@ -69208,12 +69181,12 @@ snd.hound_attacks = {
     assault = "assault",
   }
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Resins</name>
-						<packageName></packageName>
-						<script>snd.resins = snd.resins or {}
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Resins</name>
+					<packageName></packageName>
+					<script>snd.resins = snd.resins or {}
 snd.resins.cold = snd.resins.cold or "none"
 snd.resins.hot = snd.resins.hot or "none"
 snd.resins.burning = snd.resins.burning or false
@@ -69337,18 +69310,18 @@ function snd.resins.getAction(cold, hot)
   end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Targetting</name>
-					<packageName></packageName>
-					<script></script>
 					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>set target</name>
-						<packageName></packageName>
-						<script>
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Targetting</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>set target</name>
+					<packageName></packageName>
+					<script>
 function snd.setTarget(target)
   snd.target = string.title(target:lower())
   if snd.toggles.calling then
@@ -69372,12 +69345,12 @@ end
 
 
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Target list functions</name>
-						<packageName></packageName>
-						<script>snd.targeting = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Target list functions</name>
+					<packageName></packageName>
+					<script>snd.targeting = {
   auto = false,
   list = {},
   burst = false,
@@ -69530,12 +69503,12 @@ function snd.get_new_target()
   if snd.targeting.skip then snd.targeting.skip = false end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Target listening</name>
-						<packageName></packageName>
-						<script>function snd.targetListening()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Target listening</name>
+					<packageName></packageName>
+					<script>function snd.targetListening()
   local event = gmcp.Comm.Channel.Text
 
   if event.channel ~= "web" then return end
@@ -69567,12 +69540,12 @@ end
 end
 
 snd.registerEvent("SunderTargetListen", "gmcp.Comm.Channel.Text", snd.targetListening)</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>No target</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>No target</name>
+					<packageName></packageName>
+					<script>
 function snd.no_target()
   --deleteLine()
   --snd.message("Need new targets!")
@@ -69601,18 +69574,18 @@ function snd.untarget()
     snd.bashing.stopping = false
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Target tracking</name>
-					<packageName></packageName>
-					<script></script>
 					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>tracking functions</name>
-						<packageName></packageName>
-						<script>
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Target tracking</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>tracking functions</name>
+					<packageName></packageName>
+					<script>
 function snd.affNameCheck(aff)
   local affs_to_change = {
     ["crippled left leg"] = "left_leg_crippled",
@@ -69965,12 +69938,12 @@ function snd.bruisingEcho(limb, gain)
   cecho((gain and " &lt;green&gt;" or " &lt;red&gt;") .. limb .. " bruised " .. snd.limb_bruising[limb])
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Pendulum</name>
-						<packageName></packageName>
-						<script>local pendulum_table =
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Pendulum</name>
+					<packageName></packageName>
+					<script>local pendulum_table =
 {
   ["left arm"] = { ["clockwise"] = "right arm", ["anti-clockwise"] = "left leg" },
   ["right arm"] = { ["clockwise"] = "right leg", ["anti-clockwise"] = "left arm" },
@@ -70049,12 +70022,12 @@ function snd.pendulum(direction)
     snd.target_got("feeble_legs")
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Onhit</name>
-						<packageName></packageName>
-						<script>local conditionalCounts = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Onhit</name>
+					<packageName></packageName>
+					<script>local conditionalCounts = {
   ["Double Aff"] = 2,
   ["Triple Aff"] = 3,
   ["Teradrim Skullbash"] = 3,
@@ -70107,12 +70080,12 @@ function snd.onHit2(checks, conditional)
     disableTrigger("Syssin Hit Confirmation")
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Check afflictions on target</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Check afflictions on target</name>
+					<packageName></packageName>
+					<script>
 
 --- Check if affliction exists on target
 -- @function snd.checkAff
@@ -70276,12 +70249,12 @@ function snd.target_locked()
   return false
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Reset target</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Reset target</name>
+					<packageName></packageName>
+					<script>
 --- Reset target state.
 -- Completely resets your target, removing all limb trauma, resetting any cure timers, killing all timed afflictions.
 -- Raises event sunder_enemy_limbs_updated and sunder_my_limbs_updated
@@ -70354,12 +70327,12 @@ function snd.reset_target()
   raiseEvent("sunder_enemy_limbs_updated")
   raiseEvent("sunder_my_limbs_updated")
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Prone stuff</name>
-						<packageName></packageName>
-						<script>--- Check to see if our target is prone.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Prone stuff</name>
+					<packageName></packageName>
+					<script>--- Check to see if our target is prone.
 -- Note: prone is different from fallen, but fallen gives the prone status
 -- @function snd.proned
 -- @return boolean
@@ -70419,12 +70392,12 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
   snd.jawlocked = false
   snd.target_impaled = false
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Parry checking</name>
-						<packageName></packageName>
-						<script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Parry checking</name>
+					<packageName></packageName>
+					<script>
 --- Check to see if our target can parry.
 -- @function snd.no_parry
 -- @return boolean
@@ -70480,17 +70453,17 @@ function snd.teardown()
   end
   return false
 end</script>
-						<eventHandlerList />
-					</Script>
-					<ScriptGroup isActive="yes" isFolder="yes">
-						<name>Salve</name>
+					<eventHandlerList />
+				</Script>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Salve</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>Generic applies</name>
 						<packageName></packageName>
-						<script></script>
-						<eventHandlerList />
-						<Script isActive="yes" isFolder="no">
-							<name>Generic applies</name>
-							<packageName></packageName>
-							<script>snd.genericApplies =
+						<script>snd.genericApplies =
   {
     legs = {"left leg", "right leg"},
     arms = {"left arm", "right arm"},
@@ -70502,12 +70475,12 @@ end</script>
     ["torso"] = {"torso"},
     ["head"] = {"head"},
   }</script>
-							<eventHandlerList />
-						</Script>
-						<Script isActive="yes" isFolder="no">
-							<name>mending tracking</name>
-							<packageName></packageName>
-							<script>local mendingCures =
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>mending tracking</name>
+						<packageName></packageName>
+						<script>local mendingCures =
   {
     ["head"] =
       {
@@ -70609,12 +70582,12 @@ function snd.mendingApply(location)
     end
   end
 end</script>
-							<eventHandlerList />
-						</Script>
-						<Script isActive="yes" isFolder="no">
-							<name>restoration tracking</name>
-							<packageName></packageName>
-							<script>snd.resto_cure_order =
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>restoration tracking</name>
+						<packageName></packageName>
+						<script>snd.resto_cure_order =
   {
     ["head"] =
       {
@@ -70730,12 +70703,12 @@ function snd.restoApply2(limb)
   end
   return false
 end</script>
-							<eventHandlerList />
-						</Script>
-						<Script isActive="yes" isFolder="no">
-							<name>Other salves</name>
-							<packageName></packageName>
-							<script>local salveCures =
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Other salves</name>
+						<packageName></packageName>
+						<script>local salveCures =
 {
   soothing =
   {
@@ -70807,14 +70780,14 @@ function snd.salveApply(cure, location)
   end
 end
 </script>
-							<eventHandlerList />
-						</Script>
-					</ScriptGroup>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
-				<Script isActive="yes" isFolder="no">
-					<name>attack function</name>
-					<packageName></packageName>
-					<script>local wf_axe_count = {
+			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>attack function</name>
+				<packageName></packageName>
+				<script>local wf_axe_count = {
   chop = 1,
   sweep = 1,
   lacerate = 1,
@@ -70952,12 +70925,12 @@ function snd.handle_hounds()
 end
 
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>alerts</name>
-					<packageName></packageName>
-					<script>function snd.run_alerts()
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>alerts</name>
+				<packageName></packageName>
+				<script>function snd.run_alerts()
   local string = ""
   if snd.alert_tick &gt;= 5 then
     snd.alert_tick = 0
@@ -71020,12 +70993,12 @@ end
     snd.alert_tick = snd.alert_tick + 1
   end
 end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>misc</name>
-					<packageName></packageName>
-					<script>--- Placeholder.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>misc</name>
+				<packageName></packageName>
+				<script>--- Placeholder.
 
 --- Check for missing affs from a string.
 -- Takes a string of separated afflictions and checks to see which are missing
@@ -71069,12 +71042,12 @@ function snd.loban_no_more(text)
   return new_word
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>All attacks</name>
-					<packageName></packageName>
-					<script>snd.all_class_attacks = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>All attacks</name>
+				<packageName></packageName>
+				<script>snd.all_class_attacks = {
   ["Enchantment"] = {
     Frostblast = function(target)
       snd.target_got("cold")
@@ -71790,7 +71763,7 @@ end
     end,
     Disembowel = function(target)
       snd.target_impaled = false
-      snd.removeProneStates()
+      snd.target_cured("writhe_impaled")
     end,
     Raze = function(target, defense)
       if defense == "shield" then
@@ -75883,12 +75856,12 @@ end
   },
 }
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Calculate stuff</name>
-					<packageName></packageName>
-					<script>snd.calc = snd.calc or {}
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Calculate stuff</name>
+				<packageName></packageName>
+				<script>snd.calc = snd.calc or {}
 
 --calculate how long it will take a target to writhe off an impale
 function snd.calc.writhetime()
@@ -75953,17 +75926,17 @@ function snd.calc.sepsis()
   return 0
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Timers</name>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Timers</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>setup + query function</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>setup + query function</name>
-						<packageName></packageName>
-						<script>
+					<script>
 snd.timers = snd.timers or {}
 snd.timers.pill = snd.timers.pill or {}
 snd.timers.focus = snd.timers.focus or {}
@@ -76037,12 +76010,12 @@ function snd.timer_get_time(which)
     return 0
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>method specific timer functions</name>
-						<packageName></packageName>
-						<script>function snd.aeon_got()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>method specific timer functions</name>
+					<packageName></packageName>
+					<script>function snd.aeon_got()
   snd.aeonTime = getEpoch()
 end
 
@@ -76210,19 +76183,19 @@ function snd.eqbal_timer_check(timer, time, mode)
     return (mode == "more than") == (adjusted_time &gt; time)
 end
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Bashing</name>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Bashing</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Sunder Bashing Core</name>
 				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Sunder Bashing Core</name>
-					<packageName></packageName>
-					<script>--- Sunder Bashing Functions
+				<script>--- Sunder Bashing Functions
 -- @module Bashing
 
 snd.bashing_loaded = true
@@ -76330,12 +76303,12 @@ function snd.runPath(pathname)
   snd_bashAreas(table.concat(snd.paths[pathname], ", "):lower())
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Bashing toggles</name>
-					<packageName></packageName>
-					<script>--- Autobashing.
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Bashing toggles</name>
+				<packageName></packageName>
+				<script>--- Autobashing.
 -- Toggles autobashing on. Also defups vigor and turns on leading so you don't loose people following you
 -- @function snd.aa
 function snd.aa()
@@ -76345,12 +76318,12 @@ function snd.aa()
   snd.send("leading on")
 end
 </script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Bashing razes</name>
-					<packageName></packageName>
-					<script>snd.bashing_razes = {
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Bashing razes</name>
+				<packageName></packageName>
+				<script>snd.bashing_razes = {
   ["Tattoos Hammer"] = true,
   ["Spirituality Raze"] = true,
   ["Subjugation Raze"] = true,
@@ -76398,17 +76371,17 @@ end
   ["Instinct Terrorise"] = true,
   ["Morale Celebrate"] = true,
 }</script>
-					<eventHandlerList />
-				</Script>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Smack things!</name>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Smack things!</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Sunder Bashing Class Functions</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Sunder Bashing Class Functions</name>
-						<packageName></packageName>
-						<script>--- @module Bashing
+					<script>--- @module Bashing
 
 --- akkari bashing function.
 -- @function snd.akkari_bash
@@ -77472,12 +77445,12 @@ function snd.none_bash() --super basic bashing function for 200's.
   end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Main bashing function</name>
-						<packageName></packageName>
-						<script>--- Bashing function, picks attacks based on your class.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Main bashing function</name>
+					<packageName></packageName>
+					<script>--- Bashing function, picks attacks based on your class.
 -- @function snd.bashing_function
 function snd.bashing_function()
   if not snd.room_clear then
@@ -77591,12 +77564,12 @@ function snd.bashing_cleanup()
   end
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Run basher</name>
-						<packageName></packageName>
-						<script>--- Bashing loop.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Run basher</name>
+					<packageName></packageName>
+					<script>--- Bashing loop.
 -- @function snd.runBasher
 function snd.runBasher()
   if snd.waitingOnReanimation then return end
@@ -77670,12 +77643,12 @@ function snd.runBasher()
   snd.core()
 end
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Grab things!</name>
-						<packageName></packageName>
-						<script>--- Check to see if we're able to loot.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Grab things!</name>
+					<packageName></packageName>
+					<script>--- Check to see if we're able to loot.
 -- @function snd.do_loot
 -- @see snd.loot_it
 function snd.do_loot()
@@ -77703,18 +77676,18 @@ function snd.loot_it()
 end
 
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Targets</name>
-					<packageName></packageName>
-					<script></script>
 					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Global targets and items</name>
-						<packageName></packageName>
-						<script>snd.global_items = {
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Targets</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Global targets and items</name>
+					<packageName></packageName>
+					<script>snd.global_items = {
   -- "a sample of fur and hide",
   -- "a dirt sample",
   -- "a delicate flora sample",
@@ -77803,12 +77776,12 @@ snd.global_targets = {
   "a deserter",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Targeting</name>
-						<packageName></packageName>
-						<script>--- Get bashing target from list.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Targeting</name>
+					<packageName></packageName>
+					<script>--- Get bashing target from list.
 -- @function snd.getTarget
 -- @param tab table of valid targets
 -- @param exclude table of targets to exclude
@@ -77835,12 +77808,12 @@ function snd.getTarget(tab, exclude)
     end
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Load area</name>
-						<packageName></packageName>
-						<script>--- Load targets for an area.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Load area</name>
+					<packageName></packageName>
+					<script>--- Load targets for an area.
 -- @param area
 function snd.load_targets(area)
  snd.my.area = area
@@ -77869,12 +77842,12 @@ function snd.load_targets(area)
   cecho("\n&lt;green&gt;Unknown Area.")
  end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Area and target lists</name>
-						<packageName></packageName>
-						<script>--- List of targets by area.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Area and target lists</name>
+					<packageName></packageName>
+					<script>--- List of targets by area.
 -- @table snd.areas
 
 snd.areas = {
@@ -78032,7 +78005,6 @@ snd.areas = {
   ["a memory of Relovec Mansion"] = {level = "Bring friends", targets = {"an enraged memory of a female servant", "an enraged memory of a male servant", "an enraged memory of a female villager", "an enraged memory of a male villager"}},
   ["the Tarblack Marshes"] = {level = "gloop gloop", targets = {"a grotesque bloater", "a tarclaw caiman", "a rock scorpion", "a lumbering stonefiend"}},
   ["the Crimson Coast"] = {level = "99+", targets = {"Match:%a+ %a+ smuggler", "a massive white gull", "a broad-nosed crocodile", "a large sand crab", "a baby seagull", "Match:pirate" }},
-  ["the Severed Grasp"] = {level = "99", targets = {"a fossilized construct", "a scarred and barbed boar of dyadic hunger", "a shadow-struck faceless Chaos entity", "a twin-headed solar abomination", "a contorting shadowdancer", "a violent riftbearer", "an oozing puddle of heliovoric crystal", "a wavering resolution of discordant harmonies", "a kaleidoscopic lepidopteran of Ever-Becoming", "a dissident cloud of celestial rage", "a blood-rusted gearwork behemoth", "a smoke-snorting ashlander", "a shadow-garbed Chaos Lady", "a beguiler of the depths", "a demonic jann", "a tormented angel of myriad meridian", "an evanescent golden knight", "a grotesque soldier of spear and shield", "a sanity-straining eldritch monstrosity", "a crystalline entity of fractal phenomena", "an ethereal vulpine mystic", "a thaumaturgical construct", "a shatter-bright host"}},
 }
 --- Target list of apothecary creatures by area.
 -- @table snd.apoAreas
@@ -78071,12 +78043,12 @@ snd.apoAreas = {
   ["the Den of Shadows"] = {level = "99+", targets = {"a tan sidewinder", "a black boa", "a grey krait", "a tan python", "a brown adder", "a white sidewinder", "a black python", "a white krait", "a brown cobra", "a black adder", "a white boa", "a grey adder", "a brown krait", "a white python", "a brown sidewinder", "a tan adder", "a tan boa", "a grey sidewinder", "a tan cobra", "a tan krait", "a brown python", "a grey cobra", "a black sidewinder", "a grey boa", "a white adder", "a brown boa", "a black krait", "a black python", "a grey python", "a black cobra"}},
   ["the Offspring"] = {level = "95+", targets = {"a long-tailed bullfrog", "A chromatic aquatic dragonfly"}},
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Generic targets</name>
-						<packageName></packageName>
-						<script>--- Loads generic names from the generic target lists.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Generic targets</name>
+					<packageName></packageName>
+					<script>--- Loads generic names from the generic target lists.
 -- @function generic_bashing_name
 -- @param string Name to convert to generic
 function generic_bashing_name(mob)
@@ -78627,18 +78599,18 @@ snd.generic_bashing_table_duplicate_names = {
   "elk",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Pathing</name>
-					<packageName></packageName>
-					<script></script>
 					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Get bashing/walking</name>
-						<packageName></packageName>
-						<script>--- Default sunder bashing paths.
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Pathing</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Get bashing/walking</name>
+					<packageName></packageName>
+					<script>--- Default sunder bashing paths.
 -- @module Bashing
 
 function snd_bashArea()
@@ -78728,12 +78700,12 @@ function snd_bashAreas(areas_chosen)
     snd.aa()
   end
 end</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Area starting rooms</name>
-						<packageName></packageName>
-						<script>--- Beginning rooms for all areas.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Area starting rooms</name>
+					<packageName></packageName>
+					<script>--- Beginning rooms for all areas.
 -- @table snd.bashing_area_beginning_rooms
 snd.bashing_area_beginning_rooms = {
   ["the Dolbodi Campsite"] = "19323",
@@ -78870,12 +78842,12 @@ snd.bashing_area_beginning_rooms = {
   ["the Crimson Coast"] = "77048",
   ["a deep underground cavern"] = "45878",
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Area paths</name>
-						<packageName></packageName>
-						<script>--- Master path table.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Area paths</name>
+					<packageName></packageName>
+					<script>--- Master path table.
 -- @table sunder_areaPaths
 sunder_areaPaths = {
   ["Alaqsii Inlet"] = {
@@ -90822,12 +90794,12 @@ sunder_areaPaths = {
   },
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Multi-area paths</name>
-						<packageName></packageName>
-						<script>--- Default paths table.
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Multi-area paths</name>
+					<packageName></packageName>
+					<script>--- Default paths table.
 -- @table snd.paths
 -- @field high High-level bashing areas.
 -- @field low Low-level bashing areas.
@@ -90865,12 +90837,12 @@ snd.paths.low = {
   "Teshen Caldera",
 }
 </script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Path construction</name>
-						<packageName></packageName>
-						<script>function snd_createPather()
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Path construction</name>
+					<packageName></packageName>
+					<script>function snd_createPather()
   local n = gmcp.Room.Info.num
   sap_List = {}
   sap_Area = gmcp.Room.Info.area
@@ -90938,9 +90910,8 @@ function snd_loadAreas()
   snd.message("Autopather table found and successfully loaded in.")
 end
 </script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
 		</ScriptGroup>
 	</ScriptPackage>
@@ -91066,7 +91037,7 @@ end
 			</KeyGroup>
 		</KeyGroup>
 	</KeyPackage>
-	<VariablePackage>
-		<HiddenVariables />
-	</VariablePackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>
