@@ -48457,7 +48457,7 @@ end</script>
 						</Alias>
 						<Alias isActive="yes" isFolder="no">
 							<name>eye sigil</name>
-							<script>snd.set_queue("quickwield both eyesigil"..snd.sep.."relax grip"..snd.sep.."throw eye at ground"..snd.sep.."qeb secure eyesigil")</script>
+							<script>snd.set_queue("quickwield both eyesigil"..snd.sep.."throw eye at ground")</script>
 							<command></command>
 							<packageName></packageName>
 							<regex>^eye$</regex>
@@ -57156,7 +57156,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.15"
+local version = "11.7.16"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -72719,7 +72719,7 @@ end
     Grapple = function(target)
       snd.target_got("writhe_grappled")
       snd.balance.grapple = false
-      if golemgrapple_timer then killTimer("golemgrapple_timer") end
+      if golemgrapple_timer then killTimer(golemgrapple_timer) end
       golemgrapple_timer = tempTimer(15, [[snd.balance.grapple = true]])
     end,
     Shatter = function(target)
@@ -72890,7 +72890,7 @@ end
     Clutch = function(target)
       snd.target_got("writhe_grappled")
       snd.balance.grapple = false
-      if golemgrapple_timer then killTimer("golemgrapple_timer") end
+      if golemgrapple_timer then killTimer(golemgrapple_timer) end
       golemgrapple_timer = tempTimer(15, [[snd.balance.grapple = true]])
     end,
     Nullify = function(target)
@@ -73299,7 +73299,7 @@ end
         snd.target_got("void")
       end
     end,
-    Marks = function(target, conditional)
+    Umbrix = function(target, conditional)
       if conditional == "Numbness" then
         snd.target_got("numbed_skin")
         if not table.isMember(gmcp.Room.Info.details, "darkness") then
