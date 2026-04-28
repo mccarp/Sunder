@@ -43033,10 +43033,6 @@ end
       if not snd.loyalsattacking then
         string = "order loyals kill " .. snd.target .. snd.sep .. string
       end
-      --Tones to prone
-      if gmcp.Char.Vitals.ability_bal == "1" and snd.checksomeAffs({"left_leg_crippled","right_leg_crippled"},1) and not snd.checkAff("fallen") then
-        string = "strike tone tremors "..snd.target..snd.sep..string
-      end
       
       -- we don't want to resend our existing attack, so check against that
       if string ~= snd.last_attack and not snd.waiting.queue then
@@ -43108,10 +43104,6 @@ end</script>
       end
       if not snd.loyalsattacking then
         string = "order loyals kill " .. snd.target .. snd.sep .. string
-      end
-      --Tones to prone
-      if gmcp.Char.Vitals.ability_bal == "1" and not snd.checkAff("sensitivity") then
-        string = "strike tone stridulation "..snd.target..snd.sep..string
       end
       
       -- we don't want to resend our existing attack, so check against that
@@ -48082,7 +48074,7 @@ if snd.class == "Ravager" then
       string = "touch hammer " .. snd.target
     elseif not snd.checkAff("indifference") then
       string = "ego inadequacy "..snd.target
-    elseif not snd.checksomeAffs({"dementia","paranoia","mercy"},1) then
+    elseif not snd.checksomeAffs({"claustrophobia","agoraphobia"},1) then
       string = "ego boast "..snd.target
     else
         if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
@@ -50838,7 +50830,7 @@ if snd.class == "Zealot" then
       string = "touch hammer " .. snd.target
     elseif not snd.checkAff("indifference") then
       string = "psi dull "..snd.target
-    elseif not snd.checksomeAffs({"dementia","paranoia","mercy"},1) then
+    elseif not snd.checksomeAffs({"agoraphobia","claustrophobia"}, 1) then
       string = "psi deprive "..snd.target
     else
       if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
@@ -57156,7 +57148,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.16"
+local version = "11.7.17"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59258,7 +59250,7 @@ function snd.can_legs()
 end
 
 function snd.self_prone()
-  if not snd.have_aff("frozen") or snd.have_aff("indifference") or snd.have_aff("paralysis") or
+  if not snd.have_aff("frozen") or snd.have_aff("paralysis") or
       snd.have_aff("writhe_transfix") or snd.have_aff("writhe_web") or snd.have_aff("writhe_impaled") or
       snd.have_aff("writhe_thighlock") or snd.have_aff("writhe_armpitlock") or
       snd.have_aff("writhe_necklock") or snd.have_aff("writhe_ropes") or snd.have_aff("writhe_vines") or
@@ -64046,7 +64038,7 @@ end</script>
   def_phalanx = { defense = "phalanx", type = "normal", effect = "Give group cut/blunt defense bonus", balance = { balanceequilibriumtake = "fury battlechant phalanx" }, skill = "Battlechant" },
   def_anthem = { defense = "anthem", type = "normal", effect = "Give group extra damage", balance = { balanceequilibriumtake = "fury battlechant anthem" }, skill = "Battlechant" },
   def_rallied = { defense = "rallied", type = "normal", effect = "Reduce groups willpower and endurance costs", balance = { balanceequilibriumtake = "fury battlechant rally" }, skill = "Battlechant" },
-  def_bolstered_morale = { defense = "bolstered_morale", type = "normal", effect = "Give group extra damage", balance = { balanceequilibriumtake = "fury battlechant bolster" }, skill = "Battlechant" },
+  def_bolstered_morale = { defense = "bolstered_morale", type = "normal", effect = "Increases health regen by 10%", balance = { balanceequilibriumtake = "fury battlechant bolster" }, skill = "Battlechant" },
   def_battlechant = { defense = "battlechant", type = "normal", effect = "Maintaining a supporting shout", balance = {}, skill = "Battlechant" },
   def_pierce = { defense = "pierce", type = "normal", effect = "Bypass next parry", balance = {}, skill = "Distract" },
   def_dauntless = { defense = "dauntless", type = "normal", effect = "Passive fury gain", balance = { special = "fury dauntless on" }, skill = "Dauntless" },
@@ -70912,7 +70904,7 @@ end
   lacerate = 1,
   bash = 1,
   whirlwind = 2,
-  punish = 2,
+  punish = 1,
   ravage = 2,
   execute = 2,
 
@@ -71426,9 +71418,8 @@ end
     end,
 
     Deprival = function(target)
-      snd.target_got("mercy")
-      snd.target_got("dementia")
-      snd.target_got("paranoia")
+      snd.target_got("agoraphobia")
+      snd.target_got("claustrophobia")
     end,
     Dull = function(target)
       snd.target_got("indifference")
@@ -71569,9 +71560,8 @@ end
     end,
 
     Boast = function(target)
-      snd.target_got("mercy")
-      snd.target_got("dementia")
-      snd.target_got("paranoia")
+      snd.target_got("agoraphobia")
+      snd.target_got("claustrophobia")
     end,
   },
   --Ascendril
@@ -75699,60 +75689,7 @@ end
     end,
   },
   ["Crystalism"] = {
-    Tones =
-        function(target, vibe, conditional)
-          disableTrigger("Tones 3p lines")
-          if vibe == "Dissipate" then
-            if snd.checkAff("confusion") then
-              snd.vital_change("mana", -14)
-            else
-              snd.vital_change("mana", -7)
-            end
-          elseif vibe == "Palpitation" then
-            if snd.checkAff("paralysis") then
-              snd.vital_change("health", -6)
-            else
-              snd.vital_change("health", -4)
-            end
-          elseif vibe == "Tremors" then
-            snd.target_got("fallen")
-          elseif vibe == "Creeps" then
-            if snd.checkAff("loneliness") then
-              snd.target_got("masochism")
-            else
-              snd.target_got("loneliness")
-            end
-          elseif vibe == "Oscillate" then
-            snd.target_got("muddled")
-            snd.affTimers.start("muddled", 8.5)
-          elseif vibe == "Disorientation" then
-            if snd.checkAff("epilepsy") then
-              snd.target_got("mania")
-            else
-              snd.target_got("epilepsy")
-            end
-          elseif vibe == "Stridulation" then
-            if snd.checkAff("no_courage") then
-              snd.target_got("ringing_ears")
-            else
-              snd.target_got("no_courage")
-            end
-          elseif vibe == "Gravity" then
-            snd.lev_gone = true
-          elseif vibe == "Crystalforest" then
-            snd.used.shield = false
-          elseif vibe == "Dissension" then
-            snd.target_got("dissonance")
-          elseif vibe == "Lullaby" then
-            if conditional == "hypersomnia" then
-              snd.target_got("hypersomnia")
-            else
-              snd.target_got("sleep")
-            end
-          elseif vibe == "Plague" then
-            --add in a flag here to detect plague tone secondary line, for anti illusion purposes?
-          end
-        end
+    -- This space for rent
   },
   ["Ostension"] = {
     Averroes = function(target, bolt, limb)
