@@ -1893,15 +1893,18 @@ end</script>
   end
   
   snd.templar_last_limb = snd.last_hit_limb
+
   if snd.last_hit_limb ~= "none" and snd.bruisingHit then
     snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
     snd.bruisingEcho(snd.last_hit_limb)
   end
+
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
     snd.last_hit_limb = "none"
     snd.last_limb_dmg = 0
   end
+
   if snd.using_both_hands == 1 then table.insert(snd.maybe_affs, 1, snd.last_affs[1]) end
   
   snd.last_affs = {}
@@ -16134,6 +16137,286 @@ end</script>
 											<integer>3</integer>
 										</regexCodePropertyList>
 									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Drobia barrier strip</name>
+										<script>if snd.target ~= matches[2] then return end
+
+if matches[3] == "prismatic barrier" then
+  snd.target_cured("barrier")
+elseif matches[3] == "magical shield" then
+  snd.used.shield = false
+end</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Aetherial force collides with (\w+)'s (.+), shredding it into shards\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Drobia with no barriers</name>
+										<script>if snd.target ~= matches[2] then return end
+
+snd.target_cured("barrier")
+snd.used.shield = false</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Aetherial force saws through (\w+), shredding .+ flesh\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Hextouch aff line</name>
+										<script>if matches[2] ~= snd.target then return end
+
+snd.target_got(matches[3])</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+) has received the hex of (.+)\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Trickster fail</name>
+										<script>snd.balance.trickster = false</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>They would be too wise to your tricks - it is best to wait.</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>3</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Trickster ready</name>
+										<script>snd.balance.trickster = true</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>You may once again perform trickery from Edamil.</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>3</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Melot Hit Confirmation</name>
+										<script>snd.last_hit_limb = matches[3]
+snd.last_limb_dmg = 10.28
+
+snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+snd.onHit2({"Dodge", "Parry", "Rebounding"})
+
+disableTrigger("Melot Hit Confirmation")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^[A-Za-z\' ]+ moves in a wicked blur as \w+ buries it in (\w+)'s (.+)\.$</string>
+											<string>^Whirling .+ around .+ \w+ body, \w+ chops fiercely into (\w+)'s (.+)\.$</string>
+											<string>^Charging forward, \w+ hews into (\w+)'s (.+) with .+\.$</string>
+											<string>^With a diagonal slash, \w+ cleaves into (\w+)'s (.+) with .+\.$</string>
+											<string>^\w+ sweeps .+ before \w+, brutally carving into (\w+)'s (.+)\.$</string>
+											<string>^Leaping in, \w+ rips (\w+)'s (.+) open with .+\.$</string>
+											<string>^With a violent upward swing, \w+ mangles (\w+)'s (.+) with .+\.$</string>
+											<string>^With an arcing blow, \w+ swings at (\w+)'s (.+) with .+\.$</string>
+											<string>^\w+ cuts open (\w+)'s (.+) with an overhead slash from .+\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Pain courage strip</name>
+										<script>if matches[2] ~= snd.target then return end
+
+snd.target_got("no_courage")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Malisonious darkness converges upon (\w+), smothering .+ in an ensorcelled haze\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Tap limb cripple</name>
+										<script>if matches[2] ~= snd.target then return end
+
+snd.target_got(matches[3]:gsub(" ", "_") .. "_crippled")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The arcane force around (\w+)'s (.+) burns into the skin, consuming it into starlit ashes\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Starlit paresis proc</name>
+										<script>if matches[2] ~= snd.target then return end
+
+snd.target_got("paresis")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^Starlight erupts from the sword as (\w+) seizes up under its power\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Undercut Parry</name>
+										<script>-- Similar to Sunder Parry, but snowflake checks the legs
+-- and permits the other one to take damage even if there
+-- was a parry
+
+local tar, leg = matches[2], matches[3]
+
+if tar == "left leg" or tar == "right leg" then
+  tar, leg = matches[3], matches[2]
+end
+
+if tar == snd.target then
+  snd.removeProneStates(true)
+
+  if #snd.last_affs &gt;= 1 then
+    for i in pairs(snd.last_affs) do
+     snd.target_cured(snd.last_affs[i])
+    end
+  end
+
+  snd.took_limb_dmg(leg, -snd.last_limb_dmg)
+  if leg == "left leg" then
+    snd.last_hit_limb = "right leg"
+  elseif leg == "right leg" then
+    snd.last_hit_limb = "left leg"
+  end
+
+  snd.last_affs = {}
+end
+
+disableTrigger("Undercut Parry")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^(\w+) parries the attack on .+ (left leg|right leg) with a deft maneuver\.$</string>
+											<string>^(\w+) guards the attack on .+ (left leg|right leg)\.$</string>
+											<string>^(\w+) steps into the attack on .+ (left leg|right leg), grabs .+ arm and twists it\.$</string>
+											<string>^With a free hand, (\w+) fends off the attack on .+ (left leg|right leg)\.$</string>
+											<string>^With a predatory growl, (\w+) opposes the attack on .+ (left leg|right leg), denying it purchase\.$</string>
+											<string>^Foreseeing the baited attack on .+ (left leg|right leg), (\w+)'s hook streaks out, denying the strike.$</string>
+											<string>^(\w+) parries the attack to .+ (left leg|right leg), pushing \w+ back\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
 								</TriggerGroup>
 								<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Crystalism</name>
@@ -30232,6 +30515,7 @@ snd.defended = false
 disableTrigger("Weapon Hit Confirmation")
 disableTrigger("Sunder Dodge")
 disableTrigger("Sunder Parry")
+disableTrigger("Undercut Parry")
 disableTrigger("Sunder Rebounding")
 enableTrigger("Tones 3p lines")
 snd.core()
@@ -57148,7 +57432,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.17"
+local version = "11.7.18"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -59769,6 +60053,7 @@ snd.waiting = snd.waiting or {
   upsurge = true,
   malice = true,
   berserk = true,
+  trickster = true,
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -63875,7 +64160,6 @@ end</script>
   def_oath_primeval      = { defense = "oath_primeval", type = "normal", effect = "Your familiars attack faster!", balance = { balanceequilibriumtake = "oath primeval activate" }, skill = "Oaths" },
   def_oath_rhythm        = { defense = "oath_rhythm", type = "normal", effect = "prevents force abilities and effects", balance = { balanceequilibriumtake = "oath rhythm activate" }, skill = "Oaths" },
 
-
   --Shapeshifter
   def_weathering = { defense = "weathering", type = "normal", effect = "Cold resistance", balance = { special = "weathering" }, skill = "Weathering" },
   def_bodyheat = { defense = "bodyheat", type = "normal", effect = "Protects against chill", balance = { needyequilibriumtake = "bodyheat" }, skill = "Bodyheat" },
@@ -63889,6 +64173,7 @@ end</script>
   def_stealth = { defense = "stealth", type = "normal", effect = "Hide yourself", balance = { needybalancetake = "stealth on" }, skill = "Stealth" },
   def_boneshaking = { defense = "boneshaking", type = "normal", effect = "howls ignore courage", balance = { balanceequilibriumtake = "boneshaking" }, skill = "Boneshaking" },
   def_berserk = { defense = "berserk", type = "normal", effect = "Immune to stuns and uncon", balance = { balanceequilibriumtake = "berserk" }, requiredBalance = "berserk", skill = "Berserk" },
+
   --Siderealist
   def_luminesce = { defense = "luminesce", type = "normal", effect = "basic astranomia spells", balance = { balanceequilibriumtake = "astra luminesce" }, skill = "Luminesce" },
   def_blueshift = { defense = "blueshift", type = "normal", effect = "extra hp/mp", balance = { balanceequilibriumtake = "astra blueshift" }, skill = "Blueshift" },
@@ -63897,6 +64182,7 @@ end</script>
   def_stargleam = { defense = "stargleam", type = "normal", effect = "generates charges from mana, used to give affs", balance = { balanceequilibriumtake = "astra gleam on" }, skill = "Gleam" },
   def_parallax = { defense = "parallax", type = "normal", effect = "stalled spell", balance = { balanceequilibriumtake = "astra parallax" }, skill = "Parallax" },
   def_refraction = { defense = "refraction", type = "normal", effect = "vibes affect target regardless of enemy", balance = { balanceequilibriumtake = "refract target" }, skill = "Refraction" },
+  def_energy_shield = { defense = "energy_shield", type = "normal", effect = "absorbs the next 2000 damage taken", balance = { balanceequilibriumtake = "hymn target" }, skill = "Hymn" },
 
   --Sylvan
   def_thrive_strength      = { defense = "thrive_strength", type = "spring_green", effect = "+1 STR", balance = { balanceequilibriumtake = "thrive strength" }, skill = "Thrive" },
@@ -75724,13 +76010,16 @@ end
       snd.onHit2({ "Parry" })
     end,
     Eja = function(target, kodosa, ability) -- "kodosa" is a filler conditional for this ability
-      if ability == "mend" then
+      if ability == "Mend" then
         for _, limb in ipairs({ "left_arm", "right_arm", "left_leg", "right_leg" }) do
           if snd.checkAff(limb .. "_crippled") and not snd.checkAff(limb .. "_broken") then
             snd.target_cured(limb .. "_crippled")
             return
           end
         end
+      elseif ability == "Pain" then
+        snd.target_got("pain")
+        snd.affTimers.start("pain", 60)
       end
     end,
     Vayua = function(target, ability)
@@ -75742,6 +76031,10 @@ end
       if ability == "Despair" then
         snd.target_got("despair") -- lasts for 60s
         snd.affTimers.start("despair", 60)
+      elseif ability == "Murk" then
+        snd.target_got("loneliness")
+        snd.target_got("hopelessness")
+        snd.target_got("fallen")
       end
     end,
     Ontesme = function(target, ability)
@@ -75749,6 +76042,25 @@ end
         snd.target_got("illgrasp")
         snd.illgraspcounter = 6
         snd.affTimers.start("illgrasp", 180)
+      end
+    end,
+    Edamil = function(target, ability)
+      if ability == "Trickster" then
+        snd.target_got("writhe_stasis")
+        snd.balance.trickster = false
+        tempTimer(10, [[snd.balance.trickster = true]])
+      end
+    end,
+    Melot = function(target, ability, miss)
+      if ability == "Attack" then
+        enableTrigger("Melot Hit Confirmation")
+      elseif ability == "Undercut" and not miss then
+        snd.last_hit_limb = "left leg"
+        snd.last_limb_dmg = 7.71
+        snd.took_limb_dmg("left leg", snd.last_limb_dmg)
+        snd.took_limb_dmg("right leg", snd.last_limb_dmg)
+        snd.onHit2({ "Dodge", "Rebounding" })
+        enableTrigger("Undercut Parry")
       end
     end,
   },
