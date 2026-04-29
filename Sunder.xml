@@ -16373,21 +16373,13 @@ if tar == snd.target then
 
   if #snd.last_affs &gt;= 1 then
     for i in pairs(snd.last_affs) do
-     snd.target_cured(snd.last_affs[i])
+      snd.target_cured(snd.last_affs[i])
     end
   end
 
   snd.took_limb_dmg(leg, -snd.last_limb_dmg)
-  if leg == "left leg" then
-    snd.last_hit_limb = "right leg"
-  elseif leg == "right leg" then
-    snd.last_hit_limb = "left leg"
-  end
-
   snd.last_affs = {}
-end
-
-disableTrigger("Undercut Parry")</script>
+end</script>
 										<triggerType>0</triggerType>
 										<conditonLineDelta>0</conditonLineDelta>
 										<mStayOpen>0</mStayOpen>
@@ -16414,6 +16406,52 @@ disableTrigger("Undercut Parry")</script>
 											<integer>1</integer>
 											<integer>1</integer>
 											<integer>1</integer>
+											<integer>1</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Undercut Parry Prompt</name>
+										<script>disableTrigger("Undercut Hit")
+disableTrigger("Undercut Parry")
+disableTrigger("Undercut Parry Prompt")</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string></string>
+										</regexCodeList>
+										<regexCodePropertyList>
+											<integer>7</integer>
+										</regexCodePropertyList>
+									</Trigger>
+									<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+										<name>Undercut Hit</name>
+										<script>if matches[2] ~= snd.target then return end
+
+snd.last_hit_limb = matches[3]
+snd.last_limb_dmg = 7.71
+snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)</script>
+										<triggerType>0</triggerType>
+										<conditonLineDelta>0</conditonLineDelta>
+										<mStayOpen>0</mStayOpen>
+										<mCommand></mCommand>
+										<packageName></packageName>
+										<mFgColor>#ff0000</mFgColor>
+										<mBgColor>#ffff00</mBgColor>
+										<mSoundFile></mSoundFile>
+										<colorTriggerFgColor>#000000</colorTriggerFgColor>
+										<colorTriggerBgColor>#000000</colorTriggerBgColor>
+										<regexCodeList>
+											<string>^The blade of the axe tears through (\w+)'s (.+)\.$</string>
+										</regexCodeList>
+										<regexCodePropertyList>
 											<integer>1</integer>
 										</regexCodePropertyList>
 									</Trigger>
@@ -57432,7 +57470,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.18"
+local version = "11.7.19"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -76055,12 +76093,9 @@ end
       if ability == "Attack" then
         enableTrigger("Melot Hit Confirmation")
       elseif ability == "Undercut" and not miss then
-        snd.last_hit_limb = "left leg"
-        snd.last_limb_dmg = 7.71
-        snd.took_limb_dmg("left leg", snd.last_limb_dmg)
-        snd.took_limb_dmg("right leg", snd.last_limb_dmg)
-        snd.onHit2({ "Dodge", "Rebounding" })
+        enableTrigger("Undercut Hit")
         enableTrigger("Undercut Parry")
+        enableTrigger("Undercut Prompt")
       end
     end,
   },
