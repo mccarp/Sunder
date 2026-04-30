@@ -32370,6 +32370,46 @@ if golemgrapple_timer then killTimer(golemgrapple_timer) end
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Feint used</name>
+						<script>snd.balance.tekura_feint = false</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Feints are best used sparingly, lest they become predictable.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Feint back</name>
+						<script>snd.balance.tekura_feint = true</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You feel a feint could be effective once more.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>3</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Not enough mana transmute</name>
 						<script>snd.transmutation = false
 tempTimer(5,[[snd.transmutation = true]])</script>
@@ -48809,7 +48849,7 @@ snd.attack_function()
 </script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^dummy$</regex>
+					<regex>^dummy\s*mode$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>swing up</name>
@@ -57412,7 +57452,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.20"
+local version = "11.7.21"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -60027,6 +60067,7 @@ snd.waiting = snd.waiting or {
   malice = true,
   berserk = true,
   trickster = true,
+  tekura_feint = true,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -73458,6 +73499,8 @@ end
     end,
     Feint = function(target, limb)
       snd.parried_limb = limb
+      snd.balance.tekura_feint = false
+      tempTimer(5, [[snd.balance.tekura_feint = true]])
     end,
     Wrench = function(target)
       enableTrigger("Wrench confirmation hit")
