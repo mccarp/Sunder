@@ -32106,7 +32106,11 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Rattle</name>
-							<script>snd.balance.rattle = false</script>
+							<script>snd.balance.rattle = false
+
+if matches[2] == snd.target then
+  snd.parried_limb = "none"
+end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -32118,7 +32122,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^As (\w+) parries the blow, a synthetic crystal elemental enacts a vengeful reprisal, leaving.+ reeling and vulnerable\.$</string>
+								<string>^As (\w+) parries the blow, an? .*elemental.* enacts a vengeful reprisal, leaving.+ reeling and vulnerable\.$</string>
 								<string>^.+ lashes out as (\w+) parries the blow, rattling.+ defences\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -57452,7 +57456,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.21"
+local version = "11.7.22"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -64290,6 +64294,7 @@ end</script>
   def_fluctuations    = { defense = "fluctuations", type = "SeaGreen", effect = "Your fog informs you of who moves in and out", balance = { balanceequilibriumtake = "fog fluctuations on" }, skill = "Fluctuations" },
   def_hightide        = { defense = "hightide", type = "SeaGreen", effect = "Strike faster during high tide", balance = {}, skill = "Hightide" },
   def_currents        = { defense = "currents", type = "normal", effect = "Sense if someone enters into the ground", balance = { balanceequilibrium = "tide currents" }, skill = "Currents" },
+  def_elemental_engulf = { defense = "elemental_engulf", type = "SeaGreen", effect = "Your elemental will use their ability on your next club attack", balance = {}, skill = "Engulf" },
 
 
   -- Warden
@@ -66039,8 +66044,10 @@ function snd.dodge()
   if snd.dodge_override then
     tododge = snd.dodge_override()
   else
-    if hasSkill("Dodging") then
+    if hasSkill("Sidestep") then
       tododge = "melee"
+    elseif hasSkill("Dodging") then
+      tododge = "all"
     else
       tododge = "none"
     end
