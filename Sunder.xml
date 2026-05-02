@@ -29308,6 +29308,28 @@ mmp.locateAndEcho(room)</script>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Queue Execution</name>
+				<script>table.remove(snd.manualQueue,1)
+snd.waiting.queue = false
+snd.last_attack = "none"</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Sunder Manual Queue Executed</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Bashing</name>
@@ -30100,6 +30122,30 @@ end
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^The protective shield around (.+) dissipates\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Misc Bashing razed</name>
+					<script>-- Trigger for specific lines not trackable through 'Bashing razed' above
+if snd.bash_shielded and table.contains(snd.items[matches[2]], snd.bashing.target) then
+  snd.bash_shielded = false
+  snd.waiting.queue = false
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^The lance rips through (.+)'s magical shield, tearing it apart as it passes\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -56628,6 +56674,13 @@ end
 					<regex>^rag$</regex>
 				</Alias>
 			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>Queue management</name>
+				<script>snd[matches[2]](matches[3])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^snd (c?q)(?: (.+))?$</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Bashing</name>
@@ -57412,6 +57465,33 @@ cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")</sc
 						<regex>^(S|s)under (H|h)elp (P|p)(B|b)$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
+						<name>Manual queue help file</name>
+						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Manual Queueing &lt;CadetBlue&gt;help file!")
+cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")
+cecho("\n&lt;ForestGreen&gt;Sunder relies on command queues to cause the player to automatically perform most actions, ranging from hunting creatures and NPCs to fighting other players. At times, you might find that you want to send a command without turning off your basher or offense. That's where the manual queue comes into play.")
+cecho("\n")
+cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
+cecho("\n&lt;MediumSeaGreen&gt;------------")
+cecho("\n&lt;ForestGreen&gt;The manual queue fires in place of all other automated &lt;green&gt;Sunder &lt;ForestGreen&gt;queues: bashing, active curing, offensive routes, and more. It will attempt to execute each queued command in order a single time. When the command stack is exhausted or you choose to clear it, &lt;green&gt;Sunder&lt;ForestGreen&gt; falls back to its standard queueing.")
+cecho("\n")
+cecho("\n&lt;CadetBlue&gt;ALIASES")
+cecho("\n&lt;MediumSeaGreen&gt;-------")
+cecho("\n&lt;DeepSkyBlue&gt;snd q &lt;cmd&gt;            &lt;ForestGreen&gt;Add a command to the manual queue.")
+cecho("\n&lt;DeepSkyBlue&gt;snd cq [&lt;cmd&gt;]         &lt;ForestGreen&gt;Clear the manual queue.")
+cecho("\n                       &lt;ForestGreen&gt;If a command is provided, add it to the queue after.")
+cecho("\n")
+cecho("\n&lt;CadetBlue&gt;FUNCTIONS")
+cecho("\n&lt;MediumSeaGreen&gt;---------")
+cecho("\n&lt;DeepSkyBlue&gt;snd.q(cmd, cmd, cmd, ... [, noEcho])\n&lt;ForestGreen&gt;Queue a list of commands.\nIf the last argument is &lt;green&gt;true&lt;ForestGreen&gt;, &lt;green&gt;Sunder&lt;ForestGreen&gt; will not print a confirmation message.")
+cecho("\n\n&lt;DeepSkyBlue&gt;snd.q({cmd, cmd, cmd, ...} [, noEcho])\n&lt;ForestGreen&gt;As above, but commands are supplied as a table.")
+cecho("\n\n&lt;DeepSkyBlue&gt;snd.cq(...)\n&lt;ForestGreen&gt;Will clear the queue. Then, if any commands are supplied, it will add them to the queue.\nUnder the hood, snd.cq() simply clears the queue, then passes its arguments to snd.q().")
+cecho("\n")
+cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^(S|s)under (H|h)elp [Cc]?[qQ]$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
 						<name>Sunder Utilities Index</name>
 						<script>cecho("&lt;CadetBlue&gt;Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;UTILITIES &lt;CadetBlue&gt;help file!")
 cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
@@ -57428,6 +57508,7 @@ cecho("\n&lt;DeepSkyBlue&gt;Fluidcache           &lt;ForestGreen&gt;Aliases to c
 cecho("\n&lt;DeepSkyBlue&gt;Who                  &lt;green&gt;Sunder's &lt;ForestGreen&gt;WHO parsing system and how it works!")
 cecho("\n&lt;DeepSkyBlue&gt;PB                   &lt;ForestGreen&gt;All the commands for the name databse.")
 cecho("\n&lt;DeepSkyBlue&gt;find my profile      &lt;ForestGreen&gt;Locate the directory for your profile.")
+cecho("\n&lt;DeepSkyBlue&gt;Q/CQ                 &lt;ForestGreen&gt;Manually queue commands, or clear the queue.")
 cecho("\n")
 cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
 
@@ -57456,7 +57537,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.7.23"
+local version = "11.8.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -60734,7 +60815,7 @@ function snd.do_queue()
         end
       end
     end
-    if snd.queued ~= nil then
+    if snd.manualQueue[1] then
       snd.queue.queue = true
     end
     if snd.bashing_loaded then
@@ -60770,6 +60851,57 @@ function snd.do_queue()
     if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
       snd.queue.attack = true
     end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Queue override stuff</name>
+				<packageName></packageName>
+				<script>snd = snd or {}
+
+snd.manualQueue = snd.manualQueue or {}
+
+
+function snd.q(...)
+  local cmds = arg
+  local echo = true
+  if cmds[#cmds] == true then
+    cmds[#cmds] = nil
+    echo = false
+  end
+  if type(cmds[1]) == "table" then
+    cmds = cmds[1]
+  end
+  for _, cmd in ipairs(cmds) do
+    if echo then
+      snd.message("Added "..cmd.." to the queue")
+    end
+    table.insert(snd.manualQueue,cmd)
+  end
+  snd.waiting.queue = false
+  snd.core()
+end
+
+
+function snd.cq(...)
+  if arg[#arg] ~= true then
+    snd.message("Cleared queue")
+  end
+  snd.manualQueue = {}
+  if arg.n&gt;0 then snd.q(unpack(arg)) end
+end
+
+
+
+function snd.runManualQueue()
+  if not snd.manualQueue[1] then return end
+  cmd = "echo Sunder Manual Queue Executed"..snd.sep..snd.manualQueue[1]
+  if cmd ~= snd.last_attack and not snd.waiting.queue then
+   snd.last_attack = cmd
+   send("qeb "..cmd)
+   snd.waiting.queue = true
+   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
   end
 end</script>
 				<eventHandlerList />
@@ -60962,12 +61094,12 @@ end</script>
 -- Stuff like barbed_arrow pulling, moving and fitness are all handled here
 -- @function snd.do_stuff
 snd.coreActionMap = snd.coreActionMap or {
-  queue = function() snd.send_attack(snd.queued) end,
+  queue = function() snd.runManualQueue() end,
   barbed_arrow = function() snd.pull_arrow() end,
   embedded_dagger = function() snd.pull_dagger() end,
-  bashing = function() snd.bashing_function() end,
+  bashing = function() if not snd.queue.queue then snd.bashing_function() end end,
   lighting = function() snd.do_lighting() end,
-  attack = function() snd.attack_function() end,
+  attack = function() if not snd.queue.queue then snd.attack_function() end end,
   loot = function() snd.do_loot() end,
   moving = function() snd.get_moving() end,
   dome = function() snd.do_dome() end,
