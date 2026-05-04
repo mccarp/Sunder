@@ -57537,7 +57537,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.8.0"
+local version = "11.8.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -70834,10 +70834,13 @@ function snd.reset_target()
   for limb in pairs(snd.limb_bruising) do
     snd.limb_bruising[limb] = 0
   end
-  local enemyTimers = { "fitness", "focus", "pill", "rebounding", "restoration", "tree" }
-  for _, timer in pairs(enemyTimers) do
-    snd.timers[timer] = {}
+  
+  for timer, info in pairs(snd.timers) do
+    if info.enemy then
+      snd.timers[timer] = nil
+    end
   end
+  
   snd.affTimers.killAll()
   snd.hypno = "none"
   snd.hyp = 0
@@ -76475,24 +76478,12 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>setup + query function</name>
 					<packageName></packageName>
-					<script>
-snd.timers = snd.timers or {}
-snd.timers.pill = snd.timers.pill or {}
-snd.timers.focus = snd.timers.focus or {}
-snd.timers.tree = snd.timers.tree or {}
-snd.timers.fitness = snd.timers.fitness or {}
-snd.timers.restoration = snd.timers.restoration or {}
-snd.timers.rebounding = snd.timers.rebounding or {}
-snd.timers.induce = snd.timers.induce or {}
-snd.timers.eqbal = snd.timers.eqbal or {}
-snd.timers.fury = snd.timers.fury or {}
-snd.timers.axes = snd.timers.axes or {}
-snd.timers.elixir = snd.timers.elixir or {}
+					<script>snd.timers = {}
 
 local aeonTimers = {fitness = true, focus = true, tree = true}
 
-for k, _ in pairs(snd.timers) do
-  snd.timers[k] = {["start"] = nil, ["limit"] = nil}
+function snd.create_timer(name, time, enemy)
+  snd.timers[name] = {start = getEpoch(), limit = time, enemy = enemy}
 end
 
 function snd.timer_check(which, time_left, mode)
@@ -76516,7 +76507,7 @@ function snd.timer_check(which, time_left, mode)
       else
         return false
       end
-    elseif mode == "less than" then
+    else
       if endtime - now &lt; time_left and (balance ~= "rebounding" or endtime - now &gt; 0) then
         return true
       else
@@ -76524,7 +76515,7 @@ function snd.timer_check(which, time_left, mode)
       end
     end
   else
-    if mode == "less than" and balance ~= "rebounding" then
+    if mode ~= "more than" and balance ~= "rebounding" then
       return true
     else
       return false
@@ -76548,6 +76539,16 @@ function snd.timer_get_time(which)
   else
     return 0
   end
+end
+
+function snd.eqbal_timer_check(timer, time, mode)
+    if mode == nil then
+      mode = "more than"
+    end
+    local eqbal_time = snd.timer_get_time("eqbal")
+    local timer_time = snd.timer_get_time(timer)
+    local adjusted_time = math.max(0, timer_time - eqbal_time)
+    return (mode == "more than") == (adjusted_time &gt; time)
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -76572,7 +76573,6 @@ end
 
 function snd.track_pill(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.pill.start = getEpoch()
     local limit = 1.9
     if snd.last_cure and snd.last_cure == "panacea" then
       limit = limit * 2
@@ -76582,41 +76582,29 @@ function snd.track_pill(target)
     if snd.checkAff("aeon") then
       limit = limit+1
     end
-    snd.timers.pill.limit = limit
+    snd.create_timer("pill", limit, true)
   end
 end
 
 function snd.track_focus(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.focus.start = getEpoch()
     local limit = 5
-    if snd.checkAff("delirium") then
-      limit = 10
-    elseif snd.checkAff("mental_fatigue") then
-      limit = 7
-    end
+    if snd.checkAff("delirium") then limit = limit + 5 end
     if snd.checkAff("laxity") then limit = limit+2 end
-    snd.timers.focus.limit = limit
+    if snd.checkAff("mental_fatigue") then limit = limit * 1.5 end
+    snd.create_timer("focus", limit, true)
   end
 end
 
 function snd.track_rebounding(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.rebounding.start = getEpoch()
-    local limit = snd.toggles.reboundingtime
-    snd.timers.rebounding.limit = limit
+    snd.create_timer("rebounding", snd.toggles.reboundingtime, true)
   end
 end
 
-function snd.track_rebounding_up(target)
-  if target:lower() == snd.target:lower() then
-    snd.timers.rebounding.limit = getEpoch()
-  end
-end
 
 function snd.track_restoration(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.restoration.start = getEpoch()
     local limit = 4.15
     if snd.checkAff("rot_body") then
       limit = limit+4.3
@@ -76628,14 +76616,12 @@ function snd.track_restoration(target)
       limit = limit+.3
     end
     limit = limit + snd.calc.sepsis()
-
-    snd.timers.restoration.limit = limit
+    snd.create_timer("restoration", limit, true)
   end
 end
 
 function snd.track_salve(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.restoration.start = getEpoch()
     local limit = 1.1
     if snd.checkAff("aeon") then
       limit = limit+1
@@ -76644,38 +76630,35 @@ function snd.track_salve(target)
       limit = limit+.3
     end
     limit = limit + snd.calc.sepsis()
-    snd.timers.restoration.limit = limit
+    snd.create_timer("restoration", limit, true)
   end
 end
 
 function snd.track_tree(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.tree.start = getEpoch()
     local limit = 10
     if snd.checkAff("laxity") then limit = limit+2 end
-    snd.timers.tree.limit = limit
+    snd.create_timer("tree", limit, true)
   end
 end
 
 function snd.track_induce(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.induce.start = getEpoch()
-    local limit = 11
-    snd.timers.induce.limit = limit
+    snd.create_timer("induce", 11, true)
   end
 end
 
 function snd.track_fitness(target)
   if target:lower() == snd.target:lower() then
-    snd.timers.fitness.start = getEpoch()
-    snd.timers.fitness.limit = 20
+    local limit = 20
+    if snd.checkAff("laxity") then limit = limit+2 end
+    snd.create_timer("fitness", limit, true)
   end
 end
 
 function snd.track_eqbal(time)
   if not snd.timer_check("eqbal", time) then
-    snd.timers.eqbal.start = getEpoch()
-    snd.timers.eqbal.limit = time
+    snd.create_timer("eqbal", limit, false)
   end
 end
 
@@ -76693,35 +76676,21 @@ local times = {
 
 function snd.track_elixir(target, elixir)
   if target:lower() == snd.target:lower() and times[elixir] then
-    snd.timers.elixir.start = getEpoch()
     local limit = times[elixir]
     if snd.checkAff("aeon") then
       limit = limit+1
     end
-    snd.timers.elixir.limit = times[elixir]
+    snd.create_timer("elixir", limit, true)
   end
 end
 
 function snd.track_fury(time)
-  snd.timers.fury.start = getEpoch()
-  snd.timers.fury.limit = time
+  snd.create_timer("fury", time)
 end
 
 function snd.track_axes(time)
-  snd.timers.axes.start = getEpoch()
-  snd.timers.axes.limit = time
-end
-
-function snd.eqbal_timer_check(timer, time, mode)
-    if mode == nil then
-      mode = "more than"
-    end
-    local eqbal_time = snd.timer_get_time("eqbal")
-    local timer_time = snd.timer_get_time(timer)
-    local adjusted_time = math.max(0, timer_time - eqbal_time)
-    return (mode == "more than") == (adjusted_time &gt; time)
-end
-</script>
+  snd.create_timer("axes", time)
+end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
@@ -91569,7 +91538,7 @@ end
 			</Key>
 		</KeyGroup>
 	</KeyPackage>
-	<VariablePackage>
-		<HiddenVariables />
-	</VariablePackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>
