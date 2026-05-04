@@ -74064,13 +74064,12 @@ end
       snd.onHit2({ "Parry", "Dodge" })
     end,
     Punish = function(target, variant)
-      display(target, variant)
       if variant == "arms" then
         snd.target_got("punished_arms")
-        tempTimer(40, [[snd.target_cured("punished_arms")]])
+        snd.affTimers.start("punished_arms", 40)
       elseif variant == "legs" then
         snd.target_got("punished_legs")
-        tempTimer(40, [[snd.target_cured("punished_legs")]])
+        snd.affTimers.start("punished_legs", 40)
       end
     end,
     Ravage = function(target)
