@@ -57537,7 +57537,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.8.1"
+local version = "11.8.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -76482,7 +76482,7 @@ end
 
 local aeonTimers = {fitness = true, focus = true, tree = true}
 
-function snd.create_timer(name, time, enemy)
+function snd.start_timer(name, time, enemy)
   snd.timers[name] = {start = getEpoch(), limit = time, enemy = enemy}
 end
 
@@ -76582,7 +76582,7 @@ function snd.track_pill(target)
     if snd.checkAff("aeon") then
       limit = limit+1
     end
-    snd.create_timer("pill", limit, true)
+    snd.start_timer("pill", limit, true)
   end
 end
 
@@ -76592,13 +76592,13 @@ function snd.track_focus(target)
     if snd.checkAff("delirium") then limit = limit + 5 end
     if snd.checkAff("laxity") then limit = limit+2 end
     if snd.checkAff("mental_fatigue") then limit = limit * 1.5 end
-    snd.create_timer("focus", limit, true)
+    snd.start_timer("focus", limit, true)
   end
 end
 
 function snd.track_rebounding(target)
   if target:lower() == snd.target:lower() then
-    snd.create_timer("rebounding", snd.toggles.reboundingtime, true)
+    snd.start_timer("rebounding", snd.toggles.reboundingtime, true)
   end
 end
 
@@ -76616,7 +76616,7 @@ function snd.track_restoration(target)
       limit = limit+.3
     end
     limit = limit + snd.calc.sepsis()
-    snd.create_timer("restoration", limit, true)
+    snd.start_timer("restoration", limit, true)
   end
 end
 
@@ -76630,7 +76630,7 @@ function snd.track_salve(target)
       limit = limit+.3
     end
     limit = limit + snd.calc.sepsis()
-    snd.create_timer("restoration", limit, true)
+    snd.start_timer("restoration", limit, true)
   end
 end
 
@@ -76638,13 +76638,13 @@ function snd.track_tree(target)
   if target:lower() == snd.target:lower() then
     local limit = 10
     if snd.checkAff("laxity") then limit = limit+2 end
-    snd.create_timer("tree", limit, true)
+    snd.start_timer("tree", limit, true)
   end
 end
 
 function snd.track_induce(target)
   if target:lower() == snd.target:lower() then
-    snd.create_timer("induce", 11, true)
+    snd.start_timer("induce", 11, true)
   end
 end
 
@@ -76652,13 +76652,13 @@ function snd.track_fitness(target)
   if target:lower() == snd.target:lower() then
     local limit = 20
     if snd.checkAff("laxity") then limit = limit+2 end
-    snd.create_timer("fitness", limit, true)
+    snd.start_timer("fitness", limit, true)
   end
 end
 
 function snd.track_eqbal(time)
   if not snd.timer_check("eqbal", time) then
-    snd.create_timer("eqbal", limit, false)
+    snd.start_timer("eqbal", limit, false)
   end
 end
 
@@ -76680,16 +76680,16 @@ function snd.track_elixir(target, elixir)
     if snd.checkAff("aeon") then
       limit = limit+1
     end
-    snd.create_timer("elixir", limit, true)
+    snd.start_timer("elixir", limit, true)
   end
 end
 
 function snd.track_fury(time)
-  snd.create_timer("fury", time)
+  snd.start_timer("fury", time)
 end
 
 function snd.track_axes(time)
-  snd.create_timer("axes", time)
+  snd.start_timer("axes", time)
 end</script>
 					<eventHandlerList />
 				</Script>
