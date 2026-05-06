@@ -1747,6 +1747,28 @@ end</script>
 							<integer>0</integer>
 						</regexCodePropertyList>
 					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Writhed out of stasis</name>
+						<script>if matches[2] ~= snd.target then return end
+
+snd.target_cured("writhe_stasis")</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(\w+) writhes free of the mental stasis that held .+\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Resists</name>
@@ -67060,7 +67082,7 @@ end
   aff_writhe_stasis              = { effect = "can't move, can attack" },
   aff_writhe_ice                 = { effect = "brrrr" },
 
-  aff_awakened                   = { effect = "Some bard nonsense" },
+  aff_awakened                   = { effect = "enables the bard to alter your emotions" },
 
   --ravager thing
   aff_kneel                      = { effect = "hurts you if you walk too far from ravager" },
@@ -79351,6 +79373,7 @@ snd.bashing_area_beginning_rooms = {
   ["Kkirrrr'shi Hive"] = "69831",
   ["the Crimson Coast"] = "77048",
   ["a deep underground cavern"] = "45878",
+  ["the Severed Grasp"] = "83222",
 }</script>
 					<eventHandlerList />
 				</Script>
