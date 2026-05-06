@@ -1975,8 +1975,10 @@ disableTrigger("Sunder Dodge")</script>
 								<string>^\w+ misses with .+ as (\w+) slips effortlessly out of reach\.$</string>
 								<string>^Completely blind, you strike thin air with .+ as you miss (\w+)\.$</string>
 								<string>^\w+ stumbles blindly and misses (\w+) with .+\.$</string>
+								<string>^\w+ miss(?:es)? (\w+) completely as .+ strikes? out with .+\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
