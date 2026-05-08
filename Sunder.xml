@@ -76236,7 +76236,6 @@ end
         snd.affTimers.start("despair", 60)
       elseif ability == "Murk" then
         snd.target_got("loneliness")
-        snd.target_got("hopelessness")
         snd.target_got("fallen")
       end
     end,
