@@ -26358,7 +26358,6 @@ end</script>
   snd.used.rebounding = true
   snd.waiting.queue = false
   if snd.reboundingTimer then killTimer(snd.reboundingTimer) end
-  if matches[1]:find("suddenly per") then snd.track_rebounding_up(snd.target) end
 end
 
 </script>
@@ -57568,7 +57567,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "11.8.5"
+local version = "11.8.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
