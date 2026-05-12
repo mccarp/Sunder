@@ -16262,15 +16262,15 @@ disableTrigger("Melot Hit Confirmation")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^[A-Za-z\' ]+ moves in a wicked blur as \w+ buries it in (\w+)'s (.+)\.$</string>
-									<string>^Whirling .+ around .+ \w+ body, \w+ chops fiercely into (\w+)'s (.+)\.$</string>
-									<string>^Charging forward, \w+ hews into (\w+)'s (.+) with .+\.$</string>
-									<string>^With a diagonal slash, \w+ cleaves into (\w+)'s (.+) with .+\.$</string>
-									<string>^\w+ sweeps .+ before \w+, brutally carving into (\w+)'s (.+)\.$</string>
-									<string>^Leaping in, \w+ rips (\w+)'s (.+) open with .+\.$</string>
-									<string>^With a violent upward swing, \w+ mangles (\w+)'s (.+) with .+\.$</string>
-									<string>^With an arcing blow, \w+ swings at (\w+)'s (.+) with .+\.$</string>
-									<string>^\w+ cuts open (\w+)'s (.+) with an overhead slash from .+\.$</string>
+									<string>^[A-Za-z\' ]+ moves in a wicked blur as \w+ (?:bury|buries) it in (\w+)'s (.+)\.$</string>
+									<string>^Whirling .+ around .+ \w+ body, \w+ chops? fiercely into (\w+)'s (.+)\.$</string>
+									<string>^Charging forward, \w+ hews? into (\w+)'s (.+) with .+\.$</string>
+									<string>^With a diagonal slash, \w+ cleaves? into (\w+)'s (.+) with .+\.$</string>
+									<string>^\w+ sweeps? .+ before \w+, brutally carving into (\w+)'s (.+)\.$</string>
+									<string>^Leaping in, \w+ rips? (\w+)'s (.+) open with .+\.$</string>
+									<string>^With a violent upward swing, \w+ mangles? (\w+)'s (.+) with .+\.$</string>
+									<string>^With an arcing blow, \w+ swings? at (\w+)'s (.+) with .+\.$</string>
+									<string>^\w+ cuts? open (\w+)'s (.+) with an overhead slash from .+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
