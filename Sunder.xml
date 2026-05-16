@@ -20688,7 +20688,7 @@ disableTrigger("Tiarna Shear")
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Aetherial Volley</name>
 							<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -29491,8 +29491,9 @@ if snd.toggles.gags then
   deleteLine()
   snd.message("&lt;yellow&gt;Ylem mist!")
 end
-if tonumber(snd.toggles.gauntlet_level) &lt;2 then 
-  snd.send("qeb absorb ylem")
+if tonumber(snd.toggles.gauntlet_level) &lt;2 then
+  snd.ylem_check = true
+  snd.waiting.queue = false
   snd.ylem_check = true
 elseif not snd.toggles.bashing then
   snd.send("absorb ylem")
@@ -29816,9 +29817,10 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Got the mist</name>
 				<script>snd.ylem_check = false
-if snd.toggles.bashing or snd.toggles.fasthunt then
-  snd.runBasher()
-end</script>
+snd.waiting.queue = false
+-- if snd.toggles.bashing or snd.toggles.fasthunt then
+  -- snd.runBasher()
+-- end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -29842,7 +29844,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>No mist</name>
-				<script>snd.ylem_check = false</script>
+				<script>snd.ylem_check = false
+snd.waiting.queue = false</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -35535,7 +35538,8 @@ snd.balance.ethereal = false</script>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>empty pipe</name>
-						<script>snd.emptypipes[snd.smokedpipe] = true</script>
+						<script>snd.emptypipes[snd.smokedpipe] = true
+snd.waiting.queue = false</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -35577,7 +35581,8 @@ snd.smokedpipe = "none"</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Pipes emptied by lumi ec</name>
-					<script> snd.emptypipes = {reishi = true, willow = true, yarrow = true}</script>
+					<script> snd.emptypipes = {reishi = true, willow = true, yarrow = true}
+ snd.waiting.queue = false</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -38321,9 +38326,10 @@ snd.waiting.queue = false</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>pipes out</name>
 							<script>snd.pipes_lit = false
-  if snd.toggles.gags then
-    deleteLine()
-  end
+if snd.toggles.gags then
+   deleteLine()
+end
+snd.waiting.queue = false
 snd.delete_prompt = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -57551,6 +57557,8 @@ snd.toggle("calling")
   a = "auto",
 }
 snd.parrying.set_static_parry(map[matches[2]:lower()])
+snd.waiting.queue = false
+snd.core()
 </script>
 					<command></command>
 					<packageName></packageName>
@@ -59533,8 +59541,9 @@ end</script>
 				<name>Movement</name>
 				<packageName></packageName>
 				<script>function snd.get_moving()
+  if snd.moving_to=="none" then return end
   hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
-  if snd.can_path and snd.can_cast() and hp &gt;= 85 and snd.moving_to ~= "none" then
+  if snd.can_path and snd.can_cast() and hp &gt;= 85 then
     if snd.toggles.gallop then
       if gmcp.Char.Vitals.mounted == "0" then
         snd.mount()
@@ -60504,30 +60513,12 @@ function snd.core()
   if not snd.connected then return end
   if not snd.toggles.active then return end
   
-  if not snd.waiting.lighting and snd.can_cast() and snd.not_aff("perplexity") and snd.not_aff("paresis") then
-    local commandSent = false
-    for pipe, isEmpty in pairs(snd.emptypipes) do
-      if isEmpty then
-        snd.send("outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe")
-        commandSent = true
-      end
-    end
-    if commandSent then
-      snd.waiting.lighting = true
-      tempTimer(snd.delay(), [[snd.waiting.lighting = false]])
-    end
-  end
-
   snd.def_check()
-
   if snd.functional() then
-
-    if snd.toggles.parrying then
-      snd.parry()
-    end
+    snd.actions.clearActions()
     snd.dodge()
-    snd.do_queue()
     snd.do_stuff()
+    snd.actions.execute()
   end
 end</script>
 				<eventHandlerList />
@@ -60535,92 +60526,7 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Queue stuff</name>
 				<packageName></packageName>
-				<script>--- @submodule core
-
---- Queue handling.
--- This handles any queued actions we're doing including:
--- lighting pipes, putting up defences, bashing, fitness, dome, diagnose and more
--- @function snd.do_queue
-function snd.do_queue()
-  snd.queue = {}
-  if snd.toggles.active then
-    if not snd.pipes_lit and snd.toggles.lighting then
-      snd.queue.lighting = true
-    end
-    if snd.defenses_loaded and snd.toggles.defenses then
-      for k in pairs(snd.defenses) do
-        if snd.defenses[k].state == "down" and snd.defenses[k].needit and 
-          (not snd.defenses[k].requiredBalance or snd.balance[snd.defenses[k].requiredBalance]) then
-          if k == "def_vitality" then
-            if snd.balance.vitality and snd.full_vitals() then
-              snd.queue[k] = true
-            end
-          elseif k == "def_clarity" then
-            if not snd.checksomeSelfAffs(snd.cures.antipsychotic, 1) then
-              snd.queue[k] = true
-            end
-          elseif (k == "def_shroud" or k == "def_ghost" or k == "def_hiding") then
-            if snd.defenses.def_phased.state ~= "deffed" then
-              snd.queue[k] = true
-            end
-          elseif (k == "def_miasma" or k == "def_safeguard" or k == "def_warmth") then
-            if
-                not (
-                  snd.defenses.def_miasma.state == "deffed" or
-                  snd.defenses.def_safeguard.state == "deffed" or
-                  snd.defenses.def_warmth.state == "deffed"
-                )
-            then
-              snd.queue[k] = true
-            end
-          elseif k == "def_soulcage" then
-            if snd.balance.soulcage then
-              snd.queue[k] = true
-            end
-          else
-            snd.queue[k] = true
-          end
-        end
-      end
-    end
-    if snd.manualQueue[1] then
-      snd.queue.queue = true
-    end
-    if snd.bashing_loaded then
-      if #snd.gathering &gt; 0 or #snd.corpses &gt; 0 then
-        snd.queue.loot = true
-      end
-      if snd.toggles.bashing and snd.bashing_loaded then
-        snd.queue.bashing = true
-      end
-      if snd.moving_to ~= "none" then
-        snd.queue.moving = true
-      end
-      
-      snd.queue.activecures = true
-      
-      if snd.need_dome and snd.balance.dome then
-        snd.queue.dome = true
-      end
-
-      if snd.toggles.diagaffs ~= 0
-      and snd.hidden_afflictions &gt;= snd.toggles.diagaffs
-      and not snd.have_aff("hypochondria") then
-        snd.queue.diagnose = true
-      end
-
-      if snd.have_aff("barbed_arrow") then
-        snd.queue.barbed_arrow = true
-      end
-      if snd.have_aff("embedded_dagger") then
-        snd.queue.embedded_dagger = true
-      end
-    end
-    if snd.toggles.attacking and snd.offense_loaded and snd.defenses.def_manipulation_dome.state ~= "deffed" then
-      snd.queue.attack = true
-    end
-  end
-end</script>
+				<script></script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -60665,12 +60571,7 @@ end
 function snd.runManualQueue()
   if not snd.manualQueue[1] then return end
   cmd = "echo Sunder Manual Queue Executed"..snd.sep..snd.manualQueue[1]
-  if cmd ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = cmd
-   send("qeb "..cmd)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
+  snd.actions.set(cmd)
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -60691,15 +60592,11 @@ function snd.activeCures.run()
       tempTimer(snd.delay(), function() cure.waiting = false end)
     end
   end
-  snd.needActive = false
-  snd.activeCommand = ""
   local cureInfo
   for _, cure in spairs(snd.activeCures.list) do
     if cure.can() then
-      snd.needActive = true
-      snd.activeCommand = cure.command()
-      cureInfo = cure
-    break
+      snd.actions.set(cure.command())
+      break
     end
   end
   for _, cure in pairs(snd.activeCures.balancefree) do
@@ -60707,13 +60604,8 @@ function snd.activeCures.run()
       snd.balancefree = snd.balancefree..cure.action()..snd.sep
     end
   end  
-  if (snd.balancefree ~= "" or snd.needActive) and snd.full_balance() and not snd.waiting.balance then
-    snd.send(snd.balancefree..snd.activeCommand)
-    echo("("..snd.balancefree..snd.activeCommand..")")
-    snd.last_type = cureInfo.name
-    snd.last_item = cureInfo.name
-    snd.waiting.balance = true
-    tempTimer(snd.delay(), [[snd.waiting.balance = false]])
+  if snd.balancefree ~= "" then
+    snd.actions.addFree(snd.balancefree)
   end
 end
 
@@ -60853,6 +60745,30 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Defense helper function</name>
+				<packageName></packageName>
+				<script>
+
+function snd.want_to_raise(defense)
+  local def = snd.defenses[defense]
+    if def.state == "down" and def.needit and
+      (not def.requiredBalance or snd.balance[def.requiredBalance]) then
+        if defense == "def_vitality" then
+          if snd.balance.vitality and snd.full_vitals() then
+            return true
+          end      
+        elseif defense == "def_clarity" then
+          return not snd.checksomeSelfAffs(snd.cures.antipsychotic, 1)
+        elseif (defense == "def_shroud" or defense == "def_ghost" or defense == "def_hiding") then
+          return snd.defenses.def_phased.state~="deffed"
+        else
+          return true
+        end
+    end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Do stuff</name>
 				<packageName></packageName>
 				<script>--- @submodule core
@@ -60861,35 +60777,36 @@ end</script>
 --- Decide what to do based on a priority list.
 -- Stuff like barbed_arrow pulling, moving and fitness are all handled here
 -- @function snd.do_stuff
-snd.coreActionMap = snd.coreActionMap or {
+snd.coreActionMap = {
   queue = function() snd.runManualQueue() end,
   barbed_arrow = function() snd.pull_arrow() end,
   embedded_dagger = function() snd.pull_dagger() end,
-  bashing = function() if not snd.queue.queue then snd.bashing_function() end end,
-  lighting = function() snd.do_lighting() end,
-  attack = function() if not snd.queue.queue and not snd.waiting.queue then snd.attack_function() end end,
+  bashing = function() if snd.toggles.bashing and not snd.manualQueue[1] then snd.bashing_function() end end,
+  pipes = function() snd.handlePipes() end,
+  attack = function() if snd.toggles.attacking and snd.defenses.def_manipulation_dome.state ~= "deffed" and not snd.manualQueue[1] and not snd.waiting.queue then snd.attack_function() end end,
   loot = function() snd.do_loot() end,
   moving = function() snd.get_moving() end,
   dome = function() snd.do_dome() end,
   diagnose = function() snd.do_diagnose() end,
   activecures = function() snd.activeCures.run() end,
+  get_ylem = function() if snd.ylem_check then snd.actions.set("absorb ylem") end end,
+  dodging = function() snd.dodge() end,
+  parrying = function() snd.parry() end,
 }
 
 
 
 function snd.do_stuff()
   for _, i in ipairs(snd.priorities) do
-    if snd.queue[i] then
-      if snd.coreActionMap[i] then
-        snd.coreActionMap[i]()
-      elseif snd.defenses[i] then
-        local def = snd.defenses[i]
-        local method = next(def.balance)
-        if method then
-          snd.method_priority[method].func(i)
-        else
-          snd.message("no method defined for "..i)
-        end
+    if snd.coreActionMap[i] then
+      snd.coreActionMap[i]()
+    elseif snd.defenses[i] and snd.toggles.defenses and snd.want_to_raise(i) then
+      local def = snd.defenses[i]
+      local method = next(def.balance)
+      if method then
+        snd.method_priority[method].func(i)
+      else
+        snd.message("no method defined for "..i)
       end
     end
   end
@@ -60913,7 +60830,9 @@ end
 function snd.reset_priorities()
 snd.priorities =
 {
-  "lighting",
+  "dodging",
+  "parrying",
+  "pipes",
   "def_speed",
   "activecures",
   -- "shrugging",
@@ -60954,6 +60873,7 @@ snd.priorities =
   "def_chameleon",
   "loot",
   "queue",
+  "get_ylem",
   "bashing",
   "moving",
   "def_luminesce",
@@ -61438,23 +61358,15 @@ snd.reset_priorities()
   equilibriumneed = { func = function(current) snd.do_equilibrium_need(current) end},
   balanceequilibrium = { func = function(current) snd.do_balance_equilibrium_need(current) end},
   
-  reject = { func = function(current) snd.do_reject(current) end},
-  concentrate = { func = function(current) snd.do_concentrate(current) end},
   drink = { func = function(current) snd.do_drink(current) end},
   vial = { func = function(current) snd.do_vial(current) end},
   eat = { func = function(current) snd.do_eat(current) end},
   smoke = { func = function(current) snd.do_smoke(current) end},
   herb = { func = function(current) snd.do_herb(current) end},
-  salve = { func = function(current) snd.do_salve(current) end},
-  elixir = { func = function(current) snd.do_elixir(current) end},
-  moss = { func = function(current) snd.do_moss(current) end},
-  clot = { func = function(current) snd.do_clot(current) end},
-  stand = { func = function(current) snd.do_stand(current) end},
-  writhe = { func = function(current) snd.do_writhe(current) end},
-  focus = { func = function(current) snd.do_focus(current) end},
-  tree = { func = function(current) snd.do_tree(current) end},
+  salve = { func = function(current) snd.do_salve(current) end},  
   
   tattoo = { func = function(current) snd.do_tattoo(current) end},
+  
   balancetake = { func = function(current) snd.do_balance_take(current) end},
   equilibriumtake = { func = function(current) snd.do_equilibrium_take(current) end},
   needybalancetake = { func = function(current) snd.do_needy_balance_take(current) end},
@@ -61480,25 +61392,128 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Pipe lighting</name>
 				<packageName></packageName>
-				<script>--- Pipe handling.
--- Checks to see if our pipes are lit and if not, lights them
--- @function snd.do_lighting
--- @see snd.light_up
-function snd.do_lighting()
-  if snd.can_cast() and (not snd.pipes_lit) and (not snd.waiting.lighting) then
-    snd.light_up()
+				<script>--pipe handling
+
+function snd.handlePipes()
+  pipeCmd = ""
+  if snd.not_aff("perplexity") and snd.not_aff("paresis") then
+    for pipe, isEmpty in pairs(snd.emptypipes) do
+      if isEmpty then
+        pipeCmd = pipeCmd.."outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe"
+      end
+    end
+  end
+  
+  if not snd.pipes_lit and snd.toggles.lighting then
+    pipeCmd = pipeCmd.."light pipes"
+  end
+  if pipeCmd~="" then
+    snd.actions.addFree(pipeCmd)
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Queue 2.0</name>
+				<packageName></packageName>
+				<script>local wf_axe_count = {
+  chop = 1,
+  sweep = 1,
+  lacerate = 1,
+  bash = 1,
+  whirlwind = 2,
+  punish = 1,
+  ravage = 2,
+  execute = 2,
+
+  lob = 1,
+  assault = 1,
+  cripple = 1,
+  carve = 2,
+  devastate = 2,
+  slaughter = 2,
+}
+
+snd.actions = snd.actions or {free = {}}
+
+
+function snd.actions.clearActions()
+  snd.actions.free = {}
+  snd.actions.balanceful = nil
+end
+
+function snd.actions.set(action)
+  snd.actions.balanceful = snd.actions.balanceful or type(action) == "table" and action or string.split(action, snd.sep)
+end
+
+function snd.actions.addFree(action)
+  for _, thing in ipairs(type(action)== "table" and action or string.split(action, snd.sep)) do
+    if thing~="" then
+      table.insert(snd.actions.free, thing)
+    end
   end
 end
 
---- Handle pipe light action.
--- This just lights our pipes and then sets a timer for a relight
--- @function snd.light_up
-function snd.light_up()
-  snd.send("light pipes")
-  snd.waiting.lighting = true
-  tempTimer(snd.delay(), [[snd.waiting.lighting = false]])
-end
-</script>
+function snd.actions.execute()
+  if snd.waiting.queue then return end
+  -- remove stand and put it at the front
+  snd.actions.balanceful = snd.actions.balanceful or {}
+  local stand = false
+  local index = table.index_of(snd.actions.balanceful, "stand")
+  if index then
+    stand = true
+    table.remove(snd.actions.balanceful, index)
+  end
+  --strip out any blank actions from balanceful
+  local blankIndex = table.index_of(snd.actions.balanceful, "")
+  while blankIndex do
+    table.remove(snd.actions.balanceful, blankIndex)
+    blankIndex = table.index_of(snd.actions.balanceful, "")
+  end
+  
+  index = table.index_of(snd.actions.free, "stand")
+    if index then
+    stand = true
+    table.remove(snd.actions.free, index)
+  end
+  local actionCount = (stand and 14 or 15) - #snd.actions.balanceful
+  local finalActions = stand and {"stand"} or {}
+  for i = 1, math.min(#snd.actions.free, actionCount) do
+    table.insert(finalActions, snd.actions.free[i])
+  end
+  for _, action in ipairs(snd.actions.balanceful) do
+    table.insert(finalActions, action)
+  end
+  local cmd = table.concat(finalActions, snd.sep)
+  
+  if cmd~="" and cmd~= snd.last_attack then
+    if snd.class == "Wayfarer" then
+      local axes = 0
+      local checkString = cmd:lower()
+      for attack, count in pairs(wf_axe_count) do
+        if checkString:find(attack) then
+          axes = count
+          break
+        end
+      end
+      if axes == 2 then
+        snd.send("qeb")
+        snd.send("queue axes2 " .. cmd)
+      elseif axes == 1 and not snd.can_axe() then
+        snd.send("qeb")
+        snd.send("queue axe " .. cmd)
+      else
+        snd.send("queue axes")
+        snd.send("qeb " .. cmd)
+      end
+    else
+      snd.send("qeb " .. cmd)
+    end
+    snd.last_attack = cmd
+		snd.waiting.queue = true
+		tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -61542,136 +61557,51 @@ function snd.do_special(current)
 end
 
 function snd.do_balance_need(current)
- if gmcp.Char.Vitals.balance == "1" and not snd.waiting.balance and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  sendWrapper(snd.defenses[current].balance.balanceneed)
-  snd.last_type = "balanceneed"
-  snd.last_item = snd.defenses[current].balance.balanceneed
-  snd.defenses[current].state = "waiting"
-  startStopWatch(snd.defenses[current].timer)
- end
+  snd.actions.addFree(snd.defenses[current].balance.balanceneed)
 end
 
 function snd.do_equilibrium_need(current)
- if gmcp.Char.Vitals.equilibrium == "1" and not snd.waiting.equilibrium and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  sendWrapper(snd.defenses[current].balance.equilibriumneed)
-  snd.last_type = "equilibriumneed"
-  snd.last_item = snd.defenses[current].balance.equilibriumneed
-  snd.defenses[current].state = "waiting"
-  startStopWatch(snd.defenses[current].timer)
- end
+  snd.actions.addFree(snd.defenses[current].balance.equilibriumneed)
 end
 
 function snd.do_balance_equilibrium_need(current)
- if snd.can_cast() then
-  if snd.defenses[current] ~= nil then
-   if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    if current:find("chameleon") then
-      local cham_check = snd.toggles.chameleonPeople[math.random(#snd.toggles.chameleonPeople)]
-      if hasSkill("Chameleon","raceskills") then
-        sendWrapper("chameleon "..cham_check)
-      else
-        sendWrapper(snd.defenses[current].balance.balanceequilibrium..cham_check)
-      end
-    else
-      sendWrapper(snd.defenses[current].balance.balanceequilibrium)
-    end
-    snd.last_type = "balanceequilibrium"
-    snd.last_item = snd.defenses[current].balance.balanceequilibrium
-    snd.defenses[current].state = "waiting"
-    startStopWatch(snd.defenses[current].timer)
-   end
-  elseif snd.afflictions[current] ~= nil then
-   if snd.afflictions[current].state == "afflicted" then
-    sendWrapper(snd.afflictions[current].cures.balanceequilibrium)
-    snd.last_type = "balanceequilibrium"
-    snd.last_item = snd.afflictions[current].cures.balanceequilibrium
-    snd.afflictions[current].state = "waiting"
-    startStopWatch(snd.afflictions[current].timer)
-   end
+  if current == "def_chameleon" then
+    local cham_check = snd.toggles.chameleonPeople[math.random(#snd.toggles.chameleonPeople)]
+    snd.actions.addFree(snd.defenses[current].balance.balanceequilibrium..cham_check)    
+  else
+    snd.actions.addFree(snd.defenses[current].balance.balanceequilibrium)
   end
- end
 end
 
 function snd.do_balance_take(current)
- if gmcp.Char.Vitals.balance == "1" and not snd.waiting.balance and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  sendWrapper(snd.defenses[current].balance.balancetake)
-  snd.last_type = "balancetake"
-  snd.last_item = snd.defenses[current].balance.balancetake
-  snd.defenses[current].state = "waiting"
-  startStopWatch(snd.defenses[current].timer)
-  snd.waiting.balance = true
-  tempTimer(snd.delay(), [[snd.waiting.balance = false]])
- end
+  snd.actions.set(snd.defenses[current].balance.balancetake)
 end
 
 function snd.do_equilibrium_take(current)
- if gmcp.Char.Vitals.equilibrium == "1" and not snd.waiting.equilibrium and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  sendWrapper(snd.defenses[current].balance.equilibriumtake)
-  snd.last_type = "equilibriumtake"
-  snd.last_item = snd.defenses[current].balance.equilibriumtake
-  snd.defenses[current].state = "waiting"
-  startStopWatch(snd.defenses[current].timer)
-  snd.waiting.equilibrium = true
-  tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
- end
+  snd.actions.set(snd.defenses[current].balance.equilibriumtake)
 end
 
 function snd.do_needy_balance_take(current)
-  if snd.can_cast() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    sendWrapper(snd.defenses[current].balance.needybalancetake)
-    snd.last_type = "needybalancetake"
-    snd.last_item = snd.defenses[current].balance.needybalancetake
-    snd.defenses[current].state = "waiting"
-    startStopWatch(snd.defenses[current].timer)
-    snd.waiting.balance = true
-    tempTimer(snd.delay(), [[snd.waiting.balance = false]])
-  end
+  snd.actions.set(snd.defenses[current].balance.needybalancetake)
 end
 
 function snd.do_needy_equilibrium_take(current)
- if snd.can_cast() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  sendWrapper(snd.defenses[current].balance.needyequilibriumtake)
-  snd.last_type = "needyequilibriumtake"
-  snd.last_item = snd.defenses[current].balance.needyequilibriumtake
-  snd.defenses[current].state = "waiting"
-  startStopWatch(snd.defenses[current].timer)
-  snd.waiting.equilibrium = true
-  tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
- end
+  snd.actions.set(snd.defenses[current].balance.needyequilibriumtake)
 end
 
 function snd.do_balance_equilibrium_take(current)
-  if snd.can_cast() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    if snd.class == "Teradrim" and current:find("swelter") then
-      if not table.isMember(gmcp.Room.Info.details, "sandy") then
-        snd.send("sand flood")
-        snd.waiting.balance = true
-        tempTimer(snd.delay(), [[snd.waiting.balance = false]])
-        snd.waiting.equilibrium = true
-        tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
-      end
+  if snd.class == "Teradrim" and current == "def_sand_swelter" then
+    if not table.isMember(gmcp.Room.Info.details, "sandy") then
+      snd.actions.set("sand flood")
     end
-
-    if snd.class == "Tidesage" and current:find("sirensong") then
-      if not table.isMember(gmcp.Room.Info.details, "fogged") then
-        snd.send("fog inundate")
-        snd.waiting.balance = true
-        tempTimer(snd.delay(), [[snd.waiting.balance = false]])
-        snd.waiting.equilibrium = true
-        tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
-      end
-    end
-        
-    sendWrapper(snd.defenses[current].balance.balanceequilibriumtake)
-    snd.last_type = "balanceequilibriumtake"
-    snd.last_item = snd.defenses[current].balance.balanceequilibriumtake
-    snd.defenses[current].state = "waiting"
-    startStopWatch(snd.defenses[current].timer)
-    snd.waiting.balance = true
-    tempTimer(snd.delay(), [[snd.waiting.balance = false]])
-    snd.waiting.equilibrium = true
-    tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
   end
+
+  if snd.class == "Tidesage" and current=="def_sirensong" then
+    if not table.isMember(gmcp.Room.Info.details, "fogged") then
+      snd.actions.set("fog inundate")
+    end
+  end
+  snd.actions.set(snd.defenses[current].balance.balanceequilibriumtake)
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -61680,15 +61610,8 @@ end</script>
 					<packageName></packageName>
 					<script>
 function snd.do_tattoo(current)
- if snd.can_cast() and snd.can_tattoo() and snd.defenses[current].state == "down" and snd.defenses[current].needit then
-  snd.send("touch "..snd.defenses[current].balance.tattoo.." tattoo")
-  echo("(touch "..snd.defenses[current].balance.tattoo.." tattoo)")
-  snd.last_type = "tattoo"
-  snd.last_item = snd.defenses[current].balance.tattoo
-  snd.defenses[current].state = "waiting"
-  startStopWatch(snd.defenses[current].timer)
-  snd.waiting.equilibrium = true
-  tempTimer(snd.delay(), [[snd.waiting.equilibrium = false]])
+ if snd.can_tattoo() then
+  snd.actions.set("touch "..snd.defenses[current].balance.tattoo.." tattoo")
  end
 end</script>
 					<eventHandlerList />
@@ -61696,39 +61619,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>eat</name>
 					<packageName></packageName>
-					<script>-- 
--- function snd.do_eat(current)
- -- if snd.defenses[current] ~= nil then
-  -- if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
-   -- snd.cur.herb = snd.defenses[current].balance.eat
-   -- if snd.have_slow() then
-    -- if snd.outred[snd.cur.herb] &gt;= 1 then
-     -- snd.eat(current)
-     -- return
-    -- elseif snd.not_entangled() then
-     -- snd.send("outr "..snd.cur.herb)
-     -- return
-    -- else
-     -- return
-    -- end
-   -- elseif snd.not_entangled() then
-    -- if snd.defenses[current] ~= nil then
-     -- snd.send("outr "..snd.cur.herb)
-     -- snd.eat(current)
-    -- end
-   -- else
-    -- if snd.defenses[current] ~= nil then
-     -- if snd.outred[snd.cur.herb] &gt;= 1 then
-      -- snd.eat(current)
-     -- end
-    -- end
-   -- end
-  -- end
- -- end
--- end
-
-
-function snd.do_eat(current)
+					<script>function snd.do_eat(current)
  if snd.defenses[current] ~= nil then
   if snd.defenses[current].state == "down" and snd.defenses[current].needit and snd.can_eat() then
    snd.cur.herb = snd.defenses[current].balance.eat
@@ -61967,159 +61858,6 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>elixir</name>
-					<packageName></packageName>
-					<script>
-function snd.do_elixir(current)
- if gmcp.Char.Vitals.elixir == "1" and not snd.waiting.elixir and snd.can_eat() then
-  snd.send("sip "..snd.afflictions[current].cures.elixir)
-  snd.waiting.elixir = true
-  tempTimer(snd.delay(), [[snd.waiting.elixir = false]] )
- end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>moss</name>
-					<packageName></packageName>
-					<script>
-function snd.do_moss(current)
- if gmcp.Char.Vitals.moss == "1" and not snd.waiting.moss and snd.can_eat() then
-  snd.cur.herb = "moss"
-  if snd.have_slow() then
-   if snd.afflictions[current] ~= nil then
-    if snd.outred[snd.cur.herb] &gt;= 1 then
-     snd.send("eat "..snd.cur.herb)
-     return
-    elseif snd.not_entangled() then
-     snd.send("outr "..snd.cur.herb)
-     return
-    else
-     return
-    end
-   end
-  elseif snd.not_entangled() then
-   if snd.afflictions[current] ~= nil then
-    snd.send("outr "..snd.cur.herb)
-    snd.send("eat "..snd.cur.herb)
-   elseif snd.defenses[current] ~= nil then
-    snd.send("outr "..snd.cur.herb)
-    snd.send("eat "..snd.cur.herb)
-   end
-  else
-   if snd.afflictions[current] ~= nil then
-    if snd.outred[snd.cur.herb] &gt;= 1 then
-     snd.send("eat "..snd.cur.herb)
-    end
-   end
-  end
-  snd.waiting.moss = true
-  tempTimer(snd.delay(), [[snd.waiting.moss = false]] )
- end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>writhe</name>
-					<packageName></packageName>
-					<script>
-function snd.do_writhe(current)
- if snd.afflictions[current].state == "afflicted" and gmcp.Char.Vitals.writhing == "0" and (not snd.waiting.writhe) and (not string.find(current, "impale") or snd.full_balance()) then
-  snd.send("writhe")
-  echo("(writhe)")
-  snd.last_type = "writhe"
-  snd.last_item = "send"
-  snd.waiting.writhe = true
-  tempTimer(snd.delay(), [[snd.waiting.writhe = false]])
-  snd.afflictions[current].state = "waiting"
-  startStopWatch(snd.afflictions[current].timer)
- end
-end
-</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>concentrate</name>
-					<packageName></packageName>
-					<script>
-function snd.do_concentrate(current)
- if snd.afflictions[current].state == "afflicted" and not snd.waiting.concentrate then
-  snd.send("concentrate")
-  echo("(concentrate)")
-  snd.last_type = "concentrate"
-  snd.last_item = "send"
-  snd.waiting.concentrate = true
-  tempTimer(snd.delay(), [[snd.waiting.concentrate = false]])
-  snd.afflictions[current].state = "waiting"
-  startStopWatch(snd.afflictions[current].timer)
- end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>other</name>
-					<packageName></packageName>
-					<script>
-function snd.do_tree(current)
- limb = false
- if string.find(current, "_crippled") then
-  x = string.gsub(current, "_crippled", "_broken")
-  y = string.gsub(current, "_crippled", "_mangled")
-  if snd.have_aff(x) or snd.have_aff(y) then
-   limb = true
-  end
- end
- if not limb and snd.afflictions[current].state == "afflicted" and gmcp.Char.Vitals.tree == "1" and not snd.waiting.tree and snd.can_tattoo() then
-  snd.send("touch tree tattoo")
-  echo("(touch tree tattoo)")
-  snd.last_type = "tree"
-  snd.last_item = "send"
-  snd.waiting.tree = true
-  tempTimer(snd.delay(), [[snd.waiting.tree = false]])
-  snd.afflictions[current].state = "waiting"
-  startStopWatch(snd.afflictions[current].timer)
- end
-end
-
-function snd.do_focus(current)
- if snd.afflictions[current].state == "afflicted" and gmcp.Char.Vitals.focus == "1" and not snd.waiting.focus and snd.can_focus() then
-  snd.send("focus")
-  echo("(focus)")
-  snd.last_type = "focus"
-  snd.last_item = "send"
-  snd.waiting.focus = true
-  tempTimer(snd.delay(), [[snd.waiting.focus = false]])
-  snd.afflictions[current].state = "waiting"
-  startStopWatch(snd.afflictions[current].timer)
- end
-end
-
-function snd.do_clot(current)
- if snd.afflictions[current].state == "afflicted" and not snd.waiting.clot and snd.toggles.clotting then
-  mp = gmcp.Char.Vitals.mp
-  mid = math.floor((gmcp.Char.Vitals.maxmp/100)*60)
-  max = math.floor((mp-mid)/80)
-  needed = math.floor(tonumber(gmcp.Char.Vitals.bleeding)/20)
-  if max &lt; needed then
-   x = max
-  else
-   x = needed
-  end
-  if x &gt; 0 then
-   snd.send("clot "..x)
-   echo("(clot*"..x..")")
-   snd.last_type = "clot"
-   snd.last_item = "send"
-   snd.waiting.clot = true
-   tempTimer(snd.delay(), [[snd.waiting.clot = false]])
-   snd.afflictions[current].state = "waiting"
-   startStopWatch(snd.afflictions[current].timer)
-  end
- end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
 					<name>smoke</name>
 					<packageName></packageName>
 					<script>
@@ -62165,41 +61903,6 @@ function snd.smoke(current)
    snd.defenses[current].state = "waiting"
    startStopWatch(snd.defenses[current].timer)
   end
- end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>stand</name>
-					<packageName></packageName>
-					<script>
-function snd.do_stand(current)
- if snd.afflictions[current].state == "afflicted" and snd.toggles.standing and (not snd.waiting.stand) and snd.full_balance() and snd.can_legs() then
-  snd.send("stand")
-  echo("(stand)")
-  snd.last_type = "stand"
-  snd.last_item = "send"
-  snd.waiting.stand = true
-  tempTimer(snd.delay(), [[snd.waiting.stand = false]])
-  snd.afflictions[current].state = "waiting"
-  startStopWatch(snd.afflictions[current].timer)
- end
-end
-</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>fitness</name>
-					<packageName></packageName>
-					<script>
-function snd.do_fitness()
- if snd.can_fitness() and snd.need_fitness and snd.full_balance() then
-  snd.send(snd.fitnessCommandOverride and snd.fitnessCommandOverride() or "fitness")
-  echo("(fitness)")
-  snd.last_type = "fitness"
-  snd.last_item = "fitness"
-  snd.waiting.balance = true
-  tempTimer(snd.delay(), [[snd.waiting.balance = false]])
  end
 end</script>
 					<eventHandlerList />
@@ -62254,32 +61957,12 @@ end
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>shrugging</name>
-					<packageName></packageName>
-					<script>
-function snd.do_shrug()
- if snd.full_balance() and snd.can_shrug() then
-  snd.send("shrug venom")
-  echo("(shrug venom)")
-  snd.last_type = "shrug"
-  snd.last_item = "shrug"
-  snd.waiting.balance = true
-  tempTimer(snd.delay(), [[snd.waiting.balance = false]])
- end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
 					<name>dome</name>
 					<packageName></packageName>
 					<script>
 function snd.do_dome()
- if snd.full_balance() then
-  snd.send("manipulate pylon for dome")
-  snd.last_type = "dome"
-  snd.last_item = "dome"
-  snd.waiting.balance = true
-  tempTimer(snd.delay(), [[snd.waiting.balance = false]])
+ if snd.need_dome then
+  snd.action.set("manipulate pylon for dome")
  end
 end</script>
 					<eventHandlerList />
@@ -62287,18 +61970,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>rage</name>
 					<packageName></packageName>
-					<script>function snd.do_rage()
-  if snd.rage_check() and snd.can_rage() and snd.balance.rage then
-    snd.send("rage")
-    echo("(rage)")
-    snd.last_type = "rage"
-    snd.last_item = "rage"
-    snd.waiting.balance = true
-    tempTimer(snd.delay(), [[snd.waiting.balance = false]])
-  end
-end
-
-function snd.rage_check()
+					<script>function snd.rage_check()
   if not snd.balance.rage then return false end
 
   if not gmcp then return false end
@@ -62358,23 +62030,7 @@ function snd.purify_check()
       return false
     end
   end
-end
-
-function snd.do_purify()
-  if snd.class == "Praenomen" then
-    snd.send("purify blood")
-    echo("(purify)")
-  else
-    snd.send("succour")
-    echo("(succour)")
-  end
-
-  snd.last_type = "purify"
-  snd.last_item = "purify"
-  snd.waiting.purify = true
-  tempTimer(snd.delay(), [[snd.waiting.purify = false]])
-end
-</script>
+end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -62393,25 +62049,7 @@ end
     end
   end
   return false
-end
-
-function snd.do_panacea()
-  
-      if snd.class == "Shaman" then
-        snd.send("nature panacea")
-        echo("(nature panacea)")
-      else
-        snd.send("botany subvert")
-        echo("(botany subvert)")        
-      end
-      
-      snd.last_type = "panacea"
-      snd.last_item = "panacea"
-      snd.waiting.panacea = true
-      tempTimer(snd.delay(), [[snd.waiting.panacea = false]])
-end
-
-</script>
+end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -62419,13 +62057,10 @@ end
 					<packageName></packageName>
 					<script>
 function snd.do_diagnose()
- if snd.full_balance() then
-  snd.send("diagnose")
-  snd.last_type = "diagnose"
-  snd.last_item = "send"
-  snd.waiting.balance = true
-  tempTimer(snd.delay(), [[snd.waiting.balance = false]])
- end
+  if snd.toggles.diagaffs ~= 0 and snd.hidden_afflictions &gt;= snd.toggles.diagaffs
+  and not snd.have_aff("hypochondria") then
+    snd.actions.set("diagnose")
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -62433,18 +62068,14 @@ end</script>
 					<name>Barbed arrows</name>
 					<packageName></packageName>
 					<script>function snd.pull_arrow()
-  if not snd.waiting.queue then
-    snd.send("qeb pull arrow from body")
-    snd.waiting.queue = true
-    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  if snd.have_aff("barbed_arrow") then
+    snd.actions.set("pull arrow from body")
   end
 end
 
 function snd.pull_dagger()
-  if not snd.waiting.queue then
-    snd.send("qeb pull dagger from body")
-    snd.waiting.queue = true
-    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  if snd.have_aff("embedded_dagger") then
+    snd.actions.set("pull dagger from body")
   end
 end</script>
 					<eventHandlerList />
@@ -64544,6 +64175,7 @@ function snd.def_remove(defense)
   if snd.defenses[defense].state ~= "waiting" then
     snd.defenses[defense].state = "down"
   end
+  snd.waiting.queue = false
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -66000,7 +65632,7 @@ function snd.parrying.getVerb()
     return "guard "
   elseif snd.class == "Ravager" and hasSkill("Oppose") then
     return "oppose "
-  elseif hasSkill("Parrying") and snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty" then
+  elseif hasSkill("Parrying") and (snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty") or snd.class == "Shapeshifter" then
     return "parry "
   end
   return "parry " --I guess default here
@@ -66010,6 +65642,8 @@ end
 -- This function can be overriden via snd.parry_override
 -- @function snd.parry
 function snd.parry()
+  if not snd.toggles.parrying then return false end
+  
   if snd.parrying.static_parry then
     snd.parrying.toparry = snd.parrying.static_parry
   elseif snd.parry_override then
@@ -66022,18 +65656,8 @@ function snd.parry()
     snd.parrying.toparry = snd.parrying.get_highest()
   else
   end
-  if snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry and snd.full_balance() and not snd.waiting.parry then
-    if snd.class == "Zealot" and hasSkill("Fending") then
-      snd.send("fend " .. snd.parrying.toparry)
-    elseif snd.class == "Monk" and hasSkill("Guarding") then
-      snd.send("guard " .. snd.parrying.toparry)
-    elseif snd.class == "Ravager" and hasSkill("Oppose") then
-      snd.send("oppose " .. snd.parrying.toparry)
-    elseif hasSkill("Parrying") and snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty" or snd.class == "Shapeshifter" then
-      snd.send("parry " .. snd.parrying.toparry)
-    end
-    snd.waiting.parry = true
-    tempTimer(snd.delay(), [[snd.waiting.parry = false]])
+  if snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
+    snd.actions.addFree(snd.parrying.getVerb()..snd.parrying.toparry)
   end
 end
 
@@ -71147,11 +70771,7 @@ end
 
 function snd.attack(attack, new)
   local str = ""
-  if snd.needActive then
-    str = snd.activeCommand
-  else
-    str = attack
-  end
+  str = attack
   str = snd.balancefree..str
   str = "stand" .. snd.sep .. "g body" .. snd.sep .. str
   if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
@@ -71167,38 +70787,11 @@ function snd.attack(attack, new)
     str = "light pipes" .. snd.sep .. str
   end
   
-  if new then
-    if str ~= snd.last_attack and not snd.waiting.queue then
-			snd.last_attack = str
-			snd.waiting.queue = true
-			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-		else
-      return
-    end
+  if not new then
+    snd.waiting.queue = false
   end
-  
-  if snd.class == "Wayfarer" then
-    local axes = 0
-    local checkString = str:lower()
-    for attack, count in pairs(wf_axe_count) do
-      if checkString:find(attack) then
-        axes = count
-        break
-      end
-    end
-    if axes == 2 then
-      snd.send("qeb")
-      snd.send("queue axes2 " .. str)
-    elseif axes == 1 and not snd.can_axe() then
-      snd.send("qeb")
-      snd.send("queue axe " .. str)
-    else
-      snd.send("queue axes")
-      snd.send("qeb " .. str)
-    end
-  else
-    snd.send("qeb " .. str)
-  end
+
+  snd.actions.set(str)
 end
 
 function snd.starting_attack()
@@ -77743,42 +77336,19 @@ function snd.bashing_function()
       elseif snd[class .. "_bash"] then
         snd[class .. "_bash"]()          --check for/use stock bashing function
       else
-        battack = "kill " ..
-            snd.bashing.target                                --if no bashing function exists, default to kill
+        battack = "kill " .. snd.bashing.target --if no bashing function exists, default to kill
       end
-      
-      if snd.needActive then
-        battack = snd.activeCommand
-      end
-      battack = snd.balancefree..battack
+      battack = battack
       if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
         battack = "overdrive" .. snd.sep .. battack .. snd.sep
       end
-      for pipe, isEmpty in pairs(snd.emptypipes) do
-        if isEmpty then
-          battack = "outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe" .. snd.sep .. battack
-        end
-      end
-  
-      if not snd.pipes_lit and snd.toggles.lighting then
-        battack = "light pipes" .. snd.sep .. battack
-      end
-      
-      
-      if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-        battack = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. battack
-      end
+
       if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack .. snd.sep .. "absorb ylem" end       -- if you have a level 2 gauntlet, auto-absorb
 
       if battack == "" and (snd.counterattack_active or not snd.defenses.def_reflection.state == "deffed") then -- if the basher couldn't change battack to something from your class, it will give an error
         echo("\nTried to bash, no class ability set.")
-      elseif battack ~= snd.last_attack and not snd.ylem_check then                                             -- if your battack isn't the same as your last attempted attack, and you aren't trying to capture ylem
-        snd.last_attack = battack                                                                               -- ATTACK
-        if battack ~= "none" then                                                                               -- if for some reason it's none as your attack, stand
-          snd.send("qeb stand" .. snd.sep .. snd.last_attack)
-        end
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+      elseif battack ~= "none" then
+        snd.actions.set("stand"..snd.sep..battack)
       end
     end
   end
@@ -77831,11 +77401,8 @@ function snd.bashing_cleanup()
   if cleanupAction == "" then
     doMineStuff()
   end
-  if cleanupAction ~= "" and cleanupAction ~= snd.last_attack then
-    snd.send("qeb stand" .. snd.sep .. cleanupAction)
-    snd.last_attack = cleanupAction
-    snd.waiting.queue = true
-    tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+  if cleanupAction ~= "" then
+    snd.actions.set("stand"..snd.sep..cleanupAction)
     return true
   end
 end
