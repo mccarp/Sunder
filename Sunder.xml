@@ -77496,9 +77496,7 @@ end
 -- @see snd.loot_it
 function snd.do_loot()
   if #snd.gathering &gt; 0 or #snd.corpses &gt; 0 then
-    if snd.can_cast() and not snd.waiting.loot then
-      snd.loot_it()
-    end
+    snd.loot_it()
   end
 end
 
@@ -77507,15 +77505,11 @@ end
 -- @see snd.do_loot
 function snd.loot_it()
   for i in ipairs(snd.corpses) do
-    snd.send("get " .. snd.corpses[i])
+    snd.actions.addFree("get " .. snd.corpses[i])
   end
   for h in ipairs(snd.gathering) do
-    snd.send("get " .. snd.gathering[h])
+    snd.actions.addFree("get " .. snd.gathering[h])
   end
-  snd.corpses = {}
-  snd.gathering = {}
-  snd.have_items = false
-  snd.need_loot = false
 end
 
 </script>
