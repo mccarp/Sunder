@@ -6528,7 +6528,7 @@ snd.fulcrum_exists = true</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Summon fulcrum</name>
-							<script>snd.set_queue("fulcrum construct")</script>
+							<script>snd.cq("fulcrum construct")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -6576,7 +6576,7 @@ snd.fulcrum_exists = true
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Well Summon</name>
-							<script>snd.set_queue("well draw")</script>
+							<script>snd.cq("well draw")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -29486,8 +29486,7 @@ end
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>ylem</name>
-				<script>--snd.set_queue("absorb ylem")
-if snd.toggles.gags then 
+				<script>if snd.toggles.gags then 
   deleteLine()
   snd.message("&lt;yellow&gt;Ylem mist!")
 end
@@ -30889,7 +30888,7 @@ snd.loyalsattacking = false</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>OMG YOUR STAFF</name>
-							<script>snd.set_queue("qeb wield quarterstaff")</script>
+							<script>snd.cq("wield quarterstaff")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -40812,7 +40811,7 @@ snd.attack_function()</script>
 						<Alias isActive="yes" isFolder="no">
 							<name>snipe</name>
 							<script>if snd.class == "Infiltrator" then
-  snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch normal"..snd.sep.."snipe "..snd.target.." "..matches[2])
+  snd.cq("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch normal"..snd.sep.."snipe "..snd.target.." "..matches[2])
 end</script>
 							<command></command>
 							<packageName></packageName>
@@ -40822,9 +40821,9 @@ end</script>
 							<name>meteor</name>
 							<script>if snd.class == "Infiltrator" then
   if matches[2] == nil then
-    snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch meteor"..snd.sep.."shoot "..snd.target.." meteor")
+    snd.cq("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch meteor"..snd.sep.."shoot "..snd.target.." meteor")
   else
-    snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch meteor"..snd.sep.."shoot "..matches[2].." meteor")
+    snd.cq("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch meteor"..snd.sep.."shoot "..matches[2].." meteor")
   end
 end</script>
 							<command></command>
@@ -40835,9 +40834,9 @@ end</script>
 							<name>ghost</name>
 							<script>if snd.class == "Infiltrator" then
   if matches[2] == nil then
-    snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch ghost"..snd.sep.."shoot "..snd.target)
+    snd.cq("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch ghost"..snd.sep.."shoot "..snd.target)
   else
-    snd.set_queue("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch ghost"..snd.sep.."shoot "..matches[2])
+    snd.cq("secure dirk"..snd.sep.."secure whip"..snd.sep.."wear buckler"..snd.sep.."bowstance"..snd.sep.."switch ghost"..snd.sep.."shoot "..matches[2])
   end
 end</script>
 							<command></command>
@@ -48206,7 +48205,7 @@ snd.attack_function()</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>eye sigil</name>
-					<script>snd.set_queue("quickwield both eyesigil"..snd.sep.."throw eye at ground")</script>
+					<script>snd.cq("quickwield both eyesigil"..snd.sep.."throw eye at ground")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^eye$</regex>
@@ -48215,9 +48214,9 @@ snd.attack_function()</script>
 					<name>web tattoo</name>
 					<script>if snd.toggles.attacking then snd.toggle("attacking") end
 if matches[2] == nil then
- snd.send("qeb touch web "..snd.target)
+ snd.cq("touch web "..snd.target)
 else
- snd.send("qeb touch web "..matches[2])
+ snd.cq("touch web "..matches[2])
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -48226,9 +48225,9 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>brazier</name>
 					<script>if matches[2] == nil then
- snd.attack("touch brazier "..snd.target)
+ snd.cq("touch brazier "..snd.target)
 else
- snd.attack("touch brazier "..matches[2])
+ snd.cq("touch brazier "..matches[2])
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -48237,9 +48236,9 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>tentacle</name>
 					<script>if matches[2] == nil then
- snd.attack("touch tentacle "..snd.target)
+ snd.cq("touch tentacle "..snd.target)
 else
- snd.attack("touch tentacle "..matches[2])
+ snd.cq("touch tentacle "..matches[2])
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -48254,7 +48253,7 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>breathe fire</name>
-					<script>snd.send("qeb breathe fire at icewall")</script>
+					<script>snd.cq("breathe fire at icewall")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^bf$</regex>
@@ -48262,9 +48261,9 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>prism</name>
 					<script>if matches[2] == nil then
- snd.attack("touch prism "..snd.target)
+ snd.cq("touch prism "..snd.target)
 else
- snd.attack("touch prism "..matches[2])
+ snd.cq("touch prism "..matches[2])
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -48272,14 +48271,14 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>shackle</name>
-					<script>snd.send("qeb refining shackle eld")</script>
+					<script>snd.cq("refining shackle eld")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^sh$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>tumble</name>
-					<script>snd.send("qeb tumble "..matches[2])</script>
+					<script>snd.cq("tumble "..matches[2])</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^tm (\w+)$</regex>
@@ -48288,15 +48287,7 @@ end</script>
 					<name>dummy mode</name>
 					<script>snd.starting_attack()
 function snd.attack_function()
- if not snd.waiting.queue then
-  local string = "punch "..snd.target
-  if string ~= snd.last_attack and not snd.waiting.queue then
-   snd.last_attack = string
-   snd.attack(snd.last_attack)
-   snd.waiting.queue = true
-   tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  end
- end
+  snd.attack("punch "..snd.target, true)
 end
 snd.attack_function()
 </script>
@@ -48307,7 +48298,7 @@ snd.attack_function()
 				<Alias isActive="yes" isFolder="no">
 					<name>swing up</name>
 					<script>if snd.toggles.attacking then snd.toggle("attacking") end
-snd.send("qeb swing up")</script>
+snd.cq("swing up")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^su$</regex>
@@ -48315,7 +48306,7 @@ snd.send("qeb swing up")</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>swing down</name>
 					<script>if snd.toggles.attacking then snd.toggle("attacking") end
-snd.send("qeb swing down")</script>
+snd.cq("swing down")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^sd$</regex>
@@ -57310,7 +57301,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.0.0"
+local version = "12.0.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57358,9 +57349,9 @@ if snd.have_aff("paresis") then
  snd.send("firstaid elevate paresis")
 end
 if snd.class == "Carnifex" then
- snd.send("qeb soul shield")
+ snd.cq("soul shield")
 else
- snd.send("qeb touch shield tattoo")
+ snd.cq("touch shield tattoo")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -58106,16 +58097,16 @@ if snd.toggles.active == false then
     "Sunder is currently off. Please SNDON to turn it back on! If you wish to remove this behavior, alter it in the 'general deaths' trigger.")
 end
 
-if snd.class == "Ascendril" then send("simultaneity") end
-if snd.class == "Bloodborn" then send("prowess") end
-if snd.class == "Archivist" then snd.send("incite lens") end
-if snd.class == "Sciomancer" then snd.send("channel shadow") end
-if snd.class == "Runecarver" then snd.send("straddle line") end
-if snd.class == "Teradrim" then snd.send("golem call") end
-if snd.class == "Tidesage" then snd.send("synth call") end
-if snd.class == "Voidseer" then snd.send("foment longing") end
-if snd.class == "Luminary" then snd.send("angel summon") end
-if snd.class == "Earthcaller" then snd.send("osso draw") end
+if snd.class == "Ascendril" then snd.q("simultaneity") end
+if snd.class == "Bloodborn" then snd.q("prowess") end
+if snd.class == "Archivist" then snd.q("incite lens") end
+if snd.class == "Sciomancer" then snd.q("channel shadow") end
+if snd.class == "Runecarver" then snd.q("straddle line") end
+if snd.class == "Teradrim" then snd.q("golem call") end
+if snd.class == "Tidesage" then snd.q("synth call") end
+if snd.class == "Voidseer" then snd.q("foment longing") end
+if snd.class == "Luminary" then snd.q("angel summon") end
+if snd.class == "Earthcaller" then snd.q("osso draw") end
 
 snd.load_def(selection)
 </script>
@@ -60512,11 +60503,9 @@ snd.registerEvent("SunderRiftChange", "gmcp.IRE.Rift.Change", riftChange)</scrip
 function snd.core()
   if not snd.connected then return end
   if not snd.toggles.active then return end
-  
   snd.def_check()
   if snd.functional() then
     snd.actions.clearActions()
-    snd.dodge()
     snd.do_stuff()
     snd.actions.execute()
   end
@@ -60524,13 +60513,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Queue stuff</name>
-				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Queue override stuff</name>
+				<name>Manual queue</name>
 				<packageName></packageName>
 				<script>snd = snd or {}
 
@@ -60747,9 +60730,7 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Defense helper function</name>
 				<packageName></packageName>
-				<script>
-
-function snd.want_to_raise(defense)
+				<script>function snd.want_to_raise(defense)
   local def = snd.defenses[defense]
     if def.state == "down" and def.needit and
       (not def.requiredBalance or snd.balance[def.requiredBalance]) then
@@ -60769,7 +60750,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Do stuff</name>
+				<name>Core queue</name>
 				<packageName></packageName>
 				<script>--- @submodule core
 
@@ -61376,21 +61357,7 @@ snd.reset_priorities()
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Manual queue</name>
-				<packageName></packageName>
-				<script>function snd.set_queue(action)
-  if snd.can_cast() then
-    snd.send_attack(action)
-  else
-    snd.queued = action
-    snd.message("Queued: " .. string.upper(action), "q")
-    send(" ")
-  end
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Pipe lighting</name>
+				<name>Pipe handling</name>
 				<packageName></packageName>
 				<script>--pipe handling
 
@@ -61414,7 +61381,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Queue 2.0</name>
+				<name>Action handling</name>
 				<packageName></packageName>
 				<script>local wf_axe_count = {
   chop = 1,
