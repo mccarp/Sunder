@@ -29317,6 +29317,166 @@ snd.last_attack = "none"</script>
 					<integer>3</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Short IDs</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Short ID Info Here Header</name>
+					<script>if not wait_to_clear_ids then
+  clear_short_ids()
+  wait_to_clear_ids = true
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>255</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^You can see the following \d+ objects?\:$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Short ID Info Here End</name>
+						<script>setTriggerStayOpen("Short ID Info Here Header", 0)
+wait_to_clear_ids = nil</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string></string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>7</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Short ID Info Here Line</name>
+						<script>local id = matches[3]
+if not table.contains(short_id, id) then
+  table.insert(short_id, id)
+  cinsertText("&lt;ansi_238&gt;(&lt;light_slate_gray&gt;" .. generate_short_id() .. "&lt;ansi_238&gt;) ")
+else
+  cinsertText("&lt;ansi_238&gt;(&lt;light_slate_gray&gt;" .. generate_short_id(table.getn(short_id, id)) .. "&lt;ansi_238&gt;) ")
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^"([^\d]+)(\d+)"\s+(.*).$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Short ID Info Inv Header</name>
+					<script>if not wait_to_clear_ids then
+  clear_short_ids()
+  wait_to_clear_ids = true
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>255</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You aren't wielding anything in either hand.</string>
+						<string>You are wielding:</string>
+						<string>You are wearing:</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Short ID Info Inv End</name>
+						<script>setTriggerStayOpen("Short ID Info Inv Header", 0)
+wait_to_clear_ids = nil</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string></string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>7</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Short ID Info Inv Line</name>
+						<script>local id = matches[3]
+if not table.contains(short_id, id) then
+  table.insert(short_id, id)
+  cinsertText("&lt;ansi_238&gt;(&lt;light_slate_gray&gt;" .. generate_short_id() .. "&lt;ansi_238&gt;) ")
+else
+  cinsertText("&lt;ansi_238&gt;(&lt;light_slate_gray&gt;" .. generate_short_id(table.getn(short_id, id)) .. "&lt;ansi_238&gt;) ")
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^"([^\d]+)(\d+)"\s+(.*).$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Bashing</name>
@@ -57229,7 +57389,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.0.5"
+local version = "12.1.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63273,6 +63433,127 @@ end
 function snd.random.clearCache(name)
   snd.random.cache[name] = nil
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Short ID Generation</name>
+				<packageName></packageName>
+				<script>-- The primary container for all short IDs.
+short_id = short_id or {}
+-- Contains each letter combination used to create short IDs.
+short_sequence = {}
+
+-- Populate the short sequence table with alpha characters in order:
+--   lowercase
+--   uppercase
+for i = 97, 122 do
+  table.insert(short_sequence, string.char(i))
+end
+
+for i = 65, 90 do
+  table.insert(short_sequence, string.char(i))
+end
+
+-- A lookup table used for retrieving index values
+local short_lookup = {}
+
+for i, char in ipairs(short_sequence) do
+  short_lookup[char] = i
+end
+
+
+
+-- Gets a two-letter ID based on the current index of the short_id table.
+-- We map the index number to a two-character sequence:
+--   1: [1], [1] ("aa")
+--   2: [1], [2] ("ab")
+--   3: [1], [3] ("ac")
+--   ... and so on
+-- If the index is greater than 52, we start over from the beginning,
+-- incrementing the first letter:
+--   53: [2], [1] ("ba")
+--   54: [2], [2] ("bb")
+--   55: [2], [3] ("bc")
+--   ... and so on
+function generate_short_id(num)
+  local index = num or #short_id -- Number of elements in the short_id table
+
+  if index + 1 &gt; 2704 then
+    -- This is our hard limit (52 chars x 52 chars)
+    -- we can't store any more IDs than this!
+    return nil
+  end
+
+  index = index - 1
+
+  local first = math.floor(index / 52) + 1
+  local second = (index % 52) + 1
+
+  return short_sequence[first] .. short_sequence[second]
+end
+
+
+
+-- Retrieves a key from the short ID table based on the letters passed.
+function key_from_short_id(id)
+  if not tostring(id) or id:len() ~= 2 then
+    error("key_from_short_id() expects a two-letter sequence!")
+    return
+  end
+
+  local first, second = short_lookup[id:sub(1, 1)], short_lookup[id:sub(2, 2)]
+  
+  return ((first - 1) * 52) + second
+end
+
+
+
+-- Clear the ID table. It's a function just in case we want to customize its
+-- behavior in the future.
+function clear_short_ids()
+  short_id = {}
+end
+
+
+
+-- Command processor function. Intercepts any instance of `**xx` in the player's
+-- outgoing commands, where 'x' is a lowercase or uppercase alpha character.
+--
+-- If the two-character sequence matches an existing stored short ID, it swaps
+-- that sequence with that object's Aetolia ID number.
+--
+--   Ex:
+--     - `get **aa` --&gt; `get 28840`
+--     - `kill **cX` --&gt; `kill 191403`
+--
+-- These get processed after triggers, aliases, etc. so they are automatically
+-- backwards compatible with your system!
+function translate_short_id(e, cmd)
+  -- Did the player provide an **xx sequence?
+  local contains_token = cmd:match("%*%*(%w%w)")
+
+  if contains_token then
+    -- If we got this far, then we passed a valid short ID. We intercept the
+    -- command, replacing any short IDs in the original command with the
+    -- number stored in short_id{}.
+    cmd = cmd:gsub("(%*%*%w%w)", function (sid)
+      local i = key_from_short_id(sid:match("%*%*(%w%w)"))
+      
+      if short_id[i] then
+        return short_id[i]
+      end
+      
+      return sid
+    end)
+    
+    -- Send the translated command to the game in place of the original.
+    send(cmd, false)
+    denyCurrentSend()
+  end
+end
+
+-- Bind the ID translation function to all outgoing commands.
+registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
