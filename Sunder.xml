@@ -36870,40 +36870,6 @@ snd.def_take(defName)</script>
 								<regexCodeList />
 								<regexCodePropertyList />
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Not correct essence (Archivist and Voidseer)</name>
-									<script>if snd.class == "Archivist" then
-  if snd.defenses.def_linked.state ~= "deffed" then
-    snd.send("contemplate yi"..snd.sep.."contemplate jherza"..snd.sep.."contemplate jhako")
-  elseif snd.defenses.def_oneness.state ~= "deffed" then
-    snd.send("contemplate yuef")
-  end
-elseif snd.class == "Voidseer" then
-  if snd.defenses.def_synergism.state ~= "deffed" then
-    snd.send("blossom leaf"..snd.sep.."blossom heartwood"..snd.sep.."blossom branch")
-  elseif snd.defenses.def_introspection.state ~= "deffed" then
-    snd.send("blossom root")
-  end    
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>You are not contemplating the correct essence.</string>
-										<string>You have yet to bloom the proper chakra.</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>3</integer>
-										<integer>3</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Spheres stop</name>
 									<script>snd.toggles.active = true
 send("firstaid on")</script>
@@ -57263,7 +57229,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.0.4"
+local version = "12.0.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61505,6 +61471,15 @@ function snd.do_special(current)
  end
 end
 
+local archi_defense_contemplates = {
+  def_oneness = {"contemplate yuef", "elicit oneness"},
+  def_sublimation = {"contemplate yuef", "contemplate rafic", "contemplate yi", "elicit sublimation",},
+  def_link = {"contemplate yi", "contemplate jherza", "contemplate jhako", "elicit link 50"},
+  def_introspection = {"blossom root", "chakra introspection"},
+  def_withstand = {"blossom root", "blossom trunk", "blossom leaf", "chakra withstand"},
+  def_synergism = {"blossom leaf", "blossom heartwood", "blossom branch", "chakra synergism 50"},
+}
+
 function snd.do_balance_need(current)
   snd.actions.addFree(snd.defenses[current].balance.balanceneed)
 end
@@ -61518,6 +61493,14 @@ function snd.do_balance_equilibrium_need(current)
     local cham_check = snd.toggles.chameleonPeople[math.random(#snd.toggles.chameleonPeople)]
     snd.actions.addFree(snd.defenses[current].balance.balanceequilibrium..cham_check)    
   else
+    if archi_defense_contemplates[current] and not snd.have_def("spheres") and not snd.have_def("erudition") then
+      if snd.defenses.def_spheres.needit or snd.defenses.def_erudition.needit then
+        return
+      else
+        snd.actions.addFree(archi_defense_contemplates[current])
+        return
+      end
+    end
     snd.actions.addFree(snd.defenses[current].balance.balanceequilibrium)
   end
 end
@@ -61538,6 +61521,8 @@ function snd.do_needy_equilibrium_take(current)
   snd.actions.set(snd.defenses[current].balance.needyequilibriumtake)
 end
 
+
+
 function snd.do_balance_equilibrium_take(current)
   if snd.class == "Teradrim" and current == "def_sand_swelter" then
     if not table.isMember(gmcp.Room.Info.details, "sandy") then
@@ -61548,6 +61533,14 @@ function snd.do_balance_equilibrium_take(current)
   if snd.class == "Tidesage" and current=="def_sirensong" then
     if not table.isMember(gmcp.Room.Info.details, "fogged") then
       snd.actions.set("fog inundate")
+    end
+  end
+  if archi_defense_contemplates[current] and not snd.have_def("spheres") and not snd.have_def("erudition") then
+    if snd.defenses.def_spheres.needit or snd.defenses.def_erudition.needit then
+      return
+    else
+      snd.actions.set(archi_defense_contemplates[current])
+      return
     end
   end
   snd.actions.set(snd.defenses[current].balance.balanceequilibriumtake)
