@@ -60721,12 +60721,12 @@ end</script>
 -- Stuff like barbed_arrow pulling, moving and fitness are all handled here
 -- @function snd.do_stuff
 snd.coreActionMap = {
-  queue = function() snd.runManualQueue() end,
+  manual_queue = function() snd.runManualQueue() end,
   barbed_arrow = function() snd.pull_arrow() end,
   embedded_dagger = function() snd.pull_dagger() end,
-  bashing = function() if snd.toggles.bashing and not snd.manualQueue[1] then snd.bashing_function() end end,
+  bashing = function() if snd.toggles.bashing then snd.bashing_function() end end,
   pipes = function() snd.handlePipes() end,
-  attack = function() if snd.toggles.attacking and snd.defenses.def_manipulation_dome.state ~= "deffed" and not snd.manualQueue[1] and not snd.waiting.queue then snd.attack_function() end end,
+  attack = function() if snd.toggles.attacking and snd.defenses.def_manipulation_dome.state ~= "deffed" and not snd.waiting.queue then snd.attack_function() end end,
   loot = function() snd.do_loot() end,
   moving = function() snd.get_moving() end,
   dome = function() snd.do_dome() end,
@@ -60768,11 +60768,13 @@ function snd.trim_priorities()
       if index then table.remove(snd.priorities, index) end
     end 
   end
+  raiseEvent("sunder priority request")
 end
  
 function snd.reset_priorities()
 snd.priorities =
 {
+  "manual_queue",
   "dodging",
   "parrying",
   "pipes",
@@ -60815,7 +60817,6 @@ snd.priorities =
   "def_mist_white",
   "def_chameleon",
   "loot",
-  "queue",
   "get_ylem",
   "bashing",
   "moving",
