@@ -29104,7 +29104,7 @@ table.insert(snd.my_venoms, matches[3])</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^\s+\[\s+\d+\] the venom (\w+)\s+\[\s+\d+\] the venom (\w+)$</string>
+							<string>^\s+\[\s+\d+\] the (?:venom|poison) (\w+)\s+\[\s+\d+\] the (?:venom|poison) (\w+)$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -57259,7 +57259,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.0.1"
+local version = "12.0.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61339,6 +61339,23 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Standing variants</name>
+				<packageName></packageName>
+				<script>--you probably shouldn't use this directly. It's used within snd.executeAction to replace 
+--stand.
+function snd.getClassStand()
+  if snd.class == "Ravager" and hasSkill("Rebound", "Brutality") then
+    return "rebound"
+  elseif snd.class == "Zealot" and hasSkill("Risekick", "Zeal") then
+    return "risekick"
+  elseif snd.class == "Monk" and hasSkill("Kipup", "Tekura") then
+    return "kipup"
+  end
+  return "stand"
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Action handling</name>
 				<packageName></packageName>
 				<script>local wf_axe_count = {
@@ -61379,6 +61396,10 @@ function snd.actions.addFree(action)
   end
 end
 
+
+
+
+
 function snd.actions.execute()
   if snd.waiting.queue then return end
   -- remove stand and put it at the front
@@ -61402,7 +61423,7 @@ function snd.actions.execute()
     table.remove(snd.actions.free, index)
   end
   local actionCount = (stand and 14 or 15) - #snd.actions.balanceful
-  local finalActions = stand and {"stand"} or {}
+  local finalActions = stand and {snd.getClassStand()} or {}
   for i = 1, math.min(#snd.actions.free, actionCount) do
     table.insert(finalActions, snd.actions.free[i])
   end
@@ -77695,7 +77716,6 @@ snd.areas = {
   ["Perilaus"] = {level = "50+", targets = { "a school of spinebacks", "a striped sea krait", "a school of shadowy minnows", "a water viper", "a grey spider" }},
   ["the Shattered Vortex (All)"] = {level = "90-100", targets = {"a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone", "a chaos storm", "a warped turtle", "a warrior of the Demonsbane", "a reinforcement warrior of the demonsbane", "a fetish-decorated shaman", "a guardian angel", "a nimble sentinel", "a stalwart templar", "an agile Sentaari monk", "a battle-worn Ascendril", "an Ascendril mage","a chaos worm", "a chimera", "a pathfinder", "a sharp-toothed gremlin", "a minion of chaos", "a chaos orb", "a bloodleech", "a bubonis", "a humbug", "a chaos hound", "a green slime", "an ethereal firelord", "a simpering Sycophant", "a soulmaster", "a dervish", "a withered crone", "a chaos storm", "a Sciomancer mage", "a warped indorani", "a strained indorani", "a crazed indorani", "a reinforcement warrior of the aztob", "a warped turtle", "a petrified treant", "a piece of an amalgamation"}, items = {"a finger", "a chunk of grey stone", "a chunk of obsidian glass", "a chunk of green and blue stone", "a broken shard of ruby"}},
   ["a volcano"] = {level = "lolnope", targets = {"a large earth elemental", "a large smoke elemental", "a large fire elemental", "a lava daemon", "a glowing lava daemon" } },
-  ["Raim Vale"] = {level = "20-30", targets = {"a misshapen woman", "a rabid dog", "Jehanne", "a deformed man", "a diseased man", "Midolo Raim", "a mutilated creature"} },
   ["Raugol Fissure"] = {level = "20-30", targets = {"a scything skitterer", "a stonescale ravager", "a stonescale mephit", "a splintering earthrager"} },
   ["Chapel Garden"] = {level = "90+", targets = {"a diminutive necromancer", "a zombie cleric", "a foul-smelling zombie", "Broondac, the vampire strategist"  } },
   ["the Caverns of Telfinne"] = {level = "40-60", targets = {"a cave-dwelling avisme", "a fanged lugore", "a slimy aryeim", "a tentacled morbol", "a draconic zogura", "a slender synicant",  } },
@@ -78487,8 +78507,8 @@ snd.bashing_area_beginning_rooms = {
   ["the Salma Settlement"] = "19602",
   ["Arbothia"] = "15168",
   ["Mount Heylai"] = "54482",
-  ["Raim Vale"] = "20389",
   ["the Valley of Kalebb"] = "8694",
+  -- ["Raim Vale"] = "20389",
   ["the Dakhota hills"] = "1155",
   ["the Augerweald"] = "23791",
   ["a snake pit"] = "56942",
@@ -80850,86 +80870,86 @@ sunder_areaPaths = {
     v44492 = "44367",
     v58576 = ""
   },
-  ["Raim Vale"] = {
-    v20389 = "20390",
-    v20390 = "20391",
-    v20391 = "20666",
-    v20666 = "20704",
-    v20667 = "20668",
-    v20668 = "20669",
-    v20669 = "20670",
-    v20670 = "20671",
-    v20671 = "20672",
-    v20672 = "20673",
-    v20673 = "48242",
-    v20674 = "20675",
-    v20675 = "20676",
-    v20676 = "20677",
-    v20677 = "20678",
-    v20678 = "20679",
-    v20679 = "20680",
-    v20680 = "20681",
-    v20681 = "20682",
-    v20682 = "20683",
-    v20683 = "21041",
-    v20684 = "20685",
-    v20685 = "20686",
-    v20686 = "20705",
-    v20687 = "20698",
-    v20688 = "20689",
-    v20689 = "20690",
-    v20690 = "20691",
-    v20691 = "20692",
-    v20692 = "20693",
-    v20693 = "20694",
-    v20694 = "58699",
-    v20695 = "20688",
-    v20696 = "20695",
-    v20697 = "20696",
-    v20698 = "20699",
-    v20699 = "20697",
-    v20702 = "20667",
-    v20703 = "20702",
-    v20704 = "20703",
-    v20705 = "20706",
-    v20706 = "20707",
-    v20707 = "20708",
-    v20708 = "20709",
-    v20709 = "20710",
-    v20710 = "21010",
-    v21010 = "21011",
-    v21011 = "21012",
-    v21012 = "21013",
-    v21013 = "21014",
-    v21014 = "21015",
-    v21015 = "21016",
-    v21016 = "21017",
-    v21017 = "21018",
-    v21018 = "21020",
-    v21020 = "21021",
-    v21021 = "21032",
-    v21032 = "21033",
-    v21033 = "21034",
-    v21034 = "21036",
-    v21035 = "21040",
-    v21036 = "21039",
-    v21037 = "21035",
-    v21038 = "21037",
-    v21039 = "21038",
-    v21040 = "20687",
-    v21041 = "20684",
-    v48241 = "48243",
-    v48242 = "48336",
-    v48243 = "48337",
-    v48336 = "48241",
-    v48337 = "20674",
-    v58697 = "58698",
-    v58698 = "ptcity",
-    v58699 = "58702",
-    v58700 = "58697",
-    v58701 = "58700",
-    v58702 = "58701"
-  },
+  -- ["Raim Vale"] = {
+    -- v20389 = "20390",
+    -- v20390 = "20391",
+    -- v20391 = "20666",
+    -- v20666 = "20704",
+    -- v20667 = "20668",
+    -- v20668 = "20669",
+    -- v20669 = "20670",
+    -- v20670 = "20671",
+    -- v20671 = "20672",
+    -- v20672 = "20673",
+    -- v20673 = "48242",
+    -- v20674 = "20675",
+    -- v20675 = "20676",
+    -- v20676 = "20677",
+    -- v20677 = "20678",
+    -- v20678 = "20679",
+    -- v20679 = "20680",
+    -- v20680 = "20681",
+    -- v20681 = "20682",
+    -- v20682 = "20683",
+    -- v20683 = "21041",
+    -- v20684 = "20685",
+    -- v20685 = "20686",
+    -- v20686 = "20705",
+    -- v20687 = "20698",
+    -- v20688 = "20689",
+    -- v20689 = "20690",
+    -- v20690 = "20691",
+    -- v20691 = "20692",
+    -- v20692 = "20693",
+    -- v20693 = "20694",
+    -- v20694 = "58699",
+    -- v20695 = "20688",
+    -- v20696 = "20695",
+    -- v20697 = "20696",
+    -- v20698 = "20699",
+    -- v20699 = "20697",
+    -- v20702 = "20667",
+    -- v20703 = "20702",
+    -- v20704 = "20703",
+    -- v20705 = "20706",
+    -- v20706 = "20707",
+    -- v20707 = "20708",
+    -- v20708 = "20709",
+    -- v20709 = "20710",
+    -- v20710 = "21010",
+    -- v21010 = "21011",
+    -- v21011 = "21012",
+    -- v21012 = "21013",
+    -- v21013 = "21014",
+    -- v21014 = "21015",
+    -- v21015 = "21016",
+    -- v21016 = "21017",
+    -- v21017 = "21018",
+    -- v21018 = "21020",
+    -- v21020 = "21021",
+    -- v21021 = "21032",
+    -- v21032 = "21033",
+    -- v21033 = "21034",
+    -- v21034 = "21036",
+    -- v21035 = "21040",
+    -- v21036 = "21039",
+    -- v21037 = "21035",
+    -- v21038 = "21037",
+    -- v21039 = "21038",
+    -- v21040 = "20687",
+    -- v21041 = "20684",
+    -- v48241 = "48243",
+    -- v48242 = "48336",
+    -- v48243 = "48337",
+    -- v48336 = "48241",
+    -- v48337 = "20674",
+    -- v58697 = "58698",
+    -- v58698 = "ptcity",
+    -- v58699 = "58702",
+    -- v58700 = "58697",
+    -- v58701 = "58700",
+    -- v58702 = "58701"
+  -- },
   ["Raugol Fissure"] = {
     v49749 = "49752",
     v49750 = "49751",
