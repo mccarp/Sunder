@@ -2485,8 +2485,12 @@ end
 						<string>^(\w+) stands up and stretches .+ arms out wide\.$</string>
 						<string>^(\w+) swings .+ legs around and rises up from the ground\.$</string>
 						<string>^Rebounding with aggres?sive agility, (\w+) forces \w+ back to \w+ feet.$</string>
+						<string>^(\w+) uses Brutality Rebound</string>
+						<string>^(\w+) uses Zeal Risekick</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
@@ -57259,7 +57263,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.0.2"
+local version = "12.0.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61348,8 +61352,6 @@ function snd.getClassStand()
     return "rebound"
   elseif snd.class == "Zealot" and hasSkill("Risekick", "Zeal") then
     return "risekick"
-  elseif snd.class == "Monk" and hasSkill("Kipup", "Tekura") then
-    return "kipup"
   end
   return "stand"
 end</script>
@@ -72876,7 +72878,13 @@ end
   ["Tekura"] = {
 
     Kipup = function(target)
-      snd.target_cured("fallen")
+       snd.target_cured("fallen")
+       snd.target_cured("left_leg_crippled")
+       snd.target_cured("right_leg_crippled")
+       snd.target_cured("asleep")
+       if snd.checkAff("backstrain") then
+          snd.took_limb_dmg("torso", 10)
+       end
     end,
 
     Sidekick = function(target)
