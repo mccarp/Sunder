@@ -28617,6 +28617,31 @@ end</script>
 					<integer>3</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Unable to get item</name>
+				<script>for i, item in pairs(snd.gathering) do
+  if item.name == matches[2] then
+    table.remove(snd.gathering, i)
+    return
+  end
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You quickly pull your hand back as a (?:flame|shock) sigil on (.+) (?:singes|jolts) you\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
 			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Who parser</name>
 				<script></script>
@@ -57389,7 +57414,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.0"
+local version = "12.1.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57942,6 +57967,14 @@ snd.message("Mono mode: "..snd.toggles.monomode)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^monomode (on|off|calling)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Gathering</name>
+					<script>snd.toggles.gathering = matches[2]
+snd.message("Gathering: "..snd.toggles.gathering)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^snd gathering (on|off|auto)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>^wan$</name>
@@ -59069,7 +59102,7 @@ snd.toggles = snd.toggles or {
   bashing = false,     -- bashing! Woo!
   fasthunt = false,    -- automatically clear bashing rooms as you enter
   generics = false,    -- target by name instead of number while bashing
-  gathering = true,    -- pick up corpses/items/gold while bashing
+  gathering = "auto",    -- pick up corpses/items/gold while bashing
   lighting = true,     -- light pipes
   attacking = false,   -- attacking with a PvP function
   balecho = true,      -- replace balance lines with shorthand
@@ -60191,7 +60224,22 @@ snd.square_affs = {
 			<Script isActive="yes" isFolder="no">
 				<name>Items</name>
 				<packageName></packageName>
-				<script>function gmcp_item_add()
+				<script>function snd.validGatheringItem(item)
+  if snd.gatheringItemOverride then return snd.gatheringItemOverride(item) end
+  
+  local name = item.name
+  if table.contains(snd.possible_items, name) or table.contains(snd.global_items, name) then
+    return true
+  end
+  if (name:find("the corpse of") or name:find("the discarded remains of") or name:find("the withered husk of") or name:find("dusted carcass of"))
+    and not item:find("staked") then
+    return true
+  end
+  
+end
+
+
+function gmcp_item_add()
   local v = gmcp.Char.Items.Add.item
   local prio = false
   if gmcp.Char.Items.Add.location == "room" then
@@ -60209,6 +60257,9 @@ snd.square_affs = {
       table.insert(snd.items[v.name], 1, v.id)
     else
       table.insert(snd.items[v.name], v.id)
+    end
+    if snd.validGatheringItem(v) then
+      table.insert(snd.gathering, v)
     end
     snd.updateMonolith()
   end
@@ -60241,6 +60292,12 @@ function gmcp_item_remove()
         end
       end
     end
+    for i, item in pairs(snd.gathering) do
+      if item.id == v.item then
+        table.remove(snd.gathering, i)
+        break
+      end
+    end
     snd.updateMonolith()
   end
   snd.updateItems()
@@ -60256,6 +60313,7 @@ function gmcp_items()
   if gmcp.Char.Items.List.location == "room" then
     snd.items = {}
     snd.agros = {}
+    snd.gathering = {}
     for _, v in ipairs(gmcp.Char.Items.List.items) do
       if not snd.items[v.name] then snd.items[v.name] = {} end
       if v.icon == "face-angry-horns" then
@@ -60264,6 +60322,9 @@ function gmcp_items()
         table.insert(snd.items[v.name], 1, v.id) --insert at start of table
       else
         table.insert(snd.items[v.name], v.id)    --insert at end of table
+      end
+      if snd.validGatheringItem(v) then
+        table.insert(snd.gathering, v)
       end
     end
     snd.updateMonolith()
@@ -68413,7 +68474,7 @@ snd.dhuriv_attacks =
 }
 snd.daunt_animals =
 {
-  ["claustrophobia"] = "order direwolf daunt ",
+  ["claustrophobia"] = "order coyote daunt ",
   ["agoraphobia"] = "order raloth daunt ",
   ["loneliness"] = "order crocodile daunt ",
   ["mania"] = "order cockatrice daunt ",
@@ -71855,7 +71916,7 @@ end
   ["Woodlore"] = {
     Daunt = function(target, animal)
       local daunt_list = {
-        ["direwolf"] = "claustrophobia",
+        ["coyote"] = "claustrophobia",
         ["raloth"] = "agoraphobia",
         ["crocodile"] = "loneliness",
         ["cockatrice"] = "mania",
@@ -76319,8 +76380,6 @@ snd.bashing = {
 snd.area_found = false
 snd.possible_targets = {}
 snd.possible_items = {}
-snd.corpses = {}
-snd.gathering = {}
 snd.have_items = false
 snd.need_loot = false
 snd.vermin = 0
@@ -77645,28 +77704,10 @@ end
 -- @function snd.runBasher
 function snd.runBasher()
   if snd.waitingOnReanimation then return end
-  snd.gathering = {}
-  snd.corpses = {}
   snd.bashing.targeted = false
   snd.bashing.target_priority = 10000
   snd.bash_shielded = false
   snd.bashing.target = "none"
-  for item in pairs(snd.items) do
-    if item == "some gold sovereigns" and #snd.items[item] &gt;= 1 then
-      table.insert(snd.gathering, "sovereigns")
-    elseif table.contains(snd.possible_items, item) or table.contains(snd.global_items, item) then
-      for id in pairs(snd.items[item]) do
-        table.insert(snd.gathering, snd.items[item][id])
-      end
-    elseif
-        (item:find("the corpse of") or item:find("the discarded remains of") or item:find("the withered husk of"))
-        and not item:find("staked")
-    then
-      for id in pairs(snd.items[item]) do
-        table.insert(snd.corpses, snd.items[item][id])
-      end
-    end
-  end
   local targetID, targetName = snd.getTarget(snd.agros)
   if not targetID then
     targetID, targetName = snd.getTarget(snd.items)
@@ -77699,9 +77740,6 @@ function snd.runBasher()
     --non generic logic
     snd.bashing.target = targetID
   end
-  --if #snd.gathering &gt;= 1 then
-  -- snd.loot_it()
-  --end
   snd.counterattack_active = false
   snd.probed = false
   snd.punisher = false
@@ -77722,22 +77760,13 @@ end
 					<packageName></packageName>
 					<script>--- Check to see if we're able to loot.
 -- @function snd.do_loot
--- @see snd.loot_it
 function snd.do_loot()
-  if #snd.gathering &gt; 0 or #snd.corpses &gt; 0 then
-    snd.loot_it()
-  end
-end
-
---- Send commands to loot the room.
--- @function snd.loot_it
--- @see snd.do_loot
-function snd.loot_it()
-  for i in ipairs(snd.corpses) do
-    snd.actions.addFree("get " .. snd.corpses[i])
-  end
-  for h in ipairs(snd.gathering) do
-    snd.actions.addFree("get " .. snd.gathering[h])
+  if #snd.gathering &gt; 0 and 
+  snd.toggles.gathering == "on" or 
+  (snd.toggles.gathering == true or snd.toggles.gathering == "auto") and (snd.toggles.fasthunt or snd.toggles.attacking or snd.toggles.bashing) then
+    for i, item in pairs(snd.gathering) do
+      snd.actions.addFree("get "..item.id)
+    end
   end
 end
 
