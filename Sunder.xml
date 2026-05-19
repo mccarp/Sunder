@@ -57414,7 +57414,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.2"
+local version = "12.1.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63655,6 +63655,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_camouflage     = { defense = "camouflage", type = "normal", effect = "auto hide after 5 secs", balance = { balanceequilibrium = "camouflage" }, skill = "Generic"}, 
   def_harmony        = { defense = "harmony", type = "normal", effect = "See people cure while out of room", balance = {vial = "harmony"}, skill = "Generic"},
   def_alertness      = { defense = "alertness", type = "normal", effect = "Hear when people move adjacent", balance = {balanceequilibriumtake = "alertness on"}, skill = "Alertness" },
+  def_nodesense      = { defense = "nodesense", type = "normal", effect = "Path track to minor foci", balance = {balanceequilibrium = "nodesense"}, skill = "Generic"},
 
   --Generic skills or occurs in more than one
   def_treewatch = { defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = { special = "treewatch on" }, skill = "Treewatch" },
@@ -65047,6 +65048,7 @@ end</script>
   ["You are blind with primal rage."] = "berserk",
   
   ["Your senses are attuned to nearby movement."] = "alertness",
+  ["You can sense nearby ylem energy."] = "nodesense",
 }
 </script>
 				<eventHandlerList />
