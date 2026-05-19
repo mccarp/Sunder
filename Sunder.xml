@@ -57414,7 +57414,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.1"
+local version = "12.1.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -60955,11 +60955,8 @@ function snd.trim_priorities()
       if index then table.remove(snd.priorities, index) end
     end 
   end
-  raiseEvent("sunder priority request")
 end
- 
-function snd.reset_priorities()
-snd.priorities =
+snd.default_priorities =
 {
   "manual_queue",
   "dodging",
@@ -61007,6 +61004,9 @@ snd.priorities =
   "get_ylem",
   "bashing",
   "moving",
+  
+  "def_alertness",
+  
   "def_luminesce",
   "def_blueshift",
   "def_stargleam",
@@ -61475,6 +61475,8 @@ snd.priorities =
   "def_bloodtrack",
   "def_berserk",
 }
+function snd.reset_priorities()
+  snd.priorities = table.deepcopy(snd.default_priorities)
 end
 snd.reset_priorities()
  </script>
@@ -63652,6 +63654,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_pinchblock     = { defense = "pinchblock", type = "normal", effect = "Can knock low health opponents unconscious", balance = { balanceequilibriumtake = "pnb" }, skill = "Pinchblock" },
   def_camouflage     = { defense = "camouflage", type = "normal", effect = "auto hide after 5 secs", balance = { balanceequilibrium = "camouflage" }, skill = "Generic"}, 
   def_harmony        = { defense = "harmony", type = "normal", effect = "See people cure while out of room", balance = {vial = "harmony"}, skill = "Generic"},
+  def_alertness      = { defense = "alertness", type = "normal", effect = "Hear when people move adjacent", balance = {balanceequilibriumtake = "alertness on"}, skill = "Alertness" },
 
   --Generic skills or occurs in more than one
   def_treewatch = { defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = { special = "treewatch on" }, skill = "Treewatch" },
@@ -65042,6 +65045,8 @@ end</script>
   ["You are currently blessed by the ancestors."] = "ancestral_annul",
   ["Your purged soul is currently empowered."] = "soul_purge",
   ["You are blind with primal rage."] = "berserk",
+  
+  ["Your senses are attuned to nearby movement."] = "alertness",
 }
 </script>
 				<eventHandlerList />
