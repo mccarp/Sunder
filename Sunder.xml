@@ -57408,7 +57408,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.4"
+local version = "12.1.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58840,9 +58840,6 @@ end
 function snd.send_attack(action)
   if snd.can_cast() then
     snd.send(action)
-    if action == snd.queued then
-      snd.queued = nil
-    end
   end
 end
 
@@ -59725,7 +59722,6 @@ snd.stats = snd.stats or {
   max_xp = 0,
 }
 
-snd.queued = snd.queued or nil
 snd.target = snd.target or "none"
 snd.target_gone = snd.target_gone or false
 snd.moving_to = snd.moving_to or "none"
@@ -59737,14 +59733,12 @@ snd.group = snd.group or {}
 snd.wielded = snd.wielded or { left = { name = "", id = "" }, right = { name = "", id = "" } }
 snd.eld = snd.eld or 0
 snd.pathing = snd.pathing or false
-snd.need_fitness = snd.need_fitness or false
+
 snd.need_dome = snd.need_dome or false
+
 snd.shopih = snd.shopih or false
-snd.counterattack_active = snd.counterattack_active or false
+
 snd.ylem_check = snd.ylem_check or false
-snd.pushattack = snd.pushattack or false
-snd.probed = false
-snd.punisher = false
 snd.conjoincd = false
 
 snd.delete_prompt = snd.delete_prompt or false
@@ -60037,12 +60031,6 @@ snd.waiting = snd.waiting or {
   trickster = true,
   tekura_feint = true,
 }</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Waiting</name>
-				<packageName></packageName>
-				<script></script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -60416,29 +60404,15 @@ snd.registerEvent("SunderGMCPRoomAddPlayer", "gmcp.Room.AddPlayer", gmcp_people_
     if snd.toggles.plants then
       snd.send("plants")
     end
+    
     if snd.bashing_loaded then
       snd.vermin = 0
       if snd.toggles.vermin then
         enableTimer("moveroom")
       end
       --Initiate fasthunt if necessary
-      snd.need_loot = false
       snd.new.room = true
       snd.room_clear = false
-      if (snd.my.room == 56222 or snd.my.room == 55185) and snd.toggles.fasthunt then
-        -- snd.send("pull lever")
-        -- snd.send("west")
-      end
-      if snd.my.room == 55187 and snd.toggles.fasthunt then
-        -- snd.send("pull lever196935")
-        -- snd.send("east")
-      end
-      -- if snd.my.room == 16941 then
-      -- snd.send("push bookcase")
-      -- end
-      if snd.my.room == 16949 then
-        snd.send("pull lever")
-      end
     end
     if snd.offense_loaded then
       snd.class_hitting = "none"
@@ -67583,7 +67557,6 @@ snd.loyalsattacking = false
 snd.theytumbling = false
 snd.theyrandir = "none"
 snd.theyran = false
-snd.pushattack = false
 
 -- Shapeshifter
 snd.neckdragdir = "none"
@@ -69790,30 +69763,22 @@ snd.registerEvent("SunderTargetListen", "gmcp.Comm.Channel.Text", snd.targetList
 function snd.no_target()
   --deleteLine()
   --snd.message("Need new targets!")
-  if snd.offense_loaded then
-    snd.target_gone = true
-    snd.get_new_target()
-  end
-  if snd.bashing_loaded then
-    snd.untarget()
-    snd.waiting.balance = false
-    snd.waiting.equilibrium = false
-    snd.bashing.target_priority = 10000
-  end
+  
+  --combat no target
+  snd.target_gone = true
+  snd.get_new_target()
+  
+  --bashing no target
+  snd.untarget()
+  snd.waiting.queue = false  
 end
 
 function snd.untarget()
-  snd.bashing.engaged = false
+
   snd.bashing.targeted = false
   snd.last_attack = "none"
   snd.bash_shielded = false
-  if snd.bashing.stopping then
-    snd.message("Bashing OFF!")
-    if snd.toggles.bashing then
-      snd.toggle("bashing")
-    end
-    snd.bashing.stopping = false
-  end
+
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -76369,22 +76334,15 @@ snd.bashing = {
   target_type = "long",
   target_word = "",
   old_target = "",
-  target_number = "",
-  target_desc = "",
-  corpse_word = "",
-  corpse_number = "",
-  corpse_desc = "",
-  target_priority = 10000,
+
   engaged = false,
   targeted = false,
   stopping = false
 }
 
-snd.area_found = false
 snd.possible_targets = {}
 snd.possible_items = {}
-snd.have_items = false
-snd.need_loot = false
+
 snd.vermin = 0
 
 bot = bot or {}
@@ -77636,7 +77594,7 @@ function snd.bashing_function()
 
       if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack .. snd.sep .. "absorb ylem" end       -- if you have a level 2 gauntlet, auto-absorb
 
-      if battack == "" and (snd.counterattack_active or not snd.defenses.def_reflection.state == "deffed") then -- if the basher couldn't change battack to something from your class, it will give an error
+      if battack == "" and not snd.defenses.def_reflection.state == "deffed" then -- if the basher couldn't change battack to something from your class, it will give an error
         echo("\nTried to bash, no class ability set.")
       elseif battack ~= "none" then
         snd.actions.set("stand"..snd.sep..battack)
@@ -77708,7 +77666,6 @@ end
 function snd.runBasher()
   if snd.waitingOnReanimation then return end
   snd.bashing.targeted = false
-  snd.bashing.target_priority = 10000
   snd.bash_shielded = false
   snd.bashing.target = "none"
   local targetID, targetName = snd.getTarget(snd.agros)
@@ -77743,9 +77700,7 @@ function snd.runBasher()
     --non generic logic
     snd.bashing.target = targetID
   end
-  snd.counterattack_active = false
-  snd.probed = false
-  snd.punisher = false
+
   if
       snd.toggles.bcalling and
       snd.bashing.old_target ~= snd.bashing.target and
