@@ -18400,7 +18400,6 @@ local command = function()
     snd.repay = snd.repay - 1
   end
   snd.repay_timers[index] = nil
-  snd.core()
 end
 
 snd.repay_timers[index] = { timer = tempTimer(time, command), command = command }
@@ -28441,6 +28440,26 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>cleared axe queue</name>
+					<script>deleteFull()</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You have cleared your axes queue.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>rock crush</name>
@@ -29962,10 +29981,7 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Got the mist</name>
 				<script>snd.ylem_check = false
-snd.waiting.queue = false
--- if snd.toggles.bashing or snd.toggles.fasthunt then
-  -- snd.runBasher()
--- end</script>
+snd.waiting.queue = false</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -30035,7 +30051,7 @@ snd.send("ql")</script>
   if (not snd.toggles.bashing) or gmcp.Room.Info.num~=snd.followLastRoom then
       snd.followLastRoom = gmcp.Room.Info.num
       snd.toggles.bashing = true
-      snd.waiting.balance = false
+      snd.waiting.queue = false
       snd.room_clear = true
       snd.runBasher()
   end
@@ -30073,7 +30089,7 @@ if snd.toggles.followbash and multimatches[1][2]:lower() == snd.followbashing an
   if (not snd.toggles.bashing) or gmcp.Room.Info.num~=snd.followLastRoom then
       snd.followLastRoom = gmcp.Room.Info.num
       snd.toggles.bashing = true
-      snd.waiting.balance = false
+      snd.waiting.queue = false
       snd.room_clear = true
       snd.runBasher()
   end
@@ -30428,28 +30444,6 @@ snd.rpAlert({"Wait!", "Consider writing an ESTEEM for someone you interacted wit
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>no target</name>
-					<script>if snd.toggles.bashing then snd.runBasher() end</script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
-						<string>^You can find no such target as \'(\d+)\'\.$</string>
-						<string>You can find no such target as 'none'.</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>3</integer>
-					</regexCodePropertyList>
-				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>path track</name>
 					<script>snd.can_path = false
@@ -30745,7 +30739,6 @@ disableTrigger("Sunder Parry")
 disableTrigger("Undercut Parry")
 disableTrigger("Sunder Rebounding")
 enableTrigger("Tones 3p lines")
-snd.core()
 
 if snd.delete_prompt then
   deleteLine()
@@ -30792,7 +30785,6 @@ if snd.bashing_loaded or snd.toggles.fastwalk then
       snd.waiting.balance = false
       snd.room_clear = true
       snd.runBasher()
-      snd.core()
     elseif bot.going then
       snd.move()
     end
@@ -30801,7 +30793,10 @@ end
 if snd.class == "Monk" then
   snd.stance = gmcp.Char.Vitals.stance
 end
-snd.new.room = false</script>
+snd.new.room = false
+
+snd.core()
+</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>1</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -57413,7 +57408,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.3"
+local version = "12.1.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -61648,7 +61643,9 @@ function snd.actions.execute()
     end
     snd.last_attack = cmd
 		snd.waiting.queue = true
-		tempTimer(snd.delay(), [[snd.waiting.queue = false]])
+    if snd.waitingQueueTimer then killTimer(snd.waitingQueueTimer) end
+    
+		snd.waitingQueueTimer = tempTimer(snd.delay(), [[snd.waiting.queue = false]])
   end
 end</script>
 				<eventHandlerList />
@@ -77726,7 +77723,7 @@ function snd.runBasher()
       snd.move()
       --  tempTimer(1.5, snd.move)
     end
-    snd.core()
+    -- snd.core()
     return
   end
 
@@ -77756,7 +77753,7 @@ function snd.runBasher()
   then
     snd.send("wt target: " .. snd.bashing.target) -- comment this out to keep from calling web targets
   end
-  snd.core()
+  -- snd.core()
 end
 </script>
 					<eventHandlerList />
