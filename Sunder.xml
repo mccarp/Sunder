@@ -30006,7 +30006,9 @@ snd.waiting.queue = false</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>No mist</name>
 				<script>snd.ylem_check = false
-snd.waiting.queue = false</script>
+if snd.toggles.gauntlet_level&lt;2 then
+  snd.waiting.queue = false
+end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -57408,7 +57410,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.5"
+local version = "12.1.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
