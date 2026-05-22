@@ -55618,7 +55618,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.7"
+local version = "12.1.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -55871,6 +55871,22 @@ snd.core()
 					<command></command>
 					<packageName></packageName>
 					<regex>(?i)^sp(ll|rl|ra|la|h|t|a)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Static dodge</name>
+					<script>local map = {
+  m = "melee",
+  r = "ranged",
+  c = "charge",
+  u = "upset",
+  a = "all",
+}
+snd.static_dodge = map[matches[2]]
+snd.waiting.dodge = false
+snd.core()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^sd(m|r|c|u|a|auto)?$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>attack echoes</name>
@@ -64011,7 +64027,9 @@ snd.waiting.dodge = nil
 -- @function snd.dodge
 function snd.dodge()
   local tododge = "none"
-  if snd.dodge_override then
+  if snd.static_dodge then
+    tododge = snd.static_dodge
+  elseif snd.dodge_override then
     tododge = snd.dodge_override()
   else
     if hasSkill("Sidestep") then
