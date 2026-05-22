@@ -55881,9 +55881,8 @@ snd.core()
   u = "upset",
   a = "all",
 }
-snd.static_dodge = map[matches[2]]
-snd.waiting.dodge = false
-snd.core()</script>
+snd.setStaticDodge(map[matches[2]])
+</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^sd(m|r|c|u|a|auto)?$</regex>
@@ -64047,7 +64046,18 @@ function snd.dodge()
   snd.waiting.dodge = true
   tempTimer(snd.delay(), [[snd.waiting.dodge = false]])
 end
-</script>
+
+function snd.setStaticDodge(what)
+  if what == "auto" or not what then
+    snd.static_dodge = nil
+    snd.message("Dodging handed off to function")
+  else
+    snd.static_dodge = what
+    snd.message("Now static dodging: " .. what)
+  end
+  snd.waiting.dodge = false
+  snd.dodge()
+end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -64199,7 +64209,7 @@ function snd.parrying.set_static_parry(limb)
     snd.message("Parrying handed off to function")
   else
     snd.parrying.static_parry = limb
-    snd.message("Now static parrying " .. limb)
+    snd.message("Now static parrying: " .. limb)
   end
 end
 </script>
