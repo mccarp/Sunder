@@ -57410,7 +57410,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.6"
+local version = "12.1.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -71026,21 +71026,8 @@ end
 function snd.attack(attack, new)
   local str = ""
   str = attack
-  str = snd.balancefree..str
   str = "stand" .. snd.sep .. "g body" .. snd.sep .. str
-  if snd.toggles.parrying and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-    str = snd.parrying.getVerb() .. snd.parrying.toparry .. snd.sep .. str
-  end
-  for pipe, isEmpty in pairs(snd.emptypipes) do
-    if isEmpty then
-      str = "outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe" .. snd.sep .. str
-    end
-  end
-  
-  if not snd.pipes_lit and snd.toggles.lighting then
-    str = "light pipes" .. snd.sep .. str
-  end
-  
+
   if not new then
     snd.waiting.queue = false
   end
