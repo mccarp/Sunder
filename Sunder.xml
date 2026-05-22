@@ -58118,48 +58118,20 @@ snd.infiltrate = false
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
-			<name>Healing</name>
+			<name>Defenses</name>
 			<script></script>
 			<command></command>
 			<packageName></packageName>
 			<regex></regex>
-			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Toggles</name>
-				<script></script>
+			<Alias isActive="yes" isFolder="no">
+				<name>Toggle defenses</name>
+				<script>snd.toggle("defenses")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex></regex>
-				<Alias isActive="no" isFolder="no">
-					<name>healing</name>
-					<script>snd.toggle("healing")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^hl$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>defenses</name>
-					<script>snd.toggle("defenses")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^tdf$</regex>
-				</Alias>
-				<Alias isActive="no" isFolder="no">
-					<name>clotting</name>
-					<script>snd.toggle("clotting")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^tclt$</regex>
-				</Alias>
-				<Alias isActive="no" isFolder="no">
-					<name>standing</name>
-					<script>snd.toggle("standing")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^ss$</regex>
-				</Alias>
-			</AliasGroup>
+				<regex>^tdf$</regex>
+			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>defense toggle</name>
+				<name>Toggle individual defense</name>
 				<script>local defense = matches[2]:lower()
 if not string.find(defense, "def_") then
  defense = "def_"..defense
@@ -59089,7 +59061,6 @@ snd.toggles = snd.toggles or {
   affcalling = false,  -- announce afflictions as you hit
   chameleon = false,   -- use chameleon to change name on qw/who
   chameleonPeople = { "Benedicto" },
-  standing = true,     -- like healing, also incomplete
   bashing = false,     -- bashing! Woo!
   fasthunt = false,    -- automatically clear bashing rooms as you enter
   generics = false,    -- target by name instead of number while bashing
