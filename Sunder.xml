@@ -59082,7 +59082,6 @@ snd.registerEvent("SunderPopulateSkills", "gmcp.Char.Skills.List", populate_skil
 					<script>
 snd.toggles = snd.toggles or {
   active = true,       -- is the system running?
-  healing = false,     -- keep off, incomplete
   parrying = true,     -- parry most-damaged limb
   defenses = true,     -- maintain defenses like cloak and density
   calling = false,     -- call targets on web chat
@@ -59091,7 +59090,6 @@ snd.toggles = snd.toggles or {
   chameleon = false,   -- use chameleon to change name on qw/who
   chameleonPeople = { "Benedicto" },
   standing = true,     -- like healing, also incomplete
-  clotting = true,     -- incomplete
   bashing = false,     -- bashing! Woo!
   fasthunt = false,    -- automatically clear bashing rooms as you enter
   generics = false,    -- target by name instead of number while bashing
@@ -59895,10 +59893,6 @@ snd.emptypipes = snd.emptypipes or
       reishi = false,
     }
 snd.smokedpipe = snd.smokedpipe or "none"
-
-snd.sent = {
-
-}
 
 snd.cur = snd.cur or {
   herb = "",
