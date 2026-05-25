@@ -55622,7 +55622,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.9"
+local version = "12.1.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67577,7 +67577,7 @@ snd.hound_attacks = {
     shivering = "tundralhowl",
     ablaze = "firebreath",
     no_caloric = "tundralhowl",
-    blurry_vision = "ululate",
+    watery_eyes = "ululate",
     mark = "mark",
     loki = "contagion",
     bite = "bite",
@@ -67598,7 +67598,7 @@ snd.hound_attacks = {
     frigid = "freeze",
     no_caloric = "freeze",
     ablaze = "firestrike",
-    blurry_vision = "dirge",
+    watery_eyes = "dirge",
     mark = "mark",
     loki = "sabotage",
     assault = "assault",
