@@ -1923,8 +1923,10 @@ disableTrigger("Sunder Parry")</script>
 								<string>^With a predatory growl, (\w+) opposes the attack on [a-z ]+, denying it purchase\.$</string>
 								<string>^Foreseeing the baited attack on .+, (\w+)'s hook streaks out, denying the strike.$</string>
 								<string>^(\w+) parries the attack to \w+ .+, pushing \w+ back\.$</string>
+								<string>^(\w+)'s chains tighten and rebuke the blow on .+ with blinding light\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -16376,8 +16378,10 @@ end</script>
 									<string>^With a predatory growl, (\w+) opposes the attack on .+ (left leg|right leg), denying it purchase\.$</string>
 									<string>^Foreseeing the baited attack on .+ (left leg|right leg), (\w+)'s hook streaks out, denying the strike.$</string>
 									<string>^(\w+) parries the attack to .+ (left leg|right leg), pushing \w+ back\.$</string>
+									<string>^(\w+)'s chains tighten and rebuke the blow on .+ (left leg|right leg) with blinding light\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -55618,7 +55622,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.8"
+local version = "12.1.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
