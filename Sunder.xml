@@ -55622,7 +55622,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.10"
+local version = "12.1.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58408,7 +58408,7 @@ snd.square_affs = {
     return true
   end
   if (name:find("the corpse of") or name:find("the discarded remains of") or name:find("the withered husk of") or name:find("dusted carcass of"))
-    and not item:find("staked") then
+    and not name:find("staked") then
     return true
   end
   
