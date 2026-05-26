@@ -55525,7 +55525,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.12"
+local version = "12.1.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63162,7 +63162,7 @@ snd.alternative_class_defenses = {
   Sylvan_stalking = { defense = "stalking", type = "normal", effect = "quiets your movement at night", balance = { balanceequilibriumtake = "faetrail" }, state = "down", needit = false, timer = createStopWatch(), skill = "Trailing" },
 }
 
-function class_catch()
+function snd.class_catch()
   if snd.class == "Luminary" then
     snd.defenses.def_constitution = snd.alternative_class_defenses.Luminary_constitution
     snd.defenses.def_insulation = snd.alternative_class_defenses.Luminary_insulation
@@ -63253,9 +63253,7 @@ end</script>
 				<packageName></packageName>
 				<script>function snd.goggle_update()
   local goggle_defenses = {
-    --heatsight = {level = 1, non_goggle_method = {needybalancetake = "heatsight"}, non_goggle_skill = "Heatsight"},
     nightsight = { level = 1, non_goggle = { special = "nightsight" }, non_goggle_skill = "Nightsight" },
-    -- mindseye_tattoo = {level = 2, non_goggle = {balanceequilibrium = "touch allsight"}, non_goggle_skill = "Generic"},
     thirdeye = { level = 2, non_goggle = { eat = "acuity" }, non_goggle_skill = "Generic" },
     overwatch = { level = 5, non_goggle = { "" }, non_goggle_skill = "Generic" },
     insight = { level = 8, non_goggle = { needyequilibriumtake = "mind insight on" }, non_goggle_skill = "Insight" },
@@ -63269,8 +63267,13 @@ end</script>
       snd.defenses["def_" .. k].skill = "Goggle"
       snd.defenses["def_" .. k].balance = { special = "goggle toggle " .. k }
     else
-      snd.defenses["def_" .. k].balance = goggle_defenses[k].non_goggle
-      snd.defenses["def_" .. k].skill = goggle_defenses[k].non_goggle_skill
+      if k == "thirdeye" and hasSkill("thirdeye") then
+        snd.defenses.def_thirdeye.balance = {special = "thirdeye"}
+        snd.defenses.def_thirdeye.skill = "Thirdeye"
+      else
+        snd.defenses["def_" .. k].balance = goggle_defenses[k].non_goggle
+        snd.defenses["def_" .. k].skill = goggle_defenses[k].non_goggle_skill
+      end
     end
   end
 end</script>
@@ -63332,7 +63335,7 @@ function snd.load_def(option)
 end
 
 function snd.load_def2(option)
-  class_catch()
+  snd.class_catch()
   snd.goggle_update()
   if snd.def_options[option] ~= nil then
     snd.trim_priorities()
