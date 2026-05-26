@@ -24565,7 +24565,7 @@ end</script>
 								<name>fullsense end</name>
 								<script>setTriggerStayOpen("fullsense", 0)
 if snd.toggles.webAnnounce then
- local string = "wt Fullsense!"..snd.sep
+ local cmd = "wt Fullsense!"..snd.sep
  for i in pairs(snd.scented) do
   x = mmp.searchRoomExact(i)
   for y in pairs(x) do
@@ -24576,10 +24576,10 @@ if snd.toggles.webAnnounce then
    list = list.." "..snd.scented[i][j]
   end
 	if i ~= snd.my.room_name then
-   string = string.."wt "..i.." ("..z.."): "..list..snd.sep
+   cmd = cmd.."wt "..i.." ("..z.."): "..list..snd.sep
 	end
  end
- snd.send(string)
+ snd.send(cmd)
  snd.scented = {}
 end</script>
 								<triggerType>0</triggerType>
@@ -25861,7 +25861,7 @@ end
 							<script>setTriggerStayOpen("scent", 0)
 
 if snd.toggles.webAnnounce then
-  local string = ""
+  local cmd = ""
 	
   for i in pairs(snd.scented) do
     x = mmp.searchRoomExact(i)
@@ -25873,10 +25873,10 @@ if snd.toggles.webAnnounce then
       list = list .. " " .. snd.scented[i][j]
     end
     if i ~= snd.my.room_name then
-      string = string.."wt " .. i .. " (" .. z .. "): " .. list .. snd.sep
+      cmd = cmd.."wt " .. i .. " (" .. z .. "): " .. list .. snd.sep
     end
   end
-  if string ~= "" then snd.send(string) end
+  if cmd ~= "" then snd.send(cmd) end
   snd.scented = {}
 end</script>
 							<triggerType>0</triggerType>
@@ -26006,16 +26006,16 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>deliverance use</name>
-						<script>local string = ""
+						<script>local cmd = ""
 if snd.toggles.affcalling then
- string = "wt "..string.upper(multimatches[2][2]).." used deliverance!"..snd.sep
+ cmd = "wt "..string.upper(multimatches[2][2]).." used deliverance!"..snd.sep
 end
 if multimatches[2][2] == snd.target then
- string = string.."wt STOP HITTING STOP HITTING STOP!"
+ cmd = cmd.."wt STOP HITTING STOP HITTING STOP!"
  snd.target = "nil"
  snd.stap()
 end
-snd.send(string)</script>
+snd.send(cmd)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>1</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -26037,15 +26037,15 @@ snd.send(string)</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>deliverance proc</name>
-						<script>local string = ""
+						<script>local cmd = ""
 if snd.toggles.affcalling then
- string = "wt "..string.upper(multimatches[2][2]).." used deliverance!"..snd.sep
+ cmd = "wt "..string.upper(multimatches[2][2]).." used deliverance!"..snd.sep
 end
 if multimatches[2][2] == snd.target then
- string = string.."wt STOP HITTING STOP HITTING STOP!"
+ cmd = cmd.."wt STOP HITTING STOP HITTING STOP!"
  snd.stap()
 end
-snd.send(string)</script>
+snd.send(cmd)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>1</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -26171,11 +26171,11 @@ end
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>radiance</name>
-						<script>local string = "wt I'm being RADIANCED! PANIC!"..snd.sep.."say I'm being RADIANCED! AAAAAAAAHHHHH!"..snd.sep.."panic"..snd.sep.."panic"..snd.sep.."panic"..snd.sep.."panic"..snd.sep.."panic"
+						<script>local cmd = "wt I'm being RADIANCED! PANIC!"..snd.sep.."say I'm being RADIANCED! AAAAAAAAHHHHH!"..snd.sep.."panic"..snd.sep.."panic"..snd.sep.."panic"..snd.sep.."panic"..snd.sep.."panic"
 if snd.toggles.listening and #snd.callers &gt;= 1 then
- string = string.."tell "..snd.callers[1].." I'm being radianced! HELP ME PLEASE!"
+ cmd = cmd.."tell "..snd.callers[1].." I'm being radianced! HELP ME PLEASE!"
 end
-snd.send(string)</script>
+snd.send(cmd)</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -41953,92 +41953,7 @@ end</script>
 					<regex></regex>
 					<AliasGroup isActive="yes" isFolder="yes">
 						<name>Limbs</name>
-						<script>if snd.class == "Monk" then
- 
-  snd.starting_attack()
- 
-  function snd.attack_function()
-    if not snd.waiting.queue then
- 
-      local string = "" -- this will populate with our attack
-      local call = "" -- call your aff you're pushing
-      local kai = tonumber(gmcp.Char.Vitals.kai) 
- 
-      snd.giving = {"stupidity", "anorexia", "paresis", "recklessness", "confusion", "epilepsy"}      
- 
-      snd.mindAffliction = "none"
-      for i in pairs(snd.giving) do
-        if not snd.checkAff(snd.giving[i]) then
-          if snd.mindAffliction == "none" then
-            snd.mindAffliction = snd.giving[i]
-            if snd.mindAffliction == "confusion" then
-              snd.mindAffliction = "confuse"
-            elseif snd.mindAffliction == "paresis" then
-              snd.mindAffliction = "paralyse"
-            end
-          end
-        end
-      end
- 
-      if snd.used.shield then
-        tekuraKick = "sck"
-      elseif snd.stance ~= "tiger" then
-		     tekuraKick = "tgs"
-	    elseif (snd.checkAff("writhe_impaled") or snd.checkAff("head_mangled") or snd.limb_dmg["head"] &gt;= 66.66) and snd.checkAff("fallen") then
-        tekuraKick = "axk"
-      elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled"},1) and not snd.checkAff("fallen") then
-        tekuraKick = "swk"
-      elseif snd.limb_dmg["left leg"] &lt; 33.33 and (snd.no_parry() or snd.parried_limb ~= "left leg") and snd.resto_limb ~= "left leg" then
-        tekuraKick = "snk left"
-	    elseif snd.limb_dmg["right leg"] &lt; 33.33 and (snd.no_parry() or snd.parried_limb ~= "right leg") and snd.resto_limb ~= "right leg" then
-        tekuraKick = "snk right"
-	    else 
-        tekuraKick = "wwk"
-      end
- 
-      if snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-        firstPunch = "hfp left"
-      elseif snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-        firstPunch = "hfp right"
-      else
-		    firstPunch = "hkp"
-      end
- 
-      if snd.parried_limb ~= "left leg" and snd.limb_dmg["left leg"] &lt; 33.33 and snd.resto_limb ~= "left leg" then
-        secondPunch = "hfp left"
-      elseif snd.parried_limb ~= "right leg" and snd.limb_dmg["right leg"] &lt; 33.33 and snd.resto_limb ~= "right leg" then
-        secondPunch = "hfp right"
-      else
-		    secondPunch = "hkp"
-      end
- 
-      if snd.theytumbling then
-        string = "slt "..snd.target
-      elseif snd.checkAff("fallen") and not snd.checkAff("writhe_impaled") and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled", "right_arm_crippled", "left_arm_crippled"},1) then
-        string = "bbt "..snd.target
-      elseif kai &gt;= 40 and snd.resto_limb~="none" and snd.checksomeAffs({"left_leg_broken", "right_leg_broken", "right_arm_broken", "left_arm_broken"},1) then
-			     string = "kai cripple "..snd.target
-      else
-        string = "combo "..snd.target.." "..tekuraKick.." "..firstPunch.."  "..secondPunch..snd.sep.." mind "..snd.mindAffliction.." "..snd.target
-        call = "wt Afflicting "..snd.target..": "..snd.mindAffliction..snd.sep
-      end
- 
-      if snd.toggles.affcalling and not snd.target_gone then
-        string = call..string
-		  end
- 
-      if string ~= snd.last_attack and not snd.waiting.queue then
-        snd.last_attack = string
-        snd.attack(snd.last_attack)
-        snd.waiting.queue = true
-        tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-      end
- 
-    end
- 
-  end
-  snd.attack_function()
-end</script>
+						<script></script>
 						<command></command>
 						<packageName></packageName>
 						<regex></regex>
@@ -44302,111 +44217,106 @@ snd.attack_function()
 						<regex></regex>
 						<Alias isActive="yes" isFolder="no">
 							<name>mouse mode</name>
-							<script>if snd.class == "Earthcaller" then
-  snd.giving_shield = {
-    "no_courage",
-    "paresis",
-    "weariness",
-    "asthma",
-  }
-  snd.giving_spur = {
-    "impatience",
-    "ringing_ears",
-    "stupidity",
-    "vertigo",
-    "self_pity",
-    "migraine",
-  }
-  snd.giving_subdue = {
-    "hypochondria",
-    "stupidity",
-    "lethargy",
-    "dementia",
-    "recklessness",
-    "justice",
-    "paranoia"
-  }
-  snd.starting_attack()
-  function snd.attack_function()
-    local string = "contemplate " .. snd.target .. snd.sep
-    if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
-      string = string ..
-          "quickwield right crozier" .. snd.sep
+							<script>if snd.class ~= "Earthcaller" then return end
+
+snd.giving_shield = {
+  "no_courage",
+  "paresis",
+  "weariness",
+  "asthma",
+}
+snd.giving_spur = {
+  "impatience",
+  "ringing_ears",
+  "stupidity",
+  "vertigo",
+  "self_pity",
+  "migraine",
+}
+snd.giving_subdue = {
+  "hypochondria",
+  "stupidity",
+  "lethargy",
+  "dementia",
+  "recklessness",
+  "justice",
+  "paranoia"
+}
+snd.starting_attack()
+function snd.attack_function()
+  local cmd = "contemplate " .. snd.target .. snd.sep
+  if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
+    cmd = cmd ..
+        "quickwield right crozier" .. snd.sep
+  end
+  if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    cmd = cmd .. "quickwield left buckler" ..
+        snd.sep
+  end
+  local shield = "none"
+  local spur = "none"
+  local subdue = "none"
+  if snd.mana_percent &lt; 40 and not snd.used.shield then
+    cmd = "osso fragment " .. snd.target
+  elseif snd.proned() then
+    cmd = "shield deface " .. snd.target
+  elseif table.contains(snd.target_has, "no_courage") then
+    cmd = "tectonic transfixion " .. snd.target
+  else
+    if snd.balance.battle then
+      for i in pairs(snd.giving_spur) do
+        if not snd.checkAff(snd.giving_spur[i]) and battle == "none" then
+          spur = snd.giving_spur[i]
+        end
+      end
     end
-    if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then
-      string = string .. "quickwield left buckler" ..
-          snd.sep
-    end
-    local shield = "none"
-    local spur = "none"
-    local subdue = "none"
-    if snd.mana_percent &lt; 40 and not snd.used.shield then
-      string = "osso fragment " .. snd.target
-    elseif snd.proned() then
-      string = "shield deface " .. snd.target
-    elseif table.contains(snd.target_has, "no_courage") then
-      string = "tectonic transfixion " .. snd.target
+    if snd.used.shield then
+      shield = "shield raze"
     else
-      if snd.balance.battle then
-        for i in pairs(snd.giving_spur) do
-          if not snd.checkAff(snd.giving_spur[i]) and battle == "none" then
-            spur = snd.giving_spur[i]
-          end
+      for i in pairs(snd.giving_shield) do
+        if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
+          shield = snd.subjugation_attacks[snd.giving_shield[i]]
         end
       end
-      if snd.used.shield then
-        shield = "shield raze"
+    end
+    if shield == "none" then
+      shield = "shield strike"
+    end
+    if snd.used.rebounding and shield ~= "facesmash" then
+      shield = "shield raze"
+    end
+    for i in pairs(snd.giving_subdue) do
+      if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= spur then
+        subdue = snd.giving_subdue[i]
+      end
+    end
+    if spur ~= "none" then
+      if snd.toggles.affcalling and not snd.target_gone then
+        cmd = "wt Spur " .. snd.target .. ": " .. spur .. snd.sep
+      end
+      cmd = cmd .. "osso spur " .. snd.target .. " " .. spur .. snd.sep
+    end
+    cmd = cmd .. shield .. " " .. snd.target .. snd.sep
+    if shield ~= "slam" and shield ~= "overwhelm" then
+      if subdue == "none" then
+        cmd = cmd .. "subdue " .. snd.target
       else
-        for i in pairs(snd.giving_shield) do
-          if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
-            shield = snd.subjugation_attacks[snd.giving_shield[i]]
-          end
-        end
-      end
-      if shield == "none" then
-        shield = "shield strike"
-      end
-      if snd.used.rebounding and shield ~= "facesmash" then
-        shield = "shield raze"
-      end
-      for i in pairs(snd.giving_subdue) do
-        if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= spur then
-          subdue = snd.giving_subdue[i]
-        end
-      end
-      if spur ~= "none" then
         if snd.toggles.affcalling and not snd.target_gone then
-          string = "wt Spur " .. snd.target .. ": " .. spur .. snd.sep
+          cmd = cmd .. "wt Subdue " .. snd.target .. ": " .. subdue .. snd.sep
         end
-        string = string .. "osso spur " .. snd.target .. " " .. spur .. snd.sep
+        cmd = cmd .. "subdue " .. snd.target .. " " .. subdue
       end
-      string = string .. shield .. " " .. snd.target .. snd.sep
-      if shield ~= "slam" and shield ~= "overwhelm" then
-        if subdue == "none" then
-          string = string .. "subdue " .. snd.target
-        else
-          if snd.toggles.affcalling and not snd.target_gone then
-            string = string .. "wt Subdue " .. snd.target .. ": " .. subdue .. snd.sep
-          end
-          string = string .. "subdue " .. snd.target .. " " .. subdue
-        end
-      end
-    end
-
-    if string.find(string, "deface") and not string.find(gmcp.Char.Vitals.wield_left, "tower") then
-      string = "quickwield left tower" .. snd.sep .. string
-    end
-
-    if string ~= snd.last_attack and not snd.waiting.queue then
-      snd.last_attack = string
-      snd.attack(snd.last_attack)
-      snd.waiting.queue = true
-      tempTimer(snd.delay(), [[snd.waiting.queue = false]])
     end
   end
 
-  snd.attack_function()
+  if string.find(cmd, "deface") and not string.find(gmcp.Char.Vitals.wield_left, "tower") then
+    cmd = "quickwield left tower" .. snd.sep .. cmd
+  end
+
+  snd.attack(cmd, true)
 end
+
+snd.attack_function()
 </script>
 							<command></command>
 							<packageName></packageName>
@@ -45030,98 +44940,91 @@ snd.attack_function()
 						<Alias isActive="yes" isFolder="no">
 							<name>impale mode</name>
 							<script>
-if snd.class == "Revenant" then
-  snd.starting_attack()
-  function snd.attack_function()
-  	if not snd.waiting.queue then
-  		local string = "" -- we'll load this with our attack string
-  		local call = "" -- and this with our affliction call
-  		local physcount = 0
-  		for aff in pairs(snd.physical_affs) do
-  			if table.contains(snd.target_has, snd.physical_affs[aff]) then
-  				physcount = physcount + 1
-  			end
-  		end
-  		-- next, the afflictions we want to give
-  		local touse = {}
-  		local tohit = {}
-  		-- and in case we don't find enough of them
-  		local extraaff = "duskosa"
-  		local atdum = false -- can we use atdum?
-  		if tonumber(gmcp.Char.Vitals.charge_left) &gt;= 140 and tonumber(gmcp.Char.Vitals.charge_right) &gt;= 140 then
-  			atdum = true -- yesssssss
-  		end
-  		-- set the affs we want to use
-  			snd.giving = {
-        "paresis",
-        "clumsiness",
-        "asthma",
-        "ringing_ears",
-        "vomiting",
-        "allergies",
-        "haemophilia",
-        "slickness",
-        "anorexia",
-        "stupidity",
-        --"recklessness",
-        --"weariness",
-        --"dizziness",
-        --"voyria",
-        }
-  		-- first and foremost, check if we can disembowel!
-  		if snd.target_impaled then
-  			string = "extirpate "..snd.target
-  		-- otherwise, see if we can impale
-  		elseif not snd.checkAff("writhe_impaled") and snd.proned() and snd.checkAff("sensitivity") and physcount &gt;= 4 and atdum then
-  			string = "blade scribe left lawid "..snd.target..snd.sep.."blade scribe right lawid "..snd.target..snd.sep.."lurk "..snd.target..snd.sep.."transpierce "..snd.target
-  		else -- if not...
-  			-- pick affs from the list above
-  			for i in pairs(snd.giving) do
-  				-- make sure not to double up paresis and paralysis
-  				if not snd.checkAff(snd.giving[i]) then
-  					-- and don't add an aff we've already got in the list!
-  					if not table.contains(touse, snd.giving[i]) then
-  						table.insert(touse, snd.giving[i])
-  					end
-  				end
-  			end
-  			-- now let's convert affs to venoms/empowerments
-  			for aff in pairs(touse) do
-  				table.insert(tohit, snd.effects[touse[aff]])
-  			end
-  			-- if we didn't find enough stuff to hit with, stick in our filler
-  			while #tohit &lt; 3 do
-  				table.insert(tohit, extraaff)
-  			end
-  			-- now to decide what attack to use!
-  			if snd.used.shield and snd.used.rebounding then
-  				string = "deceive "..snd.target.." wasi"
-        elseif snd.used.shield or snd.used.rebounding then
-  				string = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
-  				call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
-  			elseif atdum then -- vorpal equiv
-  				string = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
-  				call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
-  			else
-  				string = "dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
-  				call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
-  			end
-  		end
-  		-- prepend our affliction call, if we need one
-  		if snd.toggles.affcalling and not snd.target_gone then
-  			string = call..string
-  		end
-  		-- handle anti-spam and the actual attacking now
-  		if string ~= snd.last_attack and not snd.waiting.queue then
-  			snd.last_attack = string
-  			snd.attack(snd.last_attack)
-  			snd.waiting.queue = true
-  			tempTimer(snd.delay(), [[snd.waiting.queue = false]])
-  		end
-  	end
-  end
-  snd.attack_function()
+if snd.class ~= "Revenant" then return end
+
+snd.starting_attack()
+function snd.attack_function()
+	local cmd = "" -- we'll load this with our attack cmd
+	local call = "" -- and this with our affliction call
+	local physcount = 0
+	for aff in pairs(snd.physical_affs) do
+		if table.contains(snd.target_has, snd.physical_affs[aff]) then
+			physcount = physcount + 1
+		end
+	end
+	-- next, the afflictions we want to give
+	local touse = {}
+	local tohit = {}
+	-- and in case we don't find enough of them
+	local extraaff = "duskosa"
+	local atdum = false -- can we use atdum?
+	if tonumber(gmcp.Char.Vitals.charge_left) &gt;= 140 and tonumber(gmcp.Char.Vitals.charge_right) &gt;= 140 then
+		atdum = true -- yesssssss
+	end
+	-- set the affs we want to use
+		snd.giving = {
+    "paresis",
+    "clumsiness",
+    "asthma",
+    "ringing_ears",
+    "vomiting",
+    "allergies",
+    "haemophilia",
+    "slickness",
+    "anorexia",
+    "stupidity",
+    --"recklessness",
+    --"weariness",
+    --"dizziness",
+    --"voyria",
+    }
+	-- first and foremost, check if we can disembowel!
+	if snd.target_impaled then
+		cmd = "extirpate "..snd.target
+	-- otherwise, see if we can impale
+	elseif not snd.checkAff("writhe_impaled") and snd.proned() and snd.checkAff("sensitivity") and physcount &gt;= 4 and atdum then
+		cmd = "blade scribe left lawid "..snd.target..snd.sep.."blade scribe right lawid "..snd.target..snd.sep.."lurk "..snd.target..snd.sep.."transpierce "..snd.target
+	else -- if not...
+		-- pick affs from the list above
+		for i in pairs(snd.giving) do
+			-- make sure not to double up paresis and paralysis
+			if not snd.checkAff(snd.giving[i]) then
+				-- and don't add an aff we've already got in the list!
+				if not table.contains(touse, snd.giving[i]) then
+					table.insert(touse, snd.giving[i])
+				end
+			end
+		end
+		-- now let's convert affs to venoms/empowerments
+		for aff in pairs(touse) do
+			table.insert(tohit, snd.effects[touse[aff]])
+		end
+		-- if we didn't find enough stuff to hit with, stick in our filler
+		while #tohit &lt; 3 do
+			table.insert(tohit, extraaff)
+		end
+		-- now to decide what attack to use!
+		if snd.used.shield and snd.used.rebounding then
+			cmd = "deceive "..snd.target.." wasi"
+    elseif snd.used.shield or snd.used.rebounding then
+			cmd = "deceive "..snd.target.." "..snd.rev_empower(tohit[1])
+			call = "wt Afflicting "..snd.target..": "..tohit[1]..snd.sep
+		elseif atdum then -- vorpal equiv
+			cmd = "blade scribe right atdum "..snd.target.." "..snd.rev_empower(tohit[1])..snd.sep.."dpl "..snd.target.." "..snd.rev_empower(tohit[3]).." "..snd.rev_empower(tohit[2])
+			call = "wt Afflicting "..snd.target..": "..tohit[1]..", "..tohit[3]..", "..tohit[2]..snd.sep
+		else
+			cmd = "dpl "..snd.target.." "..snd.rev_empower(tohit[2]).." "..snd.rev_empower(tohit[1])
+			call = "wt Afflicting "..snd.target..": "..tohit[2]..", "..tohit[1]..snd.sep
+		end
+	end
+	-- prepend our affliction call, if we need one
+	if snd.toggles.affcalling and not snd.target_gone then
+		cmd = call..cmd
+	end
+	-- handle anti-spam and the actual attacking now
+  snd.attack(cmd, true)
 end
+snd.attack_function()
 </script>
 							<command></command>
 							<packageName></packageName>
@@ -47920,7 +47823,7 @@ function snd.attack_function()
     "watery_eyes",
   }
   local chain = "tenderise"
-  local string = ""
+  local attack = ""
   
   for _, aff in ipairs(giving_chain) do
     if not snd.checkAff(aff) then
@@ -47975,21 +47878,21 @@ function snd.attack_function()
     attack1, attack2 = "concussion", attack1
   end
   if snd.used.shield then
-    string = "touch hammer " .. snd.target
+    attack = "touch hammer " .. snd.target
   elseif not snd.checkAff("indifference") then
-    string = "ego inadequacy "..snd.target
+    attack = "ego inadequacy "..snd.target
   elseif not snd.checksomeAffs({"claustrophobia","agoraphobia"},1) then
-    string = "ego boast "..snd.target
+    attack = "ego boast "..snd.target
   else
     if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
-      string = "onslaught "..snd.target.." clobber "..attack1
+      attack = "onslaught "..snd.target.." clobber "..attack1
     else
-      string = "onslaught "..snd.target.." "..attack1.." "..attack2
+      attack = "onslaught "..snd.target.." "..attack1.." "..attack2
     end
   end
   
   if gmcp.Char.Vitals.ability_bal == "1" then
-    string = "assail " .. snd.target .. " "..chain .. snd.sep .. string
+    attack = "assail " .. snd.target .. " "..chain .. snd.sep .. attack
   end
 
   snd.attack(attack, true)
@@ -48473,7 +48376,7 @@ function snd.attack_function() -- defining this function is how we tell sunder w
   local cmd = ""
   local call = ""
 
-  -- attack logic goes here, you need to set string = whatever you want to send
+  -- attack logic goes here, you need to set cmd = whatever you want to send
   cmd = "punch " .. snd.target
   -- you use a webcall variable to announce the afflictions you deal to your
   -- team. not all attacks need a call but for venoms, doublewhispers, and
@@ -55622,7 +55525,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.11"
+local version = "12.1.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -66460,28 +66363,6 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Expunge</name>
-					<packageName></packageName>
-					<script>function snd.handleExpunge()
-  for aff in pairs(snd.physical_affs) do
-    if snd.checkAff(snd.physical_affs[aff]) then
-      if string.find(snd.physical_affs[aff], "_crippled") then
-        local string = string.gsub(snd.physical_affs[aff], "_crippled", "")
-        string = string:gsub("_", " ")
-        if snd.limb_status[string] == "healed" then
-          snd.target_cured(snd.physical_affs[aff])
-          break
-        end
-      else
-        snd.target_cured(snd.physical_affs[aff])
-        break
-      end
-    end
-  end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
 					<name>Rage</name>
 					<packageName></packageName>
 					<script>function snd.handleRage()
@@ -67852,23 +67733,23 @@ end
 
 function snd.displayTargetList()
 
-	local string = ""
+	local cmd = ""
 	
 	if #snd.targeting.list == 0 then
-		string = "Targeting list is empty!"
+		cmd = "Targeting list is empty!"
 	else
 		for k,v in ipairs(snd.targeting.list) do
 			if k &lt; #snd.targeting.list then
-				string = string .. v .. ", "
+				cmd = cmd .. v .. ", "
 			elseif #snd.targeting.list == 1 then
-				string = string .. v .. "."
+				cmd = cmd .. v .. "."
 			else
-				string = string .. v .. "."
+				cmd = cmd .. v .. "."
 			end
 		end
 	end
 
-	snd.e.echo(string, true, true)
+	snd.e.echo(cmd, true, true)
 
 end
 
@@ -67877,23 +67758,23 @@ function snd.callTargetList()
 
 	if not snd.toggles.calling then return end 
                                           
-	local string = "Target list: "
+	local cmd = "Target list: "
 	
 	if #snd.targeting.list == 0 then
-		string = "Out of targets!"
+		cmd = "Out of targets!"
 	else
 		for k,v in ipairs(snd.targeting.list) do
 			if k &lt; #snd.targeting.list then
-				string = string .. v .. ", "
+				cmd = cmd .. v .. ", "
 			elseif #snd.targeting.list == 1 then
-				string = string .. v .. "."
+				cmd = cmd .. v .. "."
 			else
-				string = string .. v .. "."
+				cmd = cmd .. v .. "."
 			end
 		end
 	end
 	
-	send("wt " .. string)
+	send("wt " .. cmd)
 
 end
 
@@ -69256,7 +69137,6 @@ end
 function snd.handle_hounds()
   if gmcp.Char.Vitals.ability_bal == "1" and not snd.waiting.hound and gmcp.Char.Vitals.balance == "0" then
     local class = { ["Carnifex"] = "hound", ["Warden"] = "simulacrum" }
-    local string = ""
     local hound_aff = "none"
     local mark_check = false
     if
@@ -69308,7 +69188,7 @@ end
 				<name>alerts</name>
 				<packageName></packageName>
 				<script>function snd.run_alerts()
-  local string = ""
+  local cmd = ""
   if snd.alert_tick &gt;= 5 then
     snd.alert_tick = 0
     snd.oldalerts = snd.alerts
@@ -69343,17 +69223,17 @@ end
     end
     if #snd.alerts &gt;= 1 then
       border = "\n&lt;red&gt;*************************************"
-      string = ""
+      cmd = ""
       for i in pairs(snd.alerts) do
-        string = string .. snd.alerts[i]
+        cmd = cmd .. snd.alerts[i]
         if
           table.contains(snd.oldalerts, snd.alerts[i]) and not string.find(snd.alerts[i], "MADNESS")
         then
           snd.panic = true
         end
       end
-      string = border .. string .. border
-      cecho(string)
+      cmd = border .. cmd .. border
+      cecho(cmd)
       if snd.panic and snd.toggles.affcalling and not snd.waiting.melting then
         if snd.toggles.attacking or (snd.toggles.bashing and #snd.group &gt;= 1) then
           if snd.faction == "spirit" then
@@ -71930,7 +71810,6 @@ end
     end,
 
     Expunge = function(target, boosted)
-      --snd.handleExpunge()
       if boosted then
         snd.target_cured("stupidity")
       end
