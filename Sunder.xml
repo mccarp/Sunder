@@ -32285,7 +32285,7 @@ end</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^As (\w+) parries the blow, an? .*elemental.* enacts a vengeful reprisal, leaving.+ reeling and vulnerable\.$</string>
+								<string>^As (\w+) parries the blow, .+ enacts a vengeful reprisal, leaving.+ reeling and vulnerable\.$</string>
 								<string>^.+ lashes out as (\w+) parries the blow, rattling.+ defences\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -57742,20 +57742,21 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Balances</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
 			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Balances</name>
+				<name>Data</name>
 				<packageName></packageName>
 				<script></script>
 				<eventHandlerList />
-				<ScriptGroup isActive="yes" isFolder="yes">
-					<name>Data</name>
+				<Script isActive="yes" isFolder="no">
+					<name>Balance data</name>
 					<packageName></packageName>
-					<script></script>
-					<eventHandlerList />
-					<Script isActive="yes" isFolder="no">
-						<name>Balance data</name>
-						<packageName></packageName>
-						<script>bal_data = bal_data or {}
+					<script>bal_data = bal_data or {}
 snd.bal_data = bal_data
 
 --[[template
@@ -57767,12 +57768,12 @@ snd.bal_data.fitness = {
   back = {"You may once again use fitness to control your breathing."}, --trigger lines for the balance coming back.
 }
 ]]</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Generic</name>
-						<packageName></packageName>
-						<script>bal_data.fitness = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Generic</name>
+					<packageName></packageName>
+					<script>bal_data.fitness = {
   time = 20,
   skill = {"hunting fitness"},
   used = {},
@@ -57820,12 +57821,12 @@ bal_data.nimbleness = {
 	off = {"Your body is too tired to strengthen itself again so soon.", "Your muscles are too tired to become nimble again so soon."},
 	back = {"Your muscles have recovered enough for you to be nimble once more.", "Your muscles have recovered enough for you to bolster them once more."},
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Shaman/Alchemist</name>
-						<packageName></packageName>
-						<script>bal_data.panacea = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Shaman/Alchemist</name>
+					<packageName></packageName>
+					<script>bal_data.panacea = {
   time = 20,
   skill = {"naturalism panacea", "botany subversion"},
   used = {},
@@ -57848,12 +57849,12 @@ bal_data.lifebloom = {
   off = {"You cannot call upon your lifebloom so soon."},
   back = {"You may once again gift yourself with lifebloom."},
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>Monk</name>
-						<packageName></packageName>
-						<script>bal_data.numbness = {
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Monk</name>
+					<packageName></packageName>
+					<script>bal_data.numbness = {
   time = 20,
   skill = {"kaido numbness"},
   used = {},
@@ -57877,19 +57878,142 @@ bal_data.kaistrike = {
 	off = {"You must wait before you may use Kai strike again."},
 	back = {"You may once again use Kai Strike."},
 }</script>
-						<eventHandlerList />
-					</Script>
-					<Script isActive="yes" isFolder="no">
-						<name>New script</name>
-						<packageName></packageName>
-						<script></script>
-						<eventHandlerList />
-					</Script>
-				</ScriptGroup>
+					<eventHandlerList />
+				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Logic</name>
+					<name>Predator</name>
 					<packageName></packageName>
-					<script>snd.balances = snd.balances or {}
+					<script>bal_data.arouse = {
+	time = 90,
+	skill = {"predation arouse"},
+	used = {},
+	off = {"You are unable to arouse your body again so soon."},
+	back = {"You are again able to focus on arousing your body."},
+}
+
+bal_data.ferocity = {
+	time = 20,
+	skill = {"predation ferocity"},
+	used = {},
+	off = {"You are not able to purge another affliction just yet."},
+	back = {"You feel your strength of body return."},
+}
+
+
+bal_data.orel = {
+	time = 3,
+	skill = {"beastmastery orel"},
+	used = {},
+	off = {"Your orel is not yet ready to fly.", "Your orel is not yet ready to land."},
+	back = {"You can again order your orel to fly or land."},
+}
+
+bal_data.spider = {
+	time = 20,
+	skill = {"beastmastery web"},
+	used = {},
+	off = {"The spider isn't yet ready to web someone again."},
+	back = {"Your spider is able to use its webs once again."},
+}
+
+bal_data.fiend = {
+	time = 10,
+	skill = {"knifeplay feint"},
+	used = {},
+	off = {"Feints are best used sparingly, lest they become predictable."},
+	back = {"You feel a feint could be effective once more."},
+}
+
+bal_data.bladesurge = {
+	time = 195,
+	skill = {},
+	used = {"Your concentration enhances ten-fold, a surge of pure adrenaline causing your entire body to quiver like a taut bowstring."},
+	off = {"You cannot summon up your offensive battle prowess again so soon."},
+	back = {"You are once again able to summon up your offensive battle prowess."},
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>senticutor</name>
+					<packageName></packageName>
+					<script>bal_data.might = {
+	time = 20,
+	skill = {"woodlore might", "artifice grit"},
+	used = {},
+	off = {"You're not ready to call upon your might.","You cannot call upon your enduring grit again so soon."},
+	back = {"You can call upon your might once more.", "You may once more display your enduring grit."},
+}
+
+bal_data.exploit = {
+	time = 60,
+	skill = {},
+	used = {"Spotting an opening for a brutal assault, you send your accomplices into a manic rage with a sharp command.", "Sensing an opportunity to strike against your foe, you drive your companions into a frenzy."},
+	off = {"You cannot do that again so soon."},
+	back = {"You may once more exploit an opponent's opening.", "You may take advantage of an opportunity once again."},
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>terasage</name>
+					<packageName></packageName>
+					<script>
+bal_data.momentum = {
+	time = 60,
+	skill = {"wavebreaking hightide", "terramancy momentum"},
+	used = {},
+	off = {"Your body is still recovering from its last boost of momentum."},
+	back = {"Your body is able to benefit from another high tide.", "Your body has recovered from its increased momentum."},
+}
+
+bal_data.absorb = {
+	time = 15,
+	skill = {"terramancy absorb", "wavebreaking yearn"},
+	used = {},
+	off = {"You are unable to absorb another affliction so soon.", "The sea will not respond to your yearning again so soon."},
+	back = {"You may once again yearn for the sea to lend you its succour.", "You may once more absorb an affliction from your flesh."},
+}
+
+bal_data.earthenwill = {
+	time = 15,
+	skill = {},
+	used = {"Your imbue_will defence has been stripped.", "Your elemental_engulf defence has been stripped."},
+	off = {"You are still recovering from the last time you solidified your will with that of your golem.", "You cannot coordinate with your elemental again so soon."},
+	back = {"You may once again strengthen your will.", "You may once again work in tandem with your elemental."},
+}
+bal_data.rattle = {
+	time = 10,
+	skill = {},
+	used = {[[REX:^As (\w+) parries the blow, .+ enacts a vengeful reprisal, leaving.+ reeling and vulnerable\.$]], [[REX:^.+ lashes out as (\w+) parries the blow, rattling.+ defences\.$]]},
+	off = {},
+	back = {"Your golem has regained its awareness to rattle.", "Your elemental has recovered from its former reprisal and may enact another, should opportunity present."},
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Infiltrator</name>
+					<packageName></packageName>
+					<script>bal_data.shrug = {
+	time = 20,
+	skill = {"assassination shrugging"},
+	used = {},
+	off = {"You are unable to shrug off another affliction so soon."},
+	back = {"You are able to shrug off another venom."},
+}
+
+bal_data.backstab = {
+	time = 30,
+	skill = {"assassination backstab"},
+	used = {},
+	off = {"You cannot backstab another so soon."},
+	back = {"You may backstab another once more.",[[REX:^You quietly step back and twirl .+ in your hand\.$]]}
+}</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>Logic</name>
+				<packageName></packageName>
+				<script>snd.balances = snd.balances or {}
 
 function snd.balances.used(balance)
   snd.balance[balance] = false
@@ -57902,9 +58026,8 @@ end
 function snd.balances.back(balance)
   snd.balance[balance] = true
 end</script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Variables</name>
