@@ -438,10 +438,12 @@ end
 					<regexCodeList>
 						<string>Vibrant essence streams forth from the floor, signaling the end of combat.</string>
 						<string>You currently walk in divine grace and may neither be harmed nor harm another. To leave this state of protection, you may REJECT GRACE.</string>
+						<string>^The spirit of (\w+) breaks apart into motes of light as it is defeated and banished from its vessel\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
 						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -55525,7 +55527,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.13"
+local version = "12.1.14"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -58717,6 +58719,7 @@ snd.registerEvent("SunderRiftChange", "gmcp.IRE.Rift.Change", riftChange)</scrip
 function snd.core()
   if not snd.connected then return end
   if not snd.toggles.active then return end
+  if gmcp.Char.Vitals.channeling == "1" then return end
   snd.def_check()
   if snd.functional() then
     snd.actions.clearActions()
