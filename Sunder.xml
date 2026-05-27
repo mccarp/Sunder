@@ -30884,7 +30884,7 @@ snd.core()
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>You drop to one knee and brace an open palm against the ground, drawing in the natural energies to ease your maladies.</string>
+								<string>You use Naturalism Panacea.</string>
 								<string>You use Botany Subversion.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
@@ -30914,8 +30914,7 @@ snd.core()
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Reconfigure Familiar morph available</name>
-							<script>snd.balance.morph = true
-</script>
+							<script>snd.balance.morph = true</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -31302,64 +31301,6 @@ snd.fulcrum_exists = true</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>Your wand tattoo tingles slightly.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-					</TriggerGroup>
-					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Armour</name>
-						<script></script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList />
-						<regexCodePropertyList />
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Armour tattoo used</name>
-							<script>snd.balance.armour = false</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>You use Tattoos Armour.</string>
-								<string>You touch the armour tattoo, but nothing happens.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>3</integer>
-								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Armour tattoo back up</name>
-							<script>snd.balance.armour = true</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>Your armour tattoo tingles slightly.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
@@ -31910,26 +31851,9 @@ snd.balance.wand = true
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
-				</TriggerGroup>
-				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Dome</name>
-					<script></script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList />
-					<regexCodePropertyList />
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>dome used</name>
-						<script>snd.balance.dome = false
-</script>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Dome</name>
+						<script></script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -31940,36 +31864,53 @@ snd.balance.wand = true
 						<mSoundFile></mSoundFile>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You use Manipulation Dome.</string>
-							<string>You cannot bring forth ylem energy to protect you again so soon.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>dome refreshed</name>
-						<script>snd.balance.dome = true
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>dome used</name>
+							<script>snd.balance.dome = false
 </script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You feel able to bring forth residual ylem as a protective dome.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You use Manipulation Dome.</string>
+								<string>You cannot bring forth ylem energy to protect you again so soon.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>dome refreshed</name>
+							<script>snd.balance.dome = true
+</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You feel able to bring forth residual ylem as a protective dome.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Sentinel </name>
@@ -32610,9 +32551,11 @@ if golemgrapple_timer then killTimer(golemgrapple_timer) end
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>Feints are best used sparingly, lest they become predictable.</string>
+							<string>You use Tekura Feint</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>3</integer>
+							<integer>2</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -57799,6 +57742,169 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Balances</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Data</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>Balance data</name>
+						<packageName></packageName>
+						<script>bal_data = bal_data or {}
+snd.bal_data = bal_data
+
+--[[template
+snd.bal_data.fitness = {
+  time = 20,
+  skill = {"hunting fitness"}, --whatever skills are associated with this.
+  used = {}, -- triggerlines for when this balance is used if it's not a cmsg
+  off = {"Your breath hasn't recovered just yet."}, --trigger lines for when you try to use this skill off cd
+  back = {"You may once again use fitness to control your breathing."}, --trigger lines for the balance coming back.
+}
+]]</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Generic</name>
+						<packageName></packageName>
+						<script>bal_data.fitness = {
+  time = 20,
+  skill = {"hunting fitness"},
+  used = {},
+  off = {"Your breath hasn't recovered just yet."},
+  back = {"You may once again use fitness to control your breathing."},
+}
+
+bal_data.crystal = {
+  time = 900,
+  skill = {"tattoos crystal"},
+  used = {},
+  off = {"You touch the crystal tattoo, but nothing happens."},
+  back = {"Your crystal tattoo tingles slightly."},
+}
+
+bal_data.wand = {
+  time = 300,
+  skill = {"tattoos wand"},
+  used = {},
+  off = {"You touch the wand tattoo, but nothing happens."},
+  back = {"Your wand tattoo tingles slightly."},
+}
+
+bal_data.regenerate = {
+  time = 15,
+  skill = {},
+  used = {[[REX:^Heat fills your .+ as you will it to regenerate with speed\.$]]},
+  off = {"Your body has not recovered enough to regenerate another limb."},
+  back = {"The heat subsides, you may regenerate another limb."},
+}
+
+bal_data.dome = {
+  time = 10,
+  skill = {"manipulation dome"},
+  used = {},
+  strip = {"The dome of ylem about you disperses."},
+  off = {"You cannot bring forth ylem energy to protect you again so soon."},
+  back = {"You feel able to bring forth residual ylem as a protective dome."},
+}
+
+bal_data.nimbleness = {
+	time = 600,
+	skill = {"avoidance nimbleness","avoidance bolstering"},
+	used = {},
+	off = {"Your body is too tired to strengthen itself again so soon.", "Your muscles are too tired to become nimble again so soon."},
+	back = {"Your muscles have recovered enough for you to be nimble once more.", "Your muscles have recovered enough for you to bolster them once more."},
+}</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Shaman/Alchemist</name>
+						<packageName></packageName>
+						<script>bal_data.panacea = {
+  time = 20,
+  skill = {"naturalism panacea", "botany subversion"},
+  used = {},
+  off = {"You cannot purify your body of ailments again just yet.", "You cannot subvert nature's healing balms again yet."},
+  back = {"You may once again purify your body of ailments."},
+}
+
+bal_data.morph = {
+  time = 20,
+  skill = {"shamanism morph", "experimentation reconfiguration"},
+  used = {},
+  off = {},
+  back = {"Your familiar is capable of morphing its form once more.", "You are able to reconfigure your experiment once again."},
+}
+
+bal_data.lifebloom = {
+  time = 180,
+  skill = {},
+  used = {"The pain of your wounds is suddenly washed away by life-force welling up from within you."},
+  off = {"You cannot call upon your lifebloom so soon."},
+  back = {"You may once again gift yourself with lifebloom."},
+}</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>Monk</name>
+						<packageName></packageName>
+						<script>bal_data.numbness = {
+  time = 20,
+  skill = {"kaido numbness"},
+  used = {},
+  off = {"You cannot make your body numb again so soon."},
+  back = {"Your body can withstand full numbness once more."},
+}
+
+--shared with predator
+bal_data.tekura_feint = {
+	time = 5,
+	skill = {"tekura feint"},
+	used = {},
+	off = {"Feints are best used sparingly, lest they become predictable."},
+	back = {"You feel a feint could be effective once more."},
+}
+
+bal_data.kaistrike = {
+	time = 25,
+	skill = {"kaido strike"},
+	used = {},
+	off = {"You must wait before you may use Kai strike again."},
+	back = {"You may once again use Kai Strike."},
+}</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>New script</name>
+						<packageName></packageName>
+						<script></script>
+						<eventHandlerList />
+					</Script>
+				</ScriptGroup>
+				<Script isActive="yes" isFolder="no">
+					<name>Logic</name>
+					<packageName></packageName>
+					<script>snd.balances = snd.balances or {}
+
+function snd.balances.used(balance)
+  snd.balance[balance] = false
+end
+
+function snd.balances.off(balance)
+  snd.balance[balance] = false
+end
+
+function snd.balances.back(balance)
+  snd.balance[balance] = true
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Variables</name>
