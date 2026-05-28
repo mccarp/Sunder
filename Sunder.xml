@@ -33159,52 +33159,6 @@ snd.firefist_cooldown = false</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Hackles Assail Down</name>
-								<script>snd.hackles = false</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>Your hackles are not primed to strike just yet.</string>
-									<string>Your hook trembles, yearning to assail your hated enemies.</string>
-									<string>You cannot assail someone again so soon.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Hackles Assail Up</name>
-								<script>snd.hackles = true</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>Your chains rise up like hackles, ready to strike.</string>
-									<string>Your soul quivers in your meat hook, ready to assail once more.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Wrath Predation Used</name>
 								<script>snd.wrath = false</script>
 								<triggerType>0</triggerType>
@@ -58346,7 +58300,6 @@ snd.waiting = snd.waiting or {
   deluge = true,
   soulcage = true,
   wand = true,
-  fury = true,
   arouse = true,     --predator arouse
   ferocity = true,   --predator ferocity
   orel = true,       --predator orel fly/land
@@ -66022,7 +65975,6 @@ snd.blitz = false
 snd.pyromania = false
 snd.swaggered = false
 snd.rebuke_limb = "none"
-snd.hackles = true
 snd.recover = true
 snd.wrath = true
 
