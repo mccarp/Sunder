@@ -17838,29 +17838,6 @@ snd.conjoincd = true
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Empowered Affirmed Already</name>
-								<script>snd.empowerready = false
-</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>You have already empowered that number.</string>
-									<string>That chakral point is already affirmed by your will, sage.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Crescent Misery Due</name>
 								<script>snd.crescentable = true
 snd.target_cured("blackout")
@@ -30888,31 +30865,8 @@ end</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Empower Affirm Ready</name>
-							<script>snd.empowerready = true</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>Your mind is now capable of empowering a new number.</string>
-								<string>Your awakened soul soars, once more capable of chakral affirmation.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>3</integer>
-								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Empower Affirm Type</name>
-							<script>snd.empowertype = matches[2]
-snd.empowerready = false</script>
+							<script>snd.empowertype = matches[2]</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -41090,7 +41044,7 @@ function snd.attack_function()
     -- madness is good bang for buck, use if 2 or more affs available
     -- Swirl is used as we're giving multiple affs that may trigger its special condition
 
-    if snd.empowerready == true then -- if we can empower, do so to strip clarity
+    if snd.balance.empower then -- if we can empower, do so to strip clarity
       attack = "empower jhako" ..
           snd.sep .. "geo impress swirl" .. snd.sep .. "elicit madness " .. snd.target .. snd.sep .. bioattack
     else
@@ -44333,7 +44287,7 @@ function snd.attack_function()
 			cmd = cmd.."void disjoint"..biocmd..snd.sep
 		end
 	elseif physcount &gt;= 3 and mentcount &gt;= 3 and snd.my_mutagen then
-    if snd.empowerready then
+    if snd.balance.empower then
 			cmd = cmd.."affirm trunk"..snd.sep.."chakra transcend "..snd.target..snd.sep..biocmd
     else
    	  cmd = cmd.."chakra transcend "..snd.target..snd.sep..biocmd
@@ -44343,7 +44297,7 @@ function snd.attack_function()
     	cmd = cmd.."void bestow "..snd.target.." with one"..snd.sep..biocmd..snd.sep
 		end
   elseif not snd.checksomeAffs({"dementia", "paranoia", "hallucinations"}, 2) and snd.balance.madness then
-      if snd.empowerready then
+      if snd.balance.empower then
         cmd = cmd.."affirm branch"..snd.sep.."muse foster dread"..snd.sep.."chakra turmoil "..snd.target..snd.sep..biocmd..snd.sep
 			else
 				cmd = cmd.."muse foster dread"..snd.sep.."chakra turmoil "..snd.target..snd.sep..biocmd..snd.sep
@@ -44422,7 +44376,7 @@ function snd.attack_function()
     -- madness is good bang for buck, use if 2 or more affs available
     -- Swirl is used as we're giving multiple affs that may trigger its special condition
 
-    if snd.empowerready == true then   -- if we can empower, do so to strip clarity
+    if snd.balance.empower then   -- if we can empower, do so to strip clarity
       cmd = "affirm branch" ..
       snd.sep .. "muse foster dread" .. snd.sep .. "chakra turmoil " .. snd.target .. snd.sep .. biocmd
     else
@@ -61955,10 +61909,9 @@ snd.runeused = false
 
 --Archivist/Voidseer
 snd.my_token = ""
-snd.empowerready = false
 snd.geoinvert = false
 snd.geotrace = false
-snd.empowerready = false
+
 snd.empowertype = "nil"
 snd.my_mutagen = false
 snd.their_mutagen = false
@@ -62016,8 +61969,7 @@ snd.runemarkMinor = "none"
 --Zealot/Ravager
 snd.zenith = false
 snd.zenith_coming = false
-snd.firefist = false
-snd.firefist_cooldown = true
+
 snd.swagger = 0
 snd.welt_ready = "none"
 snd.flamestack = 0
@@ -62026,8 +61978,6 @@ snd.rebuke = false
 snd.pyromania = false
 snd.swaggered = false
 snd.rebuke_limb = "none"
-
-snd.wrath = true
 
 --predator
 snd.swoopVenoms = {}
