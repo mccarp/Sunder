@@ -20863,27 +20863,6 @@ end
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>No Blitz Rampage</name>
-								<script>snd.blitz = false
-</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>There is no one here you can see.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Self Rebuke Oppose Limb Tracking</name>
 								<script>if matches[2] == "left leg" then
   snd.rebuke_limb = "left leg"
@@ -30721,130 +30700,6 @@ snd.zenith_coming = false</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Firefist Ravage Used</name>
-						<script>snd.firefist = true
-snd.firefist_cooldown = false</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You use Purification Firefist.</string>
-							<string>You use Ravaging Ravage.</string>
-							<string>You cannot ravage an enemy again so soon.</string>
-							<string>You cannot ignite your fists again so soon.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-							<integer>3</integer>
-							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Firefist Ravage Down</name>
-						<script>snd.firefist = false
-snd.firefist_cooldown = false</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>The flames around your fists are extinguished as their life is spent.</string>
-							<string>The crucious hellfire dissipates from your fists.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Firefist Ravage On Cooldown</name>
-						<script>snd.firefist_cooldown = true</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You may coat your fists in flames once more.</string>
-							<string>You may ravage an enemy again; let the flames of Perdition ignite your fists.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Wrath Predation Used</name>
-						<script>snd.wrath = false</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You use Zeal Wrath.</string>
-							<string>You are not quite ready to deliver your wrath.</string>
-							<string>You use Brutality Predation.</string>
-							<string>You use Brutality Predation (extend).</string>
-							<string>You use Zeal Wrath (extend).</string>
-							<string>You cannot call upon predation again so soon.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-							<integer>3</integer>
-							<integer>3</integer>
-							<integer>3</integer>
-							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Predation Wrath Back Up</name>
-						<script>snd.wrath = true</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You may call upon your wrath once more.</string>
-							<string>You may call upon predation again.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Zenith Delirium Ready</name>
 						<script>snd.zenith = true
 snd.zenith_coming = false</script>
@@ -30870,26 +30725,6 @@ snd.zenith_coming = false</script>
 							<integer>3</integer>
 							<integer>3</integer>
 							<integer>3</integer>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Blitz Rampage Back</name>
-						<script>snd.blitz = true</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You may once more go on another rampage.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -62188,7 +62023,6 @@ snd.welt_ready = "none"
 snd.flamestack = 0
 snd.immolation_ready = false
 snd.rebuke = false
-snd.blitz = false
 snd.pyromania = false
 snd.swaggered = false
 snd.rebuke_limb = "none"
@@ -65036,7 +64870,6 @@ function snd.reset_target()
   snd.immolation_ready = false
   snd.rebuke = false
   snd.rebuke_limb = "none"
-  snd.blitz = false
   snd.pyromania = false
   snd.gravity = 0
   snd.loyalsattacking = false
@@ -65884,7 +65717,6 @@ end
       snd.target_got("whiplash")
     end,
     Blitz = function(target, conditional)
-      snd.blitz = true
       if conditional == "start" then
         enableTrigger("Blitz Affs")
       else
@@ -66073,7 +65905,6 @@ end
       snd.onHit2({ "Dodge", "Parry" }, "Triple Aff")
     end,
     Rampage = function(target, conditional)
-      snd.blitz = true
       if conditional == "start" then
         enableTrigger("Rampage Affs")
       else
