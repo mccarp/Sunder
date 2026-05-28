@@ -32740,9 +32740,7 @@ tempTimer(5,[[snd.transmutation = true]])</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Aeon Hourglass Not ready</name>
-							<script>snd.balance.aeon = false
-
-</script>
+							<script>snd.balance.aeon = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -32897,7 +32895,7 @@ end</script>
 					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Zealot </name>
+					<name>Zealot</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -33288,29 +33286,6 @@ snd.zenith_coming = false</script>
 								</regexCodePropertyList>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Can Predation Brutality</name>
-								<script>snd.wrath = true
-</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>Your predatory instincts wane.</string>
-									<string>Your predation defence has been stripped.</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>3</integer>
-									<integer>3</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Blitz Rampage Back</name>
 								<script>snd.blitz = true</script>
 								<triggerType>0</triggerType>
@@ -33390,8 +33365,7 @@ snd.zenith_coming = false</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Fury used</name>
-						<script>snd.balance.fury = false
-snd.track_fury(tonumber(matches[2]))</script>
+						<script>snd.track_fury(tonumber(matches[2]))</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -33407,26 +33381,6 @@ snd.track_fury(tonumber(matches[2]))</script>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Fury balance back</name>
-						<script>snd.balance.fury = true</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You can bring forth your fury again.</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -34102,28 +34056,6 @@ snd.track_fury(tonumber(matches[2]))</script>
 								<integer>3</integer>
 								<integer>2</integer>
 								<integer>2</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>Morass thing summoned</name>
-							<script>snd.morassID = gmcp.Char.Items.Add.item.id</script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand></mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>^You use Sporulation (Germinate|Colonisation|Transplant)\.$</string>
-								<string>^You use Gravity (Singularity|Genesis|Recall)\.$</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>1</integer>
-								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
 					</TriggerGroup>
@@ -34831,7 +34763,7 @@ snd.balance.ethereal = false</script>
 					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Templar </name>
+					<name>Templar</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -34901,26 +34833,6 @@ snd.balance.ethereal = false</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You may rage once more.</string>
-							</regexCodeList>
-							<regexCodePropertyList>
-								<integer>3</integer>
-							</regexCodePropertyList>
-						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name>need grippygrip</name>
-							<script></script>
-							<triggerType>0</triggerType>
-							<conditonLineDelta>0</conditonLineDelta>
-							<mStayOpen>0</mStayOpen>
-							<mCommand>grip</mCommand>
-							<packageName></packageName>
-							<mFgColor>#ff0000</mFgColor>
-							<mBgColor>#ffff00</mBgColor>
-							<mSoundFile></mSoundFile>
-							<colorTriggerFgColor>#000000</colorTriggerFgColor>
-							<colorTriggerBgColor>#000000</colorTriggerBgColor>
-							<regexCodeList>
-								<string>Your grip isn't sufficient enough to do that.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
@@ -55470,7 +55382,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.1.14"
+local version = "12.1.15"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -57757,17 +57669,7 @@ end</script>
 					<name>Balance data</name>
 					<packageName></packageName>
 					<script>bal_data = bal_data or {}
-snd.bal_data = bal_data
-
---[[template
-snd.bal_data.fitness = {
-  time = 20,
-  skill = {"hunting fitness"}, --whatever skills are associated with this.
-  used = {}, -- triggerlines for when this balance is used if it's not a cmsg
-  off = {"Your breath hasn't recovered just yet."}, --trigger lines for when you try to use this skill off cd
-  back = {"You may once again use fitness to control your breathing."}, --trigger lines for the balance coming back.
-}
-]]</script>
+snd.bal_data = bal_data</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -57838,13 +57740,13 @@ bal_data.morph = {
   time = 20,
   skill = {"shamanism morph", "experimentation reconfiguration"},
   used = {},
-  off = {},
+  off = {"You cannot morph your familiar again so soon.", "You cannot reconfigure your experiment again so soon."},
   back = {"Your familiar is capable of morphing its form once more.", "You are able to reconfigure your experiment once again."},
 }
 
 bal_data.lifebloom = {
   time = 180,
-  skill = {},
+  skill = {"primality lifebloom", "alchemy resuscitation"},
   used = {"The pain of your wounds is suddenly washed away by life-force welling up from within you."},
   off = {"You cannot call upon your lifebloom so soon."},
   back = {"You may once again gift yourself with lifebloom."},
@@ -57926,8 +57828,9 @@ bal_data.fiend = {
 
 bal_data.bladesurge = {
 	time = 195,
-	skill = {},
-	used = {"Your concentration enhances ten-fold, a surge of pure adrenaline causing your entire body to quiver like a taut bowstring."},
+	skill = {"knifeplay bladesurge"},
+	used = {},
+	strip = {"Your concentration enhances ten-fold, a surge of pure adrenaline causing your entire body to quiver like a taut bowstring."},
 	off = {"You cannot summon up your offensive battle prowess again so soon."},
 	back = {"You are once again able to summon up your offensive battle prowess."},
 }</script>
@@ -58006,6 +57909,125 @@ bal_data.backstab = {
 	used = {},
 	off = {"You cannot backstab another so soon."},
 	back = {"You may backstab another once more.",[[REX:^You quietly step back and twirl .+ in your hand\.$]]}
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Indomancer</name>
+					<packageName></packageName>
+					<script>
+--aeon handled partially by triggers b/c it's a weird double-liner blah
+bal_data.aeon = {
+  time = 8,
+  skill = {},
+  used = {},
+  off = {"You cannot deliver the curse of Aeon again so soon.", "You cannot stretch the flow of time via an hourglass again so soon."},
+  back = {"You may induce the curse of Aeon once more.", "You may once more stretch the flow of time via a folded hourglass."},
+}
+
+bal_data.fool = {
+	time = 20,
+	skill = {"tarot fool", "hyalincuru fire"},
+	used = {},
+	off = {"The Fool will have no effect for now."},
+	back = {"You may use the Fool tarot once more.", "You may once more invoke cleansing fire."},
+}
+
+bal_data.soulcage = {
+	time = 900,
+	skill = {"necromancy soulcage", "oneiromancy remembrance"},
+	used = {},
+	off = {"Your soul has not recovered sufficiently for you to protect it from death."},
+	back = {"You feel that your soul is strong enough to be protected once more."},
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>ravalot</name>
+					<packageName></packageName>
+					<script>bal_data.pendulum = {
+	time = 20,
+	skill = {"purification pendulum", "ravaging bedevil"},
+	used = {},
+	off = {"Your spirit has yet to recover enough to enact that skill once more.", "Your soul is not yet ready to invoke that feat again yet."},
+	back = {"You feel your spirit swell with renewed energy.", "Your soul stirs with refreshed intensity."},
+}
+
+bal_data.recover = {
+	time = 20,
+	skill = {"psionics recover", "egotism boost"},
+	used = {},
+	off = {"Your mind has not recovered enough to do that again.", "You cannot yet undertake an ego boost."},
+	back = {"You can now recover from mental detriment once more.", "You may now endure another boost to your ego."},
+}
+
+bal_data.firefist = {
+	time = 80,
+	skill = {"purification firefist", "ravaging ravage"},
+	used = {},
+	off = {"You cannot ignite your fists again so soon.", "You cannot ravage an enemy again so soon."},
+	back = {"You may coat your fists in flames once more.", "You may ravage an enemy again; let the flames of Perdition ignite your fists."},
+}
+
+bal_data.wrath = {
+	time = 30,
+	skill = {"zeal wrath", "brutality predation"},
+	used = {},
+	off = {"You are not quite ready to deliver your wrath.", "You cannot call upon predation again so soon."},
+	back = {"You may call upon your wrath once more.", "You may call upon predation again."},
+}
+
+bal_data.blitz = {
+	time = 8,
+	skill = {"zeal blitz", "brutality rampage"},
+	used = {},
+	off = {"You have not recovered enough to enact another blitz.", "You have not yet recovered enough to go on another rampage."},
+	back = {"You may enact a blitz once more.", "You may once more go on another rampage."}
+}
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Wayfarer</name>
+					<packageName></packageName>
+					<script>bal_data.expunge = {
+	time = 15,
+	skill = {"fury expunge"},
+	used = {},
+	off = {"You cannot expunge another affliction yet."},
+	back = {"You may once again expunge an affliction."},
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>bard</name>
+					<packageName></packageName>
+					<script>bal_data.bravado = {
+	time = 10,
+	skill = {"performance bravado"},
+	used = {},
+	off = {},
+	back = {"Your bravado swells with new-found strength."},
+}
+
+bal_data.inspire = {
+	time = 10,
+	skill = {},
+	used = {"You hum a single note, infusing it with the energy to invoke inspiration."},
+	off = {"You cannot inspire your allies again so soon."},
+	back = {"You are able to inspire your allies once more."},
+}</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>shifter</name>
+					<packageName></packageName>
+					<script>bal_data.berserk = {
+	time = 30,
+	skill = {"shapeshifting berserk"},
+	strip = {"You huff a breath slightly, calming down considerably as the furor fades."},
+	off = {"You have not yet recovered enough to make yourself berserk"},
+	back = {"Your body tenses as you feel like you could go berserk."},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -64234,16 +64256,16 @@ end
 
 
 function snd.parrying.getVerb()
-  if snd.class == "Zealot" and hasSkill("Fending") then
+  if hasSkill("Parrying") and (snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty") or snd.class == "Shapeshifter" then
+    return "parry "
+  elseif snd.class == "Zealot" and hasSkill("Fending") then
     return "fend "
   elseif snd.class == "Monk" and hasSkill("Guarding") then
     return "guard "
   elseif snd.class == "Ravager" and hasSkill("Oppose") then
     return "oppose "
-  elseif hasSkill("Parrying") and (snd.wielded.left.full~="empty" or snd.wielded.right.full~="empty") or snd.class == "Shapeshifter" then
-    return "parry "
   end
-  return "parry " --I guess default here
+  return "none"
 end
 
 --- Logic to determine what to parry.
@@ -64264,8 +64286,10 @@ function snd.parry()
     snd.parrying.toparry = snd.parrying.get_highest()
   else
   end
-  if snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-    snd.actions.addFree(snd.parrying.getVerb()..snd.parrying.toparry)
+  local verb = snd.parrying.getVerb()
+  
+  if verb~="none" and snd.parrying.toparry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
+    snd.actions.addFree(verb..snd.parrying.toparry)
   end
 end
 
