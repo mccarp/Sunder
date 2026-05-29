@@ -26529,7 +26529,6 @@ if target and user == snd.target then
 end
 
 if selves[target] or not target then target = user end
-display(user, skillset, skill, conditional, conditional2, target)
 
 snd.getting_hit = target
 snd.skill_being_used = skill
