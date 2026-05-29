@@ -10824,7 +10824,7 @@ disableTrigger("Fury Shatter Second Aff")</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Tenacity Chop</name>
 							<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -26509,168 +26509,34 @@ snd.skill_being_used = ""
 						<integer>4</integer>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Basic attack</name>
-						<script>local selves = {herself = true, himself = true, itself = true, themself = true}
-local target = selves[matches[5]] and matches[2] or matches[5]
+						<name>Handle cmsgs</name>
+						<script>local user, skillset, skill, conditional, conditional2, target = 
+matches.user, matches.skillset, matches.skill, matches.conditional, matches.conditional2, matches.target
 
-if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
-  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = target
-    snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](target)
-  end
-end
-if matches[2] == snd.target and target == "you" then
-  snd.used.rebounding = false
-  snd.used.shield = false
-  snd.target_cured("barrier")
-  snd.target_cured("dome")
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) uses? (\w+) (\w+) on (\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Attack w conditional</name>
-						<script>local selves = {herself = true, himself = true, itself = true, themself = true}
-local target = selves[matches[6]] and matches[2] or matches[6]
+local selves = {herself = true, himself = true, itself = true, themself = true}
 
-
-if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
-  snd.getting_hit = target
-  if matches[4] == "Shadowprice" then
-    if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
-      snd.skill_being_used = matches[5]
-      snd.all_class_attacks[matches[3]][matches[5]](target, matches[4])
-    end
-   elseif matches[4] == "Spiritpact" then
-    if snd.all_class_attacks[matches[3]][matches[5]] ~= nil then
-      snd.skill_being_used = matches[5]
-      snd.all_class_attacks[matches[3]][matches[5]](target, matches[4])
-    end  
-  elseif snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-      snd.skill_being_used = matches[4]
-      snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
-  end
+--shadowprice is a weird conditional that comes before the skillname. Swap them!
+if skill == "Shadowprice" or skill == "Spiritpact" then
+  skill, conditional = conditional, skill
 end
 
-if matches[2] == snd.target and target == "you" then
-  snd.used.rebounding = false
-  snd.used.shield = false
-  snd.target_cured("barrier")
-  snd.target_cured("dome")
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) uses? (\w+) (\w+)[ -](\w+) on (\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Some attacks contain conditional in ()</name>
-						<script>local selves = {herself = true, himself = true, itself = true, themself = true}
-local target = selves[matches[6]] and matches[2] or matches[6]
-
-if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
-  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = target
-    snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
-  end
+if target and user == snd.target then
+    -- if it's a targeted move, it should remove shields/etc.
+    snd.used.rebounding = false
+    snd.used.shield = false
+    snd.target_cured("barrier")
+    snd.target_cured("dome")
 end
 
-if matches[2] == snd.target and target == "you" then
-  snd.used.rebounding = false
-  snd.used.shield = false
-  snd.target_cured("barrier")
-  snd.target_cured("dome")
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) uses? (\w+) (\w+) \((.+)\) on (\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Conditional w shadowprice</name>
-						<script>local selves = {herself = true, himself = true, itself = true, themself = true}
-local target = selves[matches[6]] and matches[2] or matches[6]
+if selves[target] or not target then target = user end
+display(user, skillset, skill, conditional, conditional2, target)
 
-if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
-  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = target
-    snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5])
-  end
-end
--- This might be only Hew and if so it's a pain in the ass.
+snd.getting_hit = target
+snd.skill_being_used = skill
 
-if matches[2] == snd.target and target == "you" then
-  snd.used.rebounding = false
-  snd.used.shield = false
-  snd.target_cured("barrier")
-  snd.target_cured("dome")
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) uses? (\w+) Shadowprice (\w+) \((.+)\) on (\w+)\.$</string>
-							<string>^(\w+) uses? (\w+) Spiritpact (\w+) \((.+)\) on (\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Self skills (heals, shields, etc)</name>
-						<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
-  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](matches[2])
+if target == snd.target then
+  if snd.all_class_attacks[skillset] and snd.all_class_attacks[skillset][skill] then
+    snd.all_class_attacks[skillset][skill](target, conditional, conditional2)
   end
 end</script>
 						<triggerType>0</triggerType>
@@ -26684,77 +26550,22 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(\w+) uses? (\w+) (\w+).$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)?\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+) on (?&lt;target&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)? on (?&lt;target&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[- ](?&lt;conditional&gt;\w+) \(?(?&lt;conditional2&gt;[A-Za-z ]+)\)? on (?&lt;target&gt;\w+)\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Self skills (heals, shields, etc) with conditional</name>
-						<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
-  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](matches[2], matches[5])
-  end
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) uses? (\w+) (\w+) \((.+)\).$</string>
-							<string>^(\w+) uses? (\w+) (\w+) (\w+).$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Attack w double conditional</name>
-						<script>local selves = {herself = true, himself = true, itself = true, themself = true}
-local target = selves[matches[7]] and matches[2] or matches[7]
-
-if snd.target == target and snd.all_class_attacks[matches[3]] ~= nil then
-  if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
-    snd.getting_hit = target
-    snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]](target, matches[5], matches[6])
-  end
-end
-
-if matches[2] == snd.target and target == "you" then
-  snd.used.rebounding = false
-  snd.used.shield = false
-  snd.target_cured("barrier")
-  snd.target_cured("dome")
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) uses? (\w+) (\w+)[- ](\w+) \(?([A-Za-z ]+)\)? on (\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>got hit</name>
+						<name>Cureset swaps</name>
 						<script>--local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = matches[3]
   local skillname = matches[3]:lower().." "..matches[4]:lower()
@@ -26805,7 +26616,7 @@ end</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Soulcage remembrance</name>
+						<name>Self rebirth and full cure affliction resets.</name>
 						<script>for i in pairs(snd.afflictions) do
   snd.aff_remove(i)
 end
@@ -26834,7 +26645,7 @@ snd.hidden_afflictions = 0</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Pendulum/bedevil</name>
+						<name>Self tracking for Pendulum and Bedevil</name>
 						<script>snd.self_pendulum(matches[3])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -26854,7 +26665,7 @@ snd.hidden_afflictions = 0</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Balance tracking for self</name>
+						<name>Self balances (cooldown) tracking</name>
 						<script>local balName = snd.balances.cmsgMap[matches[2]:lower()]
 if balName and not snd.balData[balName].used[1] then
   snd.balances.used(balName)
@@ -26870,36 +26681,10 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^You use (\w+ \w+)</string>
 							<string>^You use (Ostension (?:Eja Kodosa Mend|Eja Kodosa Wave|Averroes Upsurge|Edamil Trickster))</string>
+							<string>^You use (\w+ \w+)</string>
 						</regexCodeList>
 						<regexCodePropertyList>
-							<integer>1</integer>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Conceptual cmsg trigger</name>
-						<script></script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)\.$</string>
-							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)?\.$</string>
-							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+) on (?&lt;target&gt;\w+)\.$</string>
-							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)? on (?&lt;target&gt;\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
