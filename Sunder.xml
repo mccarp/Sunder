@@ -449,7 +449,8 @@ end
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>starburst</name>
 					<script>if matches[2] == snd.target then
- snd.setTarget(snd.target)
+  snd.setTarget(snd.target)
+  --this resets target I think.
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -617,9 +618,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Accursed 3p</name>
-					<script>if matches[2] == snd.target then
-  snd.target_got("accursed")
-end</script>
+					<script>snd.target_got("accursed", matches[2])</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -776,11 +775,8 @@ end
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Egotism Dethrone</name>
-					<script>if matches[2] == snd.target then
-  snd.target_got("left_leg_crippled")
-  snd.target_got("right_leg_crippled")
-end
-</script>
+					<script>snd.target_got("left_leg_crippled", matches[2])
+snd.target_got("right_leg_crippled", matches[2])</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1127,25 +1123,23 @@ end
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>writhe</name>
-						<script>if matches[2] == snd.target then
-  local writhe_table = {
-    ["state of transfixion"] = "transfix",
-    ["bindings"] = "web",
-    ["thigh-jawlock"] = "thighlock",
-    ["armpit-jawlock"] = "armpitlock",
-    ["neck-jawlock"] = "necklock",
-    ["entanglement by ropes"] = "ropes",
-    ["entanglement by tied ropes"] = "bind",
-    ["impalement"] = "impaled",
-    ["hold"] = "grappled",
-    ["entanglement by vines"] = "vines",
-    }
+						<script>local writhe_table = {
+  ["state of transfixion"] = "transfix",
+  ["bindings"] = "web",
+  ["thigh-jawlock"] = "thighlock",
+  ["armpit-jawlock"] = "armpitlock",
+  ["neck-jawlock"] = "necklock",
+  ["entanglement by ropes"] = "ropes",
+  ["entanglement by tied ropes"] = "bind",
+  ["impalement"] = "impaled",
+  ["hold"] = "grappled",
+  ["entanglement by vines"] = "vines",
+}
     
-  snd.target_cured("writhe_"..writhe_table[matches[3]])
+snd.target_cured("writhe_"..writhe_table[matches[3]], matches[2])
 
-  if matches[1]:find("jawlock") then
-    snd.jawlocked = false
-  end
+if matches[1]:find("jawlock") and matches[2] == snd.target then
+  snd.jawlocked = false
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -1168,9 +1162,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Writhe dartpin</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("writhe_dartpinned")
-end</script>
+						<script>snd.target_cured("writhe_dartpinned", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1191,9 +1183,9 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>rupture</name>
 						<script>snd.jawlocked = false
-snd.target_cured("writhe_thighlock")
-snd.target_cured("writhe_armpitlock")
-snd.target_cured("writhe_necklock")</script>
+snd.target_cured("writhe_thighlock", matches[2])
+snd.target_cured("writhe_armpitlock", matches[2])
+snd.target_cured("writhe_necklock", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1294,10 +1286,8 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Disrupt cure</name>
-						<script>if matches[2] == snd.target then
- snd.target_cured("disrupted")
- snd.target_cured("confusion")
-end</script>
+						<script>snd.target_cured("disrupted", matches[2])
+snd.target_cured("confusion", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1317,11 +1307,9 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Spinecut fails</name>
-						<script>if matches[3] == snd.target then
-	snd.target_cured("left_leg_crippled")
-	snd.target_cured("right_leg_crippled")
-	snd.target_cured("confusion")
-end</script>
+						<script>snd.target_cured("left_leg_crippled", matches[3])
+snd.target_cured("right_leg_crippled", matches[3])
+snd.target_cured("confusion", matches[3])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1343,11 +1331,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>flame tattoo</name>
-						<script>if snd.target == matches[2] then
-
-  snd.target_cured("writhe_"..matches[3]:gsub("bing", ""))
-end
-</script>
+						<script>snd.target_cured("writhe_"..matches[3]:gsub("bing", ""), matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1369,9 +1353,7 @@ end
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Lycan bodyheat used</name>
-						<script>if snd.target == matches[2] then  
-  snd.target_cured("cold")
-end</script>
+						<script>snd.target_cured("cold", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1390,38 +1372,8 @@ end</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>endgame cure tracking</name>
-						<script>if snd.target == matches[2] then
-  snd.track_endgame(snd.target)
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^A flicker of intense focus crosses (\w+)'s face, and \w+ stands somewhat straighter.$</string>
-							<string>^With a sinister grin, (\w+)'s body seems to repair itself before your very eyes\.$</string>
-							<string>^(\w+) calms for a moment as [a-z]+ body renews itself in an act of recovery\.$</string>
-							<string>^(\w+)'s form seems to shimmer before [a-z]+ stands taller, looking healthier\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>voyria cured</name>
-						<script>if matches[2] == snd.target then
- snd.target_cured("voyria")
-end</script>
+						<script>snd.target_cured("voyria", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1441,9 +1393,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>numbed_skin cured</name>
-						<script>if matches[2] == snd.target then
- snd.target_cured("numbed_skin")
-end</script>
+						<script>snd.target_cured("numbed_skin", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1461,33 +1411,9 @@ end</script>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
-					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Armor tattoo expired</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("armor_tattoo")
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^The armour tattoo on (\w+) ceases to gleam\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Bloodscourge cured</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("bloodscourge")
-end</script>
+						<script>snd.target_cured("bloodscourge", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1507,9 +1433,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Cirisosis cured</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("cirisosis")
-end</script>
+						<script>snd.target_cured("cirisosis", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1533,9 +1457,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Fleshbane cured</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("fleshbane")
-end</script>
+						<script>snd.target_cured("fleshbane", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1555,9 +1477,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Psi tether snapped</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("psi_tether")
-end</script>
+						<script>snd.target_cured("psi_tether", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1577,9 +1497,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Insomnia</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("no_insomnia")
-end</script>
+						<script>snd.target_cured("no_insomnia", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1599,9 +1517,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Dazed Cured</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("dazed")
-end</script>
+						<script>snd.target_cured("dazed", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1621,9 +1537,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Despair cured</name>
-						<script>if snd.target == matches[2] then
-  snd.target_cured("despair")
-end</script>
+						<script>snd.target_cured("despair", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1658,9 +1572,9 @@ end</script>
 						<regexCodePropertyList />
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Voidgaze - Mystify Has Courage</name>
-							<script>snd.target_cured("no_courage")
+							<script>snd.target_cured("no_courage", matches[2])
 if snd.recent_affs[1] == "voidgaze" then
-  snd.target_cured("voidgaze")
+  snd.target_cured("voidgaze", matches[2])
 end
 </script>
 							<triggerType>0</triggerType>
@@ -1685,9 +1599,7 @@ end
 					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Monk Courage</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("no_courage")
-end</script>
+						<script>snd.target_cured("no_courage", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1707,9 +1619,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Lacerations cured</name>
-						<script>if matches[2] == snd.target then
-  snd.target_cured("lacerations")
-end</script>
+						<script>snd.target_cured("lacerations", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1751,9 +1661,7 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Writhed out of stasis</name>
-						<script>if matches[2] ~= snd.target then return end
-
-snd.target_cured("writhe_stasis")</script>
+						<script>snd.target_cured("writhe_stasis", matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1807,7 +1715,7 @@ snd.target_cured("writhe_stasis")</script>
 							<script>if matches[2]:lower() == snd.target:lower() then
  for i in pairs(snd.effects) do
   if snd.effects[i] == matches[3] then
-   snd.target_cured(i)
+   snd.target_cured(i, matches[2])
 	end
  end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
@@ -2093,12 +2001,10 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>finesse undo</name>
-							<script>if matches[3] == snd.target then
-  if #snd.last_affs &gt;= 1 then
-    for i in pairs(snd.last_affs) do
-    	snd.target_cured(snd.last_affs[i])
-   	end
-  end
+							<script>if #snd.last_affs &gt;= 1 then
+  for i in pairs(snd.last_affs) do
+  	snd.target_cured(snd.last_affs[i], matches[3])
+ 	end
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -2242,9 +2148,7 @@ end
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Insulation stripped</name>
-							<script>if matches[2] == snd.target then
-  snd.target_cured("shivering")
-end</script>
+							<script>snd.target_cured("shivering", matches[2])</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -2383,9 +2287,7 @@ snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>proned</name>
-					<script>if matches[2] == snd.target then
- snd.target_got("fallen")
-end</script>
+					<script>snd.target_got("fallen", matches[2])</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -2465,16 +2367,15 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>stood</name>
-					<script>if matches[2] == snd.target then
- snd.target_cured("fallen")
- snd.target_cured("left_leg_crippled")
- snd.target_cured("right_leg_crippled")
- snd.target_cured("asleep")
- if snd.checkAff("backstrain") then
-    snd.took_limb_dmg("torso", 10)
- end
-end
-</script>
+					<script>snd.target_cured("fallen", matches[2])
+snd.target_cured("left_leg_crippled", matches[2])
+snd.target_cured("right_leg_crippled", matches[2])
+snd.target_cured("asleep", matches[2])
+if matches[2] == snd.target then
+  if snd.checkAff("backstrain") then
+      snd.took_limb_dmg("torso", 10)
+  end
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -2502,11 +2403,9 @@ end
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>asleep</name>
-					<script>if matches[2] == snd.target then
-  snd.target_got("no insomnia")
-  snd.target_got("asleep")
-  snd.target_got("fallen")
-end</script>
+					<script>snd.target_got("no insomnia", matches[2])
+snd.target_got("asleep", matches[2])
+snd.target_got("fallen", matches[2])</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -2528,9 +2427,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>no asleep</name>
-					<script>if matches[2] == snd.target then
- snd.target_cured("asleep")
-end</script>
+					<script>snd.target_cured("asleep", matches[2])</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -26550,12 +26447,16 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)\.$</string>
-							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)?\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -](?&lt;conditional&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\((?&lt;conditional&gt;.+)\)\.$</string>
 							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+) on (?&lt;target&gt;\w+)\.$</string>
-							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)? on (?&lt;target&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -](?&lt;conditional&gt;\w+) on (?&lt;target&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\((?&lt;conditional&gt;.+)\) on (?&lt;target&gt;\w+)\.$</string>
 							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[- ](?&lt;conditional&gt;\w+) \(?(?&lt;conditional2&gt;[A-Za-z ]+)\)? on (?&lt;target&gt;\w+)\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
@@ -50283,7 +50184,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.3"
+local version = "12.2.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -63338,7 +63239,8 @@ function snd.affNameCheck(aff)
   end
 end
 
-function snd.took_limb_dmg(limb, amount, restoration)
+function snd.took_limb_dmg(limb, amount, target, restoration)
+  if target and target~=snd.target then return end
   if limb and amount then
     if snd.checkAff("indifference") and amount &gt; 0 then
       amount = amount * 1.15
@@ -63401,7 +63303,8 @@ function snd.took_limb_dmg(limb, amount, restoration)
   end
 end
 
-function snd.target_got(affliction)
+function snd.target_got(affliction, target)
+  if target and target~=snd.target then return end
   if snd.illusion_found then
     return
   end
@@ -63489,7 +63392,9 @@ function snd.target_got(affliction)
   snd.waiting.queue = false
 end
 
-function snd.target_cured(affliction)
+function snd.target_cured(affliction, target)
+  if target and target~=snd.target then return end
+  
   if snd.illusion_found then
     return
   end
@@ -63662,7 +63567,8 @@ end
 
 
 
-function snd.took_bruise(limb)
+function snd.took_bruise(limb, target)
+  if target and target~=snd.target then return end
   if snd.limb_bruising[limb] &lt; 3 then
     snd.limb_bruising[limb] = snd.limb_bruising[limb] + 1
     snd.bruisingHit = true
@@ -64418,9 +64324,9 @@ function snd.restoApply2(limb)
         snd.target_cured(aff.aff)
       else
         if snd.enemy_used_regenerate == true then
-          snd.took_limb_dmg(limb, -40, true)
+          snd.took_limb_dmg(limb, -40, snd.target, true)
         else
-          snd.took_limb_dmg(limb, -30, true)
+          snd.took_limb_dmg(limb, -30, snd.target, true)
         end
       end
       return true
@@ -64429,9 +64335,9 @@ function snd.restoApply2(limb)
   end
   if snd.limb_dmg[limb] &gt; 0 then
     if snd.enemy_used_regenerate == true then
-      snd.took_limb_dmg(limb, -40, true)
+      snd.took_limb_dmg(limb, -40, snd.target, true)
     else
-      snd.took_limb_dmg(limb, -30, true)
+      snd.took_limb_dmg(limb, -30, snd.target, true)
     end
     return true
   end
