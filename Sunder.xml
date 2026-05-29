@@ -26670,7 +26670,7 @@ end</script>
 						<script>if snd.target == matches[2] and snd.all_class_attacks[matches[3]] ~= nil then
   if snd.all_class_attacks[matches[3]][matches[4]] ~= nil then
     snd.skill_being_used = matches[4]
-    snd.all_class_attacks[matches[3]][matches[4]]()
+    snd.all_class_attacks[matches[3]][matches[4]](matches[2])
   end
 end</script>
 						<triggerType>0</triggerType>
@@ -26871,8 +26871,36 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You use (\w+ \w+)</string>
+							<string>^You use (Ostension (?:Eja Kodosa Mend|Eja Kodosa Wave|Averroes Upsurge|Edamil Trickster))</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Conceptual cmsg trigger</name>
+						<script></script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)?\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+) on (?&lt;target&gt;\w+)\.$</string>
+							<string>^(?&lt;user&gt;\w+) uses? (?&lt;skillset&gt;\w+) (?&lt;skill&gt;\w+)[ -]\(?(?&lt;conditional&gt;\w+)\)? on (?&lt;target&gt;\w+)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -34171,8 +34199,8 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>count lines</name>
-					<script>npb.honour_count = npb.honour_count + 1
-if npb.honour_count == 3 then
+					<script>npb.honour_count = (npb.honour_count or 0) + 1
+if npb.honour_count &gt;= 3 then
   setTriggerStayOpen("parse_honours", 0)
   disableTrigger("parse_honours")
   npb.honour_on = false
@@ -50471,7 +50499,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.1"
+local version = "12.2.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -53331,32 +53359,32 @@ bal_data.equinox = {
 
 bal_data.ejamend = {
 	time = 30,
-	skill = {},
-	used = {"You use Ostension Eja Kodosa Mend."},
+	skill = {"ostension eja kodosa mend"},
+	used = {},
 	off = {},
 	back = {"Celestial legacy sweeps through your Tome of Ages, restoring its mending power."},
 }
 
 bal_data.ejawave = {
 	time = 25,
-	skill = {},
-	used = {"You use Ostension Eja Kodosa Wave."},
+	skill = {"ostension eja kodosa wave"},
+	used = {},
 	off = {},
 	back = {"Your Tome of Ages regained the power to use the 'wave' word."},
 }
 
 bal_data.upsurge = {
 	time = 25,
-	skill = {},
-	used = {[[REX:^You use Ostension Averroes Upsurge ]]},
+	skill = {"ostension averroes upsurge"},
+	used = {},
 	off = {"You cannot call upon an upsurge of power just yet."},
 	back = {"You may call upon an upsurge of magical power again."},
 }
 
 bal_data.trickster = {
 	time = 10,
-	skill = {},
-	used = {"REX:^You use Ostension Edamil Trickster"},
+	skill = {"ostension edamil trickster"},
+	used = {},
 	off = {"They would be too wise to your tricks - it is best to wait."},
 	back = {"You may once again perform trickery from Edamil."},
 }</script>
