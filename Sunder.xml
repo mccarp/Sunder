@@ -17547,7 +17547,7 @@ snd.geotrace = false
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Conjoin Subtlety Cooldown</name>
 								<script>snd.conjoincd = false
 </script>
@@ -17570,10 +17570,9 @@ snd.geotrace = false
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Conjoin Subtlety Not Ready</name>
-								<script>snd.conjoin = false
-</script>
+								<script>snd.conjoin = false</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -17595,7 +17594,7 @@ snd.geotrace = false
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Conjoin Subtlety Hit</name>
 								<script>snd.conjoin = true
 snd.conjoincd = true
@@ -50115,7 +50114,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.6"
+local version = "12.2.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -52469,8 +52468,16 @@ bal_data.empower = {
 	time = 16,
 	skill = {"numerology empower", "enlightenment affirm"},
 	used = {[[REX:^You empower the number (.+) to act upon its sphere of influence.$]], [[REX:^Serene light strobes within your mind as you affirm the (\w+) chakra with additional focus.$]]},
-	off = {},
+	off = {"You can not empower a number just yet.", },
 	back = {"Your mind is now capable of empowering a new number.", "Your awakened soul soars, once more capable of chakral affirmation."},
+}
+
+bal_data.conjoin = {
+  time = 20,
+  skill = {"geometrics conjoin", "cultivation subtlety"},
+  used = {},
+  off = {"You have already conjoined the shapes.", "You may not conjoin the shapes again so soon.", "You already practice psychic subtlety.", "You may not employ psychic subterfuge again so soon."},
+  back = {"You may conjoin the shapes once more.", "You may once more employ psychic subtlety."},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -53219,7 +53226,7 @@ snd.need_dome = snd.need_dome or false
 snd.shopih = snd.shopih or false
 
 snd.ylem_check = snd.ylem_check or false
-snd.conjoincd = false
+
 
 snd.delete_prompt = snd.delete_prompt or false
 
@@ -57119,7 +57126,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_empower_jhako = { defense = "Empowering Jhako", type = "normal", effect = "You Have Empowered Jhako", balance = { balanceequilibriumtake = "empower jhako" }, skill = "Empower" },
   def_nexus = { defense = "nexus", type = "normal", effect = "Setup your nexus", balance = { balanceequilibriumtake = "bio nexus one" }, skill = "Nexus" },
   def_ethereal = { defense = "ethereal", type = "normal", effect = "Hard to hit", balance = { balanceequilibriumtake = "bio ethereal" }, skill = "Ethereal" },
-
+  def_conjoin = { defense = "conjoin", type = "normal", effect = "Hide your shapes", balance = { balanceequilibrium = "geo conjoin" }, skill = "Conjoin" },
 
   --Ascendril
   def_missiles = { defense = "missiles", type = "normal", effect = "PvE damage", balance = { balanceequilibriumtake = "cast missiles on" }, skill = "Missiles" },
@@ -57536,6 +57543,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_vitalise = { defense = "vitalise", type = "normal", effect = "Cure random affs", balance = { balanceequilibriumtake = "void vitalise" }, skill = "Vitalise" },
   def_occultism = { defense = "occultism", type = "normal", effect = "catabolism", balance = { balanceequilibriumtake = "void occultism" }, skill = "Occultism" },
   def_kismet = { defense = "kismet", type = "normal", effect = "Setup your nexus", balance = { balanceequilibriumtake = "void kismet one" }, skill = "Kismet" },
+  def_subtlety = { defense = "subtlety", type = "normal", effect = "Hide your emanations", balance = { balanceequilibrium = "muse subtlety" }, skill = "Subtlety" },
 
 
   --Zealot
@@ -58409,6 +58417,9 @@ end</script>
   
   ["Your senses are attuned to nearby movement."] = "alertness",
   ["You can sense nearby ylem energy."] = "nodesense",
+  
+  ["You are employing psychic subtlety to hide your emanations."] = "subtlety",
+  ["You have recognised the potential of the geometric shapes."] = "conjoin",
 }
 </script>
 				<eventHandlerList />
@@ -60962,7 +60973,6 @@ snd.my_mutagen = false
 snd.their_mutagen = false
 snd.my_incite = "nil"
 snd.my_impress = ""
-snd.conjoin = false
 snd.knit = false
 
 --Shaman / Alchemist
