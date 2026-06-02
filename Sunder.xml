@@ -1794,8 +1794,6 @@ end</script>
     end
   end
   
-  snd.templar_last_limb = snd.last_hit_limb
-
   if snd.last_hit_limb ~= "none" and snd.bruisingHit then
     snd.limb_bruising[snd.last_hit_limb] = math.max(0, snd.limb_bruising[snd.last_hit_limb]-1)
     snd.bruisingEcho(snd.last_hit_limb)
@@ -10783,48 +10781,6 @@ disableTrigger("Tenacity Assault")</script>
 										<integer>3</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Enrage on</name>
-									<script>snd.enraged = true
-</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^You have gained the enraged defence.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Enrage off</name>
-									<script>snd.enraged = false
-</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^Your enraged defence has been stripped.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
 							</TriggerGroup>
 						</TriggerGroup>
 					</TriggerGroup>
@@ -11647,7 +11603,6 @@ end</script>
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  snd.templar_last_limb = snd.last_hit_limb
   snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 								<triggerType>0</triggerType>
@@ -11683,7 +11638,6 @@ end</script>
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  snd.templar_last_limb = snd.last_hit_limb
   snd.onHit2({"Rebounding", "Dodge", "Parry"}, "TemplarBlunt")
 end</script>
 								<triggerType>0</triggerType>
@@ -11719,7 +11673,6 @@ end</script>
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  snd.templar_last_limb = snd.last_hit_limb
   snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 								<triggerType>0</triggerType>
@@ -11755,7 +11708,6 @@ end</script>
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  snd.templar_last_limb = snd.last_hit_limb
   snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 								<triggerType>0</triggerType>
@@ -11882,7 +11834,6 @@ end
   snd.last_hit_limb = matches[3]
   snd.last_limb_dmg = snd.templar_direct_dmg
   snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
-  snd.templar_last_limb = snd.last_hit_limb
   snd.onHit2({"Rebounding", "Dodge", "Parry"},  "TemplarBlunt")
 end</script>
 								<triggerType>0</triggerType>
@@ -19188,9 +19139,7 @@ end</script>
 
  snd.last_hit_limb = matches[4]
  snd.took_limb_dmg(matches[4], snd.templar_trauma_dmg)
- 
- snd.templar_last_limb = snd.last_hit_limb
- 
+  
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end
@@ -36818,11 +36767,11 @@ function snd.attack_function()
     call = "wt Afflicting " .. snd.target .. ": " .. tohit[2] .. ", " .. tohit[1] .. snd.sep
   end
 
-  if boosthalt and not snd.enraged then
+  if boosthalt and not snd.have_def("enraged") then
     attack = "fury halt " .. snd.target .. " boost" .. snd.sep .. attack
   end
 
-  if snd.proned() and boosthalt and not snd.enraged and snd.checkAff("sensitivity") and snd.checksomeAffs({ "left_leg_crippled", "right_leg_crippled" }, 1) then
+  if snd.proned() and boosthalt and not snd.have_def("enraged") and snd.checkAff("sensitivity") and snd.checksomeAffs({ "left_leg_crippled", "right_leg_crippled" }, 1) then
     attack = "fury enrage" .. snd.sep .. attack
   end
 
@@ -37023,11 +36972,11 @@ function snd.attack_function()
     call = "wt Afflicting " .. snd.target .. ": " .. tohit[2] .. ", " .. tohit[1] .. snd.sep
   end
 
-  if shatter and not snd.checkAff("sensitivity") and not snd.checkAff("weariness") and not snd.enraged then
+  if shatter and not snd.checkAff("sensitivity") and not snd.checkAff("weariness") and not snd.have_def("enraged") then
     attack = "fury shatter " .. snd.target .. snd.sep .. attack
   end
 
-  if enrage == true and not snd.enraged and snd.checkAff("sensitivity") then
+  if enrage == true and not snd.have_def("enraged") and snd.checkAff("sensitivity") then
     attack = "fury enrage " .. snd.sep .. attack
   end
 
@@ -48346,7 +48295,7 @@ function snd.attack_function()
         -- ignore last parried, last hit, and any limbs being resto'd
         if
           limbs[limb] ~= snd.parried_limb and
-          limbs[limb] ~= snd.templar_last_limb and
+          limbs[limb] ~= snd.last_struck_limb and
           (limbs[limb] ~= snd.resto_limb or snd.limb_dmg[limbs[limb]] &gt;= 33.33)
         then
           -- if it's a leg that's about to break
@@ -50114,7 +50063,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.7"
+local version = "12.2.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -53068,6 +53017,14 @@ bal_data.grapple = {
 	used = {},
 	off = {"You cannot expunge another affliction yet."},
 	back = {"You may once again expunge an affliction."},
+}
+
+bal_data.enrage = {
+  time = 300,
+  skill = {"fury enrage"},
+  used = {},
+  off = {"You are already enraged.", "You are too exhausted to blood rage again just yet."},
+  back = {"You are ready to enrage again."},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -60955,7 +60912,6 @@ snd.neckdragdir = "none"
 snd.gravity = 0
 snd.repay = 0
 snd.reflection_charge = 3
-snd.shadeling = false
 
 --Sentinel
 snd.my_raloth = ""
@@ -60987,7 +60943,6 @@ snd.their_dread = false
 
 --Wayfarer
 snd.highjumped = false
-snd.enraged = false
 
 --Indorani/Oneiromancer
 snd.adder_attached = false
@@ -61011,7 +60966,6 @@ snd.locking = false
 snd.glimpse = "none"
 snd.glimpsing = false
 snd.reflection_charge = 3
-snd.stalled_skill = ""
 snd.fulcrum_call = true
 snd.fulcrum_ready = true
 snd.fulcrum_exists = false
@@ -61079,7 +61033,6 @@ snd.last_hit_limb = "none"    --not safe for use in routes.
 snd.last_struck_limb = "none" --this can be used in routes
 snd.last_limb_dmg = 0
 snd.resto_limb = "none"
-snd.current_restoration_aff = ""
 snd.limb_targeting = {
   left = "none",
   right = "none"
@@ -63844,7 +63797,6 @@ function snd.reset_target()
   snd.hyp = 0
   snd.last_hypno = 0
   if restoration_timer then killTimer(restoration_timer) end
-  snd.current_restoration_aff = ""
   snd.resto_limb = "none"
   snd.parried_limb = "none"
   --snd.used.rebounding = false
