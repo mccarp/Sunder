@@ -50063,7 +50063,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.8"
+local version = "12.2.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -53830,7 +53830,7 @@ snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
     value = tonumber(value) or value
     snd.charstats[key:lower()] = value
   end
-  if snd.class~=snd.charstats.Class then
+  if snd.class~=snd.charstats.class then
     snd.changeClass()
   end  
 end
@@ -55451,7 +55451,7 @@ end
 					<script>
 function snd.do_dome()
  if snd.need_dome then
-  snd.action.set("manipulate pylon for dome")
+  snd.actions.set("manipulate pylon for dome")
  end
 end</script>
 					<eventHandlerList />
