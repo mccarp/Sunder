@@ -49364,7 +49364,7 @@ local commands = {battack}
 if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
   table.insert(commands, 1, "overdrive")
 end
-if snd.toggles.parrying and snd.parrying.current_parry ~= "none" and snd.parrying.toparry ~= snd.parrying.current_parry then
+if snd.toggles.parrying and snd.parrying.toparry~="none" and snd.parrying.toparry ~= snd.parrying.current_parry then
   table.insert(commands, 1, snd.parrying.getVerb() .. snd.parrying.toparry)
 end
 
@@ -50063,7 +50063,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.9"
+local version = "12.2.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
