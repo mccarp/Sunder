@@ -2258,7 +2258,7 @@ end
 					<regexCodePropertyList>
 						<integer>1</integer>
 					</regexCodePropertyList>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds capture stuff</name>
 						<script>local limb = matches[2]:lower()
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
@@ -22014,6 +22014,7 @@ end
 						<script>if snd.toggles.atkecho and snd.toggles.gags then
  deleteLine()
  snd.message("&lt;white&gt;You parried an attack to your &lt;red&gt;"..matches[2].."&lt;white&gt;!")
+ snd.parrying.last_parried = matches[2]
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -27358,6 +27359,31 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^You quickly pull your hand back as a (?:flame|shock) sigil on (.+) (?:singes|jolts) you\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>ID not there</name>
+				<script>for i, item in pairs(snd.gathering) do
+  if item.id == matches[2] then
+    table.remove(snd.gathering, i)
+    return
+  end
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You see no '(\d+)' to take\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -50063,7 +50089,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.10"
+local version = "12.2.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -53626,7 +53652,7 @@ function gmcp_item_remove()
       end
     end
     for i, item in pairs(snd.gathering) do
-      if item.id == v.item then
+      if item.id == v.id then
         table.remove(snd.gathering, i)
         break
       end
@@ -59238,7 +59264,8 @@ snd.parrying = snd.parrying or {
   toparry = "none",
   current_parry = "none",
   static_parry = nil,
-  seed = os.time()
+  seed = os.time(),
+  last_parried = "none",
 }
 
 local legal_parry = { "default", "random", "highest" }
