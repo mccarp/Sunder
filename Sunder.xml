@@ -105,7 +105,9 @@ snd.targeting.burst = false</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Target no longer available</name>
-				<script>if snd.toggles.bashing then snd.no_target() end
+				<script>if matches[2] == "cheeseburger" then return end
+
+if snd.toggles.bashing then snd.no_target() end
 snd.target_gone = true
 
 if not snd.toggles.calling then return end
@@ -26393,7 +26395,7 @@ end</script>
 						<script>for i in pairs(snd.afflictions) do
   snd.aff_remove(i)
 end
-snd.hidden_afflictions = 0</script>
+snd.hiddens.clear()</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -32463,8 +32465,8 @@ if matches[2] == "add" then
   snd.predictions[aff] = true
   if snd.not_aff(aff) then snd.aff_gain(aff) end
 else
+  if snd.predictions[aff] and snd.have_aff(aff) then snd.aff_cure(aff) end
   snd.predictions[aff] = nil
-  if snd.have_aff(aff) then snd.aff_cure(aff) end
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -32560,9 +32562,9 @@ end</script>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Hidden affliction</name>
-						<script>snd.hidden_afflictions = snd.hidden_afflictions + 1</script>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Hiddens</name>
+						<script></script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -32573,13 +32575,265 @@ end</script>
 						<mSoundFile></mSoundFile>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>You have been afflicted with a hidden affliction!</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>3</integer>
-						</regexCodePropertyList>
-					</Trigger>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Hidden affliction</name>
+							<script>snd.hiddens.add()
+</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You have been afflicted with a hidden affliction!</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Sunder defence gag</name>
+							<script>if snd.hiddens.defgag then killTrigger(snd.hiddens.defgag) end
+snd.hiddens.defgag = tempRegexTrigger("^.*$",deleteLine) --</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>50</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You have the following active defences:</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Close defence gag</name>
+								<script>if snd.hiddens.defgag then killTrigger(snd.hiddens.defgag) end
+setTriggerStayOpen("Sunder defence gag",0)
+disableTrigger("Sunder defence gag")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string></string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>7</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Sunder hidden check gags</name>
+							<script>deleteLine()</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>20</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>startChecks</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+							</regexCodePropertyList>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Gag these</name>
+								<script>deleteLine()</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You already possess equilibrium.</string>
+									<string>You are already concentrating on regaining equilibrium.</string>
+									<string>That pipe has nothing smokeable in it.</string>
+									<string>Try as you might, you cannot eat that.</string>
+									<string>There is nothing here.</string>
+									<string>What do you wish to examine?</string>
+									<string>Where do you want to press the poultice? You may press it on your head, your arms, your legs, or your body.</string>
+									<string>You have no flaws.</string>
+									<string>You see no 'macguffin' to take.</string>
+									<string>You must regain balance first.</string>
+									<string>You tactfully will your body to clot some of its open wounds.</string>
+									<string>You reach out and touch</string>
+									<string>You have no purity.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>3</integer>
+									<integer>2</integer>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>close hidden check gags</name>
+								<script>setTriggerStayOpen("Sunder hidden check gags",0)
+creplaceLine("&lt;orange&gt;Hidden checks happened!")</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>stopChecks</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Sunder Loki check</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>1</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>You are confused as to the effects of the venom.</string>
+								<string>1</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>5</integer>
+							</regexCodePropertyList>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>hidden aff</name>
+								<script>setTriggerStayOpen("Sunder Loki check",0)
+</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You have been afflicted with a hidden affliction!</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Not hidden aff</name>
+								<script>snd.hiddens.check_defs()</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>return true</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>4</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Health/mana changes</name>
+							<script>snd.hiddens.maybe_recklessness = false</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(Mana|Health) (Gain|Lost): (\d+)$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Gags</name>
+							<script>deleteLine()</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>Holbrook is not currently an enemy of yours.</string>
+								<string>Holbrook is not currently an ally of yours.</string>
+								<string>You can find no such target as 'cheeseburger'.</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>3</integer>
+								<integer>3</integer>
+								<integer>3</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>diag start</name>
 						<script>snd.remove_all_affs()
@@ -32643,11 +32897,11 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>affline have</name>
-						<script>  if snd.toggles.gags then
-    deleteLine()
-  end
+						<script>if snd.toggles.gags then
+  deleteLine()
+end
 snd.aff_gain(matches[2])
-snd.hidden_afflictions = math.max(0, snd.hidden_afflictions - 1)</script>
+snd.hiddens.remove(matches[2])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -33507,11 +33761,15 @@ snd.clear_afflictions("smoke")</script>
 					<string>You tactfully will your body to clot some of its open wounds.</string>
 					<string>The horrible wounds inflicted upon your body send you into shock.</string>
 					<string>Your mind swells with fatigue as it nears its limits.</string>
+					<string>^You bleed \d+ health\.$</string>
+					<string>You exert your superior mental control and will your wounds to fully clot.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>3</integer>
 					<integer>3</integer>
 					<integer>3</integer>
+					<integer>3</integer>
+					<integer>1</integer>
 					<integer>3</integer>
 				</regexCodePropertyList>
 			</Trigger>
@@ -50089,7 +50347,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.2.11"
+local version = "12.3.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -51943,17 +52201,7 @@ function snd.illusionChecks.abilityGate()
 end
 
 
---just holding this here for now
-function snd.recklessCheck()
-  if
-      gmcp.Char.Vitals.hp == gmcp.Char.Vitals.maxhp
-      and gmcp.Char.Vitals.mp == gmcp.Char.Vitals.maxmp
-      and snd.afflictions.aff_recklessness.state == "healed"
-      and snd.afflictions.aff_blackout.state == "healed"
-  then
-    snd.predict("recklessness")
-  end
-end
+
 
 </script>
 				<eventHandlerList />
@@ -52341,7 +52589,7 @@ function snd.reset_me()
   for i in pairs(snd.balance) do
     snd.balance[i] = true
   end
-  snd.hidden_afflictions = 0
+  snd.hiddens.clear()
   snd.parrying.current_parry = "none"
   snd.crescentable = true
   snd.pipes_lit = false
@@ -53344,8 +53592,6 @@ snd.weapon_types = {
 }
 
 
-snd.hidden_afflictions = snd.hidden_afflictions or 0
-
 snd.my_limb_damage = snd.my_limb_damage or {
   head = 0,
   torso = 0,
@@ -53826,7 +54072,12 @@ snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
 			<Script isActive="yes" isFolder="no">
 				<name>vitals</name>
 				<packageName></packageName>
-				<script>function gmcp_vitals()
+				<script>local numKeys = {"hp", "mp", "ep", "wp", "maxep", "maxhp", "maxmp", "maxwp", "acu", "maxacu", "bleeding", "blood", "maxxp", "residual", "xp", "madness", "soul"}
+local boolKeys = {"ability_bal", "balance", "blind", "channeling", "cloak", "deaf", "elixir", "equilibrium", "fallen", "fangbarrier", "focus", "herb", "left_arm", "moss", "phased", "pipe", "prone", "right_arm", "salve", "tree", "writhing"}
+local percKeys = {"hp", "mp", "ep", "wp", "acu"}
+snd.vitals = {}
+snd.oldvitals = {}
+function gmcp_vitals()
   -- snd.core()
   if gmcp.Char.Vitals.prone == "1" and snd.not_entangled() and snd.not_aff("paralysis") then
     snd.aff_have("prone")
@@ -53836,10 +54087,17 @@ snd.registerEvent("SunderGMCPRoomInfo", "gmcp.Room.Info", gmcp_room)
   if snd.can_cast() and (snd.class ~= "Wayfarer" or snd.can_axe()) then
     snd.last_attack = "none"
   end
-  hp = (100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)) or 100
-  mp = 100 * (gmcp.Char.Vitals.mp / gmcp.Char.Vitals.maxmp)
-  hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
-  
+  snd.oldvitals, snd.vitals = snd.vitals, {}
+  for _, key in pairs(numKeys) do
+    snd.vitals[key] = tonumber(gmcp.Char.Vitals[key])
+  end
+  for _, key in pairs(boolKeys) do
+    snd.vitals[key] = gmcp.Char.Vitals[key]=="1"
+  end
+  for _, key in pairs(percKeys) do
+    snd.vitals[key.."perc"] = 100 * snd.vitals[key] / snd.vitals["max"..key]
+  end
+
   if
       snd.toggles.attacking and snd.offense_loaded and snd.check_dome() and snd.toggles.dome
       and (snd.count(snd.people_hitting_me) &gt;= 3 or snd.aff_tally() &gt;= 5 or hp &lt; 50)
@@ -54268,6 +54526,8 @@ snd.coreActionMap = {
   get_ylem = function() if snd.ylem_check then snd.actions.set("absorb ylem") end end,
   dodging = function() snd.dodge() end,
   parrying = function() snd.parry() end,
+  hiddens_balanceless = function() snd.hiddens.balanceless() end,
+  hiddens_balanceful = function() snd.hiddens.balanceful() end,
 }
 
 
@@ -54304,6 +54564,7 @@ function snd.trim_priorities()
 end
 snd.default_priorities =
 {
+  "hiddens_balanceless",
   "manual_queue",
   "dodging",
   "parrying",
@@ -54820,6 +55081,7 @@ snd.default_priorities =
   "def_perceive",
   "def_bloodtrack",
   "def_berserk",
+  "hiddens_balanceful",
 }
 function snd.reset_priorities()
   snd.priorities = table.deepcopy(snd.default_priorities)
@@ -59454,7 +59716,7 @@ function snd.remove_all_affs()
   
   snd.predictions = {}
   
-  snd.hidden_afflictions = 0
+  snd.hiddens.clear()
 
   snd.defer_ui_update = nil
   raiseEvent("sunder_my_affs_updated")
@@ -59533,8 +59795,8 @@ end
 -- @param affliction string of aff
 function snd.aff_cure(affliction)
   snd.message("You: &lt;green&gt;HEAL&lt;DeepSkyBlue&gt; " .. affliction .. ".", "affliction")
-  if snd.afflictions["aff_" .. affliction].state == "healed" then
-    snd.hidden_afflictions = math.max(0, snd.hidden_afflictions - 1)
+  if snd.not_aff(affliction) then
+    snd.hiddens.remove(affliction)
   end
   snd.aff_remove(affliction)
 end
@@ -60325,6 +60587,156 @@ function snd.not_aff(affliction)
   end
 end
 </script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>hiddens</name>
+				<packageName></packageName>
+				<script>snd.hiddens = snd.hiddens or {}
+
+snd.hidden_afflictions = snd.hidden_afflictions or 0
+
+snd.hiddens.balanceless_checklist = {
+  {"touch flaws", "amnesia"},
+  {"clot 3", "haemophilia"},
+  {"eat vial", "anorexia"},
+  {"smoke vial", "asthma"},
+  {"apply mending to vial", "slickness"},
+  {"get macguffin", "paresis"},
+  {"probe flaws", "blindness"},
+  {"ih nonsense", "dementia"},
+  {"touch purity", "superstition"},
+}
+
+--order important here.
+snd.hiddens.balanceful_checklist = {
+  "impatience",
+  "disfigurement",
+}
+snd.hiddens.balanceful_check_details = {
+  impatience = {"meditate", "You close your eyes, bow your head, and empty your mind of all thought."},
+  disfigurement = {"order cheeseburger", "You can find no such target as 'cheeseburger'."},
+  peace = {"unally holbrook", "Holbrook is not currently an ally of yours."},
+  paranoia = {"unenemy holbrook", "Holbrook is not currently an enemy of yours."},
+}
+if snd.hiddens.triggers then
+  for _, trigger in pairs(snd.hiddens.triggers) do
+    killTrigger(trigger)
+  end
+end
+snd.hiddens.triggers = {}
+for aff, details in pairs(snd.hiddens.balanceful_check_details) do
+  table.insert(snd.hiddens.triggers,
+    tempExactMatchTrigger(details[2],
+      function()
+        local index = table.index_of(snd.hiddens.pending_checks, aff)
+        if index then
+          table.remove(snd.hiddens.pending_checks, index)
+        end
+      end
+    )
+  )
+end
+
+snd.hiddens.pending_checks = {}
+snd.hiddens.maybe_recklessness = false
+snd.hiddens.balanceless_pending = false
+function snd.hiddens.clear()
+  snd.hidden_afflictions = 0
+  snd.hiddens.maybe_recklessness = false
+  snd.hiddens.balanceless_pending = false
+  snd.hiddens.pending_checks = {}
+end
+
+
+function snd.hiddens.add()
+  snd.hidden_afflictions = snd.hidden_afflictions + 1
+  snd.hiddens.balanceless_pending = true
+  snd.hiddens.pending_checks = {}
+  for _, aff in ipairs(snd.hiddens.balanceful_checklist) do
+    if snd.not_aff(aff) then
+      table.insert(snd.hiddens.pending_checks, aff)
+    end
+  end
+  snd.waiting.queue = false
+end
+
+function snd.hiddens.remove(affliction)
+  snd.hidden_afflictions = snd.hidden_afflictions - 1
+  if snd.hidden_afflictions&lt;=0 then
+    snd.hiddens.clear()
+    return
+  end
+  if affliction and affliction == "recklessness" then
+    snd.hiddens.maybe_recklessness = false
+  end
+  local index = table.index_of(snd.hiddens.pending_checks, aff)
+  if index then
+    table.remove(snd.hiddens.pending_checks, index)
+  end
+end
+
+function snd.hiddens.balanceless()
+  if not snd.hiddens.balanceless_pending then return end
+  if gmcp.Char.Vitals.blind == "1" and not snd.have_aff("blindness") then
+    snd.hiddens.remove("blindness")
+    snd.predict("blindness")
+  end
+  if gmcp.Char.Vitals.deaf == "1" and not snd.have_aff("deafness") then
+    snd.hiddens.remove("deafness")
+    snd.predict("deafness")
+  end
+  if snd.vitals.maxep &lt; snd.oldvitals.maxep and snd.not_aff("feeble_arms") then
+    snd.hiddens.remove("feeble_arms")
+    snd.predict("feeble_arms")
+  end
+  if snd.vitals.maxwp &lt; snd.oldvitals.maxwp and snd.not_aff("stupidity") then
+    snd.hiddens.remove("stupidity")
+    snd.predict("stupidity")
+  end
+  if snd.vitals.hpperc == 100 and snd.vitals.mpperc == 100 then
+    if (snd.oldvitals.hpperc~=100 or snd.oldvitals.mpperc~=100) then
+      snd.hiddens.remove("recklessness")
+      snd.predict("recklessness")
+    elseif snd.not_aff("recklessness") then
+      snd.hiddens.maybe_recklessness = true
+    end
+  end
+  if not snd.hiddens.balanceless_pending then return end --maybe we cleared all hiddens above.
+  local cmds = {}
+  for _, info in pairs(snd.hiddens.balanceless_checklist) do
+    if not snd.have_aff(info[2]) and (info[2]~="haemophilia" or gmcp.Char.Vitals.bleeding~="0") then
+      table.insert(cmds, info[1])
+    end
+  end
+  if cmds[1] then
+    send("echo startChecks"..snd.sep..table.concat(cmds, snd.sep)..snd.sep.."echo stopChecks",false)
+  end
+  snd.hiddens.balanceless_pending = false
+end
+
+function snd.hiddens.balanceful()
+  for _, aff in ipairs(snd.hiddens.pending_checks) do
+    snd.actions.addFree(snd.hiddens.balanceful_check_details[aff][1])
+  end
+end
+
+function snd.hiddens.check_defs()
+  enableTrigger("Sunder defence gag")
+  send("def", false)
+end
+
+--just holding this here for now
+function snd.recklessCheck()
+  if
+      snd.vitals.hpperc == 100
+      and snd.vitals.mpperc == 100
+      and snd.not_aff("recklessness")
+      and snd.not_aff("blackout")
+      and snd.hiddens.maybe_recklessness then
+    snd.predict("recklessness")
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
