@@ -4957,6 +4957,7 @@ end</script>
 
   snd.last_affs = {}
   local aff = snd.venomEffect(matches[2])
+  if aff == "" then return end
   snd.target_got(aff)
   table.insert(snd.last_affs, aff)
 end
@@ -12489,8 +12490,10 @@ snd.removeProneStates()</script>
 								<script>local naff = snd.needle
 
 if snd.target == matches[2] then
- snd.target_got(naff)
- snd.needle = "none"
+  if naff ~= "none" and naff ~= "" then
+    snd.target_got(naff)
+  end
+  snd.needle = "none"
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -24539,7 +24542,9 @@ snd.message("\n&lt;brown&gt;Foci collapsed!\nFoci collapsed!\nFoci collapsed!")
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>eld formed</name>
-						<script>snd.send("qeb refining shackle eld")
+						<script>if not snd.vitals.channeling then
+  snd.send("qeb refining shackle eld")
+end
 snd.eld = snd.eld+1</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -28665,7 +28670,7 @@ if tonumber(snd.toggles.gauntlet_level) &lt;2 then
   snd.ylem_check = true
   snd.waiting.queue = false
   snd.ylem_check = true
-elseif not snd.toggles.bashing then
+elseif not snd.toggles.bashing and not snd.vitals.channeling then
   snd.send("absorb ylem")
 end</script>
 					<triggerType>0</triggerType>
@@ -32463,9 +32468,9 @@ end</script>
 						<script>local aff = matches[3]
 if matches[2] == "add" then
   snd.predictions[aff] = true
-  if snd.not_aff(aff) then snd.aff_gain(aff) end
+  if snd.afflictions["aff_"..aff] and snd.not_aff(aff) then snd.aff_gain(aff) end
 else
-  if snd.predictions[aff] and snd.have_aff(aff) then snd.aff_cure(aff) end
+  if snd.afflictions["aff_"..aff] and snd.predictions[aff] and snd.have_aff(aff) then snd.aff_cure(aff) end
   snd.predictions[aff] = nil
 end</script>
 						<triggerType>0</triggerType>
@@ -40851,6 +40856,11 @@ function snd.attack_function()
   else
    attack = "alchemy virulent "..snd.target.." "..venom
   end
+  
+	if not snd.have_def("cognisance") then
+    attack = "derive cognisance on"..snd.sep..attack
+  end
+  
   snd.attack(attack, true)
 end
 snd.attack_function()</script>
@@ -40906,8 +40916,12 @@ function snd.attack_function()
   		attack = "alchemy catalyse "..snd.sep..attack  
   	end
   end
+  
+	if not snd.have_def("cognisance") then
+    attack = "derive cognisance on"..snd.sep..attack
+  end
 	
-	attack = call..attack
+  attack = call..attack
 	
   snd.attack(attack, true)
 end
@@ -40969,7 +40983,11 @@ function snd.attack_function()
 	 call = "wt Virulent "..snd.target..": "..venom..snd.sep
   end
 	
-	attack = call..attack
+  if not snd.have_def("cognisance") then
+    attack = "derive cognisance on"..snd.sep..attack
+  end
+	
+  attack = call..attack
 	
   snd.attack(attack, true)
 
@@ -43768,6 +43786,9 @@ function snd.attack_function()
   else
    cmd = "commune vinelash "..snd.target.." "..venom
   end
+  if not snd.have_def("shaman_spiritsight") then
+    cmd = "shaman spiritsight on"..snd.sep..cmd
+  end
   
   snd.attack(cmd, true)
 end
@@ -43830,7 +43851,11 @@ function snd.attack_function()
   	end
   end
 	
-	cmd = call..cmd
+  if not snd.have_def("shaman_spiritsight") then
+    cmd = "shaman spiritsight on"..snd.sep..cmd
+  end
+	
+  cmd = call..cmd
   
   snd.attack(cmd, true)
 end
@@ -43891,7 +43916,11 @@ function snd.attack_function()
 	 call = "wt Vinelash "..snd.target..": "..venom..snd.sep
   end
 	
-	cmd = call..cmd
+  if not snd.have_def("shaman_spiritsight") then
+    cmd = "shaman spiritsight on"..snd.sep..cmd
+  end
+	
+  cmd = call..cmd
 	
   snd.attack(cmd, true)
 end
@@ -50347,7 +50376,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.3.1"
+local version = "12.3.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -54846,11 +54875,11 @@ snd.default_priorities =
   "def_euphonia",
   "def_discordance",
   "def_halfbeat",
-  "def_soul_spiritsight",
   "def_aurora",
   "def_equipoise",
   "def_stretching",
   "def_song_destiny",
+  "def_frugal",
   "def_interposition",
   "def_obfuscation",
   "def_cognisance",
@@ -57346,7 +57375,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   --Alchemist
   def_interposition              = { defense = "interposition", type = "normal", effect = "Share damage with your experiment.", balance = { balanceequilibriumtake = "experiment interposition on" }, skill = "Interposition" },
   def_obfuscation                = { defense = "obfuscation", type = "normal", effect = "Resistance to cutting/blunt.", balance = { balanceequilibriumtake = "derive obfuscation" }, skill = "Obfuscation" },
-  def_cognisance                 = { defense = "cognisance", type = "normal", effect = "You get loki 2.0.", balance = { balanceequilibriumtake = "derive cognisance on" }, skill = "Cognisance" },
+  def_cognisance                 = { defense = "cognisance", type = "normal", effect = "You get loki 2.0.", balance = { balanceequilibrium = "derive cognisance on" }, skill = "Cognisance" },
   def_resuscitation              = { defense = "resuscitation", type = "normal", effect = "Restore HP upon getting low health.", balance = { balanceequilibriumtake = "alchemy resuscitation" }, skill = "Resuscitation" },
   def_conduit_crutch             = { defense = "conduit_crutch", type = "normal", effect = "Give mental affs when your parry is hit.", balance = { balanceequilibriumtake = "derive crutch" }, skill = "Crutch" },
   def_blightbringer              = { defense = "blightbringer", type = "normal", effect = "Bring your nature with you", balance = { balanceequilibriumtake = "botany blightbringer on" }, skill = "Blightbringer" },
@@ -57394,7 +57423,8 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_equipoise = { defense = "equipoise", type = "normal", effect = "Follow when off eq", balance = { needybalancetake = "equipoise on" }, skill = "Equipoise" },
   def_stretching = { defense = "stretching", type = "normal", effect = "Heal limb damage on mending cure", balance = { needybalancetake = "stretching on" }, skill = "Stretching" },
   def_song_destiny = { defense = "song_destiny", type = "normal", effect = "Certain Weaving spells cost no eq on next cast", balance = { special = "sing song of destiny" }, skill = "Destiny" },
-
+  def_frugal = { defense = "frugal", type = "normal", effect = "Keeps Lin out of your pockets", balance = { needyequilibriumtake = "frugal" }, skill = "Frugality" },
+  
   --Bloodborn
   def_victimise = { defense = "victimise", type = "normal", effect = "PvE damage", balance = { balanceequilibriumtake = "unleash victimise on" }, skill = "Victimise" },
   def_panoply = { defense = "panoply", type = "normal", effect = "Increased cutting/blunt resistances", balance = { balanceequilibrium = "unleash panoply" }, skill = "Panoply" },
@@ -57415,7 +57445,6 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_soul_fortify = { defense = "soul_fortify", type = "normal", effect = "Increased constitution.", balance = { needyequilibriumtake = "soul fortify" }, skill = "Fortify" },
   def_soulthirst = { defense = "soulthirst", type = "normal", effect = "Steals soul on hit.", balance = { equilibriumtake = "soul thirst" }, skill = "Soulthirst" },
   def_soul_substitute = { defense = "substitute", type = "normal", effect = "Protected from death.", balance = { needyequilibriumtake = "soul substitute" }, skill = "Substitute" },
-  def_soul_spiritsight = { defense = "soul_spiritsight", type = "normal", effect = "You can see the hidden.", balance = { needyequilibriumtake = "soul spiritsight" }, skill = "Spiritsight" },
   def_hound_opening = { defense = "hound_opening", type = "normal", effect = "Increases damage done to mobs.", balance = {}, skill = "Openings" },
   def_bruteforce = { defense = "bruteforce", type = "normal", effect = "Attacks hit through parry.", balance = { needybalancetake = "hammer force" }, skill = "BruteForce" },
   def_herculeanrage = { defense = "herculean rage", type = "normal", effect = "Make them prone/off bal.", balance = { needybalancetake = "hammer rage on" }, skill = "HerculeanRage" },
@@ -57597,7 +57626,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   --Shaman
   def_spiritbond         = { defense = "spiritbond", type = "normal", effect = "Share damage with your spirit.", balance = { balanceequilibriumtake = "familiar spiritbond on" }, skill = "Spiritbond" },
   def_protection         = { defense = "protection", type = "normal", effect = "Resistance to cutting/blunt.", balance = { balanceequilibriumtake = "shaman protection" }, skill = "Protection" },
-  def_shaman_spiritsight = { defense = "shaman_spiritsight", type = "normal", effect = "You get loki 2.0.", balance = { balanceequilibriumtake = "shaman spiritsight on" }, skill = "Spiritsight" },
+  def_shaman_spiritsight = { defense = "shaman_spiritsight", type = "normal", effect = "You get loki 2.0.", balance = { balanceequilibrium = "shaman spiritsight on" }, skill = "Spiritsight" },
   def_lifebloom          = { defense = "lifebloom", type = "normal", effect = "Restore HP upon getting low health.", balance = { balanceequilibriumtake = "commune lifebloom" }, requiredBalance = "lifebloom", skill = "Lifebloom" },
   def_shaman_warding     = { defense = "shaman_warding", type = "normal", effect = "Give mental affs when your parry is hit.", balance = { balanceequilibriumtake = "shaman warding" }, skill = "Warding" },
   def_greenfoot          = { defense = "greenfoot", type = "normal", effect = "Bring your nature with you", balance = { balanceequilibriumtake = "nature greenfoot on" }, skill = "Greenfoot" },
@@ -58153,7 +58182,6 @@ end</script>
   ["You are resisting magical damage."] = "resistance",
   ["You will substitute your soul with another upon dying."] = "soul_substitute",
   ["Your actions are cloaked in secrecy."] = "shroud",
-  ["You are seeking the souls of the hidden."] = "soul_spiritsight",
   ["The ward of the fallen protects your body."] = "warding",
   ["You have the finesse defence."] = "finesse",
   ["You are already wielding your weapons with finesse."] = "finesse",
@@ -58991,9 +59019,9 @@ end
   alchemist = {
     def_interposition = "on",
     def_obfuscation = "on",
-    def_cognisance = "once",
+    def_cognisance = nil,
     def_resuscitation = "on",
-    def_conduit_crutch = "on",
+    def_conduit_crutch = nil,
 
   },
 
@@ -59017,6 +59045,7 @@ end
     def_charisma = "on",
     def_euphonia = "once",
     def_aurora = "once",
+    def_frugal = "once",
   },
 
   bear = {
@@ -59183,9 +59212,9 @@ end
     def_lifevision = "on",
     def_spiritbond = "on",
     def_protection = "on",
-    def_shaman_spiritsight = "once",
+    def_shaman_spiritsight = nil,
     def_lifebloom = "on",
-    def_shaman_warding = "on",
+    def_shaman_warding = nil,
   },
 
   shapeshifter = {
@@ -72474,7 +72503,7 @@ snd.bashing_area_beginning_rooms = {
   ["the Feral Caves"] = "16274",
   ["Spiral of the Corrupt"] = "36271",
   ["Forsaken Evlasu"] = "53280",
-  ["the Maghuir Fissure"] = "ptmaghuir",
+  ["the Maghuir Fissure"] = "21001",
   ["the village of Torston"] = "17612",
   ["the Kalydian Forest"] = "19887",
   ["the Torturers' Caverns"] = "23202",
@@ -72562,14 +72591,14 @@ snd.bashing_area_beginning_rooms = {
   ["the Undercity of Djeir"] = "11994",
   ["the Cathedral of Gloaming"] = "22702",
   ["Three Widows"] = "58675",
-  ["Court of the Consortium"] = "ptcourt",
+  ["Court of the Consortium"] = "26994",
   ["the Siroccian Mountains"] = "4354",
   ["the Central Wilderness"] = "11326",
   ["the Western Itzatl Rainforest"] = "9853",
-  ["the Fractal Bloom"] = "ptfractal",
+  ["the Fractal Bloom"] = "62996",
   ["Saliltul Swamp"] = "62102",
-  ["the Ia'shal Barrow"] = "ptis'shal",
-  ["the Isle of Despair"] = "ptdespair",
+  ["the Ia'shal Barrow"] = "5518",
+  ["the Isle of Despair"] = "13201",
   ["Trapped within a mirror"] = "n/a",
   ["Perilaus"] = "11962",
   ["Dovan Hollow"] = "49286",
