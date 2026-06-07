@@ -50347,7 +50347,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.3.0"
+local version = "12.3.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -60616,10 +60616,10 @@ snd.hiddens.balanceful_checklist = {
   "paranoia",
 }
 snd.hiddens.balanceful_check_details = {
-  impatience = {"meditate", "You close your eyes, bow your head, and empty your mind of all thought."},
-  disfigurement = {"order cheeseburger", "You can find no such target as 'cheeseburger'."},
-  peace = {"unally holbrook", "Holbrook is not currently an ally of yours."},
-  paranoia = {"unenemy holbrook", "Holbrook is not currently an enemy of yours."},
+  impatience = {"meditate", {"You close your eyes, bow your head, and empty your mind of all thought.", "Your mental prowess is already swollen to its maximum."}},
+  disfigurement = {"order cheeseburger", {"You can find no such target as 'cheeseburger'."}},
+  peace = {"unally holbrook", {"Holbrook is not currently an ally of yours."}},
+  paranoia = {"unenemy holbrook", {"Holbrook is not currently an enemy of yours."}},
 }
 if snd.hiddens.triggers then
   for _, trigger in pairs(snd.hiddens.triggers) do
@@ -60628,16 +60628,18 @@ if snd.hiddens.triggers then
 end
 snd.hiddens.triggers = {}
 for aff, details in pairs(snd.hiddens.balanceful_check_details) do
-  table.insert(snd.hiddens.triggers,
-    tempExactMatchTrigger(details[2],
-      function()
-        local index = table.index_of(snd.hiddens.pending_checks, aff)
-        if index then
-          table.remove(snd.hiddens.pending_checks, index)
+  for _, pattern in pairs(details[2]) do
+    table.insert(snd.hiddens.triggers,
+      tempExactMatchTrigger(pattern,
+        function()
+          local index = table.index_of(snd.hiddens.pending_checks, aff)
+          if index then
+            table.remove(snd.hiddens.pending_checks, index)
+          end
         end
-      end
+      )
     )
-  )
+  end
 end
 
 snd.hiddens.pending_checks = {}
