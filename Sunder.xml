@@ -50388,7 +50388,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.3.2"
+local version = "12.3.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67339,7 +67339,6 @@ end
       snd.last_limb_dmg = 13.75
       snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
       snd.onHit2({ "Dodge", "Parry" })
-      snd.affTimers.start("spinal_rip", 10)
     end,
     Headdrop = function(target)
       snd.last_hit_limb = "head"
@@ -70231,6 +70230,36 @@ else
 end</script>
 				<eventHandlerList />
 			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Generic</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>dummy</name>
+					<packageName></packageName>
+					<script>local alias = "dummy"
+local class = "generic"
+local blurb = "Punch your target! Breaks your own rebounding."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.attack("punch "..snd.target, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Archivist and Voidseer</name>
 				<packageName></packageName>
