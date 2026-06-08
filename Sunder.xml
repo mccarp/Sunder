@@ -70079,7 +70079,16 @@ end</script>
 snd.routes.list = snd.routes.list or {}
 snd.routes.list.generic = snd.routes.list.generic or {}
 
-function snd.routes.register(name, class, blurb, route)
+--there's two functions here, stock routes will NOT overwrite custom routes.
+function snd.routes.registerStock(name, class, blurb, route)
+  name, class = name:lower(), class:lower()
+  snd.routes.list[class] = snd.routes.list[class] or {}
+  if not snd.routes.list[class][name] or snd.routes.list[class][name].stock then
+    snd.routes.list[class][name] = {blurb = blurb, route = route, stock = true}
+  end
+end
+
+function snd.routes.registerCustom(name, class, blurb, route)
   name, class = name:lower(), class:lower()
   snd.routes.list[class] = snd.routes.list[class] or {}
   snd.routes.list[class][name] = {blurb = blurb, route = route}
@@ -70130,6 +70139,95 @@ function snd.routes.run(name)
   end
   
   snd.core()
+end
+
+raiseEvent("snd register routes")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Route template</name>
+				<packageName></packageName>
+				<script>--A short, one word identifier by which the route is referenced
+local alias = "template"
+
+--the class the route is for, or "generic" if it should be available for every class.
+local class = "yourclasshere"
+
+--A short description of what the route does.
+local blurb = "a sample route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- declare some important variables, you can add more here if you need
+  local cmd = ""
+  local call = ""
+
+  -- attack logic goes here, you need to set cmd = whatever you want to send
+  cmd = "punch " .. snd.target
+  -- you use a webcall variable to announce the afflictions you deal to your
+  -- team. not all attacks need a call but for venoms, doublewhispers, and
+  -- more it's essential!
+  call = "wt Afflicting " .. snd.target .. ": DEATH"
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone then
+    cmd = call .. snd.sep .. cmd
+  end
+
+  --execute the attack!
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerCustom then
+  snd.routes.registerCustom(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerCustom(alias, class, blurb, route) end, true)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Route template (stock)</name>
+				<packageName></packageName>
+				<script>local alias = "template"
+local class = "yourclasshere"
+local blurb = "a sample route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- declare some important variables, you can add more here if you need
+  local cmd = ""
+  local call = ""
+
+  -- attack logic goes here, you need to set cmd = whatever you want to send
+  cmd = "punch " .. snd.target
+  -- you use a webcall variable to announce the afflictions you deal to your
+  -- team. not all attacks need a call but for venoms, doublewhispers, and
+  -- more it's essential!
+  call = "wt Afflicting " .. snd.target .. ": DEATH"
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone then
+    cmd = call .. snd.sep .. cmd
+  end
+
+  --execute the attack!
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -70143,12 +70241,427 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>newb</name>
+						<packageName></packageName>
+						<script>local alias = "newb"
+local class = "archivist"
+local blurb = "a newbie damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+local attack = ""
+ local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
+ local bioattack = "" 
+  
+  if bioessence &gt; 1 then
+    bioattack = "bio stimulant"..snd.sep
+  end
+  if snd.used.shield then
+   	attack = "incite fork "..snd.target
+	else
+		attack = "incite crux "..snd.target..snd.sep..bioattack
+    
+  end
+  
+  snd.attack(attack, true)
+end
+
+
+--this logic registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "archivist"
+local blurb = "a less-newbie damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+ local attack = ""
+ local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
+      local physcount = 0
+      for aff in pairs(snd.physical_affs) do
+          if table.contains(snd.target_has, snd.physical_affs[aff]) then
+              physcount = physcount + 1
+          end
+      end
+      local mentcount = 0 
+      for aff in pairs(snd.mental_affs) do
+          if table.contains(snd.target_has, snd.mental_affs[aff]) then
+              mentcount = mentcount + 1
+          end
+      end 
+ 
+ local bioattack = "" 
+
+      if bioessence &gt; 0 then
+      	bioattack = "bio stimulant"..snd.sep
+      end
+
+      cecho("\n&lt;red&gt;Phys:"..physcount.."&lt;red&gt;Ment: "..mentcount)
+  if snd.used.shield then
+   	attack = "incite fork "..snd.target
+	elseif not snd.geoinvert then
+    attack = "drop " ..snd.my_token.. "" ..snd.sep.. "geo invert" ..snd.sep    
+  elseif not snd.geotrace then
+    attack = "geo trace"
+
+   else
+
+     if snd.checkAff("blackout") then
+        if not snd.checkAff("patterns") then
+           attack = "geo pattern "..snd.target..snd.sep
+        elseif snd.checkAff("patterns") and snd.balance.madness then
+           attack = "empower jhako"..snd.sep.."elicit madness "..snd.target..snd.sep
+        elseif snd.checksomeAffs({"dementia", "paranoia", "hallucinations"}, 1) then
+           --attack = "geo impress rod"..snd.sep.."incite hex "..snd.target..snd.sep
+           attack = "goggle scan "..snd.target..snd.sep.."geo impress rod"..snd.sep.."incite crux "..snd.target..snd.sep..bioattack..bioattack  
+        end
+ 
+      elseif snd.my_incite == "Crescent" then
+        attack = "geo impress rod"..snd.sep.."incite crux "..snd.target..snd.sep..bioattack..snd.sep..bioattack  
+                    
+     elseif snd.my_incite ~= "" and snd.crescentable then
+       attack = "geo impress star"..snd.sep.."incite crescent " ..snd.target 
+       
+     else
+      attack = "geo impress star"..snd.sep.."incite crux "..snd.target..snd.sep..bioattack..snd.sep..bioattack..snd.sep.."quickassess "..snd.target 
+    end 
+        
+  end
+  snd.attack(attack, true)
+end
+
+
+--this logic registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "archivist"
+local blurb = "a group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local touse = {}
+  local attack = ""
+  local bioattack = ""
+  local call = ""
+  local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
+
+  if bioessence &gt; 1 then
+    bioattack = "bio stimulant" .. snd.sep
+  end
+
+  snd.giving = {
+    "laxity",
+    "dizziness",
+    "faintness",
+    "epilepsy",
+    "shyness",
+    "mercy",
+    "mania",
+    "masochism",
+    "recklessness",
+    "infatuation",
+    "peace",
+    "magnanimity",
+  }
+
+
+  for i in pairs(snd.giving) do
+    if not snd.checkAff(snd.giving[i]) then
+      if not table.contains(touse, snd.giving[i]) then
+        table.insert(touse, snd.giving[i])
+      end
+    end
+  end
+
+  if snd.used.shield then            -- check for shield
+    attack = attack .. "incite fork " .. snd.target
+  elseif snd.geoinvert == false then -- make sure token is in room and following us
+    attack = "drop " .. snd.my_token .. "" .. snd.sep .. "geo invert" .. snd.sep
+  elseif not snd.checksomeAffs({ "dementia", "paranoia", "hallucinations" }, 2) and snd.balance.madness then
+    -- madness is good bang for buck, use if 2 or more affs available
+    -- Swirl is used as we're giving multiple affs that may trigger its special condition
+
+    if snd.balance.empower then -- if we can empower, do so to strip clarity
+      attack = "empower jhako" ..
+          snd.sep .. "geo impress swirl" .. snd.sep .. "elicit madness " .. snd.target .. snd.sep .. bioattack
+    else
+      attack = "geo impress swirl" .. snd.sep .. "elicit madness " .. snd.target .. snd.sep .. bioattack
+    end
+  else
+    if snd.health_percent &lt;= 75 and snd.my_impress ~= "star" then                -- Take advantage of the threshold from star 25/50/75 to give paresis
+      attack = "geo impress star" .. snd.sep
+    elseif not snd.my_impress == "hex" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
+      attack = "geo impress hex" .. snd.sep
+    end
+
+    attack = attack ..
+        "incite " ..
+        snd.shape_attacks[touse[1]] ..
+        " " ..
+        snd.target ..
+        snd.sep ..
+        bioattack                             -- our shape from our priority list will be used
+    call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+  end
+
+  if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+    attack = call .. snd.sep .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+
+--this logic registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Voidseer</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>newb</name>
+						<packageName></packageName>
+						<script>local alias = "newb"
+local class = "voidseer"
+local blurb = "a newbie damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+ local cmd = ""
+ local bioessence = tonumber(gmcp.Char.Vitals.insight) or 0
+ local biocmd = "" 
+  
+  if bioessence &gt; 1 then
+    biocmd = "void aplomb"..snd.sep
+  end
+
+  if snd.used.shield then
+   	cmd = "foment anger "..snd.target..snd.sep..biocmd
+	else
+		cmd = "foment sadness "..snd.target..snd.sep..biocmd
+  end
+
+  snd.attack(cmd, true)
+end
+
+
+--this logic registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "voidseer"
+local blurb = "a less-newbie damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local biocmd = "" 
+  local bioessence = tonumber(gmcp.Char.Vitals.insight) or 0
+  local physcount = 0
+  local mentcount = 0 
+
+  for aff in pairs(snd.physical_affs) do
+      if table.contains(snd.target_has, snd.physical_affs[aff]) then
+          physcount = physcount + 1
+      end
+  end
+
+  for aff in pairs(snd.mental_affs) do
+      if table.contains(snd.target_has, snd.mental_affs[aff]) then
+          mentcount = mentcount + 1
+      end
+  end 
+ 
+  if bioessence &gt; 1 then
+    biocmd = "void aplomb"..snd.sep
+  end
+
+  if snd.used.shield then
+   	cmd = "foment anger "..snd.target
+	elseif not snd.geoinvert then
+    cmd = "drop " ..snd.my_token.. "" ..snd.sep.. "muse cordon" ..snd.sep    
+  elseif not snd.geotrace then
+    cmd = "muse vine"
+  else
+     if snd.checkAff("blackout") then
+        if not snd.checkAff("patterns") then
+           cmd = "MUSE RECRUDESCENCE "..snd.target..snd.sep
+        elseif snd.checkAff("patterns") and snd.balance.madness then
+           cmd = "affirm branch"..snd.sep.."chakra turmoil "..snd.target..snd.sep
+        elseif snd.checksomeAffs({"dementia", "paranoia", "hallucinations"}, 1) then
+           --cmd = "geo impress rod"..snd.sep.."incite hex "..snd.target..snd.sep
+           cmd = "goggle scan "..snd.target..snd.sep.."muse foster regret"..snd.sep.."foment sadness "..snd.target..snd.sep..biocmd
+        end
+ 
+      elseif snd.my_incite == "Crescent" then
+        cmd = "muse foster regret"..snd.sep.."foment sadness "..snd.target..snd.sep..biocmd..snd.sep..biocmd  
+                    
+     elseif snd.my_incite ~= "" and snd.crescentable then
+       cmd = "muse foster wistful"..snd.sep.."foment misery " ..snd.target 
+       
+     else
+      cmd = "muse foster wistful"..snd.sep.."foment sadness "..snd.target..snd.sep..biocmd..snd.sep..biocmd
+    end 
+  end
+        
+  snd.attack(cmd, true)
+end
+
+
+--this logic registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "voidseer"
+local blurb = "a group affliction route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local touse = {}
+  local cmd = ""
+  local call = ""
+  local bioessence = tonumber(gmcp.Char.Vitals.bio) or 0
+  local biocmd = ""
+
+  if bioessence &gt; 1 then
+    biocmd = "void aplomb" .. snd.sep
+  end
+
+  snd.giving = {
+    "laxity",
+    "dizziness",
+    "faintness",
+    "epilepsy",
+    "shyness",
+    "mercy",
+    "mania",
+    "masochism",
+    "recklessness",
+    "infatuation",
+    "peace",
+    "magnanimity",
+  }
+
+
+  for i in pairs(snd.giving) do
+    if not snd.checkAff(snd.giving[i]) then
+      if not table.contains(touse, snd.giving[i]) then
+        table.insert(touse, snd.giving[i])
+      end
+    end
+  end
+
+  if snd.used.shield then -- check for shield
+    cmd = cmd .. "foment anger " .. snd.target
+  elseif snd.geoinvert == false then -- make sure token is in room and following us
+    cmd = "drop " .. snd.my_token .. "" .. snd.sep .. "muse cordon" .. snd.sep
+  elseif not snd.checksomeAffs({ "dementia", "paranoia", "hallucinations" }, 2) and snd.balance.madness then
+    -- madness is good bang for buck, use if 2 or more affs available
+    -- Swirl is used as we're giving multiple affs that may trigger its special condition
+
+    if snd.balance.empower then   -- if we can empower, do so to strip clarity
+      cmd = "affirm branch" ..
+      snd.sep .. "muse foster dread" .. snd.sep .. "chakra turmoil " .. snd.target .. snd.sep .. biocmd
+    else
+      cmd = "muse foster dread" .. snd.sep .. "chakra turmoil " .. snd.target .. snd.sep .. biocmd
+    end
+  else
+    if snd.health_percent &lt;= 75 and snd.my_impress ~= "Wistful" then -- Take advantage of the threshold from star 25/50/75 to give paresis
+      cmd = "muse foster wistfull" .. snd.sep
+    elseif not snd.my_impress == "Spite" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
+      cmd = "muse foster spite" .. snd.sep
+    end
+
+    cmd = cmd ..
+    "foment " ..
+    snd.foment_attacks[touse[1]] ..
+    " " .. snd.target .. snd.sep .. biocmd                                                 -- our shape from our priority list will be used
+    call = "wt Afflicting " .. snd.target .. ": " .. touse[1]
+  end
+
+  if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+    cmd = call .. snd.sep .. cmd
+  end
+
+  snd.attack(cmd, true)
+end
+
+
+--this logic registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -70161,12 +70674,247 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>fire</name>
+						<packageName></packageName>
+						<script>local alias = "fire"
+local class = "ascendril"
+local blurb = "a fire-focused group route"
+
+local function canResonate(el)
+  if snd.balance.enrich then
+    return true
+  end
+  return gmcp.Char.Vitals.resonance == el
+end
+
+local function maybeEnrich(el)
+  if gmcp.Char.Vitals.resonance == el then
+    return ""
+  end
+  return "fulcrum enrich " .. el .. snd.sep
+end
+
+local function route()
+  local cmd = ""
+  local mpp = 100 * tonumber(gmcp.Char.Vitals.mp) / tonumber(gmcp.Char.Vitals.maxmp)
+  local hpp = 100 * tonumber(gmcp.Char.Vitals.hp) / tonumber(gmcp.Char.Vitals.maxhp)
+  if snd.used.shield then
+    cmd = "cast windlance " .. snd.target
+  elseif
+    canResonate("fire") and snd.checkAff("blisters") and (snd.no_parry() or snd.checkAff("ablaze"))
+  then
+    cmd = maybeEnrich("fire") .. "cast pyroclast " .. snd.target
+  elseif canResonate("fire") then
+    cmd = maybeEnrich("fire") .. "cast disintegrate " .. snd.target
+  elseif
+    hpp &lt; 25 and snd.defenses.def_reflection.state ~= "deffed" and snd.reflection_charge &gt; 0
+  then
+    cmd = "cast reflection"
+  elseif not snd.checkAff("ashen_feet") then
+    cmd = "cast ashenfeet " .. snd.target
+  elseif not snd.checkAff("blisters") then
+    cmd = "cast spark " .. snd.target
+  else
+    cmd = "cast conflagrate " .. snd.target
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>air</name>
+						<packageName></packageName>
+						<script>local alias = "air"
+local class = "ascendril"
+local blurb = "an air-focused group route"
+
+local function canResonate(el)
+  if snd.balance.enrich then
+    return true
+  end
+  return gmcp.Char.Vitals.resonance == el
+end
+
+local function maybeEnrich(el)
+  if gmcp.Char.Vitals.resonance == el then
+    return ""
+  end
+  return "fulcrum enrich " .. el .. snd.sep
+end
+
+local function route()
+  local cmd = ""
+  local call = ""
+  local phenom = nil
+  local resonance = gmcp.Char.Vitals.resonance
+  local mpp = 100 * tonumber(gmcp.Char.Vitals.mp) / tonumber(gmcp.Char.Vitals.maxmp)
+  if snd.used.shield then
+    cmd = "cast windlance " .. snd.target
+  elseif
+    (snd.checkAff("ablaze") or snd.no_parry()) and
+    snd.checksomeAffs({"blisters", "no_arcane"}) and
+    canResonate("fire")
+  then
+    cmd = maybeEnrich("fire") .. "cast pyroclast " .. snd.target
+  elseif canResonate("air") and snd.checksomeAffs({"dizziness", "vertigo"}, 2) then
+    cmd = maybeEnrich("air") .. "cast aeroblast " .. snd.target
+  elseif not snd.checkAff("dizziness") then
+    cmd = "cast thunderclap " .. snd.target
+  elseif not snd.checkAff("vertigo") then
+    cmd = "cast pressurize " .. snd.target
+  else
+    cmd = "cast spark " .. snd.target
+  end
+  if snd.toggles.affcalling and not snd.target_gone then
+    cmd = call .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Bloodborn</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>fire</name>
+						<packageName></packageName>
+						<script>local alias = "fire"
+local class = "bloodborn"
+local blurb = "a fire-focused group route"
+
+local function canResonate(el)
+  if snd.balance.enrich then return true end
+  return gmcp.Char.Vitals.aspect == el
+end
+
+local function maybeEnrich(el)
+  if gmcp.Char.Vitals.aspect == el then return "" end
+  return "well contaminate "..el..snd.sep
+end
+
+local function route()
+  local attack = ""
+  local mpp = 100 * tonumber(gmcp.Char.Vitals.mp) / tonumber(gmcp.Char.Vitals.maxmp)
+  local hpp = 100 * tonumber(gmcp.Char.Vitals.hp) / tonumber(gmcp.Char.Vitals.maxhp)
+
+  if snd.used.shield then
+    attack = "humour befoul "..snd.target
+  elseif canResonate("yellow") and snd.checkAff("blisters") and
+    ( snd.no_parry() or snd.checkAff("ablaze") ) then
+    attack = maybeEnrich("yellow").."humour acidveins "..snd.target
+  elseif canResonate("yellow") then
+    attack = maybeEnrich("yellow").."humour obliteration "..snd.target
+  elseif hpp &lt; 25 and snd.defenses.def_reflection.state ~= "deffed" and snd.reflection_charge &gt; 0 then
+    attack = "unleash geminate"
+  elseif not snd.checkAff("ashen_feet") then
+    attack = "humour twist "..snd.target
+  elseif not snd.checkAff("blisters") then
+    attack = "humour singe "..snd.target
+  else
+    attack = "humour disgorge "..snd.target
+  end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>air</name>
+						<packageName></packageName>
+						<script>local alias = "air"
+local class = "bloodborn"
+local blurb = "an air-focused group route"
+
+local function canResonate(el)
+  if snd.balance.enrich then return true end
+  return gmcp.Char.Vitals.aspect == el
+end
+
+local function maybeEnrich(el)
+  if gmcp.Char.Vitals.aspect == el then return "" end
+  return "well contaminate "..el..snd.sep
+end
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local call = ""
+  local phenom = nil
+  local resonance = gmcp.Char.Vitals.aspect
+  local mpp = 100 * tonumber(gmcp.Char.Vitals.mp) / tonumber(gmcp.Char.Vitals.maxmp)
+  
+  if snd.used.shield then
+    attack = "humour befoul " .. snd.target
+  elseif
+    (snd.checkAff("ablaze") or snd.no_parry()) and
+    snd.checksomeAffs({"blisters", "no_arcane"}) and
+    canResonate("yellow")
+  then
+    attack = maybeEnrich("yellow") .. "humour acidveins " .. snd.target
+  elseif canResonate("black") and snd.checksomeAffs({"dizziness", "vertigo"}, 2) then
+    attack = maybeEnrich("black") .. "humour synaptopathy " .. snd.target
+  elseif not snd.checkAff("dizziness") then
+    attack = "humour stupor " .. snd.target
+  elseif not snd.checkAff("vertigo") then
+    attack = "humour equilibrium " .. snd.target
+  else
+    attack = "humour singe " .. snd.target
+  end
+  if snd.toggles.affcalling and not snd.target_gone then
+    attack = call .. snd.sep .. attack
+  end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -70174,6 +70922,633 @@ end</script>
 				<packageName></packageName>
 				<script></script>
 				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>affs</name>
+					<packageName></packageName>
+					<script>local alias = "affs"
+local class = "bard"
+local blurb = "a basic group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- if i'm in a rhythm combo, i can't use sword affs.
+
+  if snd.rhythm then
+    snd.giving = {
+      "perplexity",
+      "self_loathing",
+      "mania",
+      "dazed",
+
+    }
+
+    -- Feel free to uncomment this. I have not been able to test it entirely, so ymmv. :)
+    --  if snd.rhythm
+    --  and snd.checkAff("fallen")
+    --  and snd.checkAff("dizziness")
+    --  and hasSkill("Sock", "Performance")
+    --  and (string.find((gmcp.Char.Vitals.wield_left), "empty") or  string.find((gmcp.Char.Vitals.wield_right), "empty")) then
+    --    table.insert(snd.giving, 1, "dazed")
+    --  end
+  else
+    -- My affs normally when not in a rhythm combo.
+
+    snd.giving = {
+      --  "misery",
+      "paresis",
+      "clumsiness",
+      "asthma",
+      "slickness",
+      "anorexia",
+      --  "misery",
+      "perplexity",
+      "shyness",
+      "dizziness",
+      "weariness",
+      "ringing_ears",
+      "haemophilia",
+      "vomiting",
+      "allergies",
+      "recklessness",
+      --"voyria",
+    }
+  end
+
+  -- declare some important variables, you can add more here if you need
+  local canWeave = false
+  local canSing = false
+  local canPlay = false
+  local myinstrument = "saxophone69420" -- put your own instrument's id# here.
+  local needInstrument = false
+  local attack = ""
+  local call = ""
+  local nextaff = "none"
+  local tempoaff = "none"
+  -- 1 affliction from snd.giving
+  for i in pairs(snd.giving) do
+    if
+        not snd.checkAff(snd.giving[i])
+        and nextaff == "none"
+        and snd.giving[i] ~= snd.needle
+    then
+      nextaff = snd.giving[i]
+    end
+  end
+
+  for i in pairs(snd.giving) do
+    if
+        not snd.checkAff(snd.giving[i])
+        and tempoaff == "none"
+        and snd.giving[i] ~= snd.needle
+        and table.contains(snd.venom_affs, snd.giving[i])
+    then
+      tempoaff = snd.giving[i]
+    end
+  end
+
+
+  -- Let's run a check for weaving. If I need to modify this in some way (i.e a support route), I will there.
+
+  if tonumber(gmcp.Char.Vitals.dithering) &lt; 1
+      and (string.find((gmcp.Char.Vitals.wield_left), "empty") or string.find((gmcp.Char.Vitals.wield_right), "empty")) then
+    canWeave = true -- Hell yeah brother
+  end
+
+  -- Let's run a check for singing. I don't want to sing if it's not cheap. Ymmv on this decision - I will modify it in the support route example.
+
+  if not snd.singing
+      and snd.halfbeat then
+    canSing = true -- I'm an idol
+  end
+
+
+  -- Let's run a check for playing. I will really not be using it in this route,  but it's nice to write and use later.
+
+  if not snd.playing
+      and (string.find((gmcp.Char.Vitals.wield_left), myinstrument) or string.find((gmcp.Char.Vitals.wield_right), myinstrument)) then
+    canPlay = true -- Jam out!!
+  end
+
+
+
+
+
+  -- Only cowards and losers spam shield or rebounding &gt;:(
+  if snd.used.shield then
+    attack = "pierce " .. snd.target
+  elseif snd.used.rebounding then
+    attack = "pierce " .. snd.target
+
+    -- K, Tempo if you got some big dmg for it.
+  elseif not snd.rhythm
+      and snd.checksomeAffs({ "paresis", "shyness" }, 2) then
+    attack = "tempo " .. snd.target .. " " .. snd.effects[tempoaff]
+    call = "wt Afflicting " .. snd.target .. ": " .. snd.effects[tempoaff]
+
+    -- Addiction check.
+  elseif canSing
+      and hasSkill("Decadence", "Songcalling")
+      and not snd.checkAff("addiction") then
+    attack = "sing song of decadence"
+
+    -- Sorrow pushing logic.
+  elseif canSing
+      and hasSkill("Sorrow", "Songcalling")
+      and not snd.checksomeAffs({ "migraine", "squelched" }, 1) then
+    attack = "sing song of sorrow"
+
+    -- Let's still efficiently use sing in teams if we can.
+  elseif canSing
+      and hasSkill("Youth", "Songcalling") then
+    attack = "sing song of youth"
+
+    -- Dithering Block.
+    --
+    -- Let's check for globes first. If we don't have destiny up, we need to do that here.
+    -- If we do have destiny, we can do it as part of our attack later.
+  elseif canWeave
+      and hasSkill("Runeband", "Weaving")
+      and not snd.checkAff("runeband") then
+    attack = "weave runeband " .. snd.target
+  elseif canWeave
+      and hasSkill("Globes", "Weaving")
+      and not snd.checkAff("globes") then
+    attack = "weave globes "..snd.target
+  elseif canWeave
+      and not snd.checkAff("besilence")
+      and hasSkill("Headstitch", "Weaving")
+      and snd.checkAff("asthma") then
+    attack = "weave headstitch " .. snd.target
+  elseif canWeave
+      and not snd.checkAff("bladestorm")
+      and hasSkill("Bladestorm", "Weaving")
+      and snd.checkAff("runeband") then
+    attack = "weave bladestorm " .. snd.target
+
+    -- Anelace Check
+
+    --     elseif not snd.checkAff("ringing_ears") then
+    --       attack = "weave soundblast"
+
+    --- Balance Block
+  elseif snd.aff_count_all() &gt; 2
+      and not snd.checkAff("magnanimity") then
+    attack = "ridicule " .. snd.target
+  elseif table.contains(snd.performance_affs, nextaff) then
+    attack = snd.performance_attacks[nextaff] .. " " .. snd.target
+  else
+    attack = "tempo " .. snd.target .. " " .. snd.effects[nextaff]
+    call = "wt Afflicting " .. snd.target .. ": " .. snd.effects[nextaff]
+  end
+
+  if snd.balance.inspire
+      and hasSkill("Inspire", "Songcalling") then
+    attack = "inspire" .. snd.sep .. attack
+  end
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone then
+    attack = call .. snd.sep .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>tdmg</name>
+					<packageName></packageName>
+					<script>local alias = "tdmg"
+local class = "bard"
+local blurb = "a team damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+-- if i'm in a rhythm combo, i can't use sword affs.
+ 
+ if snd.rhythm then
+    snd.giving = {
+    "perplexity",
+    "self_loathing",
+    "mania",
+    "dazed",
+    
+     }    
+    
+    
+    else
+  
+  
+  -- My affs normally when not in a rhythm combo.
+  
+    snd.giving = {
+  "paresis",
+  "clumsiness",
+  "ringing_ears",
+  "asthma",
+  "shyness",
+  "haemophilia",
+  "vomiting",
+  "allergies",
+  "slickness",
+  "anorexia",
+  "weariness",
+  "misery",
+  "perplexity",
+  "dizziness",
+  "recklessness",
+  --"voyria",
+  }
+  
+    if not snd.rhythm
+    and snd.checkAff("fallen")
+    and snd.checkAff("dizziness")
+    and hasSkill("Sock", "Performance")
+    and (string.find((gmcp.Char.Vitals.wield_left), "empty") or  string.find((gmcp.Char.Vitals.wield_right), "empty")) then
+      table.insert(snd.giving, 1, "dazed")
+    end   
+  
+    
+    
+ end
+  
+		-- declare some important variables, you can add more here if you need
+    local canWeave = false
+    local canSing = false
+    local canPlay = false
+    local myinstrument = "saxophone69420" -- put your own instrument's id# here.
+    local needInstrument = false
+		local attack = ""
+		local call = ""
+    local nextaff = "none"
+    local tempoaff = "none"
+    -- 1 affliction from snd.giving
+  for i in pairs(snd.giving) do
+    if
+      not snd.checkAff(snd.giving[i]) 
+      and nextaff == "none"
+      and snd.giving[i] ~= snd.needle
+    then
+      nextaff = snd.giving[i]
+    end
+  end
+  
+  for i in pairs(snd.giving) do
+    if
+      not snd.checkAff(snd.giving[i]) 
+      and tempoaff == "none"
+      and snd.giving[i] ~= snd.needle
+      and table.contains(snd.venom_affs, snd.giving[i])
+        then
+          tempoaff = snd.giving[i]
+        end
+    end  
+   
+ 
+ -- Let's run a check for weaving. If I need to modify this in some way (i.e a support route), I will there. 
+  
+  if tonumber(gmcp.Char.Vitals.dithering) &lt; 1
+  and (string.find((gmcp.Char.Vitals.wield_left), "empty") or  string.find((gmcp.Char.Vitals.wield_right), "empty")) then
+			canWeave = true -- Hell yeah brother
+  end     
+  
+  -- Let's run a check for singing. I don't want to sing if it's not cheap. Ymmv on this decision - I will modify it in the support route example.
+    
+  if not snd.singing
+  and snd.halfbeat then
+			canSing = true -- I'm an idol
+  end    
+
+
+-- Let's run a check for playing. I will really not be using it in this route,  but it's nice to write and use later.
+
+  if not snd.playing
+  and (string.find((gmcp.Char.Vitals.wield_left), myinstrument) or  string.find((gmcp.Char.Vitals.wield_right), myinstrument)) then
+			canPlay = true -- Jam out!!
+  end 
+
+
+
+
+      
+    -- Only cowards and losers spam shield or rebounding &gt;:(
+  if snd.used.shield then
+      attack = "pierce "..snd.target  
+  elseif snd.used.rebounding then
+      attack = "pierce "..snd.target
+
+    -- K, Tempo if you got some big dmg for it.    
+  elseif not snd.rhythm
+    and snd.checksomeAffs({"paresis", "shyness"}, 2) then
+      attack = "tempo "..snd.target.." "..snd.effects[tempoaff]
+      call = "wt Afflicting "..snd.target..": "..snd.effects[nextaff]
+  
+    -- Ringing_ears check.    
+  elseif not snd.checkAff("ringing_ears")
+    and hasSkill("Soundblast", "Weaving")
+    and canWeave then
+      attack = "weave soundblast"
+
+
+    -- Unheard Song Check. This is just DMG.
+  elseif canSing
+    and hasSkill("Unheard", "Songcalling")
+    and snd.checkAff("ringing_ears") then
+      attack = "sing song of the unheard" 
+      
+    -- Let's still efficiently use sing in teams if we can.    
+  elseif canSing
+    and hasSkill("Youth", "Songcalling") then
+      attack = "sing song of youth"
+        
+    -- Dithering Block. 
+    -- 
+    -- Let's check for globes first. If we don't have destiny up, we need to do that here.
+    -- If we do have destiny, we can do it as part of our attack later.
+
+
+   elseif canWeave
+    and hasSkill("Tearing", "Weaving") then
+        attack = "weave tearing "..snd.target
+        
+    --- Balance Block
+          
+
+  elseif table.contains(snd.performance_affs, nextaff) then
+      attack = snd.performance_attacks[nextaff].." "..snd.target
+  else    
+		  attack = "tempo "..snd.target.." "..snd.effects[nextaff]
+	 	  call = "wt Afflicting "..snd.target..": "..snd.effects[nextaff]
+    end
+      
+
+  if snd.balance.inspire
+  and hasSkill("Inspire", "Songcalling") then
+      attack = "inspire"..snd.sep..attack
+  end
+
+	-- check if we need to prepend an affliction call
+	if snd.toggles.affcalling and not snd.target_gone then
+		attack = call..snd.sep..attack
+	end
+
+  snd.attack(attack, true)
+  
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>supp</name>
+					<packageName></packageName>
+					<script>local alias = "supp"
+local class = "bard"
+local blurb = "audience support"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- if i'm in a rhythm combo, i can't use sword affs.
+
+  if snd.rhythm then
+    snd.giving = {
+      "perplexity",
+      "self_loathing",
+      "mania",
+      "dazed",
+
+    }
+  else
+    -- My affs normally when not in a rhythm combo.
+
+    snd.giving = {
+      "misery",
+      "paresis",
+      "clumsiness",
+      "asthma",
+      "slickness",
+      "anorexia",
+      "perplexity",
+      "shyness",
+      "dizziness",
+      "weariness",
+      "ringing_ears",
+      "haemophilia",
+      "vomiting",
+      "allergies",
+      "recklessness",
+      --"voyria",
+    }
+  end
+
+  -- declare some important variables, you can add more here if you need
+  local canWeave = false
+  local canSing = false
+  local canPlay = false
+  local myinstrument = "ocarina449359" -- put your own instrument's id# here.
+  local needInstrument = false
+  local attack = ""
+  local call = ""
+  local nextaff = "none"
+  local tempoaff = "none"
+  -- 1 affliction from snd.giving
+  for i in pairs(snd.giving) do
+    if
+        not snd.checkAff(snd.giving[i])
+        and nextaff == "none"
+        and snd.giving[i] ~= snd.needle
+    then
+      nextaff = snd.giving[i]
+    end
+  end
+
+  for i in pairs(snd.giving) do
+    if
+        not snd.checkAff(snd.giving[i])
+        and tempoaff == "none"
+        and snd.giving[i] ~= snd.needle
+        and table.contains(snd.venom_affs, snd.giving[i])
+    then
+      tempoaff = snd.giving[i]
+    end
+  end
+
+
+  -- Let's run a check for weaving. If I need to modify this in some way (i.e a support route), I will there.
+
+  if tonumber(gmcp.Char.Vitals.dithering) &lt; 1
+      and (string.find((gmcp.Char.Vitals.wield_left), "empty") or string.find((gmcp.Char.Vitals.wield_right), "empty")) then
+    canWeave = true -- Hell yeah brother
+  end
+
+  -- Let's run a check for singing. I don't want to sing if it's not cheap. Ymmv on this decision - I will modify it in the support route example.
+
+  if not snd.singing then
+    canSing = true -- I'm an idol
+  end
+
+
+  -- Let's run a check for playing. I will really not be using it in this route,  but it's nice to write and use later.
+
+  if not snd.playing
+      and (string.find((gmcp.Char.Vitals.wield_left), myinstrument) or string.find((gmcp.Char.Vitals.wield_right), myinstrument)) then
+    canPlay = true -- Jam out!!
+  end
+
+
+
+
+
+  -- Only cowards and losers spam shield or rebounding &gt;:(
+  if canPlay
+      and hasSkill("Youth", "Songcalling") then
+    attack = "play song of youth"
+
+    -- Let's still efficiently use sing in teams if we can.
+  elseif canSing
+      and hasSkill("Youth", "Songcalling") then
+    attack = "sing song of youth"
+
+    -- Dithering Block.
+    --
+    -- Let's check for globes first. If we don't have destiny up, we need to do that here.
+    -- If we do have destiny, we can do it as part of our attack later.
+
+    -- There is no dithering in this route.
+    -- ... yet.
+
+
+    --- Balance Block
+  elseif snd.used.shield then
+    attack = "pierce " .. snd.target
+  elseif snd.used.rebounding then
+    attack = "pierce " .. snd.target
+  elseif snd.aff_count_all() &gt; 2
+      and not snd.checkAff("magnanimity") then
+    attack = "ridicule " .. snd.target
+  elseif table.contains(snd.performance_affs, nextaff) then
+    attack = snd.performance_attacks[nextaff] .. " " .. snd.target
+  else
+    attack = "tempo " .. snd.target .. " " .. snd.effects[nextaff]
+    call = "wt Afflicting " .. snd.target .. ": " .. snd.effects[nextaff]
+  end
+
+  if snd.balance.inspire
+      and hasSkill("Inspire", "Songcalling") then
+    attack = "inspire" .. snd.sep .. attack
+  end
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone then
+    attack = call .. snd.sep .. attack
+  end
+  -- we don't want to resend our existing attack, so check against that
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>legs</name>
+					<packageName></packageName>
+					<script>local alias = "legs"
+local class = "bard"
+local blurb = "a salve support route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+-- defining this function is how we tell sunder what to do
+  snd.giving =
+  {
+    "feeble_legs",
+    "feeble_arms",
+    "deafness",
+    "blindness",
+    "stupidity",
+    "anorexia",
+    "asthma",
+    "slickness",
+    "paresis",
+    "clumsiness",
+    "weariness",
+  }
+  local canPlay = false
+  local attack = ""
+  local call = ""
+  local tempoaff = "none"
+  -- 1 affliction from snd.giving
+
+  for i in pairs(snd.giving) do
+    if
+        not snd.checkAff(snd.giving[i]) and
+        tempoaff == "none" and
+        snd.giving[i] ~= snd.needle and
+        table.contains(snd.venom_affs, snd.giving[i])
+    then
+      tempoaff = snd.giving[i]
+    end
+  end
+
+  -- Only cowards and losers spam shield or rebounding &gt;:(
+  if snd.used.shield or snd.used.rebounding then
+    attack = "pierce " .. snd.target
+  else
+    attack = "tempo " .. snd.target .. " " .. snd.effects[tempoaff]
+    call = "wt Afflicting " .. snd.target .. ": " .. snd.effects[tempoaff]
+  end
+  if snd.balance.inspire and hasSkill("Inspire", "Songcalling") then
+    attack = "inspire" .. snd.sep .. attack
+  end
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone then
+    attack = call .. snd.sep .. attack
+  end
+  -- we don't want to resend our existing attack, so check against that
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Carnifex and Warden</name>
