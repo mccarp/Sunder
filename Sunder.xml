@@ -3604,7 +3604,7 @@ end</script>
 							<name>Affliction Howl Track (There is no 3p)</name>
 							<script>local howl_conversion =
 {
-  ["piercing"] = "hearing",
+  ["piercing"] = "no_courage",
   ["paralyzing"] = "paresis",
   ["baleful"] = "impairment",
   ["rousing"] = "recklessness",
@@ -3655,7 +3655,7 @@ end
 if multimatches[2][2] == "failure" then return end
 local howl_conversion =
 {
-  ["piercing"] = "hearing",
+  ["piercing"] = "no_courage",
   ["paralyzing"] = "paresis",
   ["baleful"] = "impairment",
   ["rousing"] = "recklessness",
@@ -10651,7 +10651,7 @@ disableTrigger("Fury Shatter Second Aff")</script>
 								<integer>3</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Tenacity Chop</name>
 							<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -35177,6 +35177,18 @@ disableTimer("moveroom")</script>
 			<command></command>
 			<packageName></packageName>
 			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Run routes</name>
+				<script>local name = (matches[2] or ""):lower()
+if name == "" or name == "help" then
+  snd.routes.help()
+else
+  snd.routes.run(name)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(?i)^rt(?: (\w+))?$</regex>
+			</Alias>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Neutral</name>
 				<script></script>
@@ -70053,6 +70065,325 @@ function snd.track_axes(time)
 end</script>
 					<eventHandlerList />
 				</Script>
+			</ScriptGroup>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Routes</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Route core</name>
+				<packageName></packageName>
+				<script>snd.routes = snd.routes or {}
+snd.routes.list = snd.routes.list or {}
+snd.routes.list.generic = snd.routes.list.generic or {}
+
+function snd.routes.register(name, class, blurb, route)
+  name, class = name:lower(), class:lower()
+  snd.routes.list[class] = snd.routes.list[class] or {}
+  snd.routes.list[class][name] = {blurb = blurb, route = route}
+end
+
+function snd.routes.help()
+  local class = snd.class:lower()
+  if not snd.routes.list[class] then
+    snd.message("No routes exist for "..snd.class.." :(")
+  else
+    snd.message("Available routes for "..snd.class..":")
+    for name, info in spairs(snd.routes.list[class]) do
+      echo("\n"..name..": "..info.blurb)
+    end
+  end
+  if not next(snd.routes.list.generic) then
+    snd.message("No generic routes available")
+  else
+    snd.message("Available generic routes:")
+    for name, info in spairs(snd.routes.list.generic) do
+      echo("\n"..name..": "..info.blurb)
+    end
+  end
+end
+
+function snd.routes.run(name)
+
+  if not name then
+    snd.message("No route name provided")
+    return
+  end
+ 
+  local class, name = snd.class:lower(), name:lower()
+  
+  if (not snd.routes.list[class] or not snd.routes.list[class][name]) and not snd.routes.list.generic[name] then
+    snd.message("No route \""..name.."\" exists for "..class:title()..". Do RT HELP to see available routes.")
+    return
+  end
+  
+  snd.starting_attack()
+  
+  if snd.routes.list[class][name] then
+    snd.message("Starting route \""..name.."\" for "..class:title())
+    snd.attack_function = snd.routes.list[class][name].route
+  elseif snd.routes.list.generic[name] then
+    snd.message("Starting generic route \""..name.."\"")
+    snd.attack_function = snd.routes.list.generic[name].route
+  end
+  
+  snd.core()
+end</script>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Archivist and Voidseer</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Archivist</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Voidseer</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Ascendril and Bloodborn</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Ascendril</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Bloodborn</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Bard</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Carnifex and Warden</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Carnifex</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Warden</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Indorani and Oneiromancer</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Indorani</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Oneiromancer</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Luminary and Earthcaller</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Luminary</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Earthcaller</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Praenomen, Akkari, and Sylvan</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Praenomen</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Akkari</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Sylvan</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Predator</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Sciomancer and Runecarver</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Sciomancer</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Runecarver</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Sentinel and Executor</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Sentinel</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Executor</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Shaman and Alchemist</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Shaman</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Alchemist</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Siderealist</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Shapeshifter</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Templar and Revenant</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Templar</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Revenant</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Teradrim and Tidesage</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Teradrim</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Tidesage</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Wayfarer</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Zealot and Ravager</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Zealot</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Ravager</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+				</ScriptGroup>
 			</ScriptGroup>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
