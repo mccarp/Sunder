@@ -71596,12 +71596,573 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "carnifex"
+local blurb = "Just spam doublebash"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  if snd.used.shield then
+		attack = "soul erode "..snd.target
+  else
+   	attack = "hammer doublebash "..snd.target
+  end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>venom</name>
+						<packageName></packageName>
+						<script>local alias = "venom"
+local class = "carnifex"
+local blurb = "A venoms-only group affliction route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "paresis",
+    "clumsiness",
+    "asthma",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    "allergies",
+    "weariness",
+    "haemophilia",
+    "ringing_ears",
+    "vomiting",
+    "recklessness",
+    "dizziness",
+    "voyria",
+  }
+  local attack = ""
+  local left = "none"
+  local right = "none"
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+    if right == "none" then
+     right = snd.effects[snd.giving[i]]
+    elseif left == "none" then
+     left = snd.effects[snd.giving[i]]
+    end
+   end
+  end
+  if left == "none" then
+   left = "delphinium"
+  end
+  if right == "none" then
+   right = "delphinium"
+  end
+	x = ""
+  if snd.used.rebounding and snd.used.shield then
+   attack = "pole raze "..snd.target
+  elseif snd.used.rebounding or snd.used.shield then
+   attack = "pole razehack "..snd.target.." "..right
+	 if snd.toggles.affcalling and not snd.target_gone then
+	  x = "wt Afflicting "..snd.target..": "..right..snd.sep
+	 end
+  else
+   attack = "pole spinslash "..snd.target.." "..left.." "..right
+	 if snd.toggles.affcalling and not snd.target_gone then
+	  x = "wt Afflicting "..snd.target..": "..left..", "..right..snd.sep
+	 end
+	end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "carnifex"
+local blurb = "A group affliction route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "paresis",
+    "asthma",
+    "clumsiness",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    "dizziness",
+    "weariness",
+    "ringing_ears",
+    "haemophilia",
+    "vomiting",
+    "allergies",
+    "recklessness",
+    "voyria",
+  }
+  snd.hound_queue = {
+    "mark",
+    "dizziness",
+    "mania",
+    "weariness",
+    "impairment",
+  }
+  snd.handle_hounds()
+  local attack = ""
+  local left = "none"
+  local right = "none"
+
+  for i in pairs(snd.giving) do
+    if not snd.checkAff(snd.giving[i]) and snd.giving[i] ~= snd.implant then
+      if right == "none" then
+        right = snd.effects[snd.giving[i]]
+      elseif left == "none" then
+        left = snd.effects[snd.giving[i]]
+      end
+    end
+  end
+  if left == "none" then
+    left = "delphinium"
+  end
+  if right == "none" then
+    right = "delphinium"
+  end
+  local x = ""
+  if snd.used.rebounding and snd.used.shield then
+    attack = "pole raze " .. snd.target
+  elseif snd.used.rebounding or snd.used.shield then
+    attack = "pole razehack " .. snd.target .. " " .. right
+    if snd.toggles.affcalling and not snd.target_gone then
+      x = "wt Afflicting " .. snd.target .. ": " .. right .. snd.sep
+    end
+  else
+    if snd.checkAff("fallen") and snd.target_locked() then
+      if table.contains(snd.target_has, "crushed_chest") then
+        attack = "hammer pulverize " .. snd.target
+      else
+        attack = "hammer crush " .. snd.target .. " chest"
+      end
+    else
+      attack = "pole spinslash " .. snd.target .. " " .. left .. " " .. right
+      if snd.toggles.affcalling and not snd.target_gone then
+        x = "wt Afflicting " .. snd.target .. ": " .. left .. ", " .. right .. snd.sep
+      end
+    end
+  end
+  if snd.soul &lt;= 80 and not table.contains(snd.target_has, "soul_disease") then
+    attack = attack .. snd.sep .. "soul disease " .. snd.target
+  elseif snd.soul &lt;= 90 and not table.contains(snd.target_has, "soul_wraith") then
+    attack = attack .. snd.sep .. "soul wraith " .. snd.target
+  elseif #snd.target_has &gt;= 12 and snd.balance.soulpoison then
+    attack = attack .. snd.sep .. "soul poison " .. snd.target
+  elseif snd.soul &lt;= 75 and snd.balance.implant and not table.contains(snd.target_has, "soul_implant") then
+    if snd.target_locked() then
+      attack = attack .. snd.sep .. "soul implant " .. snd.target .. " aconite slike"
+    end
+  end
+  attack = x .. attack .. snd.sep .. "hammer throw " .. snd.target
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "carnifex"
+local blurb = "A group limbs route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.hound_queue = {
+    "frozen",
+  }
+  local attack = ""
+  snd.handle_hounds()
+  -- list what limbs to hit
+  limbs = {"left leg", "right leg", "left arm", "right arm"}
+	-- check if we can pulverize now!
+  if table.contains(snd.target_has, "crushed_chest") and snd.proned() then
+   attack = "hammer pulverize "..snd.target
+	-- or if we should set up pulverize...
+	elseif snd.proned() and snd.resto_limb ~= "none" then
+	 attack = "hammer crush "..snd.target.." chest"
+  else -- can't pulverize, needs logic
+	 -- pick what limbs to hit
+	 left = "nothing"
+	 right = "nothing"
+	 if snd.proned() then -- focus legs hard on prone
+	  if snd.parried_limb == "right leg" then
+	   right = "left leg"
+	  elseif snd.parried_limb == "left leg" then
+	   right = "right leg"
+	  else
+	   right = "right leg"
+		 left = "left leg"
+	  end
+	 -- are the legs prepped?
+	 elseif snd.limb_dmg["right leg"] &lt; 33.33 and (snd.limb_dmg["right leg"] + 7.41 &gt;= 33.33) and snd.limb_dmg["left leg"] &lt; 33.33 and (snd.limb_dmg["left leg"] + 7.41 &gt;= 33.33) and not snd.used.shield and not snd.used.rebounding then
+		 attack = "target left leg with left"..snd.sep.."target right leg with right"..snd.sep.."hammer doublebash "..snd.target
+	 else -- target not prone, legs not prepped
+	  for limb in pairs(limbs) do
+		 -- ignore last parried, last hit, and any limbs being resto'd
+	   if limbs[limb] ~= snd.parried_limb and limbs[limb] ~= snd.last_hit_limb and (limbs[limb] ~= snd.resto_limb or snd.limb_dmg[limbs[limb]] &gt;= 33.33) then
+		  -- if it's a leg that's about to break
+	    if (limbs[limb] == "left leg" or limbs[limb] == "right leg") and (snd.limb_dmg[limbs[limb]]+snd.limb_dmg_done &gt;= 33.3) then
+		   -- don't do anything!
+			 -- if it's not a leg about to break, go for it
+		  elseif right == "nothing" then
+		   right = limbs[limb]
+	    elseif left == "nothing" and limbs[limb] ~= right then
+	     left = limbs[limb]
+		  end
+	   end
+	  end
+	  if left == "nothing" then -- we only found one limb to hit
+	   left = right -- double up!
+	  end
+	  -- end limb picking logic
+	  -- on to attacking logic!
+	  if snd.used.shield or snd.used.rebounding then -- baddie is turtling
+     attack = "hammer raze "..snd.target -- raze has static balance cost
+	  else
+	   attack = "hammer doublebash "..snd.target.." "..left.." "..right
+		 if snd.soul &lt;= 80 and not table.contains(snd.target_has, "glasslimb") then
+		  attack = attack..snd.sep.."soul frailty "..snd.target
+		 end
+    end
+	 end
+	end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Warden</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "warden"
+local blurb = "Just maul 'em!"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  if snd.used.shield then
+    cmd = "ancest carve " .. snd.target
+  else
+    cmd = "warden maul " .. snd.target
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>venom</name>
+						<packageName></packageName>
+						<script>local alias = "venom"
+local class = "warden"
+local blurb = "A simple venom-only group affliction route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local left = "none"
+  local right = "none"
+  for i in pairs(snd.giving) do
+    if not table.contains(snd.target_has, snd.giving[i]) then
+      if right == "none" then
+        right = snd.effects[snd.giving[i]]
+      elseif left == "none" then
+        left = snd.effects[snd.giving[i]]
+      end
+    end
+  end
+  if left == "none" then
+    left = "epteth"
+  end
+  if right == "none" then
+    right = "epseth"
+  end
+  local call = ""
+  if snd.used.rebounding and snd.used.shield then
+    cmd = "warden raze " .. snd.target
+  elseif snd.used.rebounding or snd.used.shield then
+    cmd = "warden bypass " .. snd.target .. " " .. right
+    if snd.toggles.affcalling and not snd.target_gone then
+      call = "wt Afflicting " .. snd.target .. ": " .. right .. snd.sep
+    end
+  else
+    cmd = "warden lacerate " .. snd.target .. " " .. left .. " " .. right
+    if snd.toggles.affcalling and not snd.target_gone then
+      call = "wt Afflicting " .. snd.target .. ": " .. left .. ", " .. right .. snd.sep
+    end
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "warden"
+local blurb = "A group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving =
+    {
+      "paresis",
+      "asthma",
+      "clumsiness",
+      "slickness",
+      "stupidity",
+      "anorexia",
+      "dizziness",
+      "weariness",
+      "ringing_ears",
+      "haemophilia",
+      "vomiting",
+      "allergies",
+      "recklessness",
+      "voyria",
+    }
+  snd.hound_queue = {"mark", "dizziness", "mania", "weariness", "impairment"}
+  -- declare some important variables, you can add more here if you need
+  snd.handle_hounds()
+  local cmd = ""
+  local left = "none"
+  local right = "none"
+  for i in pairs(snd.giving) do
+    if not snd.checkAff(snd.giving[i]) and snd.giving[i] ~= snd.implant then
+      if right == "none" then
+        right = snd.effects[snd.giving[i]]
+      elseif left == "none" then
+        left = snd.effects[snd.giving[i]]
+      end
+    end
+  end
+  if left == "none" then
+    left = "epseth"
+  end
+  if right == "none" then
+    right = "epseth"
+  end
+  call = ""
+  if snd.used.rebounding and snd.used.shield then
+    cmd = "warden raze " .. snd.target
+  elseif snd.used.rebounding or snd.used.shield then
+    cmd = "warden bypass " .. snd.target .. " " .. right
+    if snd.toggles.affcalling and not snd.target_gone then
+      call = "wt Afflicting " .. snd.target .. ": " .. right .. snd.sep
+    end
+  else
+    if snd.checkAff("fallen") and snd.target_locked() then
+      if table.contains(snd.target_has, "crushed_chest") then
+        cmd = "warden decimate " .. snd.target
+      else
+        cmd = "warden pummel " .. snd.target .. " chest"
+      end
+    else
+      cmd = "warden lacerate " .. snd.target .. " " .. left .. " " .. right
+      if snd.toggles.affcalling and not snd.target_gone then
+        call = "wt Afflicting " .. snd.target .. ": " .. left .. ", " .. right .. snd.sep
+      end
+    end
+  end
+  if snd.soul &lt;= 80 and not table.contains(snd.target_has, "ancestral_portent") then
+    cmd = cmd .. snd.sep .. "ancest portent " .. snd.target
+  elseif snd.soul &lt;= 90 and not table.contains(snd.target_has, "inhibited") then
+    cmd = cmd .. snd.sep .. "ancest inhibit " .. snd.target
+  elseif #snd.target_has &gt;= 12 and snd.balance.soulpoison then
+    cmd = cmd .. snd.sep .. "ancest ambush " .. snd.target
+  elseif
+    snd.soul &lt;= 75 and snd.balance.implant and not table.contains(snd.target_has, "soul_implant")
+  then
+    if snd.target_locked() then
+      cmd = cmd .. snd.sep .. "ancest attune " .. snd.target .. " aconite slike"
+    end
+  end
+  cmd = "wipe left" .. snd.sep .. call .. cmd .. snd.sep .. "warden release " .. snd.target
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "warden"
+local blurb = "A group limbs route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.hound_queue = {"frozen"}
+  local cmd = ""
+  snd.handle_hounds()
+  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  if table.contains(snd.target_has, "crushed_chest") and snd.proned() then
+    cmd = "warden decimate " .. snd.target
+  elseif snd.proned() and snd.resto_limb ~= "none" then
+    cmd = "warden pummel " .. snd.target .. " chest"
+  else
+    left = "nothing"
+    right = "nothing"
+    if snd.proned() then
+      if snd.parried_limb == "right leg" then
+        right = "left leg"
+      elseif snd.parried_limb == "left leg" then
+        right = "right leg"
+      else
+        right = "right leg"
+        left = "left leg"
+      end
+    elseif
+      snd.limb_dmg["right leg"] &lt; 33.33 and
+      (snd.limb_dmg["right leg"] + 7.41 &gt;= 33.33) and
+      snd.limb_dmg["left leg"] &lt; 33.33 and
+      (snd.limb_dmg["left leg"] + 7.41 &gt;= 33.33) and
+      not snd.used.shield and
+      not snd.used.rebounding
+    then
+      cmd =
+        "target left leg with left" ..
+        snd.sep ..
+        "target right leg with right" ..
+        snd.sep ..
+        "warden maul " ..
+        snd.target
+    else
+      for limb in pairs(limbs) do
+        if
+          limbs[limb] ~= snd.parried_limb and
+          limbs[limb] ~= snd.last_hit_limb and
+          (limbs[limb] ~= snd.resto_limb or snd.limb_dmg[limbs[limb]] &gt;= 33.33)
+        then
+          if
+            (limbs[limb] == "left leg" or limbs[limb] == "right leg") and
+            (snd.limb_dmg[limbs[limb]] + snd.limb_dmg_done &gt;= 33.3)
+          then
+          elseif right == "nothing" then
+            right = limbs[limb]
+          elseif left == "nothing" and limbs[limb] ~= right then
+            left = limbs[limb]
+          end
+        end
+      end
+      if left == "nothing" then
+        left = right
+      end
+      if snd.used.shield or snd.used.rebounding then
+        cmd = "warden raze " .. snd.target
+      else
+        cmd = "warden maul " .. snd.target .. " " .. left .. " " .. right
+        if snd.soul &lt;= 80 and not table.contains(snd.target_has, "debilitated") then
+          cmd = cmd .. snd.sep .. "ancest debilitate " .. snd.target
+        end
+      end
+    end
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
