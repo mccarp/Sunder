@@ -1658,7 +1658,7 @@ end</script>
 							<string>^(\w+) stretches \w+ (.+) satisfyingly\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
-							<integer>0</integer>
+							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -2260,7 +2260,7 @@ end
 					<regexCodePropertyList>
 						<integer>1</integer>
 					</regexCodePropertyList>
-					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds capture stuff</name>
 						<script>local limb = matches[2]:lower()
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
@@ -2943,7 +2943,7 @@ snd.target_got("no_paste", matches[2])</script>
 							<regexCodePropertyList>
 								<integer>1</integer>
 								<integer>1</integer>
-								<integer>0</integer>
+								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -6223,7 +6223,7 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Fulcrum not here</name>
 							<script>snd.fulcrum_call = true
-snd.fulcrum_exists = true</script>
+snd.fulcrum_exists = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -11120,7 +11120,7 @@ end</script>
 								</Trigger>
 								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>atdum confirmation</name>
-									<script>if matches[3] == snd.target then
+									<script>if matches[2] == snd.target then
   snd.onHit2({})
 end
 disableTrigger("atdum confirmation")</script>
@@ -11143,7 +11143,7 @@ disableTrigger("atdum confirmation")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Flared got</name>
-									<script>if snd.target == matches[3] then
+									<script>if snd.target == matches[2] then
   snd.target_got("flared")
 end</script>
 									<triggerType>0</triggerType>
@@ -12122,7 +12122,7 @@ disableTrigger("Weapon Hit Confirmation")</script>
 								<regexCodePropertyList />
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>rend</name>
-									<script>if snd.target == matches[2] then
+									<script>if snd.getting_hit == snd.target or snd.target == matches[2] then
 	snd.target_got("rend")
 end</script>
 									<triggerType>0</triggerType>
@@ -12331,7 +12331,7 @@ end</script>
 									<colorTriggerBgColor>#000000</colorTriggerBgColor>
 									<regexCodeList>
 										<string>^Without conviction, your \w+ empowerment fails to affect (\w+).$</string>
-										<string>^Your strike fails to affect \w+, absent the mark of bimre\.$</string>
+										<string>^Your strike fails to affect (\w+), absent the mark of bimre\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
 										<integer>1</integer>
@@ -12978,7 +12978,7 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Needle Cooldown</name>
-							<script>if matches[2] ~= ("dodge" or "miss") then
+							<script>if matches[2] ~= "miss" and matches[2] ~= "dodge" then
 snd.needlewait = true
 else
 snd.needle = "none"
@@ -15787,7 +15787,7 @@ end</script>
 										<string>^(\w+) lifts \w+ hands to \w+ ears, a look of agony on \w+ features\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
-										<integer>0</integer>
+										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -18462,9 +18462,7 @@ end</script>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Infiltrate Down</name>
-							<script>if snd.target == matches[2] then
-   snd.infiltrate = false
-end</script>
+							<script>snd.infiltrate = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -25639,7 +25637,7 @@ end</script>
     if snd.toggles.webAnnounce then
       snd.send("wt " .. snd.target .. " cloak is stripped.")
     end
-  elseif strip ~= "cloak" or strip ~= "rebounding" or strip ~= "shield" then
+  else
     snd.used.rebounding = false
     snd.used.shield = false
   end
@@ -26470,6 +26468,7 @@ end</script>
 					<name>Synthesis Animation gate.</name>
 					<script>local modifier = matches[5]~="" and matches[5] or nil
 if matches[6] == snd.target and snd.all_class_attacks[matches[3]] and snd.all_class_attacks[matches[3]][matches[4]] then
+  local target = matches[6]
   snd.getting_hit = target
   snd.skill_being_used = matches[4]
   snd.all_class_attacks[matches[3]][matches[4]](target, modifier)
@@ -35328,7 +35327,7 @@ function snd.attack_function()
     attack = "pounce "..snd.target..snd.sep.."combo "..snd.target.." jugular jugular"
   elseif not snd.no_parry() then
  		attack = "combo "..snd.target.." bodypunch jugular"
-  elseif not snd.parried_limb == "head" then
+  elseif snd.parried_limb ~= "head" then
     attack = "combo "..snd.target.." jugular skullwhack"
 	else
     attack = "combo "..snd.target.." jugular jugular"
@@ -35363,7 +35362,7 @@ function snd.attack_function()
 	 if snd.limb_status[limbs[limb]] == "mangled" and mangled == "nothing" then
 	  if string.find(limbs[limb], "leg") and not snd.checkAff("writhe_thighlock") then
 	   mangled = limbs[limb]
-		elseif limbs[limb] == "head" and not snd.checkAff("necklock") then
+		elseif limbs[limb] == "head" and not snd.checkAff("writhe_necklock") then
 		 mangled = limbs[limb]
 		elseif not snd.checkAff("writhe_armpitlock") and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
 		 mangled = limbs[limb]
@@ -38890,7 +38889,7 @@ function snd.attack_function()
 
   if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
     attack = attack ..
-        "quickwield right " .. snd.crozier .. snd.sep
+        "quickwield right crozier" .. snd.sep
   end
   if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then
     attack = attack ..
@@ -39184,7 +39183,7 @@ function snd.attack_function()
 
   if not attack.find(gmcp.Char.Vitals.wield_right, "crozier") then
     attack = attack ..
-        "quickwield right " .. snd.crozier .. snd.sep
+        "quickwield right crozier" .. snd.sep
   end
   if not attack.find(gmcp.Char.Vitals.wield_left, "buckler") then
     attack = attack ..
@@ -41120,6 +41119,7 @@ snd.giving = {
 }
 snd.starting_attack()
 function snd.attack_function()
+  local x = ""
   local attack = ""
   local left = "none"
   local right = "none"
@@ -41152,6 +41152,9 @@ function snd.attack_function()
 	  x = "wt Afflicting "..snd.target..": "..left..", "..right..snd.sep
 	 end
 	end
+  
+  attack = x..attack
+  
   snd.attack(attack, true)
 end
 snd.attack_function()</script>
@@ -42366,7 +42369,7 @@ function snd.attack_function()
     zenith = true
   end
   if snd.checkAff("crispy") then
-    if not snd.checkaff("ablaze") then
+    if not snd.checkAff("ablaze") then
       snd.target_cured("crispy")
     end
   end
@@ -42467,7 +42470,7 @@ function snd.attack_function()
   end
   -- This is a failsafe to take crispy off of a target that has cured ablaze.
   if snd.checkAff("crispy") then
-    if not snd.checkaff("ablaze") then
+    if not snd.checkAff("ablaze") then
       snd.target_cured("crispy")
     end
   end
@@ -43008,7 +43011,7 @@ snd.starting_attack()
 
 function snd.attack_function()
   local attack = ""
-  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  local limbs = {"left leg", "right leg", "left arm", "right arm"}
   for limb in pairs(limbs) do
   -- ignore last hit and any limbs being resto'd
     if
@@ -43033,7 +43036,7 @@ function snd.attack_function()
 		attack = attack.."gravity grip "..snd.target
   else
 		if not snd.checkAff(targ:gsub(" ","_").."_crippled") then
-			attack = attack.."gravity erupt "..snd.target..targ
+			attack = attack.."gravity erupt "..snd.target.." "..targ
 		else
 			if hasSkill("Transfix") then
 				attack = attack.."cast transfix "..snd.target
@@ -44368,7 +44371,7 @@ snd.starting_attack()
 
 function snd.attack_function()
   local cmd = ""
-  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  local limbs = {"left leg", "right leg", "left arm", "right arm"}
   for limb in pairs(limbs) do
     -- ignore last hit and any limbs being resto'd
     if limbs[limb] ~= snd.last_hit_limb and limbs[limb] ~= snd.resto_limb then
@@ -45149,7 +45152,7 @@ function snd.attack_function()
   end
   -- This is a failsafe to take crispy off of a target that has cured ablaze.
   if snd.checkAff("crispy") then
-    if not snd.checkaff("ablaze") then
+    if not snd.checkAff("ablaze") then
       snd.target_cured("crispy")
     end
   end
@@ -45519,6 +45522,7 @@ snd.giving =
 snd.starting_attack()
 
 function snd.attack_function()
+  local x = ""
   local cmd = ""
   local left = "none"
   local right = "none"
@@ -45551,6 +45555,7 @@ function snd.attack_function()
       call = "wt Afflicting " .. snd.target .. ": " .. left .. ", " .. right .. snd.sep
     end
   end
+  cmd = x..cmd
   snd.attack(cmd, true)
 end
 
@@ -50783,46 +50788,6 @@ end</script>
 					<regex>^toggle reject$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Purge Purify Panacea</name>
-					<script>if snd.class == "Praenomen" or snd.class == "Akkari" then
-  snd.toggle("purify")
-elseif snd.class == "Carnifex" or snd.class == "Warden" then
-  snd.toggle("purge")
-elseif snd.class == "Shaman" or snd.class == "Alchemist" then
-  snd.toggle("panacea")
-else
-  cecho("You have no purging ability for your class that needs to be turned on.")
-end
-</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^pon$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Prism Bashing</name>
-					<script>if snd.class == "Ascendril" or snd.class == "Bloodborn" then
-	snd.toggle("prism")
-else
-  cecho("\nYou cannot prism bash in this class.")
-end
-</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^prism$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Enrich Bashing</name>
-					<script>if snd.class == "Ascendril" or snd.class == "Bloodborn" then
-	snd.toggle("enrich")
-else
-  cecho("\nYou cannot enrich bash in this class.")
-end
-</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^prism$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Hidden afflictions diagnose count</name>
 					<script>if matches[2] then
   cecho("&lt;red&gt;You will diagnose at &lt;yellow&gt;"..matches[2].."&lt;red&gt; hidden afflictions.")
@@ -50837,7 +50802,7 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Chameleon Targets</name>
 					<script>local people = matches[2]:gsub(",", "")
-peopleTable = matches[2]:split(" ")
+peopleTable = people:split(" ")
 snd.toggles.chameleonPeople = peopleTable
 snd.message("Will try to chameleon as one of: "..table.concat(snd.toggles.chameleonPeople, ", "))</script>
 					<command></command>
@@ -51065,7 +51030,7 @@ send(" ")</script>
 				<script>snd.setTarget(matches[2])</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^t (.*)$</regex>
+				<regex>^t (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>stop attacking</name>
@@ -52076,8 +52041,6 @@ snd.toggles = snd.toggles or {
   dome = false,
   auto_reject = false,
   fastwalk = false,
-  prism = false,
-  enrich = false,
   gags = true,
   targetrune = false,
   alerts = false,
@@ -52206,8 +52169,6 @@ snd.toggle_info = {
   nontargetgags = { info = "Remove nontarget cures from output.", command = "toggle non target gagging" },
   dome = { info = "Do you want Sunder to auto dome for you?", command = "toggle dome" },
   auto_reject = { info = "Should we auto reject lust attempts?", command = "toggle reject" },
-  prism = { info = "Do you want to prism/triplicate bash?", command = "toggle prism" },
-  enrich = { info = "Do you want to enrich while you bash?", command = "toggle enrich" },
   diagaffs = { info = "How many hidden affs before you diagnose?", command = "diagaffs &lt;#&gt;" }
 }
 </script>
@@ -52456,11 +52417,11 @@ function snd.can_legs()
 end
 
 function snd.self_prone()
-  if not snd.have_aff("frozen") or snd.have_aff("paralysis") or
+  if not (snd.have_aff("frozen") or snd.have_aff("paralysis") or
       snd.have_aff("writhe_transfix") or snd.have_aff("writhe_web") or snd.have_aff("writhe_impaled") or
       snd.have_aff("writhe_thighlock") or snd.have_aff("writhe_armpitlock") or
       snd.have_aff("writhe_necklock") or snd.have_aff("writhe_ropes") or snd.have_aff("writhe_vines") or
-      snd.have_aff("fallen") or snd.have_aff("asleep") then
+      snd.have_aff("fallen") or snd.have_aff("asleep")) then
     return false
   else
     return true
@@ -52474,7 +52435,7 @@ function snd.full_vitals()
 end
 
 function snd.can_order()
-  return not (snd.has_aff("disfigurement") or snd.have_aff("mauled_face"))
+  return not (snd.have_aff("disfigurement") or snd.have_aff("mauled_face"))
 end
 
 --- Check to see if we are able to use dome right now.
@@ -54374,7 +54335,7 @@ function snd.activeCures.run()
   end
   for _, cure in pairs(snd.activeCures.balancefree) do
     if cure.can() then
-      snd.balancefree = snd.balancefree..cure.action()..snd.sep
+      snd.balancefree = snd.balancefree..cure.command()..snd.sep
     end
   end  
   if snd.balancefree ~= "" then
@@ -55167,7 +55128,7 @@ function snd.handlePipes()
   if snd.not_aff("perplexity") and snd.not_aff("paresis") then
     for pipe, isEmpty in pairs(snd.emptypipes) do
       if isEmpty then
-        pipeCmd = pipeCmd.."outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe"
+        pipeCmd = pipeCmd.."outc " .. pipe .. snd.sep .. "put " .. pipe .. " in emptypipe"..snd.sep
       end
     end
   end
@@ -55691,7 +55652,6 @@ function snd.do_smoke(current)
     return
    end
   else
-   snd.light_up()
    snd.smoke(current)
   end
  end
@@ -56691,7 +56651,7 @@ local specialExits = {
   { from = 11796, to = 11860, command = [=[enter tree]=],                                                                                  locked = false, weight = 0 },
 
   --Bookcase in temple of Sonn
-  { from = 16941, to = 16979, command = [=[script: send("push 83452") tempTimer(2, function() send("down") end mmp.customwalkdelay(3)]=],  locked = false, weight = 0 },
+  { from = 16941, to = 16979, command = [=[script: send("push 83452") tempTimer(2, function() send("down") end) mmp.customwalkdelay(3)]=], locked = false, weight = 0 },
   { from = 16979, to = 16941, command = [=[script: send("pull 85777") tempTimer(2.5, function() send("up") end) mmp.customwalkdelay(4)]=], locked = false, weight = 0 },
 
   --Ayhesa Cliffs
@@ -56731,7 +56691,7 @@ local specialExits = {
   --Entrance to the Den of Shadows
   { from = 19576, to = 70305, command = [=[script: sendAll("push statue", "qeb in")]=],                                                    locked = true,  weight = 100 },
   { from = 70308, to = 70311, command = [=[script: sendAll("pull 193501", "down")]=],                                                      locked = false, weight = 0 },
-  { from = 70311, to = 70308, command = [=[script: sendAll("pull 48421", "up"]=],                                                          locked = false, weight = 0 },
+  { from = 70311, to = 70308, command = [=[script: sendAll("pull 48421", "up")]=],                                                          locked = false, weight = 0 },
 
   --Djeir
   { from = 12098, to = 12193, command = [=[script: sendAll("pull 63708", "east")]=],                                                       locked = false, weight = 0 },
@@ -59728,7 +59688,7 @@ end
 -- @function snd.aff_check
 function snd.aff_check()
   for i in pairs(snd.afflictions) do
-    if snd.afflictions[i].cures.writhe ~= nil or string.find(i, "broken") or string.find(i, "mangled") or string.find(i, "pre_restore") or i == "aff_concussion" then
+    if snd.afflictions[i].cures.writhe ~= nil or string.find(i, "broken") or string.find(i, "mangled") or string.find(i, "pre_restore") then
       if getStopWatchTime(snd.afflictions[i].timer) &gt; 7 and snd.afflictions[i].state == "waiting" then
         snd.aff_timeout(i)
       end
@@ -60510,7 +60470,6 @@ end
   aff_staggered = { },
   aff_symbol_marked = { },
   aff_thunderbrand = { },
-  aff_trickery = { },
   aff_typhonpoison = { },
   aff_vacuity = { },
   aff_varach_rot = { },
@@ -62835,7 +62794,7 @@ function snd.akkari_host()
     end
   elseif gmcp.Char.Status.spec == "Il'ahji" or gmcp.Char.Status.spec == "Insidiae" then
     if table.isMember(snd.primary_aff, "feast") then
-      table.remove(snd.primary_aff, table.index_of(table, "feast"))
+      table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "feast"))
     end
     if table.isMember(snd.primary_aff, "psychosis") then
       table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "psychosis"))
@@ -62933,7 +62892,7 @@ end
 
 function snd.akkari_repent()
   if table.contains(snd.primary_aff, "sapped_dexterity") then
-    if not snd.checksomeAffs({ "self_pity", "stupidity", "dizziness", "faintness", "shyness", "epilepsy", "impatience", "dissonace", "infestation", }, 3) then
+    if not snd.checksomeAffs({ "self_pity", "stupidity", "dizziness", "faintness", "shyness", "epilepsy", "impatience", "dissonance", "infestation", }, 3) then
       table.remove(snd.primary_aff, table.index_of(snd.primary_aff, "sapped_dexterity"))
     end
   end
@@ -66017,7 +65976,7 @@ end
         snd.onHit2({ "Dodge" })
       end
     end,
-    Feed = function(target)
+    Feed = function(target, fail)
       if not fail then
         snd.target_got("writhe_grappled")
       end
@@ -69644,7 +69603,7 @@ end
     Petrify = function(target)
       snd.target_got("cold")
     end,
-    Slake = function(target)
+    Slake = function(target, fail)
       if not fail then
         snd.target_got("writhe_grappled")
       end
@@ -70036,7 +69995,7 @@ end
 
 function snd.track_eqbal(time)
   if not snd.timer_check("eqbal", time) then
-    snd.start_timer("eqbal", limit, false)
+    snd.start_timer("eqbal", time, false)
   end
 end
 
@@ -71652,6 +71611,7 @@ local function route()
     "dizziness",
     "voyria",
   }
+  local x = ""
   local attack = ""
   local left = "none"
   local right = "none"
@@ -71684,6 +71644,9 @@ local function route()
 	  x = "wt Afflicting "..snd.target..": "..left..", "..right..snd.sep
 	 end
 	end
+  
+  attack = x..attack
+  
   snd.attack(attack, true)
 end
 
@@ -71929,6 +71892,7 @@ local blurb = "A simple venom-only group affliction route."
 
 --the function here will contain the bulk of your logic.
 local function route()
+  local x = ""
   local cmd = ""
   local left = "none"
   local right = "none"
@@ -71961,6 +71925,8 @@ local function route()
       call = "wt Afflicting " .. snd.target .. ": " .. left .. ", " .. right .. snd.sep
     end
   end
+  cmd = x..cmd
+  
   snd.attack(cmd, true)
 end
 
@@ -74156,7 +74122,7 @@ local function route()
 
   if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
     attack = attack ..
-        "quickwield right " .. snd.crozier .. snd.sep
+        "quickwield right crozier" .. snd.sep
   end
   if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then
     attack = attack ..
@@ -74460,7 +74426,7 @@ local function route()
 
   if not attack.find(gmcp.Char.Vitals.wield_right, "crozier") then
     attack = attack ..
-        "quickwield right " .. snd.crozier .. snd.sep
+        "quickwield right crozier" .. snd.sep
   end
   if not attack.find(gmcp.Char.Vitals.wield_left, "buckler") then
     attack = attack ..
@@ -75638,7 +75604,7 @@ local blurb = "A group limbs route."
 --the function here will contain the bulk of your logic.
 local function route()
   local attack = ""
-  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  local limbs = {"left leg", "right leg", "left arm", "right arm"}
   for limb in pairs(limbs) do
   -- ignore last hit and any limbs being resto'd
     if
@@ -75663,7 +75629,7 @@ local function route()
 		attack = attack.."gravity grip "..snd.target
   else
 		if not snd.checkAff(targ:gsub(" ","_").."_crippled") then
-			attack = attack.."gravity erupt "..snd.target..targ
+			attack = attack.."gravity erupt "..snd.target.." "..targ
 		else
 			if hasSkill("Transfix") then
 				attack = attack.."cast transfix "..snd.target
@@ -75877,7 +75843,7 @@ local blurb = "A group limbs route."
 --the function here will contain the bulk of your logic.
 local function route()
   local cmd = ""
-  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  local limbs = {"left leg", "right leg", "left arm", "right arm"}
   for limb in pairs(limbs) do
     -- ignore last hit and any limbs being resto'd
     if limbs[limb] ~= snd.last_hit_limb and limbs[limb] ~= snd.resto_limb then
@@ -76554,7 +76520,7 @@ local function route()
     attack = "pounce "..snd.target..snd.sep.."combo "..snd.target.." jugular jugular"
   elseif not snd.no_parry() then
  		attack = "combo "..snd.target.." bodypunch jugular"
-  elseif not snd.parried_limb == "head" then
+  elseif snd.parried_limb ~= "head" then
     attack = "combo "..snd.target.." jugular skullwhack"
 	else
     attack = "combo "..snd.target.." jugular jugular"
@@ -76593,7 +76559,7 @@ local function route()
 	 if snd.limb_status[limbs[limb]] == "mangled" and mangled == "nothing" then
 	  if string.find(limbs[limb], "leg") and not snd.checkAff("writhe_thighlock") then
 	   mangled = limbs[limb]
-		elseif limbs[limb] == "head" and not snd.checkAff("necklock") then
+		elseif limbs[limb] == "head" and not snd.checkAff("writhe_necklock") then
 		 mangled = limbs[limb]
 		elseif not snd.checkAff("writhe_armpitlock") and (limbs[limb] == "torso" or string.find(limbs[limb], "arm")) then
 		 mangled = limbs[limb]
@@ -78583,7 +78549,7 @@ function snd.bashing_function()
 
       if tonumber(snd.toggles.gauntlet_level) &gt;= 2 then battack = battack .. snd.sep .. "absorb ylem" end       -- if you have a level 2 gauntlet, auto-absorb
 
-      if battack == "" and not snd.defenses.def_reflection.state == "deffed" then -- if the basher couldn't change battack to something from your class, it will give an error
+      if battack == "" and snd.defenses.def_reflection.state ~= "deffed" then -- if the basher couldn't change battack to something from your class, it will give an error
         echo("\nTried to bash, no class ability set.")
       elseif battack ~= "none" then
         snd.actions.set("stand"..snd.sep..battack)
