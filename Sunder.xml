@@ -61905,6 +61905,8 @@ snd.cures = {
   ["purification cascade"] = true,
   ["ravaging begrudge"] = true,
   
+  ["ostension loskiou"] = true,
+  
   ["tiarna renewal"] = true,
   ["chaos mend"] = true,
   ["titan defy"] = true,
@@ -75475,12 +75477,454 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "sciomancer"
+local blurb = "A group damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local gravity = ""
+  local call = ""
+  local attack = ""
+  local pay = ""
+  local health = 100 * (gmcp.Char.Vitals.maxhp)
+
+  cecho("&lt;red&gt;\n" .. snd.gravity .. " " .. tonumber(gmcp.Char.Vitals.shadowprice))
+
+  --			if not snd.checksomeAffs({"impeded","imbued"}, 2) and not snd.used.shield then gravity = "gravity imbue " ..snd.target..snd.sep.."gravity impede " ..snd.target..snd.sep else gravity = "" end
+  if snd.repay &lt; 2 and tonumber(gmcp.Char.Vitals.shadowprice) &gt;= 3 and not snd.checkAff("gloom") then pay =
+    "cast repay" .. snd.sep elseif snd.repay &lt; 1 and tonumber(gmcp.Char.Vitals.shadowprice) == 4 then pay =
+    "cast repay" .. snd.sep else pay = "" end
+
+  if snd.used.shield then
+    if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice hew " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast hew " .. snd.target .. snd.sep
+    end
+  elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+    attack = attack .. "shadowprice voidgaze " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({ "nyctophobia", "haemophilia" }, 2) then
+    attack = attack .. "cast falter " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({ "vomiting", "haemophilia" }, 1) then
+    if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice gloom " .. snd.target .. snd.sep .. "cast fever " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast fever " .. snd.target .. snd.sep
+    end
+  elseif not snd.checksomeAffs({ "clumsiness", "weariness", "lethargy", "paresis" }, 2) then
+    if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 3 and not snd.checkAff("gloom") then
+      attack = attack .. "shadowprice gloom " .. snd.target .. snd.sep .. "shadowprice ruin " ..
+      snd.target .. snd.sep
+    elseif tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice ruin " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast ruin " .. snd.target .. snd.sep
+    end
+  else
+    if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice falter " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast falter " .. snd.target .. snd.sep
+    end
+  end
+  
+  attack = pay .. gravity .. attack
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "sciomancer"
+local blurb = "A group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local gravity = ""
+  local call = ""
+  local attack = ""
+  local pay = ""
+  local health = 100 * (gmcp.Char.Vitals.maxhp)
+
+  cecho("&lt;red&gt;\n" .. snd.gravity .. " " .. tonumber(gmcp.Char.Vitals.shadowprice))
+
+  if not snd.checksomeAffs({ "impeded", "imbued" }, 2) and not snd.used.shield then
+    gravity = "gravity imbue " .. snd.target .. snd.sep .. "gravity impede " .. snd.target .. snd.sep
+  else
+    gravity = ""
+  end
+  if snd.repay &lt; 2 and tonumber(gmcp.Char.Vitals.shadowprice) &gt;= 3 and not snd.checkAff("gloom") then
+    pay = "cast repay" .. snd.sep
+  elseif snd.repay &lt; 1 and tonumber(gmcp.Char.Vitals.shadowprice) == 4 then
+    pay = "cast repay" .. snd.sep
+  else
+    pay = ""
+  end
+
+  if snd.used.shield then
+    if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice hew " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast hew " .. snd.target .. snd.sep
+    end
+  elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+    attack = attack .. "shadowprice voidgaze " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({ "nyctophobia", "haemophilia" }, 2) then
+    attack = attack .. "cast falter " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({ "vomiting", "haemophilia" }, 1) then
+    if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice gloom " .. snd.target .. snd.sep .. "cast fever " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast fever " .. snd.target .. snd.sep
+    end
+  elseif not snd.checksomeAffs({ "clumsiness", "weariness", "lethargy", "paresis" }, 2) then
+    if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 3 and not snd.checkAff("gloom") then
+      attack = attack .. "shadowprice gloom " .. snd.target .. snd.sep .. "shadowprice ruin " ..
+          snd.target .. snd.sep
+    elseif tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice ruin " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast ruin " .. snd.target .. snd.sep
+    end
+  else
+    if tonumber(gmcp.Char.Vitals.shadowprice) &lt; 4 then
+      attack = attack .. "shadowprice falter " .. snd.target .. snd.sep
+    else
+      attack = attack .. "cast falter " .. snd.target .. snd.sep
+    end
+  end
+  
+  attack = pay .. gravity .. attack
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "sciomancer"
+local blurb = "A group limbs route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  for limb in pairs(limbs) do
+  -- ignore last hit and any limbs being resto'd
+    if
+      limbs[limb] ~= snd.last_hit_limb and
+      limbs[limb] ~= snd.resto_limb
+    then
+      if targ == "nothing" then
+        targ = limbs[limb]
+      end
+    end
+  end
+
+	if snd.used.shield then
+   attack = attack.."cast hew "..snd.target
+	elseif gmcp.Char.Vitals.singularity == "" then
+		if hasSkill("Genesis") then
+			attack = attack.."gravity genesis tether"
+		else
+			attack = attack.."gravity singularity"
+		end
+  elseif snd.gravity &lt; 5 then
+		attack = attack.."gravity grip "..snd.target
+  else
+		if not snd.checkAff(targ:gsub(" ","_").."_crippled") then
+			attack = attack.."gravity erupt "..snd.target..targ
+		else
+			if hasSkill("Transfix") then
+				attack = attack.."cast transfix "..snd.target
+			else
+				attack = attack.."cast chill "..snd.target
+			end
+		end
+  end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Runecarver</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "runecarver"
+local blurb = "A group damage route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local gcmd = ""
+  local call = ""
+  local acmd = ""
+  local paycmd = ""
+  local health = 100 * (gmcp.Char.Vitals.maxhp)
+  cecho("&lt;red&gt;\n" .. snd.gravity .. " " .. tonumber(gmcp.Char.Vitals.spiritpact))
+  if snd.repay &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then
+    paycmd = "hex obeisance" .. snd.sep
+  elseif snd.repay &lt; 1 and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then
+    paycmd = "hex obeisance" .. snd.sep
+  else
+    paycmd = ""
+  end
+  if snd.used.shield then
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd = acmd .. "spiritpact imperil " .. snd.target .. snd.sep
+    else
+      acmd = acmd .. "hex imperil " .. snd.target .. snd.sep
+    end
+  elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+    acmd = acmd .. "spiritpact mystify " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({"nyctophobia", "haemophilia"}, 2) then
+    acmd = acmd .. "hex anathemise " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({"vomiting", "haemophilia"}, 1) then
+    if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd =
+        acmd ..
+        "spiritpact despair " ..
+        snd.target ..
+        snd.sep ..
+        "hex malady " ..
+        snd.target ..
+        snd.sep
+    else
+      acmd = acmd .. "hex malady " .. snd.target .. snd.sep
+    end
+  elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 2) then
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 3 and not snd.checkAff("gloom") then
+      acmd =
+        acmd ..
+        "spiritpact despair " ..
+        snd.target ..
+        snd.sep ..
+        "spiritpact enervate " ..
+        snd.target ..
+        snd.sep
+    elseif tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd = acmd .. "spiritpact enervate " .. snd.target .. snd.sep
+    else
+      acmd = acmd .. "hex enervate " .. snd.target .. snd.sep
+    end
+  else
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd = acmd .. "spiritpact anathemise " .. snd.target .. snd.sep
+    else
+      cmd = acmd .. "hex anathemise " .. snd.target .. snd.sep
+    end
+  end
+  cmd = paycmd .. acmd
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "runecarver"
+local blurb = "A group affs route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local gcmd = ""
+  local call = ""
+  local acmd = ""
+  local paycmd = ""
+  local health = 100 * (gmcp.Char.Vitals.maxhp)
+  cecho("&lt;red&gt;\n" .. snd.gravity .. " " .. tonumber(gmcp.Char.Vitals.spiritpact))
+  if not snd.checksomeAffs({"fungal_invasion", "inoculated"}, 2) and not snd.used.shield then
+    gcmd = "spore inoculate " .. snd.target .. snd.sep .. "spore infect " .. snd.target .. snd.sep
+  else
+    gcmd = ""
+  end
+  if snd.repay &lt; 2 and tonumber(gmcp.Char.Vitals.spiritpact) &gt;= 3 and not snd.checkAff("gloom") then
+    paycmd = "hex obeisance" .. snd.sep
+  elseif snd.repay &lt; 1 and tonumber(gmcp.Char.Vitals.spiritpact) == 4 then
+    paycmd = "hex obeisance" .. snd.sep
+  else
+    paycmd = ""
+  end
+  if snd.used.shield then
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd = acmd .. "spiritpact imperil " .. snd.target .. snd.sep
+    else
+      acmd = acmd .. "hex imperil " .. snd.target .. snd.sep
+    end
+  elseif not snd.checkAff("voidgaze") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+    acmd = acmd .. "spiritpact mystify " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({"nyctophobia", "haemophilia"}, 2) then
+    acmd = acmd .. "hex anathemise " .. snd.target .. snd.sep
+  elseif not snd.checksomeAffs({"vomiting", "haemophilia"}, 1) then
+    if not snd.checkAff("gloom") and tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd =
+        acmd ..
+        "spiritpact despair " ..
+        snd.target ..
+        snd.sep ..
+        "hex malady " ..
+        snd.target ..
+        snd.sep
+    else
+      acmd = acmd .. "hex malady " .. snd.target .. snd.sep
+    end
+  elseif not snd.checksomeAffs({"clumsiness", "weariness", "lethargy", "paresis"}, 2) then
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 3 and not snd.checkAff("gloom") then
+      acmd =
+        acmd ..
+        "spiritpact despair " ..
+        snd.target ..
+        snd.sep ..
+        "spiritpact enervate " ..
+        snd.target ..
+        snd.sep
+    elseif tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd = acmd .. "spiritpact enervate " .. snd.target .. snd.sep
+    else
+      acmd = acmd .. "hex enervate " .. snd.target .. snd.sep
+    end
+  else
+    if tonumber(gmcp.Char.Vitals.spiritpact) &lt; 4 then
+      acmd = acmd .. "spiritpact anathemise " .. snd.target .. snd.sep
+    else
+      cmd = acmd .. "hex anathemise " .. snd.target .. snd.sep
+    end
+  end
+  cmd = paycmd .. gcmd .. acmd
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "runecarver"
+local blurb = "A group limbs route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  limbs = {"left leg", "right leg", "left arm", "right arm"}
+  for limb in pairs(limbs) do
+    -- ignore last hit and any limbs being resto'd
+    if limbs[limb] ~= snd.last_hit_limb and limbs[limb] ~= snd.resto_limb then
+      if targ == nil then
+        targ = limbs[limb]
+      end
+    end
+  end
+  if snd.used.shield then
+    cmd = cmd .. "hex imperil " .. snd.target
+  elseif gmcp.Char.Vitals.morass == "none" then
+    if hasSkill("Colonisation") then
+      cmd = cmd .. "spore colonise clutchgill"
+    else
+      cmd = cmd .. "spore germinate"
+    end
+  elseif not table.contains(snd.items, snd.morassID) then
+    cmd = cmd .. "spore transplant"
+  elseif snd.gravity &lt; 5 then
+    cmd = cmd .. "spore ensnare " .. snd.target
+  else
+    if not snd.checkAff(targ:gsub(" ", "_") .. "_crippled") then
+      cmd = cmd .. "spore degrade " .. snd.target .. " " .. targ
+    else
+      if hasSkill("Bewitch") and snd.balance.sorcery_transfix then
+        cmd = cmd .. "runecarve bewitch " .. snd.target
+      else
+        cmd = cmd .. "hex numb " .. snd.target
+      end
+    end
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
