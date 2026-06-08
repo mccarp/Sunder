@@ -72175,12 +72175,822 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "indorani"
+local blurb = "Spam decay for damage."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  if snd.used.shield then
+		attack = "touch hammer "..snd.target
+  else
+   	attack = "decay "..snd.target
+  end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "indorani"
+local blurb = "A group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "asthma",
+    --"aeon",
+    "perplexity",
+    "impatience",
+    "clumsiness",
+    "weariness",
+    "stupidity",
+    "anorexia",
+    "epilepsy",
+    "ringing_ears",
+    "vomiting",
+    "lethargy",
+    "confusion",
+    "recklessness",
+    "superstition",
+  }
+  local attack = ""
+  local raw_affs_to_fling = {}
+  local cards = { one = { affliction = "", card = "" }, two = { affliction = "", card = "" } }
+
+-- all instakill conditions(deform/vivi) or other add ons should go here as elseif.
+  if snd.used.shield then
+    attack = "touch hammer " .. snd.target
+    -- vivi/deform checks would prolly go here
+  elseif snd.aff_count_all() &gt; 10 then
+    attack = "deform " .. snd.target
+  else -- No special attacks, time to run through our aff list defined above and see what we want to give most.
+    for i in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[i]) then
+        if snd.giving[i] == "aeon" then
+          table.insert(raw_affs_to_fling, snd.giving[i])
+        elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
+          table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
+        end
+      end
+    end
+
+    for k, v in ipairs(raw_affs_to_fling) do -- run through the raw affs
+      if cards.one.affliction == "" then   -- fill in card one, could start with card two if you want to work around dodge CD
+        if snd.cardshapes.indorani[v].card == "adder" then
+          if not snd.adder_attached then   -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.indorani[v].card
+          end
+        else
+          cards.one.affliction = v
+          cards.one.card = snd.cardshapes.indorani[v].card
+        end
+      elseif cards.one.card ~= snd.cardshapes.indorani[v].card and cards.two.affliction == "" then -- if card types are different and haven't already set card two
+        if snd.cardshapes.indorani[v].card == "adder" then
+          if not snd.adder_attached then                                                         -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.indorani[v].card
+          end
+        else
+          cards.two.affliction = v
+          cards.two.card = snd.cardshapes.indorani[v].card
+        end
+      end
+    end
+
+    -- If the card is an adder venom affliction, convert the affliction to the venom.
+    if cards.one.card == "adder" then cards.one.affliction = snd.effects[cards.one.affliction] end
+    if cards.two.card == "adder" then cards.two.affliction = snd.effects[cards.two.affliction] end
+
+    if snd.need_leech_aura then
+      attack = "leech " .. snd.target
+    end
+
+    if snd.adder_ready then
+      attack = attack .. snd.sep .. "activate adder " .. snd.target
+    end
+
+    -- Syntax should be the same unless you have arti deck/regular deck, change next line as necessary
+    attack = attack ..
+    snd.sep ..
+    "outc blank as " ..
+    cards.one.card ..
+    snd.sep ..
+    "outc blank as " ..
+    cards.two.card ..
+    snd.sep ..
+    "fling " ..
+    cards.one.card ..
+    " " .. cards.one.affliction .. " and " .. cards.two.card .. " " .. cards.two.affliction .. " at " .. snd.target
+  end
+
+  if snd.toggles.affcalling and not snd.target_gone then
+    call = "wt [Indorani] Afflicting " .. snd.target ..
+    ": " .. cards.one.affliction .. ", " .. cards.two.affliction .. snd.sep
+    attack = call .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "indorani"
+local blurb = "A basic vivisect route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+
+  snd.giving = {"left_leg_crippled", "right_leg_crippled","left_arm_crippled", "right_arm_crippled",}
+  local attack = ""
+  if snd.used.shield then
+    attack = "touch hammer "..snd.target
+  elseif snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled", "leeched_aura"}, 5) then
+    attack = "vivisect "..snd.target
+  elseif not snd.checksomeAffs(snd.giving, 4) then
+    for v in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[v])  then
+        attack = "shrivel "..snd.target.." "..snd.giving[v]:gsub("_", " "):gsub("crippled", "")
+        break
+      end
+    end
+  else
+    attack = "decay "..snd.target
+  end
+  
+  if snd.need_leech_aura then
+    attack = "leech "..snd.target..snd.sep..attack
+  end 
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "indorani"
+local blurb = "Another group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "asthma",
+    --"aeon",
+    "perplexity",
+    "impatience",
+    "clumsiness",
+    "weariness",
+    "stupidity",
+    "anorexia",
+    "epilepsy",
+    "ringing_ears",
+    "vomiting",
+    "lethargy",
+    "confusion",
+    "recklessness",	
+  }
+
+  local command = ""
+  local call = ""
+  local touse = {}
+  local cattack = ""
+  local slattack = ""
+  local lattack = ""
+  local aattack = ""
+  local tohit = {}
+  local missing = snd.missingAff("stupidity/paresis/anorexia/asthma", "/")  
+  local attack = ""
+  local raw_affs_to_fling = {}
+  local cards = {one = {affliction = "", card = ""}, two = {affliction = "", card = ""}}
+ 
+cecho("&lt;yellow&gt; Affs: "..#snd.target_has)
+
+-- all instakill conditions(deform/vivi) or other add ons should go here as elseif.
+ 
+  if snd.used.shield then
+		attack = "touch hammer "..snd.target
+  -- vivi/deform checks would prolly go here
+    	  
+  elseif snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled", "left_arm_crippled", "right_arm_crippled"}, 4) and snd.checkAff("leeched_aura") then 
+      attack = "vivisect "..snd.target..snd.sep  
+
+elseif not snd.need_leech_aura and snd.deform and snd.aff_count_all() &gt;= 10 then
+      attack = attack..snd.sep.."deform "..snd.target..snd.sep
+    
+  elseif not snd.deform and snd.checksomeAffs({"paresis", "stupidity", "fallen", "dizziness"}, 2) then
+      attack = "decay " ..snd.target..snd.sep
+    
+	else -- No special attacks, time to run through our aff list defined above and see what we want to give most.
+		for i in pairs(snd.giving) do
+			if not snd.checkAff(snd.giving[i]) then
+        if i == "aeon" then
+            table.insert(raw_affs_to_fling, snd.giving[i])
+				elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
+					table.insert(raw_affs_to_fling, snd.giving[i]) -- insert into a raw aff list that they don't have, based on priority chosen above
+				end
+			end
+		end
+   
+    for k, v in ipairs(raw_affs_to_fling) do -- run through the raw affs
+      if cards.one.affliction == "" then -- fill in card one, could start with card two if you want to work around dodge CD
+        if snd.cardshapes.indorani[v].card == "adder" then
+          if not snd.adder_attached then-- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.indorani[v].card
+          end
+        else
+          cards.one.affliction = v
+          cards.one.card = snd.cardshapes.indorani[v].card
+        end
+      elseif cards.one.card ~= snd.cardshapes.indorani[v].card and cards.two.affliction == "" then -- if card types are different and haven't already set card two
+        if snd.cardshapes.indorani[v].card == "adder" then
+          if not snd.adder_attached then -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.indorani[v].card
+          end
+        else
+          cards.two.affliction = v
+          cards.two.card = snd.cardshapes.indorani[v].card
+        end
+      end
+    end
+
+    -- If the card is an adder venom affliction, convert the affliction to the venom.
+    if cards.one.card == "adder" then cards.one.affliction = snd.effects[cards.one.affliction] end
+    if cards.two.card == "adder" then cards.two.affliction = snd.effects[cards.two.affliction] end
+    
+    if snd.need_leech_aura then
+	    attack = "leech "..snd.target
+    end
+  
+    if snd.adder_ready then
+      attack = attack..snd.sep.."activate adder "..snd.target
+    end
+ 
+
+    if snd.balance.envelop == true and snd.checksomeAffs({"left_leg_crippled", "right_leg_crippled", "left_arm_crippled", "right_arm_crippled", "anorexia", "indifference"}, 2) then
+      slattack = attack.."order slime envelop "..snd.target..snd.sep
+  end
+    
+    if snd.balance.chimera == true then cattack = attack.."order hound kill "..snd.target..snd.sep.."order chimera headbutt "..snd.target..snd.sep
+
+    elseif snd.balance.chimera == false and snd.deformed == true then cattack = attack.."order hound kill " ..snd.target..snd.sep
+
+    elseif snd.balance.chimera == true and snd.deformed == false then cattack = attack.."order chimera roar " ..snd.target..snd.sep
+  
+  end
+
+    -- Syntax should be the same unless you have arti deck/regular deck, change next line as necessary
+--  		attack = attack..snd.sep.."outc blank as "..cards.one.card..snd.sep.."outc blank as "..cards.two.card..snd.sep.."fling "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
+    attack = slattack..cattack..attack..snd.sep.."outc blank as "..cards.one.card..snd.sep.."outc blank as "..cards.two.card..snd.sep.."fling "..cards.one.card.." "..cards.one.affliction.." and "..cards.two.card.." "..cards.two.affliction.." at "..snd.target
+    
+    call = "wt Afflicting "..snd.target..": "..cards.one.affliction..", "..cards.two.affliction
+
+	end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Oneiromancer</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "oneiromancer"
+local blurb = "Just spam starlight!"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  else
+    cmd = "starlight " .. snd.target
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>dmg2</name>
+						<packageName></packageName>
+						<script>local alias = "dmg2"
+local class = "oneiromancer"
+local blurb = "Deform and damage"
+
+--the function here will contain the bulk of your logic.
+local function route()
+snd.giving =
+  {
+    "asthma",
+    "impatience",
+    "clumsiness",
+    "perplexity",
+    "weariness",
+    "stupidity",
+    "anorexia",
+    "epilepsy",
+    "ringing_ears",
+    "vomiting",
+    "lethargy",
+    "confusion",
+    "recklessness",
+    "superstition",
+    "mania",
+  }
+  local cmd = ""
+  local raw_affs_to_fling = {}
+  local cards = {one = {affliction = "", card = ""}, two = {affliction = "", card = ""}}
+  if snd.used.shield then
+    cmd = "order cerberus attack " .. snd.target .. snd.sep
+    -- elseif snd.theytumbling then
+    -- cmd ="unfurl hourglass and favor at "..snd.target..snd.sep
+  elseif
+    snd.checksomeAffs(
+      {
+        "left_arm_crippled",
+        "right_arm_crippled",
+        "left_leg_crippled",
+        "right_leg_crippled",
+        "leeched_aura",
+      },
+      5
+    )
+  then
+    cmd = "vanquish " .. snd.target
+  elseif not snd.need_deform then
+    cmd = "starlight " .. snd.target .. snd.sep
+  elseif snd.checksomeAffs({"anorexia", "asthma"}, 2) and not snd.checkAff("slickness") then
+    cmd = "impel athame at " .. snd.target .. " gecko" .. snd.sep
+  else
+    -- No special attacks, time to run through our aff list defined above and see what we want to give most.
+    for i in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[i]) then
+        if snd.giving[i] == "aeon" then
+          if snd.checkAff("clumsiness") or snd.checkAff("weariness") then
+            table.insert(raw_affs_to_fling, snd.giving[i])
+          end
+        elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
+          table.insert(raw_affs_to_fling, snd.giving[i])
+          -- insert into a raw aff list that they don't have, based on priority chosen above
+        end
+      end
+    end
+    for k, v in ipairs(raw_affs_to_fling) do
+      -- run through the raw affs
+      if cards.one.affliction == "" then
+        -- fill in card one, could start with card two if you want to work around dodge CD
+        if snd.cardshapes.oneiromancer[v].card == "diamond" then
+          if not snd.adder_attached then
+            -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.oneiromancer[v].card
+          end
+        else
+          cards.one.affliction = v
+          cards.one.card = snd.cardshapes.oneiromancer[v].card
+        end
+      elseif
+        cards.one.card ~= snd.cardshapes.oneiromancer[v].card and cards.two.affliction == ""
+      then
+        -- if card types are different and haven't already set card two
+        if snd.cardshapes.oneiromancer[v].card == "diamond" then
+          if not snd.adder_attached then
+            -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.oneiromancer[v].card
+          end
+        else
+          cards.two.affliction = v
+          cards.two.card = snd.cardshapes.oneiromancer[v].card
+        end
+      end
+    end
+    -- If the card is an adder venom affliction, convert the affliction to the venom.
+    if cards.one.card == "diamond" then
+      cards.one.affliction = snd.effects[cards.one.affliction]
+    end
+    if cards.two.card == "diamond" then
+      cards.two.affliction = snd.effects[cards.two.affliction]
+    end
+  end
+  if not snd.loyalsattacking then
+    cmd = "order loyals kill " .. snd.target .. snd.sep .. cmd
+  end
+  if snd.need_leech_aura then
+    cmd = "unspool " .. snd.target
+  end
+  if snd.balance.soulmaster and not snd.checkAff("slickness") then
+    cmd = "order " .. snd.target .. " apply epidermal to head" .. snd.sep
+  end
+  if snd.balance.envelop then
+    if not snd.checksomeAffs({"anorexia", "slickness", "asthma"}, 1) then
+      cmd = "order blob envelop" .. snd.sep
+    end
+  end
+  if not snd.need_deform then
+    cmd = cmd .. snd.sep .. "order quetzal wingbeat " .. snd.target .. snd.sep
+  end
+  if snd.need_deform then
+    if snd.aff_count_all() &gt; 11 then
+      cmd = "disjunct " .. snd.target .. snd.sep
+    end
+  end
+  if snd.adder_ready then
+    cmd = cmd .. snd.sep .. "activate diamond " .. snd.target .. snd.sep
+  end
+  cmd =
+    cmd ..
+    snd.sep ..
+    "unfurl " ..
+    cards.one.card ..
+    " " ..
+    cards.one.affliction ..
+    " and " ..
+    cards.two.card ..
+    " " ..
+    cards.two.affliction ..
+    " at " ..
+    snd.target
+  if snd.toggles.affcalling and not snd.target_gone then
+    call =
+      "wt Afflicting " ..
+      snd.target ..
+      ": " ..
+      cards.one.affliction ..
+      ", " ..
+      cards.two.affliction ..
+      snd.sep
+    cmd = call .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "oneiromancer"
+local blurb = "A group affliction route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving =
+  {
+    "asthma",
+    "perplexity",
+    "impatience",
+    "clumsiness",
+    "weariness",
+    "stupidity",
+    "anorexia",
+    "epilepsy",
+    "ringing_ears",
+    "vomiting",
+    "lethargy",
+    "confusion",
+    "recklessness",
+    "superstition",
+  }
+  local cmd = ""
+  local raw_affs_to_fling = {}
+  local cards = {one = {affliction = "", card = ""}, two = {affliction = "", card = ""}}
+  -- all instakill conditions(deform/vivi) or other add ons should go here as elseif.
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+    -- vivi/deform checks would prolly go here
+  elseif snd.theytumbling then
+    cmd = "impel athame at " .. snd.target .. " prefarar" .. snd.sep
+  elseif snd.aff_count_all() &gt; 10 then
+    cmd = "starlight " .. snd.target
+  else
+    for i in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[i]) then
+        if snd.giving[i] == "aeon" then
+          table.insert(raw_affs_to_fling, snd.giving[i])
+        elseif not table.contains(raw_affs_to_fling, snd.giving[i]) then
+          table.insert(raw_affs_to_fling, snd.giving[i])
+          -- insert into a raw aff list that they don't have, based on priority chosen above
+        end
+      end
+    end
+    for k, v in ipairs(raw_affs_to_fling) do
+      -- run through the raw affs
+      if cards.one.affliction == "" then
+        -- fill in card one, could start with card two if you want to work around dodge CD
+        if snd.cardshapes.oneiromancer[v].card == "diamond" then
+          if not snd.adder_attached then
+            -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.oneiromancer[v].card
+          end
+        else
+          cards.one.affliction = v
+          cards.one.card = snd.cardshapes.oneiromancer[v].card
+        end
+      elseif
+        cards.one.card ~= snd.cardshapes.oneiromancer[v].card and cards.two.affliction == ""
+      then
+        -- if card types are different and haven't already set card two
+        if snd.cardshapes.oneiromancer[v].card == "diamond" then
+          if not snd.adder_attached then
+            -- Make sure that if we're picking an adder venom, we haven't already thrown adder
+            cards.one.affliction = v
+            cards.one.card = snd.cardshapes.oneiromancer[v].card
+          end
+        else
+          cards.two.affliction = v
+          cards.two.card = snd.cardshapes.oneiromancer[v].card
+        end
+      end
+    end
+    -- If the card is an adder venom affliction, convert the affliction to the venom.
+    if cards.one.card == "diamond" then
+      cards.one.affliction = snd.effects[cards.one.affliction]
+    end
+    if cards.two.card == "diamond" then
+      cards.two.affliction = snd.effects[cards.two.affliction]
+    end
+    if snd.need_leech_aura then
+      cmd = "unspool " .. snd.target
+    end
+    if snd.adder_ready then
+      cmd = cmd .. snd.sep .. "activate diamond " .. snd.target
+    end
+    -- Syntax should be the same unless you have arti deck/regular deck, change next line as necessary
+    -- Similarly, if you're using config auto_outc, feel free to remove outcping paper
+    cmd =
+      cmd ..
+      snd.sep ..
+      "outc sheet as " ..
+      cards.one.card ..
+      snd.sep ..
+      "outc sheet as " ..
+      cards.two.card
+    cmd =
+      cmd ..
+      snd.sep ..
+      "unfurl " ..
+      cards.one.card ..
+      " " ..
+      cards.one.affliction ..
+      " and " ..
+      cards.two.card ..
+      " " ..
+      cards.two.affliction ..
+      " at " ..
+      snd.target
+    if snd.toggles.affcalling and not snd.target_gone then
+      call =
+        "wt Afflicting " ..
+        snd.target ..
+        ": " ..
+        cards.one.affliction ..
+        ", " ..
+        cards.two.affliction ..
+        snd.sep
+      cmd = call .. cmd
+    end
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "oneiromancer"
+local blurb = "A basic vanquish route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {"left_leg_crippled", "right_leg_crippled", "left_arm_crippled", "right_arm_crippled"}
+  local cmd = ""
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  elseif snd.theytumbling then
+    cmd = "impel athame at " .. snd.target .. " prefarar" .. snd.sep
+  elseif
+    snd.checksomeAffs(
+      {
+        "left_arm_crippled",
+        "right_arm_crippled",
+        "left_leg_crippled",
+        "right_leg_crippled",
+        "leeched_aura",
+      },
+      5
+    )
+  then
+    cmd = "vanquish " .. snd.target
+  elseif not snd.checksomeAffs(snd.giving, 4) then
+    for v in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[v]) then
+        cmd =
+          "misfortune " .. snd.target .. " " .. snd.giving[v]:gsub("_", " "):gsub("crippled", "")
+        break
+      end
+    end
+  else
+    cmd = "starlight " .. snd.target
+  end
+  if snd.need_leech_aura then
+    cmd = "unspool " .. snd.target .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>vivi</name>
+						<packageName></packageName>
+						<script>local alias = "vivi"
+local class = "oneiromancer"
+local blurb = "A more complicated vanquish route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"}
+  local hp = 100 * (gmcp.Char.Vitals.hp / gmcp.Char.Vitals.maxhp)
+  local cmd = ""
+  if hp &lt;= 40 and snd.balance.crystal then
+    cmd = "touch crystal"
+  elseif snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  elseif hp &lt;= 75 then
+    cmd = "unfurl flower at me"
+  elseif snd.aff_tally() &gt; 3 and snd.balance.fool then
+    cmd = "unfurl fire at me"
+  elseif snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  elseif
+    snd.checksomeAffs(
+      {
+        "left_arm_crippled",
+        "right_arm_crippled",
+        "left_leg_crippled",
+        "right_leg_crippled",
+        "leeched_aura",
+      },
+      5
+    )
+  then
+    cmd = "vanquish " .. snd.target
+  elseif not snd.checksomeAffs(snd.giving, 4) then
+    for v in pairs(snd.giving) do
+      if not snd.checkAff(snd.giving[v]) then
+        cmd =
+          "misfortune " .. snd.target .. " " .. snd.giving[v]:gsub("_", " "):gsub("crippled", "")
+        break
+      end
+    end
+  elseif snd.aff_count_all() &gt; 10 then
+    cmd = "disjunct " .. snd.target
+  else
+    cmd = "chill " .. snd.target
+  end
+  if snd.need_leech_aura then
+    cmd = "unspool " .. snd.target .. snd.sep .. cmd
+  end
+  if snd.balance.chimera then
+    cmd = "order quetzal croon" .. snd.sep .. cmd
+  end
+  if snd.balance.envelop and snd.balance.soulmaster and cmd:find("anorexia") then
+    cmd =
+      "order blob envelop" ..
+      snd.sep ..
+      cmd ..
+      snd.sep ..
+      "order " ..
+      snd.target ..
+      " apply restoration to arms"
+  end
+  if not snd.loyalsattacking then
+    cmd = "order loyals kill " .. snd.target .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -72643,7 +73453,7 @@ end</script>
 					<packageName></packageName>
 					<script>local alias = "aff"
 local class = "infiltrator"
-local blurb = "An afflictions route with hypnosis"
+local blurb = "An affliction route with hypnosis"
 
 --the function here will contain the bulk of your logic.
 local function route()
@@ -72814,12 +73624,1126 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "luminary"
+local blurb = "A group damage route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = "contemplate " .. snd.target .. snd.sep
+  snd.giving_battle =
+    {
+      "impatience",
+      "ringing_ears",
+      "vertigo",
+      "stupidity",
+      "self_pity",
+      "mania",
+      "migraine",
+      "anorexia",
+    }
+  snd.giving_chasten =
+    {
+      "hypochondria",
+      "self_loathing",
+      "agony",
+      "lethargy",
+      "recklessness",
+      "justice",
+      "dementia",
+      "stupidity",
+      "anorexia",
+      "paranoia",
+      "lethargy",
+    }
+  if not cmd.find(gmcp.Char.Vitals.wield_right, "mace") then
+    cmd = cmd .. "quickwield right mace" .. snd.sep
+  end
+  if not cmd.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    cmd = cmd .. "quickwield left buckler" .. snd.sep
+  end
+  local battle = "none"
+  local chasten = "none"
+  if snd.balance.battle then
+    for i in pairs(snd.giving_battle) do
+      if not snd.checkAff(snd.giving_battle[i]) and battle == "none" then
+        battle = snd.giving_battle[i]
+      end
+    end
+  end
+  for i in pairs(snd.giving_chasten) do
+    if
+      not snd.checkAff(snd.giving_chasten[i]) and
+      chasten == "none" and
+      snd.giving_chasten[i] ~= battle
+    then
+      chasten = snd.giving_chasten[i]
+    end
+  end
+  if snd.balance.battle then
+    cmd = cmd .. snd.sep .. "angel battle " .. snd.target .. " " .. battle .. snd.sep
+    if snd.toggles.affcalling and not snd.target_gone then
+      cmd = "wt Battle " .. snd.target .. ": " .. battle .. snd.sep .. cmd
+    end
+  end
+  if snd.used.shield then
+    cmd = cmd .. "shield raze " .. snd.target .. snd.sep
+  elseif snd.mana_percent &lt; 40 then
+    cmd = cmd .. "angel absolve " .. snd.target
+  elseif snd.proned() then
+    cmd = cmd .. "quickwield left tower" .. snd.sep .. "shield overwhelm " .. snd.target .. snd.sep
+  elseif snd.used.rebounding then
+    cmd = cmd .. "shield raze " .. snd.target .. snd.sep
+  else
+    cmd = cmd .. "smite " .. snd.target .. " secret" .. snd.sep .. "angel power" .. snd.sep
+  end
+  if snd.toggles.affcalling and not snd.target_gone then
+    cmd = cmd .. "wt Chasten " .. snd.target .. ": " .. chasten .. snd.sep
+  end
+  cmd = cmd .. " chasten " .. snd.target .. " " .. chasten
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>mouse</name>
+						<packageName></packageName>
+						<script>local alias = "mouse"
+local class = "luminary"
+local blurb = "A newbie group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = "contemplate " .. snd.target .. snd.sep
+  snd.giving_shield = {"no_courage", "paresis", "weariness", "asthma"}
+  snd.giving_battle =
+    {"impatience", "ringing_ears", "stupidity", "vertigo", "self_pity", "migraine"}
+  snd.giving_chasten =
+    {
+      "self_loathing",
+      "hypochondria",
+      "stupidity",
+      "lethargy",
+      "dementia",
+      "recklessness",
+      "justice",
+      "paranoia",
+    }
+  if not cmd.find(gmcp.Char.Vitals.wield_right, "mace") then
+    cmd = cmd .. "quickwield right mace" .. snd.sep
+  end
+  if not cmd.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    cmd = cmd .. "quickwield left buckler" .. snd.sep
+  end
+  local shield = "none"
+  local battle = "none"
+  local chasten = "none"
+  if snd.mana_percent &lt; 40 and not snd.used.shield then
+    cmd = "angel absolve " .. snd.target
+  elseif snd.proned() then
+    cmd = "shield overwhelm " .. snd.target
+  elseif table.contains(snd.target_has, "no_courage") then
+    cmd = "evoke transfixion " .. snd.target
+  else
+    if snd.balance.battle then
+      for i in pairs(snd.giving_battle) do
+        if not snd.checkAff(snd.giving_battle[i]) and battle == "none" then
+          battle = snd.giving_battle[i]
+        end
+      end
+    end
+    if snd.used.shield then
+      shield = "shield raze"
+    else
+      for i in pairs(snd.giving_shield) do
+        if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
+          shield = snd.spirituality_attacks[snd.giving_shield[i]]
+        end
+      end
+    end
+    if shield == "none" then
+      shield = "shield strike"
+    end
+    if snd.used.rebounding and shield ~= "facesmash" then
+      shield = "shield raze"
+    end
+    for i in pairs(snd.giving_chasten) do
+      if
+        not snd.checkAff(snd.giving_chasten[i]) and
+        chasten == "none" and
+        snd.giving_chasten[i] ~= battle
+      then
+        chasten = snd.giving_chasten[i]
+      end
+    end
+    if battle ~= "none" then
+      if snd.toggles.affcalling and not snd.target_gone then
+        cmd = "wt Battle " .. snd.target .. ": " .. battle .. snd.sep
+      end
+      cmd = cmd .. "angel battle " .. snd.target .. " " .. battle .. snd.sep
+    end
+    cmd = cmd .. shield .. " " .. snd.target .. snd.sep
+    if shield ~= "slam" and shield ~= "overwhelm" then
+      if chasten == "none" then
+        cmd = cmd .. "chasten " .. snd.target
+      else
+        if snd.toggles.affcalling and not snd.target_gone then
+          cmd = cmd .. "wt Chasten " .. snd.target .. ": " .. chasten .. snd.sep
+        end
+        cmd = cmd .. "chasten " .. snd.target .. " " .. chasten
+      end
+    end
+  end
+  if cmd.find(cmd, "overwhelm") and not cmd.find(gmcp.Char.Vitals.wield_left, "tower") then
+    cmd = cmd .. snd.sep .. "quickwield left tower"
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "luminary"
+local blurb = "A group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local total_aff_count = snd.aff_count_all()
+  local mental_aff_count = snd.aff_count_mental()
+  local cmd = "contemplate " .. snd.target .. snd.sep
+  if not cmd.find(gmcp.Char.Vitals.wield_right, "mace") then
+    cmd = cmd .. "quickwield right mace" .. snd.sep
+  end
+  if not cmd.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    cmd = cmd .. "quickwield left buckler" .. snd.sep
+  end
+  snd.giving_shield =
+    {"no_courage", "paresis", "weariness", "confusion", "writhe_transfix", "asthma", "misery"}
+  snd.giving_battle = {"impatience", "stupidity", "ringing_ears", "self_pity", "vertigo"}
+  snd.giving_chasten =
+    {
+      "hypochondria",
+      "stupidity",
+      "recklessness",
+      "lethargy",
+      "justice",
+      "dementia",
+      "paranoia",
+      "anorexia",
+    }
+  local shield = "none"
+  local battle = "none"
+  local chasten = "none"
+  --Absolve check
+  if snd.mana_percent &lt; 40 and not snd.used.shield then
+    cmd = "angel absolve " .. snd.target
+  else
+    --battle aff pick
+    if snd.balance.battle then
+      for i in pairs(snd.giving_battle) do
+        if not snd.checkAff(snd.giving_battle[i]) and battle == "none" then
+          battle = snd.giving_battle[i]
+        end
+      end
+    end
+    --If they have shield we can do nothing
+    if snd.used.shield then
+      shield = "shield raze"
+      --If they are prone/psuedo prone and have 5 affs, smack them
+    elseif total_aff_count &gt;= 5 and snd.proned() then
+      shield = "shield overwhelm " .. snd.target
+      --We need to build up disrupt/affs.
+    else
+      for i in pairs(snd.giving_shield) do
+        if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
+          shield = snd.spirituality_attacks[snd.giving_shield[i]]
+        end
+      end
+      --If they have 2 mental affs and confusion is one of them, disrupt ASAP to lock them in place.
+      if
+        mental_aff_count &gt;= 2 and
+        snd.checkAff("confusion") and
+        not snd.checkAff("disrupted") and
+        total_aff_count &lt; 7
+      then
+        shield = "shield crash"
+      end
+    end
+    --Dazzle can hit through rebounding, check if they have confusion first and a few affs
+    if snd.used.rebounding then
+      if snd.checkAff("confusion") or total_aff_count &lt; 3 then
+        shield = "shield raze"
+      else
+        shield = "perform dazzle"
+      end
+    end
+    --Chasten aff pick
+    for i in pairs(snd.giving_chasten) do
+      if
+        not snd.checkAff(snd.giving_chasten[i]) and
+        chasten == "none" and
+        snd.giving_chasten[i] ~= battle
+      then
+        chasten = snd.giving_chasten[i]
+      end
+    end
+    --Start building our attack - battle first
+    if battle ~= "none" then
+      if snd.toggles.affcalling and not snd.target_gone then
+        cmd = "wt Battle " .. snd.target .. ": " .. battle .. snd.sep
+      end
+      cmd = cmd .. "angel battle " .. snd.target .. " " .. battle .. snd.sep
+    end
+    --Add shield/evoke/perform attacks
+    cmd = cmd .. shield .. " " .. snd.target .. snd.sep
+    --Add chasten choice
+    if
+      not (
+        shield:find("slam") or
+        shield:find("transfix") or
+        shield:find("dazzle") or
+        shield:find("crash") or
+        shield:find("facesmash")
+      )
+    then
+      if chasten == "none" then
+        cmd = cmd .. "chasten " .. snd.target
+      else
+        if snd.toggles.affcalling and not snd.target_gone then
+          cmd = cmd .. "wt Chasten " .. snd.target .. ": " .. chasten .. snd.sep
+        end
+        cmd = cmd .. "chasten " .. snd.target .. " " .. chasten
+      end
+    end
+  end
+  --Are we gonna smack them with overwhelm? Let's make it hurt.
+  if cmd.find(cmd, "overwhelm") and not cmd.find(gmcp.Char.Vitals.wield_left, "tower") then
+    cmd = cmd .. snd.sep .. "quickwield left tower"
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "luminary"
+local blurb = "A group limbs route"
+
+
+local limbList = {"left leg", "right leg", "left arm", "right arm"}
+local battleStack =
+  {"impatience", "mania", "stupidity", "ringing_ears", "vertigo", "self_pity", "migraine"}
+  
+local chastenStack =
+  {
+    "anorexia",
+    "recklessness",
+    "justice",
+    "stupidity",
+    "self_loathing",
+    "paranoia",
+    "hypochondria",
+    "lethargy",
+  }
+local overwhelmChasten =
+  {
+    "recklessness",
+    "anorexia",
+    "masochism",
+    "stupidity",
+    "self_loathing",
+    "paranoia",
+    "hypochondria",
+    "lethargy",
+  }
+local overwhelmBattle =
+  {"ringing_ears", "impatience", "mania", "stupidity", "vertigo", "self_pity", "migraine"}
+
+local function getAff(stack)
+  for _, aff in ipairs(stack) do
+    if not snd.checkAff(aff) then
+      return aff
+    end
+  end
+  return "none"
+end
+
+
+local function getSmashLimb()
+  for _, limb in ipairs(limbList) do
+    --break and cripple
+    if
+      snd.limb_dmg[limb] &gt; 8 and
+      snd.limb_dmg[limb] &lt; 21.5 and
+      snd.resto_limb ~= limb and
+      (snd.parried_limb ~= limb or snd.no_parry()) and
+      not snd.checkAff(cmd.gsub("crippled " .. limb, " ", "_"))
+    then
+      return limb
+    end
+  end
+  for _, limb in ipairs(limbList) do
+    --break
+    if
+      snd.limb_dmg[limb] &gt; 8 and
+      snd.limb_dmg[limb] &lt; 21.5 and
+      snd.resto_limb ~= limb and
+      (snd.parried_limb ~= limb or snd.no_parry())
+    then
+      return limb
+    end
+  end
+  for _, limb in ipairs(limbList) do
+    --mangle
+    if
+      snd.limb_dmg[limb] &gt; 41.6 and
+      snd.limb_dmg[limb] &lt; 54.1 and
+      (snd.parried_limb ~= limb or snd.no_parry())
+    then
+      return limb
+    end
+  end
+end
+
+
+--the function here will contain the bulk of your logic.
+local function route()
+   local commands = {}
+  local cmd = "contemplate " .. snd.target .. snd.sep
+  local battle = getAff(battleStack)
+  local chasten = getAff(chastenStack)
+  local shield = "none"
+  if not cmd.find(gmcp.Char.Vitals.wield_right, "mace") then
+    cmd = cmd .. "quickwield right mace" .. snd.sep
+  end
+  if not cmd.find(gmcp.Char.Vitals.wield_left, "tower") then
+    cmd = cmd .. "quickwield left tower" .. snd.sep
+  end
+  local smashLimb = getSmashLimb()
+  if snd.used.shield then
+    shield = "shield raze " .. snd.target
+  elseif snd.mana_percent &lt; 40 then
+    cmd = "angel absolve " .. snd.target
+  elseif snd.proned() then
+    battle = getAff(overwhelmBattle)
+    chasten = getAff(overwhelmChasten)
+    shield = "shield overwhelm " .. snd.target
+  elseif snd.used.rebounding then
+    shield = "shield raze " .. snd.target
+  elseif snd.balance.smash and smashLimb then
+    shield = "smash " .. smashLimb .. " " .. snd.target
+  else
+    local limb1, limb2
+    for _, limb in ipairs(limbList) do
+      if limb ~= snd.resto_limb and (limb ~= snd.parried_limb or snd.no_parry()) then
+        if not limb1 then
+          limb1 = limb
+        elseif not limb2 then
+          limb2 = limb
+        end
+      end
+    end
+    shield =
+      "shield crush " .. snd.target .. " " .. limb1 .. " and " .. limb2 .. snd.sep .. "angel power"
+    battle = "none"
+    chasten = "none"
+  end
+  if shield ~= "none" then
+    if snd.toggles.affcalling and not snd.target_gone then
+      if battle ~= "none" then
+        cmd = cmd .. "wt Battle " .. snd.target .. ": " .. battle .. snd.sep
+      end
+      if chasten ~= "none" then
+        cmd = cmd .. "wt Chasten " .. snd.target .. ": " .. chasten .. snd.sep
+      end
+    end
+    if battle ~= "none" then
+      cmd = cmd .. "angel battle " .. snd.target .. " " .. battle .. snd.sep
+    end
+    cmd = cmd .. shield
+    if chasten ~= "none" then
+      cmd = cmd .. snd.sep .. "chasten " .. snd.target .. " " .. chasten
+    end
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Earthcaller</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "earthcaller"
+local blurb = "A group damage route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local shield = "none"
+  local battle = "none"
+  local chasten = "none"
+  local tohit = {}
+  local attack = "contemplate " .. snd.target .. snd.sep
+  local missing = snd.missingAff("stupidity/paresis/anorexia/asthma", "/")
+  local total_aff_count = 0
+  local mental_aff_count = 0
+
+  for aff in pairs(snd.all_affs) do
+    if table.contains(snd.target_has, snd.all_affs[aff]) then total_aff_count = total_aff_count + 1 end
+  end
+
+  for aff in pairs(snd.mental_affs) do
+    if table.contains(snd.target_has, snd.mental_affs[aff]) then mental_aff_count = mental_aff_count + 1 end
+  end
+
+  if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
+    attack = attack ..
+        "quickwield right " .. snd.crozier .. snd.sep
+  end
+  if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    attack = attack ..
+        "quickwield left buckler" .. snd.sep
+  end
+  if not string.find(gmcp.Char.Vitals.wield_left, "tower") then
+    attack = attack .. "quickwield left tower" .. snd
+        .sep
+  end
+
+  snd.giving_shield = {
+    "paresis",
+    "asthma",
+    "weariness",
+    "confusion",
+    "mania",
+    "no_courage",
+    "writhe_transfix",
+  }
+
+  snd.giving_battle = {
+    "ringing_ears",
+    "vertigo",
+    "impatience",
+    "mania",
+    "stupidity",
+    "self_pity",
+    "migraine",
+    "anorexia",
+  }
+
+  snd.giving_chasten = {
+    "lethargy",
+    "dementia",
+    "stupidity",
+    "recklessness",
+    "hypochondria",
+    "paranoia",
+    "justice",
+    "agony",
+    "anorexia",
+  }
+
+  snd.giving = {
+    "asthma",
+    "paresis",
+    "clumsiness",
+    "squelched",
+    "shyness",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    "ringing_ears",
+    "haemophilia",
+    "recklessness",
+    "weariness",
+    "voyria",
+    "dizziness"
+
+  }
+
+  cecho("&lt;yellow&gt; Affs: " .. #snd.target_has)
+
+
+  if mp &gt;= 70 and gmcp.Char.Vitals.hp &lt; gmcp.Char.Vitals.mp and cansip == false then
+    attack = "nimbleness" .. snd.sep .. "shift"
+  end
+
+  --Absolve check
+  if snd.mana_percent &lt; 40 and not snd.used.shield then
+    attack = "osso fragment " .. snd.target
+  end
+
+  --Battle aff pick
+  if snd.balance.battle then
+    for i in pairs(snd.giving_battle) do
+      if not snd.checkAff(snd.giving_battle[i]) and battle == "none" then
+        battle = snd.giving_battle[i]
+      end
+    end
+  end
+
+  --Chasten aff pick
+  for i in pairs(snd.giving_chasten) do
+    if not snd.checkAff(snd.giving_chasten[i]) and chasten == "none" and snd.giving_chasten[i] ~= battle then
+      chasten = snd.giving_chasten[i]
+    end
+  end
+
+  --Shield aff pick
+  if snd.used.shield then
+    shield = "shield raze"
+    -- If they are prone/psuedo prone and have 5 affs, smack them
+  elseif #snd.target_has &gt;= 5 and snd.proned() then
+    if not string.find(gmcp.Char.Vitals.wield_left, "tower") then
+      shield = "quickwield left tower" .. snd.sep .. "shield deface " .. snd.target
+    else
+      shield = "quickwield left buckler" .. snd.sep .. "shield deface " .. snd.target
+    end
+    -- We need to build up disrupt/affs.
+  else
+    for i in pairs(snd.giving_shield) do
+      if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
+        shield = snd.subjugation_attacks[snd.giving_shield[i]]
+      end
+    end
+  end
+
+  if snd.used.rebounding then
+    if snd.checkAff("confusion") or #snd.target_has &lt; 3 then
+      shield = "shield raze"
+    else
+      shield = "dirge hysteria"
+    end
+  end
+
+  if snd.infiltrate == false or snd.infiltrate == "nil" then
+    attack = "osso infiltrate " .. snd.target .. snd.sep
+  elseif snd.checksomeAffs({ "agony", "accursed" }, 1) and not snd.checkAff("faulted") then
+    attack = "tectonic fault " .. snd.target .. snd.sep
+
+    --    elseif snd.checkAff("accursed") and not snd.checkAff("hellsight") then
+    --       attack = "dirge reckoning "..snd.target..snd.sep
+  end
+
+  if battle ~= "none" then
+    attack = attack .. "osso spur " .. snd.target .. " " .. battle .. snd.sep
+  end
+  --Add shield/tectonics/dirge attacks
+  attack = attack .. shield .. " " .. snd.target .. snd.sep
+
+  --Add chasten choice
+  if not shield:find("slam") or shield:find("transfix") or shield:find("hysteria") or shield:find("crash") then
+    if chasten == "none" then
+      attack = attack .. "subdue " .. snd.target
+    else
+      if snd.toggles.affcalling and not snd.target_gone then
+        attack = attack .. "wt Subdue " .. snd.target .. ": " .. chasten .. snd.sep
+      end
+      attack = attack .. "subdue " .. snd.target .. " " .. chasten .. snd.sep .. "contemplate " .. snd.target
+    end
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>mouse</name>
+						<packageName></packageName>
+						<script>local alias = "mouse"
+local class = "earthcaller"
+local blurb = "A newbie-orientated group route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving_shield = {
+    "no_courage",
+    "paresis",
+    "weariness",
+    "asthma",
+  }
+  snd.giving_spur = {
+    "impatience",
+    "ringing_ears",
+    "stupidity",
+    "vertigo",
+    "self_pity",
+    "migraine",
+  }
+  snd.giving_subdue = {
+    "hypochondria",
+    "stupidity",
+    "lethargy",
+    "dementia",
+    "recklessness",
+    "justice",
+    "paranoia"
+  }
+  local cmd = "contemplate " .. snd.target .. snd.sep
+  if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
+    cmd = cmd ..
+        "quickwield right crozier" .. snd.sep
+  end
+  if not string.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    cmd = cmd .. "quickwield left buckler" ..
+        snd.sep
+  end
+  local shield = "none"
+  local spur = "none"
+  local subdue = "none"
+  if snd.mana_percent &lt; 40 and not snd.used.shield then
+    cmd = "osso fragment " .. snd.target
+  elseif snd.proned() then
+    cmd = "shield deface " .. snd.target
+  elseif table.contains(snd.target_has, "no_courage") then
+    cmd = "tectonic transfixion " .. snd.target
+  else
+    if snd.balance.battle then
+      for i in pairs(snd.giving_spur) do
+        if not snd.checkAff(snd.giving_spur[i]) and battle == "none" then
+          spur = snd.giving_spur[i]
+        end
+      end
+    end
+    if snd.used.shield then
+      shield = "shield raze"
+    else
+      for i in pairs(snd.giving_shield) do
+        if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
+          shield = snd.subjugation_attacks[snd.giving_shield[i]]
+        end
+      end
+    end
+    if shield == "none" then
+      shield = "shield strike"
+    end
+    if snd.used.rebounding and shield ~= "facesmash" then
+      shield = "shield raze"
+    end
+    for i in pairs(snd.giving_subdue) do
+      if not snd.checkAff(snd.giving_subdue[i]) and subdue == "none" and snd.giving_subdue[i] ~= spur then
+        subdue = snd.giving_subdue[i]
+      end
+    end
+    if spur ~= "none" then
+      if snd.toggles.affcalling and not snd.target_gone then
+        cmd = "wt Spur " .. snd.target .. ": " .. spur .. snd.sep
+      end
+      cmd = cmd .. "osso spur " .. snd.target .. " " .. spur .. snd.sep
+    end
+    cmd = cmd .. shield .. " " .. snd.target .. snd.sep
+    if shield ~= "slam" and shield ~= "overwhelm" then
+      if subdue == "none" then
+        cmd = cmd .. "subdue " .. snd.target
+      else
+        if snd.toggles.affcalling and not snd.target_gone then
+          cmd = cmd .. "wt Subdue " .. snd.target .. ": " .. subdue .. snd.sep
+        end
+        cmd = cmd .. "subdue " .. snd.target .. " " .. subdue
+      end
+    end
+  end
+
+  if string.find(cmd, "deface") and not string.find(gmcp.Char.Vitals.wield_left, "tower") then
+    cmd = "quickwield left tower" .. snd.sep .. cmd
+  end
+
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "earthcaller"
+local blurb = "A group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local shield = "none"
+  local battle = "none"
+  local chasten = "none"
+  local tohit = {}
+  local attack = "contemplate " .. snd.target .. snd.sep
+  local missing = snd.missingAff("stupidity/paresis/anorexia/asthma", "/")
+  local total_aff_count = 0
+  local mental_aff_count = 0
+
+  for aff in pairs(snd.all_affs) do
+    if table.contains(snd.target_has, snd.all_affs[aff]) then total_aff_count = total_aff_count + 1 end
+  end
+
+  for aff in pairs(snd.mental_affs) do
+    if table.contains(snd.target_has, snd.mental_affs[aff]) then mental_aff_count = mental_aff_count + 1 end
+  end
+
+  if not attack.find(gmcp.Char.Vitals.wield_right, "crozier") then
+    attack = attack ..
+        "quickwield right " .. snd.crozier .. snd.sep
+  end
+  if not attack.find(gmcp.Char.Vitals.wield_left, "buckler") then
+    attack = attack ..
+        "quickwield left buckler" .. snd.sep
+  end
+
+  snd.giving_shield = {
+    "paresis",
+    "asthma",
+    "weariness",
+    "mania",
+    "allergies",
+    "confusion",
+    "disrupted",
+    "no_courage",
+    "writhe_transfix",
+
+  }
+
+  snd.giving_battle = {
+    "stupidity",
+    "anorexia",
+    "vertigo",
+    "self_pity",
+    "mania",
+    "impatience",
+    "migraine",
+    "ringing_ears",
+  }
+
+  if snd.checkAff("impatience") and not snd.checkAff("agony") then
+    snd.giving_chasten = {
+      "agony",
+      "hypochondria",
+      "stupidity",
+      "lethargy",
+      "recklessness",
+      "anorexia",
+      "justice",
+      "dementia",
+      "paranoia",
+
+    }
+  else
+    snd.giving_chasten = {
+      "hypochondria",
+      "stupidity",
+      "lethargy",
+      "recklessness",
+      "anorexia",
+      "justice",
+      "dementia",
+      "paranoia",
+      "agony",
+
+    }
+  end
+  snd.giving = {
+    "asthma",
+    "paresis",
+    "clumsiness",
+    "squelched",
+    "shyness",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    "ringing_ears",
+    "haemophilia",
+    "recklessness",
+    "weariness",
+    "voyria",
+    "dizziness",
+
+  }
+
+  cecho("&lt;yellow&gt; Affs: " .. #snd.target_has)
+
+  if mp &gt;= 70 and gmcp.Char.Vitals.hp &lt; gmcp.Char.Vitals.mp and cansip == false then
+    attack = "nimbleness" .. snd.sep .. "shift" .. snd.sep
+  end
+
+  --Absolve check
+  if snd.mana_percent &lt;= 43 and not snd.used.shield then
+    attack = "osso fragment " .. snd.target .. snd.sep
+  end
+
+  --Chasten aff pick
+  for i in pairs(snd.giving_chasten) do
+    if not snd.checkAff(snd.giving_chasten[i]) and chasten == "none" and snd.giving_chasten[i] ~= battle then
+      chasten = snd.giving_chasten[i]
+    end
+  end
+
+  --Battle aff pick
+  if snd.balance.battle then
+    for i in pairs(snd.giving_battle) do
+      if not snd.checkAff(snd.giving_battle[i]) and battle == "none" then
+        battle = snd.giving_battle[i]
+      end
+    end
+  end
+
+  --Shield aff pick
+  if snd.used.shield then
+    shield = "shield raze"
+    -- If they are prone/psuedo prone and have 5 affs, smack them
+  elseif #snd.target_has &gt;= 5 and snd.proned() then
+    shield = "quickwield left tower" .. snd.sep .. "shield deface " .. snd.target
+    -- We need to build up disrupt/affs.
+  else
+    for i in pairs(snd.giving_shield) do
+      --    if not snd.checksomeAffs({"hypochondria","stupidity","agony"}, 1) and #snd.target_has &gt; 3 then   -- added this to test
+      --      shield = ""
+      if not snd.checkAff(snd.giving_shield[i]) and shield == "none" then
+        shield = snd.subjugation_attacks[snd.giving_shield[i]]
+      end
+    end
+  end
+
+  if snd.used.rebounding then
+    if snd.checkAff("confusion") or #snd.target_has &lt; 3 then
+      shield = "shield raze"
+    else
+      shield = "dirge hysteria"
+    end
+  end
+
+  if snd.infiltrate == false or snd.infiltrate == "nil" then
+    attack = "osso infiltrate " .. snd.target .. snd.sep
+
+    --    elseif #snd.target_has &gt;= 7 then
+    --      attack = "osso bleach " ..snd.target..snd.sep
+  elseif snd.checkAff("accursed") and not snd.checkAff("hellsight") then
+    attack = "dirge reckoning " .. snd.target .. snd.sep
+  elseif snd.checksomeAffs({ "stupidity", "paresis", "anorexia", "asthma" }, 3) and not snd.checkAff("slickness") then
+    attack = "dirge reckoning " .. snd.target .. snd.sep
+  end
+
+  if battle ~= "none" then
+    attack = attack .. "osso spur " .. snd.target .. " " .. battle .. snd.sep
+  end
+  --Add shield/tectonics/dirge attacks
+  attack = attack .. shield .. " " .. snd.target .. snd.sep
+
+  --Add chasten choice
+  if not shield:find("slam") or shield:find("transfix") or shield:find("hysteria") or shield:find("crash") then
+    if chasten == "none" then
+      attack = attack .. "subdue " .. snd.target
+    else
+      if snd.toggles.affcalling and not snd.target_gone then
+        attack = attack .. "wt Subdue " .. snd.target .. ": " .. chasten .. snd.sep
+      end
+      attack = attack .. "contemplate " .. snd.target .. snd.sep ..
+          "subdue " .. snd.target .. " " .. chasten .. snd.sep
+    end
+  end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "earthcaller"
+local blurb = "A group limbs route."
+
+
+local limbList = { "left leg", "right leg", "left arm", "right arm" }
+local battleStack = { "impatience", "mania", "stupidity", "ringing_ears", "vertigo", "self_pity", "migraine" }
+local chastenStack = { "anorexia", "recklessness", "justice", "stupidity", "self_loathing", "paranoia", "hypochondria",
+  "lethargy" }
+local overwhelmChasten = { "recklessness", "anorexia", "justice", "stupidity", "self_loathing", "paranoia",
+  "hypochondria", "lethargy" }
+local overwhelmBattle = { "ringing_ears", "impatience", "mania", "stupidity", "vertigo", "self_pity", "migraine" }
+
+local function getAff(stack)
+  for _, aff in ipairs(stack) do
+    if not snd.checkAff(aff) then return aff end
+  end
+  return "none"
+end
+
+local function getSmashLimb()
+  for _, limb in ipairs(limbList) do --break and cripple
+    if snd.limb_dmg[limb] &gt; 8 and snd.limb_dmg[limb] &lt; 21.5 and snd.resto_limb ~= limb and (snd.parried_limb ~= limb or snd.no_parry()) and not snd.checkAff(attack.gsub("crippled " .. limb, " ", "_")) then
+      return limb
+    end
+  end
+  for _, limb in ipairs(limbList) do --break
+    if snd.limb_dmg[limb] &gt; 8 and snd.limb_dmg[limb] &lt; 21.5 and snd.resto_limb ~= limb and (snd.parried_limb ~= limb or snd.no_parry()) then
+      return limb
+    end
+  end
+  for _, limb in ipairs(limbList) do --mangle
+    if snd.limb_dmg[limb] &gt; 41.6 and snd.limb_dmg[limb] &lt; 54.1 and (snd.parried_limb ~= limb or snd.no_parry()) then
+      return limb
+    end
+  end
+end
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = "contemplate " .. snd.target .. snd.sep
+  local battle = getAff(battleStack)
+  local chasten = getAff(chastenStack)
+  local shield = "none"
+
+  if not string.find(gmcp.Char.Vitals.wield_right, "crozier") then
+    attack = attack ..
+        "quickwield right crozier" .. snd.sep
+  end
+  if not string.find(gmcp.Char.Vitals.wield_left, "tower") then
+    attack = attack .. "quickwield left tower" .. snd
+        .sep
+  end
+
+  local smashLimb = getSmashLimb()
+  if snd.used.shield then
+    shield = "shield raze " .. snd.target
+  elseif snd.mana_percent &lt; 40 then
+    attack = "osso fragment " .. snd.target
+  elseif snd.proned() then
+    battle = getAff(overwhelmBattle)
+    chasten = getAff(overwhelmChasten)
+    shield = "shield deface " .. snd.target
+  elseif snd.used.rebounding then
+    shield = "shield raze " .. snd.target
+  elseif snd.balance.smash and smashLimb then
+    shield = "obliterate " .. smashLimb .. " " .. snd.target
+  else
+    local limb1, limb2
+    for _, limb in ipairs(limbList) do
+      if limb ~= snd.resto_limb and (limb ~= snd.parried_limb or snd.no_parry()) then
+        if not limb1 then limb1 = limb elseif not limb2 then limb2 = limb end
+      end
+    end
+    shield = "shield crush " .. snd.target .. " " .. limb1 .. " and " .. limb2 .. snd.sep .. "osso splinter"
+    battle = "none"
+    chasten = "none"
+  end
+  if shield ~= "none" then
+    if snd.toggles.affcalling and not snd.target_gone then
+      if battle ~= "none" then
+        attack = attack .. "wt Spur " .. snd.target .. ": " .. battle .. snd.sep
+      end
+      if chasten ~= "none" then
+        attack = attack .. "wt Subdue " .. snd.target .. ": " .. chasten .. snd.sep
+      end
+    end
+    if battle ~= "none" then
+      attack = attack .. "osso spur " .. snd.target .. " " .. battle .. snd.sep
+    end
+    attack = attack .. shield
+    if chasten ~= "none" then
+      attack = attack .. snd.sep .. "subdue " .. snd.target .. " " .. chasten
+    end
+  end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -73073,18 +74997,272 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "praenomen"
+local blurb = "A group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local call = ""
+  
+  snd.giving = {
+    "paresis",
+    "asthma",
+    "clumsiness",
+    "weariness",
+    "dizziness",
+  }
+  
+  snd.giving_whisper = {
+    "impatience",
+    "epilepsy",
+    "stupidity",
+    "loneliness",
+    "mania",
+    "masochism",
+    "recklessness",
+    "vertigo",
+    "infatuation",
+    "confusion",
+    "agoraphobia",
+    "paranoia",
+  }
+    
+  local whispers = snd.utils.basic_stack(snd.giving_whisper)
+  
+  local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
+  
+  table.insert(whispers, "amnesia")
+  table.insert(whispers, "amnesia")
+  table.insert(venoms, "voyria")
+  
+  local modifier = ""
+  if snd.checksomeAffs(snd.cures.antipsychotic, 3) and not snd.checkAff("no_courage") then
+    modifier = " craze"
+  elseif snd.checksomeAffs(snd.cures.depressant, 3) then
+    modifier = " subdue"
+  end
+  
+  local whisperCmd = "whisper "..whispers[1].." "..whispers[2].." "..snd.target
+  
+  if snd.used.shield or snd.used.rebounding then
+    if not snd.checkAff("rend") and not snd.used.shield then
+      attack = "claw "..snd.target..snd.sep..whisperCmd
+    elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
+      attack = "mesmerize "..snd.target..snd.sep..whisperCmd
+    else
+      attack = "frenzy "..snd.target..modifier..snd.sep..whisperCmd
+    end
+    call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
+  else
+    attack = "gash "..snd.target.." "..venoms[1]..snd.sep..whisperCmd
+    call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. whispers[1]..", "..whispers[2]
+  end
+  
+  if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+    attack = call .. snd.sep .. attack
+  end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Akkari</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "akkari"
+local blurb = "A group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local call = ""
+  
+  snd.giving = {
+    "paresis",
+    "asthma",
+    "clumsiness",
+    "weariness",
+    "dizziness",
+  }
+  
+  snd.giving_whisper = {
+    "impatience",
+    "epilepsy",
+    "stupidity",
+    "loneliness",
+    "mania",
+    "masochism",
+    "recklessness",
+    "vertigo",
+    "infatuation",
+    "confusion",
+    "agoraphobia",
+    "paranoia",
+  }
+    
+  local whispers = snd.utils.basic_stack(snd.giving_whisper)
+  
+  local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
+  
+  table.insert(whispers, "amnesia")
+  table.insert(whispers, "amnesia")
+  table.insert(venoms, "voyria")
+  
+  local modifier = ""
+  if snd.checksomeAffs(snd.cures.antipsychotic, 3) and not snd.checkAff("no_courage") then
+    modifier = " strife"
+  elseif snd.checksomeAffs(snd.cures.depressant, 3) then
+    modifier = " evil"
+  end
+  
+  local whisperCmd = "dictate "..whispers[1].." "..whispers[2].." "..snd.target
+  
+  if snd.used.shield or snd.used.rebounding then
+    if not snd.checkAff("rend") and not snd.used.shield then
+      attack = "bloodlet "..snd.target..snd.sep..whisperCmd
+    elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
+      attack = "exhort "..snd.target..snd.sep..whisperCmd
+    else
+      attack = "denounce "..snd.target..modifier..snd.sep..whisperCmd
+    end
+    call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
+  else
+    attack = "censure "..snd.target.." "..venoms[1]..snd.sep..whisperCmd
+    call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. whispers[1]..", "..whispers[2]
+  end
+  
+  if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+    attack = call .. snd.sep .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Sylvan</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "sylvan"
+local blurb = "A group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local call = ""
+  
+  snd.giving = {
+    "paresis",
+    "asthma",
+    "clumsiness",
+    "weariness",
+    "dizziness",
+  }
+  
+  snd.giving_whisper = {
+    "impatience",
+    "epilepsy",
+    "stupidity",
+    "loneliness",
+    "mania",
+    "masochism",
+    "recklessness",
+    "vertigo",
+    "infatuation",
+    "confusion",
+    "agoraphobia",
+    "paranoia",
+  }
+    
+  local whispers = snd.utils.basic_stack(snd.giving_whisper)
+  
+  local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
+  
+  table.insert(whispers, "amnesia")
+  table.insert(whispers, "amnesia")
+  table.insert(venoms, "voyria")
+  
+  local modifier = ""
+  if snd.checksomeAffs(snd.cures.antipsychotic, 3) and not snd.checkAff("no_courage") then
+    modifier = " wolfine"
+  elseif snd.checksomeAffs(snd.cures.depressant, 3) then
+    modifier = " asrai"
+  end
+  
+  local whisperCmd = "imprecate "..whispers[1].." "..whispers[2].." "..snd.target
+  
+  if snd.used.shield or snd.used.rebounding then
+    if not snd.checkAff("rend") and not snd.used.shield then
+      attack = "wound "..snd.target..snd.sep..whisperCmd
+    elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
+      attack = "bewitch "..snd.target..snd.sep..whisperCmd
+    else
+      attack = "thrash "..snd.target..modifier..snd.sep.."imprecate "..whispers[1].." "..whispers[2].." "..snd.target
+    end
+    call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
+  else
+    attack = "reap "..snd.target.." "..venoms[1]..snd.sep..whisperCmd
+    call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. whispers[1]..", "..whispers[2]
+  end
+  
+  if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+    attack = call .. snd.sep .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
