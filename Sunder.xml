@@ -5741,8 +5741,7 @@ end
 								<name>Marrowchill Winterheart</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("winterheart")
-  if winterheart_timer then killTimer(winterheart_timer) end
-  winterheart_timer = tempTimer(30, [[snd.target_cured("winterheart")]])
+  snd.affTimers.start("winterheart", 30)
 end
 </script>
 								<triggerType>0</triggerType>
@@ -10864,8 +10863,7 @@ send("wt " ..matches[2].. " STUNNED with ANGUISH!")
 							<name>Resonance</name>
 							<script>if matches[2] == snd.target then
   snd.target_got("resonance")
-  if resonatingTimer then killTimer(resonatingTimer) end
-  resonatingTimer = tempTimer(30, function() snd.target_cured("resonance") end)
+  snd.affTimers.start("resonance", 30)
 end</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -20142,7 +20140,7 @@ end</script>
 								<name>Branding Infernal Seal</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("infernal_seal")
-  tempTimer(125, [[snd.target_cured("infernal_seal")]])
+  snd.affTimers.start("infernal_seal", 125)
 end
 if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
   cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
@@ -21044,8 +21042,8 @@ end
 									<script>if matches[2] == snd.target then
   snd.target_got("infernal_seal")
   snd.target_got("infernal_shroud")
-  tempTimer(125, [[snd.target_cured("infernal_seal")]])
-  tempTimer(125, [[snd.target_cured("infernal_shroud")]])
+  snd.affTimers.start("infernal_seal", 125)
+  snd.affTimers.start("infernal_shroud", 125)
 end
 </script>
 									<triggerType>0</triggerType>
@@ -39703,6 +39701,7 @@ function snd.attack_function()
 	-- next, the afflictions we want to give
 	local touse = {}
 	local tohit = {}
+  local telvi = false
 	-- and in case we don't find enough of them
 	local extraaff = "hemorrhage" 
 	if tonumber(gmcp.Char.Vitals.charge_left) &gt;= 100 and tonumber(gmcp.Char.Vitals.charge_right) &gt;= 100 then
@@ -40370,7 +40369,7 @@ function snd.attack_function()
   else
     if snd.health_percent &lt;= 75 and snd.my_impress ~= "star" then                -- Take advantage of the threshold from star 25/50/75 to give paresis
       attack = "geo impress star" .. snd.sep
-    elseif not snd.my_impress == "hex" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
+    elseif snd.my_impress ~= "hex" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
       attack = "geo impress hex" .. snd.sep
     end
 
@@ -43637,12 +43636,12 @@ function snd.attack_function()
 				cmd = cmd.."muse foster dread"..snd.sep.."chakra turmoil "..snd.target..snd.sep..biocmd..snd.sep
 			end
 	elseif snd.health_percent &lt;= 75 then
-		if not snd.my_impress == "Wistful" then
+		if snd.my_impress ~= "Wistful" then
 			cmd = cmd.."muse foster wistful"..snd.sep..biocmd..snd.sep
 		end
 		cmd = cmd.."foment "..snd.foment_attacks[touse[1]].." "..snd.target..snd.sep..biocmd..snd.sep
   else
-		if not snd.my_impress == "Spite" then 
+		if snd.my_impress ~= "Spite" then 
 			cmd = cmd.."muse foster spite"..snd.sep..biocmd..snd.sep
 		end
 		cmd = cmd.."foment "..snd.foment_attacks[touse[1]].." "..snd.target..snd.sep..biocmd..snd.sep
@@ -43718,8 +43717,8 @@ function snd.attack_function()
     end
   else
     if snd.health_percent &lt;= 75 and snd.my_impress ~= "Wistful" then -- Take advantage of the threshold from star 25/50/75 to give paresis
-      cmd = "muse foster wistfull" .. snd.sep
-    elseif not snd.my_impress == "Spite" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
+      cmd = "muse foster wistful" .. snd.sep
+    elseif snd.my_impress ~= "Spite" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
       cmd = "muse foster spite" .. snd.sep
     end
 
@@ -48110,6 +48109,7 @@ function snd.attack_function()
   -- next, the afflictions we want to give
   local touse = {}
   local tohit = {}
+  local iceblast = false
   -- and in case we don't find enough of them
   local extraaff = "hemorrhage"
   if
@@ -59747,7 +59747,7 @@ function snd.aff_have(affliction)
   if snd.cureset == "archivist" then
     for _, shape in pairs({snd.circle_affs, snd.square_affs, snd.triangle_affs}) do
       if table.contains(shape, affliction) then
-        hit_aff = false
+        local hit_aff = false
         for _2, aff in ipairs(shape) do
           if not hit_aff then
             if aff == affliction then
@@ -60538,7 +60538,7 @@ function snd.def_stacks(defense)
 end
 
 function snd.aff_tally()
-  count = 0
+  local count = 0
   for aff in pairs(snd.afflictions) do
     if snd.have_aff(aff) then
       if
@@ -63777,8 +63777,8 @@ function snd.target_cured(affliction, target)
 end
 
 function snd.target_used(curative)
+  local aff_found = false
   if snd.cures[curative] ~= nil then
-    aff_found = false
     for affliction in pairs(snd.cures[curative]) do
       for i in pairs(snd.target_has) do
         if snd.target_has[i] == snd.cures[curative][affliction] and not aff_found then
@@ -68550,8 +68550,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
         snd.glory = snd.glory - 1
       end
     end,
@@ -68573,8 +68573,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Volley = function(target)
@@ -68601,8 +68601,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
 
@@ -68629,8 +68629,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Spear = function(target)
@@ -68656,8 +68656,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Flagellate = function(target)
@@ -68683,8 +68683,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Avatar = function(target)
@@ -68712,8 +68712,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Carbonise = function(target)
@@ -68741,8 +68741,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Claw = function(target)
@@ -68770,8 +68770,8 @@ end
       else
         snd.target_got("magic_weakness")
         snd.target_got("fire_weakness")
-        tempTimer(30, [[snd.target_cured("magic_weakness")]])
-        tempTimer(30, [[snd.target_cured("fire_weakness")]])
+        snd.affTimers.start("magic_weakness", 30)
+        snd.affTimers.start("fire_weakness", 30)
       end
     end,
     Lash = function(target)
@@ -70413,7 +70413,7 @@ local function route()
   else
     if snd.health_percent &lt;= 75 and snd.my_impress ~= "star" then                -- Take advantage of the threshold from star 25/50/75 to give paresis
       attack = "geo impress star" .. snd.sep
-    elseif not snd.my_impress == "hex" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
+    elseif snd.my_impress ~= "hex" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
       attack = "geo impress hex" .. snd.sep
     end
 
@@ -70626,8 +70626,8 @@ local function route()
     end
   else
     if snd.health_percent &lt;= 75 and snd.my_impress ~= "Wistful" then -- Take advantage of the threshold from star 25/50/75 to give paresis
-      cmd = "muse foster wistfull" .. snd.sep
-    elseif not snd.my_impress == "Spite" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
+      cmd = "muse foster wistful" .. snd.sep
+    elseif snd.my_impress ~= "Spite" and not snd.checkAff("hypochondria") then -- make them gain hypochondria on diagnose, if they don't have it already
       cmd = "muse foster spite" .. snd.sep
     end
 
