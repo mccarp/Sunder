@@ -50388,7 +50388,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.3.3"
+local version = "12.3.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -54540,6 +54540,7 @@ end</script>
           return true
         end
     end
+    return false
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -55122,6 +55123,9 @@ snd.default_priorities =
   "def_perceive",
   "def_bloodtrack",
   "def_berserk",
+  "def_echoing",
+  
+  
   "hiddens_balanceful",
 }
 function snd.reset_priorities()
@@ -57663,6 +57667,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_stealth = { defense = "stealth", type = "normal", effect = "Hide yourself", balance = { needybalancetake = "stealth on" }, skill = "Stealth" },
   def_boneshaking = { defense = "boneshaking", type = "normal", effect = "howls ignore courage", balance = { balanceequilibriumtake = "boneshaking" }, skill = "Boneshaking" },
   def_berserk = { defense = "berserk", type = "normal", effect = "Immune to stuns and uncon", balance = { balanceequilibriumtake = "berserk" }, requiredBalance = "berserk", skill = "Berserk" },
+  def_echoing = {defense = "echoing", type = "normal", effect = "howls on self", balance = {balanceequilibriumtake = "echoing"}, state = "down", skill = "Echoing" },
 
   --Siderealist
   def_luminesce = { defense = "luminesce", type = "normal", effect = "basic astranomia spells", balance = { balanceequilibriumtake = "astra luminesce" }, skill = "Luminesce" },
@@ -58256,8 +58261,8 @@ end</script>
   ["You are focusing your energy into sweltering your sands."] = "sand_swelter",
   ["You can feel the earth parting through your feet."] = "footfeel",
   ["You are in tune with the water currents below."] = "currents",
-
-  ["Gnashing your tongue, your mouth salivates with fluid."] = "salivating",
+  ["Your howls are echoing back upon you."] = "echoing",
+  ["Your mouth is full of bacteria-ridden saliva."] = "salivating",
   ["Your coat of fur has been thickened."] = "thickfur",
   ["You are bracing from attacks."] = "bracing",
   ["Your soul is swathed in secrecy."] = "soulmask",
@@ -59238,6 +59243,7 @@ end
     def_cornering = "once",
     def_hardening = "once",
     def_boneshaking = "once",
+    def_berserk = "once",
   },
   sylvan = {
     def_thrive_constitution = "once",
