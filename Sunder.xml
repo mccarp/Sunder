@@ -4147,10 +4147,6 @@ end</script>
 								<name>Chill Freezing</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("cold")
-  if snd.toggles.atkecho and snd.toggles.gags then
-    deleteLine()
-    snd.message("Chilled: " .. matches[2] .. ".")
-  end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end
@@ -75940,12 +75936,328 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "sentinel"
+local blurb = "A basic but fun sentinel group limbs route. Recommended pets: raloth, icewyrm, elk"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- declare some important variables, you can add more here if you need
+  local venomStack = {
+    "feeble_legs",
+    "feeble_arms",
+    "watery_eyes",
+    "deafness",
+    "blindness",
+    "anorexia", --idk it shouldn't get this far.
+  }
+  local venom = snd.utils.venomify(snd.utils.basic_stack(venomStack))[1] or "voyria"
+  local cmd = ""
+  local call = ""
+
+  local pierceableLimbs = {}
+  for _, limb in pairs({"left leg", "right leg", "right arm", "left arm"}) do
+    if snd.checkAff(limb.." crippled") and not snd.checkAff(limb.." broken") and (snd.parried_limb~= limb or snd.no_parry()) then
+      table.insert(pierceableLimbs, limb)
+    end
+  end
+  
+  if snd.used.shield and snd.used.rebounding then
+    cmd = "dhuriv dualraze "..snd.target
+  elseif snd.used.shield or snd.used.rebounding then
+    cmd = "dhuriv combo "..snd.target.." reave stab "..venom
+    call = "wt Afflicting "..snd.target..": "..venom
+  elseif #pierceableLimbs&gt;0 then
+    local dir, limb = unpack(string.split(pierceableLimbs[snd.random.num(1, #pierceableLimbs, 3)]," "))
+    if limb == "leg" then
+      cmd = "dhuriv pierce "..snd.target.." "..dir
+    else
+      cmd = "dhuriv sever "..snd.target.." "..dir
+    end
+  elseif snd.proned() then
+    cmd = "qdmount"..snd.sep.."qmount raloth"..snd.sep.."order raloth trample "..snd.target
+  else
+    cmd = "order icewyrm icebreath "..snd.target..snd.sep.."dhuriv flourish "..snd.target.." "..venom
+    call = "wt Afflicting "..snd.target..": "..venom
+  end
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone and call~="" then
+    cmd = call .. snd.sep .. cmd
+  end
+  cmd = "order loyals attack "..snd.target..snd.sep..cmd
+  --execute the attack!
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "sentinel"
+local blurb = "A group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local second_attack = ""
+  local call = ""
+  local left = "none"
+  local right = "none"
+  snd.giving =
+    {
+      "asthma",
+      "clumsiness",
+      "paresis",
+      "slickness",
+      "feeble_legs",
+      "feeble_arms",
+      "arrhythmia",
+      "impatience",
+      "confusion",
+      "stupidity",
+      "vomiting",
+      "dizziness",
+    }
+  if snd.checksomeAffs({"asthma","slickness"},2) and snd.no_parry() then
+    table.insert(snd.giving, 1, "destroyed_throat")
+  end
+  
+  left, right = Sentinel_Attack_Choice(snd.giving, left, right)
+  -- we send our aff list to a function to get our attacks.
+  if left == "none" then left = "voyria" end
+  if right == "none" then right = "voyria" end
+  
+  if snd.used.rebounding and snd.used.shield then
+    cmd = "dhuriv dualraze " .. snd.target
+  elseif not snd.used.shield and snd.checksomeAffs({"confusion","arrhythmia","feeble_arms","feeble_legs"},4) and snd.proned() then
+    cmd = "dhuriv spinecut "..snd.target
+  elseif left == "destroyed_throat" then
+    cmd = "dhuriv throatcrush " .. snd.target
+  else
+    --This builds a dhuriv combo.
+    local venoms = {}
+    local att1, att2
+    if table.contains(snd.dhuriv_affs, left) then
+      att1 = snd.dhuriv_attacks[left]
+    else
+      att1 = "slash"
+      table.insert(venoms, snd.effects[left])
+    end    
+    if table.contains(snd.dhuriv_affs, right) then
+      att2 = snd.dhuriv_attacks[right]
+    else
+      att2 = snd.no_parry() and "thrust" or "stab"
+      table.insert(venoms, snd.effects[right])
+    end
+    
+    cmd = "dhuriv combo " .. snd.target .. " " .. att1.." "..att2.." "..table.concat(venoms," ")
+    
+    if #venoms&gt;0 then
+      call = "wt Afflicting "..snd.target..": "..table.concat(venoms, ", ")
+    end
+  end
+  
+  if snd.toggles.affcalling and not snd.target_gone and call ~= "" then
+    cmd = call..snd.sep..cmd
+  end
+  
+  cmd = "order loyals attack "..snd.target..snd.sep..cmd
+  
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Executor</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "executor"
+local blurb = "A basic but fun executor group limbs route. Recommended pets: brutaliser, rimestalker, monstrosity"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- declare some important variables, you can add more here if you need
+  local venomStack = {
+    "feeble_legs",
+    "feeble_arms",
+    "watery_eyes",
+    "deafness",
+    "blindness",
+    "anorexia", --idk it shouldn't get this far.
+  }
+  local venom = snd.utils.venomify(snd.utils.basic_stack(venomStack))[1] or "voyria"
+  local cmd = ""
+  local call = ""
+
+  local pierceableLimbs = {}
+  for _, limb in pairs({"left leg", "right leg", "right arm", "left arm"}) do
+    if snd.checkAff(limb.." crippled") and not snd.checkAff(limb.." broken") and (snd.parried_limb~= limb or snd.no_parry()) then
+      table.insert(pierceableLimbs, limb)
+    end
+  end
+  
+  if snd.used.shield and snd.used.rebounding then
+    cmd = "ringblade twinraze "..snd.target
+  elseif snd.used.shield or snd.used.rebounding then
+    cmd = "ringblade dance "..snd.target.." shave beguile "..venom
+    call = "wt Afflicting "..snd.target..": "..venom
+  elseif #pierceableLimbs&gt;0 then
+    local dir, limb = unpack(string.split(pierceableLimbs[snd.random.num(1, #pierceableLimbs, 3)]," "))
+    if limb == "leg" then
+      cmd = "ringblade incise "..snd.target.." "..dir
+    else
+      cmd = "ringblade dissever "..snd.target.." "..dir
+    end
+  elseif snd.proned() then
+    cmd = "qdmount"..snd.sep.."qmount brutaliser"..snd.sep.."order brutaliser rampage "..snd.target
+  else
+    cmd = "order rimestalker verglas "..snd.target..snd.sep.."ringblade brandish "..snd.target.." "..venom
+    call = "wt Afflicting "..snd.target..": "..venom
+  end
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone and call~="" then
+    cmd = call .. snd.sep .. cmd
+  end
+  cmd = "order loyals attack "..snd.target..snd.sep..cmd
+  --execute the attack!
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "executor"
+local blurb = "A group afflictions route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local second_attack = ""
+  local call = ""
+  local left = "none"
+  local right = "none"
+  snd.giving =
+    {
+      "asthma",
+      "clumsiness",
+      "paresis",
+      "slickness",
+      "feeble_legs",
+      "feeble_arms",
+      "arrhythmia",
+      "impatience",
+      "confusion",
+      "stupidity",
+      "vomiting",
+      "dizziness",
+    }
+  if snd.checksomeAffs({"asthma","slickness"},2) and snd.no_parry() then
+    table.insert(snd.giving, 1, "destroyed_throat")
+  end
+  
+  left, right = Executor_Attack_Choice(snd.giving, left, right)
+  -- we send our aff list to a function to get our attacks.
+  if left == "none" then left = "voyria" end
+  if right == "none" then right = "voyria" end
+  
+  if snd.used.rebounding and snd.used.shield then
+    cmd = "ringblade twinraze " .. snd.target
+  elseif not snd.used.shield and snd.checksomeAffs({"confusion","arrhythmia","feeble_arms","feeble_legs"},4) and snd.proned() then
+    cmd = "ringblade terminate "..snd.target
+  elseif left == "destroyed_throat" then
+    cmd = "ringblade stifle " .. snd.target
+  else
+    --This builds a dhuriv combo.
+    local venoms = {}
+    local att1, att2
+    if table.contains(snd.dhuriv_affs, left) then
+      att1 = snd.dhuriv_attacks[left]
+    else
+      att1 = "contrive"
+      table.insert(venoms, snd.effects[left])
+    end
+    if table.contains(snd.dhuriv_affs, right) then
+      att2 = snd.dhuriv_attacks[right]
+    else
+      att2 = snd.no_parry() and "inveigle" or "beguile"
+      table.insert(venoms, snd.effects[right])
+    end
+    
+    cmd = "ringblade dance " .. snd.target .. " " .. att1.." "..att2.." "..table.concat(venoms," ")
+    
+    if #venoms&gt;0 then
+      call = "wt Afflicting "..snd.target..": "..table.concat(venoms, ", ")
+    end
+  end
+  
+  if snd.toggles.affcalling and not snd.target_gone and call~="" then
+    cmd = call..snd.sep..cmd
+  end
+  
+  cmd = "order loyals attack "..snd.target..snd.sep..cmd
+  
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
