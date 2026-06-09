@@ -34282,11 +34282,11 @@ end</script>
 setTriggerStayOpen("qwhom",0)
 
 for area, rooms in spairs(qwhom.people) do
-    cecho("\n&lt;medium_orchid&gt;[&lt;dodger_blue&gt;" .. area .. "&lt;medium_orchid&gt;]")
+    cecho("\n"..snd.theme.frame.."["..snd.theme.darktext .. area .. snd.theme.frame.."]")
     for vnum, people in spairs(rooms.confirmed) do
-      cecho("\n   &lt;steel_blue&gt;[")
+      cecho("\n   "..snd.theme.border.."[")
       cechoPopup(
-          "&lt;u&gt;&lt;medium_turquoise&gt;" .. getRoomName(vnum) .. "&lt;/u&gt;",
+          "&lt;u&gt;"..snd.theme.text .. getRoomName(vnum) .. "&lt;/u&gt;",
           {
             function()
               mmp.gotoRoom(vnum)
@@ -34298,7 +34298,7 @@ for area, rooms in spairs(qwhom.people) do
           {"Go to " .. vnum, "Center map on " .. vnum},
           true
         )
-        cecho("&lt;steel_blue&gt;] (&lt;light_cyan&gt;" .. #people .. "&lt;steel_blue&gt;): ")
+        cecho(snd.theme.border.."] ("..snd.theme.text .. #people .. snd.theme.border.."): ")
         table.sort(people)
         for index, person in spairs(people) do
           people[index] = "&lt;" .. (sndNDB_getColour(person) or "grey") .. "&gt;" .. person
@@ -34306,9 +34306,9 @@ for area, rooms in spairs(qwhom.people) do
         cecho(table.concat(people, ", "))
     end
     for roomName, people in spairs(rooms.unconfirmed) do
-      cecho("\n   &lt;steel_blue&gt;[")
-      cecho("&lt;light_blue&gt;" .. roomName)
-      cecho("&lt;steel_blue&gt;] (&lt;light_cyan&gt;" .. #people .. "&lt;steel_blue&gt;): ")
+      cecho("\n   "..snd.theme.border.."[")
+      cecho(snd.theme.text .. roomName)
+      cecho(snd.theme.border.."] ("..snd.theme.text .. #people .. snd.theme.border.."): ")
       table.sort(people)
       for index, person in spairs(people) do
         people[index] = "&lt;" .. (sndNDB_getColour(person) or "grey") .. "&gt;" .. person
@@ -36455,7 +36455,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.4.0"
+local version = "12.5.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -37751,6 +37751,135 @@ snd.skills.raceskills = snd.skills.raceskills or {}
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Sunder displays</name>
+				<packageName></packageName>
+				<script>snd.theme = snd.theme or {
+  border = "&lt;dodger_blue&gt;",
+  title = "&lt;ivory&gt;",
+  text = "&lt;light_cyan&gt;",
+  frame = "&lt;medium_turquoise&gt;",
+  darktext = "&lt;light_violet&gt;",
+}
+
+local function newLine()
+  moveCursorEnd()
+  if getCurrentLine() ~= "" then
+    echo("\n")
+    moveCursorEnd()
+  end
+end
+
+snd.disp = snd.disp or {}
+
+local function getLength(str)
+  return #str:gsub("&lt;.-&gt;", "")
+end
+
+function snd.disp.top(message)
+  message = message:gsub("&lt;r&gt;", snd.theme.title)
+  local wrap = math.min(80, getWindowWrap())
+  newLine()
+  if message then
+    cecho(snd.theme.border.."○–––"..
+          snd.theme.frame.."["..
+          snd.theme.title..message..
+          snd.theme.frame.."]"..
+          snd.theme.border..string.rep("–", wrap-(7+getLength(message))).."○"
+          )
+  else
+    cecho("\n"..snd.theme.border.."○"..string.rep("-",wrap-2).."○")
+  end
+end
+
+function snd.disp.bottom()
+  local wrap = math.min(80, getWindowWrap())
+  cecho("\n"..snd.theme.border.."○"..string.rep("–",wrap-2).."○")
+end
+
+function snd.disp.text(message)
+  message = message:gsub("&lt;r&gt;", snd.theme.text)
+  local wrap = math.min(80, getWindowWrap())
+  local words = string.split(message, " ")
+  local lines = {}
+  local line = ""
+  local x = 0
+  for _, word in ipairs(words) do
+    local len = getLength(word)
+    if x == 0 or x+len+1&lt;(wrap-2) then
+      line = line.." "..word
+      x = x + 1 + len
+    else
+      table.insert(lines, line)
+      local color = ""
+      for col in line:gmatch("&lt;.-&gt;") do
+        color = col
+      end
+      line = " "..color..word
+      x = 1+len
+    end
+  end
+  table.insert(lines, line)
+  for _, line in ipairs(lines) do
+    cecho("\n"..snd.theme.border.."|"..snd.theme.text..line..string.rep(" ", wrap-2-getLength(line))..snd.theme.border.."|")
+  end
+end
+
+function snd.disp.table(messages, dividers, alignments)
+  local wrap = math.min(80, getWindowWrap())
+  local line = ""
+  for i, msg in ipairs(messages) do
+    msg = msg:gsub("&lt;r&gt;", snd.theme.text)
+    line = line..snd.theme.border.."| "..snd.theme.text
+    local width = dividers[i] or (wrap - getLength(line))
+    local align = (alignments and alignments[i]) or "left"
+    if align == "left" then
+      line = line..msg..string.rep(" ", width-1-getLength(msg))
+    else
+      line = line..string.rep(" ", width-2-getLength(msg))..msg.." "
+    end
+  end
+  line = line..snd.theme.border.."|"
+  cecho("\n"..line)
+end
+
+
+
+
+function snd.message(string, type)
+  if snd.toggles.gags then
+    if type == "&lt;atk&gt;" then
+      color = "&lt;magenta&gt;"
+    elseif type == "death" then
+      color = "&lt;red&gt;"
+    elseif type == "q" then
+      color = "&lt;brown&gt;"
+    elseif type == "balance" then
+      color = "&lt;orange&gt;"
+    elseif type == "level" then
+      color = "&lt;yellow&gt;"
+    elseif type == "reset" then
+      color = "&lt;brown&gt;"
+    elseif type == "affliction" then
+      color = "&lt;DeepSkyBlue&gt;"
+    elseif type == "dendara" then
+      color = "&lt;green&gt;"
+    else
+      color = snd.theme.text
+    end
+    if type == "toggle" or type == "echo" then
+      line = ""
+    else
+      line = "\n"
+    end
+    cecho(line .. snd.theme.frame.."["..snd.theme.title.."Sunder"..snd.theme.frame.."]" .. color .. " " .. string)
+    if type == "reset" then
+      send(" ")
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Important functions</name>
 				<packageName></packageName>
 				<script>--- Register event handlers under the Sunder namespace
@@ -37845,38 +37974,7 @@ end
 
 
 
-function snd.message(string, type)
-  if snd.toggles.gags then
-    if type == "atk" then
-      color = "magenta"
-    elseif type == "death" then
-      color = "red"
-    elseif type == "q" then
-      color = "brown"
-    elseif type == "balance" then
-      color = "orange"
-    elseif type == "level" then
-      color = "yellow"
-    elseif type == "reset" then
-      color = "brown"
-    elseif type == "affliction" then
-      color = "DeepSkyBlue"
-    elseif type == "dendara" then
-      color = "green"
-    else
-      color = "white"
-    end
-    if type == "toggle" or type == "echo" then
-      line = ""
-    else
-      line = "\n"
-    end
-    cecho(line .. "&lt;green&gt;[&lt;white&gt;SND&lt;green&gt;]&lt;" .. color .. "&gt; " .. string)
-    if type == "reset" then
-      send(" ")
-    end
-  end
-end</script>
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -47337,7 +47435,7 @@ npb.last_known_online = npb.last_known_online or { Bloodloch = {}, Duiran = {}, 
 -- @function npb.qwsorted
 -- @param people table of people to sort
 function npb.qwsorted(people)
-  local wrap = getWindowWrap() - 17
+  local wrap = math.min(80,getWindowWrap()) - 21
   local sorted = { Bloodloch = {}, Duiran = {}, Enorian = {}, Spinesreach = {}, Rogues = {}, Divine = {} }
   for _, name in pairs(people) do
     local org = sndNDB_getCitizenship(name)
@@ -47345,33 +47443,36 @@ function npb.qwsorted(people)
     table.insert(sorted[org], name)
   end
   npb.last_known_online = sorted
+  snd.disp.top("Players Online")
   for _, org in ipairs(npb.order) do
     local peoples = sorted[org]
     table.sort(peoples)
     if #peoples &gt; 0 then
       newLine()
       local x = 0
-      cecho("&lt;" .. npb.t.config.colors[org:lower()] .. "&gt;" ..
+      local oldx = 0
+      cecho(snd.theme.border.."| ".."&lt;" .. npb.t.config.colors[org:lower()] .. "&gt;" ..
         string.rep(" ", 11 - #org) ..
         "&lt;b&gt;&lt;u&gt;" .. org:title() .. "&lt;reset&gt;" .. (#peoples &gt; 9 and "" or " ") .. "&lt;white&gt;(&lt;cyan&gt;" ..
-        #peoples .. "&lt;white&gt;): ")
+        #peoples .. "&lt;white&gt;)"..snd.theme.border.."| ")
       for i, v in pairs(peoples) do
         local comma = next(peoples, i)
 
         local personlength = (comma and 2 or 0) + #v
-        x = x + personlength
-        -- display(x)
+        oldx, x = x, x + personlength
         if x &gt; wrap then
-          echo("\n" .. string.rep(" ", 17))
+          cecho(string.rep(" ", wrap-oldx)..snd.theme.border.." |")
+          cecho("\n"..snd.theme.border.."| " .. string.rep(" ", 15).."| ")
           x = personlength
           moveCursorEnd()
         end
         cecho(npb.cformat(v))
         if comma then echo(", ") end
       end
+      cecho(string.rep(" ", wrap-x)..snd.theme.border.." |")
     end
   end
-  echo("\n")
+  snd.disp.line()
   moveCursorEnd()
 end
 
@@ -56128,22 +56229,26 @@ end
 
 function snd.routes.help()
   local class = snd.class:lower()
+  
+  snd.disp.top("Routes for "..snd.class)
+  
   if not snd.routes.list[class] then
-    snd.message("No routes exist for "..snd.class.." :(")
+    snd.disp.text("None :(")
   else
-    snd.message("Available routes for "..snd.class..":")
     for name, info in spairs(snd.routes.list[class]) do
-      echo("\n"..name..": "..info.blurb)
+      snd.disp.table({name, info.blurb},{10},{"right", "left"})
     end
   end
+  
+  snd.disp.top("Generic routes")
   if not next(snd.routes.list.generic) then
-    snd.message("No generic routes available")
+    snd.disp.text("None :(")
   else
-    snd.message("Available generic routes:")
     for name, info in spairs(snd.routes.list.generic) do
-      echo("\n"..name..": "..info.blurb)
+      snd.disp.table({name, info.blurb},{10},{"right", "left"})
     end
   end
+  snd.disp.bottom()
 end
 
 function snd.routes.run(name)
