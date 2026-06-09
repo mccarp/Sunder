@@ -36534,7 +36534,7 @@ if matches[2] ~= "none" then
   table.insert(snd.group, string.title(name))
  end
 end
-display(snd.group)</script>
+snd.message("People in your group: "..snd.theme.darktext..table.concat(snd.group, ", "))</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^grp (.*)$</regex>
@@ -37866,12 +37866,10 @@ function snd.message(string, type)
     else
       color = snd.theme.text
     end
-    if type == "toggle" or type == "echo" then
-      line = ""
-    else
-      line = "\n"
+    if not(type == "toggle" or type == "echo") then
+      newLine()
     end
-    cecho(line .. snd.theme.frame.."["..snd.theme.title.."Sunder"..snd.theme.frame.."]" .. color .. " " .. string)
+    cecho(snd.theme.frame.."["..snd.theme.title.."Sunder"..snd.theme.frame.."]" .. color .. " " .. string)
     if type == "reset" then
       send(" ")
     end
@@ -37960,20 +37958,15 @@ function snd.delay()
   end
 end
 
---send wrappers
-function snd.send_attack(action)
-  if snd.can_cast() then
-    snd.send(action)
+function snd.send(action, wrap)
+  if type(action) == "table" then
+    action = table.concat(action, snd.sep)
   end
-end
-
-function snd.send(action)
+  if wrap then
+    cecho(" "..snd.theme.frame.."("..snd.theme.text..action..snd.theme.frame..")")
+  end
   send(action, false)
 end
-
-
-
-
 </script>
 				<eventHandlerList />
 			</Script>
@@ -40484,8 +40477,7 @@ function snd.activeCures.run()
   snd.balancefree = ""
   for _, cure in pairs(snd.activeCures.balanceless) do
     if (not cure.waiting) and cure.can() then
-      snd.send(cure.command())
-      echo("("..cure.command()..")")
+      snd.send(cure.command(), true)
       cure.waiting = true
       tempTimer(snd.delay(), function() cure.waiting = false end)
     end
@@ -41438,18 +41430,12 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>balance</name>
 					<packageName></packageName>
-					<script>local function sendWrapper(command)
-  if type(command) == "table" then
-    command = table.concat(command, snd.sep)
-  end
-  snd.send(command)
-   echo("("..command..")")
-end
+					<script>
 
 function snd.do_special(current)
  if snd.afflictions[current] ~= nil then
   if snd.afflictions[current].state == "afflicted" then
-   sendWrapper(snd.afflictions[current].cures.special)
+   snd.send(snd.afflictions[current].cures.special, true)
    snd.last_type = "special"
    snd.last_item = snd.afflictions[current].cures.special
    snd.afflictions[current].state = "waiting"
@@ -41460,7 +41446,7 @@ function snd.do_special(current)
 	 return
 	else
    if snd.defenses[current].state == "down" then
-    sendWrapper(snd.defenses[current].balance.special)
+    snd.send(snd.defenses[current].balance.special, true)
     snd.last_type = "special"
     snd.last_item = snd.defenses[current].balance.special
     snd.defenses[current].state = "waiting"
@@ -41574,8 +41560,7 @@ end</script>
 end
 
 function snd.eat(current)
- snd.send("eat "..snd.cur.herb)
- echo("(eat "..snd.cur.herb..")")
+ snd.send("eat "..snd.cur.herb, true)
  snd.defenses[current].state = "waiting"
  startStopWatch(snd.defenses[current].timer)
 end</script>
@@ -41594,15 +41579,13 @@ function snd.do_drink(current)
   end
   if snd.defenses[current] ~= nil then
    if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    snd.send("drink "..snd.cur.drink)
-    echo(" (drink "..snd.cur.drink..")")
+    snd.send("drink "..snd.cur.drink, true)
     snd.defenses[current].state = "waiting"
     startStopWatch(snd.defenses[current].timer)
    end
   elseif snd.afflictions[current] ~= nil then
    if snd.afflictions[current].state == "afflicted" then
-    snd.send("drink "..snd.cur.drink)
-    echo(" (drink "..snd.cur.drink..")")
+    snd.send("drink "..snd.cur.drink, true)
     snd.afflictions[current].state = "waiting"
     startStopWatch(snd.afflictions[current].timer)
    end
@@ -41705,8 +41688,7 @@ function snd.herb(current)
   snd.cur.herb = snd.defenses[current].balance.herb
  end
  if snd.afflictions[current] ~= nil then
-  snd.send("eat "..snd.cur.herb)
-  echo("(eat "..snd.cur.herb..")")
+  snd.send("eat "..snd.cur.herb, true)
   snd.last_type = "herb"
   snd.last_item = snd.cur.herb
   snd.waiting.herb = true
@@ -41714,8 +41696,7 @@ function snd.herb(current)
   snd.afflictions[current].state = "waiting"
   startStopWatch(snd.afflictions[current].timer)
  elseif snd.defenses[current] ~= nil then
-  snd.send("eat "..snd.cur.herb)
-  echo("(eat "..snd.cur.herb..")")
+  snd.send("eat "..snd.cur.herb, true)
   snd.last_type = "herb"
   snd.last_item = snd.cur.herb
   snd.waiting.herb = true
@@ -41740,8 +41721,7 @@ function snd.do_vial(current)
   end
   if snd.defenses[current] ~= nil then
    if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    snd.send("drink "..snd.cur.vial)
-    echo(" (drink "..snd.cur.vial..")")
+    snd.send("drink "..snd.cur.vial, true)
     snd.waiting.vial = true
     tempTimer(snd.delay(), [[snd.waiting.vial = false]])
     snd.defenses[current].state = "waiting"
@@ -41749,8 +41729,7 @@ function snd.do_vial(current)
    end
   elseif snd.afflictions[current] ~= nil then
    if snd.afflictions[current].state == "afflicted" then
-    snd.send("drink "..snd.cur.vial)
-    echo(" (drink "..snd.cur.vial..")")
+    snd.send("drink "..snd.cur.vial, true)
     snd.waiting.vial = true
     tempTimer(snd.delay(), [[snd.waiting.vial = false]])
     snd.afflictions[current].state = "waiting"
@@ -41775,8 +41754,7 @@ function snd.do_salve(current)
   end
   if snd.afflictions[current] ~= nil then
    if snd.afflictions[current].state == "afflicted" then
-    snd.send("apply "..snd.cur.salve)
-    echo("(apply "..snd.cur.salve..")")
+    snd.send("apply "..snd.cur.salve, true)
     snd.last_type = "salve"
     snd.last_item = snd.cur.salve
     snd.waiting.salve = true
@@ -41786,8 +41764,7 @@ function snd.do_salve(current)
    end
   elseif snd.defenses[current] ~= nil then
    if snd.defenses[current].state == "down" then
-    snd.send("apply "..snd.cur.salve.." to body")
-    echo("(apply "..snd.cur.salve.." to body)")
+    snd.send("apply "..snd.cur.salve.." to body", true)
     snd.last_type = "salve"
     snd.last_item = snd.cur.salve
     snd.waiting.salve = true
@@ -41829,8 +41806,7 @@ function snd.smoke(current)
  end
  if snd.afflictions[current] ~= nil then
   if snd.afflictions[current].state == "afflicted" then
-   snd.send("smoke "..snd.cur.pipe)
-   echo("(smoke "..snd.cur.pipe..")")
+   snd.send("smoke "..snd.cur.pipe, true)
    snd.last_type = "smoke"
    snd.last_item = snd.cur.pipe
    snd.afflictions[current].state = "waiting"
@@ -41838,8 +41814,7 @@ function snd.smoke(current)
   end
  elseif snd.defenses[current] ~= nil then
   if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-   snd.send("smoke "..snd.cur.pipe)
-   echo("(smoke "..snd.cur.pipe..")")
+   snd.send("smoke "..snd.cur.pipe, true)
    snd.last_type = "smoke"
    snd.last_item = snd.cur.pipe
    snd.defenses[current].state = "waiting"
@@ -41879,21 +41854,6 @@ function snd.purge_check()
       return false
     end
   end
-end
-
-function snd.do_purge()
-  if snd.class == "Carnifex" then
-    snd.send("soul purge")
-    echo("(soul purge)")
-  else
-    snd.send("ancest annul")
-    echo("(ancest annul)")
-  end
-
-  snd.last_type = "purge"
-  snd.last_item = "purge"
-  snd.waiting.purge = true
-  tempTimer(snd.delay(), [[snd.waiting.purge = false]])
 end
 </script>
 					<eventHandlerList />
@@ -43224,14 +43184,14 @@ end</script>
 function snd.rpAlert(textTable)
 if type(textTable) == "string" then textTable = {textTable} end
 
-cecho("\n&lt;medium_orchid&gt;"..header)
-cecho("\n"..string.rep("~=",41).."~")
+cecho("\n"..snd.theme.darktext..header)
+cecho("\n"..snd.theme.border..string.rep("~=",41).."~")
 for _, text in ipairs(textTable) do
   local raw = string.gsub(text, "&lt;.-&gt;" ,"")
   local padding = 41-#raw/2
-  cecho("\n&lt;dodger_blue&gt;"..string.rep(" ",padding)..text)
+  cecho("\n"..snd.theme.text..string.rep(" ",padding)..text)
 end
-cecho("\n"..string.rep("~=",41).."~")
+cecho("\n"..snd.theme.border..string.rep("~=",41).."~")
 end</script>
 				<eventHandlerList />
 			</Script>
