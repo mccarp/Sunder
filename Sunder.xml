@@ -50389,7 +50389,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.3.5"
+local version = "12.3.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -76236,12 +76236,400 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>mouse</name>
+						<packageName></packageName>
+						<script>local alias = "mouse"
+local class = "shaman"
+local blurb = "A newbie group route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "ringing_ears",
+    "clumsiness",
+    "asthma",
+    "allergies",
+    "vomiting",
+    "haemophilia",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    --"weariness",
+    --"recklessness",
+    --"dizziness",
+    --"voyria",
+  }
+  local cmd = ""
+  local venom = "none"
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+    if venom == "none" then
+     venom = snd.effects[snd.giving[i]]
+    end
+   end
+  end
+	if venom == "none" then
+	 venom = "epseth"
+	end
+  if snd.used.shield then
+   cmd = "commune leafstorm "..snd.target
+  elseif tonumber(gmcp.Char.Vitals.energy) then
+   cmd = "commune boost"..snd.sep.."commune vinelash "..snd.target.." "..venom
+  else
+   cmd = "commune vinelash "..snd.target.." "..venom
+  end
+  if not snd.have_def("shaman_spiritsight") then
+    cmd = "shaman spiritsight on"..snd.sep..cmd
+  end
+  
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>storm</name>
+						<packageName></packageName>
+						<script>local alias = "storm"
+local class = "shaman"
+local blurb = "Go for stormtouched then cast lightning!"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "clumsiness",
+    "asthma",
+    "allergies",
+    "vomiting",
+    "haemophilia",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    --"weariness",
+    --"recklessness",
+    --"dizziness",
+    --"voyria",
+  }
+  local cmd = ""
+	local call = ""
+  local venom = "none"
+
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+    if venom == "none" then
+     venom = snd.effects[snd.giving[i]]
+    end
+   end
+  end
+	if venom == "none" then
+	 venom = "epseth"
+	end
+  if snd.used.shield then
+ 	 cmd = "fetish attune "..snd.target..snd.sep.."commune leafstorm "..snd.target
+  elseif snd.checkAff("stormtouched") then
+ 	 if tonumber(gmcp.Char.Vitals.energy) then
+  	cmd = "fetish attune "..snd.target..snd.sep.."commune boost"..snd.sep.."commune lightning "..snd.target
+ 	 else
+ 	 	cmd = "fetish attune "..snd.target..snd.sep.."commune lightning "..snd.target
+  	end
+ 	else
+  	cmd = "fetish attune "..snd.target..snd.sep.."commune vinelash "..snd.target.." "..venom
+  	call = "wt Vinelash "..snd.target..": "..venom..snd.sep
+  	if tonumber(gmcp.Char.Vitals.energy) &gt;= 4 then
+  		cmd = "commune boost "..snd.sep..cmd  
+  	end
+  end
+	
+  if not snd.have_def("shaman_spiritsight") then
+    cmd = "shaman spiritsight on"..snd.sep..cmd
+  end
+	
+  cmd = call..cmd
+  
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>supp</name>
+						<packageName></packageName>
+						<script>local alias = "supp"
+local class = "shaman"
+local blurb = "A group affliction support route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    
+    "clumsiness",
+    "asthma",
+    "slickness",
+    "anorexia",
+    "stupidity",
+    "weariness",
+    "allergies",
+    "vomiting",
+    "haemophilia",
+    "ringing_ears",
+    "recklessness",
+    "dizziness",
+    --"voyria",
+  }
+  local cmd = ""
+	local call = ""
+  local venom = "none"
+
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+    if venom == "none" then
+     venom = snd.effects[snd.giving[i]]
+    end
+   end
+  end
+	if venom == "none" then
+	 venom = "epseth"
+	end
+  if snd.used.shield then
+   cmd = "commune leafstorm "..snd.target
+	elseif tonumber(gmcp.Char.Vitals.energy) &gt;= 3 then
+		if not snd.checkAff("impatience") and not snd.checkAff("confusion") then
+			cmd = "commune sporulation "..snd.target
+		elseif not snd.checkAff("paresis") and not snd.checkAff("stupidity") then
+			cmd = "commune overload "..snd.target
+		else
+			cmd = "commune vinelash "..snd.target.." "..venom
+	 		call = "wt Vinelash "..snd.target..": "..venom..snd.sep
+		end	
+  else
+   cmd = "commune vinelash "..snd.target.." "..venom
+	 call = "wt Vinelash "..snd.target..": "..venom..snd.sep
+  end
+	
+  if not snd.have_def("shaman_spiritsight") then
+    cmd = "shaman spiritsight on"..snd.sep..cmd
+  end
+	
+  cmd = call..cmd
+	
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Alchemist</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>mouse</name>
+						<packageName></packageName>
+						<script>local alias = "mouse"
+local class = "alchemist"
+local blurb = "A newbie group route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "ringing_ears",
+    "clumsiness",
+    "asthma",
+    "allergies",
+    "vomiting",
+    "haemophilia",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    --"weariness",
+    --"recklessness",
+    --"dizziness",
+    --"voyria",
+  }
+  local venom = "none"
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+    if venom == "none" then
+     venom = snd.effects[snd.giving[i]]
+    end
+   end
+  end
+    if venom == "none" then
+	 venom = "epseth"
+	end
+  if snd.used.shield then
+   attack = "alchemy corrosive "..snd.target
+  elseif tonumber(gmcp.Char.Vitals.energy) then
+   attack = "alchemy catalyse"..snd.sep.."alchemy virulent "..snd.target.." "..venom
+  else
+   attack = "alchemy virulent "..snd.target.." "..venom
+  end
+  
+	if not snd.have_def("cognisance") then
+    attack = "derive cognisance on"..snd.sep..attack
+  end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>storm</name>
+						<packageName></packageName>
+						<script>local alias = "storm"
+local class = "alchemist"
+local blurb = "Go for stormtouched, then zap them"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  snd.giving = {
+    "clumsiness",
+    "asthma",
+    "allergies",
+    "vomiting",
+    "haemophilia",
+    "slickness",
+    "stupidity",
+    "anorexia",
+    --"weariness",
+    --"recklessness",
+    --"dizziness",
+    --"voyria",
+  }
+  local call = ""
+  local attack = ""
+  venom = "none"
+  for i in pairs(snd.giving) do
+   if not table.contains(snd.target_has, snd.giving[i]) then
+    if venom == "none" then
+     venom = snd.effects[snd.giving[i]]
+    end
+   end
+  end
+	if venom == "none" then
+	 venom = "epseth"
+	end
+  if snd.used.shield then
+ 	 attack = "compound exposure "..snd.target..snd.sep.."alchemy corrosive "..snd.target
+  elseif snd.checkAff("stormtouched") then
+ 	 if tonumber(gmcp.Char.Vitals.energy) then
+  	attack = "compound exposure "..snd.target..snd.sep.."alchemy catalyse"..snd.sep.."alchemy static  "..snd.target
+ 	 else
+ 	 	attack = "compound exposure "..snd.target..snd.sep.."alchemy static "..snd.target
+  	end
+ 	else
+  	attack = "compound exposure "..snd.target..snd.sep.."alchemy virulent "..snd.target.." "..venom
+  	call = "wt Virulent "..snd.target..": "..venom..snd.sep
+  	if tonumber(gmcp.Char.Vitals.volatility) &gt;= 4 then
+  		attack = "alchemy catalyse "..snd.sep..attack  
+  	end
+  end
+  
+	if not snd.have_def("cognisance") then
+    attack = "derive cognisance on"..snd.sep..attack
+  end
+	
+  attack = call..attack
+	
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>supp</name>
+						<packageName></packageName>
+						<script>local alias = "supp"
+local class = "alchemist"
+local blurb = "A group afflictions support route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- declare some important variables, you can add more here if you need
+  local cmd = ""
+  local call = ""
+
+  -- attack logic goes here, you need to set cmd = whatever you want to send
+  cmd = "punch " .. snd.target
+  -- you use a webcall variable to announce the afflictions you deal to your
+  -- team. not all attacks need a call but for venoms, doublewhispers, and
+  -- more it's essential!
+  call = "wt Afflicting " .. snd.target .. ": DEATH"
+
+  -- check if we need to prepend an affliction call
+  if snd.toggles.affcalling and not snd.target_gone then
+    cmd = call .. snd.sep .. cmd
+  end
+
+  --execute the attack!
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -76816,12 +77204,706 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "teradrim"
+local blurb = "A group damage route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
+  local attack = ""
+    -- if they are impaled, let's do some damage
+  if snd.target_impaled and hasSkill("Stonevice") then
+    attack = "earth stonevice"
+  -- If there is no fog, let's get it going.
+  elseif not table.contains(gmcp.Room.Info.details, "sandy") then
+    attack = "sand flood"
+  -- If you don't have sandstorm up, let's do it.
+  elseif sandstorm == 0 and hasSkill("Sandstorm") then
+    attack = "sand storm"
+  -- Are they tumbling? Let's impale them if they haven't been yet.
+  elseif not snd.target_impaled and snd.theytumbling then
+     attack = attack.."earth impale "..snd.target
+  -- If shielded or rebounding, strip it.
+  elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Slice") then
+    if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+      if snd.used.shield and snd.used.rebounding then
+        attack = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target
+      elseif snd.used.shield or snd.used.rebounding then
+        attack = "sand slice "..snd.target.." storm"..snd.sep.."earth overhand " .. snd.target            
+      end
+    else
+      attack = "sand slice " .. snd.target
+    end
+  -- Did you happen to strip their lev and they are not proned? Let's prone them!
+  elseif not snd.proned() and snd.lev_gone and hasSkill("Shockwave") then
+     attack = attack.."earth shockwave "..snd.target      
+	-- If you can impale them, let's do it, so long as no one else has.
+  elseif not snd.target_impaled and snd.proned() and hasSkill("Impale") then
+    if sandstorm &gt;= 5 then
+      attack = "sand scourge "..snd.target.." storm"..snd.sep.."earth impale"
+    else
+      attack = "earth impale"
+    end
+  -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
+  elseif snd.proned() and snd.checksomeAffs({"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"},2) and hasSkill("Quake") then
+    if sandstorm &gt;= 5 and hasSkill("Sandstorm") then
+      attack = "sand scourge "..snd.target.." storm"..snd.sep.."earth quake"
+    else
+      attack = "earth quake"
+    end
+  -- Let's go ahead and start damaging their head if they aren't parrying it.
+  elseif snd.parried_limb ~= "head" and hasSkill("Shred") then
+    if sandstorm &gt;= 5 and hasSkill("Sandstorm") then
+      attack = "sand shred "..snd.target.." head storm"..snd.sep.."earth batter "..snd.target
+    else
+      attack = "sand shred "..snd.target.." head"
+    end
+  -- Otherwise, let's just batter them.
+  else
+    attack = "earth batter "..snd.target
+  end
+
+  -- If your golem isn't attacking, get it attacking.
+  if not snd.loyalsattacking then
+    attack = "order loyals kill "..snd.target..snd.sep..attack
+  end
+  
+  if snd.balance.earthenwill and hasSkill("Earthenwill") then
+    attack = "prepare earthenwill"..snd.sep..attack
+  end
+
+  if snd.balance.momentum and hasSkill("Momentum") then
+    attack = "earth momentum"..snd.sep..attack
+  end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "teradrim"
+local blurb = "A group limbs route."
+
+local attack_map = {
+  ["left arm"] = "slam",
+	["left leg"] = "slam",
+	head = "facesmash",
+	torso = "gutsmash",
+	["right arm"] = "slam",
+	["right leg"] = "slam",
+}
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
+  local cmd = ""
+  local hammercount = 0
+  for limb, bruising in pairs(snd.limb_bruising) do
+    if bruising&gt;1 then 
+      hammercount = hammercount+1
+    end
+  end
+  -- If target is impaled, let's do some damage.
+  if snd.target_impaled and hasSkill("Stonevice") then
+    cmd = "earth stonevice"
+  -- If there is no fog, let's get it going.
+  elseif not snd.used.shield and hammercount&gt;2 then
+    cmd = "earth hammer "..snd.target
+  elseif not table.contains(gmcp.Room.Info.details, "sandy") then
+    cmd = "sand flood"
+  -- If you don't have sandstorm up, let's do it.
+  elseif sandstorm == 0 and hasSkill("Sandstorm") then
+    cmd = "sand storm"
+  -- Are they tumbling? Let's impale them if they haven't been yet.
+  elseif not snd.target_impaled and snd.theytumbling then
+     cmd = cmd.."earth impale "..snd.target
+  -- They shielded and rebounded? Try to remove both. But if they only have one, strip it and then strip levitation. 
+  else
+    local shield = snd.used.shield
+    local rebounding = snd.used.rebounding      
+    local sand = ""
+    local quicksand = snd.checkAff("quicksand")
+    local attack = ""
+  
+  --Sand decisions
+  if shield and rebounding then
+    if sandstorm&gt;4 then
+      shield = false
+      rebounding = false
+      sand = "sand slice "..snd.target.." storm"..snd.sep.."sand slice "..snd.target.." storm"..snd.sep
+    elseif sandstorm&gt;2 then
+      rebounding = false
+      sand = "sand slice "..snd.target.." storm"..snd.sep
+    end
+  elseif shield or rebounding then
+    if sandstorm&gt;2 then
+      shield = false
+      rebounding = false
+      sand = "sand slice "..snd.target.." storm"..snd.sep
+    end
+  elseif sandstorm&gt;4 then
+    if snd.proned() and not quicksand then
+      sand = "sand quicksand "..snd.target.." storm"..snd.sep
+      quicksand = true
+    elseif not snd.checksomeAffs({"left_leg_crippled","right_leg_crippled","left_arm_crippled","right_arm_crippled"},4) then
+      sand = "sand scourge "..snd.target.." storm"..snd.sep
+    end
+  end
+  --end sand decisions
+  local shockwaveLimbs = 0
+  
+  for _, limb in pairs({"left leg", "right leg", "left arm", "right arm"}) do
+    if (snd.limb_bruising[limb]&gt;0 or quicksand or snd.lev_gone) and not snd.checkAff(limb:gsub(" ","_").."_crippled") then
+      shockwaveLimbs = shockwaveLimbs+1
+    end
+  end
+  
+  local fractureBreakable = {}
+  local bruiseBreakable = {}
+  local furorBreakable = {}
+  local bruiseLimb = "none"
+  
+  local function canBreak(limb, ability)
+    local dmg = snd.calcTeradrimLimbDamage(ability, true, limb)
+    return snd.limb_dmg[limb]&lt;33.33 and snd.limb_dmg[limb] + dmg &gt;33.33
+  end
+  
+  local limbLimbs = {["left leg"] = true, ["right leg"] = true, ["left arm"] = true, ["right arm"] = true}
+  for _, limb in ipairs({"left leg", "right leg", "left arm", "right arm", "torso", "head"}) do
+    if limb~= snd.resto_limb and (snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb)) then
+       if limbLimbs[limb] and canBreak(limb, "fracture") then
+          table.insert(fractureBreakable, limb)
+       end
+       if limbLimbs[limb] and canBreak(limb, "furor") then
+          table.insert(furorBreakable, limb)
+       end
+       if canBreak(limb, attack_map[limb]) then
+        table.insert(bruiseBreakable, limb)
+       end
+       if bruiseLimb == "none" and snd.limb_bruising[limb]&lt;2 then
+          bruiseLimb = limb
+       end
+    end
+  end
+    if shield then
+      attack = "earth stoneblast "..snd.target
+    elseif hammercount&gt;2 then
+      attack = "earth hammer "..snd.target
+    elseif (shockwaveLimbs&gt;1 and not snd.checkAff("fallen")) or shockwaveLimbs&gt;2 then
+      attack = "earth shockwave "..snd.target
+    elseif snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+      attack = "earth overhand "..snd.target
+    elseif rebounding then
+      attack = "earth stoneblast "..snd.target
+    elseif #furorBreakable&gt;1 then
+      attack = "earth furor "..snd.target.." "..furorBreakable[1].." "..furorBreakable[2]
+    elseif #bruiseBreakable&gt;0 then
+      attack = "earth "..attack_map[bruiseBreakable[1]].." "..snd.target.." "..bruiseBreakable[1]
+    elseif #fractureBreakable&gt;0 then
+      attack = "earth fracture "..snd.target.." "..fractureBreakable[1]
+    else
+      attack = "earth "..attack_map[bruiseLimb].." "..snd.target.." "..bruiseLimb
+    end
+    cmd = sand..attack
+  end
+
+  -- If your synth isn't attacking, get it attacking.
+  if not snd.loyalsattacking then
+    cmd = "order loyals kill "..snd.target..snd.sep..cmd
+  end
+
+  if snd.balance.earthenwill and hasSkill("Earthenwill") then
+    cmd = "prepare earthenwill"..snd.sep..cmd
+  end
+
+  if snd.balance.momentum and hasSkill("Momentum") then
+    cmd = "earth momentum"..snd.sep..cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "teradrim"
+local blurb = "A slough-heavy group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local sandstorm = tonumber(gmcp.Char.Vitals.sandstorm)
+  local attack = ""
+  if not table.contains(gmcp.Room.Info.details, "sandy") then
+    attack = "sand flood"
+    -- If you don't have sandstorm up, let's do it.
+  elseif sandstorm == 0 and hasSkill("Sandstorm") then
+    attack = "sand storm"
+    -- Are they tumbling? Let's impale them if they haven't been yet.
+  elseif not snd.target_impaled and snd.theytumbling then
+    attack = attack .. "earth impale " .. snd.target
+    -- If shielded or rebounding, strip it.
+  elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Slice") then
+    if sandstorm &gt;= 3 and hasSkill("Sandstorm") then
+      if snd.used.shield and snd.used.rebounding then
+        attack = "sand slice " .. snd.target .. " storm" .. snd.sep .. "sand slice " .. snd.target
+      else
+        attack = "sand slice " .. snd.target .. " storm" .. snd.sep .. "earth batter " .. snd.target
+      end
+    else
+      attack = "sand slice " .. snd.target
+    end
+    -- Let's get slough going to limit usage of poultices.
+  elseif not snd.checkAff("slough") and hasSkill("Curse") then -- slough prevents poultices from being applied, like slickness
+    -- Let's try to give arrhythmia and stun if we can.
+    -- If we have sandstorm, let's give some affs and damage torso.
+    -- If all else fails, let's just give those affs.
+    if (snd.balance.earthenwill and hasSkill("Engulf")) and (sandstorm &gt;= 5 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
+      attack = "prepare earthenwill heartpunch" ..
+      snd.sep .. "sand curse " .. snd.target .. " storm" .. snd.sep .. "earth gutsmash " .. snd.target
+    elseif (sandstorm &gt;= 5 and hasSkill("Sandstorm")) and hasSkill("Gutsmash") then
+      attack = "sand curse " .. snd.target .. " storm" .. snd.sep .. "earth gutsmash " .. snd.target
+    else
+      attack = "sand curse " .. snd.target
+    end
+    -- if they are proned, let's go ahead and try to give collapsed lung to punish for smoking
+  elseif (snd.proned() and hasSkill("Pulp")) and not snd.checkAff("collapsed_lung") then
+    attack = attack .. "earth pulp " .. snd.target
+    -- If we get slough up, let's throw out some useful group affs going.
+  elseif not snd.checksomeAffs({ "recklessness", "dizziness", "ringing_ears", "epilepsy", "stupidity" }, 4) and hasSkill("Whip") then
+    attack = "sand whip " .. snd.target
+    -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
+  elseif not snd.checksomeAffs({ "left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled" }, 4) and hasSkill("Scourge") then
+    attack = "sand scourge " .. snd.target
+    -- All else, let's just smack
+  else
+    attack = "earth  batter " .. snd.target
+  end
+
+  -- If your golem isn't attacking, get it attacking.
+  if not snd.loyalsattacking then
+    attack = "order loyals kill " .. snd.target .. snd.sep .. attack
+  end
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Tidesage</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "tidesage"
+local blurb = "A group damage route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local apparition = tonumber(gmcp.Char.Vitals.apparition)
+  local cmd = ""
+  -- if they are impaled, let's do some damage
+  if snd.target_impaled and hasSkill("Eviscerate") then
+    cmd = "tide eviscerate"
+    -- If there is no fog, let's get it going.
+  elseif not table.isMember(gmcp.Room.Info.details, "fogged") then
+    cmd = "fog inundate"
+    -- If you don't have apparition up, let's do it.
+  elseif apparition == 0 and hasSkill("Apparition") then
+    cmd = "fog apparition"
+    -- Are they tumbling? Let's impale them if they haven't been yet.
+  elseif not snd.target_impaled and snd.theytumbling then
+    cmd = cmd .. "tide harpoon " .. snd.target
+    -- They shielded and rebounded? Try to remove both. But if they only have one, strip it and then strip levitation.
+  elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Abyss") then
+    if apparition &gt;= 3 and hasSkill("Apparition") then
+      if snd.used.shield and snd.used.rebounding then
+        cmd = "fog abyss " .. snd.target .. " apparition" .. snd.sep .. "fog abyss " .. snd.target
+      elseif snd.used.shield or snd.used.rebounding then
+        cmd = "fog abyss " .. snd.target .. " apparition" .. snd.sep .. "tide breach " .. snd.target
+      end
+    else
+      cmd = "fog abyss " .. snd.target
+    end
+    -- Did you happen to strip their lev and they are not proned? Let's prone them!
+  elseif not snd.proned() and snd.lev_gone and hasSkill("Capsize") then
+    cmd = cmd .. "tide capsize " .. snd.target
+    -- If you can impale them, let's do it, so long as no one else has.
+  elseif not snd.target_impaled and snd.proned() and hasSkill("Harpoon") then
+    if apparition &gt;= 5 then
+      cmd = "fog unseen " .. snd.target .. " apparition" .. snd.sep .. "tide harpoon"
+    else
+      cmd = "tide harpoon"
+    end
+    -- They prone and have two limbs broken? Cool, let's try to damage some limbs more and generally damage them cause of it.
+  elseif
+    snd.proned() and
+    snd.checksomeAffs(
+      {"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"}, 2
+    ) and
+    hasSkill("Undulation")
+  then
+    if apparition &gt;= 5 and hasSkill("Apparition") then
+      cmd = "fog unseen " .. snd.target .. " apparition" .. snd.sep .. "tide undulation"
+    else
+      cmd = "tide undulation"
+    end
+    -- Let's go ahead and start damaging their head if they aren't parrying it.
+  elseif snd.parried_limb ~= "head" and hasSkill("Feelers") then
+    if apparition &gt;= 5 and hasSkill("Apparition") then
+      cmd =
+        "fog feelers " ..
+        snd.target ..
+        " head apparition" ..
+        snd.sep ..
+        "tide clobber " ..
+        snd.target
+    else
+      cmd = "fog feelers " .. snd.target .. " head"
+    end
+    -- Otherwise, let's just clobber them.
+  else
+    cmd = "tide clobber " .. snd.target
+  end
+  -- If your synth isn't attacking, get it attacking.
+  if not snd.loyalsattacking then
+    cmd = "order loyals kill " .. snd.target .. snd.sep .. cmd
+  end
+  if snd.balance.earthenwill and hasSkill("Engulf") then
+    cmd = "tide engulf" .. snd.sep .. cmd
+  end
+  if snd.balance.momentum and hasSkill("Hightide") then
+    cmd = "tide hightide" .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "tidesage"
+local blurb = "A group limbs route."
+
+local attack_map =
+  {
+    ["left arm"] = "crack",
+    ["left leg"] = "crack",
+    head = "crest",
+    torso = "ram",
+    ["right arm"] = "crack",
+    ["right leg"] = "crack",
+  }
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local sandstorm = tonumber(gmcp.Char.Vitals.apparition)
+  local cmd = ""
+  local hammercount = 0
+  for limb, bruising in pairs(snd.limb_bruising) do
+    if bruising &gt; 1 then
+      hammercount = hammercount + 1
+    end
+  end
+  -- If target is impaled, let's do some damage.
+  if snd.target_impaled then
+    cmd = "tide eviscerate"
+    -- If there is no fog, let's get it going.
+  elseif not snd.used.shield and hammercount &gt; 2 then
+    cmd = "tide keelhaul " .. snd.target
+  elseif not table.contains(gmcp.Room.Info.details, "fogged") then
+    cmd = "fog inundate"
+    -- If you don't have sandstorm up, let's do it.
+  elseif sandstorm == 0 then
+    cmd = "fog apparition"
+    -- Are they tumbling? Let's impale them if they haven't been yet.
+  elseif not snd.target_impaled and snd.theytumbling then
+    cmd = cmd .. "tide harpoon " .. snd.target
+  else
+    local shield = snd.used.shield
+    local rebounding = snd.used.rebounding
+    local sand = ""
+    local quicksand = snd.checkAff("quicksand")
+    local attack = ""
+    --Sand decisions
+    if shield and rebounding then
+      if sandstorm &gt; 4 then
+        shield = false
+        rebounding = false
+        sand =
+          "fog abyss " ..
+          snd.target ..
+          " apparition" ..
+          snd.sep ..
+          "fog abyss " ..
+          snd.target ..
+          " apparition" ..
+          snd.sep
+      elseif sandstorm &gt; 2 then
+        rebounding = false
+        sand = "fog abyss " .. snd.target .. " apparition" .. snd.sep
+      end
+    elseif shield or rebounding then
+      if sandstorm &gt; 2 then
+        shield = false
+        rebounding = false
+        sand = "fog abyss " .. snd.target .. " apparition" .. snd.sep
+      end
+    elseif sandstorm &gt; 4 then
+      if snd.proned() and not quicksand then
+        sand = "fog undertow " .. snd.target .. " apparition" .. snd.sep
+        quicksand = true
+      elseif
+        not snd.checksomeAffs(
+          {"left_leg_crippled", "right_leg_crippled", "left_arm_crippled", "right_arm_crippled"}, 4
+        )
+      then
+        sand = "fog unseen " .. snd.target .. " apparition" .. snd.sep
+      end
+    end
+    --end sand decisions
+    local shockwaveLimbs = 0
+    for _, limb in pairs({"left leg", "right leg", "left arm", "right arm"}) do
+      if
+        (snd.limb_bruising[limb] &gt; 0 or quicksand or snd.lev_gone) and
+        not snd.checkAff(limb:gsub(" ", "_") .. "_crippled")
+      then
+        shockwaveLimbs = shockwaveLimbs + 1
+      end
+    end
+    local fractureBreakable = {}
+    local bruiseBreakable = {}
+    local furorBreakable = {}
+    local bruiseLimb = "none"
+
+    local function canBreak(limb, ability)
+      local dmg = snd.calcTeradrimLimbDamage(ability, true, limb)
+      return snd.limb_dmg[limb] &lt; 33.33 and snd.limb_dmg[limb] + dmg &gt; 33.33
+    end
+
+    local limbLimbs =
+      {["left leg"] = true, ["right leg"] = true, ["left arm"] = true, ["right arm"] = true}
+    for _, limb in ipairs({"left leg", "right leg", "left arm", "right arm", "torso", "head"}) do
+      if
+        limb ~= snd.resto_limb and
+        (snd.no_parry() or (snd.parried_limb ~= limb and snd.last_struck_limb ~= limb))
+      then
+        if limbLimbs[limb] and canBreak(limb, "fracture") then
+          table.insert(fractureBreakable, limb)
+        end
+        if limbLimbs[limb] and canBreak(limb, "furor") then
+          table.insert(furorBreakable, limb)
+        end
+        if canBreak(limb, attack_map[limb]) then
+          table.insert(bruiseBreakable, limb)
+        end
+        if bruiseLimb == "none" and snd.limb_bruising[limb] &lt; 2 then
+          bruiseLimb = limb
+        end
+      end
+    end
+    if shield then
+      attack = "tide riptide " .. snd.target
+    elseif hammercount &gt; 2 then
+      attack = "tide keelhaul " .. snd.target
+    elseif (shockwaveLimbs &gt; 1 and not snd.checkAff("fallen")) or shockwaveLimbs &gt; 2 then
+      --shockwave spam because it's gr8 don't @ me
+      attack = "tide capsize " .. snd.target
+    elseif
+      snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) and not snd.checkAff("fallen")
+    then
+      attack = "tide breach " .. snd.target
+    elseif rebounding then
+      attack = "tide riptide " .. snd.target
+    elseif #furorBreakable &gt; 1 then
+      attack = "tide pitch " .. snd.target .. " " .. furorBreakable[1] .. " " .. furorBreakable[2]
+    elseif #bruiseBreakable &gt; 0 then
+      attack =
+        "tide " .. attack_map[bruiseBreakable[1]] .. " " .. snd.target .. " " .. bruiseBreakable[1]
+    elseif #fractureBreakable &gt; 0 then
+      attack = "tide buckle " .. snd.target .. " " .. fractureBreakable[1]
+    else
+      attack = "tide " .. attack_map[bruiseLimb] .. " " .. snd.target .. " " .. bruiseLimb
+    end
+    cmd = sand .. attack
+  end
+  -- If your synth isn't attacking, get it attacking.
+  if not snd.loyalsattacking then
+    cmd = "order loyals kill " .. snd.target .. snd.sep .. cmd
+  end
+  if snd.balance.earthenwill then
+    cmd = "tide engulf" .. snd.sep .. cmd
+  end
+  if snd.balance.momentum then
+    cmd = "tide hightide" .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>aff</name>
+						<packageName></packageName>
+						<script>local alias = "aff"
+local class = "tidesage"
+local blurb = "A slough-heavy group afflictions route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+
+  local apparition = tonumber(gmcp.Char.Vitals.apparition)
+  local cmd = ""
+  if not table.isMember(gmcp.Room.Info.details, "fogged") then
+    cmd = "fog inundate"
+    -- If you don't have apparition up, let's do it.
+  elseif apparition == 0 and hasSkill("Apparition") then
+    cmd = "fog apparition"
+    -- Are they tumbling? Let's impale them if they haven't been yet.
+  elseif not snd.target_impaled and snd.theytumbling then
+    cmd = cmd .. "tide harpoon " .. snd.target
+    -- If shielded or rebounding, strip it.
+  elseif (snd.used.shield or snd.used.rebounding) and hasSkill("Abyss") then
+    if apparition &gt;= 3 and hasSkill("Apparition") then
+      if snd.used.shield and snd.used.rebounding then
+        cmd = "fog abyss " .. snd.target .. " apparition" .. snd.sep .. "fog abyss " .. snd.target
+      else
+        cmd =
+          "fog abyss " .. snd.target .. " apparition" .. snd.sep .. "tide clobber " .. snd.target
+      end
+    else
+      cmd = "fog abyss " .. snd.target
+    end
+    -- Let's get slough going to limit usage of poultices.
+  elseif not snd.checkAff("slough") and hasSkill("Terrors") then
+    -- slough prevents poultices from being applied, like slickness
+    -- Let's try to give arrhythmia and stun if we can.
+    -- If we have apparition, let's give some affs and damage torso.
+    -- If all else fails, let's just give those affs.
+    if
+      (snd.balance.earthenwill and hasSkill("Engulf")) and
+      (apparition &gt;= 5 and hasSkill("Apparition")) and
+      hasSkill("Ram")
+    then
+      cmd =
+        "tide engulf trammel" ..
+        snd.sep ..
+        "fog terrors " ..
+        snd.target ..
+        " apparition" ..
+        snd.sep ..
+        "tide ram " ..
+        snd.target
+    elseif (apparition &gt;= 5 and hasSkill("Apparition")) and hasSkill("Ram") then
+      cmd = "fog terrors " .. snd.target .. " apparition" .. snd.sep .. "tide ram " .. snd.target
+    else
+      cmd = "fog terrors " .. snd.target
+    end
+    -- if they are proned, let's go ahead and try to give collapsed lung to punish for smoking
+  elseif (snd.proned() and hasSkill("Wreck")) and not snd.checkAff("collapsed_lung") then
+    cmd = cmd .. "tide wreck " .. snd.target
+    -- If we get slough up, let's throw out some useful group affs going.
+  elseif
+    not snd.checksomeAffs({"recklessness", "dizziness", "ringing_ears", "epilepsy", "stupidity"}, 4) and
+    hasSkill("Gnash")
+  then
+    cmd = "fog gnash " .. snd.target
+    -- If we have gotten slough on the target, let's break some limbs. Those are affs too.
+  elseif
+    not snd.checksomeAffs(
+      {"left_arm_crippled", "right_arm_crippled", "left_leg_crippled", "right_leg_crippled"}, 4
+    ) and
+    hasSkill("Unseen")
+  then
+    cmd = "fog unseen " .. snd.target
+    -- All else, let's just smack
+  else
+    cmd = "tide clobber " .. snd.target
+  end
+  -- If your synth isn't attacking, get it attacking.
+  if not snd.loyalsattacking then
+    cmd = "order loyals kill " .. snd.target .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -77264,12 +78346,845 @@ end</script>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "zealot"
+local blurb = "A group damage route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local firefist = snd.have_def("firefist")
+  local zenith = snd.have_def("zenith")
+  
+  if snd.checkAff("crispy") then
+    if not snd.checkAff("ablaze") then
+      snd.target_cured("crispy")
+    end
+  end
+
+  local immolation_ready = snd.checkAff("crispy")
+
+  -- Flow Handling
+  -- Consider writing a check for different combos on firefist?
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  elseif snd.parried_limb ~= "torso" then
+    cmd = "flow " .. snd.target .. " clawtwist clawtwist"
+  elseif snd.parried_limb ~= "head" then
+    if not snd.checkAff("crippled_throat") then
+      cmd = "flow " .. snd.target .. " edgekick heelrush head"
+    else
+      cmd = "flow " .. snd.target .. " sunkick heelrush head"
+    end
+  elseif snd.parried_limb ~= "left leg" and snd.parried_limb ~= "right leg" then
+    cmd = "flow " .. snd.target .. " wanekick left wanekick right"
+  elseif snd.parried_limb ~= "left leg" and snd.parried_limb == "right leg" then
+    cmd = "flow " .. snd.target .. " wanekick left wanekick left"
+  elseif snd.parried_limb ~= "right leg" and snd.parried_limb == "left leg" then
+    cmd = "flow " .. snd.target .. " wanekick right wanekick right"
+  else
+    if snd.parried_limb ~= "left arm" then
+      cmd = "flow " .. snd.target .. " pummel left pummel left"
+    end
+  end
+  -- Hackles handling
+  -- Jawcrack &gt; Rive ...  rive to maximize the bleeding.
+  -- Prioritize Whipburst during firefist?
+  -- First, we should check if we have hackles balance.	
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    -- Cool! What are we doing with it? Let's figure that out and put it before our flow cmd!
+    if snd.parried_limb ~= "head" and not snd.checkAff("stuttering") then
+      cmd = "hackles " .. snd.target .. " jawcrack " .. snd.sep .. cmd
+    else
+      cmd = "hackles " .. snd.target .. " rive " .. snd.sep .. cmd
+    end
+  end
+  -- Zenith handling
+  -- Immolation &gt; Pyromania &gt; Infernal &gt; Heatspear &gt; Quicken &gt; Scorch
+  -- handle pyromania with a variable?
+  -- use the limb state checker from templar limbs script for infernal check?
+  -- handle heatspear as an aff..
+  -- check if immolate not possible ... if not, quicken or scorch
+  if zenith then
+    if not snd.checkAff("heatspear") and snd.checkAff("ablaze") then
+      cmd = cmd .. snd.sep .. "enact heatspear " .. snd.target
+    elseif snd.checkAff("ablaze") then
+      cmd = cmd .. snd.sep .. "enact quicken " .. snd.target
+    else
+      cmd = cmd .. snd.sep .. "enact scorch " .. snd.target
+    end
+  end
+  if not firefist then
+    if snd.checksomeAffs({"ablaze", "heatspear"}, 2) then
+      cmd = "enact firefist"
+    end
+  end
+  if immolation_ready then
+    cmd = "enact immolation " .. snd.target
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>fire</name>
+						<packageName></packageName>
+						<script>local alias = "fire"
+local class = "zealot"
+local blurb = "An immolation support route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  -- This checks for a present Firefist defense. This is used later during a Firefist check.
+  local firefist = snd.have_def("firefist")
+  local zenith = snd.have_def("zenith")
+  
+  if snd.checkAff("crispy") then
+    if not snd.checkAff("ablaze") then
+      snd.target_cured("crispy")
+    end
+  end
+
+  local immolation_ready = snd.checkAff("crispy")
+  -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+    -- OK, so if immolation is ready... we should cast it!	
+  elseif immolation_ready then
+    cmd = "enact immolation " .. snd.target
+    -- OK, so if immolation isn't ready, what next? Heatspear!
+  elseif not snd.checkAff("heatspear") and snd.checkAff("ablaze") then
+    cmd = "enact heatspear " .. snd.target
+    -- OK, what if they have heatspear? Are they ablaze?! Quicken!
+    --	elseif snd.checkAff("ablaze") then
+    --		cmd = "enact quicken "..snd.target
+    -- OK, so we've done all of this, but they don't have ablaze! Ez fix..
+  else
+    cmd = "enact scorch " .. snd.target
+  end
+  -- Flow Handling/Zenith Handling
+  -- In this mode, we only Flow when we have Zenith, otherwise we are casting.
+  -- This means our Flow handling IS our Zenith handling.
+  -- Our Flow attacks should always be punches to take advantage of Firefist.
+  if zenith then
+    if snd.used.shield then
+      cmd = "touch hammer " .. snd.target
+    elseif snd.parried_limb ~= "torso" then
+      cmd = "flow " .. snd.target .. " clawtwist clawtwist" .. snd.sep .. cmd
+    elseif snd.parried_limb ~= "left arm" then
+      cmd = "flow " .. snd.target .. " pummel left pummel left" .. snd.sep .. cmd
+    else
+      cmd = "flow " .. snd.target .. " pummel right pummel right" .. snd.sep .. cmd
+    end
+  end
+  -- Hackles handling
+  -- In this mode, we really just hackles whipburst.
+  -- We will Whipburst even in lieu of a Flow combo.
+  -- First, we should check if we have hackles balance.	
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    cmd = "hackles " .. snd.target .. " whipburst " .. snd.sep .. cmd
+  end
+  -- We want to turn on firefist if we have Zenith up, because that's the only time we're punching and it needs to count.
+  if not firefist then
+    if snd.checksomeAffs({"ablaze", "heatspear"}, 2) then
+      if zenith then
+        cmd = "enact firefist"
+      else
+        cmd = "enact zenith" .. snd.sep .. cmd
+      end
+    end
+  end
+  -- I am leaving this failsafe in... below checks if we're g2g with the immolate button.
+  if immolation_ready then
+    cmd = "enact immolation " .. snd.target
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "zealot"
+local blurb = "A group limbs route."
+
+local limb_attacks =
+  {
+    ["left leg"] = "wanekick left",
+    ["right leg"] = "wanekick right",
+    ["left arm"] = "pummel left",
+    ["right arm"] = "pummel right",
+    ["torso"] = "clawtwist",
+    ["head"] = "sunkick",
+  }
+local attack_dmg =
+  {
+    ["left leg"] = 9,
+    ["right leg"] = 9,
+    ["left arm"] = 9.5,
+    ["right arm"] = 9.5,
+    ["torso"] = 8.5,
+    ["head"] = 6,
+  }
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local giving_chain = {"whiplash", "backstrain", "sore_wrist", "sore_ankle", "watery_eyes"}
+  local chain = "whipburst"
+  for _, aff in ipairs(giving_chain) do
+    if not snd.checkAff(aff) then
+      chain = snd.zealotChainMap[aff]
+      break
+    end
+  end
+  -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+  local breakLimbs = {}
+  local doubleBreak
+  local hitLimbs = {}
+  for _, limb in ipairs({"left leg", "right leg", "left arm", "right arm", "torso", "head"}) do
+    if
+      snd.resto_limb ~= limb and
+      snd.no_parry() or
+      (snd.parried_limb ~= limb and snd.last_struck_limb ~= limb)
+    then
+      if snd.limb_dmg[limb] &lt; 33.34 and snd.limb_dmg[limb] + attack_dmg[limb] &gt; 33.33 then
+        table.insert(breakLimbs, limb)
+      end
+      if
+        snd.limb_dmg[limb] +
+        attack_dmg[limb] &lt; 33.34 and
+        snd.limb_dmg[limb] +
+        2 *
+        attack_dmg[limb] &gt; 33.33
+      then
+        doubleBreak = doubleBreak or limb
+      end
+    end
+    if limb ~= "head" and limb ~= "torso" then
+      --let's not prioritize those much
+      local inserted = false
+      for index, limb2 in pairs(hitLimbs) do
+        if snd.limb_dmg[limb] &lt; snd.limb_dmg[limb2] then
+          table.insert(hitLimbs, index, limb)
+          break
+        end
+      end
+      if not inserted then
+        table.insert(hitLimbs, limb)
+      end
+    end
+  end
+  local limb1, limb2
+  if #breakLimbs &gt; 1 then
+    limb1 = breakLimbs[1]
+    limb2 = breakLimbs[2]
+  elseif #breakLimbs &gt; 0 then
+    limb1 = breakLimbs[1]
+    limb2 = hitLimbs[1]
+  elseif doubleBreak then
+    limb1 = doubleBreak
+    limb2 = doubleBreak
+  else
+    limb1 = hitLimbs[1]
+    limb2 = hitLimbs[2]
+  end
+  local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  else
+    if
+      snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) and not snd.checkAff("fallen")
+    then
+      cmd = "flow " .. snd.target .. " palmforce " .. attack1
+    else
+      cmd = "flow " .. snd.target .. " " .. attack1 .. " " .. attack2
+    end
+  end
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    cmd = "hackles " .. snd.target .. " " .. chain .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "zealot"
+local blurb = "A group afflictions route."
+
+local limb_attacks =
+  {
+    ["left leg"] = "wanekick left",
+    ["right leg"] = "wanekick right",
+    ["left arm"] = "pummel left",
+    ["right arm"] = "pummel right",
+    ["torso"] = "clawtwist",
+    ["head"] = "sunkick",
+  }
+local attack_dmg =
+  {
+    ["left leg"] = 9,
+    ["right leg"] = 9,
+    ["left arm"] = 9.5,
+    ["right arm"] = 9.5,
+    ["torso"] = 8.5,
+    ["head"] = 6,
+  }
+--the function here will contain the bulk of your logic.
+local function route()
+  local cmd = ""
+  local giving_chain = {"whiplash", "backstrain", "sore_wrist", "sore_ankle", "watery_eyes"}
+  local chain = "whipburst"
+  for _, aff in ipairs(giving_chain) do
+    if not snd.checkAff(aff) then
+      chain = snd.zealotChainMap[aff]
+      break
+    end
+  end
+  -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+  local breakLimbs = {}
+  local doubleBreak
+  local hitLimbs = {}
+  for _, limb in ipairs({"left leg", "right leg", "left arm", "right arm", "torso", "head"}) do
+    if
+      snd.resto_limb ~= limb and
+      snd.no_parry() or
+      (snd.parried_limb ~= limb and snd.last_struck_limb ~= limb)
+    then
+      if snd.limb_dmg[limb] &lt; 33.34 and snd.limb_dmg[limb] + attack_dmg[limb] &gt; 33.33 then
+        table.insert(breakLimbs, limb)
+      end
+      if
+        snd.limb_dmg[limb] +
+        attack_dmg[limb] &lt; 33.34 and
+        snd.limb_dmg[limb] +
+        2 *
+        attack_dmg[limb] &gt; 33.33
+      then
+        doubleBreak = doubleBreak or limb
+      end
+    end
+    if limb ~= "head" and limb ~= "torso" then
+      --let's not prioritize those much
+      local inserted = false
+      for index, limb2 in pairs(hitLimbs) do
+        if snd.limb_dmg[limb] &lt; snd.limb_dmg[limb2] then
+          table.insert(hitLimbs, index, limb)
+          break
+        end
+      end
+      if not inserted then
+        table.insert(hitLimbs, limb)
+      end
+    end
+  end
+  local limb1, limb2
+  if #breakLimbs &gt; 1 then
+    limb1 = breakLimbs[1]
+    limb2 = breakLimbs[2]
+  elseif #breakLimbs &gt; 0 then
+    limb1 = breakLimbs[1]
+    limb2 = hitLimbs[1]
+  elseif doubleBreak then
+    limb1 = doubleBreak
+    limb2 = doubleBreak
+  else
+    limb1 = hitLimbs[1]
+    limb2 = hitLimbs[2]
+  end
+  local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+  if
+    not snd.checksomeAffs({"dizziness", "stupidity"}, 2) and
+    snd.parried_limb ~= "head" and
+    attack ~= "sunkick"
+  then
+    attack1, attack2 = "sunkick", attack1
+  end
+  if snd.used.shield then
+    cmd = "touch hammer " .. snd.target
+  elseif not snd.checkAff("indifference") then
+    cmd = "psi dull " .. snd.target
+  elseif not snd.checksomeAffs({"agoraphobia", "claustrophobia"}, 1) then
+    cmd = "psi deprive " .. snd.target
+  else
+    if
+      snd.checksomeAffs({"left_leg_broken", "right_leg_broken"}, 1) and not snd.checkAff("fallen")
+    then
+      cmd = "flow " .. snd.target .. " palmforce " .. attack1
+    else
+      cmd = "flow " .. snd.target .. " " .. attack1 .. " " .. attack2
+    end
+  end
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    cmd = "hackles " .. snd.target .. " " .. chain .. snd.sep .. cmd
+  end
+  snd.attack(cmd, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Ravager</name>
 					<packageName></packageName>
 					<script></script>
 					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>dmg</name>
+						<packageName></packageName>
+						<script>local alias = "dmg"
+local class = "ravager"
+local blurb = "A group damage route."
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  local firefist = snd.have_def("ravage")
+  local zenith = snd.have_def("delirium")
+  if snd.checkAff("crispy") and not snd.checkaff("ablaze") then
+    snd.target_cured("crispy")
+  end
+  local immolation_ready = snd.checkAff("crispy")
+
+  if snd.used.shield then
+    attack = "touch hammer " .. snd.target
+  elseif snd.parried_limb ~= "torso" then
+    attack = "onslaught " .. snd.target .. " plexus plexus"
+  elseif snd.parried_limb ~= "head" then
+    if not snd.checkAff("crippled_throat") then
+      attack = "onslaught " .. snd.target .. " windpipe overpower head"
+    else
+      attack = "onslaught " .. snd.target .. " concussion overpower head"
+    end
+  elseif snd.parried_limb ~= "left leg" and snd.parried_limb ~= "right leg" then
+    attack = "onslaught " .. snd.target .. " kneecap left kneecap right"
+  elseif snd.parried_limb ~= "left leg" and snd.parried_limb == "right leg" then
+    attack = "onslaught " .. snd.target .. " kneecap left kneecap left"
+  elseif snd.parried_limb ~= "right leg" and snd.parried_limb == "left leg" then
+    attack = "onslaught " .. snd.target .. " kneecap right kneecap right"
+  else
+    if snd.parried_limb ~= "left arm" then
+      attack = "onslaught " .. snd.target .. " bully left bully left"
+    end
+  end
+
+
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    if snd.parried_limb ~= "head" and not snd.checkAff("stuttering") then
+      attack = "assail " .. snd.target .. " slug " .. snd.sep .. attack
+    else
+      attack = "assail " .. snd.target .. " butcher " .. snd.sep .. attack
+    end
+  end
+
+
+  if zenith then
+    if not snd.checkAff("heatspear") and snd.checkAff("ablaze") then
+      attack = attack .. snd.sep .. "invoke lance " .. snd.target
+    elseif snd.checkAff("ablaze") then
+      attack = attack .. snd.sep .. "invoke intensify " .. snd.target
+    else
+      attack = attack .. snd.sep .. "invoke torment " .. snd.target
+    end
+  end
+
+  if not firefist then
+    if snd.checksomeAffs({ "ablaze", "heatspear" }, 2) then
+      if zenith then
+        attack = "invoke ravage"
+      else
+        attack = "invoke delirium" .. snd.sep .. attack
+      end
+    end
+  end
+
+  if immolation_ready then
+    attack = "invoke extinguish " .. snd.target
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>fire</name>
+						<packageName></packageName>
+						<script>local alias = "fire"
+local class = "ravager"
+local blurb = "An immolation support route"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local attack = ""
+  -- This checks for a present Firefist defense. This is used later during a Firefist check.
+  
+  local firefist = snd.have_def("ravage")
+  local zenith = snd.have_def("delirium")
+  
+  if snd.checkAff("crispy") and not snd.checkaff("ablaze") then
+    snd.target_cured("crispy")
+  end
+  
+  local immolation_ready = snd.checkAff("crispy")
+  
+  -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.
+  if not snd.waiting.queue then
+    if snd.used.shield then
+      attack = "touch hammer " .. snd.target
+      -- OK, so if immolation is ready... we should cast it!	
+    elseif immolation_ready then
+      attack = "invoke extinguish " .. snd.target
+      -- OK, so if immolation isn't ready, what next? Heatspear!
+    elseif not snd.checkAff("heatspear") and snd.checkAff("ablaze") then
+      attack = "invoke lance " .. snd.target
+    else
+      attack = "invoke torment " .. snd.target
+    end
+
+    if zenith then
+      if snd.used.shield then
+        attack = "touch hammer " .. snd.target
+      elseif snd.parried_limb ~= "torso" then
+        attack = "onslaught " .. snd.target .. " plexus plexus" .. snd.sep .. attack
+      elseif snd.parried_limb ~= "left arm" then
+        attack = "onslaught " .. snd.target .. " bully left bully left" .. snd.sep .. attack
+      else
+        attack = "onslaught " .. snd.target .. " bully right bully right" .. snd.sep .. attack
+      end
+    end
+
+    if gmcp.Char.Vitals.ability_bal == "1" then
+      attack = "assail " .. snd.target .. " tenderise " .. snd.sep .. attack
+    end
+  end
+
+  if not firefist then
+    if snd.checksomeAffs({"ablaze", "heatspear"}, 2) then
+      if zenith then
+        attack = "invoke ravage"
+      else
+        attack = "invoke delirium" .. snd.sep .. attack
+      end
+    end
+  end
+
+  if immolation_ready then
+    attack = "invoke extinguish " .. snd.target
+  end
+  
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>limbs</name>
+						<packageName></packageName>
+						<script>local alias = "limbs"
+local class = "ravager"
+local blurb = "A group limbs route."
+
+local limb_attacks = {
+  ["left leg"] = "kneecap left",
+  ["right leg"] = "kneecap right",
+  ["left arm"] = "bully left",
+  ["right arm"] = "bully right",
+  ["torso"] = "plexus",
+  ["head"] = "concussion",
+}
+local attack_dmg = {
+  ["left leg"] = 9,
+  ["right leg"] = 9,
+  ["left arm"] = 9.5,
+  ["right arm"] = 9.5,
+  ["torso"] = 8.5,
+  ["head"] = 6,
+}
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local giving_chain = {
+    "whiplash",
+    "backstrain",
+    "sore_wrist",
+    "sore_ankle", 
+    "watery_eyes",
+  }
+  local chain = "tenderise"
+  local attack = ""
+  
+  for _, aff in ipairs(giving_chain) do
+    if not snd.checkAff(aff) then
+      chain = snd.ravagerChainMap[aff]
+      break
+    end
+  end
+  
+  -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.  
+  
+  local breakLimbs = {}
+  local doubleBreak
+  local hitLimbs = {}
+  for _, limb in ipairs({"left leg","right leg", "left arm", "right arm", "torso", "head"}) do
+    if snd.resto_limb~=limb and snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb) then
+      if snd.limb_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+attack_dmg[limb]&gt;33.33 then
+        table.insert(breakLimbs, limb)
+      end
+      if  snd.limb_dmg[limb]+attack_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+2*attack_dmg[limb]&gt;33.33 then
+        doubleBreak = doubleBreak or limb
+      end
+    end
+    if limb~="head" and limb~="torso" then --let's not prioritize those much
+    local inserted = false
+      for index, limb2 in pairs(hitLimbs) do
+        if snd.limb_dmg[limb]&lt;snd.limb_dmg[limb2] then
+          table.insert(hitLimbs, index, limb)
+          break
+        end
+      end
+      if not inserted then
+        table.insert(hitLimbs, limb)
+      end
+    end
+  end
+  local limb1, limb2
+  if #breakLimbs&gt;1 then
+    limb1 = breakLimbs[1]
+    limb2 = breakLimbs[2]
+  elseif #breakLimbs&gt;0 then
+    limb1 = breakLimbs[1]
+    limb2 = hitLimbs[1]
+  elseif doubleBreak then
+    limb1 = doubleBreak
+    limb2 = doubleBreak
+  else
+    limb1 = hitLimbs[1]
+    limb2 = hitLimbs[2]
+  end
+  local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+  if snd.used.shield then
+    attack = "touch hammer " .. snd.target
+  else
+    if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+      attack = "onslaught "..snd.target.." clobber "..attack1
+    else
+      attack = "onslaught "..snd.target.." "..attack1.." "..attack2
+    end
+  end
+  
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    attack = "assail " .. snd.target .. " "..chain .. snd.sep .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>gaff</name>
+						<packageName></packageName>
+						<script>local alias = "gaff"
+local class = "ravager"
+local blurb = "A group afflictions route."
+
+
+local limb_attacks = {
+  ["left leg"] = "kneecap left",
+  ["right leg"] = "kneecap right",
+  ["left arm"] = "bully left",
+  ["right arm"] = "bully right",
+  ["torso"] = "plexus",
+  ["head"] = "concussion",
+}
+local attack_dmg = {
+  ["left leg"] = 9,
+  ["right leg"] = 9,
+  ["left arm"] = 9.5,
+  ["right arm"] = 9.5,
+  ["torso"] = 8.5,
+  ["head"] = 6,
+}
+
+--the function here will contain the bulk of your logic.
+local function route()
+  local giving_chain = {
+    "whiplash",
+    "backstrain",
+    "sore_wrist",
+    "sore_ankle", 
+    "watery_eyes",
+  }
+  local chain = "tenderise"
+  local attack = ""
+  
+  for _, aff in ipairs(giving_chain) do
+    if not snd.checkAff(aff) then
+      chain = snd.ravagerChainMap[aff]
+      break
+    end
+  end
+  
+  -- In this mode, we're going to only rely on Purification. It's built to support a quick Immolate.  
+  
+  local breakLimbs = {}
+  local doubleBreak
+  local hitLimbs = {}
+  for _, limb in ipairs({"left leg","right leg", "left arm", "right arm", "torso", "head"}) do
+    if snd.resto_limb~=limb and snd.no_parry() or (snd.parried_limb~=limb and snd.last_struck_limb~=limb) then
+      if snd.limb_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+attack_dmg[limb]&gt;33.33 then
+        table.insert(breakLimbs, limb)
+      end
+      if  snd.limb_dmg[limb]+attack_dmg[limb]&lt;33.34 and snd.limb_dmg[limb]+2*attack_dmg[limb]&gt;33.33 then
+        doubleBreak = doubleBreak or limb
+      end
+    end
+    if limb~="head" and limb~="torso" then --let's not prioritize those much
+    local inserted = false
+      for index, limb2 in pairs(hitLimbs) do
+        if snd.limb_dmg[limb]&lt;snd.limb_dmg[limb2] then
+          table.insert(hitLimbs, index, limb)
+          break
+        end
+      end
+      if not inserted then
+        table.insert(hitLimbs, limb)
+      end
+    end
+  end
+  local limb1, limb2
+  if #breakLimbs&gt;1 then
+    limb1 = breakLimbs[1]
+    limb2 = breakLimbs[2]
+  elseif #breakLimbs&gt;0 then
+    limb1 = breakLimbs[1]
+    limb2 = hitLimbs[1]
+  elseif doubleBreak then
+    limb1 = doubleBreak
+    limb2 = doubleBreak
+  else
+    limb1 = hitLimbs[1]
+    limb2 = hitLimbs[2]
+  end
+  local attack1, attack2 = limb_attacks[limb1], limb_attacks[limb2]
+  if not snd.checksomeAffs({"dizziness","stupidity"},2) and snd.parried_limb~="head" and attack1~="concussion" then
+    attack1, attack2 = "concussion", attack1
+  end
+  if snd.used.shield then
+    attack = "touch hammer " .. snd.target
+  elseif not snd.checkAff("indifference") then
+    attack = "ego inadequacy "..snd.target
+  elseif not snd.checksomeAffs({"claustrophobia","agoraphobia"},1) then
+    attack = "ego boast "..snd.target
+  else
+    if snd.checksomeAffs({"left_leg_broken","right_leg_broken"},1) and not snd.checkAff("fallen") then
+      attack = "onslaught "..snd.target.." clobber "..attack1
+    else
+      attack = "onslaught "..snd.target.." "..attack1.." "..attack2
+    end
+  end
+  
+  if gmcp.Char.Vitals.ability_bal == "1" then
+    attack = "assail " .. snd.target .. " "..chain .. snd.sep .. attack
+  end
+
+  snd.attack(attack, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+						<eventHandlerList />
+					</Script>
 				</ScriptGroup>
 			</ScriptGroup>
 		</ScriptGroup>
