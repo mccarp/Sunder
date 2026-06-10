@@ -47407,7 +47407,7 @@ function npb.qwsorted(people)
       cecho(string.rep(" ", wrap-x)..snd.theme.border.." |")
     end
   end
-  snd.disp.line()
+  snd.disp.bottom()
   moveCursorEnd()
 end
 
