@@ -35869,30 +35869,26 @@ end</script>
 					<regex></regex>
 					<Alias isActive="yes" isFolder="no">
 						<name>Main index</name>
-						<script>cecho("\n&lt;CadetBlue&gt;Sunder Helpfile")
-cecho("\n&lt;MediumSeaGreen&gt;---------------")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;Welcome to &lt;green&gt;Sunder&lt;ForestGreen&gt;! This helpfile is meant to give you an introduction to different things that &lt;green&gt;Sunder &lt;ForestGreen&gt;can do. It will not cover every option entirely, but it will provide the most often used or asked about items a bit more light to show how or when to use them.")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;The firs thing you should know is the &lt;DeepSkyBlue&gt;?setup &lt;ForestGreen&gt;command. You type &lt;DeepSkyBlue&gt;?setup &lt;ForestGreen&gt;and &lt;green&gt;Sunder &lt;ForestGreen&gt;will run the setup steps. Without this, &lt;green&gt;Sunder &lt;ForestGreen&gt;will not function!")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;The second thing you should know is the &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;command. You type &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;and &lt;green&gt;Sunder &lt;ForestGreen&gt;will cease whatever it is currently attempting to do, for the most part. Some items may need to be toggled manually depending on the situation, but by and large &lt;DeepSkyBlue&gt;stap &lt;ForestGreen&gt;will keep you from hitting someone or something, or any other number of items.")
-cecho("\n")
-cecho("\n&lt;MediumTurquoise&gt;The index for the rest of the helpfiles is as such:")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;Bashing               &lt;ForestGreen&gt;Do you want to go bashing? &lt;green&gt;Sunder&lt;ForestGreen&gt; has you covered!")
-cecho("\n&lt;DeepSkyBlue&gt;PK                    &lt;ForestGreen&gt;Playerkilling and you. Please practice safe PvP.")
-cecho("\n&lt;DeepSkyBlue&gt;Defenses              &lt;ForestGreen&gt;How to upkeep, turn on/off and customize defenses.")
-cecho("\n&lt;DeepSkyBlue&gt;Ylem                  &lt;ForestGreen&gt;Finding minors and other ylem based information.")
-cecho("\n&lt;DeepSkyBlue&gt;Utilities             &lt;ForestGreen&gt;Vermin, fishing, shops, questing and more.")
-cecho("\n&lt;DeepSkyBlue&gt;War                   &lt;ForestGreen&gt;Helpful aliases for handling war divisions.")
-cecho("\n&lt;DeepSkyBlue&gt;Toggles               &lt;ForestGreen&gt;A list of the available toggles and if they are &lt;DeepSkyBlue&gt;on &lt;ForestGreen&gt;or &lt;SlateGray&gt;off &lt;ForestGreen&gt;.")
-cecho("\n&lt;ForestGreen&gt;Each above entry will point you toward more specific items in each section as needed.")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;Use &lt;DeepSkyBlue&gt;sunder help &lt;subject&gt; &lt;ForestGreen&gt;to navigate through everything else.")
-cecho("\n")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-</script>
+						<script>snd.disp.top("Main Index")
+snd.disp.text("Welcome to "..snd.theme.title.."Sunder&lt;r&gt;!")
+snd.disp.text("")
+snd.disp.text("When you first install "..snd.theme.title.."Sunder&lt;r&gt;, you need to run the "..snd.theme.darktext.."?setup &lt;r&gt;command while logged in. Afterwards, restart your client. This sets neccesary game-side configs. If you do not do this, "..snd.theme.title.."Sunder&lt;r&gt; will not function properly.")
+snd.disp.text("")
+snd.disp.text("If you want to stop the system's auto-basher, auto-combat, auto-vermin, etc, use the "..snd.theme.darktext.."stap&lt;r&gt; command.")
+snd.disp.text("")
+snd.disp.top("Other Sunder Helpfiles")
+snd.disp.table({snd.theme.darktext.."Bashing", "Information on "..snd.theme.title.."Sunder&lt;r&gt;'s auto-basher and how to use it"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."PK", "Playerkilling and you. Please practice safe PvP"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Defenses", "How to upkeep, turn on/off and customize defenses"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Ylem", "Finding minors and other ylem based information"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Utilities", "Vermin, fishing, shops, questing and more"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."War", "Helpful aliases for handling war divisions"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Toggles", "A list of the available toggles and if they are &lt;DeepSkyBlue&gt;on &lt;r&gt;or &lt;SlateGray&gt;off&lt;r&gt;"}, {12}, {"right","left"})
+snd.disp.bottom()
+snd.disp.text("Each of the above helpfiles goes into a specific portion of the system in more detail.")
+snd.disp.text("")
+snd.disp.text("Use "..snd.theme.darktext.."sunder help [subject] &lt;r&gt;to view them.")
+snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^(S|s)under (H|h)elp$</regex>
@@ -36637,18 +36633,14 @@ snd.move()
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>on</name>
-					<script>snd.toggles.active = true
-cecho("&lt;green&gt;Sunder is ON!")
-send(" ")</script>
+					<script>snd.on()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^sndon$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>off</name>
-					<script>snd.toggles.active = false
-cecho("&lt;red&gt;Sunder is OFF!")
-send(" ")</script>
+					<script>snd.off()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^sndoff$</regex>
@@ -36656,8 +36648,7 @@ send(" ")</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>calling</name>
 					<script>snd.clearTargetList()
-snd.toggle("calling")
-</script>
+snd.toggle("calling")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^(tcl|toggle calling)$</regex>
@@ -36742,18 +36733,12 @@ else
   if not snd.toggles.listening then
     snd.toggle("listening")
   end
-  snd.toggles.listening = true
-  if snd.offense_loaded then
-    snd.callers = {}
-    for name in string.gmatch(matches[2], '([^ ]+)') do
-      table.insert(snd.callers, string.title(name))
-    end
-    cecho("&lt;white&gt;Listening to: &lt;green&gt;"..table.concat(snd.callers, "&lt;white&gt;, &lt;green&gt;").."&lt;white&gt;!")
-    send(" ")
-  else
-    cecho("&lt;white&gt;Listening &lt;green&gt;ON&lt;white&gt;!")
-    send(" ")
+  snd.callers = {}
+  for name in string.gmatch(matches[2], '([^ ]+)') do
+    table.insert(snd.callers, string.title(name))
   end
+  snd.message("Listening to: "..snd.theme.darktext..table.concat(snd.callers, snd.theme.text..", "..snd.theme.darktext)..snd.theme.text.."!")
+  send(" ")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -36790,9 +36775,7 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Ylem Goggles</name>
 					<script>snd.toggle("goggles")
-snd.goggle_update()
-  
-</script>
+snd.goggle_update()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^toggle goggles$</regex>
@@ -36800,11 +36783,11 @@ snd.goggle_update()
 				<Alias isActive="yes" isFolder="no">
 					<name>Goggle level</name>
 					<script>if matches[3] then
-  cecho("&lt;red&gt;You have set your ylem goggles level to:&lt;orange_red&gt; "..matches[3].."&lt;red&gt;.")
+  snd.message("You have set your ylem goggles level to: "..snd.theme.darktext..matches[3]..snd.theme.text..".")
   snd.toggles.goggle_level = tonumber(matches[3])
   snd.goggle_update()
 else
-  cecho("&lt;red&gt;You have set your ylem goggles level to:&lt;orange_red&gt; "..snd.toggles.goggle_level.."&lt;red&gt;.")
+  snd.message("You have set your ylem goggles level to: "..snd.theme.darktext..snd.toggles.goggle_level..snd.theme.text..".")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -36856,10 +36839,10 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Hidden afflictions diagnose count</name>
 					<script>if matches[2] then
-  cecho("&lt;red&gt;You will diagnose at &lt;yellow&gt;"..matches[2].."&lt;red&gt; hidden afflictions.")
+  snd.message("You will diagnose at "..snd.theme.darktext..matches[2]..snd.theme.text.." hidden afflictions.")
   snd.toggles.diagaffs = tonumber(matches[2])
 else
-  cecho("&lt;red&gt;You currently diagnose at&lt;yellow&gt; "..snd.toggles.diagaffs.."&lt;red&gt; hidden afflictions.")
+  snd.message("You currently diagnose at "..snd.theme.darktext..snd.toggles.diagaffs..snd.theme.text.." hidden afflictions.")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -36870,7 +36853,7 @@ end</script>
 					<script>local people = matches[2]:gsub(",", "")
 peopleTable = people:split(" ")
 snd.toggles.chameleonPeople = peopleTable
-snd.message("Will try to chameleon as one of: "..table.concat(snd.toggles.chameleonPeople, ", "))</script>
+snd.message("Will try to chameleon as one of: "..snd.theme.darktext..table.concat(snd.toggles.chameleonPeople, snd.theme.text..", "..snd.theme.darktext))</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>(?i)^chamtargets (.+)$</regex>
@@ -36879,9 +36862,9 @@ snd.message("Will try to chameleon as one of: "..table.concat(snd.toggles.chamel
 					<name>target rune for tidesage teradrim</name>
 					<script>snd.toggles.targetrune = not snd.toggles.targetrune
 if snd.toggles.targetrune then
-  cecho("&lt;red&gt;Will now factor in targeting rune for tidesage/teradrim limb damage.")
+  snd.message("Will now factor in targeting rune for tidesage/teradrim limb damage.")
 else
-  cecho("&lt;red&gt;Will no longer factor in targeting rune for tidesage/teradrim limb damage.")
+  snd.message("Will no longer factor in targeting rune for tidesage/teradrim limb damage.")
 end
 
 </script>
@@ -36891,12 +36874,7 @@ end
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>^toggle alerts$</name>
-					<script>snd.toggles.alerts = not snd.toggles.alerts
-if snd.toggles.alerts then
-  cecho("&lt;red&gt;Will now display alerts on your prompt.")
-else
-  cecho("&lt;red&gt;Will no longer display alerts on your prompt.")
-end</script>
+					<script>snd.toggle("alerts")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^toggle alerts$</regex>
@@ -36926,9 +36904,9 @@ end</script>
 }
 if table.contains(ascendantTypes, matches[2]:lower()) then
   snd.toggles.ascendedtype = matches[2]:lower()
-  cecho("&lt;red&gt;Ascended race set to: "..matches[2]:lower())
+  snd.message("Ascended race set to: "..snd.theme.darktext..matches[2]:lower())
 else
-  cecho("&lt;red&gt;Invalid ascended race. Options are: "..table.concat(ascendantTypes, ", "))
+  snd.message("Invalid ascended race. Options are: "..snd.theme.darktext..table.concat(ascendantTypes, ", "))
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -36937,7 +36915,7 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Set your mount</name>
 					<script>snd.toggles.mount = matches[2]
-cecho("&lt;red&gt;Your mount's ID has been set to: "..snd.toggles.mount)</script>
+snd.message("Your mount's ID has been set to: "..snd.theme.darktext..snd.toggles.mount)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^snd mount (\d+)$</regex>
@@ -36949,7 +36927,7 @@ cecho("&lt;red&gt;Your mount's ID has been set to: "..snd.toggles.mount)</script
 else
   snd.toggles.laesan = not snd.toggles.laesan
 end
-cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or "Ein-Fasit") .." &lt;red&gt;while bashing!")</script>
+snd.message("Will use "..snd.theme.darktext..(snd.toggles.laesan and "Laesan" or "Ein-Fasit") ..snd.theme.text.." while bashing!")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^toggle laesan(?: (on|off))?$</regex>
@@ -36979,7 +36957,7 @@ cecho("&lt;red&gt;Will use &lt;orange&gt;"..(snd.toggles.laesan and "Laesan" or 
 				<Alias isActive="yes" isFolder="no">
 					<name>Mono mode</name>
 					<script>snd.toggles.monomode = matches[2]
-snd.message("Mono mode: "..snd.toggles.monomode)</script>
+snd.message("Mono mode: "..snd.theme.darktext..snd.toggles.monomode)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^monomode (on|off|calling)$</regex>
@@ -36987,7 +36965,7 @@ snd.message("Mono mode: "..snd.toggles.monomode)</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Gathering</name>
 					<script>snd.toggles.gathering = matches[2]
-snd.message("Gathering: "..snd.toggles.gathering)</script>
+snd.message("Gathering: "..snd.theme.darktext..snd.toggles.gathering)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^snd gathering (on|off|auto)$</regex>
@@ -37003,7 +36981,7 @@ snd.message("Gathering: "..snd.toggles.gathering)</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>^snd pagelength (\d+)$</name>
 					<script>snd.toggles.pagelength = matches[2]
-snd.message("Preferred pagelength set to: "..snd.toggles.pagelength)</script>
+snd.message("Preferred pagelength set to: "..snd.theme.darktext..snd.toggles.pagelength)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^snd pagelength (\d+)$</regex>
@@ -37011,10 +36989,10 @@ snd.message("Preferred pagelength set to: "..snd.toggles.pagelength)</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>gauntlet change</name>
 					<script>if matches[3] then
-  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..matches[3].."&lt;red&gt;.")
+  snd.message("You have set your gauntlet level to: "..snd.theme.darktext..matches[3])
   snd.toggles.gauntlet_level = tonumber(matches[3])
 else
-  cecho("&lt;red&gt;You have set your gauntlet level to:&lt;orange_red&gt; "..snd.toggles.gauntlet_level.."&lt;red&gt;.")
+  snd.message("You have set your gauntlet level to: "..snd.theme.darktext..snd.toggles.gauntlet_level)
 end
 </script>
 					<command></command>
@@ -37046,7 +37024,7 @@ end
 					<name>^reboundingtime ([\d\.]+)$</name>
 					<script>local number = tonumber(matches[2])
 snd.toggles.reboundingtime = number
-snd.message("Rebounding time set to "..number)</script>
+snd.message("Rebounding time set to "..snd.theme.darktext..number)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^reboundingtime ([\d\.]+)$</regex>
@@ -37109,7 +37087,7 @@ send(" ")</script>
 				<name>target call over web - individual targets</name>
 				<script>send("wt Target: "..matches[2])
 snd.target = string.title(matches[2])
-echo("Target: "..snd.target)
+snd.message("Target: "..snd.theme.darktext..snd.target)
 send(" ")
 raiseEvent("sunder_enemy_affs_updated")
 
@@ -37203,8 +37181,7 @@ else
 end
 
 if snd.toggles.active == false then
-  display(
-    "Sunder is currently off. Please SNDON to turn it back on! If you wish to remove this behavior, alter it in the 'general deaths' trigger.")
+  snd.message("Sunder is currently off. Use "..snd.theme.darktext.."SNDON"..snd.theme.text.." to re-enable it.")
 end
 
 if snd.class == "Ascendril" then snd.q("simultaneity") end
@@ -37410,43 +37387,41 @@ npb.help_handled = true
 for i,v in pairs(npb.t.people) do
 	count = count + 1
 end
-npb.echo("       Neri's PhoneBook Settings")
-echo("\n ")
-npb.echo((snd.toggles.highlights and "&lt;green&gt;We are" or "&lt;red&gt;We are not").."&lt;NavajoWhite&gt; currently highlighting names.")
-cecho("\n       &lt;NavajoWhite&gt;      Total of &lt;white&gt;"..count.."&lt;NavajoWhite&gt; names!\n\n")
-
-npb.echo("       Highlight settings:")
+snd.disp.top("Neri's PhoneBook Settings")
+snd.disp.text("")
+snd.disp.text((snd.toggles.highlights and "&lt;green&gt;We are" or "&lt;red&gt;We are not").."&lt;r&gt; currently highlighting names.")
+snd.disp.text("There are are total of "..snd.theme.darktext..count.."&lt;r&gt; people in the PhoneBook!")
+snd.disp.text("")
+snd.disp.top("City Highlighting Settings")
 for city, colour in pairs(npb.t.config.colors) do
-	cecho("\n &lt;"..colour.."&gt;"..city:title().."&lt;white&gt;"..string.rep(" ", 12-string.len(city)).."citizens will be highlighted in &lt;"..colour.."&gt;"..colour..".")
-end</script>
+	snd.disp.table({"&lt;"..colour.."&gt;"..city:title(),"highlighted in &lt;"..colour.."&gt;"..colour.."&lt;r&gt;."}, {13},{"right","left"})
+end
+snd.disp.bottom()</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^pb settings$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>help</name>
-				<script>if not npb.help_handled then
-  cecho("\n-----------------------------INFORMATION ------------------------------")
-  cecho("\n Phone Book (ndb replacement) help")
-  cecho("\n pb is meant to provide a more reliant solution to knowing who belongs ")
-  cecho("\n to which city and highlighting it.\n")
-  cecho("\n Below currently supported commands. Each command also has a shorthand.")
-  cecho("\n &lt;b&gt;Note&lt;reset&gt;: NPB is very very new and thus will contain bugs.")
-  cecho("\n Please let Nerissa know if you find one.")
-  cecho("\n------------------------------ COMMANDS -------------------------------")
-  cecho("\npb help - this helpfile")
-  cecho("\npb update/pbu - update and honour people from qwho")
-  cecho("\npb honour/pbh - update a specific persons city from their honours.")
-  cecho("\ncwho - record everone currently online from your city")
-  -- cecho("\npb enable - turn on highlighting")
-  -- cecho("\npb disable - turn off highlighting")
-  cecho("\npb set &lt;person&gt; &lt;city&gt; - set someone's city manually")
-  cecho("\npb hl|toggle highlights - toggle city highlighting")
-  cecho("\npb settings - Show highlighting settings")
-  cecho("\npb hl &lt;city&gt; &lt;color&gt; - change city highlighting")
-  cecho("\npb remove &lt;person&gt; - remove a person from the phonebook")
-  cecho("\nqws - Show online people, sorted by city")
-  cecho("\n-----------------------------------------------------------------------")
+				<script>local spacing = 25
+if not npb.help_handled then
+  snd.disp.top("NPB Help")
+  snd.disp.text("")
+  snd.disp.text("NPB, also known as Neri's PhoneBook, is meant to be a functional name database which does not rely on having API access. This is a full replacement for the older Sunder NDB")
+  snd.disp.text("")
+  snd.disp.top("NPB Commands")
+  snd.disp.table({snd.theme.darktext.."pb help", "Display this helpfile."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb update/pbu", "Update and honour people visible on qwho."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb honour/pbh "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."]", "Update a specific person's city from honours."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."cwho", "Record everyone currently online in your city."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."npb set "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."] ["..snd.theme.darktext.."city"..snd.theme.text.."]", "Manually assign someone to a city."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb honour/pbh "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."]", "Update a specific person's city from honours."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb hl"..snd.theme.text.."|"..snd.theme.darktext.."toggle highlights", "Toggle city highlighting"},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb settings", "Show highlighting settings."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb hl "..snd.theme.text.."["..snd.theme.darktext.."city"..snd.theme.text.."] ["..snd.theme.darktext.."color"..snd.theme.text.."]", "Change city highlighting."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb remove "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."]", "Remove a person from the Phonebook."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."qws", "Show online people, sorted by city."},{spacing},{"right","left"})
+  snd.disp.bottom()
 end
 npb.help_handled = false</script>
 				<command></command>
@@ -37847,7 +37822,7 @@ end
 
 function snd.message(string, type)
   if snd.toggles.gags then
-    if type == "&lt;atk&gt;" then
+    if type == "atk" then
       color = "&lt;magenta&gt;"
     elseif type == "death" then
       color = "&lt;red&gt;"
@@ -37935,7 +37910,7 @@ end
 -- @see snd.core
 function snd.on()
   snd.toggles.active = true
-  cecho("&lt;green&gt;Sunder is ON!")
+  snd.message("System &lt;green&gt;ENABLED")
   send(" ")
 end
 
@@ -37945,7 +37920,7 @@ end
 -- @see snd.core
 function snd.off()
   snd.toggles.active = false
-  cecho("&lt;red&gt;Sunder is OFF!")
+  snd.message("System &lt;red&gt;DISABLED")
   send(" ")
 end
 
@@ -65036,7 +65011,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>New script</name>
+					<name>gaff</name>
 					<packageName></packageName>
 					<script>local alias = "gaff"
 local class = "wayfarer"
