@@ -44940,7 +44940,7 @@ end
 function snd.raise_def(def)
   def = fixName(def)
   if not snd.defenses[def] then
-    snd.message(def.." isn't in the def table!")
+    snd.message(snd.theme.darktext..def..snd.theme.text.." isn't in the def table!")
     return
   end
   if snd.defenses[def].state~="deffed" then
@@ -44954,7 +44954,7 @@ end
 function snd.keep_def(def)
   def = fixName(def)
   if not snd.defenses[def] then
-    snd.message(def.." isn't in the def table!")
+    snd.message(snd.theme.darktext..def..snd.theme.text.." isn't in the def table!")
     return
   end
   snd.defenses[def].needit = true
@@ -44963,7 +44963,7 @@ end
 function snd.unkeep_def(def)
   def = fixName(def)
   if not snd.defenses[def] then
-    snd.message(def.." isn't in the def table!")
+    snd.message(snd.theme.darktext..def..snd.theme.text.." isn't in the def table!")
     return
   end
   snd.defenses[def].needit = false
@@ -44988,7 +44988,7 @@ function snd.load_def2(option)
     snd.trim_priorities()
     snd.defenses_loaded = true
     echo("\n")
-    snd.message("Loading defense options for: &lt;green&gt;" .. option .. "&lt;white&gt;.", "echo")
+    snd.message("Loading defense options for: " ..snd.theme.darktext.. option .. snd.theme.text..".", "echo")
     send(" ")
     snd.less_defs = {}
     if tonumber(string.match(gmcp.Char.Status.level, "%d+"))&gt;99 and 
@@ -45038,7 +45038,7 @@ function snd.load_def2(option)
       snd.defenses.def_camouflage.needit = snd.toggles.camouflage
     end
   else
-    snd.message("No such defense option as &lt;red&gt;" .. option .. "&lt;white&gt;!", "echo")
+    snd.message("No such defense option as " ..snd.theme.darktext.. option .. snd.theme.text.."!", "echo")
     send(" ")
   end
 end
@@ -45607,7 +45607,7 @@ function snd.setStaticDodge(what)
     snd.message("Dodging handed off to function")
   else
     snd.static_dodge = what
-    snd.message("Now static dodging: " .. what)
+    snd.message("Now static dodging: " ..snd.theme.darktext.. what)
   end
   snd.waiting.dodge = false
   snd.dodge()
@@ -45641,7 +45641,7 @@ function snd.parrying.set_parry(type)
   if table.contains(legal_parry, type) then
     snd.parrying.type = type
   else
-    snd.message("Please choose one of: " .. table.concat(legal_parry, ", "))
+    snd.message("Please choose one of: " ..snd.theme.darktext.. table.concat(legal_parry, ", "))
   end
 end
 
@@ -45766,7 +45766,7 @@ function snd.parrying.set_static_parry(limb)
     snd.message("Parrying handed off to function")
   else
     snd.parrying.static_parry = limb
-    snd.message("Now static parrying: " .. limb)
+    snd.message("Now static parrying: " ..snd.theme.darktext.. limb)
   end
 end
 </script>
