@@ -35800,8 +35800,9 @@ local commands = {battack}
 if snd.have_aff("shock") and hasSkill("Overdrive") then -- let's use overdrive if we have shock, adds to new class bashing attack line
   table.insert(commands, 1, "overdrive")
 end
-if snd.toggles.parrying and snd.parrying.toparry~="none" and snd.parrying.toparry ~= snd.parrying.current_parry then
-  table.insert(commands, 1, snd.parrying.getVerb() .. snd.parrying.toparry)
+local verb = snd.parrying.getVerb()
+if snd.toggles.parrying and verb ~= "none" and snd.parrying.toparry~="none" and snd.parrying.toparry ~= snd.parrying.current_parry then
+  table.insert(commands, 1, verb .. snd.parrying.toparry)
 end
 
 if not snd.pipes_lit and snd.toggles.lighting then
