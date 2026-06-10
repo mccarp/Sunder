@@ -2264,7 +2264,7 @@ end
 					<regexCodePropertyList>
 						<integer>1</integer>
 					</regexCodePropertyList>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds capture stuff</name>
 						<script>local limb = matches[2]:lower()
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
@@ -4739,10 +4739,12 @@ end
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Discern spiritsight venom</name>
 							<script>if matches[2] == snd.target then
+  
   if snd.toggles.atkecho and snd.toggles.gags then
     deleteLine()
-    snd.message("Gave: " .. matches[3])
+    snd.message("Gave: " .. snd.theme.darktext .. matches[3])
   end
+  
   snd.last_affs = {}
   local aff = snd.venomEffect(matches[3])
   snd.target_got(aff)
@@ -4932,9 +4934,10 @@ end</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>delivered venom</name>
 						<script>if snd.getting_hit ~= "You" then
+
   if snd.toggles.atkecho and snd.toggles.gags then
     deleteLine()
-    snd.message("Gave: " .. matches[2])
+    snd.message("Gave: " .. snd.theme.darktext.. matches[2])
   end
 
   local attacks = {
@@ -4974,10 +4977,8 @@ end
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You discern that a layer of (\w+) has rubbed off your \w+\.$</string>
-							<string>^Your quarterstaff leaches (\w+) into .+ blood.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
-							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -22014,7 +22015,7 @@ end
 						<name>parried</name>
 						<script>if snd.toggles.atkecho and snd.toggles.gags then
  deleteLine()
- snd.message("&lt;white&gt;You parried an attack to your &lt;red&gt;"..matches[2].."&lt;white&gt;!")
+ snd.message("You parried an attack to your &lt;red&gt;"..matches[2]..snd.theme.text.."!")
  snd.parrying.last_parried = matches[2]
 end</script>
 						<triggerType>0</triggerType>
@@ -29748,7 +29749,7 @@ snd.fulcrum_exists = true</script>
     deleteFull()
   elseif snd.toggles.balecho then
     deleteLine()
-    snd.message("Balance: "..matches[3].."s.")
+    snd.message(matches[2]..": "..snd.theme.darktext..matches[3].."s")
   end
 end
 </script>
@@ -29763,7 +29764,7 @@ end
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(Balance|Left Hand Balance|Right Hand Balance) Used: (.*) seconds$</string>
+							<string>^(Balance|Left Hand Balance|Right Hand Balance|Equilibrium) Used: (.*) seconds$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -29774,7 +29775,7 @@ end
 						<script>if snd.toggles.gags then
   deleteFull()
     if not auto_fish then
-    snd.message("Queue: "..matches[2])
+    snd.message("Queue: "..snd.theme.darktext..matches[2]:gsub(snd.sep,snd.theme.frame..snd.sep..snd.theme.darktext))
   end
 end</script>
 						<triggerType>0</triggerType>
@@ -44155,7 +44156,7 @@ function snd.def_gain(defense)
     defense = "def_safeguard"
   end
   --  deleteLine()
-  snd.message("You: &lt;green&gt;GAIN "..snd.theme.text .. defense .. ".", "defense")
+  snd.message("You: &lt;green&gt;GAIN "..snd.theme.darktext .. defense, "defense")
   check200(defense)
   x = stopStopWatch(snd.defenses[defense].timer)
   -- resetStopWatch(snd.defenses[defense].timer)
@@ -44204,13 +44205,10 @@ function snd.def_take(defense)
   if not string.find(defense, "def_") then
     defense = "def_" .. defense
   end
-  if defense == "def_miasma" or defense == "def_warmth" then
-    defense = "def_safeguard"
-  end
   check200(defense)
   if snd.defenses[defense].state == "deffed" then
     --  deleteLine()
-    snd.message("You: &lt;red&gt;LOSE "..snd.theme.text .. defense .. ".", "defense")
+    snd.message("You: &lt;red&gt;LOSE "..snd.theme.darktext.. defense, "defense")
   end
   snd.def_remove(defense)
 end
