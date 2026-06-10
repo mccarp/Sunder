@@ -1035,7 +1035,9 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Poultice v2</name>
-						<script>if matches[2]:lower() == snd.target:lower() then
+						<script>if snd.illusion_found then return end
+
+if matches[2]:lower() == snd.target:lower() then
   snd.target_last_used_salve = matches[3]
   snd.last_cure = matches[3]
   snd.target_cured("slickness")
@@ -2079,8 +2081,10 @@ end
 								<string>^(You) stumble blindly and miss your mark completely\.$</string>
 								<string>^(You)r watery eyes distract your concentration as you miss with .+\.$</string>
 								<string>^(You) miss your strike by mere inches\.$</string>
+								<string>^(You) miss as your watering eyes distracts? you\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
+								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -32374,6 +32378,46 @@ end</script>
 								</Trigger>
 							</Trigger>
 						</TriggerGroup>
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Shapeshifter salivate</name>
+							<script></script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList />
+							<regexCodePropertyList />
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>Salivate</name>
+								<script>snd.waiting.salivate = true
+if snd.salivateTimer then killTimer(snd.salivateTimer) end
+snd.salivateTimer = tempTimer(2.5, function() snd.waiting.salivate = false end)</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>You use Shapeshifting Salivate.</string>
+									<string>Your mouth is already watering. That would be a waste of time.</string>
+								</regexCodeList>
+								<regexCodePropertyList>
+									<integer>3</integer>
+									<integer>3</integer>
+								</regexCodePropertyList>
+							</Trigger>
+						</TriggerGroup>
 					</TriggerGroup>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -36451,7 +36495,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.0"
+local version = "12.5.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39783,6 +39827,7 @@ snd.waiting = snd.waiting or {
   purify = false,
   panacea = false,
   melting = false,
+  salivate = false,
 }</script>
 				<eventHandlerList />
 			</Script>
@@ -44109,7 +44154,7 @@ function snd.def_gain(defense)
     defense = "def_safeguard"
   end
   --  deleteLine()
-  snd.message("You: &lt;green&gt;GAIN &lt;white&gt;" .. defense .. ".", "defense")
+  snd.message("You: &lt;green&gt;GAIN "..snd.theme.text .. defense .. ".", "defense")
   check200(defense)
   x = stopStopWatch(snd.defenses[defense].timer)
   -- resetStopWatch(snd.defenses[defense].timer)
@@ -44164,7 +44209,7 @@ function snd.def_take(defense)
   check200(defense)
   if snd.defenses[defense].state == "deffed" then
     --  deleteLine()
-    snd.message("You: &lt;red&gt;LOSE &lt;white&gt;" .. defense .. ".", "defense")
+    snd.message("You: &lt;red&gt;LOSE "..snd.theme.text .. defense .. ".", "defense")
   end
   snd.def_remove(defense)
 end
@@ -50870,6 +50915,17 @@ end
 function snd.attack(attack, new)
   local str = ""
   str = attack
+  
+  if snd.class == "Shapeshifter" and not snd.have_def("salivating") and not snd.waiting.salivate then
+    if snd.vitals.balance or not snd.vitals.equilibrium then
+      str = "salivate"..snd.sep..str
+    else
+      snd.send("salivate", true)
+      snd.waiting.salivate = true
+      tempTimer(2.5, function() snd.waiting.salivate = false end)
+    end
+  end
+  
   str = "stand" .. snd.sep .. "g body" .. snd.sep .. str
 
   if not new then
@@ -62890,7 +62946,7 @@ local blurb = "A semi 1v1 route"
 
 local function feralityConvert(limb)            
 	if string.find(limb, "leg") then              
-	  return "hamattack "..limb:gsub(" leg", "")
+	  return "hamstring "..limb:gsub(" leg", "")
 	elseif string.find(limb, "arm") then
 		return "rend "..limb:gsub(" arm", "")
 	elseif limb == "torso" then
@@ -63244,7 +63300,7 @@ local function route()
 	elseif crippled ~= "nothing" and not snd.jawlocked and snd.defenses.def_fury.state ~= "deffed" then
 	 attack = "destroy "..crippled.." of "..snd.target
 	elseif snd.resto_limb ~= "none" and snd.defenses.def_fury.state ~= "deffed" then
-	 attack = "combo "..snd.target.." hamattack left hamattack right"
+	 attack = "combo "..snd.target.." hamstring left hamstring right"
 	else
 	 local left = "nothing"
 	 local right = "nothing"
