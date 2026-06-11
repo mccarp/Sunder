@@ -61317,11 +61317,11 @@ local function route()
               "whisper "..lockWhispers[1].." "..lockWhispers[2].." "..snd.target
     call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. lockWhispers[1]..", "..lockWhispers[2]
     --reverse lock 2.0
-  elseif snd.eqbal_timer_check("restoration", 2.5) and snd.eqbal_timer_check("focus", 2.5) or snd.checksomeAffs({"stupidity","impatience","egocentrism"},1) then
+  elseif not snd.used.rebounding and snd.eqbal_timer_check("restoration", 2.5) and (snd.eqbal_timer_check("focus", 2.5) or snd.checksomeAffs({"stupidity","impatience","egocentrism"},1)) then
     attack = "target nothing"..snd.sep.."gash "..snd.target.." gently "..venoms[1]..snd.sep.."whisper "..lockWhispers[1].." "..snd.target
     call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. lockWhispers[1]
   --if we think we can fish for feeds, strip paste.
-  elseif not snd.checkAff("no_paste") and isPhren and snd.checksomeAffs(snd.physical_affs, 3) or snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) then
+  elseif not snd.checkAff("no_paste") and ((isPhren and snd.checksomeAffs(snd.physical_affs, 3)) or (snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1))) then
     attack = "breathe "..snd.target..modifier..snd.sep..whisperCmd
     call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
   else
@@ -61549,11 +61549,11 @@ local function route()
               "dictate "..lockWhispers[1].." "..lockWhispers[2].." "..snd.target
     call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. lockWhispers[1]..", "..lockWhispers[2]
     --reverse lock 2.0
-  elseif snd.eqbal_timer_check("restoration", 2.5) and snd.eqbal_timer_check("focus", 2.5) or snd.checksomeAffs({"stupidity","impatience","egocentrism"},1) then
+  elseif not snd.used.rebounding and snd.eqbal_timer_check("restoration", 2.5) and (snd.eqbal_timer_check("focus", 2.5) or snd.checksomeAffs({"stupidity","impatience","egocentrism"},1)) then
     attack = "target nothing"..snd.sep.."censure "..snd.target.." lenient "..venoms[1]..snd.sep.."dictate "..lockWhispers[1].." "..snd.target
     call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. lockWhispers[1]
   --if we think we can fish for feeds, strip paste.
-  elseif not snd.checkAff("no_paste") and isPhren and snd.checksomeAffs(snd.physical_affs, 3) or snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) then
+  elseif not snd.checkAff("no_paste") and ((isPhren and snd.checksomeAffs(snd.physical_affs, 3)) or (snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1))) then
     attack = "penitence "..snd.target..modifier..snd.sep..whisperCmd
     call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
   else
@@ -61781,11 +61781,11 @@ local function route()
               "imprecate "..lockWhispers[1].." "..lockWhispers[2].." "..snd.target
     call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. lockWhispers[1]..", "..lockWhispers[2]
     --reverse lock 2.0
-  elseif snd.eqbal_timer_check("restoration", 2.5) and snd.eqbal_timer_check("focus", 2.5) or snd.checksomeAffs({"stupidity","impatience","egocentrism"},1) then
+  elseif not snd.used.rebounding and snd.eqbal_timer_check("restoration", 2.5) and (snd.eqbal_timer_check("focus", 2.5) or snd.checksomeAffs({"stupidity","impatience","egocentrism"},1)) then
     attack = "target nothing"..snd.sep.."reap "..snd.target.." gently "..venoms[1]..snd.sep.."imprecate "..lockWhispers[1].." "..snd.target
     call = "wt Afflicting "..snd.target..": ".. venoms[1]..", ".. lockWhispers[1]
   --if we think we can fish for feeds, strip paste.
-  elseif not snd.checkAff("no_paste") and isPhren and snd.checksomeAffs(snd.physical_affs, 3) or snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1) then
+  elseif not snd.checkAff("no_paste") and ((isPhren and snd.checksomeAffs(snd.physical_affs, 3)) or (snd.checkAff("fallen") and snd.checksomeAffs({"left_leg_broken", "right_leg_broken"},1))) then
     attack = "snarl "..snd.target..modifier..snd.sep..whisperCmd
     call = "wt Afflicting "..snd.target..": ".. whispers[1]..", "..whispers[2]
   else
