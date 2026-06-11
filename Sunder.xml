@@ -11731,7 +11731,7 @@ end</script>
 									<string>^Gripping both hands over the grip of .+, \w+ slams? it forcefully into (\w+)'s (.+).$</string>
 									<string>^\w+ strikes? (\w+)'s (.+) with a quick but powerful blow from .+.$</string>
 									<string>^Holding .+ straight in front of .+, \w+ bashe?s? the end into (\w+)'s (.+).$</string>
-									<string>^With a downward, diagonal strike, \w+ cuts a brutal gash into (\w+)'s (.+) with .+\.$</string>
+									<string>^With a downward, diagonal strike from .+, \w+ cuts? a brutal gash into (\w+)'s (.+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -22334,26 +22334,6 @@ snd.getting_hit = "You"</script>
 							<integer>4</integer>
 						</regexCodePropertyList>
 					</Trigger>
-				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>1p untargeted combat message</name>
-					<script></script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
-						<string>^You use (\w+) ([^' on ']+)\.$</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>1</integer>
-					</regexCodePropertyList>
 				</Trigger>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Instakills</name>
@@ -36497,7 +36477,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.2"
+local version = "12.5.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -43167,6 +43147,19 @@ color_table.chat_bg = {25, 25, 25}</script>
 				<name>utils</name>
 				<packageName></packageName>
 				<script>snd.utils = snd.utils or {}
+
+local tokens = {
+  ["$dir"] = [[(?&lt;direction&gt;northeast|northwest|southwest|southeast|north|west|south|east|in|out|up|down|ether)]],
+  ["$name"] = "(?&lt;name&gt;[A-Z][a-z]+|[Aa] masked (?:man|woman|person))",
+  ["$he"] = [[(?:he|she|it|the \w+)]],
+  ["$his"] = [[(?:her|his|its|their)]],
+  ["$him"] = [[(?:him|her|it|them)]],
+}
+
+function snd.utils.token_to_regex(pattern)
+  
+
+end
 
 function snd.utils.i_collect(tab, func)
   local result = {}
