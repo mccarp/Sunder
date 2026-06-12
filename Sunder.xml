@@ -5515,7 +5515,7 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
 									<string>^Heaps of dark frost accumulate at (\w+)'s feet and harden into ice with the aid of the present direfog\.$</string>
-									<string>^Some of the crystalline ice adheres to (\w+)'s feet and glazes over in thepresence of a frosty glazeflow\.$</string>
+									<string>^Some of the crystalline ice adheres to (\w+)'s feet and glazes over in the presence of a frosty glazeflow\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -36477,7 +36477,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.6"
+local version = "12.5.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
