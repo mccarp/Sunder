@@ -17355,20 +17355,24 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Sciomancy Repay Malediction Obeisance</name>
 								<script>snd.repay = snd.repay + 1
-snd.repay_timers = snd.repay_timers or {}
-local index = #snd.repay_timers + 1
+if snd.repay_timer then killTimer(snd.repay_timer) end
 local time = 10
 if snd.have_aff("laxity") then
   time = time + 2
 end
-local command = function()
-  if snd.repay &gt; 0 then
-    snd.repay = snd.repay - 1
-  end
-  snd.repay_timers[index] = nil
-end
-
-snd.repay_timers[index] = { timer = tempTimer(time, command), command = command }
+snd.repay_timer = tempTimer(time, function() snd.repay = 0 snd.waiting.queue = false snd.core() end)
+-- 
+-- snd.repay_timers = snd.repay_timers or {}
+-- local index = #snd.repay_timers + 1
+-- 
+-- local command = function()
+  -- if snd.repay &gt; 0 then
+    -- snd.repay = snd.repay - 1
+  -- end
+  -- snd.repay_timers[index] = nil
+-- end
+-- 
+-- snd.repay_timers[index] = { timer = tempTimer(time, command), command = command }
 </script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -17389,7 +17393,7 @@ snd.repay_timers[index] = { timer = tempTimer(time, command), command = command 
 									<integer>3</integer>
 								</regexCodePropertyList>
 							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Syncopate tracking for repay</name>
 								<script>local syncopateTime = 3
 for _, aff in pairs(snd.mental_affs) do
@@ -17422,28 +17426,6 @@ end</script>
 								<regexCodePropertyList>
 									<integer>1</integer>
 									<integer>4</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Voidgaze/Mystify hit courage</name>
-								<script></script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^Fingers of thick, viscous cold climb up (\w+)'s body, but the void passes \w+ by\.$</string>
-									<string>^A wash of mystical energy ripples across (\w+)'s form, but its mystifying power fails to possess \w+\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
 						</TriggerGroup>
@@ -36477,7 +36459,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.7"
+local version = "12.5.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
