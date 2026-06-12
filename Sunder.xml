@@ -61302,7 +61302,7 @@ local function route()
   --slurp
   elseif snd.checkAff("writhe_transfixed") and isPhren then
     attack = "blood feast "..snd.target
-  elseif snd.checkAff("no_paste") and (isPhren and snd.checksomeAffs(snd.physical_affs,1) or snd.proned) then
+  elseif not snd.checkAff("writhe_grappled") and snd.checkAff("no_paste") and (isPhren and snd.checksomeAffs(snd.physical_affs,1) or snd.proned) then
     attack = "feed "..snd.target
   elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
     attack = "mesmerize "..snd.target..snd.sep..whisperCmd
@@ -61534,7 +61534,7 @@ local function route()
   --slurp
   elseif snd.checkAff("writhe_transfixed") and isPhren then
     attack = "spirit exorcise "..snd.target
-  elseif snd.checkAff("no_paste") and (isPhren and snd.checksomeAffs(snd.physical_affs,1) or snd.proned) then
+  elseif not snd.checkAff("writhe_grappled") and snd.checkAff("no_paste") and (isPhren and snd.checksomeAffs(snd.physical_affs,1) or snd.proned) then
     attack = "deliver "..snd.target
   elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
     attack = "exhort "..snd.target..snd.sep..whisperCmd
@@ -61766,7 +61766,7 @@ local function route()
   --slurp
   elseif snd.checkAff("writhe_transfixed") and isPhren then
     attack = "fae savage "..snd.target
-  elseif snd.checkAff("no_paste") and (isPhren and snd.checksomeAffs(snd.physical_affs,1) or snd.proned) then
+  elseif not snd.checkAff("writhe_grappled") and snd.checkAff("no_paste") and (isPhren and snd.checksomeAffs(snd.physical_affs,1) or snd.proned) then
     attack = "slake "..snd.target
   elseif snd.checkAff("no_courage") and not snd.used.shield and not snd.checkAff("writhe_transfix") then
     attack = "bewitch "..snd.target..snd.sep..whisperCmd
