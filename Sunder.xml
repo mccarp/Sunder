@@ -36477,7 +36477,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.5"
+local version = "12.5.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -56370,6 +56370,41 @@ local blurb = "Punch your target! Breaks your own rebounding."
 --the function here will contain the bulk of your logic.
 local function route()
   snd.attack("punch "..snd.target, true)
+end
+
+--this stuff registers the route with the system.
+
+--for stock sunder routes, this should be 'snd.routes.registerStock' instead of snd.routes.registerCustom
+--custom routes will overwrite stock routes with the same alias, but not vice versa.
+
+if snd and snd.routes and snd.routes.registerStock then
+  snd.routes.registerStock(alias, class, blurb, route)
+else
+  registerAnonymousEventHandler("snd register routes", function() snd.routes.registerStock(alias, class, blurb, route) end, true)
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Shatter</name>
+					<packageName></packageName>
+					<script>local alias = "shatter"
+local class = "generic"
+local blurb = "Weaponry shatter lmao"
+
+--the function here will contain the bulk of your logic.
+local function route()
+  -- declare some important variables, you can add more here if you need
+  local limbToHit = "left leg"
+  for _, limb in pairs({"left leg", "right leg", "left arm", "right arm"}) do
+    if snd.parried_limb~=limb and snd.last_struck_limb~=limb and not snd.checkAff(limb.." mangled") then
+      limbToHit = limb
+      break
+    end
+  end
+  local cmd = "shatter "..limbToHit.." "..snd.target
+
+  --execute the attack!
+  snd.attack(cmd, true)
 end
 
 --this stuff registers the route with the system.
