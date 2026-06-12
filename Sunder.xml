@@ -929,9 +929,6 @@ snd.target_got("right_leg_crippled", matches[2])</script>
 						<name>discern</name>
 						<script>if matches[2]:lower() == snd.target:lower() then
   snd.target_cured(matches[4])
-  if matches[4] == "ablaze" then
-    snd.flamestack = 0
-  end
 elseif snd.toggles.nontargetgags and snd.toggles.gags then
   deleteFull()
 end</script>
@@ -18862,7 +18859,7 @@ end</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^You gaze upon (\w+) with unveiled contempt and utter bitter condemnations of \w+ heresy against the Light\.$</string>
+									<string>^You gaze upon (\w+) with unveiled contempt and utter bitter condemnations of .+ heresy against the Light\.$</string>
 									<string>^\w+ cries out, suddenly afflicted with (\w+)\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
@@ -19980,7 +19977,6 @@ end
 								<script>if matches[2] == snd.target then
   if snd.checkAff("ablaze") then
     snd.target_cured("ablaze")
-    snd.flamestack = 0
   end
 end 
 if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
@@ -20289,7 +20285,6 @@ end
 								<script>if matches[2] == snd.target then
   if snd.checkAff("ablaze") then
     snd.target_cured("ablaze")
-    snd.flamestack = 0
   end
 end
 if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
@@ -40083,6 +40078,11 @@ function snd.updateMonolith()
   else
     snd.monolith = false
   end
+  if snd.items["a cube sigil"] ~= nil then
+    snd.cube = true
+  else
+    snd.cube = false
+  end
 end
 
 function snd.updateItems()
@@ -49884,6 +49884,9 @@ function snd.target_cured(affliction, target)
   if affliction == "aeon" then
     snd.aeon_cured()
   end
+  if affliction == "ablaze" then
+    snd.flamestack = 0
+  end
   for i in pairs(snd.target_has) do
     if snd.target_has[i] == affliction then
       table.remove(snd.target_has, i)
@@ -50640,7 +50643,6 @@ local function mending(limb)
           snd.target_cured("ablaze")
           snd.target_cured("crispy")
           table.insert(snd.last_affs, "ablaze")
-          snd.flamestack = 0
           return true
         end
       else
