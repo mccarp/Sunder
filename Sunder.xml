@@ -40442,7 +40442,7 @@ function snd.q(...)
   end
   for _, cmd in ipairs(cmds) do
     if echo then
-      snd.message("Added "..cmd.." to the queue")
+      snd.message("Added "..snd.theme.darktext..cmd:gsub(snd.sep,snd.theme.frame..snd.sep..snd.theme.darktext)..snd.theme.text.." to the queue")
     end
     table.insert(snd.manualQueue,cmd)
   end
