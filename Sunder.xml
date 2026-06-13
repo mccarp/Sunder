@@ -1308,8 +1308,8 @@ snd.target_cured("confusion", matches[2])</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Spinecut fails</name>
-						<script>snd.target_cured("left_leg_crippled", matches[3])
-snd.target_cured("right_leg_crippled", matches[3])
+						<script>snd.target_cured("feeble_arms", matches[3])
+snd.target_cured("feeble_legs", matches[3])
 snd.target_cured("confusion", matches[3])</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -36454,7 +36454,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.8"
+local version = "12.5.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -37176,8 +37176,12 @@ send(" ")</script>
 if matches[3] then
   selection = matches[3]
 else
-  if snd.class == "None" and snd.toggles.ascendedtype ~= "none" then
-    selection = snd.toggles.ascendedtype
+  if snd.class == "None" then
+    if snd.toggles.ascendedtype ~= "none" then
+      selection = snd.toggles.ascendedtype
+    else
+      selection = "general_defs"
+    end
   else
     selection = snd.class:lower()
   end
@@ -68061,7 +68065,7 @@ snd.areas = {
   ["the Augerweald"] = {level = "65-80", targets = {"an agitated direwolf", "a large, snowy fox", "a silver-feathered orel", "a large bhfaol", "a gargantuan Augerweald rabbit", "a tall, white elk", }},
   ["the Fractal Bloom"] = {level = "65+", targets = {"a towering crystalline entity", "a slender crystalline entity", "a radiant crystalline entity", "a squat crystalline entity", "a fractured crystalline entity", "a faceted crystalline entity"}}, 
   ["the Kalydian Forest"] = {level = "65+", targets = {"a gaunt elk",  "a rabid rabbit", "a ravenous squirrel"}},
-  ["the Salma Settlement"] = {level = "70-80", targets = {"a busy mage", "a bemused artist", "an engrossed scholar", "an ordinary woman", "a dark-haired woman", "a Salmati guard", "a dark-furred bear", "a Salmati warrior", "a common man", "an energetic child", "an unclean miner", "a wild-eyed scientist"}},
+  ["the ruins of Salma"] = {level = "70-80", targets = {"a gruff, menacing drifter","a wary, fur-draped archer","a wandering cloaked rider", "a weatherworn vagrant","a dishevelled hedge mage"}},
   ["the Maghuir Fissure"] = {level = "65+", targets = {"an amorphous black umbra","a darkly robed priest"}},
   ["the Torturers' Caverns"] = {level = "70-80", targets = {"Mellias, an elegant Tsol'aa consanguine", "Tuera, the torturer", "Sentinel Rozhirr", "a rank ghoul", "a vampiric overseer", "a maggot-ridden skeleton", "a flesh golem sentry", "a vile inquisitor", "a hulking ghast", "a scheming terramancer"}},
   -- ["the Caverns of Mor"] = {level = "70-85", targets = {"a ravenous, shadowy ghast", "a robed, skeletal lich", "a stench-ridden ghoul", "a skeletal warrior", "a vampiric warrior", "a vampiric sentry"}, items = {}},
@@ -68891,7 +68895,7 @@ snd.bashing_area_beginning_rooms = {
   ["the Tarean Ice Caverns"] = "22226",
   ["the Eresh Mines"] = "15344",
   ["Yohanan Village"] = "19802",
-  ["the Salma Settlement"] = "19602",
+  ["the ruins of Salma"] = "19602",
   ["Arbothia"] = "15168",
   ["Mount Heylai"] = "54482",
   ["the Valley of Kalebb"] = "8694",
@@ -76792,7 +76796,7 @@ sunder_areaPaths = {
     v20495 = "20494",
     v20496 = "20495"
   },
-  ["the Salma Settlement"] = {
+  ["the ruins of Salma"] = {
     v19602 = "19603",
     v19603 = "19608",
     v19608 = "19609",
