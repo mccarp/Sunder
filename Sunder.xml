@@ -35294,37 +35294,7 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>unvenom</name>
-					<script>local venoms = {
-  "araceae",
-  "gecko",
-  "camus",
-  "colocasia",
-  "curare",
-  "darkshade",
-  "delphinium",
-  "digitalis",
-  "epseth",
-  "epteth",
-  "hepafarin",
-  "jalk",
-  "loki",
-  "monkshood",
-  "oculus",
-  "prefarar",
-  "selarnia",
-  "kalmia",
-  "xentio",
-  "eurypteria",
-  "aconite",
-  "vernalius",
-  "slike",
-  "sumac",
-  "euphorbia",
-  "larkspur",
-  "oleander",
-  "voyria",
-}
-for venom in pairs(venoms) do
+					<script>for venom in pairs(snd.shopping.venoms) do
  snd.send("fc consume "..venoms[venom])
 end</script>
 					<command></command>
@@ -35333,37 +35303,7 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>venoms</name>
-					<script>local venoms = {
-"araceae",
-  "gecko",
-  "camus",
-  "colocasia",
-  "curare",
-  "darkshade",
-  "delphinium",
-  "digitalis",
-  "epseth",
-  "epteth",
-  "hepafarin",
-  "jalk",
-  "loki",
-  "monkshood",
-  "oculus",
-  "prefarar",
-  "selarnia",
-  "kalmia",
-  "xentio",
-  "eurypteria",
-  "aconite",
-  "vernalius",
-  "slike",
-  "sumac",
-  "euphorbia",
-  "larkspur",
-  "oleander",
-  "voyria",
-}
-for venom in pairs(venoms) do
+					<script>for venom in pairs(snd.shopping.venoms) do
  snd.send("fc fill "..venoms[venom])
 end
 </script>
@@ -42773,7 +42713,6 @@ snd.shopping.elixirs = {
 snd.shopping.venoms = {
   "araceae",
   "gecko",
-  "camus",
   "colocasia",
   "curare",
   "darkshade",
@@ -42783,7 +42722,6 @@ snd.shopping.venoms = {
   "epteth",
   "hepafarin",
   "jalk",
-  "loki",
   "monkshood",
   "oculus",
   "prefarar",
@@ -42798,6 +42736,9 @@ snd.shopping.venoms = {
   "larkspur",
   "oleander",
   "voyria",
+  "loki",
+  "camus",
+  "sumac",
 }
 snd.shopping.pills = {
   "waterbreathing",
