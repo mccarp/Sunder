@@ -33006,6 +33006,7 @@ end
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>got limb damage</name>
 							<script>snd.my_limb_damage[multimatches[2][2]] = snd.my_limb_damage[multimatches[2][2]]+tonumber(multimatches[2][3])
+raiseEvent("sunder_my_limbs_updated")
 </script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -33029,7 +33030,7 @@ end
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>cured limb damage</name>
 							<script>snd.my_limb_damage[multimatches[2][2]] = snd.my_limb_damage[multimatches[2][2]]-tonumber(multimatches[2][3])
-</script>
+raiseEvent("sunder_my_limbs_updated")</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -33091,7 +33092,8 @@ end
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>wounds end</name>
-								<script>setTriggerStayOpen("wounds start", 0)</script>
+								<script>setTriggerStayOpen("wounds start", 0)
+raiseEvent("sunder_my_limbs_updated")</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -36185,7 +36187,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.12"
+local version = "12.5.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -41593,11 +41595,6 @@ end</script>
 					<packageName></packageName>
 					<script>function snd.rage_check()
   if not snd.balance.rage then return false end
-
-  if not gmcp then return false end
-  if hp ~= nil then
-    if hp &lt;= 1 then return false end
-  end
 
   local rage_affs = {
     "aff_hubris",
