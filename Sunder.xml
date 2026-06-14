@@ -1308,9 +1308,14 @@ snd.target_cured("confusion", matches[2])</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Spinecut fails</name>
-						<script>snd.target_cured("feeble_arms", matches[3])
-snd.target_cured("feeble_legs", matches[3])
-snd.target_cured("confusion", matches[3])</script>
+						<script>if matches[3] == snd.target then
+  if snd.checksomeAffs({"arrhythmia", "feeble_arms", "feeble_legs", "confusion"}, 4) then
+    snd.target_cured("feeble_arms")
+    snd.target_cured("feeble_legs")
+    snd.target_cured("confusion")
+    snd.target_cured("arrhythmia")
+  end
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -32357,7 +32362,7 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Hidden affliction</name>
 							<script>snd.hiddens.add()
-</script>
+snd.waiting.queue = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -33144,8 +33149,7 @@ end
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>unparry</name>
 							<script>snd.parrying.current_parry = "none"
-
-</script>
+snd.waiting.queue = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
 							<mStayOpen>0</mStayOpen>
@@ -33157,7 +33161,7 @@ end
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^A .+ golem lashes out as you parry the blow, rattling your defences\.$</string>
+								<string>lashes out as you parry the blow, rattling your defences.</string>
 								<string>You cease your attempts at parrying.</string>
 								<string>^You cease opposing attacks against a specific body part\.$</string>
 								<string>^(\w+) uses Fury Distract on you\.$</string>
@@ -33166,9 +33170,10 @@ end
 								<string>^\w+ uses Fury Distract \(boosted\) on you\.$</string>
 								<string>Struggling to defend yourself, the final blow leaves you reeling.</string>
 								<string>^As you parry the blow, .+ enacts a vengeful reprisal, leaving you reeling and vulnerable\.$</string>
+								<string>^(\w+) sharply whistles a rapid cadence, each piercing note distracting your attention, your focus wavering and gaze darting this way and that as the sounds echo\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
+								<integer>0</integer>
 								<integer>3</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -33176,6 +33181,7 @@ end
 								<integer>3</integer>
 								<integer>1</integer>
 								<integer>3</integer>
+								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
@@ -36179,7 +36185,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.10"
+local version = "12.5.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
