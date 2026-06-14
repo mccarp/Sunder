@@ -5869,11 +5869,7 @@ end</script>
 								<name>Firewhirl shlorp</name>
 								<script>if matches[2] == snd.target then
   snd.flamestack = 0
-end
---doesn't do stuff rn
--- if matches[2] == snd.target then
-  -- snd.target_cured("ablaze")
--- end</script>
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -19837,7 +19833,7 @@ end</script>
 						<regexCodeList />
 						<regexCodePropertyList />
 						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-							<name> Ravager</name>
+							<name>Ravager</name>
 							<script></script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -19853,19 +19849,8 @@ end</script>
 							<regexCodePropertyList />
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Scorch Torment</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then
-    snd.target_got("ablaze")
-    snd.last_aff = "ablaze"
-  end
-  if snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack + 1
-  end
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+								<script>snd.target_got("ablaze", matches[2])
+snd.addFlamestack(matches[2], 1)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -19884,52 +19869,11 @@ end
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Scorch fails</name>
-									<script>if matches[2] == snd.target then
-  if snd.last_aff == "ablaze" then
-    snd.target_cured("ablaze")
-  end
-  if snd.flamestack &gt; 0 then
-    snd.flamestack = snd.flamestack - 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
-										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>3P Ignites</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then 
-		snd.target_got("ablaze")
-	end  
-  if snd.checkAff("ablaze")  then
-    snd.flamestack = snd.flamestack + 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<name>3P Ignites and fire damage</name>
+								<script>snd.target_got("ablaze", matches[2])
+snd.addFlamestack(matches[2], 1)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -19974,14 +19918,7 @@ end
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>No Flames</name>
-								<script>if matches[2] == snd.target then
-  if snd.checkAff("ablaze") then
-    snd.target_cured("ablaze")
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<script>snd.target_cured("ablaze", matches[2])</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20001,17 +19938,8 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fire Level 1</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then
-    snd.target_got("ablaze")  
-  end
-  if snd.checkAff("ablaze")  then
-    snd.flamestack = snd.flamestack + 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<script>snd.target_got("ablaze", matches[2])
+snd.addFlamestack(matches[2], 1, 1, 4)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20031,17 +19959,8 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fire Level 2</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then
-    snd.target_got("ablaze")  
-  end
-  if snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack + 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<script>snd.target_got("ablaze", matches[2])
+snd.addFlamestack(matches[2], 1, 5, 8)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20061,17 +19980,8 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fire Level 3</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then
-    snd.target_got("ablaze")  
-  end
-  if snd.checkAff("ablaze")  then
-    snd.flamestack = snd.flamestack + 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<script>snd.target_got("ablaze", matches[2])
+snd.addFlamestack(matches[2], 1, 9, 12)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20091,17 +20001,8 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Fire Level 4</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then
-    snd.target_got("ablaze")  
-  end
-  if snd.checkAff("ablaze")  then
-    snd.flamestack = snd.flamestack + 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<script>snd.target_got("ablaze", matches[2])
+snd.addFlamestack(matches[2], 1, 13)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20124,11 +20025,7 @@ end</script>
 								<script>if matches[2] == snd.target then
   snd.target_got("infernal_seal")
   snd.affTimers.start("infernal_seal", 125)
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20151,33 +20048,6 @@ end
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Seal Fails</name>
-									<script>if matches[2] == snd.target then
-  snd.target_cured("infernal_seal")
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
-										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Welt cooldown tracking</name>
@@ -20282,15 +20152,7 @@ end
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Extinguish Immolation Successful</name>
-								<script>if matches[2] == snd.target then
-  if snd.checkAff("ablaze") then
-    snd.target_cured("ablaze")
-  end
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+								<script>snd.target_cured("ablaze", matches[2])</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20314,13 +20176,11 @@ end
 								<name>Extinguish Immolation Failure</name>
 								<script>if matches[2] == snd.target then
   if snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack - 1
+    --decrement this to max 9?
+    snd.flamestack = math.min(9, snd.flamestack)
   end
 end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+snd.showFlamestacks()</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20342,15 +20202,7 @@ end
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Whipburst Tenderise</name>
-								<script>if matches[3] == snd.target then
-  if snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack + 1
-  end
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+								<script>snd.addFlamestack(matches[2], 1)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20369,46 +20221,10 @@ end
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Whipburst fails</name>
-									<script>if matches[2] == snd.target then
-  if snd.flamestack &gt; 0 then
-    snd.flamestack = snd.flamestack - 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
-										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Ablaze Count tracking</name>
-								<script>if matches[2] == snd.target then
-  if snd.checkAff("ablaze") then  
-    snd.flamestack = snd.flamestack + 1
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
+								<script>snd.addFlamestack(matches[2], 1)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20432,16 +20248,7 @@ end</script>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Ravage Firefist Proc</name>
-								<script>if matches[2] == snd.target then
-  if not snd.checkAff("ablaze") then
-    snd.target_got("ablaze")
-    snd.last_aff = "ablaze"
-  end
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+								<script>snd.target_got("ablaze", matches[2])</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20462,47 +20269,10 @@ end
 									<integer>1</integer>
 									<integer>1</integer>
 								</regexCodePropertyList>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Firefist proc fails</name>
-									<script>if matches[2] == snd.target then
-  if snd.last_aff == "ablaze" then
-    snd.target_cured("ablaze")
-  end
-end 
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n"..snd.target.." Now has &lt;light_goldenrod&gt;"..snd.flamestack.."&lt;dodger_blue&gt; stacks of intensity")
-end</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+)'s shield of flame repels the fiery attack.$</string>
-										<string>^(\w+)'s tectonic pressure smothers the flames.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Hellfire Pyromania fire damage</name>
-								<script>if matches[2] == snd.target then
-  if snd.checkAff("ablaze") then
-    snd.flamestack = snd.flamestack + 1
-  end
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+								<script>snd.addFlamestack(matches[2], 1)</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20594,16 +20364,7 @@ end
 							</Trigger>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Self Rebuke Oppose Limb Tracking</name>
-								<script>if matches[2] == "left leg" then
-  snd.rebuke_limb = "left leg"
-elseif matches[2] == "right leg" then
-  snd.rebuke_limb = "right leg"
-elseif matches[2] == "right arm" then
-  snd.rebuke_limb = "right arm"
-elseif matches[2] == "left arm" then
-  snd.rebuke_limb = "left arm"
-end
-</script>
+								<script>snd.rebuke_limb = matches[2]</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
@@ -20652,6 +20413,26 @@ end</script>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
+									<integer>1</integer>
+								</regexCodePropertyList>
+							</Trigger>
+							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<name>bard sheathe</name>
+								<script>snd.revertFlamestacks(matches[2])</script>
+								<triggerType>0</triggerType>
+								<conditonLineDelta>0</conditonLineDelta>
+								<mStayOpen>0</mStayOpen>
+								<mCommand></mCommand>
+								<packageName></packageName>
+								<mFgColor>#ff0000</mFgColor>
+								<mBgColor>#ffff00</mBgColor>
+								<mSoundFile></mSoundFile>
+								<colorTriggerFgColor>#000000</colorTriggerFgColor>
+								<colorTriggerBgColor>#000000</colorTriggerBgColor>
+								<regexCodeList>
+									<string>^(\w+) glimmers with a thin barrier that absorbs the blow\.$</string>
+								</regexCodeList>
+								<regexCodePropertyList>
 									<integer>1</integer>
 								</regexCodePropertyList>
 							</Trigger>
@@ -20994,13 +20775,7 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Branding Infernal Seal Ablaze</name>
-									<script>if matches[2] == snd.target then
-  snd.target_got("ablaze")
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-
+									<script>snd.target_got("ablaze", matches[2])
 </script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
@@ -26213,6 +25988,7 @@ snd.last_affs = {}
 snd.recent_affs = {} --kinda similar to last_affs but for generic miss
 snd.last_limb_dmg = 0
 snd.bruisingHit = false
+snd.recent_flame = nil
 if snd.last_hit_limb and snd.last_hit_limb~="none" then
   snd.last_struck_limb = snd.last_hit_limb
   snd.last_hit_limb = "none"
@@ -29367,6 +29143,7 @@ if snd.offense_loaded then
   snd.rebounded = false
   snd.predatorVenom = nil
   snd.recent_affs = {}
+  snd.recent_flame = nil
   
   if snd.last_hit_limb and snd.last_hit_limb~="none" then
     snd.last_struck_limb = snd.last_hit_limb
@@ -36454,7 +36231,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.9"
+local version = "12.5.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -50543,6 +50320,39 @@ function snd.teardown()
 end</script>
 					<eventHandlerList />
 				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>flamestacks</name>
+					<packageName></packageName>
+					<script>function snd.addFlamestack(target, num, minimum, maximum)
+  if target ~= snd.target then return end
+  
+  if not snd.checkAff("ablaze") then return end
+  
+  snd.flamestack = snd.flamestack + num
+  
+  snd.recent_flame = num
+  
+  if minimum then snd.flamestack = math.max(minimum, snd.flamestack) end
+  if maximum then snd.flamestack = math.min(maximum, snd.flamestack) end
+  
+  snd.showFlamestacks(target)
+end
+
+function snd.revertFlamestacks(target)
+  if target ~= snd.target then return end
+  if not snd.recent_flame then return end
+  snd.flamestack = math.max(0, snd.flamestack-snd.recent_flame)
+  snd.showFlamestacks(target)
+end
+
+function snd.showFlamestacks(target)
+  if target == snd.target and (snd.class == "Zealot" or snd.class == "Ravager") and snd.flamestack &gt; 0 then
+    snd.message(target.." now has "..snd.theme.darktext..snd.flamestack..snd.theme.text.." stacks of intensity!")
+  end
+end
+</script>
+					<eventHandlerList />
+				</Script>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Salve</name>
 					<packageName></packageName>
@@ -51345,10 +51155,7 @@ end
       snd.used.rebounding = true
     end,
     Quicken = function(target)
-      snd.flamestack = snd.flamestack + 3
-      if snd.class == "Zealot" then
-        cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-      end
+      snd.addFlamestack(target, 3)
     end,
     Pendulum = function(target, direction)
       snd.pendulum(direction)
@@ -51482,10 +51289,7 @@ end
       snd.used.rebounding = true
     end,
     Intensify = function(target)
-      snd.flamestack = snd.flamestack + 3
-      if snd.class == "Ravager" then
-        cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-      end
+      snd.addFlamestack(target, 3)
     end,
     Bedevil = function(target, direction)
       snd.pendulum(direction)
