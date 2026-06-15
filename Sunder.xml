@@ -30855,6 +30855,26 @@ snd.def_def("alacrity")</script>
 							</regexCodePropertyList>
 						</Trigger>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Engaging</name>
+							<script>snd.def_def("engaging")</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^You have engaged (\w+)\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>efficiency alacrity</name>
 							<script>alacritycount = tonumber(matches[2])
 snd.def_def("efficiency")</script>
@@ -36187,7 +36207,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.15"
+local version = "12.5.16"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -40959,6 +40979,12 @@ snd.default_priorities =
   "def_berserk",
   "def_echoing",
   "def_divine_speed",
+  "def_hood",
+  "def_suncloak",
+  "def_palming",
+  "def_bladefury",
+  "def_ingather",
+  
   
   "hiddens_balanceful",
 }
@@ -43129,7 +43155,10 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_harmony        = { defense = "harmony", type = "normal", effect = "See people cure while out of room", balance = {vial = "harmony"}, skill = "Generic"},
   def_alertness      = { defense = "alertness", type = "normal", effect = "Hear when people move adjacent", balance = {balanceequilibriumtake = "alertness on"}, skill = "Alertness" },
   def_nodesense      = { defense = "nodesense", type = "normal", effect = "Path track to minor foci", balance = {balanceequilibrium = "nodesense"}, skill = "Generic"},
-
+  def_clinging = {defense = "clinging", type = "normal", effect = "Hang on to your perch", balance = {balanceequilibriumtake = "cling"}, skill = "Clinging"},
+  
+  
+  
   --Generic skills or occurs in more than one
   def_treewatch = { defense = "treewatch", type = "normal", effect = "Watch out for climbers", balance = { special = "treewatch on" }, skill = "Treewatch" },
   def_skywatch = { defense = "skywatch", type = "normal", effect = "Watch out for fliers", balance = { special = "skywatch on" }, skill = "Skywatch" },
@@ -43256,6 +43285,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_stretching = { defense = "stretching", type = "normal", effect = "Heal limb damage on mending cure", balance = { needybalancetake = "stretching on" }, skill = "Stretching" },
   def_song_destiny = { defense = "song_destiny", type = "normal", effect = "Certain Weaving spells cost no eq on next cast", balance = { special = "sing song of destiny" }, skill = "Destiny" },
   def_frugal = { defense = "frugal", type = "normal", effect = "Keeps Lin out of your pockets", balance = { needyequilibriumtake = "frugal" }, skill = "Frugality" },
+  def_mundane = {defense = "mundane", type = "normal", effect = "You appear as a common person", balance = { balanceequilibriumtake = "mundane"}, skill = "Mundane"},
   
   --Bloodborn
   def_victimise = { defense = "victimise", type = "normal", effect = "PvE damage", balance = { balanceequilibriumtake = "unleash victimise on" }, skill = "Victimise" },
@@ -43408,9 +43438,11 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_predation            = { defense = "predation", type = "normal", effect = "see what other would parries in very short time", balance = { needybalancetake = "predation" }, skill = "Predation" },
   def_delirium             = { defense = "delirium", type = "normal", effect = "cure a random AFF, use certain attacks off bal", balance = { balanceequilibriumtake = "invoke delirium" }, skill = "Delirium" },
   def_ravage               = { defense = "ravage", type = "normal", effect = "makes your fists attack cause ablaze", balance = { balanceequilibriumtake = "invoke ravage" }, skill = "Ravage" },
+  def_hood = {defense = "hood", type = "normal", effect = "Keep others from looking at you", balance = {balanceequilibriumtake = "invoke hood"}, skill = "Hood" },
 
   --Revenant
   def_iyedlo               = { defense = "iyedlo", type = "normal", effect = "Hit faster", balance = {}, skill = "Iyedlo" },
+  def_ingather = {defense = "ingather", type = "normal", effect = "Slow bladefire decay", balance = {balanceequilibriumtake = "ingather on"}, skill = "Ingather"},
 
   def_influence_phantasm   = { defense = "influence_phantasm", type = "normal", effect = "Increase chance of hitting", balance = { balanceequilibriumtake = "phantasm influence" }, skill = "Influence" },
   def_congeal_phantasm     = { defense = "congeal_phantasm", type = "normal", effect = "15% cutting/blunt/magic resist", balance = { balanceequilibriumtake = "phantasm congeal" }, skill = "Congeal" },
@@ -43491,6 +43523,8 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_boneshaking = { defense = "boneshaking", type = "normal", effect = "howls ignore courage", balance = { balanceequilibriumtake = "boneshaking" }, skill = "Boneshaking" },
   def_berserk = { defense = "berserk", type = "normal", effect = "Immune to stuns and uncon", balance = { balanceequilibriumtake = "berserk" }, requiredBalance = "berserk", skill = "Berserk" },
   def_echoing = {defense = "echoing", type = "normal", effect = "howls on self", balance = {balanceequilibriumtake = "echoing"}, state = "down", skill = "Echoing" },
+  def_snarling = {defense = "snarling", type = "normal", effect = "Hide your vocalizations", balance = {}, skill = "Snarling"},
+
 
   --Siderealist
   def_luminesce = { defense = "luminesce", type = "normal", effect = "basic astranomia spells", balance = { balanceequilibriumtake = "astra luminesce" }, skill = "Luminesce" },
@@ -43537,6 +43571,9 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   --Templar
   def_maingauche = { defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = { needyequilibriumtake = "maingauche" }, skill = "MainGauche" },
   def_waterflow = { defense = "waterflow", type = "normal", effect = "Hit faster", balance = {}, skill = "Waterflow" },
+  def_bladefury = {defense = "bladefury", type = "normal", effect = "Slow bladefire decay", balance = {balanceequilibriumtake = "bladefury on"}, skill = "Bladefury"},
+  def_engaging = {defense = "engaging", type = "normal", effect = "Plant your sword in their back when they try to flee", balance = {}, skill = "Engage"},
+
 
   def_accuracy_aura = { defense = "accuracy_aura", type = "normal", effect = "Increase chance of hitting", balance = { balanceequilibriumtake = "aura accuracy" }, skill = "Accuracy" },
   def_protection_aura = { defense = "protection_aura", type = "normal", effect = "15% cutting/blunt/magic resist", balance = { balanceequilibriumtake = "aura protection" }, skill = "Protection" },
@@ -43675,6 +43712,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_zenith = { defense = "zenith", type = "normal", effect = "cure a random AFF, use certain attacks off bal", balance = { balanceequilibriumtake = "enact zenith" }, skill = "Zenith" },
   def_mindspark = { defense = "mindspark", type = "normal", effect = "raises your intelligence", balance = { balanceequilibrium = "psi mindspark" }, skill = "Mindspark" },
   def_bending = { defense = "bending", type = "normal", effect = "magical damage reduction or something", balance = { balanceequilibrium = "psi bending" }, skill = "Bending" },
+  def_suncloak = {defense = "suncloak", type = "normal", effect = "Keep others from looking at you", balance = {balanceequilibriumtake = "enact suncloak"}, skill = "Suncloak" },
 
   --predator
   def_spacing = { defense = "spacing", type = "normal", effect = "Physical audit", balance = { balanceequilibriumtake = "spacing" }, skill = "Spacing" },
@@ -43953,6 +43991,16 @@ end</script>
   ["You are extremely nimble."] = "nimbleness",
   ["You have prepared yourself for incoming attacks."] = "bolstered",
   
+  ["You are unleashing the fury of your blade."] = "bladefury",
+  ["You are gathering ambient shadow to infuse your weaponry."] = "ingather",
+  ["You are snarling to hide your howls."] = "snarling",
+  ["You are clinging to the trees."] = "clinging",
+  ["You are completely mundane in appearance."] = "mundane",
+  ["You are obscured by a cloak of light."] = "suncloak",
+  ["You are obscured by the executioner's guise."] = "hood",
+  ["You are concealing your weapons from sight."] = "palming",
+
+
   ["You are attuned to local telepathic interference."] = "telesense",
   ["You are camouflaging yourself."] = "camouflage",
   ["You are trying to absorb blows to your body."] = "bodyblock",
@@ -45095,6 +45143,7 @@ end
     def_ghosted = "on",
     def_shroud = "on",
     def_lipreading = "on",
+    def_palming = "on",
   },
 
   templar = {
