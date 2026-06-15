@@ -25090,10 +25090,8 @@ end</script>
 								<string>^An incandescent sphere of fire forms around (\w+), warding off attacks\.$</string>
 								<string>^A gentle hum arises from (\w+)('s|') angel, as it raises a shield to protect .+\.$</string>
 								<string>^The dewdrops evaporate into tiny motes of energy that cohere around (\w+) in a translucent shield\.$</string>
-								<string>^(\w+) uses (Tattoos Shield)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -25422,13 +25420,9 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^\w+ uses Dhuriv \w+ on (\w+)\.$</string>
-								<string>^\w+ uses Spirituality Raze \(failure\) on (\w+)\.$</string>
-								<string>^\w+ uses Battlefury Razestrike \(failure\) on (\w+)\.$</string>
 								<string>^\w+ uses Battlefury (?:Doubleswing|Doublestrike) on (\w+)\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
-								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 							</regexCodePropertyList>
@@ -25467,14 +25461,11 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^\w+ razes (\w+)('s|') magical shield with .+\.$</string>
-								<string>^\w+ holds .+ quarterstaff aloft, the leaves at your feet drawing upward in summons\. With a flick of the weapon, .+ sends them to swirl about (\w+), the serrated edges drawing tiny cuts in .+ skin as they shred .+ defences\.$</string>
 								<string>^Flames creep up (\w+)'s magical shield from within, \w+ burning shroud consuming it in an instant\.$</string>
-								<string>^You touch your tattoo and a massive, translucent hammer rises up and shatters the magical shield surrounding (\w+)\.$</string>
 								<string>^Your flames consume (\w+)'s shield\.$</string>
 								<string>^You send .+ to flay (\w+)'s shield defence</string>
 								<string>^With a casual flick of .+ wrist, \w+ sends a spell of degradation into (\w+)'s Spirit.$</string>
 								<string>^The meteor slams into (\w+)'s shield, shattering it\.$</string>
-								<string>You touch your tattoo and summon the hammer but find nothing to strike.</string>
 								<string>^(\w+)'s shield rapidly dissipates, .+ lust for blood overwhelming it\.$</string>
 								<string>^You whip .+ through the air in front of (\w+), to no effect.$</string>
 								<string>^\w+ razes? (\w+)'s magical shield with .+\.$</string>
@@ -25495,9 +25486,6 @@ end</script>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>3</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -25529,24 +25517,10 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>^You raze (\w+)('s|') magical shield with (.+)\.$</string>
-								<string>^You use Spirituality Raze \(shield\) on (\w+)\.$</string>
 								<string>^You lash out with .+ and shatter (\w+)('s|') translucent shield\.$</string>
-								<string>^You draw your quarterstaff upward as it taps into its stored natural energy, the leaves at your feet heeding your call\. With a flick of the weapon, you send them to scourge (\w+), the serrated edges leaving tiny cuts as they swirl about .+ and shred .+ defences\.$</string>
-								<string>^You use (Primality Leafstorm) on (\w+)\.$</string>
-								<string>^You use (Primality Leafstorm Boosted) on (\w+)\.$</string>
-								<string>^You use Tenacity Devastate on (\w+).$</string>
-								<string>^You use Tenacity Devastate \(fail\) on (\w+).$</string>
 								<string>^You touch your tattoo and summon the hammer but (\w+) isn't protected.$</string>
-								<string>^(\w+) grabs .+ arm and begins to chew, drooling all the while\.$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
-								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
 								<integer>1</integer>
@@ -50918,6 +50892,7 @@ end
       elseif defense == "rebounding" then
         snd.used.rebounding = false; snd.used.shield = false
       end
+      snd.waiting.queue = false
     end,
 
     Chasten = function(target)
@@ -51585,6 +51560,7 @@ end
       else
         snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false
       end
+      snd.waiting.queue = false
     end,
     Razestrike = function(target, defense)
       if defense == "shield" then snd.used.shield = false end
@@ -51593,6 +51569,7 @@ end
       if defense == "failure" then
         snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false
       end
+      snd.waiting.queue = false
       enableTrigger("Weapon Hit Confirmation")
     end,
     Lunge = function(target, what)
@@ -51675,6 +51652,7 @@ end
     end,
     Leafstorm   = function(target, boosted)
       snd.used.shield = false
+      snd.waiting.queue = false
     end,
     Scourge     = function(target, boosted)
       if boosted then
@@ -53420,6 +53398,7 @@ end
       else
         snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false
       end
+      snd.waiting.queue = false
     end,
     Deceive = function(target, defense)
       if defense == "shield" then snd.used.shield = false end
@@ -53428,6 +53407,7 @@ end
       if defense == "failure" then
         snd.target_got("no_speed"); snd.used.rebounding = false; snd.used.shield = false
       end
+      snd.waiting.queue = false
       enableTrigger("Weapon Hit Confirmation")
     end,
     Extirpate = function(target)
@@ -53730,6 +53710,7 @@ end
       elseif defense == "rebounding" then
         snd.used.rebounding = false; snd.used.shield = false
       end
+      snd.waiting.queue = false
     end,
 
     Subdue = function(target)
@@ -54111,6 +54092,7 @@ end
     end,
     Corrosive    = function(target, boosted) --0 capable
       snd.used.shield = false
+      snd.waiting.queue = false
     end,
     Malignant    = function(target, boosted) --50 skilled
       if boosted then
@@ -54371,6 +54353,7 @@ end
   ["Tattoos"] = {
     Shield = function(target)
       snd.used.shield = true
+      snd.waiting.queue = false
     end,
     Starburst = function(target)
       snd.reset_target()
