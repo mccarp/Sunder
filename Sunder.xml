@@ -29400,7 +29400,7 @@ snd.loyalsattacking = false</script>
 					</Trigger>
 				</TriggerGroup>
 				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Ascendril </name>
+					<name>Ascendril</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -36161,7 +36161,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.13"
+local version = "12.5.14"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -43079,6 +43079,9 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
 				<packageName></packageName>
 				<script>local defenses = {
   -- Probably handled by firstaid anyways, otherwise auto assume people have plants/vials.
+  def_nimbleness = {defense = "nimbleness", type = "normal", effect = "Better Dodging", balance = {balanceequilibrium = "nimbleness"}, skill = "Nimbleness"},
+  def_bolstered = {defense = "bolstered", type = "normal", effect = "Better Diverting", balance = {balanceequilibrium = "bolster"}, skill = "Bolstering"},
+  
   def_waterbreathing = { defense = "waterbreathing", type = "normal", effect = "Prevents choking underwater", balance = { herb = "waterbreathing" }, skill = "Generic" },
   def_instawake      = { defense = "instawake", type = "normal", effect = "Removes the WAKE delay", balance = { herb = "stimulant" }, skill = "Generic" },
   def_insomnia       = { defense = "insomnia", type = "normal", effect = "Prevents sleep effects", balance = { eat = "kawhepill" }, skill = "Generic" },
@@ -43095,12 +43098,6 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_rebounding     = { defense = "rebounding", type = "blue", effect = "Causes weapon attacks to backfire", balance = { smoke = "reishi" }, skill = "Generic" },
   def_reflection     = { defense = "reflection", type = "blue", effect = "Takes your place for 1 attack", balance = { special = "cast reflection" }, skill = "Reflection" },
   def_courage        = { defense = "courage", type = "normal", effect = "Protects against transfixes n stuff", balance = { herb = "pluck"}, skill = "Generic" },
-  def_bodyblock      = { defense = "bodyblock", type = "normal", effect = "Chance to reduce cutting/blunt damage by half", balance = { balanceequilibriumtake = "bdb" }, skill = "Bodyblock" },
-  def_evadeblock     = { defense = "evadeblock", type = "normal", effect = "Chance to dodge attacks", balance = { balanceequilibriumtake = "evb" }, skill = "Evadeblock" },
-  def_armblock       = { defense = "armblock", type = "normal", effect = "Retaliatory arm hits", balance = { balanceequilibriumtake = "asb" }, skill = "Armblock" },
-  def_legblock       = { defense = "legblock", type = "normal", effect = "Retaliatory leg hits", balance = { balanceequilibriumtake = "lsb" }, skill = "Legblock" },
-  def_tripblock      = { defense = "tripblock", type = "normal", effect = "Chance to trip aggressors", balance = { balanceequilibriumtake = "trb" }, skill = "Tripblock" },
-  def_pinchblock     = { defense = "pinchblock", type = "normal", effect = "Can knock low health opponents unconscious", balance = { balanceequilibriumtake = "pnb" }, skill = "Pinchblock" },
   def_camouflage     = { defense = "camouflage", type = "normal", effect = "auto hide after 5 secs", balance = { balanceequilibrium = "camouflage" }, skill = "Generic"}, 
   def_harmony        = { defense = "harmony", type = "normal", effect = "See people cure while out of room", balance = {vial = "harmony"}, skill = "Generic"},
   def_alertness      = { defense = "alertness", type = "normal", effect = "Hear when people move adjacent", balance = {balanceequilibriumtake = "alertness on"}, skill = "Alertness" },
@@ -43325,6 +43322,13 @@ registerAnonymousEventHandler("sysDataSendRequest", "translate_short_id")</scrip
   def_insight              = { defense = "insight", type = "normal", effect = "See the thoughts of others", balance = { needyequilibriumtake = "mind insight on" }, skill = "Insight" },
   def_toughness            = { defense = "toughness", type = "normal", effect = "Cutting resistance", balance = { needyequilibriumtake = "toughness" }, skill = "Toughness" },
   def_resistance           = { defense = "resistance", type = "normal", effect = "Magic resistance", balance = { needyequilibriumtake = "resistance" }, skill = "Resistance" },
+  def_bodyblock      = { defense = "bodyblock", type = "normal", effect = "Chance to reduce cutting/blunt damage by half", balance = { balanceequilibriumtake = "bdb" }, skill = "Bodyblock" },
+  def_evadeblock     = { defense = "evadeblock", type = "normal", effect = "Chance to dodge attacks", balance = { balanceequilibriumtake = "evb" }, skill = "Evadeblock" },
+  def_armblock       = { defense = "armblock", type = "normal", effect = "Retaliatory arm hits", balance = { balanceequilibriumtake = "asb" }, skill = "Armblock" },
+  def_legblock       = { defense = "legblock", type = "normal", effect = "Retaliatory leg hits", balance = { balanceequilibriumtake = "lsb" }, skill = "Legblock" },
+  def_tripblock      = { defense = "tripblock", type = "normal", effect = "Chance to trip aggressors", balance = { balanceequilibriumtake = "trb" }, skill = "Tripblock" },
+  def_pinchblock     = { defense = "pinchblock", type = "normal", effect = "Can knock low health opponents unconscious", balance = { balanceequilibriumtake = "pnb" }, skill = "Pinchblock" },
+
 
   --Oneiromancer
   def_redoubt              = { defense = "redoubt", type = "normal", effect = "Your soul is harder to sense.", balance = { balanceequilibrium = "redoubt" }, skill = "Redoubt" },
@@ -43919,6 +43923,9 @@ end</script>
 				<name>most defenses</name>
 				<packageName></packageName>
 				<script>snd.defenses_list = {
+  ["You are extremely nimble."] = "nimbleness",
+  ["You have prepared yourself for incoming attacks."] = "bolstered",
+  
   ["You are attuned to local telepathic interference."] = "telesense",
   ["You are camouflaging yourself."] = "camouflage",
   ["You are trying to absorb blows to your body."] = "bodyblock",
