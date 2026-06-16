@@ -31162,7 +31162,9 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>defline stack</name>
-						<script>snd.defenses["def_"..matches[2]].stacks = tonumber(matches[3])</script>
+						<script>if snd.defenses["def_"..matches[2]] then
+  snd.defenses["def_"..matches[2]].stacks = tonumber(matches[3])
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -36184,7 +36186,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.16"
+local version = "12.5.17"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
