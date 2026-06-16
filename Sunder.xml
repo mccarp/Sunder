@@ -2115,7 +2115,9 @@ end
     end
     snd.recent_affs = {}
   end
-
+  
+  snd.revertFlamestacks(matches[2])
+  
   if snd.last_hit_limb ~= "none" and snd.last_limb_dmg ~= 0 then
     snd.took_limb_dmg(snd.last_hit_limb, -snd.last_limb_dmg)
     snd.last_hit_limb = "none"
