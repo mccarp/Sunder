@@ -19855,29 +19855,6 @@ end</script>
 							<regexCodeList />
 							<regexCodePropertyList />
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-								<name>Scorch Torment</name>
-								<script>snd.target_got("ablaze", matches[2])
-snd.addFlamestack(matches[2], 1)</script>
-								<triggerType>0</triggerType>
-								<conditonLineDelta>0</conditonLineDelta>
-								<mStayOpen>0</mStayOpen>
-								<mCommand></mCommand>
-								<packageName></packageName>
-								<mFgColor>#ff0000</mFgColor>
-								<mBgColor>#ffff00</mBgColor>
-								<mSoundFile></mSoundFile>
-								<colorTriggerFgColor>#000000</colorTriggerFgColor>
-								<colorTriggerBgColor>#000000</colorTriggerBgColor>
-								<regexCodeList>
-									<string>^\w+ uses? Purification Scorch on (\w+)\.$</string>
-									<string>^\w+ uses? Ravaging Torment on (\w+)\.$</string>
-								</regexCodeList>
-								<regexCodePropertyList>
-									<integer>1</integer>
-									<integer>1</integer>
-								</regexCodePropertyList>
-							</Trigger>
-							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>3P Ignites and fire damage</name>
 								<script>snd.target_got("ablaze", matches[2])
 snd.addFlamestack(matches[2], 1)</script>
@@ -51163,7 +51140,8 @@ end
     end,
 
     Scorch = function(target)
-      snd.target_got("ablaze")
+      snd.target_got("ablaze", target)
+      snd.addFlamestack(target, 1)
     end,
     Rejection = function(target)
       snd.used.rebounding = true
@@ -51297,7 +51275,8 @@ end
     end,
 
     Torment = function(target)
-      snd.target_got("ablaze")
+      snd.target_got("ablaze", target)
+      snd.addFlamestack(target, 1)
     end,
     Denial = function(target)
       snd.used.rebounding = true
