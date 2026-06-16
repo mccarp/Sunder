@@ -30664,7 +30664,12 @@ end
 snd.runemarkMajor, snd.runemarkMinor = "none", "none"
 snd.current_dodge = "none"
 snd.parrying.current_parry = "none"
-</script>
+if gmcp.Char.Defences.List then
+  for _, def in pairs(gmcp.Char.Defences.List) do
+    snd.createDef(def.name)
+    snd.defenses["def_"..def.name].state = "deffed"
+  end
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>99</mStayOpen>
@@ -31109,6 +31114,7 @@ end</script>
     deleteLine()
   end
   snd.def_gain(i)
+  if snd.defenses[i].stacks then snd.defenses[i].stacks = 0 end
  end
 end</script>
 						<triggerType>0</triggerType>
@@ -32334,6 +32340,26 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You have cured ([a-z_-]+)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>affline stacks</name>
+						<script>snd.afflictions["aff_"..matches[2]].stacks = tonumber(matches[3])</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^Your ([a-z_]+) affliction now has (\d+) stacks?\.$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -36186,7 +36212,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.5.17"
+local version = "12.6.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -43869,6 +43895,12 @@ local function check200(defense)
   end
 end
 
+function snd.createDef(defense)
+  if not snd.defenses["def_"..defense] then
+    snd.defenses["def_"..defense] = { defense = defense, type = "normal", effect = "", balance = {}, skill = "Unknown", needit = false, timer = createStopWatch(), state = "down"}
+  end
+end
+
 function snd.def_check()
   for i in pairs(snd.defenses) do
     if i == "def_speed" or i == "def_rebounding" or i == "def_fangbarrier" then
@@ -43887,6 +43919,7 @@ function snd.def_timeout(defense)
 end
 
 function snd.def_gain(defense)
+  snd.createDef(defense)
   if not string.find(defense, "def_") then
     defense = "def_" .. defense
   end
@@ -45633,6 +45666,10 @@ function snd.aff_gain(affliction)
   end
   snd.message("You: &lt;red&gt;GOT&lt;DeepSkyBlue&gt; " .. affliction .. ".", "affliction")
   snd.aff_have(affliction)
+  if not string.find(affliction, "aff_") then
+    affliction = "aff_" .. affliction
+  end
+  snd.afflictions[affliction].stacks = 0
 end
 
 --- Appears to tell Sunder that you have this affliction, is this something like target_got?.
@@ -45657,6 +45694,9 @@ function snd.aff_have(affliction)
   end
   if not string.find(affliction, "aff_") then
     affliction = "aff_" .. affliction
+  end
+  if not snd.afflictions[affliction] then
+    snd.afflictions[affliction] = {state = "healed", cures = {}, effect = ""}
   end
   if snd.afflictions[affliction].state == "healed" then
     snd.afflictions[affliction].state = "afflicted"
@@ -45697,6 +45737,10 @@ function snd.aff_cure(affliction)
     snd.hiddens.remove(affliction)
   end
   snd.aff_remove(affliction)
+  if not string.find(affliction, "aff_") then
+    affliction = "aff_" .. affliction
+  end
+  snd.afflictions[affliction].stacks = 0
 end
 
 --- Sets aff on self to healed.
@@ -46389,6 +46433,7 @@ end
 }
 for aff, info in pairs(snd.afflictions) do
   info.state = "healed"
+  info.stacks = 0
   if not info.cures then info.cures = {} end
   if not info.effect then info.effect = "" end
 end</script>
@@ -46410,6 +46455,16 @@ function snd.have_aff(affliction)
   else
     return false
   end
+end
+
+function snd.aff_stacks(affliction)
+  if not string.find(affliction, "aff_") then
+    affliction = "aff_" .. affliction
+  end
+  if not snd.afflictions[affliction] or snd.afflictions[affliction].state == "healed" then
+    return 0
+  end
+  return snd.afflictions[affliction].stacks or 0
 end
 
 function snd.have_def(defense)
