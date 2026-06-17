@@ -27737,12 +27737,14 @@ end</script>
 					<string>^You hear \w+'s voice and you feel irresistibly compelled to: (.+)$</string>
 					<string>^You feel inexplicably compelled to: (.+)$</string>
 					<string>You feel your will manipulated by the soulmaster entity.</string>
+					<string>The puppeteer guides your will with a pull of its Astral threads.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
+					<integer>3</integer>
 					<integer>3</integer>
 				</regexCodePropertyList>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
