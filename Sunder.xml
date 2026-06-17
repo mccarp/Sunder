@@ -27708,6 +27708,65 @@ end</script>
 					</Trigger>
 				</Trigger>
 			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Force</name>
+				<script>local cities = {
+  Duiran = true,
+  Spinesreach = true,
+  Bloodloch = true,
+  Enorian = true,
+}
+if cities[gmcp.Room.Info.area] then
+  snd.defenses.def_selfishness.needit = true
+  snd.waiting.queue = false
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>2</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^\w+ issues a solemn command to you, \w+ voice booming with the manifest authority of the Light: (.+)$</string>
+					<string>^An imperious timbre peals in the recesses of your mind as \w+ commands: (.+)$</string>
+					<string>^You hear \w+'s voice and you feel irresistibly compelled to: (.+)$</string>
+					<string>^You feel inexplicably compelled to: (.+)$</string>
+					<string>You feel your will manipulated by the soulmaster entity.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Relock doors</name>
+					<script>snd.send("lock door "..matches[2], true)
+snd.defenses.def_selfishness.needit = true
+snd.waiting.queue = false</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^You unlock the (\w+) door\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Bashing</name>
@@ -35947,7 +36006,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.6.1"
+local version = "12.7.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -36524,6 +36583,37 @@ snd.message("Rebounding time set to "..snd.theme.darktext..number)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^reboundingtime ([\d\.]+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>toggle selfishness</name>
+					<script>snd.toggle("selfishness")
+if snd.selfishTimer then killTimer(snd.selfishTimer) end
+snd.defenses.def_selfishness.needit = snd.toggles.selfishness
+if snd.have_def("selfishness") and not snd.toggles.selfishness then
+  snd.cq("generosity")
+end
+snd.core()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^toggle selfishness$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Generosity [time]</name>
+					<script>local time = tonumber(matches[2] or 15)
+if snd.have_def("selfishness") then snd.cq("generosity") end
+if snd.defenses.def_selfishness.needit or snd.toggles.selfishness then
+  if snd.selfishTimer then killTimer(snd.selfishTimer) end
+  snd.defenses.def_selfishness.needit = false
+  snd.selfishTimer = tempTimer(time, function() snd.defenses.def_selfishness.needit = true snd.waiting.queue = false snd.core() end)
+  snd.message("Dropping selfishness for "..snd.theme.darktext..time..snd.theme.text.." seconds.")
+else
+  snd.message("We're not auto-keeping selfishness as-is.")
+end
+snd.waiting.queue = false
+snd.core()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^generosity(?: (\d+))?$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -37692,6 +37782,7 @@ snd.toggles = snd.toggles or {
   mindseye = false, --use mindseye?
   domeswap = true,
   reboundingtime = 6,
+  selfishness = false
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -40221,6 +40312,7 @@ snd.default_priorities =
   -- "panacea",
   -- "rage",
   "dome",
+  "def_selfishness",
   "def_safeguard",
   "def_mindseye",
   "def_camouflage",
@@ -40510,7 +40602,6 @@ snd.default_priorities =
   "def_hex_stalk",
   "def_hex_preservation",
   "def_ironbark",
-  "def_selfishness",
   "def_insatiable",
   "def_transcendence",
   "def_featherstep",
@@ -44566,7 +44657,7 @@ function snd.load_def2(option)
     not string.find(gmcp.Char.Status.race, "Tekal") then
         snd.def_options[option]["def_safeguard"] = "on"
     end
-    
+    snd.def_options.general_defs.def_selfishness = snd.toggles.selfishness and "on" or nil
     snd.def_options.general_defs.def_mindseye = snd.toggles.mindseye and "once" or nil
     
     --    end
