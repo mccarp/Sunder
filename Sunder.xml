@@ -27715,6 +27715,7 @@ end</script>
   Spinesreach = true,
   Bloodloch = true,
   Enorian = true,
+  Esterport = true,
 }
 if cities[gmcp.Room.Info.area] then
   snd.defenses.def_selfishness.needit = true
@@ -36006,7 +36007,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.7.0"
+local version = "12.7.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
