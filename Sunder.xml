@@ -36009,7 +36009,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.7.1"
+local version = "12.7.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -68988,7 +68988,7 @@ sunder_areaPaths = {
     v13391 = "13318",
     v19706 = "13389"
   },
-  Bloodloch = {
+Bloodloch = {
     v10011 = "5638",
     v11430 = "9139",
     v12636 = "8007",
@@ -69002,13 +69002,11 @@ sunder_areaPaths = {
     v14524 = "14526",
     v14525 = "14523",
     v14526 = "14527",
-    v14527 = "26974",
+    v14527 = "4429",
     v1537 = "1338",
     v1538 = "5451",
     v18278 = "24197",
     v24197 = "12636",
-    v26974 = "4429",
-    v28058 = "53831",
     v31044 = "9109",
     v3490 = "1538",
     v38564 = "9128",
@@ -69049,7 +69047,7 @@ sunder_areaPaths = {
     v9107 = "9118",
     v9108 = "31044",
     v9109 = "9115",
-    v9115 = "28058",
+    v9115 = "53831",
     v9118 = "9121",
     v9119 = "9108",
     v9120 = "9123",
