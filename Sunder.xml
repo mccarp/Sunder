@@ -31386,7 +31386,7 @@ end</script>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
 								<string>You kneel, and place your hands upon the earth beneath you. As if on command, the earth shifts and begins to travel up your arms.</string>
-								<string>The rise and fall of your chest mirrors the encroaching rhythm of brume's chill crawling across arm and leg and extremity. Blood freezes in place, its passage slowed by crystals of icy rime now coursing through your veins.</string>
+								<string>Memories of the sea and all its frigid fury roil in the back of your mind as your arms splay wide and your head rolls back and you inhale, a deep and languorous breath. Frost gathers at your fingertips and begins spreading inwards as the temperature plummets.</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>3</integer>
@@ -36009,7 +36009,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.7.2"
+local version = "12.7.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -66885,7 +66885,7 @@ function snd.predator_bash()
   local attacks = snd.get_predator_bash_attacks(snd.bash_shielded)
   if hp &lt;= 40 and snd.shield_check() then
     battack = "touch shield"
-  elseif snd.bash_shielded snd not hasSkill("raze") then
+  elseif snd.bash_shielded and not hasSkill("Raze") then
     battack = "touch hammer " .. snd.bashing.target
   else
     battack = "wolf flank " .. snd.bashing.target .. snd.sep .. attacks[stance] .. " " .. snd.bashing.target
@@ -67983,6 +67983,7 @@ snd.apoAreas = {
   ["the Vashnar mountains"] = {level = "45+", targets = {"a muscular mountain lion", "a grey mountain snake"}},
   ["the Den of Shadows"] = {level = "99+", targets = {"a tan sidewinder", "a black boa", "a grey krait", "a tan python", "a brown adder", "a white sidewinder", "a black python", "a white krait", "a brown cobra", "a black adder", "a white boa", "a grey adder", "a brown krait", "a white python", "a brown sidewinder", "a tan adder", "a tan boa", "a grey sidewinder", "a tan cobra", "a tan krait", "a brown python", "a grey cobra", "a black sidewinder", "a grey boa", "a white adder", "a brown boa", "a black krait", "a black python", "a grey python", "a black cobra"}},
   ["the Offspring"] = {level = "95+", targets = {"a long-tailed bullfrog", "A chromatic aquatic dragonfly"}},
+  ["the village of Tasur'ke"] = {level = "50", targets = {"a barnacle-encrusted oyster", "a hideous aelthotan"}, items = {"a glistening iridescent pearl"}},
 }</script>
 					<eventHandlerList />
 				</Script>
