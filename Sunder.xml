@@ -27822,8 +27822,10 @@ end</script>
 					<string>^You discern you are delving (.+)\.$</string>
 					<string>^You stand within the destroyed remnants of (.+)\.$</string>
 					<string>^You discern that you are standing amidst the winding ruins of (.+).$</string>
+					<string>^You are actively raiding (.+)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -36009,7 +36011,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.7.4"
+local version = "12.7.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67955,7 +67957,8 @@ snd.areas = {
   ["the village of Tasur'ke"] = {level = "50", targets = {"a barnacle-encrusted oyster", "a hideous aelthotan"}, items = {"a glistening iridescent pearl"}},
   ["Farming land"] = {level = "40", targets = {"a large bandit", "a cunning red fox"}, items = {}},
   ["the Ebon Basin"] = {level = "50", targets = {"a speckled ash monitor"}},
-  ["a hidden bandit's lair"] = {level = "Production quest", targets = {"a grimy bandit"}, items = {"a handful of venantium-tipped sawblades"} }
+  ["a hidden bandit's lair"] = {level = "Production quest", targets = {"a grimy bandit"}, items = {"a handful of venantium-tipped sawblades"} },
+  ["the Royal Vaults of Glandor"] = {level = "100+", targets = {"a Royal Glandorian guard", "a Royal Glandorian Captain", "a Royal Glandorian magician", "a monstrous hydra body", "a floating painting", "a robust, feathered raptor", "an armless marble statue", "a six-armed, white-furred Pacahi", "a many-tentacled Oyocah", "a rough wall of stone", "Ilelathash",}},
 }
 --- Target list of apothecary creatures by area.
 -- @table snd.apoAreas
