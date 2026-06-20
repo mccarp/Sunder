@@ -45310,12 +45310,18 @@ function snd.dodge()
       tododge = "none"
     end
   end
-
-  if tododge ~= "none" and tododge ~= snd.current_dodge and not snd.waiting.dodge then
-    snd.send("dodge " .. tododge)
+  
+  if tododge ~= "none" and tododge ~= snd.current_dodge then
+    if snd.functional() then
+      if not snd.waiting.dodge then
+        snd.send("dodge " .. tododge)
+        snd.waiting.dodge = true
+        tempTimer(snd.delay(), [[snd.waiting.dodge = false]])
+      end
+    else
+      snd.actions.addFree("dodge "..tododge)
+    end
   end
-  snd.waiting.dodge = true
-  tempTimer(snd.delay(), [[snd.waiting.dodge = false]])
 end
 
 function snd.setStaticDodge(what)
