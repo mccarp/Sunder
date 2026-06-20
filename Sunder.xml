@@ -33456,6 +33456,270 @@ snd.clear_afflictions("smoke")</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Archivist</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Square relapse</name>
+					<script>snd.skill_being_used = "Square"</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Sharp straight lines form the Square as they encapsule your thoughts.</string>
+						<string>Fear prickles at your psyche, fomenting panic and reticence.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Circle relapse</name>
+					<script>snd.skill_being_used = "Circle"</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>The ring of the Circle expands from naught to press upon your reason.</string>
+						<string>Disgust overwhelms your psyche, sowing self-doubt and stomach-churning upset.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Triangle relapse</name>
+					<script>snd.skill_being_used = "Triangle"</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>The spinning points of the Triangle burn themselves into your heart.</string>
+						<string>Joy surges through your psyche, promoting carelessness and positivity.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Matrix predictions</name>
+					<script>for _, pool in pairs({snd.triangle_affs, snd.square_affs, snd.circle_affs}) do
+  for _, aff in ipairs(pool) do
+    if not snd.have_aff(aff) and not aff:find("sealing") then
+      snd.predict(aff)
+      snd.hiddens.remove(aff)
+      break
+    end
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>7</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Twisted shapes obfuscate your mind as your thoughts cannibalize one another.</string>
+						<string>1</string>
+						<string>Twisted shapes obfuscate your mind as your thoughts cannibalize one another.</string>
+						<string>1</string>
+						<string>Twisted shapes obfuscate your mind as your thoughts cannibalize one another.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>5</integer>
+						<integer>3</integer>
+						<integer>5</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Histrionics prediction</name>
+					<script>for _, pool in pairs({snd.triangle_affs, snd.square_affs, snd.circle_affs}) do
+  for _, aff in ipairs(pool) do
+    if not snd.have_aff(aff) and not aff:find("sealing") then
+      snd.predict(aff)
+      snd.hiddens.remove(aff)
+      break
+    end
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>7</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Intrusive thoughts worm through your mind, residual emotions bubbling to the fore.</string>
+						<string>1</string>
+						<string>Intrusive thoughts worm through your mind, residual emotions bubbling to the fore.</string>
+						<string>1</string>
+						<string>Intrusive thoughts worm through your mind, residual emotions bubbling to the fore.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>5</integer>
+						<integer>3</integer>
+						<integer>5</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Etches and seals</name>
+					<script>if not snd.illusionChecks.abilityGate() then return end
+
+local sets = {
+  Square = snd.square_affs,
+  Circle = snd.circle_affs,
+  Fear = snd.square_affs,
+  Disgust = snd.circle_affs,
+  Joy = snd.triangle_affs,
+  Triangle = snd.triangle_affs,
+}
+
+for _, aff in ipairs(sets[matches[2]]) do
+  if not snd.have_aff(aff) and not aff:find("sealing") then
+    snd.predict(aff)
+    snd.hiddens.remove(aff)
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^\w+ uses Cultivation Etch \((\w+)\) on you\.$</string>
+						<string>^\w+ uses Geometrics Sealing \((\w+)\) on you\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Assume mercy on failed focus</name>
+					<script>if snd.cureset == "archivist" and snd.hidden_afflictions &gt; 0 then
+  snd.predict("mercy")
+  snd.hiddens.remove("mercy")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>2</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You focus your mind intently on curing your mental maladies.</string>
+						<string></string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>7</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Focus on hidden shapes</name>
+					<script>if snd.vitals.focus then
+  snd.send("focus",true)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^\w+ uses Geometrics Shape \(hidden\) on you.$</string>
+						<string>^\w+ uses Cultivation Emanation \(hidden\) on you.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Force focus if hidden affs</name>
+					<script>if snd.cureset == "archivist" and snd.hidden_afflictions &gt;= 1 then
+  send("focus")
+end
+--idk this got me into some death loops so would need to refine it further.</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Your mind is able to focus once again.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Neri's Phone Book</name>
@@ -36011,7 +36275,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.0"
+local version = "12.8.1"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -45569,23 +45833,31 @@ end
 --- Appears to tell Sunder that you have this affliction, is this something like target_got?.
 -- @function snd.aff_have
 -- @param affliction string of aff
+
+
+
+local sets = {
+  Square = "square_affs",
+  Circle = "circle_affs",
+  Fear = "square_affs",
+  Disgust = "circle_affs",
+  Joy = "triangle_affs",
+  Triangle = "triangle_affs",
+}
+
 function snd.aff_have(affliction)
-  if snd.cureset == "archivist" then
-    for _, shape in pairs({snd.circle_affs, snd.square_affs, snd.triangle_affs}) do
-      if table.contains(shape, affliction) then
-        local hit_aff = false
-        for _2, aff in ipairs(shape) do
-          if not hit_aff then
-            if aff == affliction then
-              hit_aff = true
-            else
-              snd.predict(aff)
-            end
-          end 
-        end
+  if sets[snd.skill_being_used] and table.contains(snd[sets[snd.skill_being_used]], affliction) then
+    local hit_aff = false
+    for _2, aff in ipairs(snd[sets[snd.skill_being_used]]) do
+      if aff == affliction then
+        break
+      elseif not snd.have_aff(aff) then
+        snd.predict(aff)
+        snd.hiddens.remove(aff)
       end
     end
   end
+
   if not string.find(affliction, "aff_") then
     affliction = "aff_" .. affliction
   end
@@ -45627,7 +45899,7 @@ end
 -- @param affliction string of aff
 function snd.aff_cure(affliction)
   snd.message("You: &lt;green&gt;HEAL&lt;DeepSkyBlue&gt; " .. affliction .. ".", "affliction")
-  if snd.not_aff(affliction) then
+  if snd.not_aff(affliction) or snd.predictions[affliction] then
     snd.hiddens.remove(affliction)
   end
   snd.aff_remove(affliction)
@@ -68654,7 +68926,7 @@ snd.bashing_area_beginning_rooms = {
   ["the Mamashi Grasslands"] = "8809",
   ["the Mamashi Tunnels"] = "20855",
   ["the Itzatl Morass"] = "15714",
-  ["Scidve"] = "10813",
+  ["Scidve"] = "10811",
   ["the Bastion of Illdon"] = "4964",
   ["Rebels' Ridge"] = "18462",
   ["Mount Hubride"] = "13425",
@@ -68702,7 +68974,7 @@ snd.bashing_area_beginning_rooms = {
   ["Dun Fortress"] = "3887",
   ["the Temple of Sonn"] = "16706",
   ["Riparium"] = "5599",
-  ["the Azdun dungeon"] = "1773",
+  ["the Azdun dungeon"] = "1774",
   ["the Festering Wastes"] = "20754",
   ["Tiyen Esityi"] = "38894",
   ["the Siroccian Tunnels"] = "26820",
@@ -71491,6 +71763,8 @@ Bloodloch = {
     v10274 = "10276",
     v10275 = "10250",
     v10276 = "10275",
+    v10811 = "10812",
+    v10812 = "10813",
     v10813 = "9709",
     v18529 = "9836",
     v26213 = "9920",
@@ -73719,24 +73993,27 @@ Bloodloch = {
     v20032 = "20026"
   },
   ["the Azdun dungeon"] = {
-    v1773 = "1774",
-    v1774 = "1775",
-    v1775 = "1776",
-    v1776 = "1777",
-    v1777 = "1778",
-    v1778 = "1779",
-    v1779 = "1780",
-    v1780 = "1781",
-    v1781 = "1782",
-    v1782 = "1783",
-    v1783 = "1787",
-    v1787 = "1788",
-    v1788 = "1789",
-    v1789 = "1790",
-    v1790 = "1791",
-    v1791 = "1793",
-    v1792 = "ptcity",
-    v1793 = "1792"
+    v1774 = "1794",
+    v1794 = "1795",
+    v1795 = "1796",
+    v1796 = "1806",
+    v1797 = "1807",
+    v1806 = "1797",
+    v1807 = "1809",
+    v1808 = "11670",
+    v1809 = "1810",
+    v1810 = "1808",
+    v1811 = "1812",
+    v1812 = "ptcity",
+    v11670 = "11671",
+    v11671 = "11677",
+    v11672 = "11674",
+    v11673 = "11672",
+    v11674 = "11675",
+    v11675 = "11676",
+    v11676 = "11678",
+    v11677 = "11673",
+    v11678 = "1811"
   },
   ["the Bakal Chasm"] = {
     v61011 = "61063",
