@@ -37959,7 +37959,7 @@ end</script>
 				<name>Can I do that?</name>
 				<packageName></packageName>
 				<script>function snd.functional()
-  if snd.have_aff("stun") or snd.have_aff("petrified") or snd.have_aff("asleep") then
+  if snd.have_aff("stun") or snd.have_aff("petrified") or snd.have_aff("asleep") or snd.have_aff("unconsciousness") then
     return false
   else
     return true
@@ -39997,11 +39997,9 @@ function snd.core()
   if not snd.toggles.active then return end
   if gmcp.Char.Vitals.channeling == "1" then return end
   snd.def_check()
-  if snd.functional() then
-    snd.actions.clearActions()
-    snd.do_stuff()
-    snd.actions.execute()
-  end
+  snd.actions.clearActions()
+  snd.do_stuff()
+  snd.actions.execute()
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -40062,9 +40060,13 @@ function snd.activeCures.run()
   snd.balancefree = ""
   for _, cure in pairs(snd.activeCures.balanceless) do
     if (not cure.waiting) and cure.can() then
-      snd.send(cure.command(), true)
-      cure.waiting = true
-      tempTimer(snd.delay(), function() cure.waiting = false end)
+      if snd.functional() then
+        snd.send(cure.command(), true)
+        cure.waiting = true
+        tempTimer(snd.delay(), function() cure.waiting = false end)
+      else
+        snd.actions.addFree(cure.command())
+      end
     end
   end
   local cureInfo
@@ -41037,12 +41039,16 @@ function snd.do_special(current)
 	 return
 	else
    if snd.defenses[current].state == "down" then
-    snd.send(snd.defenses[current].balance.special, true)
-    snd.last_type = "special"
-    snd.last_item = snd.defenses[current].balance.special
-    snd.defenses[current].state = "waiting"
-    startStopWatch(snd.defenses[current].timer)
-	 end
+    if snd.functional() then
+      snd.send(snd.defenses[current].balance.special, true)
+      snd.last_type = "special"
+      snd.last_item = snd.defenses[current].balance.special
+      snd.defenses[current].state = "waiting"
+      startStopWatch(snd.defenses[current].timer)
+    else
+      snd.actions.addFree(snd.defenses[current].balance.special)
+    end
+   end
   end
  end
 end
@@ -41151,9 +41157,13 @@ end</script>
 end
 
 function snd.eat(current)
- snd.send("eat "..snd.cur.herb, true)
- snd.defenses[current].state = "waiting"
- startStopWatch(snd.defenses[current].timer)
+ if snd.functional() then
+   snd.send("eat "..snd.cur.herb, true)
+   snd.defenses[current].state = "waiting"
+   startStopWatch(snd.defenses[current].timer)
+ else
+   snd.actions.addFree("eat "..snd.cur.herb)
+ end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -41170,9 +41180,13 @@ function snd.do_drink(current)
   end
   if snd.defenses[current] ~= nil then
    if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-    snd.send("drink "..snd.cur.drink, true)
-    snd.defenses[current].state = "waiting"
-    startStopWatch(snd.defenses[current].timer)
+    if snd.functional() then
+      snd.send("drink "..snd.cur.drink, true)
+      snd.defenses[current].state = "waiting"
+      startStopWatch(snd.defenses[current].timer)
+    else
+      snd.actions.addFree("drink "..snd.cur.drink)
+    end
    end
   elseif snd.afflictions[current] ~= nil then
    if snd.afflictions[current].state == "afflicted" then
@@ -41189,67 +41203,8 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>herb</name>
 					<packageName></packageName>
-					<script>-- 
--- function snd.do_herb(current)
- -- if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
-  -- if snd.afflictions[current] ~= nil then
-    -- if snd.afflictions[current].state == "afflicted" then
-      -- snd.cur.herb = snd.afflictions[current].cures.herb
-    -- else
-      -- return
-    -- end
-  -- else
-    -- if snd.defenses[current].state == "down" and snd.defenses[current].needit then
-      -- snd.cur.herb = snd.defenses[current].balance.herb
-    -- else
-      -- return
-    -- end
-  -- end
-  -- if snd.have_slow() then
-    -- if snd.afflictions[current] ~= nil then
-      -- if snd.outred[snd.cur.herb] &gt;= 1 then
-        -- snd.herb(current)
-        -- return
-      -- elseif snd.not_entangled() then
-        -- snd.send("outr "..snd.cur.herb)
-        -- return
-      -- else
-        -- return
-      -- end
-    -- elseif snd.defenses[current] ~= nil then
-      -- if snd.outred[snd.cur.herb] &gt;= 1 then
-        -- snd.herb(current)
-        -- return
-      -- elseif snd.not_entangled() then
-        -- snd.send("outr "..snd.cur.herb)
-        -- return
-      -- else
-        -- return
-        -- end
-      -- end
-    -- elseif snd.not_entangled() then
-      -- if snd.afflictions[current] ~= nil then
-        -- snd.send("outr "..snd.cur.herb)
-        -- snd.herb(current)
-      -- elseif snd.defenses[current] ~= nil then
-        -- snd.send("outr "..snd.cur.herb)
-        -- snd.herb(current)
-      -- end
-    -- else
-      -- if snd.afflictions[current] ~= nil then
-        -- if snd.outred[snd.cur.herb] &gt;= 1 then
-          -- snd.herb(current)
-        -- end
-      -- elseif snd.defenses[current] ~= nil then
-        -- if snd.outred[snd.cur.herb] &gt;= 1 then
-          -- snd.herb(current)
-        -- end
-      -- end
-    -- end
-  -- end
--- end
-
-function snd.do_herb(current)
+					<script>function snd.do_herb(current)
+  if not snd.functional() then return end
   if gmcp.Char.Vitals.herb == "1" and not snd.waiting.herb and snd.can_eat() then
     if snd.afflictions[current] ~= nil then
       if snd.afflictions[current].state == "afflicted" then
@@ -41337,6 +41292,7 @@ end
 					<packageName></packageName>
 					<script>
 function snd.do_salve(current)
+if not snd.functional() then return end
  if gmcp.Char.Vitals.salve == "1" and not snd.waiting.salve and snd.can_apply() then
   if snd.afflictions[current] ~= nil then
    snd.cur.salve = snd.afflictions[current].cures.salve
@@ -41373,6 +41329,7 @@ end</script>
 					<packageName></packageName>
 					<script>
 function snd.do_smoke(current)
+ if not snd.functional() then return end
  if snd.can_smoke() then
   if snd.pipes_lit or (not snd.toggles.lighting) then
    snd.smoke(current)
