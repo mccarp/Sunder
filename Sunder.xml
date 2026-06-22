@@ -27769,6 +27769,28 @@ snd.waiting.queue = false</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>emptied pipe</name>
+					<script>if snd.emptypipes[matches[2]] == false then
+  snd.emptypipes[matches[2]] = true
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^You tap out the (\w+) in your pipe\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -33738,8 +33760,8 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Focus on hidden shapes</name>
-					<script>if snd.vitals.focus then
-  snd.send("focus",true)
+					<script>if snd.vitals.focus and not snd.vitals.tree then
+  snd.send("focus", true)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -36339,7 +36361,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.2"
+local version = "12.8.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39483,8 +39505,8 @@ end
 
 snd.faction = snd.faction or "" -- your faction, spirit or shadow
 snd.class = snd.class or ""     -- your class, used for bashing
-snd.templar_direct_dmg = 4
-snd.templar_trauma_dmg = 4
+snd.templar_direct_dmg = snd.templar_direct_dmg or 4
+snd.templar_trauma_dmg = snd.templar_trauma_dmg or 4
 snd.limb_dmg_done = snd.limb_dmg_done or 8 -- really only for Templars
 
 
@@ -47580,7 +47602,6 @@ snd.target_numbed = false
 snd.mindlocked = false
 snd.mindclamped = false
 
-snd.mindAffliction = snd.mindAffliction or "paralyse"
 snd.stance = ""
 snd.transmutation = true
 snd.locking = false
