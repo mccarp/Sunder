@@ -36361,7 +36361,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.4"
+local version = "12.8.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -68024,6 +68024,39 @@ function snd.getTarget(tab, exclude)
       end
     end
   end
+end
+
+function snd.getMultipleTargets(count, aggrosOnly)
+  local targets = {}
+  if snd.bashing.target ~= "none" then
+    table.insert(targets, snd.bashing.target)
+  end
+  if #targets &gt;= count then return targets end
+  for _, tab in pairs(aggrosOnly and {snd.aggros} or {snd.aggros, snd.items}) do
+    for _, targ in pairs(table.n_union(snd.possible_targets, snd.global_targets)) do
+      if targ:sub(1, 6) == "Match:" then
+        local pattern = targ:sub(7)
+        for name, ids in pairs(tab) do
+          if name:find(pattern) then
+            for _, id in pairs(tab[name]) do
+              if not table.contains(targets, id) then
+                table.insert(targets, id)
+                if #targets &gt;= count then return targets end
+              end
+            end
+          end
+        end
+      elseif tab[targ] then
+        for _, id in pairs(tab[targ]) do
+          if not table.contains(targets, id) then
+            table.insert(targets, id)
+            if #targets &gt;= count then return targets end
+          end
+        end
+      end
+    end
+  end
+  return targets
 end</script>
 					<eventHandlerList />
 				</Script>
