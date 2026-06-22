@@ -36361,7 +36361,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.3"
+local version = "12.8.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -46755,8 +46755,23 @@ function snd.aff_tally()
   return count
 end
 
-function snd.aff_tally_specific(afflictions, number)
+function snd.aff_tally_specific(afflictions)
   --aff_tally checks all affs, aff_tally_specific requires you send it the specific affs you want to check
+  local count = 0
+  if type(afflictions) == "string" then
+    return snd.have_aff(afflictions) and 1 or 0
+  elseif type(afflictions) == "table" then
+    for i, v in ipairs(afflictions) do
+      if snd.have_aff(v) then
+        count = count + 1
+      end
+    end
+    --return number of affs found.
+    return count
+  end
+end
+
+function snd.checksomeSelfAffs(afflictions, number)
   if number == 0 then
     return true
   end
@@ -50065,31 +50080,6 @@ function snd.alertnessHit(dir, name, type)
 end
 
 
-function snd.checksomeSelfAffs(afflictions, number)
-  if number == 0 then
-    return true
-  end
-  if number == nil then
-    number = 1
-  end
-  if type(afflictions) == "string" then
-    return snd.have_aff(afflictions)
-  elseif type(afflictions) == "table" then
-    local count = 0
-    for i, v in ipairs(afflictions) do
-      if snd.have_aff(v) then
-        count = count + 1
-        if count &gt;= number then
-          return true
-        end
-      end
-    end
-    -- if the count of how many returned true didn't meet or exceed the number given, return false
-    return false
-  end
-end
-
-
 
 function snd.took_bruise(limb, target)
   if target and target~=snd.target then return end
@@ -50331,14 +50321,8 @@ function snd.checksomeAffs(afflictions, number)
   if type(afflictions) == "string" then
     return snd.checkAff(afflictions)
   elseif type(afflictions) == "table" then
-    local count = 0
-    for i, v in ipairs(afflictions) do
-      if snd.checkAff(v) then
-        count = count + 1
-        if count &gt;= number then
-          return true
-        end
-      end
+    if snd.aff_count_specific(afflictions)&gt;= count then
+      return true
     end
     -- if the count of how many returned true didn't meet or exceed the number given, return false
     return false
@@ -50346,71 +50330,39 @@ function snd.checksomeAffs(afflictions, number)
 end
 
 --- Check how many mental afflictions are on target
--- @function snd.aff_count_mental
--- @return number of mental affs
--- @see snd.aff_count_physical
 function snd.aff_count_mental()
-  local aff_count = 0
-  for aff in pairs(snd.mental_affs) do
-    if table.contains(snd.target_has, snd.mental_affs[aff]) then
-      aff_count = aff_count + 1
-    end
-  end
-  return aff_count
+  return snd.aff_count_specific(snd.mental_affs)
 end
 
 --- Check how many physical afflictions are on target
--- @function snd.aff_count_physical
--- @return number of physical affs
--- @see snd.aff_count_mental
 function snd.aff_count_physical()
-  local aff_count = 0
-  for aff in pairs(snd.physical_affs) do
-    if table.contains(snd.target_has, snd.physical_affs[aff]) then
-      aff_count = aff_count + 1
-    end
-  end
-  return aff_count
+  return snd.aff_count_specific(snd.physical_affs)
 end
 
 --- Check how many venom afflictions are on target.
 -- Note: This counts all afflictions that -could- have come from venoms, not affs that -did- come from venoms.
--- This might be wrong depending on how your class delivers venom affs
--- @function snd.aff_count_venom
--- @return number of venom affs
 function snd.aff_count_venom()
   --this gives a count of afflictions which -could- have come from venoms.
   --they may have been sourced from other things instead, so ymmv
-  local aff_count = 0
-  for _, aff in pairs(snd.venom_affs) do
-    if table.contains(snd.target_has, aff) then
-      aff_count = aff_count + 1
-    end
-  end
-  return aff_count
+  return snd.aff_count_specific(snd.venom_affs)
 end
 
 --- Check how many afflictions are on target.
--- @function snd.aff_count_all
--- @return number of affs
 function snd.aff_count_all()
-  local aff_count = 0
-  for aff in pairs(snd.all_affs) do
-    if table.contains(snd.target_has, snd.all_affs[aff]) then
-      aff_count = aff_count + 1
-    end
-  end
-  return aff_count
+  return snd.aff_count_specific(snd.all_affs)
 end
 
 --- Counts all afflictions excluding pseudo-affs on target
--- @function snd.real_aff_count_all
--- @return number of affs
 function snd.real_aff_count_all()
+  return snd.aff_count_specific(snd.real_all_affs)
+end
+
+--passed a table of affs and returns the number of them on the target.
+function snd.aff_count_specific(afflictions)
   local aff_count = 0
-  for aff in pairs(snd.real_all_affs) do
-    if table.contains(snd.target_has, snd.real_all_affs[aff]) then
-      aff_count = aff_count + 1
+  for _, aff in pairs(afflictions) do
+    if snd.checkAff(aff) then
+      aff_count = aff_count+1
     end
   end
   return aff_count
@@ -50428,8 +50380,6 @@ function snd.target_locked()
   then
     return true
   end
-
-
   return false
 end
 </script>
