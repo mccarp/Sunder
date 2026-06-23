@@ -36357,7 +36357,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.5"
+local version = "12.8.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -50317,7 +50317,7 @@ function snd.checksomeAffs(afflictions, number)
   if type(afflictions) == "string" then
     return snd.checkAff(afflictions)
   elseif type(afflictions) == "table" then
-    if snd.aff_count_specific(afflictions)&gt;= count then
+    if snd.aff_count_specific(afflictions )&gt;= number then
       return true
     end
     -- if the count of how many returned true didn't meet or exceed the number given, return false
