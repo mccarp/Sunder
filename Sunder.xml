@@ -19887,11 +19887,7 @@ end</script>
 								<name>Hellfire Pyromania Prone</name>
 								<script>if matches[2] == snd.target then
   snd.target_got("fallen")
-end
-if (snd.class == "Zealot" or snd.class == "Ravager") and matches[2] == snd.target and snd.flamestack &gt; 0 then
-  cecho("\n" .. snd.target .. " Now has &lt;light_goldenrod&gt;" .. snd.flamestack .. "&lt;dodger_blue&gt; stacks of intensity")
-end
-</script>
+end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
 								<mStayOpen>0</mStayOpen>
