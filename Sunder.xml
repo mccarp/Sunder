@@ -35227,6 +35227,17 @@ end</script>
 				<packageName></packageName>
 				<regex>(?i)^rt(?: (\w+))?$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Run last route</name>
+				<script>if not snd.routes.last then
+  snd.message("You haven't run any routes this session.")
+else
+  snd.routes.run(snd.routes.last)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(?i)^rtl$</regex>
+			</Alias>
 			<Alias isActive="no" isFolder="no">
 				<name>Route alias template</name>
 				<script>--[[ This is a blank attack template, just the most basic outline of what an offense
@@ -36445,7 +36456,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.9"
+local version = "12.8.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -56442,6 +56453,8 @@ function snd.routes.run(name)
     snd.message("No route \""..name.."\" exists for "..class:title()..". Do RT HELP to see available routes.")
     return
   end
+  
+  snd.routes.last = name
   
   snd.starting_attack()
   
