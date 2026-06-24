@@ -1502,6 +1502,26 @@ end</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Kneel snapped</name>
+						<script>snd.target_cured("kneel", matches[2])</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^The enforced bond between you and (\w+) frays, liberating \w+ from your mighty will\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Insomnia</name>
 						<script>snd.target_cured("no_insomnia", matches[2])</script>
 						<triggerType>0</triggerType>
@@ -20454,39 +20474,6 @@ end
 									</regexCodePropertyList>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-									<name>Rampage affs</name>
-									<script>if matches[2] == snd.target then
-  if matches[1]:find("ribs") then
-    snd.target_got("cracked_ribs")
-  elseif matches[1]:find("throat") then
-    snd.target_got("crippled_throat")
-  else
-   snd.target_got(matches[3].."_crippled")
-  end
-end
-</script>
-									<triggerType>0</triggerType>
-									<conditonLineDelta>0</conditonLineDelta>
-									<mStayOpen>0</mStayOpen>
-									<mCommand></mCommand>
-									<packageName></packageName>
-									<mFgColor>#ff0000</mFgColor>
-									<mBgColor>#ffff00</mBgColor>
-									<mSoundFile></mSoundFile>
-									<colorTriggerFgColor>#000000</colorTriggerFgColor>
-									<colorTriggerBgColor>#000000</colorTriggerBgColor>
-									<regexCodeList>
-										<string>^(\w+) gasps in pain, \w+ (.+) shattering under the assault\.$</string>
-										<string>^(\w+) doubles over as \w+ ribs crack under the remorseless strike\.$</string>
-										<string>^(\w+)'s throat seizes up from the force of the blow\.$</string>
-									</regexCodeList>
-									<regexCodePropertyList>
-										<integer>1</integer>
-										<integer>1</integer>
-										<integer>1</integer>
-									</regexCodePropertyList>
-								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Welt proc (Ravager)</name>
 									<script>if matches[2] == snd.target then
 	snd.last_hit_limb = matches[3]
@@ -36403,7 +36390,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.8"
+local version = "12.8.9"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -51383,13 +51370,14 @@ end
     end,
     Blitz = function(target, conditional)
       if conditional == "start" then
-        enableTrigger("Blitz Affs")
+        enableTrigger("Rampage Blitz Affs")
       else
-        disableTrigger("Blitz Affs")
+        disableTrigger("Rampage Blitz Affs")
       end
     end,
     Palmforce = function(target)
-      snd.target_got("fallen")
+        table.insert(snd.maybe_affs, 1, "fallen")
+        snd.onHit2({"Dodge"})
     end,
     Dislocate = function(target, limb)
       if snd.checkAff(limb.."_broken") then
@@ -51491,9 +51479,6 @@ end
     Dull = function(target)
       snd.target_got("indifference")
     end,
-    Dread = function(target)
-      snd.target_got("fear")
-    end,
     Tether = function(target)
       snd.target_got("psi_tether")
     end,
@@ -51521,7 +51506,8 @@ end
     end,
 
     Clobber = function(target)
-      snd.target_got("fallen")
+        table.insert(snd.maybe_affs, 1, "fallen")
+        snd.onHit2({"Dodge"})
     end,
     Bustup = function(target, limb)
       if snd.checkAff(limb.."_broken") then
@@ -51574,9 +51560,9 @@ end
     end,
     Rampage = function(target, conditional)
       if conditional == "start" then
-        enableTrigger("Rampage Affs")
+        enableTrigger("Rampage Blitz Affs")
       else
-        disableTrigger("Rampage Affs")
+        disableTrigger("Rampage Blitz Affs")
       end
     end,
 
@@ -51627,7 +51613,12 @@ end
       snd.target_got("no_speed")
       snd.lev_gone = true
     end,
-
+    Inadequacy = function(target)
+      snd.target_got("indifference")
+    end,
+    Kneel = function(target)
+      snd.target_got("kneel")
+    end,
     Boast = function(target)
       snd.target_got("agoraphobia")
       snd.target_got("claustrophobia")
