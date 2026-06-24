@@ -2290,8 +2290,7 @@ end
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds capture stuff</name>
-						<script>display(matches)
-local limb = matches[2]:lower()
+						<script>local limb = matches[2]:lower()
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
 local dmg = tonumber(matches[3])
 snd.took_limb_dmg(limb, dmg - snd.limb_dmg[limb])
