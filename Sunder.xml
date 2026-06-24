@@ -1397,9 +1397,9 @@ end</script>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>numbed_skin cured</name>
-						<script>snd.target_cured("numbed_skin", matches[2])</script>
+					<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Umbrix effects</name>
+						<script></script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -1410,13 +1410,69 @@ end</script>
 						<mSoundFile></mSoundFile>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^(\w+) regains the feeling within \w+ limbs\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
+						<regexCodeList />
+						<regexCodePropertyList />
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>numbed_skin cured</name>
+							<script>snd.target_cured("numbed_skin", matches[2])</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) regains the feeling within \w+ limbs\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Mental fatigue cured</name>
+							<script>snd.target_cured("mental_fatigue", matches[2])</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^(\w+) appears relieved of \w+ mental fatigue\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+							<name>Thorns cured</name>
+							<script>snd.target_cured("thorns", matches[2])</script>
+							<triggerType>0</triggerType>
+							<conditonLineDelta>0</conditonLineDelta>
+							<mStayOpen>0</mStayOpen>
+							<mCommand></mCommand>
+							<packageName></packageName>
+							<mFgColor>#ff0000</mFgColor>
+							<mBgColor>#ffff00</mBgColor>
+							<mSoundFile></mSoundFile>
+							<colorTriggerFgColor>#000000</colorTriggerFgColor>
+							<colorTriggerBgColor>#000000</colorTriggerBgColor>
+							<regexCodeList>
+								<string>^The shadowy thorns upon (\w+)'s throat dissipate\.$</string>
+							</regexCodeList>
+							<regexCodePropertyList>
+								<integer>1</integer>
+							</regexCodePropertyList>
+						</Trigger>
+					</TriggerGroup>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Bloodscourge cured</name>
 						<script>snd.target_cured("bloodscourge", matches[2])</script>
@@ -43838,6 +43894,7 @@ end</script>
   def_ghosted = { defense = "ghosted", type = "normal", effect = "Conceals movement", balance = { needyequilibriumtake = "conjure ghost" }, skill = "Ghost" },
   def_phased = { defense = "phased", type = "yellow", effect = "On another plane", balance = {}, skill = "Phase" },
   def_lipreading = { defense = "lipreading", type = "normal", effect = "Hear through DEAF", balance = { needybalancetake = "lipread" }, skill = "Lipread" },
+  def_palming = { defense = "palming", type = "normal", effect = "Hide your equipped weapons", balance = { balanceequilibrium = "palming" }, skill = "Palming" },
 
   --Templar
   def_maingauche = { defense = "maingauche", type = "normal", effect = "Chance to counter attack", balance = { needyequilibriumtake = "maingauche" }, skill = "MainGauche" },
@@ -53348,16 +53405,36 @@ end
   },
 
   ["Hypnosis"] = {
-    Sleight = function(target, conditional)
-      if conditional == "Void" then
-        snd.target_got("void")
+    Sleights = function(target, conditional)
+      if conditional == "abrasion" then
+        if snd.timer_check("restoration", 0) then
+          snd.timers.restoration.limit = snd.timers.restoration.limit+.5
+        else
+          snd.start_timer("restoration", .5, true)
+        end
+      elseif conditional == "dissipate" then
+        if snd.timer_check("pill", 0) then
+          snd.timers.pill.limit = snd.timers.pill.limit+.9
+        else
+          snd.start_timer("pill", .9, true)
+        end
       end
     end,
     Umbrix = function(target, conditional)
-      if conditional == "Numbness" then
+      if conditional == "numbness" then
         snd.target_got("numbed_skin")
         if not table.isMember(gmcp.Room.Info.details, "darkness") then
-          snd.affTimers.start("numbed_skin", 9.5)
+          snd.affTimers.start("numbed_skin", 10)
+        end
+      elseif conditional == "thorns" then
+        snd.target_got("thorns")
+        if not table.isMember(gmcp.Room.Info.details, "darkness") then
+          snd.affTimers.start("thorns", 10)
+        end
+      elseif conditional == "fatigue" then
+        snd.target_got("mental_fatigue")
+        if not table.isMember(gmcp.Room.Info.details, "darkness") then
+          snd.affTimers.start("mental_fatigue", 10)
         end
       end
     end,
