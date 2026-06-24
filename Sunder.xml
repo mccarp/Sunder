@@ -2270,7 +2270,8 @@ end
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds capture stuff</name>
-						<script>local limb = matches[2]:lower()
+						<script>display(matches)
+local limb = matches[2]:lower()
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
 local dmg = tonumber(matches[3])
 snd.took_limb_dmg(limb, dmg - snd.limb_dmg[limb])
@@ -2286,7 +2287,7 @@ snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg):\s+(\d+\.\d+)\% \(\w+ bruising\)$</string>
+							<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg):\s+(\d+\.\d+)\% \((\w+) bruising\)$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -25785,6 +25786,26 @@ end</script>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Zeal harrow</name>
+						<script>enableTrigger("Weapon Hit Confirmation")</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\w+ uses? (Battlefury Zeal|Riving Harrow)</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Cureset swaps</name>
 						<script>--local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = matches[3]
@@ -32972,7 +32993,7 @@ raiseEvent("sunder_my_limbs_updated")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg):\s+(\d+\.\d+)\% \(\w+ bruising\)$</string>
+									<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg):\s+(\d+\.\d+)\% \((\w+) bruising\)$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -36382,7 +36403,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.7"
+local version = "12.8.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
