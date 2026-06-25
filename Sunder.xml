@@ -2414,8 +2414,10 @@ snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
 						<string>^(\w+) is dragged into the location from the \w+ by a thin thread looped around one of \w+ feet\.$</string>
 						<string>^.+ whips one of its muscular tentacles toward (\w+), sending \w+ toppling to the ground in an unceremonious pile\.$</string>
 						<string>^The ground beneath you heaves in revolt, casting (\w+) down\.$</string>
+						<string>^(\w+) sits down\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
@@ -2481,6 +2483,53 @@ end</script>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>helpup</name>
+					<script>snd.target_cured("fallen", matches[2])
+if matches[2] == snd.target then
+  if snd.checkAff("backstrain") then
+      snd.took_limb_dmg("torso", 10)
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^\w+ offers? a hand to (\w+) and pulls? \w+ up to \w+ feet\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Not fallen</name>
+					<script>snd.target_cured("fallen", matches[2])</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(\w+) nimbly stays on \w+ feet\.$</string>
+						<string>^(\w+) has not fallen over\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
 						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
@@ -25675,12 +25724,10 @@ snd.theytumbling = false</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>You can't do that if your target isn't prone!</string>
-						<string>^(\w+) nimbly stays on [a-zA-Z ]+ feet\.$</string>
 						<string>Your target isn't prone.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
-						<integer>1</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
