@@ -36456,7 +36456,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.12"
+local version = "12.8.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -54843,6 +54843,10 @@ end
     end,
     Hourglass = function(target)
       snd.target_got("sleep")
+    end,
+    Hammer = function(target)
+      snd.used.shield = false
+      snd.waiting.queue = false
     end,
   },
 
