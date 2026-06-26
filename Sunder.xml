@@ -36544,7 +36544,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.15"
+local version = "12.8.16"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -37152,6 +37152,13 @@ snd.core()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>(?i)^generosity(?: (\d+))?$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>autoarmor</name>
+					<script>snd.toggle("autoarmor")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^toggle autoarmor$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -38320,7 +38327,8 @@ snd.toggles = snd.toggles or {
   mindseye = false, --use mindseye?
   domeswap = true,
   reboundingtime = 6,
-  selfishness = false
+  selfishness = false,
+  autoarmor = false,
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -43550,6 +43558,40 @@ function snd.get_predator_bash_attacks(shielded)
 end</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Class armor map</name>
+				<packageName></packageName>
+				<script>snd.classArmors = {
+  Predator = "leatherarmor",
+  Monk = "leatherarmor",
+  Ravager = "leatherarmor",
+  Wayfarer = "leatherarmor",
+  Zealot = "leatherarmor",
+  Alchemist = "ringmail",
+  Indorani = "ringmail",
+  Oneiromancer = "ringmail",
+  Shaman = "ringmail",
+  Akkari = "scalemail",
+  Bard = "scalemail",
+  Infiltrator = "scalemail",
+  Praenomen = "scalemail",
+  Sylvan = "scalemail",
+  Archivist = "chainmail",
+  Executor = "chainmail",
+  Sentinel = "chainmail",
+  Voidseer = "chainmail",
+  Earthcaller = "splintmail",
+  Luminary = "splintmail",
+  Teradrim = "splintmail",
+  Tidesage = "splintmail",
+  Carnifex = "fieldplate",
+  Revenant = "fieldplate",
+  Templar = "fieldplate",
+  Warden = "fieldplate",
+  Siderealist = "fieldplate",
+}</script>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Defenses</name>
@@ -45232,6 +45274,11 @@ end
 
 function snd.load_def(option)
   snd.defupPending = option
+  
+  if snd.toggles.autoarmor and option ~= "none" and snd.classArmors[snd.class] then
+    snd.send({"remove armor","wear "..snd.classArmors[snd.class]}, true)
+  end
+  
   send("def", false)
 end
 
