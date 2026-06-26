@@ -59715,8 +59715,8 @@ local function route()
     attack = "dstab "..snd.target.." delphinium delphinium"
     call = "wt Afflicting "..snd.target..": delphinium, delphinium"..snd.sep
   else
-    attack = "dstab " .. snd.target .. " " .. tohit[2] .. " " .. tohit[1]
-    call = "wt Afflicting " .. snd.target .. ": " .. tohit[2] .. ", " .. tohit[1]..snd.sep
+    attack = "dstab " .. snd.target .. " " .. venoms[2] .. " " .. venoms[1]
+    call = "wt Afflicting " .. snd.target .. ": " .. venoms[2] .. ", " .. venoms[1]..snd.sep
   end
   
   if snd.toggles.affcalling and not snd.target_gone then
