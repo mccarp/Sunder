@@ -59697,7 +59697,7 @@ local function route()
     "voyria",
 
   }
-  local venoms = snd.utils.venomify(snd.utils.basic_tack(snd.giving))
+  local venoms = snd.utils.venomify(snd.utils.basic_stack(snd.giving))
   table.insert(venoms, extraaff)
   table.insert(venoms, extraaff)
 
