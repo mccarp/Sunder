@@ -27963,9 +27963,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Ironcollar</name>
-				<script>if not snd.have_aff("perplexity") then
-    table.insert(snd.perplexity_actions, "remove ironcollar")
-end</script>
+				<script>table.insert(snd.perplexity_actions, "remove ironcollar")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -36588,7 +36586,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.16"
+local version = "12.8.17"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -41611,7 +41609,7 @@ end</script>
 				<packageName></packageName>
 				<script>snd.perplexity_actions = snd.perplexity_actions or {}
 function snd.do_perplexity_actions()
-  if not snd.have_aff("paralysis") and not snd.have_aff("perplexity") and #snd.perplexity_actions&gt;0 then
+  if snd.functional() and not snd.have_aff("paralysis") and not snd.have_aff("perplexity") and #snd.perplexity_actions&gt;0 then
     snd.send(snd.perplexity_actions, true)
     snd.perplexity_actions = {}
   end
