@@ -36224,7 +36224,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.22"
+local version = "12.8.23"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -67025,7 +67025,7 @@ function snd.revenant_bash()
     end
   elseif snd.toggles.newbie then
     battack = "rivebash " .. snd.bashing.target
-  elseif (gmcp.Char.Vitals.wield_left:find("warhammer") or gmcp.Char.Vitals.wield_left:find("bastard") or gmcp.Char.Vitals.wield_left:find("bardiche")) and hasSkill("Fell") then
+  elseif snd.wielded.right.full == "empty" then
     battack = "fell " .. snd.bashing.target
   else
     battack = "dpl " .. snd.bashing.target
@@ -67319,7 +67319,7 @@ function snd.templar_bash()
     end
   elseif snd.toggles.newbie then
     battack = "strikebash " .. snd.bashing.target
-  elseif (gmcp.Char.Vitals.wield_left:find("warhammer") or gmcp.Char.Vitals.wield_left:find("bastard") or gmcp.Char.Vitals.wield_left:find("glaive")) and hasSkill("Doubleswing") then
+  elseif snd.wielded.right.full == "empty" then
     battack = "dsw " .. snd.bashing.target
   else
     battack = "dsk " .. snd.bashing.target
