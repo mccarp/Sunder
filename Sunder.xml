@@ -35999,7 +35999,7 @@ snd.disp.table({snd.theme.darktext.."DETECTION", "Vision (89 lessons). Required.
 snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (Y|y)lem$</regex>
+						<regex>(?i)^sunder help ylem$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Toggles help</name>
@@ -36054,32 +36054,34 @@ snd.disp.text("If you plan to lead in combat, you should also review "..snd.them
 snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (p|P)(K|k)$</regex>
+						<regex>(?i)^sunder help pk$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Sunder defenses helpfile</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Defenses &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")
-cecho("\n&lt;ForestGreen&gt;Upkeep of defenses can be a tedious task, especially those stripped after a certain amount of time or if you just don't want to worry about it. To that end, Sunder is equipped to be able to help you upkeep defenses in a mildly intelligent manner via checking what skills you have access. The system uses GMCP to automatically check your skills, as well as checking your tattoos and raceskills, to accurately and easily keep track.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;defup                 &lt;ForestGreen&gt;Turn on automatic defense upkeep of defenses.")
-cecho("\n&lt;DeepSkyBlue&gt;kd &lt;defname&gt;          &lt;ForestGreen&gt;Toggle a specific defense upkeep on/off.")
-cecho("\n")
-cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; also has the built in capability to utilize the antiquated artifact goggles, making a number of defs instantaneous and without cost, and antiquated artifacts gauntlets.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;toggle goggles        &lt;ForestGreen&gt;Toggle Sunder using goggles or not.")
-cecho("\n&lt;DeepSkyBlue&gt;mygoggles #           &lt;ForestGreen&gt;Tell Sunder what level your goggles are set to.")
-cecho("\n&lt;DeepSkyBlue&gt;mygauntlet #          &lt;ForestGreen&gt;Tell Sunder what level your gauntlet is set to.")
-cecho("\n")
-cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
+						<script>snd.disp.top("Sunder Defenses")
+snd.disp.text("Sunder is able to both track and manage your class and generic defenses for you.")
+snd.disp.text("")
+snd.disp.text("Please note, for any defenses which share a cure balance, such as density, rebounding, courage, etc, it is recommended that you setup your firstaid curesets to manage these for you. Some of these are not managed at all by sunder, and having them done by firstaid can be critical in combat regardless, due to its ability to properly prioritize them against afflictions on the same balance.")
+snd.disp.top("Sunder Defense Aliases")
+snd.disp.table({snd.theme.darktext.."defup", "Put up your defenses."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."ldd [set]", "Loads a specific defense set. ldd none will "}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."ldd none", "Clears out maintained defenses."}, {20}, {"right","left"})
+snd.disp.top("Sunder Defense Toggles")
+snd.disp.table({snd.theme.darktext.."toggle goggles", "Toggles use of antiquated goggles for defenses."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."mygoggles #", "Tells Sunder what level your goggles are."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."mygauntlet #", "Tells Sunder what level your gauntlet is."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle selfishness", "Toggles selfishness upkeep."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."generosity [time]", "Lower selfishness for X seconds."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle autoarmor", "Toggle auto-equipping of armor on defup."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle lifesense", "Toggle use of the lifesense defense (relic)"}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle mindseye", "Toggle use of the mindseye defense."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle chameleon", "Toggle use of the chameleon tattoo."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."chamtargets [ppl]", "Set a list of people you want to chameleon."}, {20}, {"right","left"})
+
+snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (D|d)efenses$</regex>
+						<regex>(?i)^sunder help defenses$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Sunder calling helpfile</name>
@@ -36104,7 +36106,7 @@ cecho("\n")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (C|c)alling$</regex>
+						<regex>(?i)^sunder help calling$</regex>
 					</Alias>
 				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
@@ -36299,40 +36301,6 @@ cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")</scr
 						<regex>^(S|s)under (H|h)elp (F|f)ishing$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
-						<name>Name database help file</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Name Database &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")
-cecho("\n&lt;ForestGreen&gt;The name databse that &lt;green&gt;Sunder&lt;ForestGreen&gt; utilizes will be familiar to many of you who have come from other IRE games, including the utilization and coloring effects. See below for aliases to toggle certain items and general upkeep of the names contained.")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;Please note that you do NOT need to utilize the highlighting if you do not want to, but you absolutely do need the name database for other functions of &lt;green&gt;Sunder&lt;ForestGreen&gt;.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;------------")
-cecho("\n&lt;ForestGreen&gt;By default, the name database should be installed when you set everything up.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;pb help                &lt;ForestGreen&gt;Pull up the help file for the phone book.")
-cecho("\n&lt;DeepSkyBlue&gt;pb settings            &lt;ForestGreen&gt;Shows you current color configuration of everyone.")
-cecho("\n&lt;DeepSkyBlue&gt;pb hl                  &lt;ForestGreen&gt;Toggles the highlighting of names on/off.")
-cecho("\n&lt;DeepSkyBlue&gt;pb hl &lt;org&gt; &lt;color&gt;    &lt;ForestGreen&gt;Change your custom color config per city.")
-cecho("\n&lt;DeepSkyBlue&gt;pbu                    &lt;ForestGreen&gt;Update and honor people from qw/qwho.")
-cecho("\n&lt;DeepSkyBlue&gt;pb set &lt;person&gt; &lt;city&gt; &lt;ForestGreen&gt;Set someone's city manually.")
-cecho("\n&lt;DeepSkyBlue&gt;pb remove &lt;person&gt;     &lt;ForestGreen&gt;Remove a person from the phonebook.")
-cecho("\n&lt;DeepSkyBlue&gt;pbh &lt;person&gt;           &lt;ForestGreen&gt;Update one individual person.")
-cecho("\n&lt;DeepSkyBlue&gt;cw/cwho                &lt;ForestGreen&gt;Record everyone currently online from your city.")
-cecho("\n&lt;DeepSkyBlue&gt;qws                    &lt;ForestGreen&gt;Displays a qw list, sorted by city.")
-cecho("\n&lt;DeepSkyBlue&gt;pb enable              &lt;ForestGreen&gt;Turn on highlighting.")
-cecho("\n&lt;DeepSkyBlue&gt;pb disable             &lt;ForestGreen&gt;Turn off highlighting.")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;There are some more functions in the scripts for use in your code for checking city if they exist in the database etc.")
-cecho("\n")
-cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (P|p)(B|b)$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
 						<name>Manual queue help file</name>
 						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Manual Queueing &lt;CadetBlue&gt;help file!")
 cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")
@@ -36398,7 +36366,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.18"
+local version = "12.8.19"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -37416,6 +37384,33 @@ npb.help_handled = false</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^pb .+$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>sunder help pb</name>
+				<script>local spacing = 25
+if not npb.help_handled then
+  snd.disp.top("NPB Help")
+  snd.disp.text("")
+  snd.disp.text("NPB, also known as Neri's PhoneBook, is meant to be a functional name database which does not rely on having API access. This is a full replacement for the older Sunder NDB")
+  snd.disp.text("")
+  snd.disp.top("NPB Commands")
+  snd.disp.table({snd.theme.darktext.."pb help", "Display this helpfile."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb update/pbu", "Update and honour people visible on qwho."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb honour/pbh "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."]", "Update a specific person's city from honours."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."cwho", "Record everyone currently online in your city."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."npb set "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."] ["..snd.theme.darktext.."city"..snd.theme.text.."]", "Manually assign someone to a city."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb honour/pbh "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."]", "Update a specific person's city from honours."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb hl"..snd.theme.text.."|"..snd.theme.darktext.."toggle highlights", "Toggle city highlighting"},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb settings", "Show highlighting settings."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb hl "..snd.theme.text.."["..snd.theme.darktext.."city"..snd.theme.text.."] ["..snd.theme.darktext.."color"..snd.theme.text.."]", "Change city highlighting."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."pb remove "..snd.theme.text.."["..snd.theme.darktext.."person"..snd.theme.text.."]", "Remove a person from the Phonebook."},{spacing},{"right","left"})
+  snd.disp.table({snd.theme.darktext.."qws", "Show online people, sorted by city."},{spacing},{"right","left"})
+  snd.disp.bottom()
+end
+npb.help_handled = false</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(?i)^sunder help pb$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Qws</name>
