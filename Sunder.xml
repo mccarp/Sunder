@@ -2347,10 +2347,32 @@ end
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Wounds capture stuff</name>
 						<script>local limb = matches[2]:lower()
+local damageMap = {
+  {"Healthy",{}},
+  {"Hurt",{}},
+  {"Broken", {"_crippled", "_broken"}},
+  {"Mangled", {"_mangled"}},
+  {"Amputated", {"_amputated"}},
+}
+
+
 local bruisingMap = {no = 0, light = 1, moderate = 2, critical = 3}
-local dmg = tonumber(matches[3])
+local dmg = tonumber(matches[4])
+local found = false
+for _, info in pairs(damageMap) do
+  for _, aff in pairs(info[2]) do
+    if not found then
+      snd.target_got(limb..aff)
+    else
+      snd.target_cured(limb..aff)
+    end
+  end
+  if matches[3] == info[1] then
+    found = true
+  end
+end
 snd.took_limb_dmg(limb, dmg - snd.limb_dmg[limb])
-snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
+snd.limb_bruising[limb] = bruisingMap[matches[5]]</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -2362,7 +2384,7 @@ snd.limb_bruising[limb] = bruisingMap[matches[4]]</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg):\s+(\d+\.\d+)\% \((\w+) bruising\)$</string>
+							<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg) +: (Healthy|Hurt|Broken|Mangled|Amputated) +(\d+\.\d+)% +\((\w+) bruising\)</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
@@ -33066,7 +33088,7 @@ raiseEvent("sunder_my_limbs_updated")</script>
 							</regexCodePropertyList>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>wounds line</name>
-								<script>snd.my_limb_damage[string.lower(matches[2])] = tonumber(matches[3])
+								<script>snd.my_limb_damage[string.lower(matches[2])] = tonumber(matches[4])
 </script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -33079,7 +33101,7 @@ raiseEvent("sunder_my_limbs_updated")</script>
 								<colorTriggerFgColor>#000000</colorTriggerFgColor>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList>
-									<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg):\s+(\d+\.\d+)\% \((\w+) bruising\)$</string>
+									<string>^(Head|Torso|Left arm|Right arm|Left leg|Right leg) +: (Healthy|Hurt|Broken|Mangled|Amputated) +(\d+\.\d+)% +\((\w+) bruising\)</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
