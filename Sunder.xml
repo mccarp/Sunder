@@ -18940,11 +18940,11 @@ end</script>
 						<name>Teammate writhes</name>
 						<script>if matches[2] ~= "you" then
   if (snd.disperse == "callers" and table.contains(snd.callers, matches[2])) then
-    snd.send("qeb disperse " .. matches[2])
+    snd.cq("disperse " .. matches[2])
   elseif sndNDB_Exists(gmcp.Char.Status.name) or not sndNDB_Exists(matches[2]) then 
     -- Eliminate cases where one or the other isn't in the name database
   elseif (snd.disperse == "all" and sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2])) then
-    snd.send("qeb disperse " .. matches[2])
+    snd.cq("qeb disperse " .. matches[2])
   end
 end</script>
 						<triggerType>0</triggerType>
@@ -26989,92 +26989,6 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Who parser</name>
-				<script></script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList />
-				<regexCodePropertyList />
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Who line</name>
-					<script>local person = matches[2]
-local room = matches[3]
-local vnum = matches[4]
-
-local room_table = snd.who_list[room] or {}
-table.insert(room_table, person)
-snd.who_list[room] = room_table
-table.insert(snd.true_who, person)
- 
-</script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
-						<string>^\s+(\w+) - (.+?)\s+- (?:v(\d+))?</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>1</integer>
-					</regexCodePropertyList>
-				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>More</name>
-					<script>send("more")</script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
-						<string>Type more to continue reading.</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>2</integer>
-					</regexCodePropertyList>
-				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Total people</name>
-					<script>disableTrigger("Who parser")
-raiseEvent("sunder_who_parsing_finished")</script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
-						<string>^There are (\d+) people total online with (\d+) (people|person) that (are|is) hidden from you.$</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>1</integer>
-					</regexCodePropertyList>
-				</Trigger>
-			</TriggerGroup>
 			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>QWP for level 20 goggles</name>
 				<script></script>
@@ -35488,7 +35402,7 @@ end</script>
 					<script>snd.cq("refining shackle eld")</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^sh$</regex>
+					<regex>^sh(ackle)?$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>tumble</name>
@@ -35632,14 +35546,6 @@ if matches[2] ~= nil then send("config separator" .. matches[2]) else send("conf
 				<regex>^config separator( (.+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Who Parsing</name>
-				<script>snd.parse_who()
-registerAnonymousEventHandler("sunder_who_parsing_finished", snd.parse_who_groups, true)</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^who groups$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
 				<name>Easy logging</name>
 				<script>local name_table = string.split(matches[3], " ")
 local name_string = ""
@@ -35732,6 +35638,13 @@ end
 				<command></command>
 				<packageName></packageName>
 				<regex>^snd (c?q)(?: (.+))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Enemy or ally a list of people.</name>
+				<script>snd[matches[2]:lower()](string.split(matches[3]," "))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(?i)^(enemy|ally) (\w+ .+)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -36026,26 +35939,26 @@ snd.disp.text("Use "..snd.theme.darktext.."sunder help [subject] &lt;r&gt;to vie
 snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp$</regex>
+						<regex>(?i)^sunder help$</regex>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Ylem helpfile</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;YLEM &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")
-cecho("\n&lt;ForestGreen&gt;Hunting after those elusive minors and lessers has never been easier! This will walk you through how to do that with a few easy steps. To start, you will need to make sure you have learned &lt;DeepSkyBlue&gt;LEYLINES &lt;ForestGreen&gt;in &lt;MediumTurquoise&gt;Vision &lt;ForestGreen&gt;(289 lessons) and &lt;DeepSkyBlue&gt;SHACKLING &lt;ForestGreen&gt;in &lt;MediumTurquoise&gt;Refining &lt;ForestGreen&gt;(239 lessons). While &lt;DeepSkyBlue&gt;shackling &lt;ForestGreen&gt;is not necessarily needed for this to work, it will benefit you in the long run and keep you from having to deal with multiple eld at once. In the process of learning &lt;DeepSkyBlue&gt;leylines&lt;ForestGreen&gt;, you will also learn &lt;DeepSkyBlue&gt;DETECTION&lt;ForestGreen&gt;, which will assist you in finding focal points. This is only needed if you do not have any reserves to use &lt;MediumTurquoise&gt;MANIPULATE PYLON FOR NODESENSE&lt;ForestGreen&gt;, which allows you to PATH TRACK MINOR directly to the focal point. For this, you will also need to purchase ylem goggles from the vendor at your pylon. Just PATH TRACK PYLON and ASK &lt;vendor&gt; WARES to BUY GOGGLES FROM &lt;vendor&gt;.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------")
-cecho("\n&lt;ForestGreen&gt;The &lt;green&gt;Sunder &lt;ForestGreen&gt;ylem finder is simple to use! To start, just type in &lt;DeepSkyBlue&gt;goylem start &lt;ForestGreen&gt;and watch as it does all the work of walking around for you. It has a set path that it follows and is easy to change if you wish to do so or if new areas are added before &lt;green&gt;Sunder &lt;ForestGreen&gt;is updated again. It will continually run until it finds either a minor or a lesser. If it finds a minor, you can either DETECTION ON and walk around to find the focal point (it is highlighted in &lt;green&gt;Sunder&lt;ForestGreen&gt; already, so you won't miss it!) or you can PATH TRACK MINOR if you have ylem goggles and have used MANIPULATE PYLON FOR NODESENSE. The nodesense defense will only last for one hour or ten uses. Once you find the minor and extract it (EXTRACTION is the syntax) fully, you can &lt;DeepSkyBlue&gt;goylem next &lt;ForestGreen&gt;to have &lt;green&gt;Sunder &lt;ForestGreen&gt;continue the set path. If you need to stop at any point, you can &lt;DeepSkyBlue&gt;goylem stop &lt;ForestGreen&gt;and it will take you back to your city and reset the variables to start over if you decide to pick it up again. If you need to stop temporarily, you can just &lt;DeepSkyBlue&gt;stap&lt;ForestGreen&gt; and then &lt;DeepSkyBlue&gt;goylem &lt;ForestGreen&gt;to start back up again where you left off!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;goylem start          &lt;ForestGreen&gt;Start finding foci")
-cecho("\n&lt;DeepSkyBlue&gt;goylem next           &lt;ForestGreen&gt;Move to the next area")
-cecho("\n&lt;DeepSkyBlue&gt;goylem stop           &lt;ForestGreen&gt;Stop and return to your city")
-cecho("\n&lt;DeepSkyBlue&gt;goylem                &lt;ForestGreen&gt;Continue if you had to stop")
-cecho("\n&lt;DeepSkyBlue&gt;sh                    &lt;ForestGreen&gt;Shackle an eld in the room to stop it from hitting you!")
-cecho("\n")</script>
+						<script>snd.disp.top("Sunder Ylem")
+snd.disp.text("Ylem is one of the primary avenues of conflict in Aetolia, and all cities need and use it. This helpfile goes over basic requirements for ylem hunting, as well as how to use the foci-finding subsystem for Sunder.")
+snd.disp.text("")
+snd.disp.text("When you activate the runner, it will go until it finds an area with a minor, or a nearby lesser. You will need to locate it manually at this point, though "..snd.theme.darktext.."nodesense (CITY RESEARCH INFO NODESENSE)&lt;r&gt; may help.")
+snd.disp.text("")
+snd.disp.top("Sunder Ylem Aliases")
+snd.disp.table({snd.theme.darktext.."goylem start", "Start the foci-finder."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."goylem next", "Move to the next area."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."goylem stop", "Stop finding foci and return to your city."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."goylem", "Continue where you left off if you had to stop."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."sh or shackle", "Shackle an eld in room."}, {15}, {"right","left"})
+snd.disp.top("Recommended Skills")
+snd.disp.table({snd.theme.darktext.."SHACKLE", "Refining (239 lessons)"}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."LEYLINES", "Refining (289 lessons). Required."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."DETECTION", "Vision (89 lessons). Required."}, {15}, {"right","left"})
+snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^(S|s)under (H|h)elp (Y|y)lem$</regex>
@@ -36079,148 +35992,35 @@ cecho("&lt;MediumSeaGreen&gt;*--------------------------------------------------
 					<command></command>
 					<packageName></packageName>
 					<regex></regex>
-					<AliasGroup isActive="yes" isFolder="yes">
-						<name>defense helpfiles</name>
-						<script></script>
+					<Alias isActive="yes" isFolder="no">
+						<name>Sunder PK helpfile</name>
+						<script>snd.disp.top("Sunder PK")
+snd.disp.text("Sunder is built to be a capable and robust PvP framework. However, if you wish to duel or compete at a high level, you are expected to work on your own routes and extensions for the system.")
+snd.disp.text("")
+snd.disp.text("The system comes with built in afftracking, target listening, target calling, as well as stock routes for every class. These routes are intended primarily for group combat, and may intentionally exclude some features and not be as finely tuned as a dueling route.")
+snd.disp.text("")
+snd.disp.top("Sunder PK Aliases")
+snd.disp.table({snd.theme.darktext.."ls [person]", "Listen to a person's target calls."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."ls stine vaessa bob", "Set multiple target callers. Can have any number."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."ls off", "Turn off target listening."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."loc", "Call your current location on web"}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."acl", "Toggle affliction calling."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."tcl", "Toggle target calling."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."t [person]", "Set your target manually."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."rt or rt help", "List available combat routes for your class."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."rt [route name]", "Run a specific combat route."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."rtl", "Run your most recent combat route again."}, {25}, {"right","left"})
+
+snd.disp.bottom()
+snd.disp.text("If you plan to lead in combat, you should also review "..snd.theme.darktext.."sunder help calling&lt;r&gt;.")
+snd.disp.bottom()</script>
 						<command></command>
 						<packageName></packageName>
-						<regex></regex>
-						<Alias isActive="yes" isFolder="no">
-							<name>Sunder PK helpfile</name>
-							<script>cecho("&lt;CadetBlue&gt;Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;PvP&lt;CadetBlue&gt; help file!")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-cecho("\n&lt;green&gt;Sunder &lt;ForestGreen&gt;has several built in ways for every class to be, at some level, useful. Even if it is just automatically attacking a target with a bashing attack. &lt;green&gt;Sunder &lt;ForestGreen&gt;is not and will not be updated with the best 1v1 PvP methods, nor will requests for 1v1 specific items be given time. The intent of Sunder has been and always will be the ability for the average player to get into the PvP scene at the lowest level and be able to participate in team scenarios.")
-cecho("\n")
-cecho("\n&lt;red&gt;Some of the classes have decently fine-tuned aliases (Syssin, Templar) due to the original creator  spending time in those classes. Remember that these were built on the effort of another player and they do not speak to your own skill or development. Using them to beat people at the low or middle tier of skill level does not indicate that you are improving. If you are interested in learning to PvP in the 1v1 arena, your best bet is to examine what is built here and expand or change it as opposed to relying on it without modification. These are public offenses and people can and will abuse their access to them to make it easy to beat you.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;DeepSkyBlue&gt;ls &lt;person&gt;                         &lt;ForestGreen&gt;Choose your target caller(s)")
-cecho("\n&lt;DeepSkyBlue&gt;ls stine vaessa bob                 &lt;ForestGreen&gt;Example of listening to more than one person.")
-cecho("\n&lt;DeepSkyBlue&gt;loc                                 &lt;ForestGreen&gt;Need help?! Call out your place in the world over web!")
-cecho("\n&lt;DeepSkyBlue&gt;acl                                 &lt;ForestGreen&gt;Toggle calling of afflictions over web.")
-cecho("\n&lt;DeepSkyBlue&gt;tcl                                 &lt;ForestGreen&gt;Toggle calling of targets over web.")
-cecho("\n&lt;DeepSkyBlue&gt;toggles disperse &lt;none/callers/all&gt; &lt;ForestGreen&gt;Automatic dispersing of writhe affs.")
-cecho("\n                                    &lt;ForestGreen&gt;Default none. Not always necessary.")
-cecho("\n")
-cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; target calling - instead of the old rigid lists found within Sunder, we will now utilize the custom, on the fly lists along with our name database to be able to cycle through targets effectively in the room. Please see &lt;DeepSkyBlue&gt;sunder help calling&lt;ForestGreen&gt; for more information on using that.")
-cecho("\n")
-cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; has the following aliases available for you to use in combat. There may be more aliases included in the settings, but not always!")
-
-if snd.class == "Monk" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Will use mind batter to hit with affs, if enemy prone then wrench.")
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;head &lt;white&gt;              - Used for damage, does not deviate unless target is proned.")
-cecho("\n&lt;goldenrod&gt;Limbs:")
-cecho("\n &lt;green&gt;ms&lt;white&gt;                 - Used to hit different limbs, will change combo depending on parry.")
-elseif snd.class == "Shapeshifter" then
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Goes for the head. Each time. Big damage/bleeding if not parried.")
-cecho("\n&lt;goldenrod&gt;Limb:")
-cecho("\n &lt;green&gt;ms &lt;white&gt;                - Straight limb breaks into jawlocks.")
-cecho("\n &lt;green&gt;insta&lt;white&gt;              - Goes for quarter kills. Check AB QUARTER for more information.")
-cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Utilizes slash to delay limb breaks, good for pushing level 2 breaks.")
-cecho("\n &lt;green&gt;quart&lt;white&gt;              - Better version of insta, use this.")
-elseif snd.class == "Infiltrator" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;ms &lt;white&gt;                - Basic dstab w/venoms. No hypnosis.")
-cecho("\n &lt;green&gt;magic&lt;white&gt;              - More advanced, geared towards magic, uses hypnosis.")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - More advanced, geared towards physical, uses hypnosis.")
-cecho("\n &lt;green&gt;kl&lt;white&gt;                 - 1v1 offense. Does not snap for you as that requires timing.")
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Straight damage.")
-elseif snd.class == "Wayfarer" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;legs &lt;white&gt;              - Uses lob to pressure leg breaks, will try to dropstrike if able.")
-cecho("\n &lt;green&gt;lock&lt;white&gt;               - Experimental skirmish route to seal locks w/slaughter and muddled.")
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Sensitivity/sight to support transfix. Boosted halt to keep people in room.")
-cecho("\n &lt;green&gt;gaff&lt;white&gt;               - Group affs w/preference toward venom lock. Slaughter if prone w/sensitivity.")
-cecho("\n &lt;green&gt;bleed&lt;white&gt;              - Bleed focused to assist Templar w/hemorrhage.")
-elseif (snd.class == "Templar" or snd.class == "Revenant") then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;ret &lt;white&gt;               - The 1v1 standard. Lock into retribution.")
-cecho("\n &lt;green&gt;newb&lt;white&gt;               - Basic venoms, no bladefire empowerments, no vorpal.")
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Use a 2h weapon to zeal/dsw someone and do physical damage.")
-cecho("\n &lt;green&gt;bleed&lt;white&gt;              - Bleed focused affs into hemorrhage.")
-cecho("\n&lt;goldenrod&gt;Limb:")
-cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Two small bludgeon weapons to deal bruising and limb damage.")
-elseif snd.class == "Shaman" or snd.class == "Alchemist" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;ms &lt;white&gt;                - Straight vinelash w/venoms.")
-cecho("\n &lt;green&gt;storm&lt;white&gt;              - Works toward stormtouched, then goes for lightning damage.")
-cecho("\n &lt;green&gt;supp&lt;white&gt;               - Aff-lock support.")
-elseif snd.class == "Sentinel" or snd.class == "Executor" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;salve&lt;white&gt;              - Works towards frozen w/limb breaks. Need raloth/icewyrm.")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Venom lock into spinecut death sequence.")
-cecho("\n &lt;green&gt;group&lt;white&gt;              - Group focused small aff pool into spinecut.")
-cecho("\n &lt;green&gt;ms&lt;white&gt;                 - Just venoms, no dhuriv attacks, perfect for starters.")
-elseif snd.class == "Luminary" or snd.class == "Earthcaller" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;git&lt;white&gt;                - Damage kill with aff stacking and overwhelm.")
-cecho("\n &lt;green&gt;mana&lt;white&gt;               - Straight mana sap.")
-cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Smite + chasten.")
-cecho("\n &lt;green&gt;ms&lt;white&gt;                 - Sight into tfix/overwhelm.")
-cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Limb support route")
-elseif snd.class == "Ascendril" or snd.class == "Bloodborn" then
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;damage&lt;white&gt;             - Damage kill.")
-cecho("\n &lt;green&gt;fire&lt;white&gt;               - Set them ablaze and watch them burn.")
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;affs&lt;white&gt;               - Build affs!")
-cecho("\n &lt;green&gt;solo&lt;white&gt;               - Push limb damage/frozen for a shatter!")
-elseif snd.class == "Zealot" or snd.class == "Ravager" then
-cecho("\n&lt;goldenrod&gt;Damage:")
-cecho("\n &lt;green&gt;dmg&lt;white&gt;                - Damage kill.")
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;fire&lt;white&gt;               - Focus on ablaze for Zealot support I guess? idk")
-elseif snd.class == "Archivist" or snd.class =="Voidseer" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build mental affs and go for unravel")
-elseif snd.class == "Carnifex" or snd.class == "Warden" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
-cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Overall limb route")
-cecho("\n &lt;green&gt;legs&lt;white&gt;               - Specifically for legs!")
-elseif snd.class == "Indorani" or snd.class == "Oneiromancer" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs! High Aeon/Hourglass prio.")
-elseif snd.class == "Praenomen" or snd.class == "Akkari" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
-cecho("\n &lt;green&gt;mez&lt;white&gt;                - Work on siphoning mana for annihilate and mesmerize!")
-elseif snd.class == "Teradrim" or snd.class == "Tidesage" then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
-cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Overall limb route")
-elseif snd.class == "Sciomancer" or snd.class == "Runecarver"  then
-cecho("\n&lt;goldenrod&gt;Afflictions:")
-cecho("\n &lt;green&gt;dmg &lt;white&gt;               - Damage kill")
-cecho("\n &lt;green&gt;aff&lt;white&gt;                - Build affs!")
-cecho("\n &lt;green&gt;limbs&lt;white&gt;              - Overall limb route via grip and erupt, adds in transfix/chill")
-cecho("\n &lt;green&gt;gdmg &lt;white&gt;              - Damage kill with singularity/morass involved")
-cecho("\n &lt;green&gt;gaff&lt;white&gt;               - Build affs with singularity/morass involved!")
-cecho("\n &lt;green&gt;sing1&lt;white&gt;              - Make your singularity/morass")
-cecho("\n &lt;green&gt;gc&lt;white&gt;                 - Shoot your cannon/mortify at your target nearby")
-end
-
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-cecho("\n")
-cecho("\n")</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^(S|s)under (H|h)elp (p|P)(K|k)$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Sunder defenses helpfile</name>
-							<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Defenses &lt;CadetBlue&gt;help file!")
+						<regex>^(S|s)under (H|h)elp (p|P)(K|k)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Sunder defenses helpfile</name>
+						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Defenses &lt;CadetBlue&gt;help file!")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")
 cecho("\n&lt;ForestGreen&gt;Upkeep of defenses can be a tedious task, especially those stripped after a certain amount of time or if you just don't want to worry about it. To that end, Sunder is equipped to be able to help you upkeep defenses in a mildly intelligent manner via checking what skills you have access. The system uses GMCP to automatically check your skills, as well as checking your tattoos and raceskills, to accurately and easily keep track.")
 cecho("\n")
@@ -36239,13 +36039,13 @@ cecho("\n&lt;DeepSkyBlue&gt;mygoggles #           &lt;ForestGreen&gt;Tell Sunder
 cecho("\n&lt;DeepSkyBlue&gt;mygauntlet #          &lt;ForestGreen&gt;Tell Sunder what level your gauntlet is set to.")
 cecho("\n")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^(S|s)under (H|h)elp (D|d)efenses$</regex>
-						</Alias>
-						<Alias isActive="yes" isFolder="no">
-							<name>Sunder calling helpfile</name>
-							<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Calling &lt;CadetBlue&gt;help file!")
+						<command></command>
+						<packageName></packageName>
+						<regex>^(S|s)under (H|h)elp (D|d)efenses$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Sunder calling helpfile</name>
+						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Calling &lt;CadetBlue&gt;help file!")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")
 cecho("\n&lt;ForestGreen&gt;In previous iterations of Sunder, we used static calling lists that were susceptible to failure due to not having new people updated, people switching tethers, needing different orders, etc. To that end, we have updated our methodology and you may find all of the ways to manipulate targets below.")
 cecho("\n")
@@ -36264,11 +36064,10 @@ cecho("\n")
 cecho("\n&lt;DeepSkyBlue&gt;nt&lt;ForestGreen&gt;                    Manually skip to the next target in line.")
 cecho("\n")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
-							<command></command>
-							<packageName></packageName>
-							<regex>^(S|s)under (H|h)elp (C|c)alling$</regex>
-						</Alias>
-					</AliasGroup>
+						<command></command>
+						<packageName></packageName>
+						<regex>^(S|s)under (H|h)elp (C|c)alling$</regex>
+					</Alias>
 				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
 					<name>^sunder help directory$</name>
@@ -36346,24 +36145,6 @@ cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")</scr
 					<command></command>
 					<packageName></packageName>
 					<regex></regex>
-					<Alias isActive="yes" isFolder="no">
-						<name>Who Help File</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;WHO &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;---------------------------------------")
-cecho("\n&lt;ForestGreen&gt;Tired of looking through the who list trying to figure out who is where and who they are with when looking for that pesky lesser that was just tapped? Well, thanks to &lt;green&gt;Czcibor&lt;ForestGreen&gt;, &lt;green&gt;Sunder &lt;ForestGreen&gt;has built in group checking via the who list!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------")
-cecho("\n&lt;ForestGreen&gt;Using the alias &lt;DeepSkyBlue&gt;WHO GROUPS &lt;green&gt;Sunder &lt;ForestGreen&gt;will now sift through the who list and capture room locations. Once it is done with that, it will show you the names of the rooms that have more than one person in that location, how many people are there, and then who all is in that location! Note that those with the &lt;red&gt;cloaking&lt;ForestGreen&gt; artifact or in hidden rooms are unable to be tracked in this manner.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;who groups            &lt;ForestGreen&gt;Shows the full WHO list and then the grouped rooms with more than one person")
-cecho("\n&lt;MediumSeaGreen&gt;---------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (w|W)ho$</regex>
-					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Vermin Help File</name>
 						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;VERMIN &lt;CadetBlue&gt;help file!")
@@ -36567,13 +36348,6 @@ cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
 						<regex>^(S|s)under (H|h)elp (U|u)tilities$</regex>
 					</Alias>
 				</AliasGroup>
-				<AliasGroup isActive="yes" isFolder="yes">
-					<name>Offense/defense helpfiles</name>
-					<script></script>
-					<command></command>
-					<packageName></packageName>
-					<regex></regex>
-				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
 					<name>Sunder version</name>
 					<script>-- version is populated by muddler builds
@@ -36586,7 +36360,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.17"
+local version = "12.8.18"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -42333,29 +42107,6 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Parse who</name>
-				<packageName></packageName>
-				<script>--- Parse the who list.
--- @function snd.parse_who
-function snd.parse_who()
-  snd.who_list = {}
-  snd.true_who = {}
-  enableTrigger("Who parser")
-  send("who")
-end
-
---- Parse people in same room on who list.
--- @function snd.parse_who_groups
-function snd.parse_who_groups()
-  for room, players in pairs(snd.who_list) do
-    if #players &gt; 1 then
-      snd.message("&lt;gold&gt;" .. room .. " - &lt;green&gt;" .. #players .. " &lt;white&gt;people\n - " .. table.concat(players, ", "))
-    end
-  end
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
 				<name>Ylem path</name>
 				<packageName></packageName>
 				<script>--- Sunder Ylem.
@@ -43646,6 +43397,25 @@ end</script>
   Warden = "fieldplate",
   Siderealist = "fieldplate",
 }</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>bulk enemy/ally</name>
+				<packageName></packageName>
+				<script>function snd.enemy(people)
+  snd.cq()
+  for _, person in pairs(people) do
+    snd.q("enemy "..person)
+  end
+end
+
+
+function snd.ally(people)
+  snd.cq()
+  for _, person in pairs(people) do
+    snd.q("ally "..person)
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
