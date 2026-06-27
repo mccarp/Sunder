@@ -25883,35 +25883,39 @@ end</script>
 						<name>Cureset swaps</name>
 						<script>--local exclusions = {"Destruction", "Weaponry", "Relic", "Raloth", "Artifact", "Survival", "Research", "Manipulation", "Tattoos"}
 local skill = matches[3]
-  local skillname = matches[3]:lower().." "..matches[4]:lower()
-  if snd.assistSkills[skillname] then return end
-    
-  if table.contains(snd.cureset_skills, skill) then
-    found_set = "none"
-    for set in pairs(snd.cureset_skills) do
-      if table.contains(snd.cureset_skills[set], skill) then
-        found_set = set   
-      end
+local person = matches[2]
+local skillname = matches[3]:lower().." "..matches[4]:lower()
+if snd.assistSkills[skillname] then return end
+  
+if table.contains(snd.cureset_skills, skill) then
+  found_set = "none"
+  for set in pairs(snd.cureset_skills) do
+    if table.contains(snd.cureset_skills[set], skill) then
+      found_set = set   
     end
-    
-    if snd.class_hitting == "none" then --haven't seen anyone hit yet
-      if found_set == "none" then --skill isn't in class list
-        send("cureset switch general", false) --non-specific cureset
-      elseif snd.cureset ~= found_set then
-        snd.cureset = found_set -- because you may not have the cureset, go ahead and set it for usage
-        send("cureset switch " .. found_set, false) --swap to class cureset
-        snd.class_hitting = found_set --note what class is hitting
-      end      
-    elseif snd.class_hitting ~= found_set then --this is a second class hitting
-      snd.class_hitting = found_set
-      send("cureset switch group", false)
-    end
-    snd.person_hitting = matches[2]
-
-  if not table.contains(snd.people_hitting_me, matches[2]) then
-    table.insert(snd.people_hitting_me, matches[2])
-    tempTimer(4, [[table.remove(snd.people_hitting_me, 1)]])
   end
+  
+  if snd.class_hitting == "none" then --haven't seen anyone hit yet
+    if found_set == "none" then --skill isn't in class list
+      send("cureset switch general", false) --non-specific cureset
+    elseif snd.cureset ~= found_set then
+      snd.cureset = found_set -- because you may not have the cureset, go ahead and set it for usage
+      send("cureset switch " .. found_set, false) --swap to class cureset
+      snd.class_hitting = found_set --note what class is hitting
+    end      
+  elseif snd.class_hitting ~= found_set then --this is a second class hitting
+    snd.class_hitting = found_set
+    send("cureset switch group", false)
+  end
+  snd.person_hitting = person
+  if snd.people_hitting_me[person] then
+    killTimer(snd.people_hitting_me[person].timer)
+  end
+
+  snd.people_hitting_me[person] = {
+    timer = tempTimer(6, function() snd.people_hitting_me[person] = nil end),
+    class = found_set
+  }
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -36220,7 +36224,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.21"
+local version = "12.8.22"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39451,7 +39455,6 @@ snd.wielded = snd.wielded or { left = { name = "", id = "" }, right = { name = "
 snd.eld = snd.eld or 0
 snd.pathing = snd.pathing or false
 
-snd.need_dome = snd.need_dome or false
 
 snd.shopih = snd.shopih or false
 
@@ -40111,14 +40114,6 @@ function gmcp_vitals()
     snd.vitals[key.."perc"] = 100 * snd.vitals[key] / snd.vitals["max"..key]
   end
 
-  if
-      snd.toggles.attacking and snd.offense_loaded and snd.check_dome() and snd.toggles.dome
-      and (snd.count(snd.people_hitting_me) &gt;= 3 or snd.aff_tally() &gt;= 5 or hp &lt; 50)
-  then
-    snd.need_dome = true
-  else
-    snd.need_dome = false
-  end
   snd.updateWielded()
   
   snd.charstats = {}
@@ -41696,11 +41691,15 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>dome</name>
 					<packageName></packageName>
-					<script>
-function snd.do_dome()
- if snd.need_dome then
-  snd.actions.set("manipulate pylon for dome")
- end
+					<script>function snd.do_dome()
+  if
+    snd.toggles.dome and
+    snd.balance.dome and
+    table.size(snd.people_hitting_me) &gt; 2 and
+    snd.vitals.residual &gt; ( snd.have_def("milestones half residual") and 27 or 54)
+  then
+    snd.actions.set("manipulate pylon for dome")
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
