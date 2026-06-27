@@ -35623,8 +35623,8 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>unvenom</name>
-					<script>for venom in pairs(snd.shopping.venoms) do
- snd.send("fc consume "..venoms[venom])
+					<script>for _, venom in pairs(snd.shopping.venoms) do
+ snd.send("fc consume "..venom)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -35632,8 +35632,8 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>venoms</name>
-					<script>for venom in pairs(snd.shopping.venoms) do
- snd.send("fc fill "..venoms[venom])
+					<script>for _, venom in pairs(snd.shopping.venoms) do
+ snd.send("fc fill "..venom)
 end
 </script>
 					<command></command>
