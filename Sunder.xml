@@ -34366,7 +34366,23 @@ end</script>
 					<name>End qwhom</name>
 					<script>disableTrigger("qwhom")
 setTriggerStayOpen("qwhom",0)
-
+if qwhom.groups then
+  for area, rooms in spairs(qwhom.people) do
+    for vnum, people in pairs(rooms.confirmed) do
+      if #people&lt;2 then
+        rooms.confirmed[vnum] = nil
+      end
+    end
+    for rname, people in pairs(rooms.unconfirmed) do
+      if #people&lt;2 or rname == "&lt;cloaked location&gt;" then
+        rooms.unconfirmed[rname] = nil
+      end
+    end
+    if table.size(rooms.unconfirmed) == 0 and table.size(rooms.confirmed) == 0 then
+      qwhom.people[area] = nil
+    end
+  end
+end
 for area, rooms in spairs(qwhom.people) do
     cecho("\n"..snd.theme.frame.."["..snd.theme.darktext .. area .. snd.theme.frame.."]")
     for vnum, people in spairs(rooms.confirmed) do
@@ -37402,10 +37418,11 @@ send("qw", false)
 enableTrigger("qwhom")
 tempExactMatchTrigger("Your current pagelength: 250", deleteFull, 1)
 qwhom = qwhom or {}
+qwhom.groups = matches[2]=="who groups"
 qwhom.willFire = true</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^qwhom$</regex>
+				<regex>^(qwhom|who groups)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
