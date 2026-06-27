@@ -36220,7 +36220,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.19"
+local version = "12.8.20"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39091,8 +39091,8 @@ bal_data.leech = {
   time = 20,
   skill = {"sciomancy leech", "malediction renewal"},
   used = {},
-  off = {"You cannot experience renewal's relief again so soon."},
-  back = {"The Cycle turns, allowing you to once more experience renewal.",}
+  off = {"You cannot experience renewal's relief again so soon.", "You have too recently leeched away your ailments."},
+  back = {"The Cycle turns, allowing you to once more experience renewal.","You may once again leech away your maladies."}
 }
 
 bal_data.grip = {
