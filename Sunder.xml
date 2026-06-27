@@ -36224,7 +36224,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.23"
+local version = "12.8.24"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -38314,7 +38314,7 @@ function snd.can_fitness()
 end
 
 function snd.can_shrug()
-  if snd.class == "Infiltrator" and hasSkill("Shrugging") and snd.balance.shrug then
+  if snd.class == "Infiltrator" and hasSkill("Shrugging") and snd.have_balance("shrug") then
     return true
   else
     return false
@@ -38325,7 +38325,7 @@ function snd.can_rage()
   if
       (snd.class == "Templar" or snd.class == "Revenant" or snd.class == "Shapeshifter") and
       hasSkill("Rage") and
-      snd.balance.rage and
+      snd.have_balance("rage") and
       snd.not_aff("besilence")
   then
     return true
@@ -40480,7 +40480,7 @@ registerAnonymousEventHandler("sunder_login", "snd.activeCures.reset")</script>
   snd.activeCures.registerBalanceless("rage",
   {
     can = function()
-      return snd.rage_check() and snd.can_rage() and snd.balance.rage
+      return snd.rage_check() and snd.can_rage() and snd.have_balance("rage")
     end,
     command = function()
       return "rage"
@@ -41661,7 +41661,7 @@ end</script>
 
 function snd.purge_check()
   -- Attempt to purge if don't have paralysis and have at least 2 curable physical affs.
-  if snd.balance.purge and not snd.waiting.purge and not snd.have_aff("paralysis") then
+  if snd.have_balance("purge") and not snd.waiting.purge and not snd.have_aff("paralysis") then
     local purgable = {}
 
     for _, aff in pairs(snd.physical_affs) do
@@ -41694,7 +41694,7 @@ end
 					<script>function snd.do_dome()
   if
     snd.toggles.dome and
-    snd.balance.dome and
+    snd.have_balance("dome") and
     table.size(snd.people_hitting_me) &gt; 2 and
     snd.vitals.residual &gt; ( snd.have_def("milestones half residual") and 27 or 54)
   then
@@ -41707,7 +41707,7 @@ end</script>
 					<name>rage</name>
 					<packageName></packageName>
 					<script>function snd.rage_check()
-  if not snd.balance.rage then return false end
+  if not snd.have_balance("rage") then return false end
 
   local rage_affs = {
     "aff_hubris",
@@ -41738,7 +41738,7 @@ end
 
 function snd.purify_check()
   -- Attempt to purge if don't have paralysis and have at least 2 curable physical affs.
-  if snd.balance.purify and not snd.waiting.purify and not snd.have_aff("paralysis") then
+  if snd.have_balance("purify") and not snd.waiting.purify and not snd.have_aff("paralysis") then
     local purifiable = {}
 
     for _, aff in pairs(snd.physical_affs) do
@@ -41768,7 +41768,7 @@ end</script>
 					<name>panacea subvert</name>
 					<packageName></packageName>
 					<script>function snd.panacea_check()
-  if snd.balance.panacea and not snd.waiting.panacea and not (snd.have_aff("paresis") or snd.have_aff("paralysis")) then
+  if snd.have_balance("panacea") and not snd.waiting.panacea and not (snd.have_aff("paresis") or snd.have_aff("paralysis")) then
     if snd.panacea_override then
       return snd.panacea_override()
     end
@@ -50968,6 +50968,7 @@ function snd.attack(attack, new)
 end
 
 function snd.starting_attack()
+  snd.defenses.def_manipulation_dome.state = "down"
   snd.send("target nothing with left" .. snd.sep .. "target nothing with right")
   snd.send("leading off")
   if snd.toggles.attacking == false then
