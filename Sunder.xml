@@ -26009,9 +26009,9 @@ end</script>
 						<script>if matches[2] ~= "you" then
   if (snd.toggles.disperse == "callers" and table.contains(snd.callers, matches[2])) then
     snd.cq("disperse " .. matches[2])
-  elseif sndNDB_Exists(gmcp.Char.Status.name) or not sndNDB_Exists(matches[2]) then 
-    -- Eliminate cases where one or the other isn't in the name database
-  elseif (snd.toggles.disperse == "all" and sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2])) then
+  elseif not sndNDB_Exists(matches[2]) then 
+    -- Eliminate cases where the person isn't in your name database
+  elseif (snd.toggles.disperse == "all" and gmcp.Char.Status.city == sndNDB_getCitizenship(matches[2])) then
     snd.cq("disperse " .. matches[2])
   end
 end</script>
@@ -36220,7 +36220,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.20"
+local version = "12.8.21"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
