@@ -18929,84 +18929,6 @@ end</script>
 				</TriggerGroup>
 			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Third Person Tracking</name>
-				<script></script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList />
-				<regexCodePropertyList />
-				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Disperse</name>
-					<script></script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList />
-					<regexCodePropertyList />
-					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-						<name>Teammate writhes</name>
-						<script>if matches[2] ~= "you" then
-  if (snd.disperse == "callers" and table.contains(snd.callers, matches[2])) then
-    snd.cq("disperse " .. matches[2])
-  elseif sndNDB_Exists(gmcp.Char.Status.name) or not sndNDB_Exists(matches[2]) then 
-    -- Eliminate cases where one or the other isn't in the name database
-  elseif (snd.disperse == "all" and sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2])) then
-    snd.cq("qeb disperse " .. matches[2])
-  end
-end</script>
-						<triggerType>0</triggerType>
-						<conditonLineDelta>0</conditonLineDelta>
-						<mStayOpen>0</mStayOpen>
-						<mCommand></mCommand>
-						<packageName></packageName>
-						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#ffff00</mBgColor>
-						<mSoundFile></mSoundFile>
-						<colorTriggerFgColor>#000000</colorTriggerFgColor>
-						<colorTriggerBgColor>#000000</colorTriggerBgColor>
-						<regexCodeList>
-							<string>^\w+ uses Relic (?:Webspray|Entangle) on (\w+)\.$</string>
-							<string>^\w+ uses Tarot Hangedman \(entangle\) on (\w+)\.$</string>
-							<string>^\w+ uses \w+ Transfix on (\w+)\.$</string>
-							<string>^\w+ uses \w+ Impale on (\w+)\.$</string>
-							<string>^\w+ uses Ferality \w+lock on (\w+)\.$</string>
-							<string>^\w+ uses Assassination Bind on (\w+)\.$</string>
-							<string>^\w+ uses Savagery Skewer on (\w+)\.$</string>
-							<string>^\w+ uses Mentis Mesmerize on (\w+)\.$</string>
-							<string>^\w+ uses? Primality Strangle on (\w+)\.$</string>
-							<string>^\w+ uses? Battlefury Lunge \(impale\) on (\w+)\.$</string>
-						</regexCodeList>
-						<regexCodePropertyList>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-							<integer>1</integer>
-						</regexCodePropertyList>
-					</Trigger>
-				</TriggerGroup>
-			</TriggerGroup>
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Limbs</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -26078,6 +26000,64 @@ end</script>
 							<string>^You use (\w+ \w+)</string>
 						</regexCodeList>
 						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Auto disperse</name>
+						<script>if matches[2] ~= "you" then
+  if (snd.toggles.disperse == "callers" and table.contains(snd.callers, matches[2])) then
+    snd.cq("disperse " .. matches[2])
+  elseif sndNDB_Exists(gmcp.Char.Status.name) or not sndNDB_Exists(matches[2]) then 
+    -- Eliminate cases where one or the other isn't in the name database
+  elseif (snd.toggles.disperse == "all" and sndNDB_getCitizenship(gmcp.Char.Status.name) == sndNDB_getCitizenship(matches[2])) then
+    snd.cq("disperse " .. matches[2])
+  end
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\w+ uses Relic (?:Webspray|Entangle) on (\w+)\.$</string>
+							<string>^\w+ uses Tarot Hangedman \(entangle\) on (\w+)\.$</string>
+							<string>^\w+ uses \w+ Transfix on (\w+)\.$</string>
+							<string>^\w+ uses \w+ Impale on (\w+)\.$</string>
+							<string>^\w+ uses \w+ Bewitch on (\w+)\.$</string>
+							<string>^\w+ uses Assassination Bind on (\w+)\.$</string>
+							<string>^\w+ uses Savagery Skewer on (\w+)\.$</string>
+							<string>^\w+ uses Mentis Mesmerize on (\w+)\.$</string>
+							<string>^\w+ uses? Primality Strangle on (\w+)\.$</string>
+							<string>^\w+ uses? Battlefury Lunge \(impale\) on (\w+)\.$</string>
+							<string>^\w+ uses Riving Transpierce on (\w+)\.$</string>
+							<string>^\w+ uses Shadowdancing Brutalise on (\w+)\.$</string>
+							<string>^\w+ uses Dictum Exhort on (\w+)\.$</string>
+							<string>^\w+ uses Wavebreaking Harpoon on (\w+)\.$</string>
+							<string>^\w+ uses Warding Constrict on (\w+)\.$</string>
+							<string>^\w+ uses Hyalincuru Wreath \(entangle\) on (\w+)\.$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
 							<integer>1</integer>
 							<integer>1</integer>
 						</regexCodePropertyList>
@@ -35469,18 +35449,16 @@ snd.cq("swing down")</script>
 					<name>disperse</name>
 					<script>if matches[2] ~= "none" and matches[2]~= "callers" and matches[2]~="all" then 
 	send(" ")
-	cecho("\n&lt;red&gt;Not a viable choice! &lt;white&gt;Enter either: &lt;red&gt;none &lt;white&gt;| &lt;yellow&gt;callers &lt;white&gt;| &lt;green&gt;all")
-	snd.toggles.dispersing = false
+	snd.message("Not a viable choice! &lt;white&gt;Enter either: &lt;red&gt;none &lt;white&gt;| &lt;yellow&gt;callers &lt;white&gt;| &lt;green&gt;all")
+	snd.toggles.disperse = "none"
 else
-	snd.disperse = matches[2]
-	if snd.disperse == "none" then
-		snd.toggles.dispersing = false
+	snd.toggles.disperse = matches[2]
+	if snd.toggles.disperse == "none" then
 		send(" ")
-		cecho("\n&lt;red&gt;Dispersing is now off.")
+		snd.message("Dispersing is now off.")
 	else
-		snd.toggles.dispersing = true
 		send(" ")
-		cecho("\n&lt;red&gt;Dispersing: &lt;green&gt;"..snd.disperse)
+		snd.message("Dispersing: "..snd.theme.darktext..snd.toggles.disperse)
 	end
   raiseEvent("sunder_update_toggles")
 end</script>
@@ -35917,6 +35895,7 @@ if snd.toggles.vermin then
 	cecho("&lt;red&gt;----------------\n   &lt;red&gt;VERMIN OFF\n&lt;red&gt;----------------")
 else
 	snd.toggles.vermin = true
+  snd.toggles.fasthunt = false
 	local area = gmcp.Room.Info.area 
   if not sunder_areaPaths then
     snd.message("No area path list found, please check it is in the correct directory.")
@@ -35947,41 +35926,42 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex></regex>
-				<AliasGroup isActive="yes" isFolder="yes">
-					<name>Main Index</name>
-					<script></script>
-					<command></command>
-					<packageName></packageName>
-					<regex></regex>
-					<Alias isActive="yes" isFolder="no">
-						<name>Main index</name>
-						<script>snd.disp.top("Main Index")
+				<Alias isActive="yes" isFolder="no">
+					<name>Main index</name>
+					<script>snd.disp.top("Main Index")
 snd.disp.text("Welcome to "..snd.theme.title.."Sunder&lt;r&gt;!")
 snd.disp.text("")
 snd.disp.text("When you first install "..snd.theme.title.."Sunder&lt;r&gt;, you need to run the "..snd.theme.darktext.."?setup &lt;r&gt;command while logged in. Afterwards, restart your client. This sets neccesary game-side configs. If you do not do this, "..snd.theme.title.."Sunder&lt;r&gt; will not function properly.")
 snd.disp.text("")
 snd.disp.text("If you want to stop the system's auto-basher, auto-combat, auto-vermin, etc, use the "..snd.theme.darktext.."stap&lt;r&gt; command.")
 snd.disp.text("")
+snd.disp.text("Please note: As a user of this system, you are expected to report bugs and other issues that you encounter. Things do not get fixed if they do not get reported.")
+snd.disp.text("")
 snd.disp.top("Other Sunder Helpfiles")
-snd.disp.table({snd.theme.darktext.."Bashing", "Information on "..snd.theme.title.."Sunder&lt;r&gt;'s auto-basher and how to use it"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Bashing", "Autobashing and Autovermin"}, {12}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."PK", "Playerkilling and you. Please practice safe PvP"}, {12}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."Defenses", "How to upkeep, turn on/off and customize defenses"}, {12}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."Ylem", "Finding minors and other ylem based information"}, {12}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."Utilities", "Vermin, fishing, shops, questing and more"}, {12}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."War", "Helpful aliases for handling war divisions"}, {12}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."Toggles", "A list of the available toggles and if they are &lt;DeepSkyBlue&gt;on &lt;r&gt;or &lt;SlateGray&gt;off&lt;r&gt;"}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Shopping", "Aliases to help with purchasing supplies and vial management."}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."CQ", "Information on sunder's manual queue."}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Fishing", "Fibsh."}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."PB", "Sort people into cities and highlight their names."}, {12}, {"right","left"})
+
 snd.disp.bottom()
 snd.disp.text("Each of the above helpfiles goes into a specific portion of the system in more detail.")
 snd.disp.text("")
 snd.disp.text("Use "..snd.theme.darktext.."sunder help [subject] &lt;r&gt;to view them.")
 snd.disp.bottom()</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>(?i)^sunder help$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Ylem helpfile</name>
-						<script>snd.disp.top("Sunder Ylem")
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^sunder help$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>sunder help ylem</name>
+					<script>snd.disp.top("Sunder Ylem")
 snd.disp.text("Ylem is one of the primary avenues of conflict in Aetolia, and all cities need and use it. This helpfile goes over basic requirements for ylem hunting, as well as how to use the foci-finding subsystem for Sunder.")
 snd.disp.text("")
 snd.disp.text("When you activate the runner, it will go until it finds an area with a minor, or a nearby lesser. You will need to locate it manually at this point, though "..snd.theme.darktext.."nodesense (CITY RESEARCH INFO NODESENSE)&lt;r&gt; may help.")
@@ -35997,13 +35977,13 @@ snd.disp.table({snd.theme.darktext.."SHACKLE", "Refining (239 lessons)"}, {15}, 
 snd.disp.table({snd.theme.darktext.."LEYLINES", "Refining (289 lessons). Required."}, {15}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."DETECTION", "Vision (89 lessons). Required."}, {15}, {"right","left"})
 snd.disp.bottom()</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>(?i)^sunder help ylem$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Toggles help</name>
-						<script>cecho("\n&lt;MediumSeaGreen&gt;*------------------------------------------------------------------------------------------------*")
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^sunder help ylem$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>sunder help toggles</name>
+					<script>cecho("\n&lt;MediumSeaGreen&gt;*------------------------------------------------------------------------------------------------*")
 cecho("\n&lt;MediumSeaGreen&gt;|                                           &lt;CadetBlue&gt;SUNDER TOGGLES                                       &lt;MediumSeaGreen&gt;|")                                                    
 cecho("\n&lt;MediumSeaGreen&gt;*------------------------------------------------------------------------------------------------*")
 cecho("\n&lt;MediumSeaGreen&gt;| &lt;ansiCyan&gt;TOGGLE NAME &lt;MediumSeaGreen&gt; |                 &lt;ansiCyan&gt;INFOMATION                  &lt;MediumSeaGreen&gt;|             &lt;ansiCyan&gt;TOGGLES               &lt;MediumSeaGreen&gt;|")
@@ -36019,20 +35999,46 @@ if snd.toggles[k] then togglecolor = "DeepSkyBlue" else togglecolor = "SlateGray
 end
 
 cecho("&lt;MediumSeaGreen&gt;*------------------------------------------------------------------------------------------------*\n")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (T|t)oggles$</regex>
-					</Alias>
-				</AliasGroup>
-				<AliasGroup isActive="yes" isFolder="yes">
-					<name>Offense</name>
-					<script></script>
 					<command></command>
 					<packageName></packageName>
-					<regex></regex>
-					<Alias isActive="yes" isFolder="no">
-						<name>Sunder PK helpfile</name>
-						<script>snd.disp.top("Sunder PK")
+					<regex>^(S|s)under (H|h)elp (T|t)oggles$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>sunder help bashing</name>
+					<script>snd.disp.top("Sunder Bashing")
+snd.disp.text("Sunder is a capable system for autobashing, with targets and routes for most areas in the game.")
+snd.disp.text("")
+snd.disp.text("Please read over "..snd.theme.darktext.."HELP AUTOMATION&lt;r&gt;. Sunder and its contributors are not responsible if you get yourself shrubbed by afk bashing.")
+snd.disp.top("Sunder Bashing Aliases")
+snd.disp.table({snd.theme.darktext.."survey", "Display target list for the area, if one exists."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."aa", "Attempt to kill all targets in room."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."ff", "Toggle fasthunt. Automatically attack targets in new rooms."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."fba [leader]", "Followbashing. Only attack once the leader starts to attack."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."grp [people]", "Add people to your bashing group. Only needed as the leader."}, {15}, {"right","left"})
+snd.disp.top("Sunder Autobashing Aliases")
+snd.disp.table({snd.theme.darktext.."goarea", "Auto-enable FF and walk your current area."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."bashpath [areas]", "Build a multi-area bashing path."}, {20}, {"right","left"})
+snd.disp.table({"", "Example: "..snd.theme.darktext.."bashpath tiyen, xaanhal, mamashi"}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."gogo", "Attempt to run a level-appropriate multi-area path. YMMV"}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."gogo [path]", "Run a specific multi-area path, as defined in snd.paths."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."move to next area", "Skip to the next area in your path. "..snd.theme.darktext.."mtna&lt;r&gt; also works."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle vermin", "Enable auto-vermining."}, {20}, {"right","left"})
+snd.disp.bottom()
+snd.disp.text("Note: For vermining, you want to ensure you have ff off. Routes for each city begin in the following rooms:")
+snd.disp.bottom()
+snd.disp.table({snd.theme.darktext.."Bloodloch", "9194, A shadowy cavern"}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Duiran", "43846, Stone bridge over a spring"}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Enorian", "56509, The Landward Gate"}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."Spinesreach", "11687, Inside the outer gate"}, {15}, {"right","left"})
+
+snd.disp.bottom()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^sunder help bashing$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>sunder help pk</name>
+					<script>snd.disp.top("Sunder PK")
 snd.disp.text("Sunder is built to be a capable and robust PvP framework. However, if you wish to duel or compete at a high level, you are expected to work on your own routes and extensions for the system.")
 snd.disp.text("")
 snd.disp.text("The system comes with built in afftracking, target listening, target calling, as well as stock routes for every class. These routes are intended primarily for group combat, and may intentionally exclude some features and not be as finely tuned as a dueling route.")
@@ -36048,23 +36054,24 @@ snd.disp.table({snd.theme.darktext.."t [person]", "Set your target manually."}, 
 snd.disp.table({snd.theme.darktext.."rt or rt help", "List available combat routes for your class."}, {25}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."rt [route name]", "Run a specific combat route."}, {25}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."rtl", "Run your most recent combat route again."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle disperse [opt]", "Automatically use refining disperse."}, {25}, {"right","left"})
 
 snd.disp.bottom()
 snd.disp.text("If you plan to lead in combat, you should also review "..snd.theme.darktext.."sunder help calling&lt;r&gt;.")
 snd.disp.bottom()</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>(?i)^sunder help pk$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Sunder defenses helpfile</name>
-						<script>snd.disp.top("Sunder Defenses")
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^sunder help pk$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>sunder help defenses</name>
+					<script>snd.disp.top("Sunder Defenses")
 snd.disp.text("Sunder is able to both track and manage your class and generic defenses for you.")
 snd.disp.text("")
 snd.disp.text("Please note, for any defenses which share a cure balance, such as density, rebounding, courage, etc, it is recommended that you setup your firstaid curesets to manage these for you. Some of these are not managed at all by sunder, and having them done by firstaid can be critical in combat regardless, due to its ability to properly prioritize them against afflictions on the same balance.")
 snd.disp.top("Sunder Defense Aliases")
 snd.disp.table({snd.theme.darktext.."defup", "Put up your defenses."}, {20}, {"right","left"})
-snd.disp.table({snd.theme.darktext.."ldd [set]", "Loads a specific defense set. ldd none will "}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."ldd [set]", "Loads a specific defense set."}, {20}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."ldd none", "Clears out maintained defenses."}, {20}, {"right","left"})
 snd.disp.top("Sunder Defense Toggles")
 snd.disp.table({snd.theme.darktext.."toggle goggles", "Toggles use of antiquated goggles for defenses."}, {20}, {"right","left"})
@@ -36079,13 +36086,13 @@ snd.disp.table({snd.theme.darktext.."toggle chameleon", "Toggle use of the chame
 snd.disp.table({snd.theme.darktext.."chamtargets [ppl]", "Set a list of people you want to chameleon."}, {20}, {"right","left"})
 
 snd.disp.bottom()</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>(?i)^sunder help defenses$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Sunder calling helpfile</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Calling &lt;CadetBlue&gt;help file!")
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^sunder help defenses$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Sunder calling helpfile</name>
+					<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;Calling &lt;CadetBlue&gt;help file!")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")
 cecho("\n&lt;ForestGreen&gt;In previous iterations of Sunder, we used static calling lists that were susceptible to failure due to not having new people updated, people switching tethers, needing different orders, etc. To that end, we have updated our methodology and you may find all of the ways to manipulate targets below.")
 cecho("\n")
@@ -36104,169 +36111,42 @@ cecho("\n")
 cecho("\n&lt;DeepSkyBlue&gt;nt&lt;ForestGreen&gt;                    Manually skip to the next target in line.")
 cecho("\n")
 cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>(?i)^sunder help calling$</regex>
-					</Alias>
-				</AliasGroup>
+					<command></command>
+					<packageName></packageName>
+					<regex>(?i)^sunder help calling$</regex>
+				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>^sunder help directory$</name>
+					<name>sunder help find my profile</name>
 					<script>cecho("\n&lt;MediumSeaGreen&gt;Found: &lt;white&gt;"..getMudletHomeDir())</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^sunder help find my profile$</regex>
 				</Alias>
-				<AliasGroup isActive="yes" isFolder="yes">
-					<name>Bashing helpfiles</name>
-					<script></script>
+				<Alias isActive="yes" isFolder="no">
+					<name>sunder help shopping</name>
+					<script>snd.disp.top("Sunder Shopping Aliases")
+snd.disp.table({snd.theme.darktext.."buypills #", "Purchase enough pills to bring you to desired quantity."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."fillcache # [type]", "Bulk purchase refills of "..snd.theme.darktext.."elixirs, poultices, or venoms."}, {12}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."fillvials", "Attempt to fill vials with each elixir."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."unfillvials", "Attempt to empty your vials into the fluidcache."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."fillrags", "Attempt to fill rags with each venom."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."unfillrags", "Attempt to empty your rags into the fluidcache."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."fillbandages", "Attempt to fill bandages with each poultice."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."unfillbandages", "Attempt to empty your bandages into the fluidcache."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."orbs", "Active all your ylem orbs."}, {20}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."buyorbs", "Purchase all ylem orbs."}, {20}, {"right","left"})
+
+snd.disp.bottom()</script>
 					<command></command>
 					<packageName></packageName>
-					<regex></regex>
-					<Alias isActive="yes" isFolder="no">
-						<name>Sunder bashing</name>
-						<script>cecho("&lt;CadetBlue&gt;Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;bashing&lt;CadetBlue&gt; help file!")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-cecho("\n&lt;green&gt;Sunder &lt;ForestGreen&gt;has several methods of helping you bash, from hitting things in your room to helping you navigate the landscape of Aetolia and its many areas. You can easily know if &lt;green&gt;Sunder&lt;ForestGreen&gt; recognizes your area by doing a check with the &lt;red&gt;SURVEY&lt;ForestGreen&gt; command. As long as you see mob names, &lt;green&gt;Sunder&lt;ForestGreen&gt; will be able to hit things for you.")
-cecho("\n")
-cecho("\n&lt;red&gt;Consider this your warning: &lt;ForestGreen&gt;The folks who upkeep Sunder do not, by any means, condone or suggest using Sunder to do things while you are AFK or otherwise unable to attend to your character. From HELP AUTOMATION -&gt; FULLY automating quests and hunting - with movement and all actions included in the triggers - are allowed so long as one is present at the computer, as well as gambling automation. Please do not abuse what is being given to you without regard for the admin stance.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;DeepSkyBlue&gt;aa                    &lt;ForestGreen&gt;Make &lt;green&gt;Sunder &lt;ForestGreen&gt;try to hit everything in the room!")
-cecho("\n                     &lt;ForestGreen&gt; If there is nothing left in the room, this will turn off.")
-cecho("\n&lt;DeepSkyBlue&gt;ff                    &lt;ForestGreen&gt;Want to walk around manually and have Sunder hit things? Use this.")
-cecho("\n                     &lt;ForestGreen&gt; It automatically turns on hitting when it finds a valid target.")
-cecho("\n&lt;DeepSkyBlue&gt;fba &lt;leader&gt;          &lt;ForestGreen&gt;Will start attacking when the leader attacks. Good for duobashing.")
-cecho("\n                     &lt;ForestGreen&gt; NOTE: Does not auto-sync targets. Will be like you entered aa yourself.")
-cecho("\n&lt;DeepSkyBlue&gt;grp &lt;person&gt;          &lt;ForestGreen&gt;Inform &lt;green&gt;Sunder&lt;ForestGreen&gt; of your bashing party.")
-cecho("\n&lt;DeepSkyBlue&gt;grp queen rook pawn   &lt;ForestGreen&gt;Example of adding more than one person.")
-cecho("\n&lt;DeepSkyBlue&gt;orbs                  &lt;ForestGreen&gt;Activate your ylem orbs with one alias!")
-cecho("\n&lt;DeepSkyBlue&gt;buyorbs               &lt;ForestGreen&gt;Buy the four good orbs at once. White orb is lame.")
-cecho("\n&lt;DeepSkyBlue&gt;toggle generic &lt;ForestGreen&gt;Use generic mob type instead of number to bash.")
-cecho("\n")
-cecho("\n")
-cecho("\n&lt;green&gt;Sunder&lt;ForestGreen&gt; has some more advanced features listed in &lt;DeepSkyBlue&gt;sunder help autobashing&lt;ForestGreen&gt;.")
-
-
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (B|b)ashing$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Sunder auto bashing</name>
-						<script>cecho("&lt;CadetBlue&gt;Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;autobashing&lt;CadetBlue&gt; help file!")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-cecho("\n&lt;green&gt;Sunder &lt;ForestGreen&gt;recognizes a good majority of the areas in the game, including the main bashing areas and most of the ones you might use while gaining levels. The following methods will help you bash these areas, either singular or multiple at a time.")
-cecho("\n")
-cecho("\n&lt;red&gt;Consider this your warning: &lt;ForestGreen&gt;The folks who upkeep Sunder do not, by any means, condone or suggest using Sunder to do things while you are AFK or otherwise unable to attend to your character. From &lt;red&gt;HELP AUTOMATION -&gt;&lt;ForestGreen&gt; 'FULLY automating quests and hunting - with movement and all actions included in the triggers - are allowed so long as one is present at the computer, as well as gambling automation.' &lt;red&gt;Please do not abuse what is being given to you without regard for the admin stance.")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;DeepSkyBlue&gt;goarea               &lt;ForestGreen&gt;Bash the current area you're in and then walk back to your city.")
-cecho("\n                     &lt;ForestGreen&gt;Use this for bashing just one area. No need to use the below command.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;bashpath &lt;areas&gt;     &lt;ForestGreen&gt;Define your custom bashing route from valid areas.")
-cecho("\n                     &lt;ForestGreen&gt;It will automatically walk you from the last room of area 1 to area 2, etc.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;bashpath tiyen, xaanhal, mamashi &lt;ForestGreen&gt;- for example, would bash those areas and then head home.")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;There are some more functions in the scripts for use in your code for creating paths, doing new areas, etc.")
---You would want to look into SND Autopaths-&gt;Creating-&gt;start/add/compile.
-
-
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (A|a)utobashing$</regex>
-					</Alias>
-				</AliasGroup>
+					<regex>(?i)^sunder help shopping$</regex>
+				</Alias>
 				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Utility helpfiles</name>
 					<script></script>
 					<command></command>
 					<packageName></packageName>
 					<regex></regex>
-					<Alias isActive="yes" isFolder="no">
-						<name>Vermin Help File</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;VERMIN &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;-----------------------------------------")
-cecho("\n&lt;ForestGreen&gt;We get it! Every time you see that daily/weekly/monthly(especially the monthly) milestone for vermin, you just want to run head first into a team of mages collapsing singularities and calamaties! So hopefully these will make your life easier from here on out and save you from death by mages! No guarantees :(")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------")
-cecho("\n&lt;ForestGreen&gt;First, you will want to make sure you are wielding whatever you need to kill the vermin. After you are ready to start your quest of ridding a city of its vermin, you just &lt;DeepSkyBlue&gt;PATH TRACK &lt;ForestGreen&gt;to any city &lt;LimeGreen&gt;(make sure you are not an enemy!) &lt;ForestGreen&gt;and then type &lt;DeepSkyBlue&gt;toggle vermin &lt;ForestGreen&gt;to start! This will work similar to &lt;DeepSkyBlue&gt;gogo &lt;ForestGreen&gt;in that it will just begin bashing from where you are currently. No matter which city you begin your vermin bashing in, it will end at the vermin mob and will automatically sell your vermin! So no more accidental offerings of vermin to your gods! Should you need to finish early, just type &lt;DeepSkyBlue&gt;toggle vermin &lt;ForestGreen&gt;again and an echo will pop up to remind you to go sell your vermin!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;toggle vermin         &lt;ForestGreen&gt;Toggles the vermin autobasher on/off")
-cecho("\n&lt;MediumSeaGreen&gt;-----------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (v|V)ermin$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Fluidcache Help File</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;FLUIDCACHE &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;---------------------------------------------")
-cecho("\n&lt;ForestGreen&gt;Ever log in and notice you lost a bunch of refills because your vials, bandages, or (gods forbid) rags decayed? Well NO MORE! Or at least, LESS LIKELY! &lt;green&gt;Sunder &lt;ForestGreen&gt;is now equipped with a few more aliases to help alleviate this problem!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------")
-cecho("\n&lt;ForestGreen&gt;Simply input the alias you want to use and then either let &lt;green&gt;Sunder &lt;ForestGreen&gt;fill your empty vials, bandages, or rags or consume them into your fluidcache. If you are new to Aetolia, make sure you read &lt;green&gt;HELP FLUIDCACHE &lt;ForestGreen&gt;if you have not already!")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;Keep in mind that these aliases will not buy anything for you. Please refer to &lt;DeepSkyBlue&gt;sunder help shops &lt;ForestGreen&gt;to see the aliases that will purchase bulk items for you!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;venoms                &lt;ForestGreen&gt;First buy the rags you need for combat and type &lt;DeepSkyBlue&gt;venoms")
-cecho("\n                      &lt;ForestGreen&gt;to have &lt;green&gt;Sunder &lt;ForestGreen&gt;fill your rags for you. You can search this")
-cecho("\n                      &lt;ForestGreen&gt;alias in your scripts to change which venoms you want it to fill!")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;unvenom               &lt;ForestGreen&gt;Just what it says! Typing &lt;DeepSkyBlue&gt;unvenom &lt;ForestGreen&gt;will fluidcache consume")
-cecho("\n                      &lt;ForestGreen&gt;all the venoms from your rags!")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;fillvials             &lt;ForestGreen&gt;This alias will fill the vials in your inventory from your fluidcache.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;unfillvials           &lt;ForestGreen&gt;Like &lt;DeepSkyBlue&gt;unvenom&lt;ForestGreen&gt;, this alias will consume the elixirs")
-cecho("\n                      &lt;ForestGreen&gt;in your vials back into your fluidcache.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;fillbandages          &lt;ForestGreen&gt;This will fill the clean bandages in your inventory with the poultices")
-cecho("\n                      &lt;ForestGreen&gt;from your fluidcache.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;unfillbandages        &lt;ForestGreen&gt;Again... same as the other 'un' aliases, but for poultices.")
-cecho("\n&lt;MediumSeaGreen&gt;---------------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (F|f)luidcache$</regex>
-					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Shop Help File</name>
-						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;SHOPS &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")
-cecho("\n&lt;ForestGreen&gt;Purchasing necessary items from shops can be a bit mundane, but NO MORE! Often you will find yourself buying many refills or masses of pills - to help combat this, &lt;green&gt;Sunder &lt;ForestGreen&gt;includes a few aliases to help make that less painful!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;HOW IT WORKS!")
-cecho("\n&lt;MediumSeaGreen&gt;-------------")
-cecho("\n&lt;ForestGreen&gt;The first thing you need to do is find a shop. You can do this by going to any city (including Esterport!) and using &lt;DeepSkyBlue&gt;PATH TRACK DIRECTORY&lt;ForestGreen&gt;. This will take you to the directory where you can peruse all the shops in that city (think of it like a search engine). From there you can &lt;DeepSkyBlue&gt;DIRECTORY &lt;ForestGreen&gt;'&lt;DeepSkyBlue&gt;item&lt;ForestGreen&gt;' to see which shop is carrying the item(s) you need. If you have MXP turned on, you can click on the vnum for the shop you want or &lt;DeepSkyBlue&gt;PATH TRACK vnum &lt;ForestGreen&gt;to get there.")
-cecho("\n")
-cecho("\n&lt;ForestGreen&gt;Once you are in a shop, you will simply need to put in the alias for the items you wish to purchase and let &lt;green&gt;Sunder &lt;ForestGreen&gt;do the rest!")
-cecho("\n")
-cecho("\n&lt;CadetBlue&gt;ALIASES")
-cecho("\n&lt;MediumSeaGreen&gt;-------")
-cecho("\n&lt;DeepSkyBlue&gt;buypills #            &lt;ForestGreen&gt;Pills! Typing &lt;DeepSkyBlue&gt;buypills &lt;ForestGreen&gt;followed by an amount will buy that amount")
-cecho("\n                      &lt;ForestGreen&gt;of every type of pill! EXAMPLE: &lt;DeepSkyBlue&gt;buypills 500 &lt;ForestGreen&gt;will buy &lt;LimeGreen&gt;500 &lt;ForestGreen&gt;of each pill.")
-cecho("\n")
-cecho("\n&lt;DeepSkyBlue&gt;fillcache # type      &lt;ForestGreen&gt;Fluidcache! Just use &lt;DeepSkyBlue&gt;fillcache &lt;ForestGreen&gt;followed by the number of times")
-cecho("\n                      &lt;ForestGreen&gt;you want to buy a refill and what type of refill you want to buy.")
-cecho("\n                      &lt;ForestGreen&gt;The types are: &lt;DeepSkyBlue&gt;venoms&lt;ForestGreen&gt;, &lt;DeepSkyBlue&gt;poultices&lt;ForestGreen&gt;, and &lt;DeepSkyBlue&gt;elixirs&lt;ForestGreen&gt;. EXAMPLE: &lt;DeepSkyBlue&gt;fillcache") 
-cecho("\n                      &lt;DeepSkyBlue&gt;10 elixirs &lt;ForestGreen&gt;will purchase &lt;LimeGreen&gt;10 &lt;ForestGreen&gt;refills of each type of elixir. The purchase")
-cecho("\n                      &lt;ForestGreen&gt;line may be gagged, so just check your FC before and after purchasing!")
-cecho("\n                      &lt;LimeGreen&gt;**NOTE** &lt;ForestGreen&gt;This will buy the amount of refills, so to fill your cache(&lt;LimeGreen&gt;1500&lt;ForestGreen&gt;)")
-cecho("\n                      &lt;ForestGreen&gt;you will only need to purchase &lt;LimeGreen&gt;30 &lt;ForestGreen&gt;refills!")
-cecho("\n&lt;MediumSeaGreen&gt;----------------------------------------")</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (S|s)hops$</regex>
-					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Fishing Help File</name>
 						<script>cecho("&lt;CadetBlue&gt; Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;FISHING &lt;CadetBlue&gt;help file!")
@@ -36327,32 +36207,6 @@ cecho("\n&lt;MediumSeaGreen&gt;-------------------------------------------")</sc
 						<packageName></packageName>
 						<regex>^(S|s)under (H|h)elp [Cc]?[qQ]$</regex>
 					</Alias>
-					<Alias isActive="yes" isFolder="no">
-						<name>Sunder Utilities Index</name>
-						<script>cecho("&lt;CadetBlue&gt;Welcome to the &lt;green&gt;Sunder &lt;DeepSkyBlue&gt;UTILITIES &lt;CadetBlue&gt;help file!")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-cecho(
-  "\n&lt;green&gt;Sunder &lt;ForestGreen&gt;has several different utilities that are quite useful! Below is a summarized list that will direct you to the correct files so that you can become familiar with them and reference back to them at any time!")
-cecho("\n")
-cecho(
-  "\n&lt;MediumTurquoise&gt;To view the following &lt;green&gt;Sunder &lt;MediumTurquoise&gt;help files, use &lt;DeepSkyBlue&gt;sunder help &lt;MediumTurquoise&gt;&lt;filename&gt;!")
-cecho("\n&lt;DeepSkyBlue&gt;Vermin               &lt;ForestGreen&gt;Explantion on &lt;green&gt;Sunder's &lt;ForestGreen&gt;vermin autobasher!")
-cecho(
-  "\n&lt;DeepSkyBlue&gt;Fishing              &lt;ForestGreen&gt;Explantion on how to use &lt;green&gt;Sunder's &lt;ForestGreen&gt;fishing utilities!")
-cecho("\n&lt;DeepSkyBlue&gt;Shops                &lt;ForestGreen&gt;Quick aliases to make purchasing easier!")
-cecho("\n&lt;DeepSkyBlue&gt;Fluidcache           &lt;ForestGreen&gt;Aliases to consume and fill vials/rags/bandages!")
-cecho("\n&lt;DeepSkyBlue&gt;Who                  &lt;green&gt;Sunder's &lt;ForestGreen&gt;WHO parsing system and how it works!")
-cecho("\n&lt;DeepSkyBlue&gt;PB                   &lt;ForestGreen&gt;All the commands for the name databse.")
-cecho("\n&lt;DeepSkyBlue&gt;find my profile      &lt;ForestGreen&gt;Locate the directory for your profile.")
-cecho("\n&lt;DeepSkyBlue&gt;Q/CQ                 &lt;ForestGreen&gt;Manually queue commands, or clear the queue.")
-cecho("\n")
-cecho("\n&lt;MediumSeaGreen&gt;------------------------------------------")
-
-</script>
-						<command></command>
-						<packageName></packageName>
-						<regex>^(S|s)under (H|h)elp (U|u)tilities$</regex>
-					</Alias>
 				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
 					<name>Sunder version</name>
@@ -36371,7 +36225,7 @@ local version = "12.8.19"
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
 else
-  snd.message("Your version of sunder is: "..version)
+  snd.message("Your version of sunder is: "..snd.theme.darktext..version)
 end
 </script>
 					<command></command>
@@ -38852,6 +38706,14 @@ bal_data.restore = {
 	used = {},
 	off = {"You have too recently restored your body.", "You have too recently purged your tainted blood."},
 	back = {"You may once again restore your body.", "You may once again cleanse your tainted blood."},
+}
+
+bal_data.shift = {
+  time = 25,
+  skill = {"thaumaturgy shift", "hematurgy immerge"},
+  used = {},
+  off = {"You cannot do that again yet."},
+  back = {"Your well can accomodate your need to escape danger once more.", "Your fulcrum can shift you out of danger once more."},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -39223,6 +39085,22 @@ bal_data.sorcery_transfix = {
 	used = {},
 	off = {"You cannot transfix again just yet.", "The wisp rune's bewitching power eludes you for now."},
 	back = {"You may make use of Transfix once more.", "Instinct flares within your heart, the power of the bewitching wisp rune returning to you."},
+}
+
+bal_data.leech = {
+  time = 20,
+  skill = {"sciomancy leech", "malediction renewal"},
+  used = {},
+  off = {"You cannot experience renewal's relief again so soon."},
+  back = {"The Cycle turns, allowing you to once more experience renewal.",}
+}
+
+bal_data.grip = {
+  time = 5,
+  skill = {"gravitation grip", "sporulation ensnare"},
+  used = {},
+  off = {},
+  back = {"Your ensnaring clutchgill can once more impart a culture upon others.","The grip of your gravitation can once more inflict a stronger influence."},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -52660,10 +52538,8 @@ end
       snd.target_got("paresis")
       snd.target_got("fallen")
 
-      if snd.hitting == "You" then
-        if snd.gravity &gt;= 0 then
-          snd.gravity = math.min(5, snd.gravity + 1)
-        end
+      if snd.hitting == "You" and snd.balance.grip then
+        snd.gravity = math.min(5, snd.gravity + 1)
       end
 
       if snd.class == "Sciomancer" then
@@ -55243,10 +55119,8 @@ end
       snd.target_got("paresis")
       snd.target_got("fallen")
 
-      if snd.hitting == "You" then
-        if snd.gravity &gt;= 0 then
-          snd.gravity = math.min(5, snd.gravity + 1)
-        end
+      if snd.hitting == "You" and snd.balance.grip then
+        snd.gravity = math.min(5, snd.gravity + 1)
       end
 
       if snd.class == "Runecarver" then
