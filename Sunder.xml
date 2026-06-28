@@ -36062,6 +36062,10 @@ snd.disp.table({snd.theme.darktext.."rt or rt help", "List available combat rout
 snd.disp.table({snd.theme.darktext.."rt [route name]", "Run a specific combat route."}, {25}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."rtl", "Run your most recent combat route again."}, {25}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."toggle disperse [opt]", "Automatically use refining disperse."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."sp[ll|rl|la|ra|h|t]", "Statically parry a limb."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."spa", "Resume auto-parrying."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."sd[m|r|c|u|a|auto]", "Change your static dodge."}, {25}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."toggle dome", "Attempt to dome if three or more people attack you."}, {25}, {"right","left"})
 
 snd.disp.bottom()
 snd.disp.text("If you plan to lead in combat, you should also review "..snd.theme.darktext.."sunder help calling&lt;r&gt;.")
