@@ -36020,6 +36020,9 @@ snd.disp.table({snd.theme.darktext.."aa", "Attempt to kill all targets in room."
 snd.disp.table({snd.theme.darktext.."ff", "Toggle fasthunt. Automatically attack targets in new rooms."}, {15}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."fba [leader]", "Followbashing. Only attack once the leader starts to attack."}, {15}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."grp [people]", "Add people to your bashing group. Only needed as the leader."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."t [target]", "Manually set a target."}, {15}, {"right","left"})
+snd.disp.table({snd.theme.darktext.."f", "Send a single attack."}, {15}, {"right","left"})
+
 snd.disp.top("Sunder Autobashing Aliases")
 snd.disp.table({snd.theme.darktext.."goarea", "Auto-enable FF and walk your current area."}, {20}, {"right","left"})
 snd.disp.table({snd.theme.darktext.."bashpath [areas]", "Build a multi-area bashing path."}, {20}, {"right","left"})
