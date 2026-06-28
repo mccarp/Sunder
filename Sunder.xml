@@ -3932,7 +3932,7 @@ end
 									<string>^An undead .* wildly grabs (\w+)'s wrist within .+ gnarled fingers.$</string>
 									<string>^(\w+) fights .+ seizing muscles with reckless abandon.$</string>
 									<string>^(\w+)'s? limbs go limp under .+ allergies, leaving .+ unable to move\.$</string>
-									<string>^Lost in the flow of battle, (\w+) staves off their seizing muscles for the moment\.$</string>
+									<string>^Lost in the flow of battle, (\w+) staves off \w+ seizing muscles for the moment\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
 									<integer>1</integer>
@@ -35335,7 +35335,8 @@ function snd.attack_function() -- defining this function is how we tell sunder w
   snd.attack(cmd, true)
 end
 
-snd.attack_function() -- make sure to actually send the attack once on use!</script>
+snd.waiting.queue = false
+snd.core() -- make sure to actually send the attack once on use!</script>
 				<command></command>
 				<packageName></packageName>
 				<regex></regex>
@@ -36224,7 +36225,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.25"
+local version = "12.8.26"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
