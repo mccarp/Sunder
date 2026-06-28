@@ -36228,7 +36228,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.26"
+local version = "12.8.27"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39458,7 +39458,7 @@ snd.group = snd.group or {}
 snd.wielded = snd.wielded or { left = { name = "", id = "" }, right = { name = "", id = "" } }
 snd.eld = snd.eld or 0
 snd.pathing = snd.pathing or false
-
+snd.gathering = snd.gathering or {}
 
 snd.shopih = snd.shopih or false
 
