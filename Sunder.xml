@@ -34426,7 +34426,7 @@ for area, rooms in spairs(qwhom.people) do
   
 end</script>
 					<triggerType>0</triggerType>
-					<conditonLineDelta>2</conditonLineDelta>
+					<conditonLineDelta>4</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
@@ -36224,7 +36224,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.24"
+local version = "12.8.25"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
