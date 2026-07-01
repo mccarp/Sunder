@@ -7571,7 +7571,7 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Maul Hit Confirmation</name>
 									<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -20863,7 +20863,7 @@ hitting = false</script>
   snd.limb_status[matches[3]] = "broken"
   local dmg = 33.34-snd.limb_dmg[matches[3]]
   if snd.checkAff("armor_tattoo") then 
-    snd.last_limb_dmg = snd.last_limb_dmg*2 --make sure this doesn't do wonky
+    dmg = dmg*2 --make sure this doesn't do wonky
   end
   if dmg &gt; 0 then
     snd.took_limb_dmg(matches[3], dmg)
@@ -36278,7 +36278,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.28"
+local version = "12.8.29"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39204,9 +39204,10 @@ bal_data.morph = {
 bal_data.lifebloom = {
   time = 180,
   skill = {"primality lifebloom", "alchemy resuscitation"},
-  used = {"The pain of your wounds is suddenly washed away by life-force welling up from within you."},
-  off = {"You cannot call upon your lifebloom so soon."},
-  back = {"You may once again gift yourself with lifebloom."},
+  used = {"The pain of your wounds is suddenly washed away by life-force welling up from within you.",
+  "A staccato detonation prefaces a violent electrical discharge from your conduit, the force of the shock infusing you with sudden vigour."},
+  off = {"You cannot call upon your lifebloom so soon.", "Your conduit cannot resuscitate you again so soon."},
+  back = {"You may once again gift yourself with lifebloom.", "You may once again call upon your conduit to resuscitate you."},
 }</script>
 					<eventHandlerList />
 				</Script>
@@ -43500,7 +43501,7 @@ end</script>
   def_interposition              = { defense = "interposition", type = "normal", effect = "Share damage with your experiment.", balance = { balanceequilibriumtake = "experiment interposition on" }, skill = "Interposition" },
   def_obfuscation                = { defense = "obfuscation", type = "normal", effect = "Resistance to cutting/blunt.", balance = { balanceequilibriumtake = "derive obfuscation" }, skill = "Obfuscation" },
   def_cognisance                 = { defense = "cognisance", type = "normal", effect = "You get loki 2.0.", balance = { balanceequilibrium = "derive cognisance on" }, skill = "Cognisance" },
-  def_resuscitation              = { defense = "resuscitation", type = "normal", effect = "Restore HP upon getting low health.", balance = { balanceequilibriumtake = "alchemy resuscitation" }, skill = "Resuscitation" },
+  def_resuscitation              = { defense = "resuscitation", type = "normal", effect = "Restore HP upon getting low health.", balance = { balanceequilibriumtake = "alchemy resuscitation" }, requiredBalance = "lifebloom", skill = "Resuscitation" },
   def_conduit_crutch             = { defense = "conduit_crutch", type = "normal", effect = "Give mental affs when your parry is hit.", balance = { balanceequilibriumtake = "derive crutch" }, skill = "Crutch" },
   def_blightbringer              = { defense = "blightbringer", type = "normal", effect = "Bring your nature with you", balance = { balanceequilibriumtake = "botany blightbringer on" }, skill = "Blightbringer" },
   def_discipline_fieldstudies    = { defense = "discipline_fieldstudies", type = "normal", effect = "Heals you in forests", balance = { balanceequilibriumtake = "discipline field studies recall" }, skill = "Disciplines" },
