@@ -7571,7 +7571,7 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Maul Hit Confirmation</name>
 									<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -19381,7 +19381,7 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList />
 						<regexCodePropertyList />
-						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Titan Spear</name>
 							<script>if matches[2] == snd.target then
   snd.last_hit_limb = matches[3]
@@ -20293,7 +20293,7 @@ end
 										<integer>1</integer>
 									</regexCodePropertyList>
 								</Trigger>
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Rampage Blitz Affs</name>
 									<script>if matches[2] == snd.target then
   if matches[1]:find("ribs") then
@@ -35773,22 +35773,69 @@ cecho("\n&lt;red&gt;The use of a generic word (ie 'kelki' instead of 'kelki1234'
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>orbs</name>
-				<script>snd.send("activate amberorb"..snd.sep.."activate greenorb"..snd.sep.."activate whiteorb"..snd.sep.."activate crimsonorb"..snd.sep.."activate ceruleanorb")
-</script>
+				<script>local map = {
+  r = "red",
+  y = "yellow",
+  g = "green",
+  b = "blue",
+  w = "white",
+}
+local cmds = {}
+if matches[2] then
+  for _, char in pairs(string.split(matches[2],"")) do
+    table.insert(cmds, "activate "..map[char].."orb")
+  end
+else
+  for _, color in pairs(map) do
+    table.insert(cmds, "activate "..color.."orb")
+  end
+end
+
+snd.send(cmds)</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^orbs$</regex>
+				<regex>^orbs(?: ([rgbyw]+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Buy orbs</name>
-				<script>if gmcp.Char.Status.city == "Bloodloch" then
-  send("outr 4 teeth"..snd.sep.."trade tooth for red"..snd.sep.."trade tooth for blue"..snd.sep.."trade tooth for yellow"..snd.sep.."trade tooth for green", false)
+				<script>local map = {
+  r = "red",
+  y = "yellow",
+  g = "green",
+  b = "blue",
+  w = "white",
+}
+local cmds = {}
+
+if matches[2] then
+  for _, char in pairs(string.split(matches[2],"")) do
+    if gmcp.Char.Status.city == "Bloodloch" then
+      table.insert(cmds, "trade tooth for "..map[char])
+    else
+      table.insert(cmds, "trade token for "..map[char])
+    end
+  end
 else
-  send("outr 4 token"..snd.sep.."trade token for red"..snd.sep.."trade token for blue"..snd.sep.."trade token for yellow"..snd.sep.."trade token for green", false)
-end</script>
+  for _, color in pairs(map) do
+    if gmcp.Char.Status.city == "Bloodloch" then
+      table.insert(cmds, "trade tooth for "..color)
+    else
+      table.insert(cmds, "trade token for "..color)
+    end
+  end
+end
+
+if gmcp.Char.Status.city == "Bloodloch" then
+  table.insert(cmds, 1, "outr "..#cmds.." teeth")
+else
+  table.insert(cmds, 1, "outr "..#cmds.." token")
+end
+
+snd.send(cmds)
+</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^buyorbs$</regex>
+				<regex>^buyorbs(?: ([rgbyw]+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>chocolates</name>
@@ -36231,7 +36278,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.27"
+local version = "12.8.28"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -40627,7 +40674,6 @@ snd.default_priorities =
   "def_mist_yellow",
   "def_mist_white",
   "def_chameleon",
-  "loot",
   "get_ylem",
   "bashing",
   "moving",
@@ -41110,6 +41156,7 @@ snd.default_priorities =
   
   
   "hiddens_balanceful",
+  "loot",
 }
 function snd.reset_priorities()
   snd.priorities = table.deepcopy(snd.default_priorities)
