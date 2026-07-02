@@ -36278,7 +36278,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.29"
+local version = "12.8.30"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -38193,7 +38193,6 @@ snd.toggle_info = {
   rockharvest = { info = "Harvest rocks as you walk around.", command = "tr or toggle rockharvest" },
   plants = { info = "Shows plants in the room as you walk.", command = "toggle plants" },
   disperse = { info = "Use disperse to remove writhes from allies.", command = "toggle disperse (all|callers|none)" },
-  questing = { info = "Toggle questing.", command = "toggle questing" },
   vermin = { info = "Vermin walking/killing/turnin.", command = "toggle vermin" },
   goggles = { info = "Telling Sunder you have antiquated goggles.", command = "toggle goggles" },
   goggle_level = { info = "What level are your goggles?", command = "mygoggles or mygoggles &lt;level&gt;" },
@@ -44690,7 +44689,7 @@ end</script>
   --Astral
   ["The sickly virulence of chaos spills from you."] = "astral_chaosspores",
   ["You are protected by the waves of the dreamtide."] = "astral_dreamtide",
-  ["Dormant dreamtides will come to your aid."] = "astral_dreamtide_stored",
+  ["A stored dreamtide wave will protect you when the need arises."] = "astral_dreamtide_stored",
   ["You stand amongst the nobility of Astral Chaos."] = "astral_form",
   ["Chaotic fortune blesses your frame."] = "astral_presence",
   ["The duality of indigo is mirroring your actions."] = "astral_recursion",
