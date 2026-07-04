@@ -41098,6 +41098,16 @@ snd.default_priorities =
   "def_bladefury",
   "def_ingather",
   
+  "def_dhar_symbol",
+  "def_haern_symbol",
+  "def_ethne_symbol",
+  "def_lleis_symbol",
+  "def_damariel_symbol",
+  "def_geor_rune",
+  "def_meath_rune",
+  "def_ragh_rune",
+  "def_baen_rune",
+  "def_zhop_rune",
   
   "hiddens_balanceful",
   "loot",
@@ -43533,6 +43543,12 @@ end</script>
   -- def_battlehymn_dexterity = {defense = "battlehymn_dexterity", type = "normal", effect = "Increases dexterity", balance = {needyequilibriumtake = "dirge battlehymn dexterity"}, skill = "Battlehymn" },
   def_unbending = { defense = "unbending", type = "normal", effect = "no clumsy on shield attacks", balance = { balanceequilibrium = "tectonic unbending" }, skill = "Unbending" },
   def_insulation = { defense = "insulation", type = "normal", effect = "Prevents frozen buildup", balance = { needybalancetake = "tectonic insulation" }, skill = "Insulation" },
+  def_geor_rune = { defense = "geor_rune", type = "normal", effect = "Reduced impurity gain", balance = { balanceequilibriumtake = {"outr goldink", "outr redink", "anoint rune of geor"} }, skill = "Anointing" },
+  def_meath_rune = { defense = "meath_rune", type = "normal", effect = "Revelation works as an eye sigil", balance = { balanceequilibriumtake = {"outr goldink", "outr yellowink", "anoint rune of meath"} }, skill = "Anointing" },
+  def_ragh_rune = { defense = "ragh_rune", type = "normal", effect = "Increased audit at low health", balance = { balanceequilibriumtake = {"outr goldink", "outr purpleink", "anoint rune of ragh"} }, skill = "Anointing" },
+  def_baen_rune = { defense = "baen_rune", type = "normal", effect = "Increased endurance regeneration", balance = { balanceequilibriumtake = {"outr goldink", "outr greenink", "anoint rune of baen"} }, skill = "Anointing" },
+  def_zhop_rune = { defense = "zhop_rune", type = "normal", effect = "Increased willpower regeneration", balance = { balanceequilibriumtake = {"outr goldink", "outr blueink", "anoint rune of zhop"} }, skill = "Anointing" },
+
 
   --Executor
   def_girded = { defense = "girded", type = "normal", effect = "10% Resist to Cutting/Blunt", balance = { needyequilibriumtake = "gird" }, skill = "Gird" },
@@ -43568,7 +43584,11 @@ end</script>
   def_shine                = { defense = "shine", type = "normal", effect = "Dealing AoE room damage to enemies", balance = { needybalancetake = "evoke shine" }, skill = "Shine" },
   def_inspiration          = { defense = "inspiration", type = "normal", effect = "Increases strength", balance = { needyequilibriumtake = "perform inspiration" }, skill = "Inspiration" },
   def_boilingblood         = { defense = "boilingblood", type = "normal", effect = "no clumsy on shield attacks", balance = { balanceequilibrium = "evoke boilingblood" }, skill = "Boilingblood" },
-
+  def_ethne_symbol = { defense = "ethne_symbol", type = "normal", effect = "Reduced spark consumption", balance = { balanceequilibriumtake = {"outr goldink", "outr redink", "paint symbol of ethne"} }, skill = "Symbols" },
+  def_damariel_symbol = { defense = "damariel_symbol", type = "normal", effect = "Truth works as an eye sigil", balance = { balanceequilibriumtake = {"outr goldink", "outr yellowink", "paint symbol of damariel"} }, skill = "Symbols" },
+  def_dhar_symbol = { defense = "dhar_symbol", type = "normal", effect = "Increased audit at low health", balance = { balanceequilibriumtake = {"outr goldink", "outr purpleink", "paint symbol of dhar"} }, skill = "Symbols" },
+  def_haern_symbol = { defense = "haern_symbol", type = "normal", effect = "Increased endurance regeneration", balance = { balanceequilibriumtake = {"outr goldink", "outr greenink", "paint symbol of haern"} }, skill = "Symbols" },
+  def_lleis_symbol = { defense = "lleis_symbol", type = "normal", effect = "Increased willpower regeneration", balance = { balanceequilibriumtake = {"outr goldink", "outr blueink", "paint symbol of lleis"} }, skill = "Symbols" },
   -- def_inspiration_strength = {defense = "inspiration_strength", type = "normal", effect = "Increases strength", balance = {needyequilibriumtake = "perform inspiration strength"}, skill = "Inspiration" },
   -- def_inspiration_dexterity = {defense = "inspiration_dexterity", type = "normal", effect = "Increases dexterity", balance = {needyequilibriumtake = "perform inspiration dexterity"}, skill = "Inspiration" },
   -- def_inspiration_intelligence = {defense = "inspiration_intelligence", type = "normal", effect = "Increases intelligence", balance = {needyequilibriumtake = "perform inspiration intelligence"}, skill = "Inspiration" },
