@@ -31008,14 +31008,14 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>defline gain</name>
-						<script>for i in pairs(snd.defenses) do
- if snd.defenses[i].defense == multimatches[2][2] then
-  if snd.toggles.gags then
-    deleteLine()
-  end
-  snd.def_gain(i)
-  if snd.defenses[i].stacks then snd.defenses[i].stacks = 0 end
- end
+						<script>local defense = multimatches[2][2]
+snd.createDef(defense)
+if snd.toggles.gags then
+  deleteLine()
+end
+snd.def_gain("def_"..defense)
+if snd.defenses["def_"..defense].stacks then
+  snd.defenses["def_"..defense].stacks = 0
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -31038,14 +31038,14 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>defline strip</name>
-						<script>for i in pairs(snd.defenses) do
- if snd.defenses[i].defense == multimatches[2][2] then
-  if snd.toggles.gags then
-    deleteLine()
-  end
-  snd.def_take(i)
-  if snd.defenses[i].stacks then snd.defenses[i].stacks = 0 end
- end
+						<script>local defense = multimatches[2][2]
+snd.createDef(defense)
+if snd.toggles.gags then
+  deleteLine()
+end
+snd.def_take("def_"..defense)
+if snd.defenses["def_"..defense].stacks then
+  snd.defenses["def_"..defense].stacks = 0
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -31068,7 +31068,8 @@ end</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>defline stack</name>
-						<script>if snd.defenses["def_"..matches[2]] then
+						<script>snd.createDef(matches[2])
+if snd.defenses["def_"..matches[2]] then
   snd.defenses["def_"..matches[2]].stacks = tonumber(matches[3])
 end</script>
 						<triggerType>0</triggerType>
@@ -36226,7 +36227,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.8.31"
+local version = "12.9.0"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -38429,8 +38430,7 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Utility functions</name>
 				<packageName></packageName>
-				<script>
-function snd.parseDir(direction)
+				<script>function snd.parseDir(direction)
   if direction == "north" then
     return "n"
   elseif direction == "south" then
@@ -42037,8 +42037,8 @@ snd.ylem_loaded = true
 -- @table ylm
 ylm = ylm or {}
 
-ylm.active = false
-ylm.next_zone = "none"
+ylm.active = ylm.active or false
+ylm.next_zone = ylm.next_zone or "none"
 ylm.foci = 0
 
 --- Path to walk for finding foci.
@@ -42051,7 +42051,7 @@ ylm.path = {
   v60762 = "26690",
   v26690 = "26668",
   v26668 = "10041",
-  v10041 = "35117",
+  v10041 = "35117", --??
   v35117 = "26920",
   v26920 = "35217",
   v35217 = "60845",
@@ -42070,7 +42070,7 @@ ylm.path = {
   v3018 = "16438",
   v16438 = "36865",
   v36865 = "6",
-  v6 = "32237",
+  v6 = "32237", --?
   v32237 = "26841",
   v26841 = "38090",
   v38090 = "26994",
@@ -42144,8 +42144,7 @@ ylm.path = {
   v1288 = "63306",
   v63306 = "56648",
   v56648 = "4740",
-  v4740 = "4808",
-  v4808 = "65189",
+  v4740 = "65189", 
   v65189 = "49749",
   v49749 = "64608",
   v64608 = "64478",
@@ -42181,8 +42180,8 @@ ylm.path = {
   v19854 = "31576",
   v31576 = "55276",
   v55276 = "58912",
-  v58912 = "20835",
-  v20835 = "21286",
+  v58912 = "20835", 
+  v20835 = "21286", --?
   v21286 = "23202",
   v23202 = "73619",
   v73619 = "77434",
@@ -42193,7 +42192,7 @@ ylm.path = {
   v38894 = "16274",
   v16274 = "18415",
   v18415 = "19320",
-  v19320 = "24548",
+  v19320 = "24548", --?
   v24548 = "5028",
   v5028 = "3887",
   v3887 = "57334",
@@ -43473,9 +43472,6 @@ end</script>
   def_sublimation = { defense = "sublimation", type = "normal", effect = "sublimation", balance = { balanceequilibrium = "elicit sublimation me" }, skill = "Sublimation" },
   def_ameliorate = { defense = "ameliorate", type = "normal", effect = "ameliorate", balance = { balanceequilibriumtake = "bio ameliorate on" }, skill = "Ameliorate" },
   def_catabolism = { defense = "catabolism", type = "normal", effect = "catabolism", balance = { balanceequilibriumtake = "bio catabolism" }, skill = "Catabolism" },
-  def_geo_invert = { defense = "Token Inverted", type = "normal", effect = "You Have Inverted Your Token", balance = { balanceequilibriumtake = "drop token##geo invert" }, skill = "Invert" },
-  def_geo_trace = { defense = "Token Tracing You", type = "normal", effect = "You Have Traced Your Token", balance = { balanceequilibriumtake = "geo trace me" }, skill = "Trace" },
-  def_empower_jhako = { defense = "Empowering Jhako", type = "normal", effect = "You Have Empowered Jhako", balance = { balanceequilibriumtake = "empower jhako" }, skill = "Empower" },
   def_nexus = { defense = "nexus", type = "normal", effect = "Setup your nexus", balance = { balanceequilibriumtake = "bio nexus one" }, skill = "Nexus" },
   def_ethereal = { defense = "ethereal", type = "normal", effect = "Hard to hit", balance = { balanceequilibriumtake = "bio ethereal" }, skill = "Ethereal" },
   def_conjoin = { defense = "conjoin", type = "normal", effect = "Hide your shapes", balance = { balanceequilibrium = "geo conjoin" }, skill = "Conjoin" },
@@ -43523,10 +43519,9 @@ end</script>
   def_soul_body = { defense = "soul_body", type = "normal", effect = "Boosts physical defense.", balance = { needyequilibriumtake = "soul embed in body" }, skill = "EmbedBody" },
   def_soul_fortify = { defense = "soul_fortify", type = "normal", effect = "Increased constitution.", balance = { needyequilibriumtake = "soul fortify" }, skill = "Fortify" },
   def_soulthirst = { defense = "soulthirst", type = "normal", effect = "Steals soul on hit.", balance = { equilibriumtake = "soul thirst" }, skill = "Soulthirst" },
-  def_soul_substitute = { defense = "substitute", type = "normal", effect = "Protected from death.", balance = { needyequilibriumtake = "soul substitute" }, skill = "Substitute" },
   def_hound_opening = { defense = "hound_opening", type = "normal", effect = "Increases damage done to mobs.", balance = {}, skill = "Openings" },
   def_bruteforce = { defense = "bruteforce", type = "normal", effect = "Attacks hit through parry.", balance = { needybalancetake = "hammer force" }, skill = "BruteForce" },
-  def_herculeanrage = { defense = "herculean rage", type = "normal", effect = "Make them prone/off bal.", balance = { needybalancetake = "hammer rage on" }, skill = "HerculeanRage" },
+  def_herculeanrage = { defense = "herculeanrage", type = "normal", effect = "Make them prone/off bal.", balance = { needybalancetake = "hammer rage on" }, skill = "HerculeanRage" },
   def_houndmark = { defense = "houndmark", type = "yellow", effect = "hounds go zoom", balance = {}, skill = "Generic" },
   def_cruelty = { defense = "cruelty", type = "normal", effect = "Increased strength.", balance = { needyequilibriumtake = "cruelty" }, skill = "Cruelty" },
   def_charging = { defense = "charging", type = "normal", effect = "Chase fleeing targetS", balance = {}, skill = "Charging" },
@@ -44044,7 +44039,7 @@ end</script>
   def_nocturn_double = { defense = "nocturn_double", type = "normal", effect = "Chance to replicate your abilities", balance = { balanceequilibriumtake = "nocturn double on" }, skill = "200" },
   def_nocturn_shadow = { defense = "nocturn_shadow", type = "normal", effect = "Blocks the next attack", balance = { balanceequilibriumtake = "nocturn shadow" }, skill = "200" },
   def_nocturn_shadow_stored = { defense = "nocturn_shadow_stored", type = "normal", effect = "Will raise shadow if &lt;40% health", balance = { balanceequilibriumtake = "nocturn shadow store" }, skill = "200" },
-  def_nocturn_store = { defense = "astral_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, skill = "200" },
+  def_nocturn_store = { defense = "nocturn_store", type = "normal", effect = "Return to your fancy room on death", balance = {}, skill = "200" },
 
   --sagani
   def_sagani_form = { defense = "sagani_form", type = "normal", effect = "You're the Avatar!", balance = { balanceequilibriumtake = "sagani coalesce brutal" }, skill = "200" },
