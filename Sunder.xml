@@ -7571,7 +7571,7 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Maul Hit Confirmation</name>
 									<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -23510,7 +23510,8 @@ end</script>
 								<regexCodePropertyList />
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>trial start</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You started an Ancestry Trial.", "atk")
 end
@@ -23534,7 +23535,8 @@ swarms = 0</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>trial tick</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("New challengers have arrived!", "atk")
 end</script>
@@ -23557,7 +23559,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>trial warrior</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("Summoned a &lt;green&gt;warrior&lt;white&gt;!")
 end
@@ -23584,7 +23587,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>trial champion</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("Summoned a &lt;red&gt;champion&lt;white&gt;!")
 end
@@ -23608,7 +23612,8 @@ snd.send("qeb ancest duel champion")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>trial stop</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("One more?", "atk")
 end
@@ -23632,7 +23637,8 @@ snd.def_take("invocation")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>trial end</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You ended the Trial!", "atk")
 end</script>
@@ -23655,7 +23661,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>banished</name>
-									<script>swarms = 0</script>
+									<script>if snd.class~="Warden" then return end
+swarms = 0</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -23677,7 +23684,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>harvested</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Warden" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You gained more renown with the ancestors!")
 end</script>
@@ -23716,7 +23724,8 @@ end</script>
 								<regexCodePropertyList />
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>consumption start</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You: start consumption.", "atk")
 end
@@ -23740,7 +23749,8 @@ swarms = 0</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>consumption tick</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You: summon souls.", "atk")
 end</script>
@@ -23763,7 +23773,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>consumption swarm</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("Summoned a &lt;green&gt;swarm&lt;white&gt;!")
 end
@@ -23790,7 +23801,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>consumption wraith</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("Summoned a &lt;red&gt;wraith&lt;white&gt;!")
 end
@@ -23814,7 +23826,8 @@ snd.send("qeb soul strike wraith")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>consumption stop</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You: soul summon", "atk")
 end
@@ -23838,7 +23851,8 @@ snd.def_take("soul_body")</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>consumption end</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message("You: end consumption.", "atk")
 end</script>
@@ -23861,7 +23875,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>culled</name>
-									<script>swarms = 0</script>
+									<script>if snd.class~="Carnifex" then return end
+swarms = 0</script>
 									<triggerType>0</triggerType>
 									<conditonLineDelta>0</conditonLineDelta>
 									<mStayOpen>0</mStayOpen>
@@ -23883,7 +23898,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>harvested</name>
-									<script>if snd.toggles.gags then 
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then 
 deleteLine()
 snd.message("You: harvest soul")
 end</script>
@@ -23906,7 +23922,8 @@ end</script>
 								</Trigger>
 								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>3p harvest</name>
-									<script>if snd.toggles.gags then
+									<script>if snd.class~="Carnifex" then return end
+if snd.toggles.gags then
   deleteLine()
   snd.message(multimatches[1][2] .. " harvested!")
 end</script>
@@ -36227,7 +36244,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.0"
+local version = "12.9.2"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -41160,7 +41177,7 @@ function snd.handlePipes()
     end
   end
   
-  if not snd.pipes_lit and snd.toggles.lighting then
+  if (pipeCmd ~= "" or not snd.pipes_lit) and snd.toggles.lighting then
     pipeCmd = pipeCmd.."light pipes"
   end
   if pipeCmd~="" then
