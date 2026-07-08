@@ -7571,7 +7571,7 @@ end</script>
 								<colorTriggerBgColor>#000000</colorTriggerBgColor>
 								<regexCodeList />
 								<regexCodePropertyList />
-								<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+								<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 									<name>Maul Hit Confirmation</name>
 									<script>-- The actual limb damage values may fluctuate. Using 7.5% as it is average.
 snd.last_hit_limb = matches[3]
@@ -36244,7 +36244,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.2"
+local version = "12.9.3"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -55719,7 +55719,7 @@ end
         noxious = { "green", "clumsiness" },
         frigid = { "blue", "shivering" },
         temporal = { "indigo", "paresis" },
-        twisted = { "violet", "paranoia" },
+        twisted = { "violet", "echoes" },
       }
       local aff = map[conditional][2]
       snd.target_got(aff)
