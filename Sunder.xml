@@ -7622,8 +7622,10 @@ end
 										<string>^With a broad sweep of .+, \w+ brings? a crushing blow onto (\w+)'s (.+)\.$</string>
 										<string>^Holding .+ straight in front of \w+, \w+ bash(?:es)? the end into (\w+)'s (.+)\.$</string>
 										<string>^Lunging .+ at (\w+)'s (.+) in a rapid stab, bones snap beneath your grip\.$</string>
+										<string>^With a downward, diagonal strike, \w+ cuts a brutal gash into (\w+)'s (.+) with .+\.$</string>
 									</regexCodeList>
 									<regexCodePropertyList>
+										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
 										<integer>1</integer>
@@ -11688,8 +11690,10 @@ end</script>
 									<string>^\w+ strikes? (\w+)'s (.+) with a quick but powerful blow from .+.$</string>
 									<string>^Holding .+ straight in front of .+, \w+ bashe?s? the end into (\w+)'s (.+).$</string>
 									<string>^With a downward, diagonal strike from .+, \w+ cuts? a brutal gash into (\w+)'s (.+)\.$</string>
+									<string>^With a downward, diagonal strike, \w+ cuts a brutal gash into (\w+)'s (.+) with .+\.$</string>
 								</regexCodeList>
 								<regexCodePropertyList>
+									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
 									<integer>1</integer>
@@ -36244,7 +36248,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.3"
+local version = "12.9.4"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
