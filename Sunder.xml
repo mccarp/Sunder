@@ -30426,6 +30426,7 @@ end</script>
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>empty pipe</name>
 							<script>snd.emptypipes[snd.smokedpipe] = true
+snd.pipes_lit = false
 snd.waiting.queue = false</script>
 							<triggerType>0</triggerType>
 							<conditonLineDelta>0</conditonLineDelta>
@@ -41163,7 +41164,7 @@ function snd.handlePipes()
     end
   end
   
-  if (pipeCmd ~= "" or not snd.pipes_lit) and snd.toggles.lighting then
+  if not snd.pipes_lit and snd.toggles.lighting then
     pipeCmd = pipeCmd.."light pipes"
   end
   if pipeCmd~="" then
