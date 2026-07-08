@@ -27809,6 +27809,7 @@ snd.waiting.queue = false</script>
 					<name>emptied pipe</name>
 					<script>if snd.emptypipes[matches[2]] == false then
   snd.emptypipes[matches[2]] = true
+  snd.pipes_lit = false
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -30470,7 +30471,8 @@ snd.smokedpipe = "none"</script>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Pipes emptied by lumi ec</name>
 						<script> snd.emptypipes = {reishi = true, willow = true, yarrow = true}
- snd.waiting.queue = false</script>
+ snd.waiting.queue = false
+ snd.pipes_lit = false</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
