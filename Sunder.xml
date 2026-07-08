@@ -8672,7 +8672,7 @@ snd.target_got("collapsed_lung", matches[2])</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Throatstrike confirmation hit</name>
 							<script>snd.target_got("crippled_throat", matches[2])
 snd.target_got("blurry_vision", matches[2])
@@ -36248,7 +36248,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.4"
+local version = "12.9.5"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -37018,24 +37018,6 @@ else
     selection = snd.class:lower()
   end
 end
-
-if snd.toggles.active == false then
-  snd.message("Sunder is currently off. Use "..snd.theme.darktext.."SNDON"..snd.theme.text.." to re-enable it.")
-end
-
-
-if snd.class == "Ascendril" then snd.q("simultaneity") end
-if snd.class == "Bloodborn" then snd.q("prowess") end
-if snd.class == "Archivist" then snd.q("incite lens") end
-if snd.class == "Sciomancer" then snd.q("channel shadow") end
-if snd.class == "Runecarver" then snd.q("straddle line") end
-if snd.class == "Archivist" then snd.q("empower jhako") end
-if snd.class == "Voidseer" then snd.q("affirm branch") end
-if snd.class == "Teradrim" then snd.q("golem call") end
-if snd.class == "Tidesage" then snd.q("synth call") end
-if snd.class == "Voidseer" then snd.q("foment longing") end
-if snd.class == "Luminary" then snd.q("angel summon") end
-if snd.class == "Earthcaller" then snd.q("osso draw") end
 
 snd.load_def(selection)
 </script>
@@ -38219,7 +38201,7 @@ end
     snd.faction = "spirit"
   end
   raiseEvent("sunder_update_vitals")
-  expandAlias("ldd none", false)
+  snd.load_def("none")
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -45055,7 +45037,30 @@ end
 				<script>snd.defenses_loaded = true
 
 function snd.load_def(option)
+
+  if snd.toggles.active == false then
+    snd.message("Sunder is currently off. Use "..snd.theme.darktext.."SNDON"..snd.theme.text.." to re-enable it.")
+  end
+  
+  if type(option) == "table" then
+    snd.def_options.custom = option
+    option = "custom"
+  end
+  
   snd.defupPending = option
+  
+  if snd.class == "Ascendril" then snd.q("simultaneity") end
+  if snd.class == "Bloodborn" then snd.q("prowess") end
+  if snd.class == "Archivist" then snd.q("incite lens") end
+  if snd.class == "Sciomancer" then snd.q("channel shadow") end
+  if snd.class == "Runecarver" then snd.q("straddle line") end
+  if snd.class == "Archivist" then snd.q("empower jhako") end
+  if snd.class == "Voidseer" then snd.q("affirm branch") end
+  if snd.class == "Teradrim" then snd.q("golem call") end
+  if snd.class == "Tidesage" then snd.q("synth call") end
+  if snd.class == "Voidseer" then snd.q("foment longing") end
+  if snd.class == "Luminary" then snd.q("angel summon") end
+  if snd.class == "Earthcaller" then snd.q("osso draw") end
   
   if snd.toggles.autoarmor and option ~= "none" and snd.classArmors[snd.class] then
     snd.send({"remove armor","wear "..snd.classArmors[snd.class]}, true)
