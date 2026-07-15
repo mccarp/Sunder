@@ -36252,7 +36252,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.6"
+local version = "12.9.7"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -53422,7 +53422,11 @@ end
       snd.onHit2({ "Dodge", "Parry" })
     end,
     Gut = function(target)
-      snd.target_got("torso_mangled")
+      local limb = "torso"
+      snd.last_hit_limb = limb
+      snd.last_limb_dmg = 66.67 - snd.limb_dmg[limb]
+      snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
+      snd.onHit2({ "Dodge" })
     end,
     Lacerate = function(target)
       table.insert(snd.maybe_affs, "lacerations" )
