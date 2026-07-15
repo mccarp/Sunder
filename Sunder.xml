@@ -981,6 +981,7 @@ end</script>
 						<name>smoked</name>
 						<script>if matches[2]:lower() == snd.target:lower() then
  snd.target_cured("asthma")
+ snd.target_cured("burnt_pipes")
  if snd.cures[matches[3]] ~= nil then
   snd.target_used(matches[3])
  end
@@ -6986,7 +6987,7 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Syssin Hit Confirmation</name>
 							<script></script>
 							<triggerType>0</triggerType>
@@ -36251,7 +36252,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.5"
+local version = "12.9.6"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -38884,12 +38885,21 @@ bal_data.smash = {
 }
 
 bal_data.battle = {
-	time = 4.8,
+	time = 5,
 	skill = {"spirituality battle", "subjugation spur"},
 	used = {},
 	off = {},
 	back = {"You can wrack the spirit of another once more."},
-}</script>
+}
+
+bal_data.flare = {
+  time = 15,
+  skill = {"illumination flare", "tectonics fossilise"},
+  used = {},
+  off = {"You are not yet able to flare again.", "You may only fossilise another's curatives so often."},
+  back = {"You are once again able to evoke a flare.", "You are once again able to fossilise an opponent's curatives."},
+}
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -51344,6 +51354,9 @@ end
     Shadow = function(target)
       snd.target_got("shadowed")
     end,
+    Flare = function(target)
+      snd.target_got("burnt_pipes")
+    end,
   },
 
   --Zealot
@@ -54195,6 +54208,9 @@ end
     end,
     Aftershock = function(target)
       snd.target_got("aftershock")
+    end,
+    Fossilise = function(target)
+      snd.target_got("burnt_pipes")
     end,
   },
 
@@ -67893,7 +67909,7 @@ function snd.getMultipleTargets(count, aggrosOnly)
     table.insert(targets, snd.bashing.target)
   end
   if #targets &gt;= count then return targets end
-  for _, tab in pairs(aggrosOnly and {snd.aggros} or {snd.aggros, snd.items}) do
+  for _, tab in pairs(aggrosOnly and {snd.agros} or {snd.agros, snd.items}) do
     for _, targ in pairs(table.n_union(snd.possible_targets, snd.global_targets)) do
       if targ:sub(1, 6) == "Match:" then
         local pattern = targ:sub(7)
