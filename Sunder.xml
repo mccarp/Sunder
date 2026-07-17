@@ -29014,6 +29014,7 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Sunder Prompt</name>
 				<script>cecho(" &lt;red&gt;[&lt;white&gt;" .. snd.target .. "&lt;red&gt;]")
+if snd.hidden_afflictions &gt; 0 then echo(" "..snd.hidden_afflictions) end
 raiseEvent("sunder prompt")
 snd.illusion_found = false
 if snd.offense_loaded then
@@ -36252,7 +36253,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.7"
+local version = "12.9.8"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -49548,6 +49549,7 @@ function snd.setTarget(target)
   if snd.offense_loaded then
     snd.reset_target()
     snd.target_gone = false
+    snd.waiting.queue = false
   end
   raiseEvent("sunder_enemy_affs_updated")
   raiseEvent("sunder_enemy_limbs_updated")
@@ -49766,7 +49768,6 @@ function snd.no_target()
   
   --bashing no target
   snd.untarget()
-  snd.waiting.queue = false  
 end
 
 function snd.untarget()
@@ -49774,7 +49775,7 @@ function snd.untarget()
   snd.bashing.targeted = false
   snd.last_attack = "none"
   snd.bash_shielded = false
-
+  if snd.toggles.bashing then snd.waiting.queue = false end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -51787,7 +51788,7 @@ end
     end,
     Throatcrush = function(target)
       snd.last_hit_limb = "head"
-      table.insert(snd.maybe_affs, "destroyed_throat")
+      table.insert(snd.maybe_affs, 1, "destroyed_throat")
       snd.onHit2({ "Dodge", "Parry", "Rebounding" }, "Sentinel")
     end,
     Gouge = function(target)
@@ -51797,7 +51798,7 @@ end
     end,
     Heartbreaker = function(target)
       snd.last_hit_limb = "torso"
-      table.insert(snd.maybe_affs, "arrhythmia")
+      table.insert(snd.maybe_affs, 1, "arrhythmia")
       snd.onHit2({ "Dodge", "Parry", "Rebounding" }, "Sentinel")
     end,
     Twirl = function(target)
@@ -55602,7 +55603,7 @@ end
       end
     end,
     Stifle = function(target)
-      table.insert(snd.maybe_affs, "destroyed_throat")
+      table.insert(snd.maybe_affs, 1, "destroyed_throat")
       snd.onHit2({ "Dodge", "Parry", "Rebounding" }, "Sentinel")
     end,
     Muddle = function(target)
@@ -55610,7 +55611,7 @@ end
       snd.onHit2({ "Dodge", "Parry", "Rebounding" }, "Sentinel")
     end,
     Desolate = function(target)
-      table.insert(snd.maybe_affs, "arrhythmia")
+      table.insert(snd.maybe_affs, 1, "arrhythmia")
       snd.onHit2({ "Dodge", "Parry", "Rebounding" }, "Sentinel")
     end,
     Ruse = function(target)
