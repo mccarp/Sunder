@@ -29014,7 +29014,6 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Sunder Prompt</name>
 				<script>cecho(" &lt;red&gt;[&lt;white&gt;" .. snd.target .. "&lt;red&gt;]")
-if snd.hidden_afflictions &gt; 0 then echo(" "..snd.hidden_afflictions) end
 raiseEvent("sunder prompt")
 snd.illusion_found = false
 if snd.offense_loaded then
