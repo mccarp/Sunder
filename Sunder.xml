@@ -620,7 +620,8 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Accursed 3p</name>
-					<script>snd.target_got("accursed", matches[2])</script>
+					<script>snd.target_cured("agony", matches[2])
+snd.target_got("accursed", matches[2])</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -36252,7 +36253,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.9"
+local version = "12.9.10"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -42998,7 +42999,7 @@ function snd.utils.token_to_regex(pattern)
 end
 
 function snd.utils.formatNumber(num)
-  return tostring(math.floor(num)):reverse():gsub("%d%d%d", "%0,"):reverse():gsub("^,", "")
+  return tostring(math.floor(tostring(num):gsub(",",""))):reverse():gsub("%d%d%d", "%0,"):reverse():gsub("^,", "")
 end
 
 function snd.utils.i_collect(tab, func)
