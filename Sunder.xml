@@ -36253,7 +36253,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.10"
+local version = "12.9.11"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -44839,8 +44839,8 @@ end</script>
   ["You are aided by the symbol of Lleis."] = "lleis_symbol",
   ["You are aided by the symbol of Damariel"] = "damariel_symbol",
   ["You are anointed with the rune of zhop"] = "zhop_rune",
-  ["You are anointed with the rune of geor"] = "zhop_geor",
-  ["You are anointed with the rune of meath"] = "zhop_meath",
+  ["You are anointed with the rune of geor"] = "geor_rune",
+  ["You are anointed with the rune of meath"] = "meath_rune",
   ["You are anointed with the rune of ragh"] = "ragh_rune",
   ["You are anointed with the rune of baen"] = "baen_rune",
 }
