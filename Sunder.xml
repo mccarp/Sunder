@@ -6988,7 +6988,7 @@ end</script>
 								<integer>1</integer>
 							</regexCodePropertyList>
 						</Trigger>
-						<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Syssin Hit Confirmation</name>
 							<script></script>
 							<triggerType>0</triggerType>
@@ -8627,7 +8627,7 @@ disableTrigger("Monk Hit Tracking")</script>
 							<colorTriggerFgColor>#000000</colorTriggerFgColor>
 							<colorTriggerBgColor>#000000</colorTriggerBgColor>
 							<regexCodeList>
-								<string>^\w+ connects? to the (.+)\!$</string>
+								<string>^(?:The )?\w+ connects? to the (.+)\!$</string>
 							</regexCodeList>
 							<regexCodePropertyList>
 								<integer>1</integer>
@@ -21008,10 +21008,10 @@ end
 						<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 							<name>Angel sear proc</name>
 							<script>if snd.target == matches[2] then
-  if snd.last_affs[1]:find("bruising") then
+  if snd.last_affs[1] and snd.last_affs[1]:find("bruising") then
     local limb = snd.last_affs[1]:gsub("bruising ", "")
     snd.limb_bruising[limb] = snd.limb_bruising[limb]+1
-  elseif snd.target_last_used_salve ~= "restoration" then
+  elseif snd.last_affs[1] and snd.target_last_used_salve ~= "restoration" then
     snd.target_got(snd.last_affs[1])
   elseif snd.target_last_used_salve == "restoration" then
     if aff_restoration_timer then killTimer(aff_restoration_timer) end
@@ -36253,7 +36253,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.11"
+local version = "12.9.12"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -66552,6 +66552,8 @@ end
   ["Subjugation Raze"] = true,
   ["Riving Raze"] = true,
   ["Battlefury Raze"] = true,
+  ["Battlefury Razestrike"] = true,
+  ["Riving Deceive"] = true,
   ["Warding Raze"] = true,
   ["Savagery Raze"] = true,
   ["Warding Bypass"] = true,
