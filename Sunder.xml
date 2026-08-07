@@ -25972,11 +25972,13 @@ end</script>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
 							<string>^You use (Ostension (?:Eja Kodosa Mend|Eja Kodosa Wave|Averroes Upsurge|Edamil Trickster))</string>
+							<string>^You use (Sciomancy Shadowprice Shadowsphere|Malediction Spiritpact Woe)</string>
 							<string>^You use (\w+ \w+)</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>
 							<integer>1</integer>
+							<integer>0</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -33784,12 +33786,12 @@ end</script>
 					<script>if not snd.illusionChecks.abilityGate() then return end
 
 local sets = {
-  Square = snd.square_affs,
-  Circle = snd.circle_affs,
-  Fear = snd.square_affs,
-  Disgust = snd.circle_affs,
-  Joy = snd.triangle_affs,
-  Triangle = snd.triangle_affs,
+  square = snd.square_affs,
+  circle = snd.circle_affs,
+  fear = snd.square_affs,
+  disgust = snd.circle_affs,
+  joy = snd.triangle_affs,
+  triangle = snd.triangle_affs,
 }
 
 for _, aff in ipairs(sets[matches[2]]) do
@@ -36253,7 +36255,7 @@ for _, package in ipairs(packages) do
   end
 end
 
-local version = "12.9.12"
+local version = "12.9.13"
 
 if isHeartache then
   snd.message("Your version of sunder is: "..version.." - Heartache Edition")
@@ -39091,7 +39093,7 @@ bal_data.bladesurge = {
 					<packageName></packageName>
 					<script>bal_data.shadowsphere = {
 	time = 30,
-	skill = {"sciomancy shadowsphere", "malediction woe"},
+	skill = {"sciomancy shadowsphere", "malediction woe", "sciomancy shadowprice shadowsphere", "malediction spiritpact woe"},
 	used = {},
 	off = {},
 	back = {"You can once again cast the shadowsphere.", "You may once more call upon the curse of woe."},
@@ -53558,7 +53560,7 @@ end
       snd.target_got("ripped_throat")
       snd.jawlocked = false
       snd.last_hit_limb = "head"
-      snd.last_limb_dmg = 10
+      snd.last_limb_dmg = 6
       snd.took_limb_dmg(snd.last_hit_limb, snd.last_limb_dmg)
       snd.target_cured("writhe_necklock")
       --snd.onHit2({"Dodge", "Parry"}) don't believe it can be missed
