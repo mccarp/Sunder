@@ -5512,7 +5512,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Writhe ice</name>
 								<script>if matches[2] == snd.target then
-  snd.target_got("writhe_ice")
+  snd.target_got("writhe_iced")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -5536,7 +5536,7 @@ end</script>
 							<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 								<name>Writhe ice cured</name>
 								<script>if matches[2] == snd.target then
-  snd.target_cured("writhe_ice")
+  snd.target_cured("writhe_iced")
 end</script>
 								<triggerType>0</triggerType>
 								<conditonLineDelta>0</conditonLineDelta>
@@ -5761,7 +5761,7 @@ end
   snd.target_got("cold")
   snd.target_got("cold")
   snd.target_got("cold")
-  snd.target_got("writhe_ice")
+  snd.target_got("writhe_iced")
 end
 </script>
 								<triggerType>0</triggerType>
@@ -25978,7 +25978,7 @@ end</script>
 						<regexCodePropertyList>
 							<integer>1</integer>
 							<integer>1</integer>
-							<integer>0</integer>
+							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -46605,7 +46605,7 @@ end
   aff_writhe_web                 = { cures = { writhe = "send" } },
   aff_writhe_grappled            = { cures = { writhe = "send" } },
   aff_writhe_stasis              = { effect = "can't move, can attack" },
-  aff_writhe_ice                 = { effect = "brrrr" },
+  aff_writhe_iced                 = { effect = "brrrr" },
 
   aff_awakened                   = { effect = "enables the bard to alter your emotions" },
 
@@ -50525,7 +50525,7 @@ function snd.proned()
     "writhe_vines",
     "writhe_grappled",
     "writhe_dartpinned",
-    "writhe_ice",
+    "writhe_iced",
     "fallen",
     "asleep",
   }
@@ -50546,7 +50546,7 @@ function snd.removeProneStates(all) -- Reset a target back to standing w/no writ
     "writhe_vines",
     "writhe_grappled",
     "writhe_dartpinned",
-    "writhe_ice",
+    "writhe_iced",
   }
 
   local other_prones = {
@@ -50594,7 +50594,7 @@ function snd.no_parry()
     "writhe_vines",
     "writhe_grappled",
     "writhe_dartpinned",
-    "writhe_ice",
+    "writhe_iced",
     "uncon",
   }
   if snd.class == "Sentinel" or snd.class == "Executor" then
@@ -55757,11 +55757,14 @@ end
         radiant = { "yellow", "dizziness" },
         noxious = { "green", "clumsiness" },
         frigid = { "blue", "shivering" },
-        temporal = { "indigo", "paresis" },
+        temporal = { "indigo", "muddled" },
         twisted = { "violet", "echoes" },
       }
       local aff = map[conditional][2]
       snd.target_got(aff)
+      if aff == "muddled" then
+        snd.affTimers.start("muddled", 8)
+      end
       local color = map[conditional][1]
     end,
     Asterism = function(target, failure)
